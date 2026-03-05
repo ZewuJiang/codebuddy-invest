@@ -3,9 +3,9 @@ name: investment-agent-daily
 description: 当用户提到「投资Agent」「每日分析」「投资分析」「每日报告」「investment agent」「晨报」「morning report」或类似关键词时，自动执行投资Agent每日策略简报全流程。
 ---
 
-# 投资Agent每日策略简报 — 标准工作流 v17.6.1
+# 投资Agent每日策略简报 — 标准工作流 v17.7
 
-> **版本**: v17.6.1 (2026-03-03) | 媒体追踪体系化 + 基金&大资金深度覆盖 + AI产业链深度覆盖 + 数据完整性铁律
+> **版本**: v17.7 (2026-03-05) | 文件命名简化 + 大老板消息文本自动产出
 > **主控文档**：本文件为精炼主控，详细规则/知识库/模板/SOP通过引用按需加载。
 
 ---
@@ -132,7 +132,8 @@ python3 md_to_pdf.py "{MD文件路径}" "{PDF输出路径}"
 
 ### 第四阶段：完成交付
 
-输出文件路径和大小确认。
+1. 输出文件路径和大小确认。
+2. **产出大老板消息文本**：从§1核心结论的引用块中提取内容，按固定格式在聊天窗口输出一段可直接复制发送的纯文本消息。详细格式见 → [report-format-guide.md § 九](references/report-format-guide.md)
 
 ---
 
@@ -192,9 +193,9 @@ python3 md_to_pdf.py "{MD文件路径}" "{PDF输出路径}"
 /Users/zewujiang/Desktop/OrbitOS/20_日常监控/每日策略简报/
 ```
 
-- 文件命名：`投资Agent-每日策略简报-{YYYYMMDD}-{HHMM}.md/.pdf`
-- 周六复盘：`投资Agent-每周复盘-{YYYYMMDD}-{HHMM}.md/.pdf`
-- `{HHMM}`取报告实际开始时刻系统时间，严禁凑整
+- 文件命名：`投资Agent-每日策略简报-{YYYYMMDD}.md/.pdf`
+- 周六复盘：`投资Agent-每周复盘-{YYYYMMDD}.md/.pdf`
+- 每天只出一份简报，文件名不含时间戳
 - PDF转换脚本：`workflows/md_to_pdf.py`
 - 中间数据文件：`workflows/investment_agent_data/`
 - **禁止**输出到 `workflows/` 目录
@@ -215,6 +216,7 @@ python3 md_to_pdf.py "{MD文件路径}" "{PDF输出路径}"
 
 | 版本 | 日期 | 核心变更 |
 |------|------|---------|
+| **v17.7** | 2026-03-05 | 文件命名简化：去掉HHMM，改为`YYYYMMDD`；第四阶段新增大老板消息文本自动产出 |
 | **v17.6.1** | 2026-03-03 | 媒体追踪体系化：新增media-watchlist.md + batch 0a + 媒体覆盖规则2条 |
 | **v17.6** | 2026-03-03 | 基金&大资金深度覆盖：三梯队26家 + 段永平H&H + 策略师追踪 + RULE FOUR |
 | **v17.5** | 2026-03-03 | AI产业链深度覆盖：24环供应链级 + ai-supply-chain-universe.md + RULE THREE深化 |

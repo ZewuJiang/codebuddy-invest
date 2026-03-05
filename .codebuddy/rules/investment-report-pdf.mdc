@@ -14,7 +14,7 @@ provider:
 ## 正确的转换命令
 ```bash
 cd /Users/zewujiang/Desktop/AICo/codebuddy/workflows
-python3 md_to_pdf.py "/Users/zewujiang/Desktop/OrbitOS/20_日常监控/每日策略简报/投资Agent-每日策略简报-{DATE}.md" "/Users/zewujiang/Desktop/OrbitOS/20_日常监控/每日策略简报/投资Agent-每日策略简报-{DATE}.pdf"
+python3 md_to_pdf.py "/Users/zewujiang/Desktop/OrbitOS/20_日常监控/每日策略简报/投资Agent-每日策略简报-{YYYYMMDD}.md" "/Users/zewujiang/Desktop/OrbitOS/20_日常监控/每日策略简报/投资Agent-每日策略简报-{YYYYMMDD}.pdf"
 ```
 
 ## 输出路径（OrbitOS）
