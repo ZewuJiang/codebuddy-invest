@@ -11,14 +11,12 @@
             "id": "8ffaabffe0f8155a",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "pdf",
               "state": {
-                "file": "OpenClaw-海内外大厂Claw类布局动作全覆盖-20260306-1038-v1.md",
-                "mode": "source",
-                "source": false
+                "file": "OpenClaw深度研究-产品全景与全球大厂布局-v3.pdf"
               },
-              "icon": "lucide-file",
-              "title": "OpenClaw-海内外大厂Claw类布局动作全覆盖-20260306-1038-v1"
+              "icon": "lucide-file-text",
+              "title": "OpenClaw深度研究-产品全景与全球大厂布局-v3"
             }
           }
         ]
@@ -78,7 +76,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 463.5
+    "width": 483.5
   },
   "right": {
     "id": "1cd8f2f3098cea75",
@@ -185,16 +183,21 @@
   },
   "active": "8ffaabffe0f8155a",
   "lastOpenFiles": [
+    "OpenClaw-海内外大厂Claw类布局动作全覆盖-20260306-1038-v1.md",
+    "OpenClaw深度研究-国内外大厂布局全景分析-20260304-1121-v1.pdf",
+    "OpenClaw深度研究-国内外大厂布局全景分析-v1.pdf",
+    "OpenClaw深度研究-产品全景与全球大厂布局-v3.pdf",
+    "OpenClaw深度研究-产品全景与大厂战略博弈-v2.pdf",
+    "OpenClaw深度研究-融合版Framework-v2.pdf",
+    "OpenClaw-爆发式增长驱动与A-B-C综合研究-202603051608-v2.md",
+    "OpenAI在OpenClaw赛道两大战略动作-深度研究报告-20260309-1120-v1.md",
     "OpenClaw-竞品与高度类似产品全量扫描-202603061025-v1.md",
     "OpenClaw-海外重点厂商布局动作全量扫描-202603052151-v1.md",
     "OpenClaw-中国厂商布局全量扫描-202603052030-v7.md",
     "OpenClaw-是什么与发展历程-MBB梳理-202603051539-v1.md",
     "OpenClaw深度研究-国内外大厂布局全景分析-20260304-1121-v1.md",
-    "OpenClaw-爆发式增长驱动与A-B-C综合研究-202603051608-v2.md",
     "OpenClaw深度研究-融合版Framework-20260304-1751-v1.md",
     "OpenClaw深度研究-融合版Framework-20260304-1751-v1.pdf",
-    "OpenClaw-海内外大厂Claw类布局动作全覆盖-20260306-1038-v1.md",
-    "OpenClaw深度研究-国内外大厂布局全景分析-20260304-1121-v1.pdf",
     "OpenClaw-海外重点厂商布局动作全量扫描-202603052151-v1.sources.json",
     "OpenClaw-中国厂商布局全量扫描-202603051958-v6.md",
     "OpenClaw-中国厂商布局全量扫描-202603051931-v5.md",
