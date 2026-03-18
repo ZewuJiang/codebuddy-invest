@@ -11,8 +11,8 @@ import sys
 import os
 import json
 
-# 将 workflows 目录加入 path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'workflows'))
+# 将当前脚本所在目录加入 path（chart_generator.py 在同目录下）
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from chart_generator import *
 
 

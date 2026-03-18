@@ -203,16 +203,22 @@ def embed_charts(md_path: str, charts_dir: str = None, company_name: str = '') -
 
 
 def generate_pdf(md_path: str, pdf_path: str = None):
-    """调用 md_to_pdf.py 生成PDF"""
-    workflows_dir = os.path.join(os.path.dirname(__file__), '..', 'workflows')
-    md_to_pdf_script = os.path.join(workflows_dir, 'md_to_pdf.py')
+    """调用 md_to_pdf.py 生成PDF（优先使用同目录下的脚本，降级使用外部 workflows/）"""
+    # 优先使用同目录下的 md_to_pdf.py（Skill自包含）
+    scripts_dir = os.path.dirname(os.path.abspath(__file__))
+    md_to_pdf_script = os.path.join(scripts_dir, 'md_to_pdf.py')
 
     if not os.path.exists(md_to_pdf_script):
-        print(f"❌ 未找到 md_to_pdf.py: {md_to_pdf_script}")
-        return None
+        # 降级：尝试外部 workflows/ 目录（兼容旧版部署）
+        workflows_dir = os.path.join(os.path.dirname(__file__), '..', '..', '..', 'workflows')
+        md_to_pdf_script = os.path.join(workflows_dir, 'md_to_pdf.py')
+        if not os.path.exists(md_to_pdf_script):
+            print(f"❌ 未找到 md_to_pdf.py（scripts/ 和 workflows/ 均不存在）")
+            return None
+        scripts_dir = workflows_dir
 
     # 动态导入
-    sys.path.insert(0, workflows_dir)
+    sys.path.insert(0, scripts_dir)
     from md_to_pdf import md_to_pdf
 
     if pdf_path is None:

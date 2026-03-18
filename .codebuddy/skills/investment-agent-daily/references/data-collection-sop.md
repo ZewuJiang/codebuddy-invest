@@ -39,10 +39,13 @@ web_fetch: https://www.google.com/finance/quote/META:NASDAQ
 web_fetch: https://www.google.com/finance/quote/AMZN:NASDAQ
 web_fetch: https://www.google.com/finance/quote/TSLA:NASDAQ
 
-# 指数+VIX（批次1b）
+# 指数+VIX（批次1b）— 必须4个全部获取
 web_fetch: https://www.google.com/finance/quote/.INX:INDEXSP   (S&P 500)
 web_fetch: https://www.google.com/finance/quote/.IXIC:INDEXNASDAQ (纳斯达克)
 web_fetch: https://www.google.com/finance/quote/.DJI:INDEXDJX  (道琼斯)
+web_fetch: https://www.google.com/finance/quote/VIX:INDEXCBOE   (VIX恐慌指数)
+# ⚠️ VIX必须从Google Finance直接获取前收+现价，严禁从CBOE盘中数据反推！
+# 教训(2026-03-18)：CBOE页面显示的%变化可能是盘中参考值，反推前收将导致致命错误
 
 # GICS 11板块ETF（批次1c）— 必须11个全部获取
 web_fetch: https://www.google.com/finance/quote/XLE:NYSEARCA   (能源)
