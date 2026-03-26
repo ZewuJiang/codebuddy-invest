@@ -75,7 +75,7 @@ web_fetch: https://www.google.com/finance/quote/XLRE:NYSEARCA  (房地产)
 | 加密 | Google Finance `BTC-USD` | CoinGecko | — |
 | 黄金/白银 | web_search + 金投网 | OilPrice.com | — |
 | WTI原油 | web_fetch OilPrice.com | 金投网 | web_search |
-| DXY | web_search + 金投网 | 同花顺 | — |
+| DXY | web_search "DXY dollar index close {date}" Trading Economics | 金投网 DXY / Macrotrends.net | Finlore.io / 前日值+趋势估算（必须标注"估算"） |
 | 10Y美债 | web_search | FRED | 每经 |
 | **全球头条扫描** | **Bloomberg + Reuters + WSJ** | **CNBC + MarketWatch** | **FT + Barron's** |
 | 财经新闻(中) | 华尔街见闻/第一财经/智通财经/格隆汇 | 金十数据/证券时报/财新 | 36Kr/晚点LatePost |
@@ -140,6 +140,7 @@ web_fetch: https://www.google.com/finance/quote/XLRE:NYSEARCA  (房地产)
 | 港股数据获取困难 | → 东方财富/同花顺 → 智通财经 |
 | 13F数据过季/缺失 | → WhaleWisdom → web_search |
 | Yahoo Finance被屏蔽 | → Google Finance → StockAnalysis |
+| **DXY直接获取困难** | → web_search "DXY dollar index close {date}" Trading Economics snippet → 金投网 DXY → Macrotrends.net DXY daily chart → Finlore.io → 使用前日值+趋势估算（**必须标注"估算"**） |
 | PDF flag emoji乱码 | → 用文字替代（"A股"代替"🇨🇳 A股"） |
 | PDF中文乱码 | → 检查font-family，STHeiti必须排首位 |
 
