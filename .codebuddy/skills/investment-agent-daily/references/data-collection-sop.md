@@ -75,6 +75,7 @@ web_fetch: https://www.google.com/finance/quote/XLRE:NYSEARCA  (房地产)
 | 加密 | Google Finance `BTC-USD` | CoinGecko | — |
 | 黄金/白银 | web_search + 金投网 | OilPrice.com | — |
 | WTI原油 | web_fetch OilPrice.com | 金投网 | web_search |
+| **布伦特原油（主指标）** | **web_fetch OilPrice.com** | **金投网** | **web_search** |
 | DXY | web_search "DXY dollar index close {date}" Trading Economics | 金投网 DXY / Macrotrends.net | Finlore.io / 前日值+趋势估算（必须标注"估算"） |
 | 10Y美债 | web_search | FRED | 每经 |
 | **全球头条扫描** | **Bloomberg + Reuters + WSJ** | **CNBC + MarketWatch** | **FT + Barron's** |
@@ -235,3 +236,4 @@ Google Finance (web_fetch)
 ---
 
 > v17.8 — 2026-03-13 | 新增§七数据缺失强制处理流程 + §八成稿逐单元格扫描SOP（RULE FIVE配套），强化"宁迟勿糊"原则
+> v18.3 — 2026-03-27 | 数据源优先级表新增"布伦特原油（主指标）"行，明确原油采集以布伦特为主、WTI为辅
