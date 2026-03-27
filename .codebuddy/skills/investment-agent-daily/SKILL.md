@@ -3,9 +3,9 @@ name: investment-agent-daily
 description: 当用户提到「投资Agent」「每日分析」「投资分析」「每日报告」「investment agent」「晨报」「morning report」或类似关键词时，自动执行投资Agent每日策略简报全流程。
 ---
 
-# 投资Agent每日策略简报 — 标准工作流 v18.3
+# 投资Agent每日策略简报 — 标准工作流 v18.5
 
-> **版本**: v18.3 (2026-03-27) | **原油指标规范固化**：布伦特为主指标/WTI为辅、红绿灯新增布伦特阈值行
+> **版本**: v18.5 (2026-03-27) | **迁移兼容性修复**：增加通用路径注释+系统依赖说明+README.md，不改变任何现有逻辑
 > **主控文档**：本文件为精炼主控，详细规则/知识库/模板/SOP通过引用按需加载。
 
 ---
@@ -142,11 +142,25 @@ REPORT_START_TIME=$(date "+%H%M")
 ### 第三阶段：MD转PDF
 
 ```bash
-cd /Users/zewujiang/Desktop/AICo/codebuddy-invest/workflows
+# 默认路径（当前部署环境）：
+cd /Users/zewujiang/Desktop/AICo/codebuddy-invest/.codebuddy/skills/investment-agent-daily/scripts
 python3 md_to_pdf.py "{MD文件路径}" "{PDF输出路径}"
+
+# 通用路径（适配其他环境）：
+# cd {SKILL_ROOT}/scripts
+# python3 md_to_pdf.py "{MD文件路径}" "{PDF输出路径}"
+# 其中 {SKILL_ROOT} = 本 Skill 所在的根目录（包含 SKILL.md 的目录）
 ```
 
-**PDF标准**: 单页长图 / STHeiti字体 / 280mm宽 / 严禁flag emoji / 两轮渲染法
+**PDF转换铁律**（原 `investment-report-pdf.mdc`，已合并至此）：
+
+| 项目 | 要求 |
+|------|------|
+| **转换脚本** | 本 Skill 自带 `scripts/md_to_pdf.py`（v13.0），**禁止**使用 pandoc / weasyprint 单独 / 手动拼接HTML+CSS |
+| **PDF标准** | 单页长图、无分页 / STHeiti字体优先（严禁PingFang SC排首位）/ 280mm宽 / MBB咨询风格 / 表格深色表头+斑马纹 |
+| **渲染方法** | 两轮渲染法v2（probe测高度→精确高度重渲染），严禁pypdf裁剪mediabox |
+| **验证检查** | ① `file xxx.pdf` 显示 "1 pages" ② 文件大小 2-5MB ③ Mac预览无乱码 |
+| **依赖安装** | `pip3 install -r scripts/requirements.txt`（markdown / weasyprint / pdfplumber） |
 
 ### 第四阶段：完成交付
 
@@ -251,13 +265,18 @@ python3 md_to_pdf.py "{MD文件路径}" "{PDF输出路径}"
 ## 报告输出路径（OrbitOS）
 
 ```
+# 默认输出路径（当前部署环境）：
 /Users/zewujiang/Desktop/OrbitOS/20_日常监控/每日策略简报/
+
+# 通用配置（适配其他环境）：
+# 将上方路径替换为你的报告输出目录即可，例如：
+# /path/to/your/reports/每日策略简报/
 ```
 
 - 文件命名：`投资Agent-每日策略简报-{YYYYMMDD}.md/.pdf`
 - 每天只出一份简报，文件名不含时间戳
-- PDF转换脚本：`workflows/md_to_pdf.py`
-- 中间数据文件：`workflows/investment_agent_data/`
+- PDF转换脚本：`scripts/md_to_pdf.py`（本Skill自包含，详见第三阶段）
+- 中间数据文件：`workflows/investment_agent_data/`（可选，非必需目录）
 - **禁止**输出到 `workflows/` 目录
 
 ---
@@ -276,6 +295,8 @@ python3 md_to_pdf.py "{MD文件路径}" "{PDF输出路径}"
 
 | 版本 | 日期 | 核心变更 |
 |------|------|---------|
+| **v18.5** | 2026-03-27 | **迁移兼容性修复**（纯增量，不改变任何现有逻辑）：①第三阶段脚本路径增加通用路径注释（原绝对路径保留）；②输出路径区增加通用配置说明（原OrbitOS路径保留）；③requirements.txt补充weasyprint系统级依赖说明（macOS/Ubuntu）；④notes/目录添加.gitkeep；⑤新增README.md安装指南 |
+| **v18.4** | 2026-03-27 | **Skill自包含优化**：①将 `workflows/md_to_pdf.py` v13.0 移入 `scripts/md_to_pdf.py`，第三阶段路径更新；②新增 `scripts/requirements.txt`（3个pip依赖）；③合并 `investment-report-pdf.mdc` 核心规则到第三阶段（PDF转换铁律表）；④删除外部冗余文件（`workflows/md_to_pdf.py` + `chart_generator.py` + `mbb_report_engine.py` + 整个 `valueinvest/` 目录）；⑤删除 `investment-report-pdf.mdc` workspace rule |
 | **v18.3** | 2026-03-27 | **原油指标规范固化**：①report-format-guide.md §二新增原油指标规范（布伦特Brent为全球定价基准主指标，WTI为辅）；②红绿灯标准新增布伦特原油阈值行（<$90安全/$90-110警惕/>$110危险）；③data-collection-sop.md数据源优先级表新增"布伦特原油（主指标）"行；④全文叙事/标题/事件链/结论/红绿灯/监控阈值统一以布伦特为锚 |
 | **v18.2** | 2026-03-26 | **维护升级**：①DXY降级路径固化到data-collection-sop.md §三+§五（连续4次实战遇阻→正式SOP化）；②media-watchlist.md新增§七新数据源验证管道（5个待验证源）；③删除周六复盘模板+日历更新（周六～周日均不出报告）；④删除scripts/md_to_pdf.py旧副本；⑤删除notes/notes.md冗余文件；⑥known-pitfalls新增周一特殊模板额外批次遗漏提醒；⑦evolution-log #20260326-01状态→已固化 |
 | **v18.0** | 2026-03-18 | **RULE SIX自主进化铁律**：新增第五阶段「自主反思引擎」；新增evolution-rules.md（质量铁栅栏三项检验+三级分级🟢🟡🔴+六维反思+精确Diff回滚+默认生效机制）；新增evolution-log.md（统计仪表盘+审计轨迹）；六大铁律（+RULE SIX）；致命错误18→21条（+3条进化专用）；核心规则26→28条（+2条进化规则）；第零阶段新增待固化提案检查；report-format-guide新增§十进化提案格式；known-pitfalls新增进化机制陷阱 |

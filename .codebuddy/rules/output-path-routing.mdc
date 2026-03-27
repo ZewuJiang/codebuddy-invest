@@ -43,8 +43,8 @@ SPECIAL_RESEARCH = ${ORBITOS_BASE}/30_专题研究
 
 1. **MD和PDF成对输出**: 每份报告必须同时生成MD和PDF，存放在同一目录
 2. **命名规范**: 每日策略简报 `投资Agent-每日策略简报-YYYYMMDD.md`（不含HHMM），股票深度分析 `股票深度分析-{股票名}-YYYYMMDD-HHMM-v1.md`（保留HHMM，因同一天可能多份）
-3. **PDF转换脚本路径不变**: 仍使用 `workflows/md_to_pdf.py` 或 `valueinvest/md_to_pdf.py` 生成PDF，但输出路径指向OrbitOS
-4. **禁止残留**: 禁止在 `workflows/` 或 `valueinvest/` 目录留下报告文件的最终版本
+3. **PDF转换脚本**: 使用各 Skill 自包含的 `scripts/md_to_pdf.py` 生成PDF，输出路径指向OrbitOS
+4. **禁止残留**: 禁止在 `workflows/` 目录留下报告文件的最终版本
 5. **中间数据文件例外**: JSON数据文件、图片素材等中间产物仍可存放在 `workflows/` 下的对应数据目录（如 `investment_agent_data/`）
 
 ## 判断逻辑

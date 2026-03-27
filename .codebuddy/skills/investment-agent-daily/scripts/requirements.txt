@@ -1,0 +1,10 @@
+# investment-agent-daily PDF转换脚本依赖
+# 使用方法: pip3 install -r requirements.txt
+#
+# ⚠️ 系统级依赖（weasyprint 需要以下系统库）:
+#   macOS:  brew install cairo pango gdk-pixbuf libffi
+#   Ubuntu: sudo apt-get install libcairo2-dev libpango1.0-dev libgdk-pixbuf2.0-dev libffi-dev
+#   更多平台: https://doc.courtbouillon.org/weasyprint/stable/first_steps.html
+markdown>=3.5
+weasyprint>=60.0
+pdfplumber>=0.10
