@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "mini-chart": "/components/mini-chart/mini-chart"
+  }
+}

@@ -1,0 +1,181 @@
+/* skeleton 骨架屏组件样式 */
+
+.sk-container {
+  padding-bottom: 20rpx;
+}
+
+/* 骨架块 */
+.sk-block {
+  background: #eaeef3;
+  display: inline-block;
+}
+
+/* Shimmer 闪烁动画 */
+.sk-shimmer {
+  background: linear-gradient(
+    90deg,
+    #eaeef3 25%,
+    #f5f7fa 37%,
+    #eaeef3 63%
+  );
+  background-size: 400% 100%;
+  animation: skShimmer 1.4s ease infinite;
+}
+
+@keyframes skShimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+/* 卡片 */
+.sk-card {
+  background: #ffffff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin: 16rpx 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+/* 行 */
+.sk-row {
+  display: flex;
+  align-items: center;
+}
+
+/* 列 */
+.sk-col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 圆形 */
+.sk-circle {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* 行组（编号+文本） */
+.sk-line-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.sk-line {
+  height: 28rpx;
+  border-radius: 6rpx;
+  margin-left: 16rpx;
+}
+
+/* 行动建议行 */
+.sk-action-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+  padding: 12rpx 16rpx;
+  background: #fafafa;
+  border-radius: 12rpx;
+}
+
+/* Tab栏 */
+.sk-tab-bar {
+  display: flex;
+  padding: 16rpx 24rpx;
+  background: #fff;
+  gap: 16rpx;
+}
+
+.sk-tab {
+  flex: 1;
+  height: 44rpx;
+  border-radius: 22rpx;
+}
+
+/* 红绿灯网格 */
+.sk-light-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.sk-light-item {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  padding: 14rpx 0;
+}
+
+/* 渐变头部骨架 */
+.sk-hero {
+  background: #1a1a2e;
+  padding: 32rpx 32rpx 40rpx;
+  margin-bottom: 16rpx;
+}
+
+.sk-shimmer-dark {
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.06) 25%,
+    rgba(255,255,255,0.12) 37%,
+    rgba(255,255,255,0.06) 63%
+  );
+  background-size: 400% 100%;
+  animation: skShimmer 1.4s ease infinite;
+}
+
+/* 核心事件卡片骨架 */
+.sk-event-card {
+  background: #fff9e6;
+  border: 1rpx solid rgba(255, 184, 0, 0.2);
+}
+
+/* 三列网格 */
+.sk-grid-3 {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.sk-grid-item {
+  width: 33.33%;
+  box-sizing: border-box;
+  padding: 12rpx 8rpx;
+  text-align: center;
+}
+
+/* 判断区 */
+.sk-judgment {
+  padding: 16rpx;
+  background: #f8f9fc;
+  border-radius: 12rpx;
+  margin-bottom: 16rpx;
+}
+
+.sk-judgment:last-child {
+  margin-bottom: 0;
+}
+
+/* 表格行 */
+.sk-table-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.sk-table-row:last-child {
+  border-bottom: none;
+}
+
+/* 预警项 */
+.sk-alert-item {
+  padding: 16rpx;
+  background: #fafafa;
+  border-radius: 12rpx;
+  margin-bottom: 12rpx;
+  border-left: 4rpx solid #eee;
+}
+
+.sk-alert-item:last-child {
+  margin-bottom: 0;
+}

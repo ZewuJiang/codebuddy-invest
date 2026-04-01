@@ -3,9 +3,9 @@ name: investment-agent-daily
 description: 当用户提到「投资Agent」「每日分析」「投资分析」「每日报告」「investment agent」「晨报」「morning report」或类似关键词时，自动执行投资Agent每日策略简报全流程。
 ---
 
-# 投资Agent每日策略简报 — 标准工作流 v18.5
+# 投资Agent每日策略简报 — 标准工作流 v19.0
 
-> **版本**: v18.5 (2026-03-27) | **迁移兼容性修复**：增加通用路径注释+系统依赖说明+README.md，不改变任何现有逻辑
+> **版本**: v19.0 (2026-03-31) | **投研鸭小程序数据同步**：新增第3.5阶段，将日报结构化数据提取为JSON并上传微信云数据库，实现小程序实时数据展示
 > **主控文档**：本文件为精炼主控，详细规则/知识库/模板/SOP通过引用按需加载。
 
 ---
@@ -162,6 +162,37 @@ python3 md_to_pdf.py "{MD文件路径}" "{PDF输出路径}"
 | **验证检查** | ① `file xxx.pdf` 显示 "1 pages" ② 文件大小 2-5MB ③ Mac预览无乱码 |
 | **依赖安装** | `pip3 install -r scripts/requirements.txt`（markdown / weasyprint / pdfplumber） |
 
+### 第3.5阶段：数据同步到投研鸭小程序（v19.0新增）
+
+> **此阶段为可选旁路**：上传失败不阻塞日报交付，日报正常产出 MD+PDF+大老板消息。
+
+**作用**：将日报中的结构化数据提取为 JSON 并上传到微信云数据库，使投研鸭小程序展示真实数据。
+
+**执行步骤**：
+
+```bash
+# Step 1: 从 MD 报告中提取结构化数据为4个JSON
+cd /Users/zewujiang/Desktop/AICo/codebuddy-invest/.codebuddy/skills/investment-agent-daily/scripts
+python3 extract_data.py "{MD文件路径}" "/Users/zewujiang/Desktop/AICo/codebuddy-invest/workflows/investment_agent_data/miniapp_sync/"
+
+# Step 2: 上传到微信云数据库（需要环境变量已配置）
+python3 upload_to_cloud.py "/Users/zewujiang/Desktop/AICo/codebuddy-invest/workflows/investment_agent_data/miniapp_sync/" "{YYYY-MM-DD}"
+```
+
+**数据映射**：
+
+| Skill 报告段落 | 小程序页面 | JSON文件 | 云数据库集合 |
+|---------------|-----------|----------|------------|
+| §1 今日核心结论 + §2摘要 + §4摘要 | 简报页 | `briefing.json` | `briefing` |
+| §2 全球市场速览 | 市场页 | `markets.json` | `markets` |
+| §3 重点标的与行业分析 | 标的页 | `watchlist.json` | `watchlist` |
+| §5 风险雷达 + §4 基金详情 | 雷达页 | `radar.json` | `radar` |
+
+**容错机制**：
+- 提取失败 → 写入降级 JSON（标记 `_fallback: true`），不上传
+- 上传失败 → 小程序自动降级使用本地缓存/Mock数据
+- 整阶段失败 → 打印警告，继续执行第四阶段
+
 ### 第四阶段：完成交付
 
 1. 输出文件路径和大小确认。
@@ -295,6 +326,7 @@ python3 md_to_pdf.py "{MD文件路径}" "{PDF输出路径}"
 
 | 版本 | 日期 | 核心变更 |
 |------|------|---------|
+| **v19.0** | 2026-03-31 | **投研鸭小程序数据同步**（纯增量，不改变任何现有逻辑）：①新增第3.5阶段"数据同步到投研鸭小程序"（可选旁路，失败不阻塞日报）；②新增 `scripts/extract_data.py`（从MD提取结构化JSON）；③新增 `scripts/upload_to_cloud.py`（通过微信HTTP API上传云数据库）；④`scripts/requirements.txt` 新增 requests 依赖 |
 | **v18.5** | 2026-03-27 | **迁移兼容性修复**（纯增量，不改变任何现有逻辑）：①第三阶段脚本路径增加通用路径注释（原绝对路径保留）；②输出路径区增加通用配置说明（原OrbitOS路径保留）；③requirements.txt补充weasyprint系统级依赖说明（macOS/Ubuntu）；④notes/目录添加.gitkeep；⑤新增README.md安装指南 |
 | **v18.4** | 2026-03-27 | **Skill自包含优化**：①将 `workflows/md_to_pdf.py` v13.0 移入 `scripts/md_to_pdf.py`，第三阶段路径更新；②新增 `scripts/requirements.txt`（3个pip依赖）；③合并 `investment-report-pdf.mdc` 核心规则到第三阶段（PDF转换铁律表）；④删除外部冗余文件（`workflows/md_to_pdf.py` + `chart_generator.py` + `mbb_report_engine.py` + 整个 `valueinvest/` 目录）；⑤删除 `investment-report-pdf.mdc` workspace rule |
 | **v18.3** | 2026-03-27 | **原油指标规范固化**：①report-format-guide.md §二新增原油指标规范（布伦特Brent为全球定价基准主指标，WTI为辅）；②红绿灯标准新增布伦特原油阈值行（<$90安全/$90-110警惕/>$110危险）；③data-collection-sop.md数据源优先级表新增"布伦特原油（主指标）"行；④全文叙事/标题/事件链/结论/红绿灯/监控阈值统一以布伦特为锚 |

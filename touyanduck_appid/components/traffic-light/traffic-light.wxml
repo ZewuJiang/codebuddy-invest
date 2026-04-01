@@ -1,0 +1,12 @@
+<!-- traffic-light 组件 v4.0 — 7项红绿灯 -->
+<view class="tl-grid">
+  <view class="tl-item" wx:for="{{lights}}" wx:key="name">
+    <view class="tl-dot tl-{{item.status}}">
+      <view class="tl-dot-inner"></view>
+    </view>
+    <view class="tl-info">
+      <view class="tl-name">{{item.name}}</view>
+      <view class="tl-value">{{item.value}}</view>
+    </view>
+  </view>
+</view>

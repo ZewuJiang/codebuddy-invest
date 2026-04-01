@@ -1,0 +1,524 @@
+/* pages/briefing/briefing.wxss */
+/* 简报页样式 v4.0 — 对齐Skill五段式架构 */
+
+.page-container {
+  padding-bottom: 20rpx;
+}
+
+/* ========== 渐变头部 ========== */
+.briefing-hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  padding: 32rpx 32rpx 40rpx;
+  margin: 0 0 16rpx;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10rpx);
+  transition: all 0.5s ease;
+}
+
+.hero-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.briefing-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 8rpx;
+  background: linear-gradient(90deg, #FFB800, #FF8C00, #FFB800);
+}
+
+.hero-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hero-badge {
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+  color: #FFB800;
+  font-weight: 600;
+}
+
+.duck-emoji {
+  margin-right: 8rpx;
+  font-size: 32rpx;
+}
+
+.hero-date {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ========== §1 核心事件卡片 ========== */
+.event-card {
+  background: linear-gradient(135deg, #fff9e6 0%, #fff5d6 100%);
+  border-radius: 16rpx;
+  padding: 28rpx;
+  margin: 0 24rpx 16rpx;
+  border: 1rpx solid rgba(255, 184, 0, 0.2);
+  box-shadow: 0 2rpx 16rpx rgba(255, 184, 0, 0.1);
+}
+
+.event-tag {
+  font-size: 22rpx;
+  color: #e67e22;
+  font-weight: 600;
+  margin-bottom: 12rpx;
+}
+
+.event-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #1a1a2e;
+  line-height: 1.5;
+  margin-bottom: 20rpx;
+}
+
+.event-chain {
+  padding-left: 8rpx;
+}
+
+.chain-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12rpx;
+  position: relative;
+}
+
+.chain-item:last-child {
+  margin-bottom: 0;
+}
+
+.chain-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: #FFB800;
+  flex-shrink: 0;
+  margin-top: 10rpx;
+  margin-right: 12rpx;
+}
+
+.chain-arrow {
+  position: absolute;
+  left: 2rpx;
+  top: 24rpx;
+  font-size: 20rpx;
+  color: #ccc;
+  display: none;
+}
+
+.chain-text {
+  font-size: 26rpx;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* ========== §1 全球资产反应 ========== */
+.reaction-card {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin: 0 24rpx 16rpx;
+  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.06);
+}
+
+.reaction-header {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-bottom: 16rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reaction-link {
+  font-size: 22rpx;
+  color: #FFB800;
+  font-weight: 500;
+}
+
+.reaction-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+.reaction-item {
+  width: 33.33%;
+  box-sizing: border-box;
+  padding: 12rpx 8rpx;
+  text-align: center;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.reaction-item:nth-last-child(-n+3) {
+  border-bottom: none;
+}
+
+.reaction-name {
+  font-size: 22rpx;
+  color: #999;
+  margin-bottom: 6rpx;
+}
+
+.reaction-value {
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.reaction-up {
+  color: #e74c3c;
+}
+
+.reaction-down {
+  color: #27ae60;
+}
+
+.reaction-flat {
+  color: #999;
+}
+
+/* ========== §1 三大核心判断 ========== */
+.judgment-list {
+  margin-top: 4rpx;
+}
+
+.judgment-item {
+  margin-bottom: 24rpx;
+  padding: 20rpx;
+  background: #f8f9fc;
+  border-radius: 12rpx;
+}
+
+.judgment-item:last-child {
+  margin-bottom: 0;
+}
+
+.judgment-header {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12rpx;
+}
+
+.judgment-num {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFB800, #FF8C00);
+  color: #fff;
+  font-size: 22rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 12rpx;
+  margin-top: 2rpx;
+}
+
+.judgment-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1a1a2e;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.judgment-confidence {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12rpx;
+  padding: 0 4rpx;
+}
+
+.confidence-label {
+  font-size: 22rpx;
+  color: #999;
+  margin-right: 12rpx;
+  flex-shrink: 0;
+}
+
+.confidence-bar {
+  flex: 1;
+  height: 12rpx;
+  background: #eee;
+  border-radius: 6rpx;
+  overflow: hidden;
+  margin-right: 12rpx;
+}
+
+.confidence-fill {
+  height: 100%;
+  border-radius: 6rpx;
+  background: linear-gradient(90deg, #FFB800, #FF8C00);
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.confidence-value {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #FFB800;
+  flex-shrink: 0;
+  min-width: 60rpx;
+  text-align: right;
+}
+
+.judgment-logic {
+  display: flex;
+  align-items: flex-start;
+  padding: 0 4rpx;
+}
+
+.logic-icon {
+  margin-right: 8rpx;
+  font-size: 24rpx;
+  flex-shrink: 0;
+  margin-top: 2rpx;
+}
+
+.logic-text {
+  font-size: 24rpx;
+  color: #888;
+  line-height: 1.6;
+}
+
+/* ========== §1 行动建议 ========== */
+.action-group {
+  margin-bottom: 20rpx;
+}
+
+.action-group:last-child {
+  margin-bottom: 0;
+}
+
+.action-group-label {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 12rpx;
+}
+
+.action-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12rpx;
+  padding: 14rpx 16rpx;
+  background: #f8f9fc;
+  border-radius: 10rpx;
+}
+
+.action-item:last-child {
+  margin-bottom: 0;
+}
+
+.action-content {
+  font-size: 26rpx;
+  color: #333;
+  line-height: 1.6;
+  flex: 1;
+}
+
+/* ========== §2 市场情绪 ========== */
+.sentiment-bar {
+  display: flex;
+  align-items: center;
+  margin-top: 8rpx;
+}
+
+.sentiment-label {
+  font-size: 22rpx;
+  color: #999;
+  flex-shrink: 0;
+}
+
+.sentiment-track {
+  flex: 1;
+  height: 14rpx;
+  background: #eee;
+  border-radius: 7rpx;
+  margin: 0 16rpx;
+  overflow: visible;
+  position: relative;
+}
+
+.sentiment-fill {
+  height: 100%;
+  border-radius: 7rpx;
+  background: linear-gradient(90deg, #27ae60, #f1c40f 50%, #e74c3c);
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sentiment-pointer {
+  position: absolute;
+  top: -9rpx;
+  transform: translateX(-50%);
+  transition: left 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sentiment-pointer-dot {
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  background: #fff;
+  border: 4rpx solid #FFB800;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.15);
+}
+
+.sentiment-info {
+  text-align: center;
+  margin-top: 16rpx;
+}
+
+.sentiment-score-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+}
+
+.sentiment-number {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #FFB800;
+}
+
+.sentiment-tag {
+  font-size: 24rpx;
+  color: #999;
+  background: rgba(255, 184, 0, 0.1);
+  padding: 4rpx 16rpx;
+  border-radius: 16rpx;
+}
+
+.market-summary {
+  font-size: 24rpx;
+  color: #888;
+  line-height: 1.7;
+  margin-top: 16rpx;
+  padding: 12rpx 16rpx;
+  background: #f8f9fc;
+  border-radius: 8rpx;
+  border-left: 4rpx solid #FFB800;
+}
+
+/* ========== §4 聪明钱速览 ========== */
+.smart-money-list {
+  margin-top: 4rpx;
+}
+
+.smart-money-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.smart-money-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.sm-left {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-right: 16rpx;
+}
+
+.sm-signal {
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  margin-right: 10rpx;
+}
+
+.sm-bullish {
+  background: #e74c3c;
+  box-shadow: 0 0 6rpx rgba(231, 76, 60, 0.4);
+}
+
+.sm-bearish {
+  background: #27ae60;
+  box-shadow: 0 0 6rpx rgba(39, 174, 96, 0.4);
+}
+
+.sm-neutral {
+  background: #f1c40f;
+  box-shadow: 0 0 6rpx rgba(241, 196, 15, 0.4);
+}
+
+.sm-source {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #1a1a2e;
+  white-space: nowrap;
+}
+
+.sm-action {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.5;
+  text-align: right;
+  flex: 1;
+}
+
+.sm-more {
+  text-align: center;
+  font-size: 24rpx;
+  color: #FFB800;
+  padding: 16rpx 0 4rpx;
+  font-weight: 500;
+}
+
+/* ========== 风险提示 ========== */
+.risk-card {
+  border-left: 6rpx solid #e74c3c;
+}
+
+.risk-text {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.7;
+}
+
+/* ========== 数据截止时间 ========== */
+.data-footer {
+  text-align: center;
+  padding: 24rpx 32rpx 16rpx;
+}
+
+.footer-text {
+  font-size: 20rpx;
+  color: #bbb;
+}
+
+/* ========== 入场动画 ========== */
+.stagger-item {
+  opacity: 0;
+  transform: translateY(16rpx);
+}
+
+.stagger-show {
+  animation: slideUp 0.4s ease forwards;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

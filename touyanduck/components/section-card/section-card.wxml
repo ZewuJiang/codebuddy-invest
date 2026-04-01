@@ -1,0 +1,15 @@
+<!-- section-card 组件 — 通用可折叠卡片 -->
+<view class="sec-card {{extraClass}}" style="{{borderColor ? 'border-left-color:' + borderColor + ';' : ''}}">
+  <!-- 标题栏 -->
+  <view class="sec-header" bindtap="toggleExpand">
+    <view class="sec-title">{{title}}</view>
+    <view class="sec-toggle" wx:if="{{collapsible}}">
+      <text class="sec-arrow {{isExpanded ? 'sec-arrow-up' : 'sec-arrow-down'}}">›</text>
+    </view>
+  </view>
+
+  <!-- 内容区域（折叠控制） -->
+  <view class="sec-body {{isExpanded ? 'sec-body-show' : 'sec-body-hide'}}">
+    <slot></slot>
+  </view>
+</view>

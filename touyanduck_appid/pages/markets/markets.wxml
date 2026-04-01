@@ -1,0 +1,162 @@
+<!--pages/markets/markets.wxml-->
+<!-- 市场页 v4.0：5Tab + GICS热力图 -->
+
+<skeleton type="markets" loading="{{loading}}" rows="{{4}}" />
+
+<view class="page-container safe-bottom page-fade-in" wx:if="{{!loading}}">
+  <!-- 顶部 Tab -->
+  <view class="tab-bar">
+    <view class="tab-item {{activeTab === index ? 'tab-active' : ''}}" 
+          wx:for="{{tabs}}" wx:key="key" 
+          bindtap="switchTab" data-index="{{index}}">
+      {{item.label}}
+    </view>
+    <view class="tab-indicator" style="transform: translateX({{activeTab * 100}}%)"></view>
+  </view>
+
+  <!-- Swiper -->
+  <swiper class="market-swiper" 
+          current="{{activeTab}}" 
+          bindchange="onSwiperChange"
+          duration="{{250}}"
+          style="height: {{swiperHeight || '1200rpx'}}">
+    
+    <!-- 美股 -->
+    <swiper-item>
+      <scroll-view scroll-y class="market-scroll">
+        <view class="market-list-card">
+          <view class="market-list-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
+                wx:for="{{usMarkets}}" wx:key="name"
+                style="animation-delay: {{item.animDelay}}ms">
+            <view class="ml-left">
+              <view class="ml-name">{{item.name}}</view>
+              <view class="ml-price">{{item.price}}</view>
+            </view>
+            <view class="ml-center">
+              <mini-chart data="{{item.sparkline}}" width="{{130}}" height="{{42}}" isUp="{{item.isUp}}" chartId="{{item.chartId}}" />
+            </view>
+            <view class="ml-right">
+              <view class="ml-change-badge {{item.colorClass}}">{{item.changeText}}</view>
+              <view class="ml-label" wx:if="{{item.changeLabel}}">{{item.changeLabel}}</view>
+            </view>
+          </view>
+        </view>
+        <view class="market-comment {{animateReady ? 'comment-show' : ''}}" wx:if="{{usMarkets[0].note}}">
+          <text class="comment-icon">💡</text>
+          <text class="comment-text">{{usMarkets[0].note}}</text>
+        </view>
+        <!-- GICS板块热力图 -->
+        <view class="gics-section" wx:if="{{gics.length}}">
+          <view class="gics-title">GICS 11板块轮动</view>
+          <view class="gics-grid">
+            <view class="gics-item {{item.isUp ? 'gics-up' : 'gics-down'}}" wx:for="{{gics}}" wx:key="etf">
+              <view class="gics-name">{{item.name}}</view>
+              <view class="gics-change {{item.colorClass}}">{{item.changeText}}</view>
+              <view class="gics-bar">
+                <view class="gics-bar-fill {{item.isUp ? 'bar-up' : 'bar-down'}}" style="width: {{(item.change > 0 ? item.change : -item.change) * 25}}%"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </swiper-item>
+
+    <!-- M7巨头 -->
+    <swiper-item>
+      <scroll-view scroll-y class="market-scroll">
+        <view class="m7-header">
+          <text class="m7-title">🏆 Magnificent Seven</text>
+          <text class="m7-subtitle">科技七巨头实时行情</text>
+        </view>
+        <view class="market-list-card">
+          <view class="market-list-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
+                wx:for="{{m7}}" wx:key="name"
+                style="animation-delay: {{item.animDelay}}ms">
+            <view class="ml-left">
+              <view class="ml-name">{{item.name}}</view>
+              <view class="ml-price">{{item.price}}</view>
+            </view>
+            <view class="ml-center">
+              <mini-chart data="{{item.sparkline}}" width="{{130}}" height="{{42}}" isUp="{{item.isUp}}" chartId="{{item.chartId}}" />
+            </view>
+            <view class="ml-right">
+              <view class="ml-change-badge {{item.colorClass}}">{{item.changeText}}</view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </swiper-item>
+
+    <!-- 亚太 -->
+    <swiper-item>
+      <scroll-view scroll-y class="market-scroll">
+        <view class="market-list-card">
+          <view class="market-list-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
+                wx:for="{{asiaMarkets}}" wx:key="name"
+                style="animation-delay: {{item.animDelay}}ms">
+            <view class="ml-left">
+              <view class="ml-name">{{item.name}}</view>
+              <view class="ml-price">{{item.price}}</view>
+            </view>
+            <view class="ml-center">
+              <mini-chart data="{{item.sparkline}}" width="{{130}}" height="{{42}}" isUp="{{item.isUp}}" chartId="{{item.chartId}}" />
+            </view>
+            <view class="ml-right">
+              <view class="ml-change-badge {{item.colorClass}}">{{item.changeText}}</view>
+              <view class="ml-label" wx:if="{{item.changeLabel}}">{{item.changeLabel}}</view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </swiper-item>
+
+    <!-- 大宗 -->
+    <swiper-item>
+      <scroll-view scroll-y class="market-scroll">
+        <view class="market-list-card">
+          <view class="market-list-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
+                wx:for="{{commodities}}" wx:key="name"
+                style="animation-delay: {{item.animDelay}}ms">
+            <view class="ml-left">
+              <view class="ml-name">{{item.name}}</view>
+              <view class="ml-price">{{item.price}}</view>
+            </view>
+            <view class="ml-center">
+              <mini-chart data="{{item.sparkline}}" width="{{130}}" height="{{42}}" isUp="{{item.isUp}}" chartId="{{item.chartId}}" />
+            </view>
+            <view class="ml-right">
+              <view class="ml-change-badge {{item.colorClass}}">{{item.changeText}}</view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </swiper-item>
+
+    <!-- 加密 -->
+    <swiper-item>
+      <scroll-view scroll-y class="market-scroll">
+        <view class="market-list-card">
+          <view class="market-list-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
+                wx:for="{{cryptos}}" wx:key="name"
+                style="animation-delay: {{item.animDelay}}ms">
+            <view class="ml-left">
+              <view class="ml-name">{{item.name}}</view>
+              <view class="ml-price">{{item.price}}</view>
+            </view>
+            <view class="ml-center">
+              <mini-chart data="{{item.sparkline}}" width="{{130}}" height="{{42}}" isUp="{{item.isUp}}" chartId="{{item.chartId}}" />
+            </view>
+            <view class="ml-right">
+              <view class="ml-change-badge {{item.colorClass}}">{{item.changeText}}</view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </swiper-item>
+  </swiper>
+
+  <!-- 数据截止时间 -->
+  <view class="data-footer" wx:if="{{dataTime}}">
+    <text class="footer-text">收盘价/最新价 · 数据截至 {{dataTime}} | Mock演示数据</text>
+  </view>
+</view>

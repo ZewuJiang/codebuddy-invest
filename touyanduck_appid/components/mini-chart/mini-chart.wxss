@@ -1,0 +1,9 @@
+/* mini-chart 组件样式 */
+.mini-chart-wrap {
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.mini-chart-canvas {
+  display: block;
+}

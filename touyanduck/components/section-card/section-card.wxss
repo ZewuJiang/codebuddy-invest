@@ -1,0 +1,66 @@
+/* section-card 组件样式 */
+
+.sec-card {
+  background: #ffffff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin: 16rpx 24rpx;
+  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.06);
+}
+
+/* 标题栏 */
+.sec-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sec-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1a1a2e;
+  padding-left: 16rpx;
+  border-left: 6rpx solid #FFB800;
+}
+
+/* 折叠箭头 */
+.sec-toggle {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sec-arrow {
+  font-size: 36rpx;
+  color: #999;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.sec-arrow-up {
+  transform: rotate(-90deg);
+}
+
+.sec-arrow-down {
+  transform: rotate(90deg);
+}
+
+/* 内容区域 */
+.sec-body {
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.sec-body-show {
+  max-height: 2000rpx;
+  opacity: 1;
+  margin-top: 16rpx;
+}
+
+.sec-body-hide {
+  max-height: 0;
+  opacity: 0;
+  margin-top: 0;
+}

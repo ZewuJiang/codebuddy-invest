@@ -1,0 +1,19 @@
+{
+  "trafficLights": [
+    {
+      "name": "VIX波动率",
+      "value": "--",
+      "status": "yellow",
+      "threshold": "<18绿 / 18-25黄 / >25红"
+    }
+  ],
+  "riskScore": 50,
+  "riskLevel": "high",
+  "riskAdvice": "当前市场风险偏高，建议降低仓位至4成以下。",
+  "monitorTable": [],
+  "riskAlerts": [],
+  "events": [],
+  "alerts": [],
+  "smartMoneyDetail": [],
+  "dataTime": "2026-04-01 11:22 BJT"
+}

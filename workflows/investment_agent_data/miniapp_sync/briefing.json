@@ -1,0 +1,54 @@
+{
+  "coreEvent": {
+    "title": "🚨 油价破百+Powell\"观望\"：市场在滞胀恐惧与谈判希望之间撕裂",
+    "chain": [
+      "OPEC+无增产信号→谈判不确定性维持溢价→但$110以上需求抑制开始显现 |",
+      "NVDA GTC万亿订单预期仍在→油价通胀才是真正风险 |",
+      "5月15日任期结束→通胀近3%+能源冲击→2026年无降息 |"
+    ]
+  },
+  "globalReaction": [
+    {
+      "name": "标普500",
+      "value": "--",
+      "direction": "flat"
+    }
+  ],
+  "coreJudgments": [
+    {
+      "title": "详见完整报告",
+      "confidence": 70,
+      "logic": ""
+    }
+  ],
+  "actions": {
+    "today": [
+      {
+        "type": "hold",
+        "content": "---------|------|------|"
+      },
+      {
+        "type": "hold",
+        "content": "--"
+      }
+    ],
+    "week": []
+  },
+  "sentimentScore": 50,
+  "sentimentLabel": "中性",
+  "marketSummary": "**美股信号**：市场呈现\"防御轮动\"而非全面溃败——金融+通信+必选消费上涨，半导体+工业+能源（获利了结）领跌。油价破$100+Powell\"观望\"定调构成双重压制，但道指微涨显示价值/防御资金仍在接盘。纳指再创8月以来新低，但成交量低于20日均线，卖压在递减。",
+  "smartMoney": [
+    {
+      "source": "Morgan Stanley（Brian Nowak）",
+      "action": "将META列为新Top Pick，目标价从$825下调至$775但维持Overweight",
+      "signal": "neutral"
+    },
+    {
+      "source": "美联储（Powell）",
+      "action": "哈佛演讲定调\"wait and see\"，驳斥滞胀，承认能源冲击增加不确定性",
+      "signal": "neutral"
+    }
+  ],
+  "riskNote": "| 风险事件 | 概率 | 对持仓影响 | 应对建议 |",
+  "dataTime": "2026-04-01 11:22 BJT"
+}

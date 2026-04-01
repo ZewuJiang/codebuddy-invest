@@ -1,0 +1,260 @@
+/* stock-card 组件样式 v4.0 — 展开/收起态 */
+
+/* 入场动画 */
+.card-enter {
+  opacity: 0;
+  transform: translateY(20rpx);
+}
+
+.card-enter-show {
+  animation: cardSlideUp 0.4s ease forwards;
+}
+
+@keyframes cardSlideUp {
+  from { opacity: 0; transform: translateY(20rpx); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.stock-card-wrap {
+  background: #ffffff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin: 12rpx 24rpx;
+  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.06);
+  position: relative;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.stock-card-wrap:active {
+  transform: scale(0.985);
+  box-shadow: 0 1rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+/* ========== 头部（收起态核心内容） ========== */
+.sc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.sc-name-area {
+  flex: 1;
+  min-width: 0;
+}
+
+.sc-name {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.sc-symbol-price {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-top: 4rpx;
+}
+
+.sc-symbol {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.sc-price {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #555;
+}
+
+.sc-chart-area {
+  flex-shrink: 0;
+  margin: 0 12rpx;
+  display: flex;
+  align-items: center;
+}
+
+.sc-right {
+  text-align: right;
+  flex-shrink: 0;
+  min-width: 100rpx;
+}
+
+.sc-change {
+  font-size: 34rpx;
+  font-weight: 800;
+}
+
+.sc-expand-hint {
+  font-size: 20rpx;
+  color: #bbb;
+  margin-top: 4rpx;
+}
+
+/* 标签 */
+.sc-tags {
+  margin: 12rpx 0 8rpx;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx;
+}
+
+/* 收起态一句话逻辑 */
+.sc-reason-brief {
+  font-size: 24rpx;
+  color: #888;
+  line-height: 1.6;
+  margin-top: 8rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+/* ========== 展开态内容 ========== */
+.sc-detail {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+  margin-top: 0;
+}
+
+.detail-show {
+  max-height: 2000rpx;
+  opacity: 1;
+  margin-top: 20rpx;
+}
+
+.detail-hide {
+  max-height: 0;
+  opacity: 0;
+  margin-top: 0;
+}
+
+/* 30日走势大图 */
+.sc-chart-large {
+  margin-bottom: 20rpx;
+  padding: 16rpx;
+  background: #f8f9fc;
+  border-radius: 12rpx;
+}
+
+.sc-chart-title {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 12rpx;
+}
+
+/* 关键指标 */
+.sc-metrics {
+  margin-bottom: 20rpx;
+}
+
+.sc-metrics-title {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-bottom: 12rpx;
+}
+
+.sc-metrics-grid {
+  display: flex;
+  flex-wrap: wrap;
+  background: #f8f9fc;
+  border-radius: 12rpx;
+  padding: 8rpx 0;
+}
+
+.sc-metric-item {
+  width: 33.33%;
+  text-align: center;
+  padding: 10rpx 0;
+}
+
+.sc-metric-label {
+  font-size: 20rpx;
+  color: #999;
+}
+
+.sc-metric-value {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #333;
+  margin-top: 4rpx;
+}
+
+/* AI分析 */
+.sc-analysis {
+  margin-bottom: 20rpx;
+}
+
+.sc-analysis-title {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-bottom: 10rpx;
+}
+
+.ai-badge {
+  background: linear-gradient(135deg, #FFB800, #FF8C00);
+  color: #fff;
+  font-size: 18rpx;
+  font-weight: 700;
+  padding: 2rpx 10rpx;
+  border-radius: 6rpx;
+}
+
+.sc-analysis-text {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.7;
+  padding: 12rpx 16rpx;
+  background: #f8f9fc;
+  border-radius: 10rpx;
+  border-left: 4rpx solid #FFB800;
+  white-space: pre-wrap;
+}
+
+/* 风险提示 */
+.sc-risks {
+  padding: 12rpx 16rpx;
+  background: rgba(231, 76, 60, 0.04);
+  border-radius: 10rpx;
+  border-left: 4rpx solid #e74c3c;
+}
+
+.sc-risks-title {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #e74c3c;
+  margin-bottom: 8rpx;
+}
+
+.sc-risk-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 6rpx;
+}
+
+.sc-risk-item:last-child {
+  margin-bottom: 0;
+}
+
+.sc-risk-dot {
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 50%;
+  background: #e74c3c;
+  margin-top: 12rpx;
+  margin-right: 10rpx;
+  flex-shrink: 0;
+}
+
+.sc-risk-text {
+  font-size: 22rpx;
+  color: #999;
+  line-height: 1.6;
+}

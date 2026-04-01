@@ -1,0 +1,144 @@
+<!--pages/briefing/briefing.wxml-->
+<!-- 简报页 v4.0：对齐Skill §1+§2+§4 -->
+
+<!-- 骨架屏 -->
+<skeleton type="briefing" loading="{{loading}}" rows="{{4}}" />
+
+<!-- 正式内容 -->
+<view class="page-container safe-bottom page-fade-in" wx:if="{{!loading}}">
+
+  <!-- 顶部渐变头部 -->
+  <view class="briefing-hero {{animateReady ? 'hero-show' : ''}}">
+    <view class="hero-inner">
+      <view class="hero-badge">
+        <text class="duck-emoji">🦆</text>
+        <text>投研鸭·每日策略简报</text>
+      </view>
+      <view class="hero-date">{{currentDate}}</view>
+    </view>
+  </view>
+
+  <!-- §1 核心事件卡片 -->
+  <view class="event-card stagger-item {{animateReady ? 'stagger-show' : ''}}" wx:if="{{coreEvent}}" style="animation-delay: 0ms">
+    <view class="event-tag">🚨 今日核心事件</view>
+    <view class="event-title">{{coreEvent.title}}</view>
+    <view class="event-chain">
+      <view class="chain-item" wx:for="{{coreEvent.chain}}" wx:key="index">
+        <view class="chain-dot"></view>
+        <view class="chain-arrow" wx:if="{{index < coreEvent.chain.length - 1}}">→</view>
+        <text class="chain-text">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- §1 全球资产反应 -->
+  <view class="reaction-card stagger-item {{animateReady ? 'stagger-show' : ''}}" style="animation-delay: 80ms" bindtap="onReactionTap">
+    <view class="reaction-header">
+      <text>📊 全球资产反应</text>
+      <text class="reaction-link">查看市场详情 ›</text>
+    </view>
+    <view class="reaction-grid">
+      <view class="reaction-item" wx:for="{{globalReaction}}" wx:key="name">
+        <view class="reaction-name">{{item.name}}</view>
+        <view class="reaction-value reaction-{{item.direction}}">{{item.value}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- §1 三大核心判断 -->
+  <section-card title="三大核心判断" collapsible="{{true}}" expanded="{{true}}">
+    <view class="judgment-list">
+      <view class="judgment-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
+            wx:for="{{coreJudgments}}" wx:key="index"
+            style="animation-delay: {{(index + 2) * 80}}ms">
+        <view class="judgment-header">
+          <view class="judgment-num">{{index + 1}}</view>
+          <view class="judgment-title">{{item.title}}</view>
+        </view>
+        <view class="judgment-confidence">
+          <view class="confidence-label">置信度</view>
+          <view class="confidence-bar">
+            <view class="confidence-fill" style="width: {{animateReady ? item.confidence : 0}}%"></view>
+          </view>
+          <view class="confidence-value">{{item.confidence}}%</view>
+        </view>
+        <view class="judgment-logic">
+          <text class="logic-icon">💡</text>
+          <text class="logic-text">{{item.logic}}</text>
+        </view>
+      </view>
+    </view>
+  </section-card>
+
+  <!-- §1 行动建议 -->
+  <section-card title="行动建议" collapsible="{{true}}" expanded="{{true}}">
+    <!-- 今日 -->
+    <view class="action-group" wx:if="{{todayActions.length}}">
+      <view class="action-group-label">📌 今日</view>
+      <view class="action-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
+            wx:for="{{todayActions}}" wx:key="index"
+            style="animation-delay: {{(index + 5) * 80}}ms">
+        <view class="tag {{item.tagClass}}">{{item.label}}</view>
+        <view class="action-content">{{item.content}}</view>
+      </view>
+    </view>
+    <!-- 本周 -->
+    <view class="action-group" wx:if="{{weekActions.length}}">
+      <view class="action-group-label">📋 本周</view>
+      <view class="action-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
+            wx:for="{{weekActions}}" wx:key="index"
+            style="animation-delay: {{(index + 7) * 80}}ms">
+        <view class="tag {{item.tagClass}}">{{item.label}}</view>
+        <view class="action-content">{{item.content}}</view>
+      </view>
+    </view>
+  </section-card>
+
+  <!-- §2 市场情绪仪表盘 -->
+  <section-card title="市场情绪" collapsible="{{true}}" expanded="{{true}}">
+    <view class="sentiment-bar">
+      <view class="sentiment-label">恐惧</view>
+      <view class="sentiment-track">
+        <view class="sentiment-fill" style="width: {{animateReady ? sentimentScore : 0}}%"></view>
+        <view class="sentiment-pointer" style="left: {{animateReady ? sentimentScore : 0}}%">
+          <view class="sentiment-pointer-dot"></view>
+        </view>
+      </view>
+      <view class="sentiment-label">贪婪</view>
+    </view>
+    <view class="sentiment-info">
+      <view class="sentiment-score-row">
+        <text class="sentiment-number">{{displaySentiment}}</text>
+        <text class="sentiment-tag">{{sentimentLabel}}</text>
+      </view>
+    </view>
+    <view class="market-summary" wx:if="{{marketSummary}}">{{marketSummary}}</view>
+  </section-card>
+
+  <!-- §4 聪明钱速览 -->
+  <section-card title="聪明钱动向" collapsible="{{true}}" expanded="{{true}}" wx:if="{{smartMoney.length}}">
+    <view class="smart-money-list">
+      <view class="smart-money-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
+            wx:for="{{smartMoney}}" wx:key="index"
+            style="animation-delay: {{(index + 9) * 80}}ms">
+        <view class="sm-left">
+          <view class="sm-signal sm-{{item.signal}}"></view>
+          <view class="sm-source">{{item.source}}</view>
+        </view>
+        <view class="sm-action">{{item.action}}</view>
+      </view>
+    </view>
+    <view class="sm-more" bindtap="onSmartMoneyTap">查看更多聪明钱动向 ›</view>
+  </section-card>
+
+  <!-- 风险提示 -->
+  <section-card title="风险提示" extraClass="risk-card" borderColor="#e74c3c">
+    <view class="risk-text">{{riskNote}}</view>
+  </section-card>
+
+  <!-- 数据截止时间 -->
+  <view class="data-footer" wx:if="{{dataTime}}">
+    <text class="footer-text">数据截至 {{dataTime}} | Mock演示数据</text>
+  </view>
+
+</view>

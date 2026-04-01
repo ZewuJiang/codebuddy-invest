@@ -1,0 +1,117 @@
+{
+  "usMarkets": [
+    {
+      "name": "S&P 500",
+      "price": "6,343.72",
+      "change": -0.39,
+      "changeLabel": "大盘指数"
+    },
+    {
+      "name": "纳斯达克",
+      "price": "20,794.64",
+      "change": -0.73,
+      "changeLabel": "科技指数"
+    },
+    {
+      "name": "道琼斯",
+      "price": "45,216.14",
+      "change": 0.11,
+      "changeLabel": "蓝筹指数"
+    },
+    {
+      "name": "VIX",
+      "price": "30.61",
+      "change": -1.42,
+      "changeLabel": "恐慌指标"
+    }
+  ],
+  "m7": [
+    {
+      "name": "NVDA",
+      "price": "$165.17",
+      "change": -1.4,
+      "symbol": "NVDA"
+    },
+    {
+      "name": "AAPL",
+      "price": "$246.63",
+      "change": -0.87,
+      "symbol": "AAPL"
+    },
+    {
+      "name": "MSFT",
+      "price": "$358.96",
+      "change": 0.61,
+      "symbol": "MSFT"
+    },
+    {
+      "name": "META",
+      "price": "$536.38",
+      "change": 2.03,
+      "symbol": "META"
+    },
+    {
+      "name": "TSLA",
+      "price": "$355.28",
+      "change": -1.81,
+      "symbol": "TSLA"
+    }
+  ],
+  "asiaMarkets": [
+    {
+      "name": "恒生指数",
+      "price": "24,901",
+      "change": 0.61
+    },
+    {
+      "name": "上证综指",
+      "price": "3,919",
+      "change": 0.24
+    },
+    {
+      "name": "日经225",
+      "price": "51,880",
+      "change": -0.01
+    }
+  ],
+  "commodities": [
+    {
+      "name": "布伦特原油",
+      "price": "$110.11",
+      "change": -2.19
+    },
+    {
+      "name": "WTI原油",
+      "price": "$104.92",
+      "change": 5.3
+    },
+    {
+      "name": "黄金COMEX",
+      "price": "$4,505",
+      "change": 1.09
+    },
+    {
+      "name": "美元DXY",
+      "price": "100.14",
+      "change": -0.01
+    },
+    {
+      "name": "10Y美债",
+      "price": "4.41%",
+      "change": -3.0
+    },
+    {
+      "name": "离岸人民币",
+      "price": "7.2600",
+      "change": 0.05
+    }
+  ],
+  "cryptos": [
+    {
+      "name": "BTC",
+      "price": "$67,993",
+      "change": 1.95
+    }
+  ],
+  "gics": []
+}

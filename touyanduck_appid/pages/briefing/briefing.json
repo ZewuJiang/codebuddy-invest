@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "每日简报",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "section-card": "/components/section-card/section-card",
+    "skeleton": "/components/skeleton/skeleton",
+    "traffic-light": "/components/traffic-light/traffic-light"
+  }
+}

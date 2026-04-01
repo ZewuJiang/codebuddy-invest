@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "风险雷达",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "traffic-light": "/components/traffic-light/traffic-light",
+    "section-card": "/components/section-card/section-card",
+    "skeleton": "/components/skeleton/skeleton"
+  }
+}

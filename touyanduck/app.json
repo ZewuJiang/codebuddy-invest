@@ -1,0 +1,50 @@
+{
+  "pages": [
+    "pages/briefing/briefing",
+    "pages/markets/markets",
+    "pages/watchlist/watchlist",
+    "pages/radar/radar"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#1a1a2e",
+    "navigationBarTitleText": "投研鸭",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f5f5f5",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#FFB800",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/briefing/briefing",
+        "text": "简报",
+        "iconPath": "images/tab-briefing.png",
+        "selectedIconPath": "images/tab-briefing-active.png"
+      },
+      {
+        "pagePath": "pages/markets/markets",
+        "text": "市场",
+        "iconPath": "images/tab-markets.png",
+        "selectedIconPath": "images/tab-markets-active.png"
+      },
+      {
+        "pagePath": "pages/watchlist/watchlist",
+        "text": "标的",
+        "iconPath": "images/tab-watchlist.png",
+        "selectedIconPath": "images/tab-watchlist-active.png"
+      },
+      {
+        "pagePath": "pages/radar/radar",
+        "text": "雷达",
+        "iconPath": "images/tab-radar.png",
+        "selectedIconPath": "images/tab-radar-active.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "cloud": true
+}
