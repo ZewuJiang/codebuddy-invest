@@ -1,13 +1,23 @@
 // pages/radar/radar.js
-// 雷达页 v4.0 — 对齐Skill §5 + §4: 7项红绿灯+阈值表+风险提示+聪明钱
+// 雷达页 v5.0 — 对齐Skill §5 + §4 + v1.3前端体验升级
 
 var api = require('../../services/api')
 var colorUtil = require('../../utils/color')
+var formatUtil = require('../../utils/format')
 var animate = require('../../utils/animate')
 
 Page({
   data: {
     loading: true,
+    // v1.3 Fear & Greed
+    fearGreed: null,
+    displayFGValue: 0,
+    fgInfo: null,
+    fgPrevDiff: 0,
+    fgWeekDiff: 0,
+    // v1.3 预测市场
+    predictions: [],
+    // 红绿灯
     trafficLights: [],
     riskScore: 0,
     displayRiskScore: 0,
@@ -21,11 +31,14 @@ Page({
     alerts: [],
     smartMoneyDetail: [],
     dataTime: '',
+    dataFreshness: '',
+    dataMeta: null,
     isCloud: false,
     animateReady: false
   },
 
   _animTimer: null,
+  _fgAnimTimer: null,
 
   onLoad: function() {
     this.setData({ isCloud: api.isCloudMode() })
@@ -41,6 +54,7 @@ Page({
 
   onUnload: function() {
     if (this._animTimer) clearInterval(this._animTimer)
+    if (this._fgAnimTimer) clearInterval(this._fgAnimTimer)
   },
 
   onPullDownRefresh: function() {
@@ -103,7 +117,44 @@ Page({
       })
     })
 
+    // v1.3 Fear & Greed 映射
+    var fearGreed = data.fearGreed || null
+    var fgInfo = null
+    var fgPrevDiff = 0
+    var fgWeekDiff = 0
+    if (fearGreed) {
+      fgInfo = colorUtil.getFearGreedInfo(fearGreed.value, fearGreed.label)
+      fgPrevDiff = fearGreed.value - (fearGreed.previousClose || fearGreed.value)
+      fgWeekDiff = fearGreed.value - (fearGreed.oneWeekAgo || fearGreed.value)
+    }
+
+    // v1.3 预测市场映射
+    var predictions = (data.predictions || []).map(function(item) {
+      var trendInfo = colorUtil.getPredictionTrendInfo(item.trend)
+      return {
+        title: item.title,
+        source: item.source,
+        probability: item.probability,
+        trend: item.trend,
+        trendArrow: trendInfo.arrow,
+        trendClass: trendInfo.colorClass,
+        change24h: item.change24h || 0,
+        changeLabel: (item.change24h > 0 ? '+' : '') + (item.change24h || 0) + '%'
+      }
+    })
+
+    // v1.3 数据新鲜度
+    var dataFreshness = formatUtil.getRelativeTime(
+      data._meta && data._meta.generatedAt ? data._meta.generatedAt : data.dataTime
+    )
+
     that.setData({
+      fearGreed: fearGreed,
+      displayFGValue: withAnimation ? 0 : (fearGreed ? fearGreed.value : 0),
+      fgInfo: fgInfo,
+      fgPrevDiff: fgPrevDiff,
+      fgWeekDiff: fgWeekDiff,
+      predictions: predictions,
       trafficLights: data.trafficLights || [],
       riskScore: data.riskScore || 0,
       displayRiskScore: withAnimation ? 0 : (data.riskScore || 0),
@@ -117,6 +168,8 @@ Page({
       alerts: alerts,
       smartMoneyDetail: data.smartMoneyDetail || [],
       dataTime: data.dataTime || '',
+      dataFreshness: dataFreshness || '',
+      dataMeta: data._meta || null,
       loading: false
     })
 
@@ -125,6 +178,7 @@ Page({
     }, 50)
 
     if (withAnimation) {
+      // 风险评分动画
       if (that._animTimer) clearInterval(that._animTimer)
       that._animTimer = animate.animateInteger({
         from: 0,
@@ -134,6 +188,18 @@ Page({
           that.setData({ displayRiskScore: val })
         }
       })
+      // v1.3 Fear & Greed 数字跳动
+      if (fearGreed) {
+        if (that._fgAnimTimer) clearInterval(that._fgAnimTimer)
+        that._fgAnimTimer = animate.animateInteger({
+          from: 0,
+          to: fearGreed.value,
+          duration: 1000,
+          onUpdate: function(val) {
+            that.setData({ displayFGValue: val })
+          }
+        })
+      }
     }
   }
 })

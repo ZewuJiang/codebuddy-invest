@@ -1,59 +1,8 @@
 /* pages/briefing/briefing.wxss */
-/* 简报页样式 v4.0 — 对齐Skill五段式架构 */
+/* 简报页样式 v5.0 — 对齐Skill五段式架构 + v1.3前端体验升级 */
 
 .page-container {
   padding-bottom: 20rpx;
-}
-
-/* ========== 渐变头部 ========== */
-.briefing-hero {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-  padding: 32rpx 32rpx 40rpx;
-  margin: 0 0 16rpx;
-  position: relative;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(-10rpx);
-  transition: all 0.5s ease;
-}
-
-.hero-show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.briefing-hero::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 8rpx;
-  background: linear-gradient(90deg, #FFB800, #FF8C00, #FFB800);
-}
-
-.hero-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.hero-badge {
-  display: flex;
-  align-items: center;
-  font-size: 28rpx;
-  color: #FFB800;
-  font-weight: 600;
-}
-
-.duck-emoji {
-  margin-right: 8rpx;
-  font-size: 32rpx;
-}
-
-.hero-date {
-  font-size: 24rpx;
-  color: rgba(255, 255, 255, 0.6);
 }
 
 /* ========== §1 核心事件卡片 ========== */
@@ -491,15 +440,447 @@
   line-height: 1.7;
 }
 
-/* ========== 数据截止时间 ========== */
-.data-footer {
-  text-align: center;
-  padding: 24rpx 32rpx 16rpx;
+/* ========== v1.3 时间状态栏 ========== */
+.ts-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(26, 26, 46, 0.88);
+  padding: 16rpx 32rpx;
+  margin: 0 0 16rpx;
 }
 
-.footer-text {
+.ts-item {
+  flex: 1;
+  text-align: center;
+}
+
+.ts-divider {
+  width: 1rpx;
+  height: 48rpx;
+  background: rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
+}
+
+.ts-time {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #FFB800;
+  letter-spacing: 1rpx;
+}
+
+.ts-label {
+  font-size: 20rpx;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 4rpx;
+}
+
+.ts-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  margin-top: 4rpx;
+}
+
+.ts-market-tag {
+  font-size: 18rpx;
+  padding: 2rpx 10rpx;
+  border-radius: 8rpx;
+  font-weight: 500;
+}
+
+.ts-market-open {
+  background: rgba(39, 174, 96, 0.25);
+  color: #27ae60;
+}
+
+.ts-market-closed {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ========== v1.3 KEY DELTA 增量信息 ========== */
+.kd-list {
+  margin-top: 4rpx;
+}
+
+.kd-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.kd-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.kd-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  margin-right: 16rpx;
+}
+
+.kd-status-tag {
+  font-size: 20rpx;
+  padding: 4rpx 14rpx;
+  border-radius: 16rpx;
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-right: 12rpx;
+}
+
+.kd-tag-upgrade {
+  background: rgba(255, 107, 53, 0.12);
+  color: #FF6B35;
+}
+
+.kd-tag-new {
+  background: rgba(41, 128, 185, 0.12);
+  color: #2980b9;
+}
+
+.kd-tag-active {
+  background: rgba(255, 184, 0, 0.12);
+  color: #FFB800;
+}
+
+.kd-tag-cool {
+  background: rgba(153, 153, 153, 0.12);
+  color: #999;
+}
+
+.kd-tag-stable {
+  background: rgba(39, 174, 96, 0.12);
+  color: #27ae60;
+}
+
+.kd-title {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #1a1a2e;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kd-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.kd-heat-dots {
+  display: flex;
+  gap: 4rpx;
+  margin-right: 8rpx;
+}
+
+.kd-dot {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background: #e0e0e0;
+  transition: background 0.3s ease;
+}
+
+.kd-dot-on {
+  background: #FF6B35;
+  box-shadow: 0 0 6rpx rgba(255, 107, 53, 0.4);
+}
+
+.kd-heat-label {
+  font-size: 20rpx;
+  color: #999;
+  white-space: nowrap;
+}
+
+/* ========== v1.3 判断扩展信息 ========== */
+.jx-extension {
+  margin-top: 8rpx;
+}
+
+.jx-divider {
+  height: 1rpx;
+  background: linear-gradient(90deg, transparent 0%, #e8e8e8 15%, #e8e8e8 85%, transparent 100%);
+  margin: 14rpx 4rpx;
+}
+
+.jx-tags {
+  display: flex;
+  gap: 8rpx;
+  flex-wrap: wrap;
+  margin-bottom: 10rpx;
+}
+
+.jx-tag {
+  font-size: 20rpx;
+  padding: 4rpx 14rpx;
+  border-radius: 12rpx;
+  font-weight: 500;
+}
+
+.jx-prob-high {
+  background: rgba(41, 128, 185, 0.12);
+  color: #2980b9;
+}
+
+.jx-prob-medium {
+  background: rgba(241, 196, 15, 0.12);
+  color: #d4a017;
+}
+
+.jx-prob-low {
+  background: rgba(153, 153, 153, 0.12);
+  color: #999;
+}
+
+.jx-trend-up {
+  background: rgba(39, 174, 96, 0.12);
+  color: #27ae60;
+}
+
+.jx-trend-down {
+  background: rgba(231, 76, 60, 0.12);
+  color: #e74c3c;
+}
+
+.jx-trend-stable {
+  background: rgba(153, 153, 153, 0.12);
+  color: #999;
+}
+
+.jx-actor-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+
+.jx-actor-icon {
+  font-size: 22rpx;
+  margin-right: 6rpx;
+}
+
+.jx-actor-label {
+  font-size: 20rpx;
+  color: #999;
+  margin-right: 8rpx;
+}
+
+.jx-actor-name {
+  font-size: 22rpx;
+  color: #555;
+  font-weight: 500;
+}
+
+/* ========== v1.3.1 参考源手风琴 ========== */
+.jx-ref-section {
+  margin-top: 6rpx;
+}
+
+.jx-ref-header {
+  display: flex;
+  align-items: center;
+  padding: 10rpx 0;
+}
+
+.jx-ref-icon {
+  font-size: 22rpx;
+  margin-right: 6rpx;
+}
+
+.jx-ref-label {
+  font-size: 18rpx;
+  color: #bbb;
+  font-weight: 600;
+  letter-spacing: 1rpx;
+  margin-right: 8rpx;
+}
+
+.jx-ref-names {
+  font-size: 20rpx;
+  color: #888;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jx-ref-count {
+  font-size: 18rpx;
+  color: #FFB800;
+  margin-left: 6rpx;
+  flex-shrink: 0;
+}
+
+.jx-ref-arrow {
+  font-size: 28rpx;
+  color: #ccc;
+  margin-left: 4rpx;
+  transition: transform 0.3s ease;
+  transform: rotate(90deg);
+  flex-shrink: 0;
+}
+
+.jx-arrow-up {
+  transform: rotate(-90deg);
+}
+
+/* 展开面板（手风琴动画） */
+.jx-ref-panel {
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.3s ease;
+}
+
+.jx-panel-show {
+  max-height: 800rpx;
+  opacity: 1;
+  margin-top: 8rpx;
+}
+
+.jx-panel-hide {
+  max-height: 0;
+  opacity: 0;
+}
+
+/* 每条来源详情 */
+.jx-ref-detail {
+  padding: 14rpx 0 14rpx 8rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.jx-ref-detail:last-child {
+  border-bottom: none;
+}
+
+.jx-ref-detail-header {
+  display: flex;
+  align-items: center;
+}
+
+.jx-ref-dot {
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 50%;
+  background: #FFB800;
+  margin-right: 10rpx;
+  flex-shrink: 0;
+}
+
+.jx-ref-detail-name {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.jx-ref-detail-summary {
+  font-size: 22rpx;
+  color: #888;
+  line-height: 1.6;
+  margin-top: 6rpx;
+  padding-left: 18rpx;
+}
+
+.jx-ref-detail-link {
+  display: flex;
+  align-items: center;
+  margin-top: 6rpx;
+  padding-left: 18rpx;
+}
+
+.jx-ref-domain {
+  font-size: 20rpx;
+  color: #2980b9;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 500rpx;
+}
+
+.jx-ref-link-icon {
+  font-size: 20rpx;
+  color: #2980b9;
+  margin-left: 4rpx;
+  flex-shrink: 0;
+}
+
+/* ========== v1.3 双层数据状态栏 ========== */
+.ds-footer {
+  text-align: center;
+  padding: 20rpx 32rpx 16rpx;
+}
+
+.ds-row-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+}
+
+.ds-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+}
+
+.ds-dot-cloud {
+  background: #27ae60;
+  box-shadow: 0 0 6rpx rgba(39, 174, 96, 0.4);
+}
+
+.ds-dot-cache {
+  background: #e67e22;
+  box-shadow: 0 0 6rpx rgba(230, 126, 34, 0.4);
+}
+
+.ds-source {
   font-size: 20rpx;
   color: #bbb;
+}
+
+.ds-sep {
+  font-size: 20rpx;
+  color: #ddd;
+}
+
+.ds-time {
+  font-size: 20rpx;
+  color: #bbb;
+}
+
+.ds-row-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  margin-top: 6rpx;
+}
+
+.ds-type-tag {
+  font-size: 18rpx;
+  padding: 2rpx 12rpx;
+  border-radius: 8rpx;
+  font-weight: 500;
+}
+
+.ds-type-heavy {
+  background: rgba(255, 184, 0, 0.12);
+  color: #FFB800;
+}
+
+.ds-type-realtime {
+  background: rgba(41, 128, 185, 0.12);
+  color: #2980b9;
+}
+
+.ds-version {
+  font-size: 18rpx;
+  color: #ccc;
 }
 
 /* ========== 入场动画 ========== */

@@ -1,4 +1,4 @@
-# 数据采集SOP — App版（v1.0）
+# 数据采集SOP — App版（v1.2）
 
 > **用途**：投研鸭小程序数据生产第一阶段数据采集的完整操作规范。
 > **核心原则**：数据完整性第一，精确到小数点后两位，严禁空位和模糊表述。
@@ -71,27 +71,29 @@ web_fetch: https://www.google.com/finance/quote/XLU:NYSEARCA
 web_fetch: https://www.google.com/finance/quote/XLRE:NYSEARCA
 ```
 
-### 批次5 — watchlist 标的详情（新增批次）
+### 批次5 — watchlist 标的详情（v1.2：方案C）
 
-对 stock-universe.md 中定义的每只标的，采集以下额外数据：
+对 stock-universe.md 中定义的每只标的，采集以下数据：
 
 ```
-# 对每只标的：
+# 对每只美股/港股标的获取 PE(TTM)：
+# 方式：yfinance.Ticker(ticker).info["trailingPE"]
+# 失败时标注"—"，不阻断主流程
+
+# 行情数据（前4项 metrics）来自主批次 yfinance/AkShare 历史序列，无需额外采集
+# 综合评级（第6项 metrics）由 calc_star_rating(change, pct_30d) 规则函数自动生成
+
+# 若需要补充个股分析文本（analysis/reason/risks/tags），仍可用 web_fetch：
 web_fetch: https://www.google.com/finance/quote/{TICKER}:{EXCHANGE}
-# 从页面提取：
-# - PE(TTM)
-# - 市值
-# - 52周高低
-# - 近1月走势数据（30个点 → chartData）
-
-# 补充采集（若GF缺失）：
-web_search: "{公司名} {TICKER} revenue growth YoY quarterly 2026"
-web_search: "{公司名} gross margin ROE latest quarter"
+web_search: "{公司名} {TICKER} latest earnings analysis 2026"
 ```
+
+> **v1.2 变更**：metrics 6项改为方案C（行情4项+PE+评级），不再需要爬取市值/营收增速/毛利率/ROE。
+> 批次5 的工作量大幅降低，PE 通过 `fetch_pe_ttm()` 脚本自动批量获取。
 
 ---
 
-## 三、数据源优先级表
+## 三、数据源优先级表（v1.2）
 
 | 数据类型 | 首选 | 备选 | 第三选 |
 |----------|------|------|--------|
@@ -103,43 +105,37 @@ web_search: "{公司名} gross margin ROE latest quarter"
 | 布伦特原油（主指标） | web_fetch OilPrice.com | 金投网 | web_search |
 | DXY | web_search "DXY dollar index close" | 金投网 | Finlore.io |
 | 10Y美债 | web_search | FRED | — |
-| **个股 metrics** | **Google Finance 详情页** | **StockAnalysis.com** | **Yahoo Finance** |
-| **历史走势（sparkline）** | **Google Finance 图表** | **基于当日价格估算** | — |
+| **CNH（离岸人民币）历史序列** | **`ak.forex_hist_em("USDCNH")` AkShare** | **阻断发布** | — |
+| **个股 PE(TTM)** | **`yfinance.Ticker.info["trailingPE"]`** | "—"（不阻断） | — |
+| **历史走势（sparkline）** | **yfinance/AkShare 真实历史序列** | **回采后重试** | **阻断发布（禁止估算）** |
 | 基金&大资金 | SEC EDGAR | WhaleWisdom | web_search |
 
 ---
 
-## 四、sparkline 数据采集规范
+## 四、sparkline 数据采集规范（v1.2）
 
-### 4.1 理想方式（真实历史数据）
+### 4.1 唯一合法方式（真实历史序列）
 
-从 Google Finance 页面获取近 5-7 天的收盘价数据点。
-
-### 4.2 降级方式（估算生成）
-
-当无法获取真实历史数据时，使用以下估算方法：
+从 yfinance/AkShare 直接获取近 7-30 天的真实收盘价历史序列。
 
 ```python
-# 基于当日价格 + 涨跌幅 估算 sparkline
-def estimate_sparkline(current_price, change_pct, days=7):
-    """
-    current_price: 当日收盘价
-    change_pct: 当日涨跌幅（如 1.42 表示 +1.42%）
-    """
-    import random
-    random.seed(hash(str(current_price)))  # 保证同一标的同一天生成一致的数据
-    
-    points = []
-    base = current_price / (1 + change_pct / 100)  # 估算昨日价格
-    for i in range(days - 1):
-        jitter = random.uniform(-0.015, 0.015)  # ±1.5% 随机波动
-        day_price = base * (1 + jitter * (i - days/2) / days)
-        points.append(round(day_price, 2))
-    points.append(round(current_price, 2))  # 最后一个点是当日价格
-    return points
+# yfinance 批量获取（美股）
+last, prev, last7, last30 = yf_daily(ticker, period="40d")
+
+# AkShare 港股
+last30 = ak.stock_hk_daily(symbol=symbol, adjust="")["close"].tail(30).tolist()
+
+# AkShare A股
+last30 = ak.stock_zh_a_daily(symbol=symbol, ...)["close"].tail(30).tolist()
 ```
 
-**降级标记**：使用估算 sparkline 时，在 JSON 文件顶层添加 `"_sparklineEstimated": true`
+### 4.2 禁止事项（v1.2强制）
+
+- **禁止**基于当日价格 ± 随机波动估算
+- **禁止**用线性插值/扩展生成 chartData
+- 如果历史数据真的无法获取 → **回到采集批次重试；仍失败 → 阻断发布**
+
+> v1.2 变更：完全移除估算降级路径，sparkline/chartData 只允许真实历史序列。
 
 ---
 
@@ -165,22 +161,63 @@ def estimate_sparkline(current_price, change_pct, days=7):
 | 14 | radar: riskAlerts | ≥2条 | 补充分析 |
 | 15 | radar: events | ≥3条 | 补充搜索 |
 | 16 | radar: smartMoneyDetail | 3梯队 | 补充扫描 |
+| **17** | **markets: 6个板块Insight** | **usInsight/m7Insight/asiaInsight/commodityInsight/cryptoInsight/gicsInsight，每个30-80字** | **基于已采集数据分析提炼** |
 
 ---
 
-## 六、已知堵点与降级路径
+## 六、已知堵点与降级路径（v1.2）
 
 | 堵点 | 降级路径 |
 |------|---------|
 | Google Finance 403/超时 | → web_search → 东方财富/StockAnalysis |
-| sparkline 历史数据无法获取 | → 使用估算方法生成（标记 `_sparklineEstimated`） |
-| 个股 metrics 数据缺失 | → web_search 补充 → 使用 "N/A" 后标记 `_metricsMissing` |
-| chartData 30天数据无法获取 | → 使用 sparkline 7天数据 + 估算扩展到 30 天 |
+| **sparkline 历史数据无法获取** | → **回采后重试；仍失败 → 阻断发布（禁止估算）** |
+| **个股 PE 数据缺失** | → **标注"—"，不阻断（PE 为辅助指标）** |
+| chartData 30天数据无法获取 | → 回到对应数据源重采，**禁止估算扩展** |
 | 某板块标的全部数据失败 | → 替换为同板块备选标的（参见 stock-universe.md 备选池） |
 | 港股数据获取困难 | → 东方财富/同花顺 → 智通财经 |
 | 大宗期货 Google 不支持 | → OilPrice.com → 金投网 |
+| **CNH 历史序列失败** | → **阻断发布，禁止退化到估算** |
 | 上传失败 | → JSON 文件保留，可手动重传 |
 
 ---
 
-> v1.1 — 2026-04-01 | 老板直推级数据治理升级：市场交易数据与新闻源强隔离；sparkline/chartData 只允许真实历史序列；缺失处理改为回采或阻断发布；允许 metrics 改为可验证行情/财务指标组合。\n> v1.0 — 2026-04-01 | 初始版本。基于原 Skill `data-collection-sop.md` v17.8 扩展：新增批次5（watchlist标的详情采集）和批次6（事件日历+风险矩阵）；新增sparkline采集规范（真实历史+降级估算）；新增metrics采集指南；数据完整性门禁扩展至16项。
+## 七、板块 Insight 生成规范（v1.2.1 新增）
+
+> **生成时机**：在第二阶段"结构化 JSON 生成"时，基于已采集的数据自动提炼每个板块的 Insight。
+> **生成方式**：AI 分析当日采集数据，提炼核心驱动力+关键数字+信号判断。
+
+### 7.1 通用规范
+
+| 维度 | 要求 |
+|------|------|
+| **长度** | 30-80字，一句话到两句话 |
+| **内容** | 板块核心驱动力 + 关键数字 + 信号判断 |
+| **风格** | 对齐日报中的"XX信号"段落，精准简洁 |
+| **格式** | 纯文本，禁止 markdown/emoji |
+| **质量** | 不能只说"市场上涨"，必须说清为什么涨、谁领涨、后续怎么看 |
+
+### 7.2 各板块 Insight 要点
+
+| 板块 | 字段 | 内容要点 |
+|------|------|---------|
+| 美股 | `usInsight` | 主线（科技/价值）、领涨指数、VIX信号、核心催化 |
+| M7 | `m7Insight` | 分化情况、领涨/拖累个股、AI资本开支/业绩催化 |
+| 亚太 | `asiaInsight` | 港股/A股/日韩格局、资金面（南向/北向）、政策驱动 |
+| 大宗 | `commodityInsight` | 黄金/原油核心驱动、美元/债券联动、地缘因素 |
+| 加密 | `cryptoInsight` | BTC走势/ETF资金流/链上信号/监管动态 |
+| GICS | `gicsInsight` | 板块轮动方向、资金偏好风格（成长vs价值） |
+
+### 7.3 示例
+
+```
+usInsight: "科技股领涨带动纳指创两周新高，AI板块延续强势，VIX降至13下方暗示短期波动率压缩，注意均值回归风险"
+m7Insight: "M7分化加剧，NVDA独涨4.2%领跑受益AI资本开支超预期，TSLA连跌三日拖累整体表现"
+asiaInsight: "港股微涨结束3月惨淡表现，恒生科技受南向资金支撑领涨2.15%，日经受日元走弱提振"
+```
+
+---
+
+> v1.2.1 — 2026-04-02 00:21 | 新增第七章"板块 Insight 生成规范"：定义6个板块级Insight字段的生成规范、内容要点和示例；数据完整性门禁新增第17项Insight验证。
+> v1.2 — 2026-04-01 | 批次5采集方案升级为方案C（yfinance PE + 规则化评级），完全移除 Google Finance 财报爬取和 sparkline 估算降级；数据源优先级表补充 CNH 专用通道；降级路径强制阻断禁止估算。
+> v1.1 — 2026-04-01 | 老板直推级数据治理升级：市场交易数据与新闻源强隔离；sparkline/chartData 只允许真实历史序列；缺失处理改为回采或阻断发布；允许 metrics 改为可验证行情/财务指标组合。
+> v1.0 — 2026-04-01 | 初始版本。基于原 Skill `data-collection-sop.md` v17.8 扩展：新增批次5（watchlist标的详情采集）和批次6（事件日历+风险矩阵）；新增sparkline采集规范（真实历史+降级估算）；新增metrics采集指南；数据完整性门禁扩展至16项。

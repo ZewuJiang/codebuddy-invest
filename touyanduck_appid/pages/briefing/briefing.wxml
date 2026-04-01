@@ -1,5 +1,5 @@
 <!--pages/briefing/briefing.wxml-->
-<!-- 简报页 v4.0：对齐Skill §1+§2+§4 -->
+<!-- 简报页 v5.0：对齐Skill §1+§2+§4 + v1.3前端体验升级 -->
 
 <!-- 骨架屏 -->
 <skeleton type="briefing" loading="{{loading}}" rows="{{4}}" />
@@ -7,16 +7,47 @@
 <!-- 正式内容 -->
 <view class="page-container safe-bottom page-fade-in" wx:if="{{!loading}}">
 
-  <!-- 顶部渐变头部 -->
-  <view class="briefing-hero {{animateReady ? 'hero-show' : ''}}">
-    <view class="hero-inner">
-      <view class="hero-badge">
-        <text class="duck-emoji">🦆</text>
-        <text>投研鸭·每日策略简报</text>
+  <!-- v1.3 时间状态栏 -->
+  <view class="ts-bar" wx:if="{{timeStatus}}">
+    <view class="ts-item">
+      <view class="ts-time">{{timeStatus.bjt}}</view>
+      <view class="ts-label">{{timeStatus.bjtLabel}}</view>
+    </view>
+    <view class="ts-divider"></view>
+    <view class="ts-item">
+      <view class="ts-time">{{timeStatus.est}}</view>
+      <view class="ts-label-row">
+        <text class="ts-label">{{timeStatus.estLabel}}</text>
+        <text class="ts-market-tag {{marketStatusOpen ? 'ts-market-open' : 'ts-market-closed'}}">{{marketStatus}}</text>
       </view>
-      <view class="hero-date">{{currentDate}}</view>
+    </view>
+    <view class="ts-divider"></view>
+    <view class="ts-item">
+      <view class="ts-time">{{dataFreshness || '--'}}</view>
+      <view class="ts-label">数据更新</view>
     </view>
   </view>
+
+  <!-- v1.3 增量信息 KEY DELTA -->
+  <section-card title="增量信息 KEY DELTA" wx:if="{{keyDeltas.length}}">
+    <view class="kd-list">
+      <view class="kd-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
+            wx:for="{{keyDeltas}}" wx:key="index"
+            style="animation-delay: {{index * 60}}ms">
+        <view class="kd-left">
+          <view class="kd-status-tag {{item.statusTagClass}}">{{item.status}}</view>
+          <view class="kd-title">{{item.title}}</view>
+        </view>
+        <view class="kd-right">
+          <view class="kd-heat-dots">
+            <view class="kd-dot {{idx < item.heat ? 'kd-dot-on' : ''}}" 
+                  wx:for="{{5}}" wx:for-item="idx" wx:key="idx"></view>
+          </view>
+          <text class="kd-heat-label">{{item.heatLabel}}</text>
+        </view>
+      </view>
+    </view>
+  </section-card>
 
   <!-- §1 核心事件卡片 -->
   <view class="event-card stagger-item {{animateReady ? 'stagger-show' : ''}}" wx:if="{{coreEvent}}" style="animation-delay: 0ms">
@@ -65,6 +96,45 @@
         <view class="judgment-logic">
           <text class="logic-icon">💡</text>
           <text class="logic-text">{{item.logic}}</text>
+        </view>
+        <!-- v1.3 判断扩展信息 -->
+        <view class="jx-extension" wx:if="{{item.hasExtension}}">
+          <view class="jx-divider"></view>
+          <!-- 概率+趋势标签组 -->
+          <view class="jx-tags" wx:if="{{item.probability || item.trend}}">
+            <view class="jx-tag {{item.probClass}}" wx:if="{{item.probability}}">{{item.probability}}</view>
+            <view class="jx-tag {{item.trendClass}}" wx:if="{{item.trend}}">{{item.trendArrow}} {{item.trend}}</view>
+          </view>
+          <!-- 关键决策者 -->
+          <view class="jx-actor-row" wx:if="{{item.keyActor}}">
+            <text class="jx-actor-icon">👤</text>
+            <text class="jx-actor-label">关键决策</text>
+            <text class="jx-actor-name">{{item.keyActor}}</text>
+          </view>
+          <!-- v1.3.1 参考源（可点击展开手风琴） -->
+          <view class="jx-ref-section" wx:if="{{item.references.length}}">
+            <view class="jx-ref-header" bindtap="onRefToggle" data-j-idx="{{index}}">
+              <text class="jx-ref-icon">📎</text>
+              <text class="jx-ref-label">REFERENCE</text>
+              <text class="jx-ref-names">{{item.refNames}}</text>
+              <text class="jx-ref-count">[{{item.refCount}}]</text>
+              <text class="jx-ref-arrow {{expandedRefs[index] ? 'jx-arrow-up' : ''}}">›</text>
+            </view>
+            <!-- 展开面板 -->
+            <view class="jx-ref-panel {{expandedRefs[index] ? 'jx-panel-show' : 'jx-panel-hide'}}">
+              <view class="jx-ref-detail" wx:for="{{item.references}}" wx:for-item="ref" wx:key="name" wx:for-index="rIdx">
+                <view class="jx-ref-detail-header">
+                  <view class="jx-ref-dot"></view>
+                  <text class="jx-ref-detail-name">{{ref.name}}</text>
+                </view>
+                <view class="jx-ref-detail-summary" wx:if="{{ref.summary}}">{{ref.summary}}</view>
+                <view class="jx-ref-detail-link" wx:if="{{ref.url}}">
+                  <text class="jx-ref-domain">{{ref.url}}</text>
+                  <text class="jx-ref-link-icon">↗</text>
+                </view>
+              </view>
+            </view>
+          </view>
         </view>
       </view>
     </view>
@@ -136,9 +206,18 @@
     <view class="risk-text">{{riskNote}}</view>
   </section-card>
 
-  <!-- 数据截止时间 -->
-  <view class="data-footer" wx:if="{{dataTime}}">
-    <text class="footer-text">时点说明 · {{dataTime}} | {{isCloud ? '云数据' : '本地缓存'}}</text>
+  <!-- v1.3 双层数据状态栏 -->
+  <view class="ds-footer" wx:if="{{dataTime}}">
+    <view class="ds-row-primary">
+      <view class="ds-dot {{isCloud ? 'ds-dot-cloud' : 'ds-dot-cache'}}"></view>
+      <text class="ds-source">{{isCloud ? '云数据' : '本地缓存'}}</text>
+      <text class="ds-sep">·</text>
+      <text class="ds-time">{{dataFreshness || dataTime}}</text>
+    </view>
+    <view class="ds-row-meta" wx:if="{{dataMeta}}">
+      <text class="ds-type-tag ds-type-{{dataMeta.sourceType === 'heavy_analysis' ? 'heavy' : 'realtime'}}" wx:if="{{dataMeta.sourceType}}">{{dataMeta.sourceType === 'heavy_analysis' ? 'AI深度分析' : (dataMeta.sourceType === 'realtime_quote' ? '实时行情' : '突发新闻')}}</text>
+      <text class="ds-version" wx:if="{{dataMeta.skillVersion}}">Skill {{dataMeta.skillVersion}}</text>
+    </view>
   </view>
 
 </view>

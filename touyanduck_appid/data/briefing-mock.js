@@ -74,8 +74,8 @@ module.exports = {
       signal: 'neutral'
     },
     {
-      source: '北向资金',
-      action: '净流入¥87亿，连续第5个交易日净买入',
+      source: '港股成交代理',
+      action: '港股均涨+1.8%，外资动向代理指标为绿灯信号（北向净买额已于2024-08-19停止披露）',
       signal: 'bullish'
     }
   ],

@@ -1,206 +1,164 @@
 {
   "date": "2026-04-01",
+
+  "fearGreed": {
+    "value": 9,
+    "label": "Extreme Fear",
+    "previousClose": 10,
+    "oneWeekAgo": 18,
+    "oneMonthAgo": 35
+  },
+
+  "predictions": [
+    {
+      "title": "2026年Fed降息次数为0次?",
+      "source": "Polymarket",
+      "probability": 39,
+      "trend": "up",
+      "change24h": 3
+    },
+    {
+      "title": "2026年Fed降息50bps以上?",
+      "source": "Polymarket",
+      "probability": 35,
+      "trend": "down",
+      "change24h": -2
+    },
+    {
+      "title": "2026年底前美国经济衰退?",
+      "source": "Polymarket",
+      "probability": 42,
+      "trend": "up",
+      "change24h": 5
+    }
+  ],
+
   "trafficLights": [
     {
       "name": "VIX波动率",
-      "value": "24.76",
+      "value": "23.88",
       "status": "yellow",
       "threshold": "<18绿 / 18-25黄 / >25红"
     },
     {
       "name": "10Y美债收益率",
-      "value": "4.35%",
+      "value": "4.29%",
       "status": "yellow",
       "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
     },
     {
       "name": "布伦特原油",
-      "value": "$103.31",
+      "value": "$105.69",
       "status": "yellow",
       "threshold": "<$90绿 / $90-110黄 / >$110红"
     },
     {
       "name": "美元指数DXY",
-      "value": "99.50",
+      "value": "99.38",
       "status": "green",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
     {
       "name": "HY信用利差",
-      "value": "3.46%",
+      "value": "3.42%",
       "status": "green",
       "threshold": "<4%绿 / 4-5%黄 / >5%红"
     },
     {
-      "name": "北向资金",
-      "value": "汇总口径待交易所更新",
-      "status": "yellow",
-      "threshold": "净流入绿 / 小幅波动黄 / 汇总缺失按黄灯处理"
+      "name": "外资动向",
+      "value": "港股均涨+1.8%",
+      "status": "green",
+      "threshold": "港股均涨≥1.5%绿 / 0~1.5%黄 / 均跌红"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "6.8751",
+      "value": "6.8752",
       "status": "green",
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
-  "riskScore": 42,
+
+  "riskScore": 50,
   "riskLevel": "medium",
-  "riskAdvice": "当前为修复中的中风险环境：VIX、10Y美债和布伦特仍在黄灯区，但DXY、HY利差与离岸人民币已回到偏安全区域。建议维持中性偏多仓位，不用Mock或估算数据去放大利好，继续等待外资汇总与后续宏观数据确认。",
+  "riskAdvice": "综合风险中等偏高。VIX仍在20以上警戒区间，布伦特原油高于$100处于黄灯区，10Y美债收益率处于4.0-4.5%黄灯区。但DXY跌破102绿灯，HY利差3.42%处于安全区间，外资动向绿灯。建议维持五成仓位，重点配置避险资产（黄金）和超跌科技龙头。",
+
   "monitorTable": [
-    {
-      "condition": "布伦特持续跌破$100超2日",
-      "action": "加仓NVDA/GOOGL 5%仓位，战争溢价实质消退信号"
-    },
-    {
-      "condition": "VIX再次突破25",
-      "action": "停战谈判破裂信号，减仓成长股5%，转向防御"
-    },
-    {
-      "condition": "布伦特突破$115",
-      "action": "战争升级信号，全面转防御，股票仓位降至4成以下"
-    },
-    {
-      "condition": "10Y美债持续突破4.5%超3日",
-      "action": "减持长久期资产，增配浮动利率债券和现金"
-    },
-    {
-      "condition": "北向资金单日流出超100亿",
-      "action": "减持A股仓位至2成，观望情绪企稳"
-    },
-    {
-      "condition": "停战谈判宣告破裂",
-      "action": "立即将股票仓位降至4成，增配黄金和现金"
-    }
+    { "condition": "VIX突破25", "action": "将股票仓位降至5成以下" },
+    { "condition": "布伦特原油突破$110", "action": "减持周期股和消费股，增配能源对冲" },
+    { "condition": "10Y美债突破4.5%", "action": "减持成长股，增配防御型标的" },
+    { "condition": "DXY反弹至102以上", "action": "减持新兴市场敞口" },
+    { "condition": "HY利差突破4%", "action": "全面降低风险资产敞口" },
+    { "condition": "Fear&Greed回升至25以上", "action": "可适度加仓超跌优质股" }
   ],
+
   "riskAlerts": [
     {
-      "title": "油价重新上冲并站稳110美元",
-      "probability": "30%",
+      "title": "美伊和平谈判破裂风险",
+      "probability": "40%",
       "impact": "高",
-      "response": "若布伦特重新有效突破110美元，应将高弹性成长仓位降回中性，并同步提高现金与黄金对冲比例。",
+      "response": "特朗普表态反复性高，若谈判破裂油价可能重回110美元以上，建议保留10%现金应对极端情景",
       "level": "high"
     },
     {
-      "title": "美国利率再度抬升压制估值",
-      "probability": "25%",
+      "title": "4月2日互惠关税政策冲击",
+      "probability": "60%",
       "impact": "高",
-      "response": "若10Y美债重新回到4.5%以上，应优先减持高估值成长板块，保留盈利确定性更强的主线。",
+      "response": "特朗普此前预告4月2日将公布新一轮互惠关税，可能引发市场恐慌性抛售，建议提前降低科技和出口相关股仓位",
       "level": "high"
     },
     {
-      "title": "外资汇总口径晚于市场情绪变化",
-      "probability": "20%",
+      "title": "美国经济衰退预期升温",
+      "probability": "42%",
       "impact": "中",
-      "response": "北向资金汇总净买额未稳定披露前，不把单日指数反弹直接等同于外资持续回流。",
+      "response": "Polymarket衰退概率升至42%，经济学家上调衰退预期。密切关注就业和消费数据",
       "level": "medium"
     }
   ],
+
   "events": [
-    {
-      "date": "周三（今日）",
-      "title": "ISM制造业PMI（3月）",
-      "impact": "high"
-    },
-    {
-      "date": "周三（今日）",
-      "title": "停战谈判进展动态",
-      "impact": "high"
-    },
-    {
-      "date": "周三",
-      "title": "ADP就业数据",
-      "impact": "high"
-    },
-    {
-      "date": "周四",
-      "title": "初请失业金人数",
-      "impact": "medium"
-    },
-    {
-      "date": "周五",
-      "title": "非农就业报告（3月）",
-      "impact": "high"
-    }
+    { "date": "04/02", "title": "特朗普互惠关税政策公布日", "impact": "high" },
+    { "date": "04/04", "title": "3月非农就业数据公布", "impact": "high" },
+    { "date": "04/06", "title": "特朗普暂停打击伊朗能源设施期限到期", "impact": "high" },
+    { "date": "04/03", "title": "ISM服务业PMI数据", "impact": "medium" },
+    { "date": "04/02", "title": "JOLTS职位空缺数据", "impact": "medium" }
   ],
+
   "alerts": [
-    {
-      "level": "info",
-      "text": "VIX回落至24.76，较前值下降19.11%，但仍处18-25黄灯区。",
-      "time": "06:40"
-    },
-    {
-      "level": "info",
-      "text": "NVDA收于174.40美元(+5.59%)，MRVL收于99.05美元(+12.79%)，AI基础设施链保持强势。",
-      "time": "16:00"
-    },
-    {
-      "level": "info",
-      "text": "上证3948.55点(+1.46%)，恒生25260.76点(+1.91%)，恒生科技4753.36点(+2.23%)。",
-      "time": "16:10"
-    },
-    {
-      "level": "warning",
-      "text": "布伦特原油最新103.31美元/桶，虽然较前值回落，但仍高于100美元关键关口。",
-      "time": "18:52"
-    }
+    { "level": "danger", "text": "VIX持续处于20以上警戒区间，日内23.88，市场波动率仍高", "time": "23:20" },
+    { "level": "danger", "text": "Fear&Greed指数仅8.67，极度恐惧水平，近两年最低", "time": "23:20" },
+    { "level": "warning", "text": "布伦特原油$105.69，霍尔木兹海峡通航问题未解，油价随时可能反弹", "time": "23:20" },
+    { "level": "info", "text": "黄金突破$4,770创历史新高，避险资金持续流入", "time": "23:20" }
   ],
+
   "smartMoneyDetail": [
     {
       "tier": "T1旗舰",
       "funds": [
-        {
-          "name": "桥水基金",
-          "action": "继续维持对宏观与防御资产的平衡配置，不因单日反弹放松风险控制。",
-          "signal": "neutral"
-        },
-        {
-          "name": "伯克希尔",
-          "action": "伯克希尔股价收于479.20美元，资金仍偏好高质量现金流与防御性配置。",
-          "signal": "neutral"
-        },
-        {
-          "name": "贝莱德",
-          "action": "维持大类资产分散配置思路，在利率与油价未完全回落前不追逐单一风险资产。",
-          "signal": "neutral"
-        }
+        { "name": "伯克希尔哈撒韦", "action": "最新13F显示持续增持日本商社和能源板块，现金储备超$3000亿", "signal": "bullish" },
+        { "name": "桥水基金", "action": "Q4增持新兴市场ETF和黄金ETF，减持美国科技股", "signal": "neutral" }
       ]
     },
     {
       "tier": "T2成长",
       "funds": [
-        {
-          "name": "ARK Invest",
-          "action": "成长资产仍然受益于风险偏好修复，但波动显著，适合分批而非一次性押注。",
-          "signal": "bullish"
-        },
-        {
-          "name": "交易所北向汇总",
-          "action": "4月1日北向净买额汇总口径待更新，当前不据此得出单边看多结论。",
-          "signal": "neutral"
-        }
+        { "name": "ARK Invest", "action": "近期持续加仓TSLA和AI机器人概念股", "signal": "bullish" },
+        { "name": "老虎环球", "action": "减持中概互联网，增持印度科技股", "signal": "bearish" }
       ]
     },
     {
       "tier": "策略师观点",
       "funds": [
-        {
-          "name": "Goldman Sachs",
-          "action": "继续看好AI基础设施与订单兑现度更高的科技龙头。",
-          "signal": "bullish"
-        },
-        {
-          "name": "Wells Fargo",
-          "action": "提醒市场继续关注利率与盈利兑现，不建议把单日反弹线性外推。",
-          "signal": "neutral"
-        },
-        {
-          "name": "Roth Capital",
-          "action": "维持对MRVL等AI互联链条的正面看法，但强调波动和仓位纪律。",
-          "signal": "bullish"
-        }
+        { "name": "高盛策略", "action": "下调标普500年底目标价至6200，上调衰退概率至35%", "signal": "bearish" },
+        { "name": "摩根士丹利", "action": "认为油价回落将释放消费力，维持科技股超配建议", "signal": "bullish" }
       ]
     }
   ],
-  "dataTime": "美股收盘 2026-03-31 ET｜亚太收盘 2026-04-01 本地时区｜商品/加密截至 2026-04-01 18:52 BJT"
+
+  "dataTime": "2026-04-01 23:20 BJT (美股盘中)",
+
+  "_meta": {
+    "sourceType": "heavy_analysis",
+    "generatedAt": "2026-04-01T23:20:00+08:00",
+    "skillVersion": "v1.3"
+  }
 }

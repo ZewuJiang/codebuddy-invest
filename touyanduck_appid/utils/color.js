@@ -100,6 +100,91 @@ function getLightClass(status) {
   return map[status] || 'light-yellow'
 }
 
+/**
+ * KEY DELTA 状态标签映射
+ * @param {string} status - '升级' | '新增' | '活跃' | '降温' | '稳定'
+ * @returns {object} { label, tagClass, heatLabel }
+ */
+function getDeltaStatusInfo(status) {
+  var map = {
+    '升级':  { label: '升级', tagClass: 'kd-tag-upgrade' },
+    '新增':  { label: '新增', tagClass: 'kd-tag-new' },
+    '活跃':  { label: '活跃', tagClass: 'kd-tag-active' },
+    '降温':  { label: '降温', tagClass: 'kd-tag-cool' },
+    '稳定':  { label: '稳定', tagClass: 'kd-tag-stable' }
+  }
+  return map[status] || { label: status || '活跃', tagClass: 'kd-tag-active' }
+}
+
+/**
+ * 根据热度值返回文字标签
+ * @param {number} heat - 1-5
+ * @returns {string} 如 "加速中"/"活跃"/"降温"
+ */
+function getHeatLabel(heat) {
+  if (heat >= 5) return '加速中'
+  if (heat >= 4) return '活跃'
+  if (heat >= 3) return '关注'
+  if (heat >= 2) return '降温'
+  return '平淡'
+}
+
+/**
+ * Fear & Greed 指数信息映射
+ * @param {number} value - 0-100
+ * @param {string} label - 英文标签
+ * @returns {object} { cnLabel, colorClass, emoji }
+ */
+function getFearGreedInfo(value, label) {
+  if (value <= 25) return { cnLabel: '极度恐惧', colorClass: 'fg-extreme-fear', emoji: '😱' }
+  if (value <= 40) return { cnLabel: '恐惧', colorClass: 'fg-fear', emoji: '😰' }
+  if (value <= 60) return { cnLabel: '中性', colorClass: 'fg-neutral', emoji: '😐' }
+  if (value <= 75) return { cnLabel: '贪婪', colorClass: 'fg-greed', emoji: '😊' }
+  return { cnLabel: '极度贪婪', colorClass: 'fg-extreme-greed', emoji: '🤑' }
+}
+
+/**
+ * 预测市场趋势标签映射
+ * @param {string} trend - 'up' | 'down' | 'stable'
+ * @returns {object} { arrow, colorClass }
+ */
+function getPredictionTrendInfo(trend) {
+  var map = {
+    up:     { arrow: '↑', colorClass: 'pm-trend-up' },
+    down:   { arrow: '↓', colorClass: 'pm-trend-down' },
+    stable: { arrow: '→', colorClass: 'pm-trend-stable' }
+  }
+  return map[trend] || { arrow: '→', colorClass: 'pm-trend-stable' }
+}
+
+/**
+ * 判断扩展字段：概率标签映射
+ * @param {string} probability - '高可能性' | '中可能性' | '低可能性'
+ * @returns {object} { tagClass }
+ */
+function getProbabilityInfo(probability) {
+  var map = {
+    '高可能性': { tagClass: 'jx-prob-high' },
+    '中可能性': { tagClass: 'jx-prob-medium' },
+    '低可能性': { tagClass: 'jx-prob-low' }
+  }
+  return map[probability] || { tagClass: 'jx-prob-medium' }
+}
+
+/**
+ * 判断扩展字段：趋势方向映射
+ * @param {string} trend - '上升' | '下降' | '稳定'
+ * @returns {object} { arrow, tagClass }
+ */
+function getJudgmentTrendInfo(trend) {
+  var map = {
+    '上升': { arrow: '↑', tagClass: 'jx-trend-up' },
+    '下降': { arrow: '↓', tagClass: 'jx-trend-down' },
+    '稳定': { arrow: '→', tagClass: 'jx-trend-stable' }
+  }
+  return map[trend] || { arrow: '→', tagClass: 'jx-trend-stable' }
+}
+
 module.exports = {
   getChangeColorClass,
   getActionInfo,
@@ -107,5 +192,11 @@ module.exports = {
   getRiskInfo,
   getImpactInfo,
   getAlertInfo,
-  getLightClass
+  getLightClass,
+  getDeltaStatusInfo,
+  getHeatLabel,
+  getFearGreedInfo,
+  getPredictionTrendInfo,
+  getProbabilityInfo,
+  getJudgmentTrendInfo
 }

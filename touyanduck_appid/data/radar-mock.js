@@ -9,7 +9,7 @@ module.exports = {
     { "name": "布伦特原油", "value": "$87.48", "status": "yellow", "threshold": "<80绿 / 80-95黄 / >95红" },
     { "name": "美元指数 DXY", "value": "104.5", "status": "yellow", "threshold": "<102绿 / 102-107黄 / >107红" },
     { "name": "HY信用利差", "value": "3.42%", "status": "green", "threshold": "<4%绿 / 4-5%黄 / >5%红" },
-    { "name": "北向资金", "value": "+87亿", "status": "green", "threshold": "净流入绿 / 小幅流出黄 / 大幅流出红" },
+    { "name": "外资动向", "value": "港股均涨+1.8%", "status": "green", "threshold": "港股均涨≥+1.5%绿 / 0~+1.5%黄 / 跌红（北向净买额已于2024-08-19停止披露）" },
     { "name": "离岸人民币 CNH", "value": "7.2650", "status": "yellow", "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红" }
   ],
 
@@ -22,7 +22,7 @@ module.exports = {
     { "condition": "10Y美债破4.5%", "action": "减持高估值成长股，增配短久期债券" },
     { "condition": "布伦特原油破$95", "action": "关注通胀回升风险，减持消费/航空" },
     { "condition": "DXY突破107", "action": "减持新兴市场/大宗商品，美元资产避险" },
-    { "condition": "北向单日净流出>100亿", "action": "A/H股短期回避，等待资金面企稳" },
+    { "condition": "港股单日均跌超-2%（外资动向转红）", "action": "A/H股短期回避，等待外资情绪企稳" },
     { "condition": "CNH破7.30", "action": "减持港股人民币计价资产" }
   ],
 

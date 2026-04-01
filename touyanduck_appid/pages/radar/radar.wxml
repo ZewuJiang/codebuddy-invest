@@ -1,5 +1,5 @@
 <!--pages/radar/radar.wxml-->
-<!-- 雷达页 v4.0：对齐Skill §5+§4 -->
+<!-- 雷达页 v5.0：对齐Skill §5+§4 + v1.3前端体验升级 -->
 
 <skeleton type="radar" loading="{{loading}}" />
 
@@ -8,6 +8,69 @@
   <!-- 风险红绿灯（7项） -->
   <section-card title="风险红绿灯">
     <traffic-light lights="{{trafficLights}}" />
+  </section-card>
+
+  <!-- v1.3 市场情绪指数 Fear & Greed -->
+  <section-card title="市场情绪指数" wx:if="{{fearGreed}}">
+    <view class="fg-container">
+      <!-- 情绪条 -->
+      <view class="fg-bar">
+        <view class="fg-bar-label">恐惧</view>
+        <view class="fg-bar-track">
+          <view class="fg-bar-gradient"></view>
+          <view class="fg-pointer" style="left: {{animateReady ? fearGreed.value : 0}}%">
+            <view class="fg-pointer-dot"></view>
+          </view>
+        </view>
+        <view class="fg-bar-label">贪婪</view>
+      </view>
+      <!-- 分数+标签 -->
+      <view class="fg-score-row">
+        <text class="fg-score {{fgInfo.colorClass}}">{{displayFGValue}}</text>
+        <text class="fg-emoji">{{fgInfo.emoji}}</text>
+        <text class="fg-label-tag {{fgInfo.colorClass}}-bg">{{fgInfo.cnLabel}}</text>
+      </view>
+      <!-- 历史对比 -->
+      <view class="fg-history">
+        <view class="fg-history-item">
+          <text class="fg-hist-label">昨日</text>
+          <text class="fg-hist-value">{{fearGreed.previousClose}}</text>
+          <text class="fg-hist-diff {{fgPrevDiff >= 0 ? 'fg-diff-up' : 'fg-diff-down'}}">{{fgPrevDiff >= 0 ? '+' : ''}}{{fgPrevDiff}}</text>
+        </view>
+        <view class="fg-history-item">
+          <text class="fg-hist-label">一周前</text>
+          <text class="fg-hist-value">{{fearGreed.oneWeekAgo}}</text>
+          <text class="fg-hist-diff {{fgWeekDiff >= 0 ? 'fg-diff-up' : 'fg-diff-down'}}">{{fgWeekDiff >= 0 ? '+' : ''}}{{fgWeekDiff}}</text>
+        </view>
+        <view class="fg-history-item" wx:if="{{fearGreed.oneMonthAgo}}">
+          <text class="fg-hist-label">一月前</text>
+          <text class="fg-hist-value">{{fearGreed.oneMonthAgo}}</text>
+        </view>
+      </view>
+    </view>
+  </section-card>
+
+  <!-- v1.3 预测市场 -->
+  <section-card title="预测市场" collapsible="{{true}}" expanded="{{true}}" wx:if="{{predictions.length}}">
+    <view class="pm-list">
+      <view class="pm-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
+            wx:for="{{predictions}}" wx:key="index"
+            style="animation-delay: {{index * 80}}ms">
+        <view class="pm-header">
+          <text class="pm-title">{{item.title}}</text>
+          <text class="pm-source">{{item.source}}</text>
+        </view>
+        <view class="pm-bar-row">
+          <view class="pm-bar-track">
+            <view class="pm-bar-fill" style="width: {{animateReady ? item.probability : 0}}%"></view>
+          </view>
+          <text class="pm-probability">{{item.probability}}%</text>
+        </view>
+        <view class="pm-change-row">
+          <text class="pm-change {{item.trendClass}}">{{item.trendArrow}} 24h {{item.changeLabel}}</text>
+        </view>
+      </view>
+    </view>
   </section-card>
 
   <!-- 综合风险评分 -->
@@ -101,8 +164,17 @@
     </view>
   </section-card>
 
-  <!-- 数据截止时间 -->
-  <view class="data-footer" wx:if="{{dataTime}}">
-    <text class="footer-text">时点说明 · {{dataTime}} | {{isCloud ? '云数据' : '本地缓存'}}</text>
+  <!-- v1.3 双层数据状态栏 -->
+  <view class="ds-footer" wx:if="{{dataTime}}">
+    <view class="ds-row-primary">
+      <view class="ds-dot {{isCloud ? 'ds-dot-cloud' : 'ds-dot-cache'}}"></view>
+      <text class="ds-source">{{isCloud ? '云数据' : '本地缓存'}}</text>
+      <text class="ds-sep">·</text>
+      <text class="ds-time">{{dataFreshness || dataTime}}</text>
+    </view>
+    <view class="ds-row-meta" wx:if="{{dataMeta}}">
+      <text class="ds-type-tag ds-type-{{dataMeta.sourceType === 'heavy_analysis' ? 'heavy' : 'realtime'}}" wx:if="{{dataMeta.sourceType}}">{{dataMeta.sourceType === 'heavy_analysis' ? 'AI深度分析' : (dataMeta.sourceType === 'realtime_quote' ? '实时行情' : '突发新闻')}}</text>
+      <text class="ds-version" wx:if="{{dataMeta.skillVersion}}">Skill {{dataMeta.skillVersion}}</text>
+    </view>
   </view>
 </view>

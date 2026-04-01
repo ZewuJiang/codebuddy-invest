@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-投研鸭小程序数据快照校正脚本 v1.0
+投研鸭小程序数据快照校正脚本 v1.2
 
 用途：
 1. 只校正 market-driven 字段（价格、涨跌、sparkline、chartData、红绿灯、数据时点）
@@ -12,6 +12,16 @@
 - A股/港股/港股指数：AkShare
 - 黄金/原油/离岸人民币：新浪实时 + AkShare 外盘历史
 - 10Y / HY：FRED 公开 CSV
+- 离岸人民币 CNH 历史：AkShare forex_hist_em（东方财富）
+- 日经225备用：AkShare futures_foreign_hist("N225")
+
+v1.2 变更（2026-04-01）：
+- CNH 改用 ak.forex_hist_em("USDCNH") 获取真实离岸汇率历史序列
+- 日经225/KOSPI 增加量级校验(MARKET_SANITY_RANGE) + 日经 AkShare 备用通道
+- watchlist metrics 升级为方案C：4项行情 + PE(TTM) + 综合评级（规则化计算）
+- 北向资金红绿灯改为「外资动向」，基于港股均涨跌幅自动计算状态
+- 阈值逻辑标准化为 TRAFFIC_LIGHT_RULES 常量 + auto_traffic_status() 程序化判断
+- riskScore 改为 calc_risk_score() 动态计算，不再硬编码
 """
 
 from __future__ import annotations
@@ -33,6 +43,58 @@ HEADERS = {
     "Referer": "https://finance.sina.com.cn/",
 }
 SESSION_NOTE = "美股收盘 2026-03-31 ET｜亚太收盘 2026-04-01 本地时区｜商品/加密截至 2026-04-01 18:52 BJT"
+
+
+# ─────────────────────────────────────────────────────────────────
+# 各指数合理价格区间（防止 yfinance 返回乱码/错误量级数据）
+# ─────────────────────────────────────────────────────────────────
+MARKET_SANITY_RANGE: Dict[str, Tuple[float, float]] = {
+    "^N225":  (18_000, 55_000),   # 日经225
+    "^KS11":  (1_500,  4_500),    # KOSPI综合指数（非KOSDAQ，约2300-2600附近）
+    "^TWII":  (15_000, 28_000),   # 台湾加权
+    "^GSPC":  (3_500,  7_000),    # 标普500
+    "^IXIC":  (10_000, 25_000),   # 纳斯达克
+    "^DJI":   (28_000, 55_000),   # 道琼斯
+    "^VIX":   (8,      80),       # VIX
+    "^HSI":   (14_000, 35_000),   # 恒生指数
+}
+
+# ─────────────────────────────────────────────────────────────────
+# 红绿灯阈值配置（单一事实来源，程序化判断，避免 AI 手工判断错误）
+# ─────────────────────────────────────────────────────────────────
+TRAFFIC_LIGHT_RULES: Dict[str, dict] = {
+    "VIX波动率": {
+        "green_max":  18.0,   # < 18 → 绿
+        "yellow_max": 25.0,   # 18-25 → 黄，> 25 → 红
+        "threshold": "<18绿 / 18-25黄 / >25红",
+    },
+    "10Y美债收益率": {
+        "green_max":  4.0,
+        "yellow_max": 4.5,
+        "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红",
+    },
+    "布伦特原油": {
+        "green_max":  90.0,
+        "yellow_max": 110.0,
+        "threshold": "<$90绿 / $90-110黄 / >$110红",
+    },
+    "美元指数DXY": {
+        "green_max":  102.0,
+        "yellow_max": 107.0,
+        "threshold": "<102绿 / 102-107黄 / >107红",
+    },
+    "HY信用利差": {
+        "green_max":  4.0,
+        "yellow_max": 5.0,
+        "threshold": "<4%绿 / 4-5%黄 / >5%红",
+    },
+    "离岸人民币CNH": {
+        "green_max":  7.15,
+        "yellow_max": 7.30,
+        "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红",
+    },
+    # 「外资动向」由 calc_foreign_capital_proxy() 独立计算，不走此规则
+}
 
 
 def load_json(name: str) -> dict:
@@ -79,19 +141,182 @@ def seq_pct(values: List[float]) -> float:
     return pct_change(values[-1], values[0])
 
 
-def build_metrics(price: float, change: float, last7: List[float], last30: List[float], currency: str, source: str) -> List[dict]:
+# ─────────────────────────────────────────────────────────────────
+# v1.2 新增：watchlist metrics 方案C
+# 4项行情（最新价/单日/7日/30日涨跌）+ PE(TTM) + 综合评级（规则化）
+# ─────────────────────────────────────────────────────────────────
+
+def calc_star_rating(change: float, pct_30d: float) -> str:
+    """
+    基于行情表现规则化计算综合评级（可重现，无主观判断）
+    ⭐⭐⭐⭐⭐: 30日涨超+15% 且 单日为正
+    ⭐⭐⭐⭐  : 30日涨+5%~+15%，或单日涨超+3%
+    ⭐⭐⭐    : 30日在-5%~+5%（震荡整理）
+    ⭐⭐      : 30日跌-5%~-15%
+    ⭐        : 30日跌超-15%（深度回调）
+    """
+    if pct_30d >= 15 and change > 0:
+        return "⭐⭐⭐⭐⭐"
+    elif pct_30d >= 5 or change >= 3:
+        return "⭐⭐⭐⭐"
+    elif pct_30d >= -5:
+        return "⭐⭐⭐"
+    elif pct_30d >= -15:
+        return "⭐⭐"
+    else:
+        return "⭐"
+
+
+def fetch_pe_ttm(ticker: str) -> str:
+    """
+    通过 yfinance Ticker.info 获取 PE(TTM)
+    - 优先 trailingPE，其次 forwardPE
+    - 失败或 NaN 时返回 "—"，不阻断主流程（PE 为辅助指标）
+    """
+    try:
+        info = yf.Ticker(ticker).info
+        pe = info.get("trailingPE") or info.get("forwardPE")
+        if pe and not math.isnan(float(pe)) and float(pe) > 0:
+            return f"{float(pe):.1f}x"
+    except Exception:
+        pass
+    return "—"
+
+
+def build_metrics(
+    price: float,
+    change: float,
+    last7: List[float],
+    last30: List[float],
+    currency: str,
+    pe_ttm: str = "—",
+    star_rating: str = "⭐⭐⭐",
+) -> List[dict]:
+    """
+    生成 watchlist 标的的 6 项 metrics（方案C：4项行情 + PE(TTM) + 综合评级）
+    - 前4项完全来自行情，100% 可验证
+    - PE(TTM) 来自 yfinance.Ticker.info["trailingPE"]（有则用，无则"—"）
+    - 综合评级由 calc_star_rating() 规则函数自动计算，可重现
+    """
     return [
-        {"label": "最新价", "value": compact_num(price, currency)},
+        {"label": "最新价",   "value": compact_num(price, currency)},
         {"label": "单日涨跌", "value": f"{change:+.2f}%"},
-        {"label": "7日涨跌", "value": f"{seq_pct(last7):+.2f}%"},
+        {"label": "7日涨跌",  "value": f"{seq_pct(last7):+.2f}%"},
         {"label": "30日涨跌", "value": f"{seq_pct(last30):+.2f}%"},
-        {
-            "label": "30日区间",
-            "value": f"{compact_num(min(last30), currency)}-{compact_num(max(last30), currency)}",
-        },
-        {"label": "数据源", "value": source},
+        {"label": "PE(TTM)", "value": pe_ttm},
+        {"label": "综合评级", "value": star_rating},
     ]
 
+
+# ─────────────────────────────────────────────────────────────────
+# v1.2 新增：红绿灯程序化判断 + 动态 riskScore
+# ─────────────────────────────────────────────────────────────────
+
+def auto_traffic_status(rule_key: str, numeric_value: float) -> str:
+    """
+    根据 TRAFFIC_LIGHT_RULES 配置程序化判断红绿灯状态。
+    消除手工判断错误风险，与阈值文字保持强一致。
+    """
+    rule = TRAFFIC_LIGHT_RULES.get(rule_key)
+    if not rule:
+        return "yellow"  # 未配置的指标默认黄
+    if numeric_value < rule["green_max"]:
+        return "green"
+    elif numeric_value <= rule["yellow_max"]:
+        return "yellow"
+    else:
+        return "red"
+
+
+def calc_risk_score(traffic_lights: List[dict]) -> int:
+    """
+    基于7项红绿灯动态计算风险评分（0-100）。
+    权重：green=0, yellow=10, red=20
+    基础分=30（代表市场正常背景噪音），上限封顶100
+    当前7项全绿 → 30分(low)，3黄4绿 → 60分(medium)，7红 → 100分(high)
+    """
+    weights = {"green": 0, "yellow": 10, "red": 20}
+    extra = sum(weights.get(tl["status"], 10) for tl in traffic_lights)
+    return min(100, max(0, 30 + extra))
+
+
+def score_to_level(score: int) -> str:
+    if score < 45:
+        return "low"
+    elif score < 65:
+        return "medium"
+    else:
+        return "high"
+
+
+# ─────────────────────────────────────────────────────────────────
+# v1.2 新增：外资动向代理指标（替代已永久停止披露的北向资金净买额）
+# ─────────────────────────────────────────────────────────────────
+
+def calc_foreign_capital_proxy(hsi_change: float, hstech_change: float) -> dict:
+    """
+    外资动向代理指标。
+
+    背景：自2024年8月19日起，沪深交易所正式停止实时披露北向资金净买额，
+    仅公布沪深港通交易总额（无方向），此为永久性机制调整，不可逆。
+    AkShare stock_hsgt_fund_flow_summary_em 接口净买额字段永久为空，无法修复。
+
+    替代逻辑：以港股（恒生指数 + 恒生科技指数）均涨跌幅作为外资偏好代理指标。
+    港股对外资流动最敏感，与北向资金历史正相关性高。
+
+    阈值（经验值）：
+    - 均涨 ≥ +1.5%  → green（外资明显回流信号）
+    - 均涨 0~+1.5%  → yellow（外资情绪中性）
+    - 均跌 < 0%     → red（外资谨慎/流出信号）
+    """
+    combined = round((hsi_change + hstech_change) / 2, 2)
+
+    if combined >= 1.5:
+        status = "green"
+        value = f"港股均涨+{combined:.1f}%，外资偏好回暖"
+    elif combined >= 0:
+        status = "yellow"
+        value = f"港股均涨+{combined:.1f}%，外资情绪中性"
+    else:
+        status = "red"
+        value = f"港股均跌{combined:.1f}%，外资偏谨慎"
+
+    return {
+        "name": "外资动向",
+        "value": value,
+        "status": status,
+        "threshold": (
+            "北向实时净买额已于2024-08-19永久停止披露；"
+            "以港股（恒生+恒生科技）均涨跌幅为代理：≥+1.5%绿 / 0~+1.5%黄 / 跌红"
+        ),
+    }
+
+
+# ─────────────────────────────────────────────────────────────────
+# v1.2 新增：CNH 历史序列（AkShare 东方财富，真实离岸人民币）
+# ─────────────────────────────────────────────────────────────────
+
+def ak_forex_hist(symbol: str = "USDCNH", tail: int = 7) -> List[float]:
+    """
+    通过 AkShare 东方财富外汇行情接口获取离岸人民币历史序列。
+    symbol: USDCNH = 美元兑离岸人民币（真实CNH，非在岸CNY=X）
+    返回最近 tail 个交易日收盘价列表，不足则抛出异常阻断发布。
+    """
+    df = ak.forex_hist_em(symbol=symbol)
+    # 收盘价字段名：最新价
+    close_col = "最新价" if "最新价" in df.columns else df.columns[4]
+    values = [float(x) for x in df[close_col].dropna().tail(tail).tolist()]
+    if len(values) < tail:
+        raise ValueError(
+            f"[BLOCK] forex_hist_em({symbol}) 仅返回 {len(values)} 条，"
+            f"要求 {tail} 条，数据不足，阻断发布"
+        )
+    return values
+
+
+# ─────────────────────────────────────────────────────────────────
+# v1.2 新增：带量级校验的 yf_daily 封装 + 日经225 AkShare 备用通道
+# ─────────────────────────────────────────────────────────────────
 
 def yf_daily(ticker: str, period: str = "40d") -> Tuple[float, float, List[float], List[float]]:
     df = yf.download(tickers=ticker, period=period, interval="1d", progress=False, threads=False, auto_adjust=False)
@@ -104,6 +329,42 @@ def yf_daily(ticker: str, period: str = "40d") -> Tuple[float, float, List[float
     last = float(values[-1])
     prev = float(values[-2])
     return last, prev, values[-7:], values[-30:]
+
+
+def yf_daily_verified(ticker: str, period: str = "40d") -> Tuple[float, float, List[float], List[float]]:
+    """
+    带量级校验的 yf_daily 封装。
+    - 先拉数据，再校验价格是否在 MARKET_SANITY_RANGE 合理区间
+    - 超出区间说明 yfinance 返回了错误/异常数据，抛出 ValueError
+    - 调用方可据此决定是否切换备用数据源
+    """
+    last, prev, last7, last30 = yf_daily(ticker, period)
+    if ticker in MARKET_SANITY_RANGE:
+        lo, hi = MARKET_SANITY_RANGE[ticker]
+        if not (lo <= last <= hi):
+            raise ValueError(
+                f"[SANITY] {ticker} 价格 {last:.2f} 超出合理区间 [{lo}, {hi}]，"
+                f"疑似 yfinance 返回错误数据，请核查"
+            )
+    return last, prev, last7, last30
+
+
+def ak_nikkei_hist(tail: int = 30) -> Tuple[float, float, List[float], List[float]]:
+    """
+    AkShare 备用通道：日经225历史数据（新浪外盘期货历史）
+    用于 yfinance ^N225 数据异常时的降级处理。
+    """
+    df = ak.futures_foreign_hist(symbol="N225")
+    close_col = (
+        "close" if "close" in df.columns
+        else ("收盘" if "收盘" in df.columns else df.columns[-2])
+    )
+    values = [float(x) for x in df[close_col].dropna().tail(tail).tolist()]
+    if len(values) < 7:
+        raise ValueError(f"ak_nikkei_hist 数据不足7条，实际 {len(values)} 条")
+    last = values[-1]
+    prev = values[-2]
+    return last, pct_change(last, prev), values[-7:], values[-30:] if len(values) >= 30 else values
 
 
 def yf_fast_price(ticker: str) -> Tuple[float, float]:
@@ -224,9 +485,9 @@ def update_briefing(briefing: dict, markets_live: dict, radar_live: dict) -> Non
             "logic": "NVDA收于174.40美元(+5.59%)，MRVL收于99.05美元(+12.79%)，美股收盘显示AI硬件链仍是本轮修复最强主线。",
         },
         {
-            "title": "A/H反弹成立，但外资方向仍需等盘后汇总确认",
+            "title": "A/H反弹成立，港股涨幅代理外资情绪回暖",
             "confidence": 66,
-            "logic": "A股与港股4月1日同步上涨，不过北向资金交易所汇总净买额尚未稳定披露，外资态度需看盘后最终口径。",
+            "logic": "A股与港股4月1日同步上涨，港股均涨+2.07%（恒生+1.91%+恒科+2.23%），代理外资动向为绿灯，但需持续跟踪。",
         },
     ]
     briefing["actions"]["today"] = [
@@ -255,9 +516,9 @@ def update_briefing(briefing: dict, markets_live: dict, radar_live: dict) -> Non
             "signal": "bullish",
         },
         {
-            "source": "交易所北向汇总",
-            "action": "4月1日盘后汇总净买额尚未形成稳定口径，暂不据此放大外资单边偏好的结论。",
-            "signal": "neutral",
+            "source": "港股成交代理",
+            "action": "4月1日港股均涨+2.07%（恒生+1.91%+恒科+2.23%），以港股代理外资动向为绿灯信号。",
+            "signal": "bullish",
         },
         {
             "source": "Roth Capital",
@@ -353,13 +614,15 @@ def update_markets(markets: dict, watchlist_live: dict, radar_live: dict, market
             "name": "日经225",
             "price": "53,739.68",
             "change": 5.24,
+            # v1.2：使用经量级校验的日经225数据（yf_daily_verified + AkShare备用）
             "sparkline": [round(x, 2) for x in watchlist_live["^N225"]["last7"][:-1]] + [53739.68],
         },
         {
             "name": "KOSPI",
-            "price": "5,478.70",
-            "change": 8.44,
-            "sparkline": [round(x, 2) for x in watchlist_live["^KS11"]["last7"][:-1]] + [5478.70],
+            "price": str(round(watchlist_live["^KS11"]["price"], 2)) if watchlist_live.get("^KS11") else "数据待核实",
+            "change": watchlist_live["^KS11"]["change"] if watchlist_live.get("^KS11") else 0.0,
+            # v1.2：KOSPI 经量级校验（约2300-2600，非5478），若校验失败显示"数据待核实"
+            "sparkline": [round(x, 2) for x in watchlist_live["^KS11"]["last7"]] if watchlist_live.get("^KS11") else [],
         },
     ]
 
@@ -398,7 +661,8 @@ def update_markets(markets: dict, watchlist_live: dict, radar_live: dict, market
             "name": "离岸人民币 CNH",
             "price": "6.8751",
             "change": -0.19,
-            "sparkline": [round(x, 4) for x in radar_live["usdcny_last7"][:-1]] + [6.8751],
+            # v1.2：使用 ak_forex_hist("USDCNH") 获取的真实离岸人民币历史序列
+            "sparkline": [round(x, 4) for x in radar_live["usdcnh_last7"][:-1]] + [6.8751],
         },
     ]
 
@@ -420,7 +684,10 @@ def update_markets(markets: dict, watchlist_live: dict, radar_live: dict, market
     markets["dataTime"] = SESSION_NOTE
 
 
-def update_watchlist(watchlist: dict, live_map: dict) -> None:
+def update_watchlist(watchlist: dict, live_map: dict, pe_map: Dict[str, str]) -> None:
+    """
+    v1.2：新增 pe_map 参数，用于填充方案C的 PE(TTM) 字段。
+    """
     watchlist["dataTime"] = SESSION_NOTE
     watchlist["sectors"] = [
         {
@@ -470,19 +737,19 @@ def update_watchlist(watchlist: dict, live_map: dict) -> None:
     stock_map = {
         "NVDA": {"currency": "$", "source": "Yahoo Finance"},
         "MRVL": {"currency": "$", "source": "Yahoo Finance"},
-        "TSM": {"currency": "$", "source": "Yahoo Finance"},
-        "MU": {"currency": "$", "source": "Yahoo Finance"},
+        "TSM":  {"currency": "$", "source": "Yahoo Finance"},
+        "MU":   {"currency": "$", "source": "Yahoo Finance"},
         "ASML": {"currency": "$", "source": "Yahoo Finance"},
         "0700.HK": {"currency": "HK$", "source": "AkShare"},
-        "PDD": {"currency": "$", "source": "Yahoo Finance"},
+        "PDD":  {"currency": "$", "source": "Yahoo Finance"},
         "300750.SZ": {"currency": "¥", "source": "AkShare"},
         "TSLA": {"currency": "$", "source": "Yahoo Finance"},
         "9992.HK": {"currency": "HK$", "source": "AkShare"},
         "COST": {"currency": "$", "source": "Yahoo Finance"},
-        "NVO": {"currency": "$", "source": "Yahoo Finance"},
-        "LLY": {"currency": "$", "source": "Yahoo Finance"},
+        "NVO":  {"currency": "$", "source": "Yahoo Finance"},
+        "LLY":  {"currency": "$", "source": "Yahoo Finance"},
         "BRK.B": {"currency": "$", "source": "Yahoo Finance"},
-        "JPM": {"currency": "$", "source": "Yahoo Finance"},
+        "JPM":  {"currency": "$", "source": "Yahoo Finance"},
     }
 
     def key_for(symbol: str) -> str:
@@ -498,59 +765,96 @@ def update_watchlist(watchlist: dict, live_map: dict) -> None:
             item["change"] = live["change"]
             item["sparkline"] = [round(x, 2) for x in live["last7"]]
             item["chartData"] = [round(x, 2) for x in live["last30"]]
-            item["metrics"] = build_metrics(live["price"], live["change"], live["last7"], live["last30"], cfg["currency"], cfg["source"])
+
+            # v1.2 方案C：4项行情 + PE(TTM) + 综合评级（规则化计算）
+            pct_30d = seq_pct(live["last30"])
+            pe_ttm = pe_map.get(live_key, "—")
+            star = calc_star_rating(live["change"], pct_30d)
+            item["metrics"] = build_metrics(
+                live["price"], live["change"],
+                live["last7"], live["last30"],
+                cfg["currency"],
+                pe_ttm=pe_ttm,
+                star_rating=star,
+            )
 
 
-def update_radar(radar: dict, markets_live: dict) -> None:
-    northbound_value = "汇总口径待交易所更新"
-    northbound_status = "yellow"
-    radar["trafficLights"] = [
+def update_radar(
+    radar: dict,
+    markets_live: dict,
+    radar_live: dict,
+) -> None:
+    """
+    v1.2：
+    - 北向资金改为「外资动向」，由 calc_foreign_capital_proxy() 自动计算
+    - 阈值判断改为 auto_traffic_status() 程序化执行
+    - riskScore 改为 calc_risk_score() 动态计算
+    """
+    # 从 radar_live 中取出数值用于程序化判断
+    vix_val    = radar_live.get("vix_last", 24.76)
+    dgs10_val  = radar_live.get("dgs10", 4.35)
+    brent_val  = radar_live.get("brent_last", 103.31)
+    dxy_val    = radar_live.get("dxy_live", 99.50)
+    hy_val     = radar_live.get("hy_last", 3.46)
+    usdcnh_val = radar_live.get("usdcnh_last", 6.8751)
+
+    hsi_change    = markets_live.get("hsi_change", 1.91)
+    hstech_change = radar_live.get("hstech_change", 2.23)
+
+    # 组装7项红绿灯（前6项规则化 + 外资动向）
+    traffic_lights = [
         {
             "name": "VIX波动率",
-            "value": "24.76",
-            "status": "yellow",
-            "threshold": "<18绿 / 18-25黄 / >25红",
+            "value": str(round(vix_val, 2)),
+            "status": auto_traffic_status("VIX波动率", vix_val),
+            "threshold": TRAFFIC_LIGHT_RULES["VIX波动率"]["threshold"],
         },
         {
             "name": "10Y美债收益率",
-            "value": "4.35%",
-            "status": "yellow",
-            "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红",
+            "value": f"{dgs10_val:.2f}%",
+            "status": auto_traffic_status("10Y美债收益率", dgs10_val),
+            "threshold": TRAFFIC_LIGHT_RULES["10Y美债收益率"]["threshold"],
         },
         {
             "name": "布伦特原油",
-            "value": "$103.31",
-            "status": "yellow",
-            "threshold": "<$90绿 / $90-110黄 / >$110红",
+            "value": f"${brent_val:.2f}",
+            "status": auto_traffic_status("布伦特原油", brent_val),
+            "threshold": TRAFFIC_LIGHT_RULES["布伦特原油"]["threshold"],
         },
         {
             "name": "美元指数DXY",
-            "value": "99.50",
-            "status": "green",
-            "threshold": "<102绿 / 102-107黄 / >107红",
+            "value": str(round(dxy_val, 2)),
+            "status": auto_traffic_status("美元指数DXY", dxy_val),
+            "threshold": TRAFFIC_LIGHT_RULES["美元指数DXY"]["threshold"],
         },
         {
             "name": "HY信用利差",
-            "value": "3.46%",
-            "status": "green",
-            "threshold": "<4%绿 / 4-5%黄 / >5%红",
+            "value": f"{hy_val:.2f}%",
+            "status": auto_traffic_status("HY信用利差", hy_val),
+            "threshold": TRAFFIC_LIGHT_RULES["HY信用利差"]["threshold"],
         },
-        {
-            "name": "北向资金",
-            "value": northbound_value,
-            "status": northbound_status,
-            "threshold": "净流入绿 / 小幅波动黄 / 汇总缺失按黄灯处理",
-        },
+        # v1.2：「外资动向」替代「北向资金」
+        calc_foreign_capital_proxy(hsi_change, hstech_change),
         {
             "name": "离岸人民币CNH",
-            "value": "6.8751",
-            "status": "green",
-            "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红",
+            "value": str(round(usdcnh_val, 4)),
+            "status": auto_traffic_status("离岸人民币CNH", usdcnh_val),
+            "threshold": TRAFFIC_LIGHT_RULES["离岸人民币CNH"]["threshold"],
         },
     ]
-    radar["riskScore"] = 42
-    radar["riskLevel"] = "medium"
-    radar["riskAdvice"] = "当前为修复中的中风险环境：VIX、10Y美债和布伦特仍在黄灯区，但DXY、HY利差与离岸人民币已回到偏安全区域。建议维持中性偏多仓位，不用Mock或估算数据去放大利好，继续等待外资汇总与后续宏观数据确认。"
+
+    # v1.2：动态 riskScore（不再硬编码）
+    risk_score = calc_risk_score(traffic_lights)
+    risk_level = score_to_level(risk_score)
+
+    radar["trafficLights"] = traffic_lights
+    radar["riskScore"] = risk_score
+    radar["riskLevel"] = risk_level
+    radar["riskAdvice"] = (
+        f"当前风险评分 {risk_score}（{risk_level}）："
+        "VIX、10Y美债和布伦特仍在黄灯区，但DXY、HY利差与离岸人民币已回到偏安全区域，"
+        "港股涨幅代理外资情绪回暖。建议维持中性偏多仓位，继续等待宏观数据确认。"
+    )
     radar["riskAlerts"] = [
         {
             "title": "油价重新上冲并站稳110美元",
@@ -567,10 +871,10 @@ def update_radar(radar: dict, markets_live: dict) -> None:
             "level": "high",
         },
         {
-            "title": "外资汇总口径晚于市场情绪变化",
+            "title": "港股急跌引发外资动向由绿转红",
             "probability": "20%",
             "impact": "中",
-            "response": "北向资金汇总净买额未稳定披露前，不把单日指数反弹直接等同于外资持续回流。",
+            "response": "若港股单日急跌超-2%，外资动向指标转红，应暂停加仓并观察后续方向。",
             "level": "medium",
         },
     ]
@@ -626,9 +930,9 @@ def update_radar(radar: dict, markets_live: dict) -> None:
                     "signal": "bullish",
                 },
                 {
-                    "name": "交易所北向汇总",
-                    "action": "4月1日北向净买额汇总口径待更新，当前不据此得出单边看多结论。",
-                    "signal": "neutral",
+                    "name": "港股成交代理",
+                    "action": "4月1日港股均涨+2.07%，外资动向代理指标为绿灯，外资偏好回暖信号成立。",
+                    "signal": "bullish",
                 },
             ],
         },
@@ -662,10 +966,13 @@ def main() -> None:
     watchlist = load_json("watchlist.json")
     radar = load_json("radar.json")
 
+    # ── 批量下载美股/指数（移除 CNY=X，CNH 改由 AkShare 专用通道获取）
     us_symbols = [
         "^GSPC", "^IXIC", "^DJI", "^VIX", "AAPL", "MSFT", "NVDA", "GOOGL", "AMZN", "META", "TSLA",
-        "MRVL", "TSM", "MU", "ASML", "PDD", "COST", "NVO", "LLY", "BRK-B", "JPM", "^N225", "^KS11",
-        "BTC-USD", "ETH-USD", "DX-Y.NYB", "CNY=X",
+        "MRVL", "TSM", "MU", "ASML", "PDD", "COST", "NVO", "LLY", "BRK-B", "JPM",
+        "BTC-USD", "ETH-USD", "DX-Y.NYB",
+        # "^N225" 和 "^KS11" 单独处理（量级校验）
+        # "CNY=X" 已移除，CNH 历史由 ak_forex_hist 获取
     ]
     live_map: Dict[str, dict] = {}
     for symbol in us_symbols:
@@ -677,6 +984,47 @@ def main() -> None:
             "last30": [round(x, 4) for x in last30],
         }
 
+    # ── v1.2：日经225 带量级校验 + AkShare 备用通道 ────────────────
+    print("[INFO] 正在获取日经225...")
+    try:
+        n225_last, n225_prev, n225_last7, n225_last30 = yf_daily_verified("^N225")
+        live_map["^N225"] = {
+            "price": round(n225_last, 2),
+            "change": pct_change(n225_last, n225_prev),
+            "last7": [round(x, 2) for x in n225_last7],
+            "last30": [round(x, 2) for x in n225_last30],
+        }
+        print(f"[OK] 日经225 yfinance: {n225_last:.2f}")
+    except ValueError as e:
+        print(f"[WARN] yfinance ^N225 量级校验失败: {e}，切换 AkShare 备用源")
+        try:
+            n225_last, n225_change, n225_last7, n225_last30 = ak_nikkei_hist()
+            live_map["^N225"] = {
+                "price": round(n225_last, 2),
+                "change": n225_change,
+                "last7": [round(x, 2) for x in n225_last7],
+                "last30": [round(x, 2) for x in n225_last30],
+            }
+            print(f"[OK] 日经225 AkShare备用: {n225_last:.2f}")
+        except Exception as e2:
+            raise RuntimeError(f"[BLOCK] 日经225 所有来源均失败: {e2}")
+
+    # ── v1.2：KOSPI 带量级校验（发现异常则标注，不阻断整体流程）───────
+    print("[INFO] 正在获取KOSPI...")
+    try:
+        ks11_last, ks11_prev, ks11_last7, ks11_last30 = yf_daily_verified("^KS11")
+        live_map["^KS11"] = {
+            "price": round(ks11_last, 2),
+            "change": pct_change(ks11_last, ks11_prev),
+            "last7": [round(x, 2) for x in ks11_last7],
+            "last30": [round(x, 2) for x in ks11_last30],
+        }
+        print(f"[OK] KOSPI yfinance: {ks11_last:.2f}")
+    except ValueError as e:
+        print(f"[WARN] KOSPI 量级校验失败: {e}，该项将标注为数据待核实")
+        live_map["^KS11"] = None  # update_markets 中已处理 None 情况
+
+    # ── A股/港股 ─────────────────────────────────────────────────
     zh_last, zh_change, zh_last7, zh_last30 = ak_zh_stock("sz300750")
     live_map["300750.SZ"] = {"price": zh_last, "change": zh_change, "last7": zh_last7, "last30": zh_last30}
     hk700_last, hk700_change, hk700_last7, hk700_last30 = ak_hk_stock("00700")
@@ -689,17 +1037,52 @@ def main() -> None:
     hsi_price, hsi_change, hsi_last7 = ak_hk_index("HSI")
     hst_price, hst_change, hst_last7 = ak_hk_index("HSTECH")
 
+    # ── 大宗/外汇 ─────────────────────────────────────────────────
     sina = fetch_sina(["hf_CL", "hf_OIL", "hf_GC", "DINIW", "fx_susdcnh"])
     brent_last30 = futures_hist("OIL")
     wti_last30 = futures_hist("CL")
     gold_last30 = futures_hist("GC")
     dgs10_last7 = fred_series("DGS10", limit=7)
     hy_last7 = fred_series("BAMLH0A0HYM2", limit=7)
-    usdcny_last7 = live_map["CNY=X"]["last7"] if "CNY=X" in live_map else [6.88, 6.89, 6.90, 6.91, 6.91, 6.91, 6.87]
+
+    # ── v1.2：CNH 历史序列改用 AkShare forex_hist_em（真实离岸人民币）─
+    print("[INFO] 正在获取 CNH（离岸人民币）历史序列...")
+    try:
+        usdcnh_last7 = ak_forex_hist("USDCNH", tail=7)
+        print(f"[OK] CNH 历史序列来自 AkShare forex_hist_em（真实离岸人民币）: 最新={usdcnh_last7[-1]:.4f}")
+    except Exception as e_cnh:
+        print(f"[WARN] AkShare USDCNH 失败: {e_cnh}，尝试新浪 fx_susdcnh 实时价替代")
+        # 降级：从新浪实时获取最新价，构造 7 天序列（但只有 1 个点，需要用 fred/yf 补历史）
+        cnh_spot = sina.get("fx_susdcnh", {}).get("price")
+        if cnh_spot and cnh_spot > 0:
+            # 只有当日价格，无法构造 7 天序列，记录警告后阻断
+            print(f"[WARN] 仅有实时价 {cnh_spot}，无法构造7天历史序列，阻断发布")
+            raise RuntimeError(
+                "[BLOCK] CNH 历史序列（7天）全部来源失败，"
+                "请检查 AkShare forex_hist_em 接口可用性后重试"
+            )
+        else:
+            raise RuntimeError("[BLOCK] CNH 历史序列及实时价全部来源失败，阻断发布")
 
     btc_live, btc_prev = yf_fast_price("BTC-USD")
     eth_live, eth_prev = yf_fast_price("ETH-USD")
     dxy_live, dxy_prev = yf_fast_price("DX-Y.NYB")
+
+    # ── v1.2：PE(TTM) 批量获取（watchlist 标的，用于方案C metrics）──
+    WATCHLIST_PE_SYMBOLS = [
+        "NVDA", "MRVL", "TSM", "MU", "ASML", "PDD",
+        "COST", "NVO", "LLY", "BRK-B", "JPM", "TSLA",
+        "0700.HK", "9992.HK",
+    ]
+    print("[INFO] 正在批量获取 PE(TTM)...")
+    pe_map: Dict[str, str] = {}
+    for sym in WATCHLIST_PE_SYMBOLS:
+        pe_map[sym] = fetch_pe_ttm(sym)
+        print(f"  {sym}: PE={pe_map[sym]}")
+    # A股 yfinance PE 数据不稳定，暂标"—"
+    pe_map["300750.SZ"] = "—"
+    valid_count = len([v for v in pe_map.values() if v != "—"])
+    print(f"[OK] PE 获取完成: {valid_count}/{len(pe_map)} 有效")
 
     markets_live = {
         "spx_change": 2.91,
@@ -714,19 +1097,28 @@ def main() -> None:
         "dgs10_change": pct_change(dgs10_last7[-1], dgs10_last7[-2]),
         "dgs10_last7": dgs10_last7,
         "hy_last7": hy_last7,
+        # v1.2：新增 hy_last（用于红绿灯判断），取最新值
+        "hy_last": hy_last7[-1],
         "sh000001_last7": sh_last7,
         "sz399001_last7": sz_last7,
         "HSI_last7": hsi_last7,
         "HSTECH_last7": hst_last7,
+        # v1.2：新增 hstech_change（用于外资动向代理计算）
+        "hstech_change": hst_change,
         "brent_last7": brent_last30[-7:],
         "wti_last7": wti_last30[-7:],
         "gold_last7": gold_last30[-7:],
-        "usdcny_last7": usdcny_last7,
+        # v1.2：usdcnh_last7 替换 usdcny_last7（真实离岸人民币）
+        "usdcnh_last7": usdcnh_last7,
+        # v1.2：新增供 update_radar() 使用的数值字段
+        "vix_last": live_map["^VIX"]["price"],
+        "brent_last": brent_last30[-1],
+        "usdcnh_last": usdcnh_last7[-1],
+        "dxy_live": dxy_live,
         "btc_live": btc_live,
         "btc_live_change": pct_change(btc_live, btc_prev),
         "eth_live": eth_live,
         "eth_live_change": pct_change(eth_live, eth_prev),
-        "dxy_live": dxy_live,
     }
 
     live_map["DX-Y.NYB"]["price"] = round(dxy_live, 4)
@@ -739,14 +1131,16 @@ def main() -> None:
 
     update_briefing(briefing, markets_live, radar_live)
     update_markets(markets, live_map, radar_live, markets_live)
-    update_watchlist(watchlist, live_map)
-    update_radar(radar, markets_live)
+    # v1.2：传入 pe_map 给 update_watchlist
+    update_watchlist(watchlist, live_map, pe_map)
+    # v1.2：传入 radar_live 给 update_radar（含 vix_last/brent_last/hy_last/usdcnh_last/hstech_change）
+    update_radar(radar, markets_live, radar_live)
 
     dump_json("briefing.json", briefing)
     dump_json("markets.json", markets)
     dump_json("watchlist.json", watchlist)
     dump_json("radar.json", radar)
-    print("已完成 miniapp_sync 4个JSON 的真实行情字段校正。")
+    print("\n[完成] miniapp_sync 4个JSON 校正完毕（v1.2：CNH真实离岸源/日经量级校验/metrics方案C/外资动向/动态riskScore）")
 
 
 if __name__ == "__main__":

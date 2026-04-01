@@ -21,6 +21,12 @@ Page({
     commodities: [],
     cryptos: [],
     gics: [],
+    usInsight: '',
+    m7Insight: '',
+    asiaInsight: '',
+    commodityInsight: '',
+    cryptoInsight: '',
+    gicsInsight: '',
     animateReady: false,
     isCloud: false,
     dataTime: '',
@@ -57,9 +63,11 @@ Page({
     // 每个列表项约100rpx + 卡片上下padding和margin约80rpx + 底部留白40rpx
     var baseHeight = count * 100 + 80 + 40
 
-    // 美股Tab额外加上comment(80rpx)和GICS板块区(gics项数*50+标题+padding)
+    // 所有Tab都有 insight 区域（约100rpx）
+    baseHeight += 100
+
+    // 美股Tab额外加上GICS板块区(gics项数*50+标题+padding)
     if (tabIndex === 0) {
-      baseHeight += 100 // comment区
       if (this._hasGics) {
         baseHeight += this.data.gics.length * 50 + 120 // GICS区域
       }
@@ -160,6 +168,14 @@ Page({
       dataTime = now.getFullYear() + '-' + mon + '-' + d + ' ' + h + ':' + m + ' BJT'
     }
 
+    // 板块 Insight：优先使用独立 *Insight 字段，美股向后兼容旧 usMarkets[0].note
+    var usInsight = data.usInsight || (data.usMarkets && data.usMarkets[0] && data.usMarkets[0].note) || ''
+    var m7Insight = data.m7Insight || ''
+    var asiaInsight = data.asiaInsight || ''
+    var commodityInsight = data.commodityInsight || ''
+    var cryptoInsight = data.cryptoInsight || ''
+    var gicsInsight = data.gicsInsight || ''
+
     that.setData({
       usMarkets: processItems(data.usMarkets),
       m7: processItems(data.m7),
@@ -167,6 +183,12 @@ Page({
       commodities: processItems(data.commodities),
       cryptos: processItems(data.cryptos),
       gics: gicsData,
+      usInsight: usInsight,
+      m7Insight: m7Insight,
+      asiaInsight: asiaInsight,
+      commodityInsight: commodityInsight,
+      cryptoInsight: cryptoInsight,
+      gicsInsight: gicsInsight,
       dataTime: dataTime,
       loading: false
     })

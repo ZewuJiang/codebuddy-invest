@@ -379,8 +379,8 @@
     },
 
     "skill10_hk_a_shares": {
-        "_description": "Skill 10: 港股与A股专项分析 — 中国资产定价+南北向资金",
-        "_methodology": "恒指估值+AH溢价+南向资金+北向资金+汇率+政策周期",
+        "_description": "Skill 10: 港股与A股专项分析 — 中国资产定价+外资动向",
+        "_methodology": "恒指估值+AH溢价+南向资金+外资动向代理（港股均涨跌幅）+汇率+政策周期",
         "hk_indices": ["^HSI", "^HSTECH"],
         "a_share_proxies": ["000001.SS", "KWEB", "FXI", "MCHI"],
         "ah_premium_index": {
@@ -410,8 +410,8 @@
         },
         "fund_flow": {
             "southbound_surge": "南向资金日净买入>100亿港元 → 强烈买入信号",
-            "northbound_outflow": "北向资金连续5日净流出 → A股风险预警",
-            "_note": "互联互通资金流向是最直接的机构行为指标"
+            "northbound_note": "北向净买额已于2024-08-19永久停止实时披露，改用港股均涨跌幅代理外资动向：港股单日均跌>-2% → A/H股风险预警",
+            "_note": "南向资金仍有实时数据；北向改用港股代理指标"
         }
     },
 

@@ -3,9 +3,9 @@ name: investment-agent-daily-app
 description: 当用户提到「投资App」「小程序数据」「投研鸭数据」「app数据更新」「miniapp sync」或类似关键词时，自动执行投研鸭小程序数据生产全流程，输出4个原生结构化JSON并上传微信云数据库。
 ---
 
-# 投研鸭小程序数据生产 — 标准工作流 v1.0
+# 投研鸭小程序数据生产 — 标准工作流 v1.3.2
 
-> **版本**: v1.0 (2026-04-01)
+> **版本**: v1.3.2 (2026-04-02 00:21)
 > **主控文档**：本文件为精炼主控，详细规则/知识库/模板/SOP通过引用按需加载。
 
 ---
@@ -276,4 +276,8 @@ briefing.json / markets.json / watchlist.json / radar.json
 
 | 版本 | 日期 | 核心变更 |
 |------|------|---------|
+| **v1.3.2** | 2026-04-02 00:21 | 市场页板块 Insight 升级：①json-schema.md 新增 6 个板块级 Insight 字段（usInsight/m7Insight/asiaInsight/commodityInsight/cryptoInsight/gicsInsight），每个板块数据表格底部提供30-80字高质量一句话洞察，对齐日报"XX信号"风格；②原 usMarkets[0].note 迁移为独立 usInsight 字段，前端向后兼容；③markets.wxml 6个Tab/GICS均加入💡洞察卡片（复用 .market-comment 样式）；④markets.js _applyData 传递6个insight+向后兼容旧note；⑤markets-mock.js 补充6个高质量示例文本；⑥data-collection-sop.md 新增第七章"板块Insight生成规范"+门禁第17项验证。 |
+| **v1.3.1** | 2026-04-02 00:00 | UI精修三项：①删除简报页顶部hero冗余渐变区域（导航栏已有标题+日期），页面更简洁；②修复判断扩展区 jx-divider 虚线样式（dashed→渐变淡化实线），视觉更优雅；③json-schema.md 中 references 从 string[] 升级为 object[]（含 name/summary/url），briefing 前端改为可点击展开的手风琴组件，展开后显示信息摘要和来源链接，向后兼容旧格式纯字符串数组。相关文件：briefing.js（删除 currentDate + 新增 expandedRefs/onRefToggle + references 兼容映射）、briefing.wxml（删除 hero + 重写 Reference 区域）、briefing.wxss（删除 hero 样式 + 修复虚线 + 新增展开面板样式）。 |
+| **v1.3** | 2026-04-01 22:58 | 前端体验升级（阶段一）：①json-schema.md 升级至 v1.3 — briefing.json 新增 `timeStatus`（多时区+开市状态）、`keyDeltas[]`（增量信息 KEY DELTA，借鉴 Iran Briefing 设计）、`coreJudgments` 扩展 `keyActor/references/probability/trend` 四个可选字段；radar.json 新增 `fearGreed`（CNN Fear & Greed 情绪指数）、`predictions[]`（预测市场概率 Polymarket/Kalshi/CME FedWatch）；所有 JSON 新增 `_meta` 元数据对象；②小程序前端 v5.0 — 简报页新增时间状态栏（前端实时计算双时区+开市判断）、KEY DELTA 卡片（热度点+状态标签）、核心判断扩展行（决策者/参考源/概率/趋势标签）；雷达页新增 Fear & Greed 情绪卡片（渐变情绪条+数字跳动动画+三时段对比）、预测市场预览卡片（概率进度条+24h 趋势）；③简报页和雷达页数据底栏统一升级为双层状态栏（数据源+新鲜度+sourceType 标签+Skill 版本号）；④format.js 新增 `getMultiTimezone()`/`getMarketStatus()`/`getRelativeTime()`；⑤color.js 新增 `getDeltaStatusInfo()`/`getFearGreedInfo()`/`getPredictionTrendInfo()`/`getProbabilityInfo()`/`getJudgmentTrendInfo()`/`getHeatLabel()`。所有新字段均为可选（🔸标记），完全向后兼容旧数据。 |
+| **v1.2** | 2026-04-01 | 数据质量六项深度治理：①CNH改用`ak.forex_hist_em("USDCNH")`真实离岸源，移除CNY=X混用；②日经/KOSPI新增`MARKET_SANITY_RANGE`量级校验+日经AkShare备用通道；③watchlist metrics升级为方案C（最新价/单日/7日/30日涨跌+PE(TTM)+`calc_star_rating()`规则化综合评级）；④北向资金红绿灯改为「外资动向」（港股均涨跌代理，`calc_foreign_capital_proxy()`），根因：2024-08-19交易所永久停止披露净买额；⑤阈值逻辑标准化为`TRAFFIC_LIGHT_RULES`常量+`auto_traffic_status()`程序化判断；⑥riskScore改为`calc_risk_score()`动态计算（权重公式：30+Σ灯色权重，上限100）；⑦upload_to_cloud.py新增`verify_upload()`上传后回读校验（7字段+数组长度+dataTime一致性）。 |
 | **v1.0** | 2026-04-01 | 初始版本。从 `investment-agent-daily` v19.0 独立分支：①复用核心数据采集逻辑（6大铁律、数据源、采集批次）；②全新 JSON Schema 精确对齐小程序4页面（briefing/markets/watchlist/radar）；③新增 sparkline/chartData/metrics/analysis 等 MD 报告不需要但小程序需要的数据；④新增 stock-universe.md（7板块标的池）；⑤复用 upload_to_cloud.py |

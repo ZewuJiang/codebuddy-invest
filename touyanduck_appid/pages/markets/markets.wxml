@@ -41,9 +41,9 @@
             </view>
           </view>
         </view>
-        <view class="market-comment {{animateReady ? 'comment-show' : ''}}" wx:if="{{usMarkets[0].note}}">
+        <view class="market-comment {{animateReady ? 'comment-show' : ''}}" wx:if="{{usInsight}}">
           <text class="comment-icon">💡</text>
-          <text class="comment-text">{{usMarkets[0].note}}</text>
+          <text class="comment-text">{{usInsight}}</text>
         </view>
         <!-- GICS板块热力图 -->
         <view class="gics-section" wx:if="{{gics.length}}">
@@ -56,6 +56,10 @@
                 <view class="gics-bar-fill {{item.isUp ? 'bar-up' : 'bar-down'}}" style="width: {{(item.change > 0 ? item.change : -item.change) * 25}}%"></view>
               </view>
             </view>
+          </view>
+          <view class="market-comment {{animateReady ? 'comment-show' : ''}}" wx:if="{{gicsInsight}}">
+            <text class="comment-icon">💡</text>
+            <text class="comment-text">{{gicsInsight}}</text>
           </view>
         </view>
       </scroll-view>
@@ -84,6 +88,10 @@
             </view>
           </view>
         </view>
+        <view class="market-comment {{animateReady ? 'comment-show' : ''}}" wx:if="{{m7Insight}}">
+          <text class="comment-icon">💡</text>
+          <text class="comment-text">{{m7Insight}}</text>
+        </view>
       </scroll-view>
     </swiper-item>
 
@@ -107,6 +115,10 @@
             </view>
           </view>
         </view>
+        <view class="market-comment {{animateReady ? 'comment-show' : ''}}" wx:if="{{asiaInsight}}">
+          <text class="comment-icon">💡</text>
+          <text class="comment-text">{{asiaInsight}}</text>
+        </view>
       </scroll-view>
     </swiper-item>
 
@@ -129,6 +141,10 @@
             </view>
           </view>
         </view>
+        <view class="market-comment {{animateReady ? 'comment-show' : ''}}" wx:if="{{commodityInsight}}">
+          <text class="comment-icon">💡</text>
+          <text class="comment-text">{{commodityInsight}}</text>
+        </view>
       </scroll-view>
     </swiper-item>
 
@@ -150,6 +166,10 @@
               <view class="ml-change-badge {{item.colorClass}}">{{item.changeText}}</view>
             </view>
           </view>
+        </view>
+        <view class="market-comment {{animateReady ? 'comment-show' : ''}}" wx:if="{{cryptoInsight}}">
+          <text class="comment-icon">💡</text>
+          <text class="comment-text">{{cryptoInsight}}</text>
         </view>
       </scroll-view>
     </swiper-item>

@@ -1,5 +1,5 @@
 // pages/briefing/briefing.js
-// 简报页 v4.0 — 对齐Skill §1+§2摘要+§4摘要
+// 简报页 v5.0 — 对齐Skill §1+§2摘要+§4摘要 + v1.3前端体验升级
 
 var api = require('../../services/api')
 var formatUtil = require('../../utils/format')
@@ -9,7 +9,12 @@ var animate = require('../../utils/animate')
 Page({
   data: {
     loading: true,
-    currentDate: '',
+    // v1.3 时间状态栏
+    timeStatus: null,
+    marketStatus: '',
+    marketStatusOpen: false,
+    // v1.3 KEY DELTA
+    keyDeltas: [],
     // §1 核心事件
     coreEvent: null,
     // §1 全球资产反应
@@ -30,8 +35,13 @@ Page({
     riskNote: '',
     // 数据截止时间
     dataTime: '',
+    dataFreshness: '',
+    // v1.3 元数据
+    dataMeta: null,
     // 数据源模式
     isCloud: false,
+    // v1.3.1 参考源展开状态（key=判断index）
+    expandedRefs: {},
     // 动画控制
     animateReady: false
   },
@@ -40,9 +50,9 @@ Page({
 
   onLoad: function() {
     this.setData({
-      currentDate: formatUtil.formatDateCN(),
       isCloud: api.isCloudMode()
     })
+    this._updateTimeStatus()
 
     // 缓存优先秒开：先读缓存渲染，再后台静默刷新
     var cached = api.getCache('briefing')
@@ -53,6 +63,10 @@ Page({
     } else {
       this.fetchData()
     }
+  },
+
+  onShow: function() {
+    this._updateTimeStatus()
   },
 
   onUnload: function() {
@@ -110,10 +124,72 @@ Page({
     var todayActions = (d.actions && d.actions.today || []).map(mapAction)
     var weekActions = (d.actions && d.actions.week || []).map(mapAction)
 
+    // v1.3 KEY DELTA 数据映射
+    var keyDeltas = (d.keyDeltas || []).map(function(item) {
+      var statusInfo = colorUtil.getDeltaStatusInfo(item.status)
+      return {
+        title: item.title || '',
+        status: item.status || '活跃',
+        statusTagClass: statusInfo.tagClass,
+        heat: item.heat || 3,
+        heatLabel: colorUtil.getHeatLabel(item.heat || 3),
+        brief: item.brief || ''
+      }
+    })
+
+    // v1.3 核心判断扩展字段映射
+    var coreJudgments = (d.coreJudgments || []).map(function(item) {
+      var result = {
+        title: item.title,
+        confidence: item.confidence,
+        logic: item.logic
+      }
+      // 可选扩展字段
+      if (item.keyActor) result.keyActor = item.keyActor
+      if (item.references && item.references.length) {
+        // v1.3.1 兼容新旧格式
+        result.references = item.references.map(function(ref) {
+          if (typeof ref === 'string') {
+            return { name: ref, summary: '', url: '' }
+          }
+          return {
+            name: ref.name || '',
+            summary: ref.summary || '',
+            url: ref.url || ''
+          }
+        })
+        result.refCount = item.references.length
+        // 收起态显示的来源名称列表
+        result.refNames = result.references.map(function(r) { return r.name }).join(', ')
+        // 是否有丰富内容（有 summary 才算可展开）
+        result.hasRichRef = item.references.some(function(ref) {
+          return typeof ref !== 'string' && ref.summary
+        })
+      }
+      if (item.probability) {
+        result.probability = item.probability
+        result.probClass = colorUtil.getProbabilityInfo(item.probability).tagClass
+      }
+      if (item.trend) {
+        var trendInfo = colorUtil.getJudgmentTrendInfo(item.trend)
+        result.trend = item.trend
+        result.trendArrow = trendInfo.arrow
+        result.trendClass = trendInfo.tagClass
+      }
+      result.hasExtension = !!(item.keyActor || (item.references && item.references.length) || item.probability || item.trend)
+      return result
+    })
+
+    // v1.3 数据新鲜度
+    var dataFreshness = formatUtil.getRelativeTime(
+      d._meta && d._meta.generatedAt ? d._meta.generatedAt : d.dataTime
+    )
+
     that.setData({
+      keyDeltas: keyDeltas,
       coreEvent: d.coreEvent || null,
       globalReaction: d.globalReaction || [],
-      coreJudgments: d.coreJudgments || [],
+      coreJudgments: coreJudgments,
       todayActions: todayActions,
       weekActions: weekActions,
       sentimentScore: d.sentimentScore || 50,
@@ -123,6 +199,8 @@ Page({
       smartMoney: d.smartMoney || [],
       riskNote: d.riskNote || '',
       dataTime: d.dataTime || '',
+      dataFreshness: dataFreshness || '',
+      dataMeta: d._meta || null,
       loading: false
     })
 
@@ -143,10 +221,29 @@ Page({
     }
   },
 
+  // v1.3 更新时间状态栏
+  _updateTimeStatus: function() {
+    var tz = formatUtil.getMultiTimezone()
+    var status = formatUtil.getMarketStatus()
+    this.setData({
+      timeStatus: tz,
+      marketStatus: status,
+      marketStatusOpen: status === '美股交易中'
+    })
+  },
+
   // 全球资产反应点击 → 跳转市场页（美股Tab）
   onReactionTap: function() {
     getApp().globalData.navigateTo.marketsTab = 0
     wx.switchTab({ url: '/pages/markets/markets' })
+  },
+
+  // v1.3.1 参考源展开/收起切换
+  onRefToggle: function(e) {
+    var jIdx = e.currentTarget.dataset.jIdx
+    var key = 'expandedRefs.' + jIdx
+    var current = this.data.expandedRefs[jIdx]
+    this.setData({ [key]: !current })
   },
 
   // 聪明钱速览点击 → 跳转雷达页

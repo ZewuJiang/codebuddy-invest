@@ -382,7 +382,7 @@ function generateBriefingData() {
       chain: [
         '央行宣布全面降准0.5个百分点',
         '释放长期资金约1.2万亿人民币',
-        'A股大幅高开，北向资金净流入超百亿',
+        'A股大幅高开，港股同步上涨，外资动向转暖',
         '房地产/基建板块领涨'
       ]
     },
@@ -424,7 +424,7 @@ function generateBriefingData() {
   var allSmartMoney = [
     { source: '桥水基金', action: '增持中国ETF约$2.3亿', signal: 'bullish' },
     { source: '木头姐ARK', action: '继续减持TSLA，加仓COIN和PLTR', signal: 'neutral' },
-    { source: '北向资金', action: '净流入¥87亿，连续第5个交易日净买入', signal: 'bullish' },
+    { source: '港股成交代理', action: '港股均涨+1.8%，外资动向代理指标为绿灯信号（北向净买额已于2024-08-19停止披露）', signal: 'bullish' },
     { source: '巴菲特伯克希尔', action: '继续增持西方石油，现金储备创新高', signal: 'neutral' },
     { source: '高瓴资本', action: '加仓PDD和BYD，减持JD', signal: 'bullish' },
     { source: '索罗斯基金', action: '建仓AI半导体ETF，加仓NVDA看涨期权', signal: 'bullish' },
@@ -518,12 +518,14 @@ function generateRadarData() {
   result.trafficLights[4].value = hyVal.toFixed(2) + '%'
   result.trafficLights[4].status = hyVal < 4.0 ? 'green' : (hyVal < 5.0 ? 'yellow' : 'red')
 
-  // 北向资金动态
-  var nsSeed = hashCode('northsouth:' + today)
-  var nsVal = (seededRandom(nsSeed) - 0.3) * 200
-  var nsStr = nsVal >= 0 ? '+' + Math.round(nsVal) + '亿' : Math.round(nsVal) + '亿'
-  result.trafficLights[5].value = nsStr
-  result.trafficLights[5].status = nsVal > 20 ? 'green' : (nsVal > -50 ? 'yellow' : 'red')
+  // 外资动向动态（港股均涨跌幅代理，北向净买额已于2024-08-19停止披露）
+  var fxSeed = hashCode('foreigncap:' + today)
+  var fxVal = (seededRandom(fxSeed) - 0.3) * 5 // 模拟港股均涨跌幅 ±2.5%
+  var fxStr = '港股均' + (fxVal >= 0 ? '涨+' : '跌') + fxVal.toFixed(2) + '%'
+  result.trafficLights[5].name = '外资动向'
+  result.trafficLights[5].value = fxStr
+  result.trafficLights[5].threshold = '港股均涨≥+1.5%绿 / 0~+1.5%黄 / 跌红'
+  result.trafficLights[5].status = fxVal >= 1.5 ? 'green' : (fxVal >= 0 ? 'yellow' : 'red')
 
   // CNH动态 (<7.15绿 / 7.15-7.30黄 / >7.30红)
   var cnhSeed = hashCode('cnh:' + today)

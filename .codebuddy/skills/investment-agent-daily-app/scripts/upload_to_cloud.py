@@ -1,7 +1,16 @@
 #!/usr/bin/env python3
 """
-upload_to_cloud.py — 投研鸭云数据库上传器 v1.0
-将提取好的 JSON 数据通过微信云开发 HTTP API 上传到云数据库。
+upload_to_cloud.py — 投研鸭云数据库上传器 v1.1
+
+v1.1 变更（2026-04-01）：
+- 新增上传后回读校验模块 verify_upload()
+  - 必填字段存在性校验（VERIFY_FIELDS）
+  - 数组字段长度校验（ARRAY_LENGTH_RULES）
+  - dataTime 一致性校验（防止字段截断）
+- 上传主流程新增回读校验阶段（verify pass/fail 统计）
+- 新增 uploaded_data 字典，记录成功上传的本地数据用于后续校验
+将提取好的 JSON 数据通过微信云开发 HTTP API 上传到云数据库，
+并在上传后自动回读校验关键字段完整性。
 
 用法：
     python3 upload_to_cloud.py <JSON文件目录> <日期YYYY-MM-DD>
@@ -47,6 +56,51 @@ CONFIG = {
 
 # 需要上传的4个集合名称（与小程序中的数据库集合名一一对应）
 COLLECTIONS = ['briefing', 'markets', 'watchlist', 'radar']
+
+# ═══════════════════════════════════════════════════════════════
+# v1.1 上传后回读校验配置
+# ═══════════════════════════════════════════════════════════════
+
+# 各集合必须存在且非空的关键字段
+VERIFY_FIELDS = {
+    "briefing":  [
+        "date", "coreEvent", "globalReaction", "coreJudgments",
+        "actions", "sentimentScore", "riskNote", "dataTime",
+    ],
+    "markets":   [
+        "date", "usMarkets", "m7", "asiaMarkets",
+        "commodities", "cryptos", "gics", "dataTime",
+    ],
+    "watchlist": ["date", "sectors", "stocks", "dataTime"],
+    "radar":     [
+        "date", "trafficLights", "riskScore", "riskLevel",
+        "monitorTable", "riskAlerts", "events", "alerts",
+        "smartMoneyDetail", "dataTime",
+    ],
+}
+
+# 数组字段长度要求 (min_len, max_len)
+ARRAY_LENGTH_RULES = {
+    "briefing":  {
+        "globalReaction": (5, 6),
+        "coreJudgments":  (3, 3),
+    },
+    "markets":   {
+        "usMarkets":   (4, 4),
+        "m7":          (7, 7),
+        "asiaMarkets": (4, 6),
+        "commodities": (6, 6),
+        "gics":        (11, 11),
+    },
+    "watchlist": {
+        "sectors": (7, 7),
+    },
+    "radar":     {
+        "trafficLights": (7, 7),
+        "riskAlerts":    (2, 3),
+        "events":        (3, 5),
+    },
+}
 
 # access_token 缓存（避免重复请求，有效期2小时）
 _token_cache = {
@@ -256,13 +310,83 @@ def upsert_data(collection, date, data):
 
 
 # ═══════════════════════════════════════════════════════════════
+# v1.1 新增：上传后回读校验
+# ═══════════════════════════════════════════════════════════════
+
+def verify_upload(collection: str, date: str, local_data: dict) -> dict:
+    """
+    上传后回读云端数据，核验关键字段是否完整写入。
+
+    检查项：
+    1. 云端记录存在（回读成功）
+    2. 所有必填字段非空（VERIFY_FIELDS）
+    3. 数组字段长度在允许范围内（ARRAY_LENGTH_RULES）
+    4. dataTime 字段与本地一致（防止写入时被截断）
+
+    返回: {
+        "ok": bool,
+        "error": str (仅当回读失败时),
+        "missing_fields": list,
+        "array_errors": list,
+        "dataTime_match": bool,
+        "cloud_date": str,
+    }
+    """
+    time.sleep(0.8)  # 等待云端写入完成，避免读写竞争
+
+    cloud_record = cloud_db_query(collection, date)
+    if not cloud_record:
+        return {
+            "ok": False,
+            "error": "回读失败：云端无匹配记录（可能写入尚未完成，或集合名称不匹配）",
+            "missing_fields": [],
+            "array_errors": [],
+            "dataTime_match": False,
+            "cloud_date": "unknown",
+        }
+
+    missing_fields = []
+    array_errors = []
+
+    # 1. 必填字段存在性检查
+    for field in VERIFY_FIELDS.get(collection, []):
+        val = cloud_record.get(field)
+        if val is None or val == "" or val == [] or val == {}:
+            missing_fields.append(field)
+
+    # 2. 数组长度校验
+    for field, (min_len, max_len) in ARRAY_LENGTH_RULES.get(collection, {}).items():
+        arr = cloud_record.get(field, [])
+        actual_len = len(arr) if isinstance(arr, list) else 0
+        if not (min_len <= actual_len <= max_len):
+            array_errors.append(
+                f"{field}: 期望{min_len}-{max_len}项，云端实际{actual_len}项"
+            )
+
+    # 3. dataTime 一致性（检测字段截断）
+    local_dt = local_data.get("dataTime", "").strip()
+    cloud_dt = cloud_record.get("dataTime", "").strip()
+    dt_match = (local_dt == cloud_dt)
+
+    ok = (len(missing_fields) == 0 and len(array_errors) == 0 and dt_match)
+
+    return {
+        "ok": ok,
+        "missing_fields": missing_fields,
+        "array_errors": array_errors,
+        "dataTime_match": dt_match,
+        "cloud_date": cloud_record.get("date", "unknown"),
+    }
+
+
+# ═══════════════════════════════════════════════════════════════
 # 主流程
 # ═══════════════════════════════════════════════════════════════
 
 def main():
     if len(sys.argv) < 3:
         print("=" * 60)
-        print("投研鸭 — 云数据库上传器 v1.0")
+        print("投研鸭 — 云数据库上传器 v1.1")
         print("=" * 60)
         print()
         print("用法: python3 upload_to_cloud.py <JSON目录> <日期>")
@@ -314,6 +438,7 @@ def main():
     # 逐个上传
     success_count = 0
     fail_count = 0
+    uploaded_data = {}  # v1.1：记录已成功上传的本地数据，用于后续回读校验
 
     for name in COLLECTIONS:
         filepath = os.path.join(data_dir, f'{name}.json')
@@ -337,6 +462,7 @@ def main():
             if upsert_data(name, date, data):
                 print(f"   ✅ {name} 上传成功")
                 success_count += 1
+                uploaded_data[name] = data  # v1.1：记录本地数据用于校验
             else:
                 print(f"   ❌ {name} 上传失败")
                 fail_count += 1
@@ -347,7 +473,38 @@ def main():
             print(f"   ❌ 未知错误: {e}")
             fail_count += 1
 
-    # 总结
+    # ─── v1.1 新增：上传后回读校验阶段 ────────────────────────────
+    if uploaded_data:
+        print(f"\n{'─' * 60}")
+        print(f"🔍 上传后回读校验（共 {len(uploaded_data)} 个集合）...")
+        print(f"{'─' * 60}")
+
+        verify_pass = 0
+        verify_fail = 0
+
+        for name, local_data in uploaded_data.items():
+            result = verify_upload(name, date, local_data)
+            if result.get("ok"):
+                print(f"   ✅ {name}: 云端字段完整，dataTime 一致")
+                verify_pass += 1
+            else:
+                verify_fail += 1
+                print(f"   ❌ {name}: 校验未通过")
+                if result.get("error"):
+                    print(f"      错误: {result['error']}")
+                if result.get("missing_fields"):
+                    print(f"      缺失字段: {result['missing_fields']}")
+                if result.get("array_errors"):
+                    print(f"      数组异常: {result['array_errors']}")
+                if not result.get("dataTime_match"):
+                    print(f"      ⚠️  dataTime 不一致（可能被截断或含特殊字符）")
+
+        print(f"\n📋 校验结果: {verify_pass} 通过 / {verify_fail} 异常")
+        if verify_fail > 0:
+            print("   ⚠️  存在校验异常，建议检查云端数据或重新上传")
+        print(f"{'─' * 60}")
+
+    # ─── 总结 ─────────────────────────────────────────────────────
     print(f"\n{'=' * 60}")
     print(f"📊 上传结果: {success_count} 成功 / {fail_count} 失败 / {len(COLLECTIONS)} 总计")
     if fail_count == 0:
