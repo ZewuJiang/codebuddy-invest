@@ -30,6 +30,8 @@ Page({
     riskNote: '',
     // 数据截止时间
     dataTime: '',
+    // 数据源模式
+    isCloud: false,
     // 动画控制
     animateReady: false
   },
@@ -38,7 +40,8 @@ Page({
 
   onLoad: function() {
     this.setData({
-      currentDate: formatUtil.formatDateCN()
+      currentDate: formatUtil.formatDateCN(),
+      isCloud: api.isCloudMode()
     })
 
     // 缓存优先秒开：先读缓存渲染，再后台静默刷新

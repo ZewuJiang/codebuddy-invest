@@ -1,7 +1,8 @@
-# 数据采集SOP（v17.8）
+# 数据采集SOP（v19.3）
 
 > **用途**：投资Agent每日策略简报第一阶段数据采集的完整操作规范。
 > **核心原则**：数据完整性第一，精确到小数点后两位，严禁空位和模糊表述。**宁可多花10分钟搜索精确值，也绝不用模糊文字凑数。**
+> **v19.3 文档治理同步**：标题版本已与最近维护记录对齐，避免出现正文已更新但文档头仍停留旧版本的情况。
 
 ---
 
@@ -74,8 +75,8 @@ web_fetch: https://www.google.com/finance/quote/XLRE:NYSEARCA  (房地产)
 | 港股/A股 | 东方财富/同花顺 | Google Finance | 新浪财经 |
 | 加密 | Google Finance `BTC-USD` | CoinGecko | — |
 | 黄金/白银 | web_search + 金投网 | OilPrice.com | — |
-| WTI原油 | web_fetch OilPrice.com | 金投网 | web_search |
 | **布伦特原油（主指标）** | **web_fetch OilPrice.com** | **金投网** | **web_search** |
+| WTI原油（辅指标） | web_fetch OilPrice.com | 金投网 | web_search |
 | DXY | web_search "DXY dollar index close {date}" Trading Economics | 金投网 DXY / Macrotrends.net | Finlore.io / 前日值+趋势估算（必须标注"估算"） |
 | 10Y美债 | web_search | FRED | 每经 |
 | **全球头条扫描** | **Bloomberg + Reuters + WSJ** | **CNBC + MarketWatch** | **FT + Barron's** |
@@ -235,5 +236,7 @@ Google Finance (web_fetch)
 
 ---
 
-> v17.8 — 2026-03-13 | 新增§七数据缺失强制处理流程 + §八成稿逐单元格扫描SOP（RULE FIVE配套），强化"宁迟勿糊"原则
+> v19.3 — 2026-04-01 | 文档治理同步：标题版本与最近维护记录正式对齐，避免版本头滞后造成误判
+> v19.2 — 2026-04-01 | 一致性修正：将数据源优先级表中的原油顺序调整为“布伦特主指标在前、WTI辅指标在后”，与格式指南和模板保持一致
 > v18.3 — 2026-03-27 | 数据源优先级表新增"布伦特原油（主指标）"行，明确原油采集以布伦特为主、WTI为辅
+> v17.8 — 2026-03-13 | 新增§七数据缺失强制处理流程 + §八成稿逐单元格扫描SOP（RULE FIVE配套），强化"宁迟勿糊"原则

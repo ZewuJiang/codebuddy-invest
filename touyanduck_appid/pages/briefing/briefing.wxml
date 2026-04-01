@@ -138,7 +138,7 @@
 
   <!-- 数据截止时间 -->
   <view class="data-footer" wx:if="{{dataTime}}">
-    <text class="footer-text">数据截至 {{dataTime}} | Mock演示数据</text>
+    <text class="footer-text">时点说明 · {{dataTime}} | {{isCloud ? '云数据' : '本地缓存'}}</text>
   </view>
 
 </view>

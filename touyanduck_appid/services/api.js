@@ -1,18 +1,12 @@
 /**
- * api.js — 统一数据服务层 v5.0
- * 支持两种数据源：
- *   1. Mock数据（默认）— 本地伪随机数据，用于开发和演示
- *   2. 云数据库（开通后切换）— 真实日报数据，从微信云数据库读取
- * 
- * 页面层代码零改动，数据源切换对上层完全透明。
- * 
- * v5.0 变更：
- *   - 新增云数据库直接读取模式（不需要云函数）
- *   - 自动降级：云数据库读取失败 → 自动回退到Mock数据
- *   - 保留本地缓存策略（秒开 + 后台静默刷新）
+ * api.js — 统一数据服务层 v6.0
+ * 只允许两类数据进入页面：
+ *   1. 云数据库真实数据
+ *   2. 上一次成功拉取后的本地缓存
+ *
+ * 严禁在云数据失败时自动降级到 Mock / 伪随机 / 估算数据。
  */
 
-var mock = require('./mock')
 var storage = require('../utils/storage')
 
 // 缓存有效期（分钟）
@@ -47,7 +41,6 @@ function queryCloud(collection, date) {
 
     var db = wx.cloud.database()
 
-    // 先查指定日期的数据
     db.collection(collection)
       .where({ date: date })
       .orderBy('_updateTime', 'desc')
@@ -58,7 +51,6 @@ function queryCloud(collection, date) {
           console.log('[API] 云数据库命中:', collection, date)
           resolve({ success: true, data: res.data[0] })
         } else {
-          // 没有指定日期的数据，取最新一条
           console.log('[API] 指定日期无数据，取最新:', collection)
           return db.collection(collection)
             .orderBy('date', 'desc')
@@ -82,47 +74,49 @@ function queryCloud(collection, date) {
 }
 
 /**
- * 通用数据获取函数（含自动降级逻辑）
- * 优先级：缓存 → 云数据库 → Mock数据
- * 
+ * 读取本地缓存数据
+ * @param {string} key - 缓存键（briefing/markets/watchlist/radar）
+ * @returns {object|null}
+ */
+function getCache(key) {
+  return storage.get('cache_' + key, null)
+}
+
+/**
+ * 通用数据获取函数
+ * 优先级：云数据库 → 已存在本地缓存
+ * 不再提供任何 Mock 自动回退。
+ *
  * @param {string} collection - 集合名称
  * @param {string} cacheKey - 缓存键
- * @param {Function} mockFn - Mock数据获取函数
- * @param {*} mockArg - 传给 mockFn 的参数
  * @returns {Promise<object>}
  */
-function fetchData(collection, cacheKey, mockFn, mockArg) {
-  if (isCloudMode()) {
-    // 云模式：从云数据库读取
-    var app = getApp()
-    var date = app.globalData.currentDateISO || new Date().toISOString().slice(0, 10)
+function fetchData(collection, cacheKey) {
+  var cached = storage.get(cacheKey, null)
 
-    return queryCloud(collection, date).then(function(cloudRes) {
-      if (cloudRes.success && cloudRes.data) {
-        // 云数据读取成功，缓存并返回
-        var result = { success: true, data: cloudRes.data }
-        storage.set(cacheKey, result, CACHE_EXPIRE)
-        return result
-      } else {
-        // 云数据读取失败，降级到Mock
-        console.log('[API] 云数据不可用，降级到Mock:', collection)
-        return mockFn(mockArg).then(function(mockRes) {
-          if (mockRes.success) {
-            storage.set(cacheKey, mockRes, CACHE_EXPIRE)
-          }
-          return mockRes
-        })
-      }
-    })
-  } else {
-    // Mock模式
-    return mockFn(mockArg).then(function(res) {
-      if (res.success) {
-        storage.set(cacheKey, res, CACHE_EXPIRE)
-      }
-      return res
-    })
+  if (!isCloudMode()) {
+    console.warn('[API] 当前未启用云数据模式，仅可使用已有本地缓存:', collection)
+    return Promise.resolve(cached || { success: false, data: null, error: 'CLOUD_DISABLED' })
   }
+
+  var app = getApp()
+  var date = app.globalData.currentDateISO || new Date().toISOString().slice(0, 10)
+
+  return queryCloud(collection, date).then(function(cloudRes) {
+    if (cloudRes.success && cloudRes.data) {
+      var result = { success: true, data: cloudRes.data }
+      storage.set(cacheKey, result, CACHE_EXPIRE)
+      return result
+    }
+
+    if (cached && cached.success && cached.data) {
+      console.warn('[API] 云数据暂不可用，回退到上一次本地缓存:', collection)
+      return cached
+    }
+
+    console.warn('[API] 云数据与本地缓存均不可用:', collection)
+    return { success: false, data: null, error: 'CLOUD_UNAVAILABLE' }
+  })
 }
 
 /**
@@ -131,7 +125,7 @@ function fetchData(collection, cacheKey, mockFn, mockArg) {
  * @returns {Promise<object>}
  */
 function getBriefing(date) {
-  return fetchData('briefing', 'cache_briefing', mock.getBriefing, date)
+  return fetchData('briefing', 'cache_briefing')
 }
 
 /**
@@ -140,7 +134,7 @@ function getBriefing(date) {
  * @returns {Promise<object>}
  */
 function getMarkets(category) {
-  return fetchData('markets', 'cache_markets', mock.getMarkets, category)
+  return fetchData('markets', 'cache_markets')
 }
 
 /**
@@ -149,7 +143,7 @@ function getMarkets(category) {
  * @returns {Promise<object>}
  */
 function getWatchlist(sectorId) {
-  return fetchData('watchlist', 'cache_watchlist', mock.getWatchlist, sectorId)
+  return fetchData('watchlist', 'cache_watchlist')
 }
 
 /**
@@ -157,26 +151,13 @@ function getWatchlist(sectorId) {
  * @returns {Promise<object>}
  */
 function getRadar() {
-  return fetchData('radar', 'cache_radar', mock.getRadar, undefined)
-}
-
-/**
- * 读取本地缓存数据
- * @param {string} key - 缓存键（briefing/markets/watchlist/radar）
- * @returns {object|null} 缓存的数据，过期或不存在返回 null
- */
-function getCache(key) {
-  return storage.get('cache_' + key, null)
+  return fetchData('radar', 'cache_radar')
 }
 
 /**
  * 清除数据缓存（下拉刷新时调用，强制重新获取数据）
  */
 function clearCache() {
-  if (!isCloudMode()) {
-    mock.clearCache()
-  }
-  // 同时清除本地持久缓存
   storage.remove('cache_briefing')
   storage.remove('cache_markets')
   storage.remove('cache_watchlist')

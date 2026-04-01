@@ -12,6 +12,7 @@ Page({
     currentSector: null,
     stocks: [],
     animateReady: false,
+    isCloud: false,
     switching: false,
     dataTime: ''
   },
@@ -19,6 +20,7 @@ Page({
   _allStockData: {},
 
   onLoad: function() {
+    this.setData({ isCloud: api.isCloudMode() })
     // 缓存优先秒开
     var cached = api.getCache('watchlist')
     if (cached && cached.success && cached.data) {
@@ -121,15 +123,20 @@ Page({
     var that = this
     that._allStockData = data.stocks || {}
 
-    var now = new Date()
-    var h = String(now.getHours()).padStart(2, '0')
-    var m = String(now.getMinutes()).padStart(2, '0')
-    var mon = String(now.getMonth() + 1).padStart(2, '0')
-    var d = String(now.getDate()).padStart(2, '0')
+    // 优先使用云数据中的 dataTime
+    var dataTime = data.dataTime
+    if (!dataTime) {
+      var now = new Date()
+      var h = String(now.getHours()).padStart(2, '0')
+      var m = String(now.getMinutes()).padStart(2, '0')
+      var mon = String(now.getMonth() + 1).padStart(2, '0')
+      var d = String(now.getDate()).padStart(2, '0')
+      dataTime = now.getFullYear() + '-' + mon + '-' + d + ' ' + h + ':' + m + ' BJT'
+    }
 
     that.setData({
       sectors: data.sectors || [],
-      dataTime: now.getFullYear() + '-' + mon + '-' + d + ' ' + h + ':' + m + ' BJT',
+      dataTime: dataTime,
       loading: false
     })
 

@@ -1,0 +1,71 @@
+{
+  "_comment": "投研鸭小程序 — 标准日 JSON 模板",
+  "_template": "daily-standard",
+  "_version": "1.0",
+  
+  "briefing": {
+    "date": "YYYY-MM-DD",
+    "coreEvent": {
+      "title": "",
+      "chain": []
+    },
+    "globalReaction": [],
+    "coreJudgments": [],
+    "actions": {
+      "today": [],
+      "week": []
+    },
+    "sentimentScore": 50,
+    "sentimentLabel": "中性",
+    "marketSummary": "",
+    "smartMoney": [],
+    "riskNote": "",
+    "dataTime": ""
+  },
+
+  "markets": {
+    "date": "YYYY-MM-DD",
+    "usMarkets": [],
+    "m7": [],
+    "asiaMarkets": [],
+    "commodities": [],
+    "cryptos": [],
+    "gics": []
+  },
+
+  "watchlist": {
+    "date": "YYYY-MM-DD",
+    "sectors": [
+      { "id": "ai", "name": "AI算力", "trend": "hold", "summary": "" },
+      { "id": "semi", "name": "半导体", "trend": "hold", "summary": "" },
+      { "id": "internet", "name": "互联网平台", "trend": "hold", "summary": "" },
+      { "id": "energy", "name": "新能源", "trend": "hold", "summary": "" },
+      { "id": "consumer", "name": "消费", "trend": "hold", "summary": "" },
+      { "id": "pharma", "name": "医药", "trend": "hold", "summary": "" },
+      { "id": "finance", "name": "金融", "trend": "hold", "summary": "" }
+    ],
+    "stocks": {
+      "ai": [],
+      "semi": [],
+      "internet": [],
+      "energy": [],
+      "consumer": [],
+      "pharma": [],
+      "finance": []
+    }
+  },
+
+  "radar": {
+    "date": "YYYY-MM-DD",
+    "trafficLights": [],
+    "riskScore": 50,
+    "riskLevel": "medium",
+    "riskAdvice": "",
+    "monitorTable": [],
+    "riskAlerts": [],
+    "events": [],
+    "alerts": [],
+    "smartMoneyDetail": [],
+    "dataTime": ""
+  }
+}

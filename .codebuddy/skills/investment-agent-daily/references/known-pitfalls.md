@@ -125,6 +125,20 @@
 
 ---
 
+## 已迁移功能说明（v19.1 — 禁止误调用）
+
+> **背景**：v19.0 新增的第3.5阶段（小程序数据同步）已于 v19.1 迁移至独立 Skill `investment-agent-daily-app`，本 Skill 不再包含任何数据提取/上传逻辑。
+
+| # | 已迁移功能 | 原脚本 | 当前状态 | 正确做法 |
+|---|-----------|--------|---------|---------|
+| 1 | MD报告 → 结构化JSON提取 | `scripts/extract_data.py` | **已删除** | 由 `investment-agent-daily-app` Skill 负责 |
+| 2 | JSON → 微信云数据库上传 | `scripts/upload_to_cloud.py` | **已删除** | 由 `investment-agent-daily-app` Skill 负责 |
+
+**⚠️ 致命警告**：如果在本 Skill 的执行中调用 `extract_data.py` 或 `upload_to_cloud.py`，将直接报错（文件不存在）。本 Skill 的 `scripts/` 目录仅保留 `md_to_pdf.py` 和 `requirements.txt`，职责边界 = **日报产出**，与小程序无任何关联。
+
+---
+
 > v18.0 — 2026-03-18 | 新增进化机制陷阱（8条：过度进化/分级乐观/铁栅栏形同虚设/Diff不精确/影响日报/中风险积压/日志膨胀/跨版本冲突），端到端零堵点+1条（进化引擎异常不影响日报交付）
 > v18.1 — 2026-03-19 | 新增Stage 4交付格式陷阱（3条：固定开头缺失/📌emoji遗漏/§九格式自由发挥）——0319实战教训
 > v18.2 — 2026-03-26 | 内容逻辑陷阱：周末条目更新为"周六～周日不出报告"，新增周一特殊模板额外批次遗漏提醒
+> v19.1 — 2026-04-01 | 新增"已迁移功能"说明（小程序数据同步→`investment-agent-daily-app` Skill，本 Skill 的 extract_data.py / upload_to_cloud.py 已删除，禁止调用）

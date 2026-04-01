@@ -21,12 +21,14 @@ Page({
     alerts: [],
     smartMoneyDetail: [],
     dataTime: '',
+    isCloud: false,
     animateReady: false
   },
 
   _animTimer: null,
 
   onLoad: function() {
+    this.setData({ isCloud: api.isCloudMode() })
     // 缓存优先秒开
     var cached = api.getCache('radar')
     if (cached && cached.success && cached.data) {

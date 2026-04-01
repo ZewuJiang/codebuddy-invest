@@ -21,7 +21,7 @@ App({
       console.log('☁️ 云开发已初始化，环境:', this.globalData.cloudEnvId)
     } else {
       this.globalData.cloudReady = false
-      console.log('📦 使用本地Mock数据模式')
+      console.log('📦 当前未启用云数据，仅允许使用本地缓存')
     }
   },
 

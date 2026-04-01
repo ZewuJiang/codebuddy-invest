@@ -1,8 +1,8 @@
 ---
-description: 所有CodeBuddy产出的投资分析报告文件（MD/PDF）的输出路径统一路由规则。始终生效，确保报告产出到OrbitOS对应目录。
+description: 
 alwaysApply: true
-enabled: true
-updatedAt: 2026-03-16T13:00:00.000Z
+enabled: false
+updatedAt: 2026-04-01T09:36:48.279Z
 provider: 
 ---
 

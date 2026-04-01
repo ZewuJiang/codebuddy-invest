@@ -10,6 +10,3 @@
 markdown>=3.5
 weasyprint>=60.0
 pdfplumber>=0.10
-
-# 云数据库上传（upload_to_cloud.py）
-requests>=2.28

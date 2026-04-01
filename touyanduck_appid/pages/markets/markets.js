@@ -22,6 +22,7 @@ Page({
     cryptos: [],
     gics: [],
     animateReady: false,
+    isCloud: false,
     dataTime: '',
     swiperHeight: '1200rpx'
   },
@@ -31,6 +32,7 @@ Page({
   _hasGics: false,
 
   onLoad: function() {
+    this.setData({ isCloud: api.isCloudMode() })
     this.fetchData()
   },
 
@@ -147,12 +149,16 @@ Page({
       }
     })
 
-    var now = new Date()
-    var h = String(now.getHours()).padStart(2, '0')
-    var m = String(now.getMinutes()).padStart(2, '0')
-    var mon = String(now.getMonth() + 1).padStart(2, '0')
-    var d = String(now.getDate()).padStart(2, '0')
-    var dataTime = now.getFullYear() + '-' + mon + '-' + d + ' ' + h + ':' + m + ' BJT'
+    // 优先使用云数据中的 dataTime，没有则自动生成
+    var dataTime = data.dataTime
+    if (!dataTime) {
+      var now = new Date()
+      var h = String(now.getHours()).padStart(2, '0')
+      var m = String(now.getMinutes()).padStart(2, '0')
+      var mon = String(now.getMonth() + 1).padStart(2, '0')
+      var d = String(now.getDate()).padStart(2, '0')
+      dataTime = now.getFullYear() + '-' + mon + '-' + d + ' ' + h + ':' + m + ' BJT'
+    }
 
     that.setData({
       usMarkets: processItems(data.usMarkets),

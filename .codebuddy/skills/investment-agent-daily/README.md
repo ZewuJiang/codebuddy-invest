@@ -1,10 +1,15 @@
 # investment-agent-daily — 投资Agent每日策略简报 Skill
 
-> **版本**: v18.4 | **类型**: CodeBuddy / Claude Code 自定义 Skill
+> **版本**: v19.3 | **类型**: CodeBuddy / Claude Code 自定义 Skill
 
 ## 简介
 
 每日自动生成投资策略简报（MD + PDF），覆盖全球市场、AI产业链、基金大资金动向，面向高净值个人投资者。
+
+## 最新更新
+
+- **v19.3（2026-04-01）**：补齐 v19.2 遗留落地项，修正 `ai-supply-chain-universe.md` 正文 Ticker，升级行动建议占位为明确动作/触发条件，并清除周一模板月涨跌占位中的“—”。
+- **v19.2（2026-04-01）**：修正核心规则计数、标准日报模板口径、周一模板旧引用和 AI 产业链错误Ticker，同步布伦特主指标与 `YYYYMMDD` 命名规则。
 
 ## 快速安装
 

@@ -1,8 +1,0 @@
-<!-- mini-chart 组件 — 迷你走势折线图 -->
-<view class="mini-chart-wrap" style="width: {{pxWidth}}px; height: {{pxHeight}}px;">
-  <canvas type="2d" 
-          id="{{canvasId}}" 
-          class="mini-chart-canvas" 
-          style="width: {{pxWidth}}px; height: {{pxHeight}}px;">
-  </canvas>
-</view>
