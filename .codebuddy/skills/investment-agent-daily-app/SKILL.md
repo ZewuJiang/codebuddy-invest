@@ -3,10 +3,22 @@ name: investment-agent-daily-app
 description: 当用户提到「投资App」「小程序数据」「投研鸭数据」「app数据更新」「miniapp sync」或类似关键词时，自动执行投研鸭小程序数据生产全流程，输出4个原生结构化JSON并上传微信云数据库。
 ---
 
-# 投研鸭小程序数据生产 — 标准工作流 v1.4
+# 投研鸭小程序数据生产 — 标准工作流 v2.1
 
-> **版本**: v1.4 (2026-04-02 12:34)
+> **版本**: v2.1 (2026-04-02 22:41)
 > **主控文档**：本文件为精炼主控，详细规则/知识库/模板/SOP通过引用按需加载。
+
+### v2.1 Changelog（2026-04-02 22:41）
+- **升级** `actions.type` 枚举：从 `buy/sell/hold/bullish/bearish` 改为具体操作动词 `hold（持有）/ add（加仓）/ reduce（减仓）/ buy（买入）/ sell（卖出）/ watch（关注）/ hedge（对冲）/ stoploss（止损）`；**禁止使用 `bullish/bearish`**（方向判断≠操作指令，前端已向后兼容）
+- **升级** `marketSummary`（字符串）→ `marketSummaryPoints`（数组，3-5条 bullet）：每条15-40字独立观察点，对标重点事件 bullet point 风格，大幅提升可读性；前端 `briefing.js` 已兼容旧版字符串自动拆分兜底
+- **新增** 来源链接规范：`coreEvent.chain[].url` 必须与 `source` 一一对应，**严禁跨媒体伪造链接**（如 Bloomberg 内容配 Yahoo Finance 链接）；Bloomberg/FT/WSJ 等付费墙媒体无公开链接时只填 `source`，不填 `url`，前端自动显示灰色不可点样式
+- **同步** `json-schema.md` 升级至 v1.8、`known-pitfalls.md` 升级至 v1.4
+- **删除** `keyDeltas[]` 字段（整个 KEY DELTA 模块已从简报页移除）
+- **新增** `takeaway`（string）：今日核心结论，一句话，有立场有行动方向，30-80字
+- **升级** `coreEvent.chain[]`：从 `string[]` 改为 `object[]`（每条包含 title/brief/source/url），标题为结论式
+- **升级** `globalReaction[]`：新增可选 `note` 字段（≤15字解读）
+- **升级** `actions.today[]/week[]`：新增可选 `reason` 字段（≤40字建议理由/数据锚点）
+- **修改** `coreEvent` 标签名：「今日核心事件」→「今日重点事件」
 
 ---
 
@@ -172,7 +184,7 @@ date "+%A %Y-%m-%d %H:%M:%S"
 | # | 检查项 | 规则 |
 |---|--------|------|
 | 1 | **必填字段非空** | 所有 json-schema.md 中标记"必填"的字段不能是 `""`、`[]`、`null`、`"--"` |
-| 2 | **枚举值校验** | `direction` ∈ {up, down, flat}，`signal` ∈ {bullish, bearish, neutral}，`trend` ∈ {up, down, hold}，`type` ∈ {buy, sell, hold, bullish, bearish}，`level` ∈ {high, medium, low}，`status` ∈ {green, yellow, red} |
+| 2 | **枚举值校验** | `direction` ∈ {up, down, flat}，`signal` ∈ {bullish, bearish, neutral}，`trend` ∈ {up, down, hold}，`type` ∈ {hold, add, reduce, buy, sell, watch, hedge, stoploss}（**禁止 bullish/bearish**），`level` ∈ {high, medium, low}，`status` ∈ {green, yellow, red} |
 | 3 | **数据类型校验** | `change` = number，`sentimentScore` = number，`riskScore` = number，`confidence` = number，`sparkline` = number[]，`chartData` = number[] |
 | 4 | **数组长度校验** | `globalReaction` ≥ 5，`coreJudgments` = 3，`trafficLights` = 7，`sparkline` = 7，GICS = 11 |
 | 5 | **板块均衡** | watchlist 每个板块至少 2 只标的 |
@@ -243,10 +255,14 @@ python3 upload_to_cloud.py "/Users/zewujiang/Desktop/AICo/codebuddy-invest/workf
 | 14 | JSON 语法错误 | 无法被 `json.loads()` 解析 |
 | 15 | 价格数据错误 | 收盘价/涨跌幅与实际不符 |
 | 16 | 可选字段枚举值越界 | `keyDeltas[].status` 填了"上涨"而非枚举值（升级/新增/活跃/降温/稳定）；`fearGreed.label` 填了"恐惧"而非英文枚举（Extreme Fear/Fear/Neutral/Greed/Extreme Greed）；`predictions[].source` 填了非允许值（仅限 Polymarket/Kalshi/CME FedWatch）；`_meta.sourceType` 填了非枚举值 |
+| 17 | 字段内容边界越界 | `keyDeltas[].brief` 写了 coreEvent/globalReaction 中已有的具体数字（如指数涨跌幅）；`coreEvent.chain` 重复了 brief 中已有的具体数字；`marketSummary` 汇总重复了 keyDeltas/coreEvent/globalReaction 中的具体数字 — 三处均有明确的「正确/错误示例」，详见 json-schema.md |
+| 18 | 数据时效性错误 | ①`brief` 字段超过25字（应极简10-25字，非长句）；②生成时美股未收盘却在 globalReaction/coreEvent 中使用期货盘前数据并当作收盘数据呈现，未注明「盘前」；③`timeStatus.marketStatus` 填写错误（北京时间19:22=纽约盘前07:22，应填「盘前交易」而非「美股已收盘」）；④`dataTime` 未注明数据时态（盘前/盘中/盘后/收盘） |
+
+| 19 | keyDeltas 热度评级虚高 | 所有 heat≥4 的条目必须符合「宏观/地缘突发冲击、市场结构性拐点、指数级行情驱动事件」定义；战略投资（规模<市值1%）、供应链合作、行业进展等「重要但不紧迫」事件必须降为 heat=3；若一天内 heat≥4 超过2条，必须重审全部 keyDeltas 评级 |
+
+| 20 | coreJudgments.logic 使用段落散文 | `logic` 字段必须使用「短句+箭头（→）三段式」：`触发原因 → 传导路径 → 核心结论`，每段≤15字，整条≤50字；禁止：段落散文、分号连接长句、bullet点（`•`）列举；前端无 💡 图标前缀，文字直接顶格，箭头自带方向感，无需其他修饰符号 |
 
 ---
-
-## 知识库引用索引
 
 | 文件 | 内容 | 用途 |
 |------|------|------|
@@ -288,6 +304,14 @@ briefing.json / markets.json / watchlist.json / radar.json
 
 | 版本 | 日期 | 核心变更 |
 |------|------|---------|
+| **v2.2** | 2026-04-02 23:01 | **核心判断呈现质量升级**：①`coreJudgments.logic` 字段强制「短句+箭头（→）三段式」格式（触发原因→传导路径→核心结论），禁止段落散文/分号长句/bullet列举；每段≤15字，整条≤50字；②前端 `briefing.wxml` 移除 💡 灯泡图标（`logic-icon`），logic 文字直接顶格，`briefing.wxss` 同步删除 `.logic-icon` 样式；③`json-schema.md` 升级至 v1.9 — logic 字段注释新增强制格式、正/错误示例、字数要求、前端渲染说明；④`known-pitfalls.md` 升级至 v1.5 — 新增堵点#15（核心判断散文式呈现，含正/错误示例+前端渲染说明）；⑤`SKILL.md` 致命错误清单新增第20条（logic段落散文零容忍）。 |
+| **v2.1** | 2026-04-02 22:41 | **小程序呈现质量全面升级**：①`actions.type` 枚举从方向判断（bullish/bearish）改为具体操作动词（hold/add/reduce/watch/hedge/stoploss），前端 color.js 同步扩展标签映射；②`marketSummary` 字符串升级为 `marketSummaryPoints` 数组（3-5条 bullet），对齐重点事件阅读风格，前端兼容旧格式自动拆分；③新增来源链接规范——严禁跨媒体伪造链接，Bloomberg/FT/WSJ 等付费墙媒体无公开链接时只填 source 不填 url，前端自动显示灰色不可点样式（chain-link-no-url）；④json-schema.md v1.8、known-pitfalls.md v1.4 同步升级。 |
+| **v2.0** | 2026-04-02 21:21 | **删除** `keyDeltas[]` 字段（整个 KEY DELTA 模块已从简报页移除）；**新增** `takeaway`；**升级** `coreEvent.chain[]` 对象化；**升级** `globalReaction[]` 新增 note；**升级** `actions` 新增 reason；**修改** 标签名 |
+| **v1.9** | 2026-04-02 20:49 | **热度三档标准全链路系统内化**：①`color.js` `getHeatLabel()` 从旧5档逻辑（加速中/活跃/关注/降温/平淡）重写为新三档逻辑（加速/活跃/关注），与 `briefing.js` 前端渲染完全对齐，并补充详细注释说明三档规则；②`json-schema.md` 升级至 v1.6 — `heat` 字段注释新增「前端颜色对应」规范表（加速→#c0392b血红/.kd-dot.hot；活跃→#f1c40f黄色/.kd-dot.active；关注→#555深灰/默认），含 WXML 渲染代码片段，让新开发前端页面时无需反向查 wxss；③`known-pitfalls.md` 升级至 v1.3 — 新增堵点#12「keyDeltas热度评级虚高」，明确三档判断边界、错误类型（战略投资、供应链合作≠加速），以及「一天内heat≥4超2条必须重审」自查规则；④`SKILL.md` 致命错误清单新增第19条（热度评级虚高零容忍）。 |
+| **v1.8** | 2026-04-02 20:41 | **热度三档评级标准固化**：①`json-schema.md` `keyDeltas[].heat` 字段注释新增三档评级判断规则 — 加速（heat≥4）对应宏观/地缘突发冲击、市场结构性拐点、指数级行情驱动事件；活跃（heat=3）对应重要但不紧迫的行业进展、企业战略投资（规模<市值1%）；关注（heat≤2）对应背景信息、趋势性缓慢演变；附正/错误示例防止评级虚高；②`briefing.json` 数据层将"NVIDIA $20亿投资Marvell"从 heat:4 降为 heat:3（属战略生态布局，非突发市场冲击，前端由3点加速→2点活跃）。 |
+| **v1.7** | 2026-04-02 20:06 | 修复前端纽约时间计算Bug（根本原因修复）：`format.js` `getMultiTimezone()` 中 `estOffset` 符号方向错误——`estOffset` 为负数（EDT=-240），旧代码用 `- estOffset` 变成 `+240`（UTC+4），导致纽约时间错8小时（实际显示16:06而非08:06）；修复为与 `bjt` 同一模式的 `+ estOffset`（UTC-4），计算结果正确；同步在 json-schema.md 中新增时区换算快速验证规则（夏令时：纽约=北京-12h；冬令时：北京-13h）防止人工填写时再犯。 |
+| **v1.6** | 2026-04-02 20:02 | 数据时效性与格式规范修复（源自实测反馈）：①致命错误清单新增第18条（数据时效性错误）— `brief` 字段超过25字、使用盘前期货数据未注明时态、`timeStatus.marketStatus` 填写与实际时间不符、`dataTime` 未标注盘前/盘中/盘后/收盘；②json-schema.md 升级至 v1.5 — `brief` 字长由30-80字收紧为10-25字极简风格（大老板阅读习惯，类似图片中伊朗简报样式），附正确示例；③`timeStatus.marketStatus` 增加完整时区判断规则注释（BJT与EDT/EST对照表），防止时区计算错误导致开市状态标注错误；④`dataTime` 格式规范新增时态标注要求，美股非收盘数据必须注明「盘前」或「盘后」。 |
+| **v1.5** | 2026-04-02 18:24 | 字段内容边界规范治本升级（防信息冗余）：①json-schema.md 升级至 v1.4 — `keyDeltas[].brief` 重定义为专写「为何重要/影响方向/市场逻辑」，禁止重复 coreEvent/globalReaction 中具体数字；`coreEvent.chain[]` 重定义为因果逻辑推演，禁止重复 brief 中具体数字；`marketSummary` 重定义为情绪结构判断+核心风险/下一变量，禁止汇总重复各区块具体数字；三处均附正确/错误示例；marketSummary 字长限制收紧为50-120字；②致命错误清单新增第17条（字段内容边界越界）。目标：面向10亿+个人投资者大老板，消除简报首页 keyDeltas/coreEvent/marketSummary 之间同一数字重复出现4次的信息冗余，每个区块各司其职、互不重叠。 |
 | **v1.4** | 2026-04-02 12:34 | Skill 数据采集端全面对齐 v1.3 新字段，补齐 SOP 与模板空白地带：①`data-collection-sop.md` 升级至 v1.3 — 新增第八章"Batch A 情绪与预测数据采集SOP"（四子批次：CNN Fear&Greed API / Polymarket CLOB API / Kalshi API / CME FedWatch 页面；含字段映射、失败处理、汇总规则）；采集批次总览表新增 Batch A 行（适用全工作日，可选非阻断）；验证门禁扩展第18-22项可选字段建议检查（⭐ 非阻断）；明确 keyDeltas 为 JSON 生成阶段 AI 提炼，非行情直采；②`data-source-priority.md` 升级至 v1.3 — 新增"一-A章"情绪与预测数据源优先级（CNN F&G / Polymarket / Kalshi / CME FedWatch 四类数据源定义、接口说明、字段映射注释）；降级路径表新增 4 条情绪数据降级路径（全部非阻断型）；③`daily-standard.json` 模板升级至 v1.3 — 补充 briefing 的 timeStatus/keyDeltas/_meta 完整占位示例；markets 的6个板块Insight空字符串占位；radar 的 fearGreed/predictions/_meta 完整占位示例；coreJudgments 三条示例均补充 keyActor/references/probability/trend 可选扩展字段；_field_notes 字段集中声明所有枚举值供 AI 参考；④`monday-special.json` 模板升级至 v1.3 — 与 daily-standard 结构完全对齐，_note 补充周一额外执行 Batch A 说明；⑤`SKILL.md` 致命错误清单新增第16条（可选字段枚举值越界）；第一阶段采集批次概要表新增 Batch A 行；第1.5阶段门禁扩展第18-22项可选字段建议检查。 |
 | **v1.3.2** | 2026-04-02 00:21 | 市场页板块 Insight 升级：①json-schema.md 新增 6 个板块级 Insight 字段（usInsight/m7Insight/asiaInsight/commodityInsight/cryptoInsight/gicsInsight），每个板块数据表格底部提供30-80字高质量一句话洞察，对齐日报"XX信号"风格；②原 usMarkets[0].note 迁移为独立 usInsight 字段，前端向后兼容；③markets.wxml 6个Tab/GICS均加入💡洞察卡片（复用 .market-comment 样式）；④markets.js _applyData 传递6个insight+向后兼容旧note；⑤markets-mock.js 补充6个高质量示例文本；⑥data-collection-sop.md 新增第七章"板块Insight生成规范"+门禁第17项验证。 |
 | **v1.3.1** | 2026-04-02 00:00 | UI精修三项：①删除简报页顶部hero冗余渐变区域（导航栏已有标题+日期），页面更简洁；②修复判断扩展区 jx-divider 虚线样式（dashed→渐变淡化实线），视觉更优雅；③json-schema.md 中 references 从 string[] 升级为 object[]（含 name/summary/url），briefing 前端改为可点击展开的手风琴组件，展开后显示信息摘要和来源链接，向后兼容旧格式纯字符串数组。相关文件：briefing.js（删除 currentDate + 新增 expandedRefs/onRefToggle + references 兼容映射）、briefing.wxml（删除 hero + 重写 Reference 区域）、briefing.wxss（删除 hero 样式 + 修复虚线 + 新增展开面板样式）。 |

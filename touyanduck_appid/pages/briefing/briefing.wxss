@@ -1,29 +1,52 @@
 /* pages/briefing/briefing.wxss */
-/* 简报页样式 v5.0 — 对齐Skill五段式架构 + v1.3前端体验升级 */
+/* 简报页样式 v6.0 — takeaway + 今日重点事件(chain对象化) + 全球资产反应(note) + 行动建议(reason) */
 
 .page-container {
   padding-bottom: 20rpx;
 }
 
-/* ========== §1 核心事件卡片 ========== */
-.event-card {
-  background: linear-gradient(135deg, #fff9e6 0%, #fff5d6 100%);
+/* ========== 今日核心结论 TAKEAWAY ========== */
+.takeaway-card {
+  background: #fff;
   border-radius: 16rpx;
-  padding: 28rpx;
+  padding: 24rpx;
   margin: 0 24rpx 16rpx;
-  border: 1rpx solid rgba(255, 184, 0, 0.2);
-  box-shadow: 0 2rpx 16rpx rgba(255, 184, 0, 0.1);
+  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.06);
 }
 
-.event-tag {
+/* 通用卡片标题（今日结论、今日重点事件、全球资产反应 共用） */
+.card-title-bar {
   font-size: 22rpx;
-  color: #e67e22;
   font-weight: 600;
+  color: #e67e22;
+  letter-spacing: 1rpx;
+  display: block;
   margin-bottom: 12rpx;
 }
 
+.takeaway-text {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #333;
+  line-height: 1.7;
+}
+
+.takeaway-highlight {
+  color: #e74c3c;
+  font-weight: 700;
+}
+
+/* ========== §1 核心事件卡片 ========== */
+.event-card {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin: 0 24rpx 16rpx;
+  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.06);
+}
+
 .event-title {
-  font-size: 32rpx;
+  font-size: 30rpx;
   font-weight: 700;
   color: #1a1a2e;
   line-height: 1.5;
@@ -37,7 +60,7 @@
 .chain-item {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 12rpx;
+  margin-bottom: 20rpx;
   position: relative;
 }
 
@@ -51,23 +74,70 @@
   border-radius: 50%;
   background: #FFB800;
   flex-shrink: 0;
-  margin-top: 10rpx;
-  margin-right: 12rpx;
+  margin-top: 12rpx;
+  margin-right: 14rpx;
 }
 
-.chain-arrow {
-  position: absolute;
-  left: 2rpx;
-  top: 24rpx;
-  font-size: 20rpx;
-  color: #ccc;
-  display: none;
+.chain-body {
+  flex: 1;
+  min-width: 0;
 }
 
-.chain-text {
-  font-size: 26rpx;
-  color: #555;
+.chain-title {
+  display: block;
+  font-size: 27rpx;
+  font-weight: 700;
+  color: #1a1a2e;
+  line-height: 1.5;
+  margin-bottom: 4rpx;
+}
+
+.chain-brief {
+  display: block;
+  font-size: 23rpx;
+  color: #888;
   line-height: 1.6;
+  margin-bottom: 6rpx;
+}
+
+.chain-link-row {
+  display: flex;
+  align-items: center;
+  margin-top: 2rpx;
+}
+
+.chain-link-tappable {
+  cursor: pointer;
+  border-radius: 6rpx;
+  transition: opacity 0.15s ease;
+}
+
+.chain-link-tappable:active {
+  opacity: 0.5;
+}
+
+.chain-link-icon {
+  font-size: 20rpx;
+  margin-right: 6rpx;
+}
+
+.chain-link-source {
+  font-size: 21rpx;
+  color: #2980b9;
+  font-weight: 500;
+}
+
+.chain-link-no-url {
+  color: #bbb;
+  text-decoration: none;
+  cursor: default;
+  pointer-events: none;
+}
+
+.chain-link-arrow {
+  font-size: 20rpx;
+  color: #2980b9;
+  margin-left: 4rpx;
 }
 
 /* ========== §1 全球资产反应 ========== */
@@ -80,13 +150,15 @@
 }
 
 .reaction-header {
-  font-size: 26rpx;
-  font-weight: 600;
-  color: #1a1a2e;
-  margin-bottom: 16rpx;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 16rpx;
+}
+
+/* reaction-header 内的 card-title-bar 不要额外 margin-bottom */
+.reaction-header .card-title-bar {
+  margin-bottom: 0;
 }
 
 .reaction-link {
@@ -122,6 +194,17 @@
 .reaction-value {
   font-size: 28rpx;
   font-weight: 700;
+}
+
+.reaction-note {
+  font-size: 19rpx;
+  color: #bbb;
+  line-height: 1.4;
+  margin-top: 4rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 2rpx;
 }
 
 .reaction-up {
@@ -227,12 +310,6 @@
   padding: 0 4rpx;
 }
 
-.logic-icon {
-  margin-right: 8rpx;
-  font-size: 24rpx;
-  flex-shrink: 0;
-  margin-top: 2rpx;
-}
 
 .logic-text {
   font-size: 24rpx;
@@ -269,11 +346,22 @@
   margin-bottom: 0;
 }
 
+.action-body {
+  flex: 1;
+  min-width: 0;
+}
+
 .action-content {
   font-size: 26rpx;
   color: #333;
   line-height: 1.6;
-  flex: 1;
+}
+
+.action-reason {
+  font-size: 22rpx;
+  color: #999;
+  line-height: 1.5;
+  margin-top: 5rpx;
 }
 
 /* ========== §2 市场情绪 ========== */
@@ -348,15 +436,37 @@
   border-radius: 16rpx;
 }
 
-.market-summary {
-  font-size: 24rpx;
-  color: #888;
-  line-height: 1.7;
+/* 市场情绪 bullet point 列表 */
+.market-summary-list {
   margin-top: 16rpx;
-  padding: 12rpx 16rpx;
-  background: #f8f9fc;
-  border-radius: 8rpx;
-  border-left: 4rpx solid #FFB800;
+  padding-left: 4rpx;
+}
+
+.ms-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 14rpx;
+}
+
+.ms-item:last-child {
+  margin-bottom: 0;
+}
+
+.ms-dot {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background: #FFB800;
+  flex-shrink: 0;
+  margin-top: 11rpx;
+  margin-right: 14rpx;
+}
+
+.ms-text {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.7;
+  flex: 1;
 }
 
 /* ========== §4 聪明钱速览 ========== */
@@ -498,106 +608,6 @@
 .ts-market-closed {
   background: rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.4);
-}
-
-/* ========== v1.3 KEY DELTA 增量信息 ========== */
-.kd-list {
-  margin-top: 4rpx;
-}
-
-.kd-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16rpx 0;
-  border-bottom: 1rpx solid #f5f5f5;
-}
-
-.kd-item:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-.kd-left {
-  display: flex;
-  align-items: center;
-  flex: 1;
-  min-width: 0;
-  margin-right: 16rpx;
-}
-
-.kd-status-tag {
-  font-size: 20rpx;
-  padding: 4rpx 14rpx;
-  border-radius: 16rpx;
-  font-weight: 600;
-  flex-shrink: 0;
-  margin-right: 12rpx;
-}
-
-.kd-tag-upgrade {
-  background: rgba(255, 107, 53, 0.12);
-  color: #FF6B35;
-}
-
-.kd-tag-new {
-  background: rgba(41, 128, 185, 0.12);
-  color: #2980b9;
-}
-
-.kd-tag-active {
-  background: rgba(255, 184, 0, 0.12);
-  color: #FFB800;
-}
-
-.kd-tag-cool {
-  background: rgba(153, 153, 153, 0.12);
-  color: #999;
-}
-
-.kd-tag-stable {
-  background: rgba(39, 174, 96, 0.12);
-  color: #27ae60;
-}
-
-.kd-title {
-  font-size: 26rpx;
-  font-weight: 600;
-  color: #1a1a2e;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.kd-right {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.kd-heat-dots {
-  display: flex;
-  gap: 4rpx;
-  margin-right: 8rpx;
-}
-
-.kd-dot {
-  width: 10rpx;
-  height: 10rpx;
-  border-radius: 50%;
-  background: #e0e0e0;
-  transition: background 0.3s ease;
-}
-
-.kd-dot-on {
-  background: #FF6B35;
-  box-shadow: 0 0 6rpx rgba(255, 107, 53, 0.4);
-}
-
-.kd-heat-label {
-  font-size: 20rpx;
-  color: #999;
-  white-space: nowrap;
 }
 
 /* ========== v1.3 判断扩展信息 ========== */
@@ -793,6 +803,17 @@
   padding-left: 18rpx;
 }
 
+/* 可点击态：hover/active 反馈 */
+.jx-ref-tappable {
+  cursor: pointer;
+  border-radius: 6rpx;
+  transition: opacity 0.15s ease;
+}
+
+.jx-ref-tappable:active {
+  opacity: 0.5;
+}
+
 .jx-ref-domain {
   font-size: 20rpx;
   color: #2980b9;
@@ -809,78 +830,15 @@
   flex-shrink: 0;
 }
 
-/* ========== v1.3 双层数据状态栏 ========== */
-.ds-footer {
+/* ========== 数据更新时间 ========== */
+.data-footer {
   text-align: center;
   padding: 20rpx 32rpx 16rpx;
 }
 
-.ds-row-primary {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8rpx;
-}
-
-.ds-dot {
-  width: 12rpx;
-  height: 12rpx;
-  border-radius: 50%;
-}
-
-.ds-dot-cloud {
-  background: #27ae60;
-  box-shadow: 0 0 6rpx rgba(39, 174, 96, 0.4);
-}
-
-.ds-dot-cache {
-  background: #e67e22;
-  box-shadow: 0 0 6rpx rgba(230, 126, 34, 0.4);
-}
-
-.ds-source {
+.footer-text {
   font-size: 20rpx;
   color: #bbb;
-}
-
-.ds-sep {
-  font-size: 20rpx;
-  color: #ddd;
-}
-
-.ds-time {
-  font-size: 20rpx;
-  color: #bbb;
-}
-
-.ds-row-meta {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12rpx;
-  margin-top: 6rpx;
-}
-
-.ds-type-tag {
-  font-size: 18rpx;
-  padding: 2rpx 12rpx;
-  border-radius: 8rpx;
-  font-weight: 500;
-}
-
-.ds-type-heavy {
-  background: rgba(255, 184, 0, 0.12);
-  color: #FFB800;
-}
-
-.ds-type-realtime {
-  background: rgba(41, 128, 185, 0.12);
-  color: #2980b9;
-}
-
-.ds-version {
-  font-size: 18rpx;
-  color: #ccc;
 }
 
 /* ========== 入场动画 ========== */

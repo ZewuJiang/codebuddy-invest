@@ -16,18 +16,25 @@ function getChangeColorClass(change) {
 
 /**
  * 行动建议类型映射
- * @param {string} type - 'buy' | 'sell' | 'hold' | 'bullish' | 'bearish'
+ * @param {string} type - 具体操作类型
  * @returns {object} { label: 中文名, tagClass: 标签样式class }
  */
 function getActionInfo(type) {
   const map = {
-    buy:     { label: '买入', tagClass: 'tag-red' },
-    bullish: { label: '看涨', tagClass: 'tag-orange' },
-    hold:    { label: '观望', tagClass: 'tag-yellow' },
-    bearish: { label: '看跌', tagClass: 'tag-blue' },
-    sell:    { label: '卖出', tagClass: 'tag-green' }
+    // 具体操作类型（推荐使用）
+    hold:     { label: '持有', tagClass: 'tag-yellow' },
+    add:      { label: '加仓', tagClass: 'tag-red' },
+    reduce:   { label: '减仓', tagClass: 'tag-green' },
+    buy:      { label: '买入', tagClass: 'tag-red' },
+    sell:     { label: '卖出', tagClass: 'tag-green' },
+    watch:    { label: '关注', tagClass: 'tag-blue' },
+    stoploss: { label: '止损', tagClass: 'tag-gray' },
+    hedge:    { label: '对冲', tagClass: 'tag-orange' },
+    // 兼容旧格式
+    bullish:  { label: '看涨', tagClass: 'tag-orange' },
+    bearish:  { label: '看跌', tagClass: 'tag-blue' }
   }
-  return map[type] || { label: '观望', tagClass: 'tag-yellow' }
+  return map[type] || { label: '持有', tagClass: 'tag-yellow' }
 }
 
 /**
@@ -117,16 +124,22 @@ function getDeltaStatusInfo(status) {
 }
 
 /**
- * 根据热度值返回文字标签
- * @param {number} heat - 1-5
- * @returns {string} 如 "加速中"/"活跃"/"降温"
+ * 根据热度值返回文字标签（三档制）
+ * @param {number} heat - 1-5（JSON原始值）
+ * @returns {string} "加速" | "活跃" | "关注"
+ *
+ * 三档映射规则（与 briefing.js 及前端 dot 渲染完全一致）：
+ *   heat ≥ 4 → ●●● 加速（宏观/地缘突发冲击、市场结构性拐点）
+ *   heat = 3 → ●●○ 活跃（重要但不紧迫的行业进展、企业战略投资）
+ *   heat ≤ 2 → ●○○ 关注（背景信息、趋势性缓慢演变）
+ *
+ * ⚠️ 注意：旧的5档逻辑（加速中/活跃/关注/降温/平淡）已废弃。
+ *   JSON 数据层仍存储 1-5 整数，前端/工具函数统一按三档归一显示。
  */
 function getHeatLabel(heat) {
-  if (heat >= 5) return '加速中'
-  if (heat >= 4) return '活跃'
-  if (heat >= 3) return '关注'
-  if (heat >= 2) return '降温'
-  return '平淡'
+  if (heat >= 4) return '加速'
+  if (heat >= 3) return '活跃'
+  return '关注'
 }
 
 /**

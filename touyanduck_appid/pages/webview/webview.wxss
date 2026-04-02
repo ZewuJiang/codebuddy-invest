@@ -1,0 +1,32 @@
+/* pages/webview/webview.wxss */
+
+/* web-view 默认撑满全屏，无需额外样式 */
+
+/* URL 无效时的提示界面 */
+.invalid-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  padding: 40rpx;
+}
+
+.invalid-icon {
+  font-size: 80rpx;
+  margin-bottom: 24rpx;
+}
+
+.invalid-text {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 12rpx;
+}
+
+.invalid-hint {
+  font-size: 24rpx;
+  color: #999;
+  text-align: center;
+  line-height: 1.6;
+}

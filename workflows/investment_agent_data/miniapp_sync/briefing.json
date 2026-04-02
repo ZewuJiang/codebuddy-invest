@@ -1,133 +1,132 @@
 {
   "date": "2026-04-02",
   "timeStatus": {
-    "bjt": "08:18",
-    "est": "20:18",
-    "marketStatus": "美股已收盘",
+    "bjt": "19:22",
+    "est": "07:22",
+    "marketStatus": "盘前交易",
     "refreshInterval": "每日更新"
   },
-  "keyDeltas": [
-    {
-      "title": "中东和平曙光持续发酵，全球风险资产连续第二日上涨",
-      "status": "升级",
-      "heat": 5,
-      "brief": "伊朗和谈预期持续，三大美股指数连续两日上涨，纳指4月1日再涨1.16%，两日累计涨幅超5%"
-    },
-    {
-      "title": "OpenAI完成1220亿美元史上最大融资",
-      "status": "升级",
-      "heat": 5,
-      "brief": "估值达8520亿美元，月收入突破20亿美元，9亿周活用户，预计2026年内IPO上市"
-    },
-    {
-      "title": "Q1全球VC融资创纪录达3000亿美元",
-      "status": "升级",
-      "heat": 4,
-      "brief": "AI投资占比80%达2420亿美元，OpenAI/Anthropic/xAI/Waymo四家合计融1880亿美元占全球65%"
-    },
-    {
-      "title": "油价维持百元上方但回落信号初现",
-      "status": "降温",
-      "heat": 3,
-      "brief": "布伦特跌2.29%至101.59美元，WTI报103.09美元，中东和谈预期压制地缘溢价"
-    }
-  ],
+  "takeaway": "停火预期彻底破裂叠加关税一周年情绪共振，今日【以防御为主】——【能源小仓对冲】、【科技不追跌】、等待VIX回落至22以下再重新入场。",
   "coreEvent": {
-    "title": "中东和平预期持续发酵叠加AI融资狂潮，全球风险资产连续第二日上涨，纳指4月1日再涨1.16%两日累涨超5%",
+    "title": "伊朗停火预期破裂叠加关税一周年，亚太全线下跌，美股期货大幅低开",
     "chain": [
-      "伊朗总统表示愿意在获得保证前提下结束战争，特朗普称中东冲突可能很快终结（3月31日信号延续）",
-      "中东和谈预期持续压制油价，布伦特4月1日跌2.29%至101.59美元，通胀压力边际缓和",
-      "风险偏好连续第二日上升，纳指4月1日续涨1.16%，两日累计涨幅超5%（3月31日涨3.83%+4月1日涨1.16%）",
-      "OpenAI完成1220亿美元融资估值8520亿，Q1全球AI投资占VC总额80%强化AI超级周期叙事",
-      "VIX维持24.54，10Y美债收益率4.31%，市场情绪延续偏乐观但波动率仍在黄灯区间",
-      "黄金4月1日再涨0.21%至4795美元续创历史新高，避险与央行购金需求双驱动"
+      {
+        "title": "停火信号发出即被否认，战争溢价回归",
+        "brief": "特朗普宣布加强对伊朗打击，IRGC升级威胁美国科技公司中东设施，昨日乐观预期彻底逆转",
+        "source": "AP News",
+        "url": "https://apnews.com/live/iran-war-israel-trump-04-01-2026"
+      },
+      {
+        "title": "WTI油价盘前暴涨逾6%，通胀担忧重燃",
+        "brief": "霍尔木兹封锁风险溢价重定价，通胀预期抬头，联储降息空间进一步收窄",
+        "source": "Reuters",
+        "url": "https://www.reuters.com/markets/commodities/oil-prices-surge-iran-2026-04-02/"
+      },
+      {
+        "title": "关税一周年，供应链重构代价被重新定价",
+        "brief": "中美供应链加速脱钩已固化于企业利润表，情绪面雪上加霜，风险偏好骤然承压",
+        "source": "LA Times",
+        "url": "https://www.latimes.com/politics/newsletter/2026-04-02/one-year-anniversary-trump-tariffs"
+      },
+      {
+        "title": "黄金异常下跌与油价背离——流动性收缩式恐慌",
+        "brief": "黄金盘前跌逾3%与油价暴涨背离，揭示这是全面去风险而非传统避险切换",
+        "source": "Bloomberg"
+      },
+      {
+        "title": "亚太全线下跌，AI板块叙事短期承压",
+        "brief": "日经-2.14%、恒生-1.02%、上证-0.53%；科技巨头被IRGC点名，资金从成长切向防御和能源"
+      }
     ]
   },
   "globalReaction": [
     {
       "name": "标普500",
-      "value": "+0.82%",
-      "direction": "up"
+      "value": "-1.33%",
+      "direction": "down",
+      "note": "伊朗+关税双重压制"
     },
     {
       "name": "纳斯达克",
-      "value": "+1.18%",
-      "direction": "up"
+      "value": "-1.68%",
+      "direction": "down",
+      "note": "科技股被点名承压"
     },
     {
       "name": "恒生科技",
-      "value": "+2.29%",
-      "direction": "up"
+      "value": "-1.02%",
+      "direction": "down",
+      "note": "随全球同步去风险"
     },
     {
       "name": "黄金",
-      "value": "+2.35%",
-      "direction": "up"
+      "value": "-3.42%",
+      "direction": "down",
+      "note": "避险失效，流动性恐慌"
     },
     {
       "name": "10Y美债",
-      "value": "4.31%",
-      "direction": "down"
+      "value": "4.38%",
+      "direction": "up",
+      "note": "通胀预期推升收益率"
     },
     {
       "name": "BTC",
-      "value": "+1.00%",
-      "direction": "up"
+      "value": "-3.00%",
+      "direction": "down",
+      "note": "同步去风险抛售"
     }
   ],
   "coreJudgments": [
     {
-      "title": "中东和谈窗口打开但油价风险溢价仍高",
-      "confidence": 72,
-      "logic": "伊朗停火信号积极但霍尔木兹海峡仍关闭，布伦特虽跌但维持百元上方，高盛估地缘溢价14-18美元尚未完全释放",
-      "keyActor": "Donald Trump / 伊朗总统",
+      "title": "中东谈判进入最危险窗口，油价仍有上行空间",
+      "confidence": 78,
+      "logic": "停火信号遭否认，IRGC升级威胁美国科技设施 → 每多一周冲突油价+$2~4（高盛模型）→ 霍尔木兹持续封锁，油价中枢系统性上移",
+      "keyActor": "Donald Trump / IRGC司令",
       "references": [
         {
-          "name": "Reuters",
-          "summary": "伊朗总统表示愿在获得保证前提下结束战争，特朗普称冲突可能很快终结",
-          "url": "https://www.reuters.com"
+          "name": "AP News",
+          "summary": "特朗普称伊朗要求停火但伊方否认，IRGC宣布威胁18家美国科技公司中东设施",
+          "url": "https://apnews.com/live/iran-war-israel-trump-04-01-2026"
         },
         {
-          "name": "高盛",
-          "summary": "估计当前油价包含约14-18美元/桶地缘政治风险溢价"
-        }
-      ],
-      "probability": "中可能性",
-      "trend": "上升"
-    },
-    {
-      "title": "AI资本支出超级周期加速但泡沫担忧升温",
-      "confidence": 85,
-      "logic": "Q1全球AI融资2420亿创纪录，OpenAI月收20亿估值8520亿预示IPO在即，但6350亿美元科技巨头AI支出面临能源约束",
-      "keyActor": "Sam Altman / Jensen Huang",
-      "references": [
-        {
-          "name": "TechCrunch",
-          "summary": "OpenAI完成1220亿美元融资，估值8520亿，9亿周活用户",
-          "url": "https://techcrunch.com/2026/03/31/openai-not-yet-public-raises-3b-from-retail-investors-in-monster-122b-fund-raise/"
-        },
-        {
-          "name": "Crunchbase",
-          "summary": "Q1 2026全球VC融资3000亿美元创历史纪录，AI占比80%",
-          "url": "https://news.crunchbase.com/venture/record-breaking-funding-ai-global-q1-2026/"
+          "name": "Goldman Sachs",
+          "summary": "估计当前油价包含约14-18美元地缘政治风险溢价，谈判破裂将重新推高"
         }
       ],
       "probability": "高可能性",
       "trend": "上升"
     },
     {
-      "title": "美联储按兵不动但降息窗口推迟至下半年",
-      "confidence": 78,
-      "logic": "油价冲击推升通胀预期，鲍威尔警告39万亿国债轨迹堪忧，10Y维持4.31%高位，市场定价年内保持利率不变概率上升",
-      "keyActor": "Jerome Powell",
+      "title": "关税一周年确立供应链重构为长期结构性成本",
+      "confidence": 88,
+      "logic": "关税一年，供应链脱钩成本固化于企业利润表 → 能源冲击叠加通胀粘性 → 高利率周期延长，贸易回旋空间大幅收窄",
+      "keyActor": "Donald Trump",
       "references": [
         {
-          "name": "FOMC",
-          "summary": "3月会议维持利率不变，油价冲击导致通胀担忧加剧"
+          "name": "LA Times",
+          "summary": "关税一周年复盘：中美贸易额下降但通胀压力持续，企业利润率受压",
+          "url": "https://www.latimes.com/politics/newsletter/2026-04-02/one-year-anniversary-trump-tariffs"
         },
         {
-          "name": "Trading Economics",
-          "summary": "10Y美债收益率4.31%，3月累计上升37个基点"
+          "name": "NTU",
+          "summary": "解放日一年回顾：关税令美国农民和制造商损失超过预期，贸易赤字并未改善",
+          "url": "https://www.ntu.org/publications/detail/liberation-day-one-year-review-how-tariffs-handcuffed-us-farmers-and-manufacturers"
+        }
+      ],
+      "probability": "高可能性",
+      "trend": "稳定"
+    },
+    {
+      "title": "AI超级周期叙事短暂受扰，中期方向未变",
+      "confidence": 82,
+      "logic": "IRGC点名威胁美科技设施，今日情绪承压 → NVIDIA $20亿投资Marvell，AI基建扩张逻辑未断 → 回调是再入场窗口，非趋势逆转",
+      "keyActor": "Jensen Huang",
+      "references": [
+        {
+          "name": "NVIDIA Press Release",
+          "summary": "NVIDIA宣布$20亿战略投资Marvell，推进NVLink Fusion和硅光子学合作，扩大AI基础设施生态",
+          "url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-AI-Ecosystem-Expands-as-Marvell-Joins-Forces-Through-NVLink-Fusion/default.aspx"
         }
       ],
       "probability": "高可能性",
@@ -137,54 +136,64 @@
   "actions": {
     "today": [
       {
-        "type": "bullish",
-        "content": "科技/AI板块短期动能强劲，可逢低加仓优质AI算力标的如NVDA/AVGO，但注意VIX仍在24高位需控制仓位"
-      },
-      {
         "type": "hold",
-        "content": "黄金维持4785美元高位运行，作为地缘避险底仓继续持有，中东变数仍大"
+        "content": "持有现有科技仓位无需操作，等VIX回落至22以下、伊朗谈判信号明朗后再择机增配NVDA/AVGO",
+        "reason": "地缘恐慌性下跌中加仓风险过高，VIX急升至27上方，底部尚未确认"
       },
       {
-        "type": "bearish",
-        "content": "原油多头注意获利了结风险，布伦特跌破102美元若和谈实质推进可能加速回落"
+        "type": "hedge",
+        "content": "能源板块（XLE）可小仓布局作地缘对冲，油价站稳105美元上方则动能延续",
+        "reason": "高盛建议增持能源对冲地缘风险；伊朗局势若再升级，XLE将是唯一正贡献板块"
+      },
+      {
+        "type": "watch",
+        "content": "黄金4600美元附近可分批买入修复仓位，今日破位属流动性收缩式抛售非趋势逆转",
+        "reason": "黄金中期通胀对冲价值不变，去风险抛售结束后将率先反弹"
       }
     ],
     "week": [
       {
-        "type": "hold",
-        "content": "关注周五非农就业数据，若就业市场持续强劲将进一步推迟降息预期"
+        "type": "watch",
+        "content": "周五（4/4）非农数据是本周最大变量：若非农>200k按兵不动；若低于150k可小幅加仓成长股",
+        "reason": "强劲非农将彻底关闭6月降息窗口，高通胀+高利率+地缘三重压力下杠杆需控制"
       },
       {
-        "type": "bullish",
-        "content": "中东和谈若取得突破性进展，能源股承压但消费/科技股将获得通胀缓和利好"
+        "type": "reduce",
+        "content": "本周美股存在回调至6400点支撑位风险，建议轻仓防守、高杠杆仓位适当减配",
+        "reason": "关税一周年与伊朗局势共振，VIX急升27+，技术面破位风险上升"
       }
     ]
   },
-  "sentimentScore": 58,
-  "sentimentLabel": "偏贪婪",
-  "marketSummary": "全球市场在中东和谈预期延续与AI融资狂潮双重驱动下连续第二日上涨。4月1日纳指续涨1.16%至21,841点，标普500涨0.82%至6,582点，两日累计涨幅均超4%（纳指两日累涨约5%）。VIX维持24.54高位、布伦特原油仍在百元上方、加密市场恐贪指数仅14.74，显示市场情绪改善但远未进入安全区。OpenAI 1220亿美元融资与Q1全球AI投资3000亿美元创纪录，AI超级周期叙事持续强化。短期关注中东和谈实质进展与周五非农数据。",
+  "sentimentScore": 22,
+  "sentimentLabel": "偏恐惧",
+  "marketSummaryPoints": [
+    "亚太市场全线收跌，美股期货盘前大幅低开，日经-2.14%、恒生-1.02%、上证-0.53%",
+    "伊朗谈判破裂信号与关税一周年情绪压力共振，风险偏好骤降",
+    "黄金跌逾3%与油价暴涨背离，揭示流动性收缩式恐慌而非传统避险切换",
+    "核心变量：油价能否守住110美元下方、周五（4/4）非农数据方向"
+  ],
   "smartMoney": [
     {
-      "source": "达利欧/桥水基金",
-      "action": "大幅增持NVDA，最新持仓披露显示重大买入",
-      "signal": "bullish"
+      "source": "高盛/GS策略团队",
+      "action": "建议客户增持能源对冲仓位，维持标普目标价不变但上调短期波动率预测",
+      "signal": "neutral"
     },
     {
-      "source": "ARK Invest/木头姐",
-      "action": "OpenAI将纳入ARK旗下多只ETF，在IPO前向公众开放",
-      "signal": "bullish"
+      "source": "桥水基金",
+      "action": "维持多元化全天候配置，战略上维持黄金与大宗商品仓位作为通胀对冲",
+      "signal": "neutral"
     },
     {
-      "source": "D.E. Shaw",
-      "action": "削减NVDA持仓规模",
-      "signal": "bearish"
+      "source": "ARK Invest",
+      "action": "借助今日科技股回调逢低买入AI相关标的，认为地缘风险不改AI长期趋势",
+      "signal": "bullish"
     }
   ],
-  "riskNote": "中东局势仍存变数，霍尔木兹海峡实际仍关闭，油价地缘溢价未完全释放。AI融资泡沫化担忧升温，银行已开始提高对私人信贷基金的借贷利率。VIX 24.54处于黄灯区间，市场波动性仍偏高。",
-  "dataTime": "2026-04-02 08:18 BJT / 2026-04-01 20:18 EST",
+  "riskNote": "伊朗停火谈判破裂、IRGC升级威胁美国科技公司，叠加关税一周年情绪压力，短期市场波动率将维持高位。VIX急升至27上方，油价若突破110美元将触发通胀担忧的临界点，需高度警惕。",
+  "dataTime": "2026-04-02 19:22 BJT / 2026-04-02 07:22 EDT（美股盘前）",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-02T08:18:00+08:00",
-    "skillVersion": "v1.3.2"
+    "generatedAt": "2026-04-02T19:22:00+08:00",
+    "skillVersion": "v1.6"
   }
 }

@@ -1,5 +1,5 @@
 // pages/briefing/briefing.js
-// 简报页 v5.0 — 对齐Skill §1+§2摘要+§4摘要 + v1.3前端体验升级
+// 简报页 v6.0 — takeaway + 今日重点事件(chain对象化) + 全球资产反应(note) + 三大核心判断 + 行动建议(reason)
 
 var api = require('../../services/api')
 var formatUtil = require('../../utils/format')
@@ -13,8 +13,9 @@ Page({
     timeStatus: null,
     marketStatus: '',
     marketStatusOpen: false,
-    // v1.3 KEY DELTA
-    keyDeltas: [],
+    // 今日核心结论
+    takeaway: '',
+    takeawaySegments: [],
     // §1 核心事件
     coreEvent: null,
     // §1 全球资产反应
@@ -28,7 +29,7 @@ Page({
     sentimentScore: 0,
     displaySentiment: 0,
     sentimentLabel: '',
-    marketSummary: '',
+    marketSummaryPoints: [],
     // §4 聪明钱速览
     smartMoney: [],
     // 风险提示
@@ -117,6 +118,7 @@ Page({
       return {
         type: item.type,
         content: item.content,
+        reason: item.reason || '',
         label: info.label,
         tagClass: info.tagClass
       }
@@ -124,18 +126,26 @@ Page({
     var todayActions = (d.actions && d.actions.today || []).map(mapAction)
     var weekActions = (d.actions && d.actions.week || []).map(mapAction)
 
-    // v1.3 KEY DELTA 数据映射
-    var keyDeltas = (d.keyDeltas || []).map(function(item) {
-      var statusInfo = colorUtil.getDeltaStatusInfo(item.status)
-      return {
-        title: item.title || '',
-        status: item.status || '活跃',
-        statusTagClass: statusInfo.tagClass,
-        heat: item.heat || 3,
-        heatLabel: colorUtil.getHeatLabel(item.heat || 3),
-        brief: item.brief || ''
+    // chain 字段兼容：支持新版对象数组 { title, brief, source, url } 及旧版字符串数组
+    var coreEvent = null
+    if (d.coreEvent) {
+      var rawChain = d.coreEvent.chain || []
+      var mappedChain = rawChain.map(function(item) {
+        if (typeof item === 'string') {
+          return { title: item, brief: '', source: '', url: '' }
+        }
+        return {
+          title: item.title || '',
+          brief: item.brief || '',
+          source: item.source || '',
+          url: item.url || ''
+        }
+      })
+      coreEvent = {
+        title: d.coreEvent.title || '',
+        chain: mappedChain
       }
-    })
+    }
 
     // v1.3 核心判断扩展字段映射
     var coreJudgments = (d.coreJudgments || []).map(function(item) {
@@ -185,20 +195,72 @@ Page({
       d._meta && d._meta.generatedAt ? d._meta.generatedAt : d.dataTime
     )
 
+    // v1.4 globalReaction direction normalize
+    // 统一把日报层可能出现的各种 direction 变体规范为 up/down/flat
+    // 对应样式：.reaction-up（红）/ .reaction-down（绿）/ .reaction-flat（灰）
+    var normalizeDirection = function(dir) {
+      if (!dir) return 'flat'
+      var s = String(dir).toLowerCase().trim()
+      if (s === 'up' || s === 'positive' || s === 'rise' || s === 'bull' || s === 'bullish') return 'up'
+      if (s === 'down' || s === 'negative' || s === 'fall' || s === 'bear' || s === 'bearish') return 'down'
+      return 'flat' // neutral / stable / unknown 全部兜底为 flat
+    }
+    var globalReaction = (d.globalReaction || []).map(function(item) {
+      return {
+        name: item.name || '',
+        value: item.value || '--',
+        direction: normalizeDirection(item.direction),
+        note: item.note || ''
+      }
+    })
+
+    // takeaway 富文本解析：【关键词】→ 红色高亮片段
+    // 格式：[{ text: '...', highlight: false }, { text: '...', highlight: true }, ...]
+    var parseTakeaway = function(str) {
+      if (!str) return []
+      var segments = []
+      var reg = /【([^】]+)】/g
+      var lastIndex = 0
+      var match
+      while ((match = reg.exec(str)) !== null) {
+        if (match.index > lastIndex) {
+          segments.push({ text: str.slice(lastIndex, match.index), highlight: false })
+        }
+        segments.push({ text: match[1], highlight: true })
+        lastIndex = reg.lastIndex
+      }
+      if (lastIndex < str.length) {
+        segments.push({ text: str.slice(lastIndex), highlight: false })
+      }
+      return segments
+    }
+
+    // marketSummaryPoints：支持新版数组；旧版字符串按句号/分号自动拆分兜底
+    var marketSummaryPoints = []
+    if (Array.isArray(d.marketSummaryPoints) && d.marketSummaryPoints.length) {
+      marketSummaryPoints = d.marketSummaryPoints
+    } else if (d.marketSummary) {
+      marketSummaryPoints = d.marketSummary
+        .split(/[；;。]/)
+        .map(function(s) { return s.trim() })
+        .filter(function(s) { return s.length > 0 })
+    }
+
     that.setData({
-      keyDeltas: keyDeltas,
-      coreEvent: d.coreEvent || null,
-      globalReaction: d.globalReaction || [],
+      takeaway: d.takeaway || '',
+      takeawaySegments: parseTakeaway(d.takeaway || ''),
+      coreEvent: coreEvent,
+      globalReaction: globalReaction,
       coreJudgments: coreJudgments,
       todayActions: todayActions,
       weekActions: weekActions,
       sentimentScore: d.sentimentScore || 50,
       displaySentiment: withAnimation ? 0 : (d.sentimentScore || 50),
       sentimentLabel: d.sentimentLabel || '',
-      marketSummary: d.marketSummary || '',
+      marketSummaryPoints: marketSummaryPoints,
       smartMoney: d.smartMoney || [],
       riskNote: d.riskNote || '',
-      dataTime: d.dataTime || '',
+      dataTime: (d.dataTime || '').split('/')[0].trim(),
       dataFreshness: dataFreshness || '',
       dataMeta: d._meta || null,
       loading: false
@@ -249,5 +311,47 @@ Page({
   // 聪明钱速览点击 → 跳转雷达页
   onSmartMoneyTap: function() {
     wx.switchTab({ url: '/pages/radar/radar' })
+  },
+
+  // chain 来源链接点击 → 内嵌 WebView 打开
+  onChainLinkTap: function(e) {
+    var url = e.currentTarget.dataset.url
+    var name = e.currentTarget.dataset.name || '原文'
+    if (!url) return
+    if (!/^https?:\/\//i.test(url)) {
+      wx.showToast({ title: '链接格式不支持', icon: 'none', duration: 2000 })
+      return
+    }
+    wx.navigateTo({
+      url: '/pages/webview/webview?url=' + encodeURIComponent(url) + '&title=' + encodeURIComponent(name),
+      fail: function() {
+        wx.showToast({ title: '无法打开链接，请稍后重试', icon: 'none', duration: 2500 })
+      }
+    })
+  },
+
+  // v1.3.1 参考源链接点击 → 内嵌 WebView 打开
+  onRefLinkTap: function(e) {
+    var url = e.currentTarget.dataset.url
+    var name = e.currentTarget.dataset.name || '文章详情'
+
+    if (!url) return
+
+    // 确保有 http/https 协议
+    if (!/^https?:\/\//i.test(url)) {
+      wx.showToast({ title: '链接格式不支持', icon: 'none', duration: 2000 })
+      return
+    }
+
+    var encodedUrl = encodeURIComponent(url)
+    var encodedName = encodeURIComponent(name)
+
+    wx.navigateTo({
+      url: '/pages/webview/webview?url=' + encodedUrl + '&title=' + encodedName,
+      fail: function() {
+        // navigateTo 失败时（如达到页面栈上限），降级 toast 提示
+        wx.showToast({ title: '无法打开链接，请稍后重试', icon: 'none', duration: 2500 })
+      }
+    })
   }
 })

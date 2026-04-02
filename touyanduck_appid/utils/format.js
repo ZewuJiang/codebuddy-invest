@@ -99,8 +99,9 @@ function getMultiTimezone() {
   var bjt = String(bjtDate.getHours()).padStart(2, '0') + ':' + String(bjtDate.getMinutes()).padStart(2, '0')
 
   // 美东时间：判断夏令时（3月第二个周日～11月第一个周日）
+  // estOffset 为负数（EDT=-240, EST=-300），与 bjtOffset 保持同一符号方向
   var estOffset = _isUSEasternDST(now) ? -4 * 60 : -5 * 60
-  var estMs = now.getTime() + (now.getTimezoneOffset() - estOffset) * 60000
+  var estMs = now.getTime() + (now.getTimezoneOffset() + estOffset) * 60000
   var estDate = new Date(estMs)
   var est = String(estDate.getHours()).padStart(2, '0') + ':' + String(estDate.getMinutes()).padStart(2, '0')
 

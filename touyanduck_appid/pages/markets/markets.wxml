@@ -175,8 +175,8 @@
     </swiper-item>
   </swiper>
 
-  <!-- 数据截止时间 -->
+  <!-- 数据更新时间 -->
   <view class="data-footer" wx:if="{{dataTime}}">
-    <text class="footer-text">市场时点 · {{dataTime}} | {{isCloud ? '云数据' : '本地缓存'}}</text>
+    <text class="footer-text">更新时间 · {{dataTime}}</text>
   </view>
 </view>

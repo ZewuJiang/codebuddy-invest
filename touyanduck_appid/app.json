@@ -3,7 +3,8 @@
     "pages/briefing/briefing",
     "pages/markets/markets",
     "pages/watchlist/watchlist",
-    "pages/radar/radar"
+    "pages/radar/radar",
+    "pages/webview/webview"
   ],
   "window": {
     "navigationBarBackgroundColor": "#1a1a2e",

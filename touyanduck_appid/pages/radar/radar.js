@@ -1,5 +1,8 @@
 // pages/radar/radar.js
-// 雷达页 v5.1 — 双层数据合并：AI日报层（radar集合）+ 实时层（realtime集合）
+// 雷达页 v5.2 — 双层数据合并：AI日报层（radar集合）+ 实时层（realtime集合）
+// v5.2 变更：
+//   - predictions 也支持双层合并：实时层 Polymarket 优先，AI日报兜底
+//   - _meta 合并逻辑扩展：fearGreed 或 predictions 任一来自实时层，即标记 realtime_quote
 // v5.1 变更：
 //   - fetchData() 改为 Promise.all 并发拉取 radar + realtime 两层数据
 //   - _applyData() 新增第三参数 realtimeData，实时 fearGreed 优先，AI日报兜底
@@ -153,9 +156,10 @@ Page({
     // 以 AI 日报 _meta 为基础（保留 skillVersion / generatedAt 等字段）
     // 若实时层存在，将 sourceType 覆盖为 'realtime_quote'，并追加 realtimeUpdatedAt
     var mergedMeta = Object.assign({}, data._meta || {})
-    if (realtimeData && realtimeData.fearGreed) {
+    if (realtimeData && (realtimeData.fearGreed || (realtimeData.predictions && realtimeData.predictions.length > 0))) {
       mergedMeta.sourceType = 'realtime_quote'
-      mergedMeta.realtimeUpdatedAt = realtimeData.fearGreed.updatedAt || null
+      mergedMeta.realtimeUpdatedAt = (realtimeData.fearGreed && realtimeData.fearGreed.updatedAt)
+        || (realtimeData._meta && realtimeData._meta.updatedAt) || null
     }
     // 兜底：若 AI 日报无 sourceType，补默认值
     if (!mergedMeta.sourceType) {
@@ -172,8 +176,12 @@ Page({
       fgWeekDiff = fearGreed.value - (fearGreed.oneWeekAgo || fearGreed.value)
     }
 
-    // v1.3 预测市场映射
-    var predictions = (data.predictions || []).map(function(item) {
+    // ── 双层合并：实时层 predictions 优先，AI日报层兜底 ──（v2.0 新增）
+    var rawPredictions = (realtimeData && realtimeData.predictions && realtimeData.predictions.length > 0)
+      ? realtimeData.predictions      // 实时层：来自云函数抓取的 Polymarket（优先）
+      : (data.predictions || [])      // 日报层：来自 AI 每日生成（降级兜底）
+
+    var predictions = rawPredictions.map(function(item) {
       var trendInfo = colorUtil.getPredictionTrendInfo(item.trend)
       return {
         title: item.title,
@@ -211,7 +219,7 @@ Page({
       events: events,
       alerts: alerts,
       smartMoneyDetail: data.smartMoneyDetail || [],
-      dataTime: data.dataTime || '',
+      dataTime: (data.dataTime || '').split('/')[0].trim(),
       dataFreshness: dataFreshness || '',
       dataMeta: mergedMeta,
       loading: false

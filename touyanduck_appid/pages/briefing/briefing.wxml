@@ -1,5 +1,5 @@
 <!--pages/briefing/briefing.wxml-->
-<!-- 简报页 v5.0：对齐Skill §1+§2+§4 + v1.3前端体验升级 -->
+<!-- 简报页 v6.0：takeaway + 今日重点事件(chain对象化) + 全球资产反应(note) + 三大核心判断 + 行动建议(reason) -->
 
 <!-- 骨架屏 -->
 <skeleton type="briefing" loading="{{loading}}" rows="{{4}}" />
@@ -28,36 +28,38 @@
     </view>
   </view>
 
-  <!-- v1.3 增量信息 KEY DELTA -->
-  <section-card title="增量信息 KEY DELTA" wx:if="{{keyDeltas.length}}">
-    <view class="kd-list">
-      <view class="kd-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
-            wx:for="{{keyDeltas}}" wx:key="index"
-            style="animation-delay: {{index * 60}}ms">
-        <view class="kd-left">
-          <view class="kd-status-tag {{item.statusTagClass}}">{{item.status}}</view>
-          <view class="kd-title">{{item.title}}</view>
-        </view>
-        <view class="kd-right">
-          <view class="kd-heat-dots">
-            <view class="kd-dot {{idx < item.heat ? 'kd-dot-on' : ''}}" 
-                  wx:for="{{5}}" wx:for-item="idx" wx:key="idx"></view>
-          </view>
-          <text class="kd-heat-label">{{item.heatLabel}}</text>
-        </view>
-      </view>
+  <!-- 今日核心结论 TAKEAWAY -->
+  <view class="takeaway-card stagger-item {{animateReady ? 'stagger-show' : ''}}" wx:if="{{takeaway}}" style="animation-delay: 0ms">
+    <view class="card-title-bar">📌 今日结论</view>
+    <view class="takeaway-text">
+      <text wx:for="{{takeawaySegments}}" wx:key="index" class="{{item.highlight ? 'takeaway-highlight' : ''}}">{{item.text}}</text>
     </view>
-  </section-card>
+  </view>
 
   <!-- §1 核心事件卡片 -->
-  <view class="event-card stagger-item {{animateReady ? 'stagger-show' : ''}}" wx:if="{{coreEvent}}" style="animation-delay: 0ms">
-    <view class="event-tag">🚨 今日核心事件</view>
+  <view class="event-card stagger-item {{animateReady ? 'stagger-show' : ''}}" wx:if="{{coreEvent}}" style="animation-delay: 60ms">
+    <view class="card-title-bar">🚨 重点事件</view>
     <view class="event-title">{{coreEvent.title}}</view>
     <view class="event-chain">
       <view class="chain-item" wx:for="{{coreEvent.chain}}" wx:key="index">
         <view class="chain-dot"></view>
-        <view class="chain-arrow" wx:if="{{index < coreEvent.chain.length - 1}}">→</view>
-        <text class="chain-text">{{item}}</text>
+        <view class="chain-body">
+          <text class="chain-title">{{item.title}}</text>
+          <text class="chain-brief" wx:if="{{item.brief}}">{{item.brief}}</text>
+          <!-- 来源链接行：有 url 才渲染可点击，否则只显示来源名 -->
+          <view wx:if="{{item.url}}" class="chain-link-row chain-link-tappable"
+                bindtap="onChainLinkTap"
+                data-url="{{item.url}}"
+                data-name="{{item.source || '原文'}}">
+            <text class="chain-link-icon">📎</text>
+            <text class="chain-link-source">{{item.source || '原文'}}</text>
+            <text class="chain-link-arrow">↗</text>
+          </view>
+          <view wx:elif="{{item.source}}" class="chain-link-row">
+            <text class="chain-link-icon">📎</text>
+            <text class="chain-link-source chain-link-no-url">{{item.source}}</text>
+          </view>
+        </view>
       </view>
     </view>
   </view>
@@ -65,19 +67,20 @@
   <!-- §1 全球资产反应 -->
   <view class="reaction-card stagger-item {{animateReady ? 'stagger-show' : ''}}" style="animation-delay: 80ms" bindtap="onReactionTap">
     <view class="reaction-header">
-      <text>📊 全球资产反应</text>
+      <text class="card-title-bar">📊 全球资产反应</text>
       <text class="reaction-link">查看市场详情 ›</text>
     </view>
     <view class="reaction-grid">
       <view class="reaction-item" wx:for="{{globalReaction}}" wx:key="name">
         <view class="reaction-name">{{item.name}}</view>
         <view class="reaction-value reaction-{{item.direction}}">{{item.value}}</view>
+        <view class="reaction-note" wx:if="{{item.note}}">{{item.note}}</view>
       </view>
     </view>
   </view>
 
   <!-- §1 三大核心判断 -->
-  <section-card title="三大核心判断" collapsible="{{true}}" expanded="{{true}}">
+  <section-card title="🎯 核心判断" collapsible="{{true}}" expanded="{{true}}">
     <view class="judgment-list">
       <view class="judgment-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
             wx:for="{{coreJudgments}}" wx:key="index"
@@ -94,7 +97,6 @@
           <view class="confidence-value">{{item.confidence}}%</view>
         </view>
         <view class="judgment-logic">
-          <text class="logic-icon">💡</text>
           <text class="logic-text">{{item.logic}}</text>
         </view>
         <!-- v1.3 判断扩展信息 -->
@@ -128,7 +130,10 @@
                   <text class="jx-ref-detail-name">{{ref.name}}</text>
                 </view>
                 <view class="jx-ref-detail-summary" wx:if="{{ref.summary}}">{{ref.summary}}</view>
-                <view class="jx-ref-detail-link" wx:if="{{ref.url}}">
+                <view class="jx-ref-detail-link jx-ref-tappable" wx:if="{{ref.url}}"
+                      bindtap="onRefLinkTap"
+                      data-url="{{ref.url}}"
+                      data-name="{{ref.name}}">
                   <text class="jx-ref-domain">{{ref.url}}</text>
                   <text class="jx-ref-link-icon">↗</text>
                 </view>
@@ -141,15 +146,18 @@
   </section-card>
 
   <!-- §1 行动建议 -->
-  <section-card title="行动建议" collapsible="{{true}}" expanded="{{true}}">
+  <section-card title="⚡ 行动建议" collapsible="{{true}}" expanded="{{true}}">
     <!-- 今日 -->
     <view class="action-group" wx:if="{{todayActions.length}}">
-      <view class="action-group-label">📌 今日</view>
+      <view class="action-group-label">☀️ 今日</view>
       <view class="action-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
             wx:for="{{todayActions}}" wx:key="index"
             style="animation-delay: {{(index + 5) * 80}}ms">
         <view class="tag {{item.tagClass}}">{{item.label}}</view>
-        <view class="action-content">{{item.content}}</view>
+        <view class="action-body">
+          <view class="action-content">{{item.content}}</view>
+          <view class="action-reason" wx:if="{{item.reason}}">{{item.reason}}</view>
+        </view>
       </view>
     </view>
     <!-- 本周 -->
@@ -159,13 +167,16 @@
             wx:for="{{weekActions}}" wx:key="index"
             style="animation-delay: {{(index + 7) * 80}}ms">
         <view class="tag {{item.tagClass}}">{{item.label}}</view>
-        <view class="action-content">{{item.content}}</view>
+        <view class="action-body">
+          <view class="action-content">{{item.content}}</view>
+          <view class="action-reason" wx:if="{{item.reason}}">{{item.reason}}</view>
+        </view>
       </view>
     </view>
   </section-card>
 
   <!-- §2 市场情绪仪表盘 -->
-  <section-card title="市场情绪" collapsible="{{true}}" expanded="{{true}}">
+  <section-card title="🌡️ 市场情绪" collapsible="{{true}}" expanded="{{true}}">
     <view class="sentiment-bar">
       <view class="sentiment-label">恐惧</view>
       <view class="sentiment-track">
@@ -182,11 +193,16 @@
         <text class="sentiment-tag">{{sentimentLabel}}</text>
       </view>
     </view>
-    <view class="market-summary" wx:if="{{marketSummary}}">{{marketSummary}}</view>
+    <view class="market-summary-list" wx:if="{{marketSummaryPoints.length}}">
+      <view class="ms-item" wx:for="{{marketSummaryPoints}}" wx:key="index">
+        <view class="ms-dot"></view>
+        <text class="ms-text">{{item}}</text>
+      </view>
+    </view>
   </section-card>
 
   <!-- §4 聪明钱速览 -->
-  <section-card title="聪明钱动向" collapsible="{{true}}" expanded="{{true}}" wx:if="{{smartMoney.length}}">
+  <section-card title="🧠 聪明钱动向" collapsible="{{true}}" expanded="{{true}}" wx:if="{{smartMoney.length}}">
     <view class="smart-money-list">
       <view class="smart-money-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
             wx:for="{{smartMoney}}" wx:key="index"
@@ -202,22 +218,13 @@
   </section-card>
 
   <!-- 风险提示 -->
-  <section-card title="风险提示" extraClass="risk-card" borderColor="#e74c3c">
+  <section-card title="⚠️ 风险提示" extraClass="risk-card" borderColor="#e74c3c">
     <view class="risk-text">{{riskNote}}</view>
   </section-card>
 
-  <!-- v1.3 双层数据状态栏 -->
-  <view class="ds-footer" wx:if="{{dataTime}}">
-    <view class="ds-row-primary">
-      <view class="ds-dot {{isCloud ? 'ds-dot-cloud' : 'ds-dot-cache'}}"></view>
-      <text class="ds-source">{{isCloud ? '云数据' : '本地缓存'}}</text>
-      <text class="ds-sep">·</text>
-      <text class="ds-time">{{dataFreshness || dataTime}}</text>
-    </view>
-    <view class="ds-row-meta" wx:if="{{dataMeta}}">
-      <text class="ds-type-tag ds-type-{{dataMeta.sourceType === 'heavy_analysis' ? 'heavy' : 'realtime'}}" wx:if="{{dataMeta.sourceType}}">{{dataMeta.sourceType === 'heavy_analysis' ? 'AI深度分析' : (dataMeta.sourceType === 'realtime_quote' ? '实时行情' : '突发新闻')}}</text>
-      <text class="ds-version" wx:if="{{dataMeta.skillVersion}}">Skill {{dataMeta.skillVersion}}</text>
-    </view>
+  <!-- 数据更新时间 -->
+  <view class="data-footer" wx:if="{{dataTime}}">
+    <text class="footer-text">更新时间 · {{dataTime}}</text>
   </view>
 
 </view>

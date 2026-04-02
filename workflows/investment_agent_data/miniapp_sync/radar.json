@@ -2,185 +2,181 @@
   "date": "2026-04-02",
 
   "fearGreed": {
-    "value": 15,
+    "value": 18,
     "label": "Extreme Fear",
-    "previousClose": 11,
-    "oneWeekAgo": 14,
-    "oneMonthAgo": 42
+    "previousClose": 28,
+    "oneWeekAgo": 15,
+    "oneMonthAgo": 22
   },
 
   "predictions": [
     {
-      "title": "美联储6月降息?",
-      "source": "CME FedWatch",
+      "title": "美伊停火在4月内达成?",
+      "source": "Polymarket",
       "probability": 28,
       "trend": "down",
-      "change24h": -4
+      "change24h": -18
     },
     {
-      "title": "中东停火协议达成?",
+      "title": "美联储6月降息?",
+      "source": "CME FedWatch",
+      "probability": 22,
+      "trend": "down",
+      "change24h": -5
+    },
+    {
+      "title": "油价4月突破110美元?",
       "source": "Polymarket",
       "probability": 55,
       "trend": "up",
-      "change24h": 12
-    },
-    {
-      "title": "AI泡沫2026年内破裂?",
-      "source": "Kalshi",
-      "probability": 22,
-      "trend": "stable",
-      "change24h": 0
+      "change24h": 22
     }
   ],
 
   "trafficLights": [
     {
       "name": "VIX波动率",
-      "value": "24.54",
-      "status": "yellow",
+      "value": "27.34",
+      "status": "red",
       "threshold": "<18绿 / 18-25黄 / >25红"
     },
     {
       "name": "10Y美债收益率",
-      "value": "4.31%",
+      "value": "4.38%",
       "status": "yellow",
       "threshold": "<4.0%绿 / 4.0%-4.5%黄 / >4.5%红"
     },
     {
       "name": "布伦特原油",
-      "value": "$101.59",
+      "value": "$105.80",
       "status": "red",
       "threshold": "<$90绿 / $90-$110黄 / >$110红"
     },
     {
       "name": "美元指数DXY",
-      "value": "99.51",
-      "status": "green",
+      "value": "103.85",
+      "status": "yellow",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
     {
       "name": "HY信用利差",
-      "value": "3.42%",
-      "status": "green",
+      "value": "4.65%",
+      "status": "yellow",
       "threshold": "<4%绿 / 4%-5%黄 / >5%红"
     },
     {
       "name": "外资动向",
-      "value": "+2.29%",
-      "status": "green",
-      "threshold": "港股均涨≥+1.5%绿 / 0~+1.5%黄 / 下跌红"
+      "value": "-1.02%",
+      "status": "red",
+      "threshold": "港股均涨≥+1.5%绿 / 0~+1.5%黄 / 均跌红"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "7.2680",
+      "value": "7.2485",
       "status": "yellow",
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
 
-  "riskScore": 60,
-  "riskLevel": "medium",
-  "riskAdvice": "当前3黄1红3绿，综合风险偏中性偏高。布伦特原油红灯（101.59美元）是最大隐患，VIX 24.54和10Y美债4.31%均处黄灯，建议股票仓位维持6-7成，保留充足现金应对中东局势反复。黄金作为避险底仓5-10%不宜减持。",
+  "riskScore": 80,
+  "riskLevel": "high",
+  "riskAdvice": "当前红灯3项（VIX/原油/外资动向），黄灯4项，风险分数80处于高危区间。建议股票仓位降至4成以下，增配黄金/现金，不宜重仓追涨能源板块。",
 
   "monitorTable": [
     {
-      "condition": "VIX突破28",
-      "action": "将股票仓位降至5成以下，增加黄金/短债配置"
+      "condition": "布伦特原油突破110美元",
+      "action": "将股票仓位进一步降至3成以下，增配能源ETF和黄金"
     },
     {
-      "condition": "布伦特原油突破115美元",
-      "action": "通胀预期急升信号，减持成长股增配能源/黄金"
+      "condition": "VIX突破30",
+      "action": "暂停所有成长股买入，持有现金等待恐慌顶部信号"
+    },
+    {
+      "condition": "美伊停火协议官方确认",
+      "action": "快速加仓科技/消费板块，减持能源对冲仓位"
     },
     {
       "condition": "10Y美债收益率突破4.5%",
-      "action": "降息预期彻底破灭信号，科技估值承压，减仓高PE成长"
+      "action": "降低组合久期，将XLRE/XLU等利率敏感型标的减仓"
     },
     {
-      "condition": "CNH突破7.30",
-      "action": "人民币贬值加速警示，港股/中概承压，降低港股仓位"
-    },
-    {
-      "condition": "中东停火协议明确破裂",
-      "action": "风险偏好急速收缩，全面降低权益仓位至5成以下"
-    },
-    {
-      "condition": "标普500跌破6300点",
-      "action": "技术支撑破位，进入观望等待确认反转信号"
+      "condition": "标普500跌破6300点支撑",
+      "action": "触发风险警报，按计划分批止损，禁止抄底"
     }
   ],
 
   "riskAlerts": [
     {
-      "title": "中东地缘风险反复，霍尔木兹油价冲击",
+      "title": "伊朗谈判破裂引发油价二次冲击风险",
+      "probability": "55%",
+      "impact": "高",
+      "response": "保持能源对冲仓位，关注布伦特110美元关口，一旦突破快速减仓成长股",
+      "level": "high"
+    },
+    {
+      "title": "关税一周年引发贸易战升级风险",
+      "probability": "30%",
+      "impact": "高",
+      "response": "回避高对华关税敞口的美国消费品/零售股，增持本土化生产比例高的标的",
+      "level": "medium"
+    },
+    {
+      "title": "周五非农数据超预期引发降息预期崩溃",
       "probability": "35%",
-      "impact": "高",
-      "response": "和谈乐观情绪随时可能逆转，油价百元上方支撑仍强。持续关注伊朗外长表态，若谈判破裂布伦特可能回测110美元，通胀预期再升推迟降息路径",
-      "level": "high"
-    },
-    {
-      "title": "AI资本开支泡沫担忧升温，银行提高信贷门槛",
-      "probability": "25%",
-      "impact": "高",
-      "response": "标普全球警示6350亿AI支出面临能源约束，美国银行已提高私人信贷利率。若科技巨头Q1财报AI收益率低于预期，AI板块可能快速修正20-30%",
-      "level": "high"
-    },
-    {
-      "title": "美债收益率再度上行压制估值",
-      "probability": "40%",
       "impact": "中",
-      "response": "美联储3月FOMC维持利率不变，10Y美债较年初已上升37bp至4.31%，若非农数据超预期将推动10Y向4.5%挑战，高PE成长股估值首当其冲",
+      "response": "非农前控制杠杆，数据公布后根据实际偏差幅度决定加减仓方向",
       "level": "medium"
     }
   ],
 
   "events": [
     {
-      "date": "周四",
-      "title": "美国3月ISM非制造业PMI发布",
-      "impact": "medium"
-    },
-    {
-      "date": "周四",
-      "title": "美国3月ADP就业变化报告",
-      "impact": "medium"
-    },
-    {
-      "date": "周五",
-      "title": "美国3月非农就业报告（最重磅）",
+      "date": "04/03",
+      "title": "美国3月非农就业数据公布",
       "impact": "high"
     },
     {
-      "date": "下周一",
-      "title": "美联储多名官员发表讲话（货币政策前瞻）",
-      "impact": "medium"
+      "date": "04/06",
+      "title": "特朗普伊朗打击暂停期截止",
+      "impact": "high"
     },
     {
-      "date": "下周三",
-      "title": "美国3月CPI通胀数据",
+      "date": "04/09",
+      "title": "美联储会议纪要公布",
       "impact": "high"
+    },
+    {
+      "date": "04/14",
+      "title": "美国CPI数据公布",
+      "impact": "high"
+    },
+    {
+      "date": "04/14",
+      "title": "JPMorgan、Wells Fargo Q1财报",
+      "impact": "medium"
     }
   ],
 
   "alerts": [
     {
       "level": "danger",
-      "text": "礼来Foundayo获FDA批准成首款口服GLP-1减肥药，医药板块发生结构性重估，诺和诺德单日跌1.5%",
-      "time": "09:15"
+      "text": "IRGC威胁18家美国科技公司中东设施，包括NVDA、AAPL、MSFT，已引发科技板块异动",
+      "time": "09:45"
+    },
+    {
+      "level": "danger",
+      "text": "WTI原油单日暴涨6.09%至106.22美元，霍尔木兹封锁风险重定价",
+      "time": "16:00"
     },
     {
       "level": "warning",
-      "text": "桥水基金达利欧被披露大幅增持NVDA，D.E. Shaw同步减持，头部机构对AI主线出现分歧信号",
-      "time": "11:30"
-    },
-    {
-      "level": "warning",
-      "text": "Google发布量子计算Q-Day警告：2029年量子计算机或可破解BTC当前加密技术，加密市场恐慌指数跌至8",
-      "time": "14:20"
+      "text": "黄金异常下跌3.42%与原油暴涨背离，显示流动性收缩式恐慌而非地缘避险切换",
+      "time": "16:30"
     },
     {
       "level": "info",
-      "text": "Q1 2026全球VC融资3000亿美元刷新历史记录，AI投资占比升至80%，OpenAI月收入突破20亿美元里程碑",
-      "time": "20:30"
+      "text": "4月2日为关税解放日一周年，媒体集中回顾引发市场对贸易战长期代价的重新审视",
+      "time": "07:00"
     }
   ],
 
@@ -190,17 +186,17 @@
       "funds": [
         {
           "name": "桥水基金",
-          "action": "达利欧被披露大幅增持NVDA，明确看多AI算力主线",
-          "signal": "bullish"
+          "action": "维持多元化全天候配置，战略持有黄金与大宗商品作为通胀对冲，不追涨能源",
+          "signal": "neutral"
         },
         {
-          "name": "贝莱德",
-          "action": "iShares IBIT比特币ETF资金流入持续，旗下AI主题ETF规模创新高",
-          "signal": "bullish"
+          "name": "高盛策略团队",
+          "action": "建议客户增持能源对冲仓位，上调短期波动率预测，维持标普年度目标价不变",
+          "signal": "neutral"
         },
         {
-          "name": "伯克希尔",
-          "action": "巴菲特暗示有微小新建仓，卖出50%美银持仓转向石油股，格雷格·阿贝尔部署AI相关资产",
+          "name": "摩根大通/JPM",
+          "action": "Mike Wilson识别S&P 6300为关键支撑位，建议在此区间分批布局，但不追涨",
           "signal": "neutral"
         }
       ]
@@ -210,12 +206,12 @@
       "funds": [
         {
           "name": "ARK Invest",
-          "action": "木头姐主导OpenAI纳入ARK ETF体系，在IPO前向公众开放投资渠道",
+          "action": "借今日科技回调逢低买入AI相关标的，坚持AI长期叙事不变",
           "signal": "bullish"
         },
         {
           "name": "D.E. Shaw",
-          "action": "削减NVDA持仓规模，25H1量化策略组合亏损-8%后调整AI配置",
+          "action": "继续减持大型科技股，转向能源和防御性仓位",
           "signal": "bearish"
         }
       ]
@@ -224,24 +220,24 @@
       "tier": "策略师观点",
       "funds": [
         {
-          "name": "高盛David Kostin",
-          "action": "维持标普500年度目标价6200点，提示地缘溢价14-18美元若释放将利好整体风险资产",
-          "signal": "neutral"
+          "name": "Morgan Stanley策略师",
+          "action": "标普6300-6400区间可分批加仓，等待VIX回落至22以下确认底部",
+          "signal": "bullish"
         },
         {
-          "name": "段永平H&H",
-          "action": "持仓PDD 7.6%未变，25Q1新建仓MSFT/NVDA/TSM仍在观察期，雪球互动表示对当前波动淡定",
-          "signal": "bullish"
+          "name": "Barclays Q2展望",
+          "action": "油价上涨和私人信贷担忧增加市场波动，但资本开支积极面可能抵消部分影响",
+          "signal": "neutral"
         }
       ]
     }
   ],
 
-  "dataTime": "2026-04-02 08:18 BJT / 2026-04-01 20:18 EST",
+  "dataTime": "2026-04-02 19:22 BJT（美股盘前数据，亚太已收盘）",
 
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-02T08:18:00+08:00",
-    "skillVersion": "v1.3.2"
+    "generatedAt": "2026-04-02T19:22:00+08:00",
+    "skillVersion": "v1.5"
   }
 }

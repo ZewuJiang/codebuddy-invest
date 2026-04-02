@@ -11,7 +11,7 @@
   </section-card>
 
   <!-- v1.3 市场情绪指数 Fear & Greed -->
-  <section-card title="市场情绪指数" wx:if="{{fearGreed}}">
+  <section-card title="CNN Fear & Greed" wx:if="{{fearGreed}}">
     <view class="fg-container">
       <!-- 情绪条 -->
       <view class="fg-bar">
@@ -164,17 +164,8 @@
     </view>
   </section-card>
 
-  <!-- v1.3 双层数据状态栏 -->
-  <view class="ds-footer" wx:if="{{dataTime}}">
-    <view class="ds-row-primary">
-      <view class="ds-dot {{isCloud ? 'ds-dot-cloud' : 'ds-dot-cache'}}"></view>
-      <text class="ds-source">{{isCloud ? '云数据' : '本地缓存'}}</text>
-      <text class="ds-sep">·</text>
-      <text class="ds-time">{{dataFreshness || dataTime}}</text>
-    </view>
-    <view class="ds-row-meta" wx:if="{{dataMeta}}">
-      <text class="ds-type-tag ds-type-{{dataMeta.sourceType === 'heavy_analysis' ? 'heavy' : 'realtime'}}" wx:if="{{dataMeta.sourceType}}">{{dataMeta.sourceType === 'heavy_analysis' ? 'AI深度分析' : (dataMeta.sourceType === 'realtime_quote' ? '实时行情' : '突发新闻')}}</text>
-      <text class="ds-version" wx:if="{{dataMeta.skillVersion}}">Skill {{dataMeta.skillVersion}}</text>
-    </view>
+  <!-- 数据更新时间 -->
+  <view class="data-footer" wx:if="{{dataTime}}">
+    <text class="footer-text">更新时间 · {{dataTime}}</text>
   </view>
 </view>
