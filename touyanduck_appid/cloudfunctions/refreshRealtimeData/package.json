@@ -1,0 +1,9 @@
+{
+  "name": "refreshRealtimeData",
+  "version": "1.0.0",
+  "description": "投研鸭 — 实时数据刷新云函数（Fear & Greed）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

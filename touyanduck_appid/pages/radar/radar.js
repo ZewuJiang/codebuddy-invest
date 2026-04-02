@@ -1,5 +1,9 @@
 // pages/radar/radar.js
-// 雷达页 v5.0 — 对齐Skill §5 + §4 + v1.3前端体验升级
+// 雷达页 v5.1 — 双层数据合并：AI日报层（radar集合）+ 实时层（realtime集合）
+// v5.1 变更：
+//   - fetchData() 改为 Promise.all 并发拉取 radar + realtime 两层数据
+//   - _applyData() 新增第三参数 realtimeData，实时 fearGreed 优先，AI日报兜底
+//   - onLoad 缓存预渲染路径仍走单层（保持快速秒开）
 
 var api = require('../../services/api')
 var colorUtil = require('../../utils/color')
@@ -68,9 +72,20 @@ Page({
       that.setData({ loading: true, animateReady: false })
     }
 
-    api.getRadar().then(function(res) {
-      if (res.success && res.data) {
-        that._applyData(res.data, !isSilent)
+    // 并发拉取：AI日报层 + 实时层
+    // 实时层用独立 .catch() 包裹，失败静默返回 null，不阻断主流程
+    Promise.all([
+      api.getRadar(),
+      api.getRealtimeData().catch(function(err) {
+        console.log('[Radar] 实时层获取异常，静默降级:', err && err.message)
+        return null
+      })
+    ]).then(function(results) {
+      var radarRes     = results[0]
+      var realtimeData = results[1]   // object | null（静默降级时为 null）
+
+      if (radarRes.success && radarRes.data) {
+        that._applyData(radarRes.data, !isSilent, realtimeData)
       } else if (!isSilent) {
         that.setData({ loading: false })
       }
@@ -91,7 +106,18 @@ Page({
     })
   },
 
-  _applyData: function(data, withAnimation) {
+  /**
+   * 将数据映射到页面 state
+   * @param {object} data          - AI日报层数据（来自 radar 集合）
+   * @param {boolean} withAnimation - 是否执行数字滚动动画
+   * @param {object|null} realtimeData - 实时层数据（来自 realtime 集合），可为 null
+   *
+   * 双层合并规则：
+   *   fearGreed：realtimeData.fearGreed 优先 → data.fearGreed 兜底 → null
+   *   dataMeta：AI日报 _meta 为基础，实时层存在时将 sourceType 覆盖为 'realtime_quote'
+   *            并追加 realtimeUpdatedAt 字段，供状态栏显示「实时行情」标签
+   */
+  _applyData: function(data, withAnimation, realtimeData) {
     var that = this
     var riskInfo = colorUtil.getRiskInfo(data.riskLevel)
 
@@ -117,8 +143,26 @@ Page({
       })
     })
 
-    // v1.3 Fear & Greed 映射
-    var fearGreed = data.fearGreed || null
+    // ── 双层合并：实时层 fearGreed 优先，AI日报层兜底 ──
+    // realtimeData 由 api.getRealtimeData() 提供，可能为 null（静默降级场景）
+    var fearGreed = (realtimeData && realtimeData.fearGreed)
+      ? realtimeData.fearGreed      // 实时层：来自云函数当日刷新（优先）
+      : (data.fearGreed || null)    // 日报层：来自 AI 每日生成（降级兜底）
+
+    // ── _meta 双层合并 ──
+    // 以 AI 日报 _meta 为基础（保留 skillVersion / generatedAt 等字段）
+    // 若实时层存在，将 sourceType 覆盖为 'realtime_quote'，并追加 realtimeUpdatedAt
+    var mergedMeta = Object.assign({}, data._meta || {})
+    if (realtimeData && realtimeData.fearGreed) {
+      mergedMeta.sourceType = 'realtime_quote'
+      mergedMeta.realtimeUpdatedAt = realtimeData.fearGreed.updatedAt || null
+    }
+    // 兜底：若 AI 日报无 sourceType，补默认值
+    if (!mergedMeta.sourceType) {
+      mergedMeta.sourceType = 'heavy_analysis'
+    }
+
+    // v1.3 Fear & Greed 映射（fearGreed 已指向合并后的值）
     var fgInfo = null
     var fgPrevDiff = 0
     var fgWeekDiff = 0
@@ -143,7 +187,7 @@ Page({
       }
     })
 
-    // v1.3 数据新鲜度
+    // v1.3 数据新鲜度（以 AI 日报生成时间为基准）
     var dataFreshness = formatUtil.getRelativeTime(
       data._meta && data._meta.generatedAt ? data._meta.generatedAt : data.dataTime
     )
@@ -169,7 +213,7 @@ Page({
       smartMoneyDetail: data.smartMoneyDetail || [],
       dataTime: data.dataTime || '',
       dataFreshness: dataFreshness || '',
-      dataMeta: data._meta || null,
+      dataMeta: mergedMeta,
       loading: false
     })
 

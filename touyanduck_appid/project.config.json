@@ -55,5 +55,7 @@
   "libVersion": "3.15.1",
   "appid": "wx9e7317dd1e9b88aa",
   "projectname": "touyanduck",
-  "simulatorPluginLibVersion": {}
+  "cloudfunctionRoot": "cloudfunctions/",
+  "simulatorPluginLibVersion": {},
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/"
 }

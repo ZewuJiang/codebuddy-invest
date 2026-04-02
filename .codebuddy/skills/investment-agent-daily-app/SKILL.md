@@ -3,9 +3,9 @@ name: investment-agent-daily-app
 description: 当用户提到「投资App」「小程序数据」「投研鸭数据」「app数据更新」「miniapp sync」或类似关键词时，自动执行投研鸭小程序数据生产全流程，输出4个原生结构化JSON并上传微信云数据库。
 ---
 
-# 投研鸭小程序数据生产 — 标准工作流 v1.3.2
+# 投研鸭小程序数据生产 — 标准工作流 v1.4
 
-> **版本**: v1.3.2 (2026-04-02 00:21)
+> **版本**: v1.4 (2026-04-02 12:34)
 > **主控文档**：本文件为精炼主控，详细规则/知识库/模板/SOP通过引用按需加载。
 
 ---
@@ -101,6 +101,7 @@ date "+%A %Y-%m-%d %H:%M:%S"
 | 4 | 基金&大资金动向（三梯队） | → [fund-universe.md](references/fund-universe.md) |
 | **5** | **watchlist 标的详情采集**（metrics/analysis/risks） | → [stock-universe.md](references/stock-universe.md) |
 | **6** | **本周关键事件日历 + 风险矩阵** | |
+| **A** | **情绪与预测数据采集（CNN Fear&Greed / Polymarket / CME FedWatch）** | → [data-collection-sop.md 第八章](references/data-collection-sop.md)（可选批次，失败不阻断） |
 
 **⚠️ 与原 Skill 的关键差异**：
 - 每个标的必须额外采集 **7 天历史价格**（用于 sparkline）
@@ -129,6 +130,16 @@ date "+%A %Y-%m-%d %H:%M:%S"
 | 8 | **globalReaction 6项** | name+value+direction | 补充 |
 | 9 | **smartMoney 2-4条** | source+action+signal | 补充 |
 | 10 | **events 3-5条 + riskAlerts 2-3条** | 完整字段 | 补充 |
+
+**⭐ 可选字段建议检查（非阻断——缺失时前端对应模块不渲染，不影响发布）**：
+
+| # | 验证项 | 要求 | 未填时操作 |
+|---|--------|------|-----------|
+| 18 | briefing: timeStatus（建议） | bjt+est+marketStatus(枚举值见 json-schema.md)+refreshInterval | 根据执行时间推算填写，或省略（前端可自行计算） |
+| 19 | briefing: keyDeltas（建议） | 3-5条，每条 title(20-40字)+status(枚举)+heat(1-5整数)+brief(30-80字) | 在 JSON 生成阶段基于当日全部采集数据提炼；跳过则前端不渲染该模块 |
+| 20 | radar: fearGreed（建议） | value(0-100整数)+label(枚举)+previousClose+oneWeekAgo+oneMonthAgo | 参照 Batch A 子批次 A1 采集结果填入；获取失败则完全省略该字段（不填 null） |
+| 21 | radar: predictions（建议） | 2-4条，每条 title+source(枚举)+probability(0-100整数)+trend(枚举)+change24h | 参照 Batch A 子批次 A2/A3/A4 采集结果汇总；所有子批次均失败时填 [] |
+| 22 | 所有4个JSON: _meta（建议） | sourceType="heavy_analysis"+generatedAt(ISO8601格式)+skillVersion | 固定值：sourceType 固定为 "heavy_analysis"；generatedAt 为执行时间（+08:00）；skillVersion 为 "v1.4" |
 
 ### 第二阶段：结构化 JSON 生成（核心阶段）
 
@@ -228,9 +239,10 @@ python3 upload_to_cloud.py "/Users/zewujiang/Desktop/AICo/codebuddy-invest/workf
 | 10 | GICS 不足11项 | gics 数组长度 < 11 |
 | 11 | globalReaction 不足5项 | 核心资产反应不完整 |
 | 12 | coreJudgments ≠ 3条 | 必须精确3条判断 |
-| 13 | markdown 残留 | JSON 文本字段含 `**`、`|`、`>`、`- ` 等 md 语法 |
+| 13 | markdown 残留 | JSON 文本字段含 `**`、`\|`、`>`、`- ` 等 md 语法 |
 | 14 | JSON 语法错误 | 无法被 `json.loads()` 解析 |
 | 15 | 价格数据错误 | 收盘价/涨跌幅与实际不符 |
+| 16 | 可选字段枚举值越界 | `keyDeltas[].status` 填了"上涨"而非枚举值（升级/新增/活跃/降温/稳定）；`fearGreed.label` 填了"恐惧"而非英文枚举（Extreme Fear/Fear/Neutral/Greed/Extreme Greed）；`predictions[].source` 填了非允许值（仅限 Polymarket/Kalshi/CME FedWatch）；`_meta.sourceType` 填了非枚举值 |
 
 ---
 
@@ -276,6 +288,7 @@ briefing.json / markets.json / watchlist.json / radar.json
 
 | 版本 | 日期 | 核心变更 |
 |------|------|---------|
+| **v1.4** | 2026-04-02 12:34 | Skill 数据采集端全面对齐 v1.3 新字段，补齐 SOP 与模板空白地带：①`data-collection-sop.md` 升级至 v1.3 — 新增第八章"Batch A 情绪与预测数据采集SOP"（四子批次：CNN Fear&Greed API / Polymarket CLOB API / Kalshi API / CME FedWatch 页面；含字段映射、失败处理、汇总规则）；采集批次总览表新增 Batch A 行（适用全工作日，可选非阻断）；验证门禁扩展第18-22项可选字段建议检查（⭐ 非阻断）；明确 keyDeltas 为 JSON 生成阶段 AI 提炼，非行情直采；②`data-source-priority.md` 升级至 v1.3 — 新增"一-A章"情绪与预测数据源优先级（CNN F&G / Polymarket / Kalshi / CME FedWatch 四类数据源定义、接口说明、字段映射注释）；降级路径表新增 4 条情绪数据降级路径（全部非阻断型）；③`daily-standard.json` 模板升级至 v1.3 — 补充 briefing 的 timeStatus/keyDeltas/_meta 完整占位示例；markets 的6个板块Insight空字符串占位；radar 的 fearGreed/predictions/_meta 完整占位示例；coreJudgments 三条示例均补充 keyActor/references/probability/trend 可选扩展字段；_field_notes 字段集中声明所有枚举值供 AI 参考；④`monday-special.json` 模板升级至 v1.3 — 与 daily-standard 结构完全对齐，_note 补充周一额外执行 Batch A 说明；⑤`SKILL.md` 致命错误清单新增第16条（可选字段枚举值越界）；第一阶段采集批次概要表新增 Batch A 行；第1.5阶段门禁扩展第18-22项可选字段建议检查。 |
 | **v1.3.2** | 2026-04-02 00:21 | 市场页板块 Insight 升级：①json-schema.md 新增 6 个板块级 Insight 字段（usInsight/m7Insight/asiaInsight/commodityInsight/cryptoInsight/gicsInsight），每个板块数据表格底部提供30-80字高质量一句话洞察，对齐日报"XX信号"风格；②原 usMarkets[0].note 迁移为独立 usInsight 字段，前端向后兼容；③markets.wxml 6个Tab/GICS均加入💡洞察卡片（复用 .market-comment 样式）；④markets.js _applyData 传递6个insight+向后兼容旧note；⑤markets-mock.js 补充6个高质量示例文本；⑥data-collection-sop.md 新增第七章"板块Insight生成规范"+门禁第17项验证。 |
 | **v1.3.1** | 2026-04-02 00:00 | UI精修三项：①删除简报页顶部hero冗余渐变区域（导航栏已有标题+日期），页面更简洁；②修复判断扩展区 jx-divider 虚线样式（dashed→渐变淡化实线），视觉更优雅；③json-schema.md 中 references 从 string[] 升级为 object[]（含 name/summary/url），briefing 前端改为可点击展开的手风琴组件，展开后显示信息摘要和来源链接，向后兼容旧格式纯字符串数组。相关文件：briefing.js（删除 currentDate + 新增 expandedRefs/onRefToggle + references 兼容映射）、briefing.wxml（删除 hero + 重写 Reference 区域）、briefing.wxss（删除 hero 样式 + 修复虚线 + 新增展开面板样式）。 |
 | **v1.3** | 2026-04-01 22:58 | 前端体验升级（阶段一）：①json-schema.md 升级至 v1.3 — briefing.json 新增 `timeStatus`（多时区+开市状态）、`keyDeltas[]`（增量信息 KEY DELTA，借鉴 Iran Briefing 设计）、`coreJudgments` 扩展 `keyActor/references/probability/trend` 四个可选字段；radar.json 新增 `fearGreed`（CNN Fear & Greed 情绪指数）、`predictions[]`（预测市场概率 Polymarket/Kalshi/CME FedWatch）；所有 JSON 新增 `_meta` 元数据对象；②小程序前端 v5.0 — 简报页新增时间状态栏（前端实时计算双时区+开市判断）、KEY DELTA 卡片（热度点+状态标签）、核心判断扩展行（决策者/参考源/概率/趋势标签）；雷达页新增 Fear & Greed 情绪卡片（渐变情绪条+数字跳动动画+三时段对比）、预测市场预览卡片（概率进度条+24h 趋势）；③简报页和雷达页数据底栏统一升级为双层状态栏（数据源+新鲜度+sourceType 标签+Skill 版本号）；④format.js 新增 `getMultiTimezone()`/`getMarketStatus()`/`getRelativeTime()`；⑤color.js 新增 `getDeltaStatusInfo()`/`getFearGreedInfo()`/`getPredictionTrendInfo()`/`getProbabilityInfo()`/`getJudgmentTrendInfo()`/`getHeatLabel()`。所有新字段均为可选（🔸标记），完全向后兼容旧数据。 |

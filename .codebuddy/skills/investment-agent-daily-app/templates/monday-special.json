@@ -1,37 +1,137 @@
 {
-  "_comment": "投研鸭小程序 — 周一特殊 JSON 模板（含上周回顾数据）",
+  "_comment": "投研鸭小程序 — 周一特殊 JSON 模板（v1.3）",
   "_template": "monday-special",
-  "_version": "1.0",
-  "_note": "周一模板与标准日模板结构相同，但数据采集时额外执行批次7/8/9（上周回顾/本周事件/周末新闻），events字段需包含完整本周事件日历",
-  
+  "_version": "1.3",
+  "_schema_version": "1.3.2",
+  "_note": "周一模板与标准日模板结构完全相同，但数据采集时额外执行批次7/8/9（上周回顾数据/本周完整事件日历/周末重大新闻）和Batch A（情绪数据：Fear&Greed/Polymarket/CME FedWatch）。events字段需包含完整本周事件日历（周一至周五），通常5-7条；briefing.coreEvent.title需包含上周收盘收评+本周展望双维度。",
+  "_field_notes": {
+    "timeStatus.marketStatus_enum": "美股交易中 / 美股已收盘 / 盘前交易 / 盘后交易",
+    "keyDeltas_status_enum": "升级 / 新增 / 活跃 / 降温 / 稳定",
+    "coreJudgments_probability_enum": "高可能性 / 中可能性 / 低可能性",
+    "coreJudgments_trend_enum": "上升 / 下降 / 稳定",
+    "sentimentLabel_enum": "极度恐惧 / 偏恐惧 / 中性 / 偏贪婪 / 贪婪 / 极度贪婪",
+    "actions_type_enum": "buy / sell / hold / bullish / bearish",
+    "smartMoney_signal_enum": "bullish / bearish / neutral",
+    "_meta_sourceType_enum": "heavy_analysis / realtime_quote / breaking_news",
+    "fearGreed_label_enum": "Extreme Fear / Fear / Neutral / Greed / Extreme Greed",
+    "predictions_trend_enum": "up / down / stable",
+    "predictions_source_enum": "Polymarket / Kalshi / CME FedWatch",
+    "globalReaction_direction_enum": "up / down / flat",
+    "trafficLights_status_enum": "green / yellow / red",
+    "riskLevel_enum": "low / medium / high",
+    "alerts_level_enum": "danger / warning / info",
+    "smartMoneyDetail_tier_enum": "T1旗舰 / T2成长 / 策略师观点",
+    "sectors_id_enum": "ai / semi / internet / energy / consumer / pharma / finance",
+    "sectors_trend_enum": "up / down / hold"
+  },
+
   "briefing": {
     "date": "YYYY-MM-DD",
+
+    "timeStatus": {
+      "bjt": "HH:MM",
+      "est": "HH:MM",
+      "marketStatus": "美股已收盘",
+      "refreshInterval": "每日更新"
+    },
+
+    "keyDeltas": [
+      {
+        "title": "填写20-40字的今日最重要增量变化标题（周一请结合上周末变化）",
+        "status": "升级",
+        "heat": 5,
+        "brief": "填写30-80字的一句话概述，周一需结合上周末发生的重要事件"
+      },
+      {
+        "title": "填写第二条增量信息标题",
+        "status": "活跃",
+        "heat": 4,
+        "brief": "填写第二条增量信息的一句话概述"
+      },
+      {
+        "title": "填写第三条增量信息标题",
+        "status": "稳定",
+        "heat": 3,
+        "brief": "填写第三条增量信息的一句话概述"
+      }
+    ],
+
     "coreEvent": {
       "title": "",
       "chain": []
     },
+
     "globalReaction": [],
-    "coreJudgments": [],
+
+    "coreJudgments": [
+      {
+        "title": "",
+        "confidence": 75,
+        "logic": "",
+        "keyActor": "",
+        "references": [
+          {
+            "name": "",
+            "summary": "",
+            "url": ""
+          }
+        ],
+        "probability": "高可能性",
+        "trend": "上升"
+      },
+      {
+        "title": "",
+        "confidence": 70,
+        "logic": "",
+        "keyActor": "",
+        "references": [],
+        "probability": "中可能性",
+        "trend": "稳定"
+      },
+      {
+        "title": "",
+        "confidence": 65,
+        "logic": "",
+        "keyActor": "",
+        "references": [],
+        "probability": "中可能性",
+        "trend": "稳定"
+      }
+    ],
+
     "actions": {
       "today": [],
       "week": []
     },
+
     "sentimentScore": 50,
     "sentimentLabel": "中性",
     "marketSummary": "",
     "smartMoney": [],
     "riskNote": "",
-    "dataTime": ""
+    "dataTime": "",
+
+    "_meta": {
+      "sourceType": "heavy_analysis",
+      "generatedAt": "YYYY-MM-DDTHH:MM:SS+08:00",
+      "skillVersion": "v1.4"
+    }
   },
 
   "markets": {
     "date": "YYYY-MM-DD",
     "usMarkets": [],
+    "usInsight": "",
     "m7": [],
+    "m7Insight": "",
     "asiaMarkets": [],
+    "asiaInsight": "",
     "commodities": [],
+    "commodityInsight": "",
     "cryptos": [],
-    "gics": []
+    "cryptoInsight": "",
+    "gics": [],
+    "gicsInsight": ""
   },
 
   "watchlist": {
@@ -58,6 +158,32 @@
 
   "radar": {
     "date": "YYYY-MM-DD",
+
+    "fearGreed": {
+      "value": 50,
+      "label": "Neutral",
+      "previousClose": 50,
+      "oneWeekAgo": 50,
+      "oneMonthAgo": 50
+    },
+
+    "predictions": [
+      {
+        "title": "美联储下次会议降息?",
+        "source": "CME FedWatch",
+        "probability": 50,
+        "trend": "stable",
+        "change24h": 0
+      },
+      {
+        "title": "填写第二条预测市场问题",
+        "source": "Polymarket",
+        "probability": 50,
+        "trend": "stable",
+        "change24h": 0
+      }
+    ],
+
     "trafficLights": [],
     "riskScore": 50,
     "riskLevel": "medium",
@@ -67,6 +193,12 @@
     "events": [],
     "alerts": [],
     "smartMoneyDetail": [],
-    "dataTime": ""
+    "dataTime": "",
+
+    "_meta": {
+      "sourceType": "heavy_analysis",
+      "generatedAt": "YYYY-MM-DDTHH:MM:SS+08:00",
+      "skillVersion": "v1.4"
+    }
   }
 }

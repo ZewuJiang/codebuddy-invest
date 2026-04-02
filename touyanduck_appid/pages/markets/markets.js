@@ -1,5 +1,5 @@
 // pages/markets/markets.js
-// 市场页 v4.0 — 新增M7巨头Tab + GICS板块热力图
+// 市场页 v4.1 — 新增缓存优先秒开，补齐与 briefing/watchlist/radar 的一致体验
 
 var api = require('../../services/api')
 var colorUtil = require('../../utils/color')
@@ -39,7 +39,14 @@ Page({
 
   onLoad: function() {
     this.setData({ isCloud: api.isCloudMode() })
-    this.fetchData()
+    // 缓存优先秒开：先读缓存渲染，再后台静默刷新
+    var cached = api.getCache('markets')
+    if (cached && cached.success && cached.data) {
+      this._applyData(cached.data)
+      this.fetchData(false, true)
+    } else {
+      this.fetchData()
+    }
   },
 
   onShow: function() {

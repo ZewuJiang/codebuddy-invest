@@ -1,10 +1,15 @@
 /**
- * api.js — 统一数据服务层 v6.0
+ * api.js — 统一数据服务层 v6.1
  * 只允许两类数据进入页面：
  *   1. 云数据库真实数据
  *   2. 上一次成功拉取后的本地缓存
  *
  * 严禁在云数据失败时自动降级到 Mock / 伪随机 / 估算数据。
+ *
+ * v6.1 变更：
+ *   - 新增 getRealtimeData()：查询 realtime 集合最新 fearGreed 实时数据（5分钟缓存）
+ *   - clearCache() 追加清除 cache_realtime
+ *   - module.exports 追加 getRealtimeData
  */
 
 var storage = require('../utils/storage')
@@ -155,6 +160,59 @@ function getRadar() {
 }
 
 /**
+ * 获取实时数据（由云函数 refreshRealtimeData 写入的 realtime 集合）
+ *
+ * 查询逻辑：
+ *   1. 根据当前北京日期构造 docId = "feargreed_YYYY-MM-DD"
+ *   2. 命中云数据库则写入 5 分钟本地缓存并返回
+ *   3. 未命中则返回本地缓存（若有）
+ *   4. 任何异常均静默返回 null，不阻断主流程
+ *
+ * 缓存时间：5 分钟（相比日报层 30 分钟更激进刷新）
+ *
+ * @returns {Promise<object|null>} realtime 文档数据，云函数未运行/失败时返回 null
+ */
+function getRealtimeData() {
+  var REALTIME_CACHE_EXPIRE = 5
+  var cacheKey = 'cache_realtime'
+  var cached = storage.get(cacheKey, null)
+
+  // 非云模式：直接返回本地缓存（可能为 null）
+  if (!isCloudMode()) {
+    return Promise.resolve(cached ? cached.data : null)
+  }
+
+  if (!wx.cloud) {
+    return Promise.resolve(cached ? cached.data : null)
+  }
+
+  var db = wx.cloud.database()
+  var app = getApp()
+  var date = app.globalData.currentDateISO || new Date().toISOString().slice(0, 10)
+  var docId = 'feargreed_' + date
+
+  return db.collection('realtime')
+    .doc(docId)
+    .get()
+    .then(function(res) {
+      if (res.data) {
+        console.log('[API] 实时数据命中，F&G value:', res.data.fearGreed && res.data.fearGreed.value)
+        var result = { success: true, data: res.data }
+        storage.set(cacheKey, result, REALTIME_CACHE_EXPIRE)
+        return res.data
+      }
+      // docId 不存在但请求成功（res.data 为 null）
+      console.log('[API] 实时数据暂无（云函数今日尚未执行或 docId 不存在）:', docId)
+      return cached ? cached.data : null
+    })
+    .catch(function(err) {
+      // 静默降级：文档不存在时云数据库会抛 errCode: -1，此处统一不打印 warn
+      console.log('[API] 实时数据不可用，静默降级:', err && err.errMsg)
+      return cached ? cached.data : null
+    })
+}
+
+/**
  * 清除数据缓存（下拉刷新时调用，强制重新获取数据）
  */
 function clearCache() {
@@ -162,6 +220,7 @@ function clearCache() {
   storage.remove('cache_markets')
   storage.remove('cache_watchlist')
   storage.remove('cache_radar')
+  storage.remove('cache_realtime')
 }
 
 module.exports = {
@@ -169,6 +228,7 @@ module.exports = {
   getMarkets: getMarkets,
   getWatchlist: getWatchlist,
   getRadar: getRadar,
+  getRealtimeData: getRealtimeData,
   getCache: getCache,
   clearCache: clearCache,
   isCloudMode: isCloudMode
