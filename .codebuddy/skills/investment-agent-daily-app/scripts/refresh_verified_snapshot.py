@@ -172,12 +172,13 @@ WATCHLIST_AK_MAP: Dict[str, Optional[dict]] = {
     "0100.HK":    {"type": "hk_stock", "symbol": "00100"},
     "688256.SZ":  {"type": "cn_stock", "symbol": "sz688256"},
     # ── smart_money：聪明钱 ──
-    "BRK.B":      {"type": "us_stock", "symbol": "BRK.B"},
+    "BRK.A":      {"type": "us_stock", "symbol": "BRK.A"},
     "KO":         {"type": "us_stock", "symbol": "KO"},
     "OXY":        {"type": "us_stock", "symbol": "OXY"},
     "600519.SH":  {"type": "cn_stock", "symbol": "sh600519"},
     "PDD":        {"type": "us_stock", "symbol": "PDD"},
     "AXP":        {"type": "us_stock", "symbol": "AXP"},
+    "9992.HK":    {"type": "hk_stock", "symbol": "09992"},    # 泡泡玛特（v2.1新增，段永平关注）
     # ── hot_topic：本期热点 ──
     "300750.SZ":  {"type": "cn_stock", "symbol": "sz300750"},
     "002594.SZ":  {"type": "cn_stock", "symbol": "sz002594"},

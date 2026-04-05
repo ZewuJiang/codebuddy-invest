@@ -1,5 +1,12 @@
 {
   "date": "2026-04-05",
+  "fearGreed": {
+    "value": 22,
+    "label": "Extreme Fear",
+    "previousClose": 28,
+    "oneWeekAgo": 42,
+    "oneMonthAgo": 55
+  },
   "predictions": [
     {
       "title": "美联储6月降息?",
@@ -9,18 +16,18 @@
       "change24h": -5
     },
     {
+      "title": "WTI油价4月底超$120?",
+      "source": "Polymarket",
+      "probability": 35,
+      "trend": "up",
+      "change24h": 15
+    },
+    {
       "title": "伊朗停火协议本月达成?",
       "source": "Polymarket",
       "probability": 18,
       "trend": "down",
       "change24h": -12
-    },
-    {
-      "title": "WTI油价4月底超120美元?",
-      "source": "Polymarket",
-      "probability": 35,
-      "trend": "up",
-      "change24h": 15
     }
   ],
   "trafficLights": [
@@ -55,10 +62,10 @@
       "threshold": "<4%绿 / 4-5%黄 / >5%红"
     },
     {
-      "name": "外资动向",
-      "value": "港股均跌-1.2%，外资偏谨慎",
+      "name": "黄金XAU",
+      "value": "$4,675",
       "status": "red",
-      "threshold": "北向实时净买额已于2024-08-19永久停止披露；以港股（恒生+恒生科技）均涨跌幅为代理：≥+1.5%绿 / 0~+1.5%黄 / 跌红"
+      "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
     },
     {
       "name": "离岸人民币CNH",
@@ -69,103 +76,52 @@
   ],
   "riskScore": 80,
   "riskLevel": "high",
-  "riskAdvice": "当前风险评分 80（high）：VIX、10Y美债和布伦特仍在黄灯区，但DXY、HY利差与离岸人民币已回到偏安全区域，港股涨幅代理外资情绪回暖。建议维持中性偏多仓位，继续等待宏观数据确认。",
-  "monitorTable": [
-    {
-      "condition": "VIX突破25并持续2日",
-      "action": "将股票仓位降至5成以下，增持现金和短期美债"
-    },
-    {
-      "condition": "布伦特原油突破120美元",
-      "action": "增加能源ETF对冲仓位，减持高耗能行业（航空/化工）"
-    },
-    {
-      "condition": "NFP低于+3万（明日公布）",
-      "action": "触发滞胀信号，防御配置提升至7成，增配黄金GLD"
-    },
-    {
-      "condition": "10Y美债收益率升破4.5%",
-      "action": "成长股估值承压，减持高PE科技仓位至标配以下"
-    },
-    {
-      "condition": "DXY突破107",
-      "action": "新兴市场（港股/A股）资金外流风险上升，减持港股仓位"
-    },
-    {
-      "condition": "伊朗停火信号出现",
-      "action": "能源对冲仓位止盈50%，科技股增仓机会窗口打开"
-    }
-  ],
-  "riskAlerts": [
-    {
-      "title": "周一开市跳空缺口风险（NFP+关税+伊朗升级三重叠加）",
-      "probability": "60%",
-      "impact": "高",
-      "response": "休市积压三大利空/利好信号，周一大概率出现显著跳空。建议等开盘30分钟确认方向后再操作，避免追涨杀跌。",
-      "level": "high"
-    },
-    {
-      "title": "CPI二次上行确认（油价月涨34%传导）",
-      "probability": "45%",
-      "impact": "高",
-      "response": "若3月核心CPI超3.0%，联储降息预期归零，10Y美债可能升破4.5%。提前将高PE科技仓位降至标配以下。",
-      "level": "high"
-    },
-    {
-      "title": "曼德海峡封锁导致全球航运危机扩大",
-      "probability": "20%",
-      "impact": "高",
-      "response": "霍尔木兹+曼德海峡双封锁将使全球航运成本翻倍以上，能源对冲仓位必须维持，同时考虑增配航运和国防ETF。",
-      "level": "medium"
-    }
-  ],
+  "riskAdvice": "油价$109逼近红区+VIX 23.87临界，建议总仓位≤5成，能源对冲维持，周一开盘前30分钟只看不动。",
+  "riskAlerts": [],
   "events": [
     {
       "date": "周一",
-      "title": "美股复活节后开市，消化NFP+关税双重数据",
-      "impact": "high"
+      "title": "美股复活节后开市，消化NFP+178K及对等关税冲击",
+      "impact": "high",
+      "source": "Verified Investing",
+      "url": "https://verifiedinvesting.com/blogs/us-economic-metrics/us-nonfarm-payrolls-march-2026-jobs-report"
     },
     {
-      "date": "周二",
-      "title": "FOMC 3月会议纪要发布",
-      "impact": "high"
+      "date": "周三",
+      "title": "3月PPI发布，验证油价+34%后上游成本传导强度",
+      "impact": "medium",
+      "source": "BLS",
+      "url": "https://www.bls.gov/ppi/"
     },
     {
       "date": "周四",
-      "title": "美国3月CPI通胀数据发布",
-      "impact": "high"
+      "title": "FOMC 3月会议纪要发布，聚焦通胀措辞和降息路径讨论",
+      "impact": "high",
+      "source": "Federal Reserve",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
     },
     {
       "date": "周五",
-      "title": "美国3月PPI生产者价格指数",
-      "impact": "medium"
-    },
-    {
-      "date": "周五",
-      "title": "密歇根大学消费者信心指数",
-      "impact": "medium"
+      "title": "美国3月CPI发布——本周最重要数据，油价+34%后通胀能否确认二次上行",
+      "impact": "high",
+      "source": "BLS",
+      "url": "https://www.bls.gov/cpi/"
     }
   ],
   "alerts": [
     {
       "level": "danger",
-      "text": "NFP实际+178K远超预期+57K，但医疗罢工回归贡献43%（76K），有机增长仅102K，数据含水",
-      "time": "20:30"
+      "text": "美军F-15E被伊朗击落（20年来首次），特朗普下48小时最后通牒要求重开霍尔木兹海峡，胡塞同步宣布封锁红海",
+      "time": "08:00",
+      "source": "AP News",
+      "url": "https://apnews.com/live/iran-war-israel-trump-04-04-2026"
     },
     {
       "level": "danger",
-      "text": "美军F-15E被伊朗击落，20年来首次；特朗普下48小时最后通牒要求重开霍尔木兹海峡",
-      "time": "08:00"
-    },
-    {
-      "level": "warning",
-      "text": "伊朗议长暗示威胁曼德海峡（Bab el-Mandeb），胡塞武装宣布封锁红海，全球双海峡风险",
-      "time": "15:00"
-    },
-    {
-      "level": "warning",
-      "text": "工资增速降至3.5% YoY（前值3.8%），为2024年8月以来最低，鸽派信号利好债券",
-      "time": "20:30"
+      "text": "NFP+178K远超预期，但医疗罢工回归贡献43%，剔除后有机增长仅+102K，ADP仅+62K佐证",
+      "time": "20:30",
+      "source": "Verified Investing",
+      "url": "https://verifiedinvesting.com/blogs/us-economic-metrics/us-nonfarm-payrolls-march-2026-jobs-report"
     }
   ],
   "smartMoneyDetail": [
@@ -173,19 +129,25 @@
       "tier": "T1旗舰",
       "funds": [
         {
-          "name": "桥水基金",
-          "action": "继续维持对宏观与防御资产的平衡配置，不因单日反弹放松风险控制。",
-          "signal": "neutral"
-        },
-        {
           "name": "伯克希尔",
-          "action": "伯克希尔股价收于479.20美元，资金仍偏好高质量现金流与防御性配置。",
-          "signal": "neutral"
+          "action": "Abel重启回购（2024年5月以来首次）+个人$15.3M全额买入BRK.B；4/2发行日元债继续加码日本。巴菲特承认减持苹果「太草率」。",
+          "signal": "bullish",
+          "source": "247 Wall St / Observer",
+          "url": "https://247wallst.com/investing/2026/04/01/greg-abels-first-big-move-as-berkshire-ceo-had-warren-buffetts-personal-approval/"
         },
         {
           "name": "贝莱德",
-          "action": "维持大类资产分散配置思路，在利率与油价未完全回落前不追逐单一风险资产。",
-          "signal": "neutral"
+          "action": "3月股票ETF流入骤降至$640亿（1-2月均超$1000亿），75%资金涌入固收，能源板块资金流入6年来首超科技。",
+          "signal": "bearish",
+          "source": "iShares Q1 2026 ETF Report",
+          "url": "https://www.ishares.com/us/insights/inside-the-market/2026-etf-market-trends-and-flows"
+        },
+        {
+          "name": "桥水",
+          "action": "2025年创50年最佳——Pure Alpha +34%、All Weather +20.4%。达利欧警告处于长期债务周期末期，建议持有黄金等硬资产对冲。",
+          "signal": "bearish",
+          "source": "Substack / StartupHub",
+          "url": "https://navnoorbawa.substack.com/p/the-trade-war-dividend-druckenmillers"
         }
       ]
     },
@@ -194,13 +156,17 @@
       "funds": [
         {
           "name": "ARK Invest",
-          "action": "成长资产仍然受益于风险偏好修复，但波动显著，适合分批而非一次性押注。",
-          "signal": "bullish"
+          "action": "4/1-2大举买入CRWV $120万+DASH $160万+OKLO $55万，清仓PINS。方向：从消费互联网全面轮动至AI基建+核能。",
+          "signal": "bullish",
+          "source": "Cathie's Ark",
+          "url": "https://cathiesark.com/ark-funds-combined/trades"
         },
         {
-          "name": "港股成交代理",
-          "action": "4月1日港股均涨+2.07%，外资动向代理指标为绿灯，外资偏好回暖信号成立。",
-          "signal": "bullish"
+          "name": "段永平 H&H",
+          "action": "[3/30] 雪球发文「收回不投资泡泡玛特的说法」，态度根本性转变（此前称看不懂）。",
+          "signal": "neutral",
+          "source": "雪球 / 证券时报",
+          "url": "https://finance.sina.cn/2026-03-30/detail-inhsuknw6416760.d.html?vt=4"
         }
       ]
     },
@@ -208,27 +174,166 @@
       "tier": "策略师观点",
       "funds": [
         {
-          "name": "Goldman Sachs",
-          "action": "继续看好AI基础设施与订单兑现度更高的科技龙头。",
-          "signal": "bullish"
+          "name": "Bill Ackman",
+          "action": "[3/30] 现在是「最佳买入优质股时机」，下行有限上涨巨大；看好伊朗战后「和平红利」。PSH今年-19%但仍申请NYSE上市。",
+          "signal": "bullish",
+          "source": "CNBC",
+          "url": "https://www.cnbc.com/2026/03/30/bill-ackman-says-its-one-of-the-best-times-in-a-long-time-to-buy-quality-stocks.html"
         },
         {
-          "name": "Wells Fargo",
-          "action": "提醒市场继续关注利率与盈利兑现，不建议把单日反弹线性外推。",
-          "signal": "neutral"
-        },
-        {
-          "name": "Roth Capital",
-          "action": "维持对MRVL等AI互联链条的正面看法，但强调波动和仓位纪律。",
-          "signal": "bullish"
+          "name": "Druckenmiller",
+          "action": "[3/5] 做空美元+做多黄金铜（AI数据中心需求，52周+32%）+做多日韩+做空债券。",
+          "signal": "bearish",
+          "source": "Morgan Stanley",
+          "url": "https://navnoorbawa.substack.com/p/the-trade-war-dividend-druckenmillers"
         }
       ]
     }
   ],
-  "dataTime": "2026-04-05 周末更新 BJT | 行情数据保留4月2日收盘 | 分析内容基于周末最新进展更新",
+  "dataTime": "2026-04-05 22:48 BJT",
   "_meta": {
     "sourceType": "weekend_insight",
-    "generatedAt": "2026-04-05T12:18:00+08:00",
-    "skillVersion": "v4.0"
-  }
+    "generatedAt": "2026-04-05T21:50:00+08:00",
+    "skillVersion": "v4.7"
+  },
+  "smartMoneyHoldings": [
+    {
+      "manager": "巴菲特 · 伯克希尔",
+      "fund": "Berkshire Hathaway Inc",
+      "aum": "$274.2B",
+      "asOf": "截至2025.12.31 · 2026.2.17披露",
+      "positions": [
+        {
+          "name": "苹果",
+          "symbol": "AAPL",
+          "weight": "22.6%",
+          "change": "减持"
+        },
+        {
+          "name": "美国运通",
+          "symbol": "AXP",
+          "weight": "20.5%",
+          "change": ""
+        },
+        {
+          "name": "美国银行",
+          "symbol": "BAC",
+          "weight": "10.4%",
+          "change": "减持"
+        },
+        {
+          "name": "可口可乐",
+          "symbol": "KO",
+          "weight": "10.2%",
+          "change": ""
+        },
+        {
+          "name": "雪佛龙",
+          "symbol": "CVX",
+          "weight": "7.2%",
+          "change": "增持"
+        },
+        {
+          "name": "穆迪",
+          "symbol": "MCO",
+          "weight": "4.6%",
+          "change": ""
+        },
+        {
+          "name": "西方石油",
+          "symbol": "OXY",
+          "weight": "4.0%",
+          "change": ""
+        },
+        {
+          "name": "丘博保险",
+          "symbol": "CB",
+          "weight": "3.9%",
+          "change": "增持"
+        },
+        {
+          "name": "卡夫亨氏",
+          "symbol": "KHC",
+          "weight": "2.9%",
+          "change": ""
+        },
+        {
+          "name": "谷歌",
+          "symbol": "GOOGL",
+          "weight": "2.0%",
+          "change": ""
+        }
+      ],
+      "footnote": "持仓42只，Top10占88.3%。Q4主要操作：增持雪佛龙/Chubb/纽约时报，减持苹果/美银/亚马逊。数据来源：SEC 13F via 13Radar"
+    },
+    {
+      "manager": "段永平 · H&H",
+      "fund": "H&H International Investment LLC",
+      "aum": "$17.5B",
+      "asOf": "截至2025.12.31 · 2026.2.17披露",
+      "positions": [
+        {
+          "name": "苹果",
+          "symbol": "AAPL",
+          "weight": "50.3%",
+          "change": "减持"
+        },
+        {
+          "name": "伯克希尔",
+          "symbol": "BRK-B",
+          "weight": "20.6%",
+          "change": "增持+38%"
+        },
+        {
+          "name": "英伟达",
+          "symbol": "NVDA",
+          "weight": "7.7%",
+          "change": "大幅加仓+1110%"
+        },
+        {
+          "name": "拼多多",
+          "symbol": "PDD",
+          "weight": "7.5%",
+          "change": "增持+35%"
+        },
+        {
+          "name": "谷歌",
+          "symbol": "GOOG",
+          "weight": "3.3%",
+          "change": "增持"
+        },
+        {
+          "name": "西方石油",
+          "symbol": "OXY",
+          "weight": "3.1%",
+          "change": "减持"
+        },
+        {
+          "name": "微软",
+          "symbol": "MSFT",
+          "weight": "2.4%",
+          "change": "增持+208%"
+        },
+        {
+          "name": "阿里巴巴",
+          "symbol": "BABA",
+          "weight": "2.1%",
+          "change": "减持"
+        },
+        {
+          "name": "台积电",
+          "symbol": "TSM",
+          "weight": "2.1%",
+          "change": "增持+371%"
+        },
+        {
+          "name": "迪士尼",
+          "symbol": "DIS",
+          "weight": "0.5%",
+          "change": ""
+        }
+      ],
+      "footnote": "持仓14只，Top10占99.5%，极度集中。Q4重大操作：NVDA加仓1110%试水AI，新建仓MSFT/TSM/CRWV/CRDO/TEM。数据来源：SEC 13F via 13Radar"
+    }
+  ]
 }

@@ -1,59 +1,125 @@
 <!--pages/radar/radar.wxml-->
-<!-- 雷达页 v5.0：对齐Skill §5+§4 + v1.3前端体验升级 -->
+<!-- 雷达页 v6.3：聪明钱最优先 — 动向#1 + 持仓#2 + 风险判断#3 -->
 
 <skeleton type="radar" loading="{{loading}}" />
 
 <view class="page-container safe-bottom page-fade-in" wx:if="{{!loading}}">
 
-  <!-- 风险红绿灯（7项） -->
-  <section-card title="风险红绿灯">
-    <traffic-light lights="{{trafficLights}}" />
-  </section-card>
+  <!-- ===== #1 🧠 聪明钱动向 ===== -->
+  <section-card title="🧠 聪明钱动向" wx:if="{{smartMoneyFlat.length}}">
+    <view class="sm-flat-list">
 
-  <!-- v1.3 市场情绪指数 Fear & Greed -->
-  <section-card title="CNN Fear & Greed" wx:if="{{fearGreed}}">
-    <view class="fg-container">
-      <!-- 情绪条 -->
-      <view class="fg-bar">
-        <view class="fg-bar-label">恐惧</view>
-        <view class="fg-bar-track">
-          <view class="fg-bar-gradient"></view>
-          <view class="fg-pointer" style="left: {{animateReady ? fearGreed.value : 0}}%">
-            <view class="fg-pointer-dot"></view>
+      <view class="sm-flat-item stagger-item {{animateReady ? 'stagger-show' : ''}}"
+            wx:for="{{smartMoneyFlat}}" wx:key="name"
+            style="animation-delay: {{index * 70}}ms">
+        <view class="sm-flat-header">
+          <view class="sm-flat-left">
+            <view class="sm-fund-signal sm-{{item.signal}}"></view>
+            <text class="sm-flat-name">{{item.name}}</text>
+            <text class="sm-tier-badge" wx:if="{{item.tierOrder === 0}}">旗舰</text>
+          </view>
+          <view class="source-link" wx:if="{{item.source}}" bindtap="onSourceTap"
+                data-url="{{item.url}}" data-source="{{item.source}}">
+            <text class="source-link-text">{{item.source}}</text>
+            <text class="source-link-icon" wx:if="{{item.url}}">›</text>
           </view>
         </view>
-        <view class="fg-bar-label">贪婪</view>
+        <view class="sm-flat-action">{{item.action}}</view>
       </view>
-      <!-- 分数+标签 -->
-      <view class="fg-score-row">
-        <text class="fg-score {{fgInfo.colorClass}}">{{displayFGValue}}</text>
-        <text class="fg-emoji">{{fgInfo.emoji}}</text>
-        <text class="fg-label-tag {{fgInfo.colorClass}}-bg">{{fgInfo.cnLabel}}</text>
+
+    </view>
+  </section-card>
+
+  <!-- ===== #2 💼 聪明钱持仓（默认折叠） ===== -->
+  <section-card title="💼 聪明钱持仓" wx:if="{{holdings.length}}">
+    <view class="holdings-module">
+
+      <view class="holdings-group" wx:for="{{holdings}}" wx:key="manager">
+        <view class="holdings-header" bindtap="toggleHoldings" data-index="{{index}}">
+          <view class="holdings-header-left">
+            <text class="holdings-manager">{{item.manager}}</text>
+            <text class="holdings-aum">{{item.aum}}</text>
+          </view>
+          <view class="holdings-header-right">
+            <text class="holdings-date">{{item.asOf}}</text>
+            <text class="holdings-arrow">{{item.expanded ? '▲' : '▼'}}</text>
+          </view>
+        </view>
+
+        <view class="holdings-body" wx:if="{{item.expanded}}">
+          <view class="holdings-row" wx:for="{{item.positions}}" wx:for-item="pos" wx:key="symbol">
+            <view class="holdings-row-left">
+              <text class="holdings-rank">{{pos.rank}}</text>
+              <view class="holdings-stock-info">
+                <text class="holdings-stock-name">{{pos.name}}</text>
+                <text class="holdings-stock-symbol">{{pos.symbol}}</text>
+              </view>
+            </view>
+            <view class="holdings-row-right">
+              <text class="holdings-weight">{{pos.weight}}</text>
+              <text class="holdings-change" wx:if="{{pos.change}}">{{pos.change}}</text>
+            </view>
+          </view>
+          <view class="holdings-footnote" wx:if="{{item.footnote}}">
+            <text class="holdings-footnote-text">{{item.footnote}}</text>
+          </view>
+        </view>
       </view>
-      <!-- 历史对比 -->
-      <view class="fg-history">
-        <view class="fg-history-item">
-          <text class="fg-hist-label">昨日</text>
-          <text class="fg-hist-value">{{fearGreed.previousClose}}</text>
-          <text class="fg-hist-diff {{fgPrevDiff >= 0 ? 'fg-diff-up' : 'fg-diff-down'}}">{{fgPrevDiff >= 0 ? '+' : ''}}{{fgPrevDiff}}</text>
+
+    </view>
+  </section-card>
+
+  <!-- ===== #3 🛡️ 风险判断 ===== -->
+  <section-card title="🛡️ 风险判断">
+    <view class="safety-card">
+
+      <view class="risk-verdict" wx:if="{{riskAdvice}}">
+        <text class="risk-verdict-text">{{riskAdvice}}</text>
+      </view>
+
+      <traffic-light lights="{{trafficLights}}" />
+
+    </view>
+  </section-card>
+
+  <!-- ===== #4 📅 本周前瞻 ===== -->
+  <section-card title="📅 本周前瞻" wx:if="{{weekAhead.length}}">
+    <view class="wa-timeline">
+      <view class="wa-item stagger-item {{animateReady ? 'stagger-show' : ''}}"
+            wx:for="{{weekAhead}}" wx:key="index"
+            style="animation-delay: {{index * 80}}ms">
+
+        <view class="wa-left">
+          <view class="wa-date-badge {{item.isRiskAlert ? 'wa-badge-risk' : 'wa-badge-event'}}">
+            <text class="wa-date-text">{{item.date}}</text>
+          </view>
+          <view class="wa-line" wx:if="{{index < weekAhead.length - 1}}"></view>
         </view>
-        <view class="fg-history-item">
-          <text class="fg-hist-label">一周前</text>
-          <text class="fg-hist-value">{{fearGreed.oneWeekAgo}}</text>
-          <text class="fg-hist-diff {{fgWeekDiff >= 0 ? 'fg-diff-up' : 'fg-diff-down'}}">{{fgWeekDiff >= 0 ? '+' : ''}}{{fgWeekDiff}}</text>
+
+        <view class="wa-right">
+          <view class="wa-title-row">
+            <text class="wa-title">{{item.title}}</text>
+            <view class="tag {{item.impactTagClass}} wa-impact-tag">{{item.impactLabel}}</view>
+          </view>
+          <view class="source-link" wx:if="{{item.source}}" bindtap="onSourceTap"
+                data-url="{{item.url}}" data-source="{{item.source}}">
+            <text class="source-link-text">📎 {{item.source}}</text>
+            <text class="source-link-icon" wx:if="{{item.url}}">›</text>
+          </view>
+          <view class="wa-risk-note" wx:if="{{item.isRiskAlert && item.probability}}">
+            <text class="wa-risk-prob">概率 {{item.probability}}</text>
+            <text class="wa-risk-response">{{item.response}}</text>
+          </view>
         </view>
-        <view class="fg-history-item" wx:if="{{fearGreed.oneMonthAgo}}">
-          <text class="fg-hist-label">一月前</text>
-          <text class="fg-hist-value">{{fearGreed.oneMonthAgo}}</text>
-        </view>
+
       </view>
     </view>
   </section-card>
 
-  <!-- v1.3 预测市场 -->
-  <section-card title="预测市场" collapsible="{{true}}" expanded="{{true}}" wx:if="{{predictions.length}}">
+  <!-- ===== #5 📊 市场预测（默认折叠） ===== -->
+  <section-card title="📊 市场预测" collapsible="{{true}}" expanded="{{false}}" wx:if="{{predictions.length}}">
     <view class="pm-list">
-      <view class="pm-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
+      <view class="pm-item stagger-item {{animateReady ? 'stagger-show' : ''}}"
             wx:for="{{predictions}}" wx:key="index"
             style="animation-delay: {{index * 80}}ms">
         <view class="pm-header">
@@ -73,93 +139,24 @@
     </view>
   </section-card>
 
-  <!-- 综合风险评分 -->
-  <section-card title="综合风险评分">
-    <view class="risk-score-container">
-      <view class="risk-score-circle {{riskClassName}} {{animateReady ? 'score-circle-show' : ''}}">
-        <view class="risk-score-number">{{displayRiskScore}}</view>
-        <view class="risk-score-label">{{riskLabel}}</view>
-      </view>
-    </view>
-    <view class="risk-advice">{{riskAdvice}}</view>
-  </section-card>
-
-  <!-- 监控阈值表 -->
-  <section-card title="关键监控阈值" collapsible="{{true}}" expanded="{{true}}" wx:if="{{monitorTable.length}}">
-    <view class="monitor-table">
-      <view class="monitor-row monitor-header-row">
-        <view class="monitor-cell cell-condition">触发条件</view>
-        <view class="monitor-cell cell-action">应对动作</view>
-      </view>
-      <view class="monitor-row stagger-item {{animateReady ? 'stagger-show' : ''}}" 
-            wx:for="{{monitorTable}}" wx:key="index"
+  <!-- ===== #6 ⚡ 异动信号（有数据才展示） ===== -->
+  <section-card title="⚡ 异动信号" wx:if="{{alerts.length}}">
+    <view class="alert-list">
+      <view class="alert-item {{item.bgClass}} stagger-item {{animateReady ? 'stagger-show' : ''}}"
+            wx:for="{{alerts}}" wx:key="index"
             style="animation-delay: {{index * 60}}ms">
-        <view class="monitor-cell cell-condition">{{item.condition}}</view>
-        <view class="monitor-cell cell-action">{{item.action}}</view>
-      </view>
-    </view>
-  </section-card>
-
-  <!-- 风险提示（概率+影响+应对） -->
-  <section-card title="风险预警" collapsible="{{true}}" expanded="{{true}}" borderColor="#e74c3c" wx:if="{{riskAlerts.length}}">
-    <view class="risk-alert-list">
-      <view class="risk-alert-item {{item.levelClass}} stagger-item {{animateReady ? 'stagger-show' : ''}}" 
-            wx:for="{{riskAlerts}}" wx:key="index"
-            style="animation-delay: {{(index + 3) * 80}}ms">
-        <view class="ra-title">{{item.title}}</view>
-        <view class="ra-meta">
-          <view class="ra-badge ra-prob">概率 {{item.probability}}</view>
-          <view class="ra-badge ra-impact">影响 {{item.impact}}</view>
-        </view>
-        <view class="ra-response">{{item.response}}</view>
-      </view>
-    </view>
-  </section-card>
-
-  <!-- 聪明钱三梯队详情 -->
-  <section-card title="聪明钱动向" collapsible="{{true}}" expanded="{{true}}" wx:if="{{smartMoneyDetail.length}}">
-    <view class="sm-tier-list">
-      <view class="sm-tier" wx:for="{{smartMoneyDetail}}" wx:key="tier">
-        <view class="sm-tier-label">{{item.tier}}</view>
-        <view class="sm-fund-list">
-          <view class="sm-fund-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
-                wx:for="{{item.funds}}" wx:for-item="fund" wx:key="name"
-                style="animation-delay: {{(index + 6) * 60}}ms">
-            <view class="sm-fund-left">
-              <view class="sm-fund-signal sm-{{fund.signal}}"></view>
-              <view class="sm-fund-name">{{fund.name}}</view>
-            </view>
-            <view class="sm-fund-action">{{fund.action}}</view>
+        <view class="alert-content">
+          <view class="alert-top-row">
+            <view class="alert-icon">{{item.icon}}</view>
+            <view class="alert-time">{{item.time}}</view>
+          </view>
+          <view class="alert-text">{{item.text}}</view>
+          <view class="source-link source-link-sm" wx:if="{{item.source}}" bindtap="onSourceTap"
+                data-url="{{item.url}}" data-source="{{item.source}}">
+            <text class="source-link-text">{{item.source}}</text>
+            <text class="source-link-icon" wx:if="{{item.url}}">›</text>
           </view>
         </view>
-      </view>
-    </view>
-  </section-card>
-
-  <!-- 本周关键事件 -->
-  <section-card title="本周关键事件" collapsible="{{true}}" expanded="{{true}}">
-    <view class="event-list">
-      <view class="event-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
-            wx:for="{{events}}" wx:key="index"
-            style="animation-delay: {{index * 60}}ms">
-        <view class="event-date">{{item.date}}</view>
-        <view class="event-content">
-          <view class="event-title">{{item.title}}</view>
-          <view class="tag {{item.impactTagClass}}">{{item.impactLabel}}</view>
-        </view>
-      </view>
-    </view>
-  </section-card>
-
-  <!-- 异动监测 -->
-  <section-card title="异动监测" collapsible="{{true}}" expanded="{{true}}">
-    <view class="alert-list">
-      <view class="alert-item {{item.bgClass}} stagger-item {{animateReady ? 'stagger-show' : ''}}" 
-            wx:for="{{alerts}}" wx:key="index"
-            style="animation-delay: {{(index + 5) * 60}}ms">
-        <view class="alert-icon">{{item.icon}}</view>
-        <view class="alert-text">{{item.text}}</view>
-        <view class="alert-time">{{item.time}}</view>
       </view>
     </view>
   </section-card>
@@ -168,4 +165,5 @@
   <view class="data-footer" wx:if="{{dataTime}}">
     <text class="footer-text">更新时间 · {{dataTime}}</text>
   </view>
+
 </view>

@@ -1,4 +1,4 @@
-# JSON Schema 完整字段规范（v2.2）
+# JSON Schema 完整字段规范（v3.2）
 
 > **用途**：定义投研鸭小程序 4 个 JSON 文件的精确字段规范。每个字段都对应小程序前端组件的一个渲染点。
 > **核心原则**：Schema 即契约。JSON 生成阶段必须逐字段对照本文件，不允许新增/缺失/改名字段。
@@ -174,7 +174,7 @@
     // 旧版兼容：若 riskPoints 缺失，前端自动用 riskNote 字符串按句号拆分兜底
   ],
   "riskNote": "string",                     // 🔸 旧版兼容字段——30-100字风险提示散文，纯文本。新版产出时仍保留此字段作为 fallback，但前端优先渲染 riskPoints 数组
-  "dataTime": "2026-04-01 09:00 BJT",       // ⚠️ string — 数据截止时间
+  "dataTime": "2026-04-01 09:00 BJT",       // ⚠️ string — 格式固定为 "YYYY-MM-DD HH:MM BJT"，四个JSON保持完全一致，与简报页顶部时间同步
 
   // ===== v1.3 新增：元数据 =====
   "_meta": {                                // 🔸 object — 元数据（可选，无则前端不显示来源标签）
@@ -372,7 +372,8 @@
         "listed": true,                     // ⚠️ boolean — 是否已上市（默认true，未上市标的为false）
         "tags": ["AI芯片龙头", "Blackwell出货"], // ⚠️ string[] — 2个标签，4-8字
         "badges": ["段永平大幅增持"],         // 🔸 string[] — 特殊标签（可选，0-2个）
-        // badges 枚举：巴菲特第一重仓 / 巴菲特持有 / 段永平重仓 / 段永平持有 / 段永平大幅增持 / 段永平新建仓 / 未上市
+        // badges 枚举：巴菲特第一重仓 / 巴菲特持有 / 段永平重仓 / 段永平持有 / 段永平大幅增持 / 段永平新建仓 / 段永平关注 / 未上市
+        // 「段永平关注」（v2.1新增）：段永平公开看好/实地调研但尚未在13F中确认建仓（如泡泡玛特），区别于「段永平持有」
         // 前端渲染：badges 用独立样式（金色/蓝色小标签），区别于普通 tags（黄色）
         "reason": "string",                 // ⚠️ 一句话核心逻辑（20-60字），要求有结论+论据
         //   正确示例："AI数据中心资本开支持续超预期，Blackwell供不应求，产业链地位不可替代"
@@ -416,7 +417,7 @@
     "hot_topic": [...]                      // 🔸 0-4只（无事件时该key可省略或空数组）
   },
 
-  "dataTime": "美股收盘 2026-04-04 ET｜港股/A股收盘 2026-04-03 本地时区"  // ⚠️ string — 数据时效说明
+  "dataTime": "2026-04-04 22:00 BJT"  // ⚠️ string — 格式固定为 "YYYY-MM-DD HH:MM BJT"，四个JSON保持完全一致
 }
 ```
 
@@ -440,6 +441,7 @@
 | `段永平持有` | 段永平持有 | 蓝色标签 |
 | `段永平大幅增持` | 近一季度增持超100% | 蓝色标签 |
 | `段永平新建仓` | 近一季度首次买入 | 蓝色标签 |
+| `段永平关注` | 公开看好/调研但未确认建仓 | 蓝色标签（浅色） |
 | `未上市` | 无二级市场数据 | 灰色标签 |
 
 **未上市标的字段规则**：
@@ -481,14 +483,25 @@
 ## 四、radar.json — 雷达页
 
 **对应页面**：`pages/radar/radar.wxml` + `radar.js`
-**涵盖模块**：市场情绪指数（v1.3）、预测市场（v1.3）、红绿灯信号、风险评分、监控阈值、风险预警、事件日历、异动监测、聪明钱三梯队、元数据（v1.3）
+**版本**：v3.3（2026-04-05，对应前端 radar.js v6.3 / radar.wxml v6.3）
+**涵盖模块（v6.3 新6模块）**：
+1. **聪明钱动向**（三梯队扁平化，按 T1>T2>策略师 排序，全部直接展示，不折叠）
+2. **聪明钱持仓** ⭐v6.3新增（巴菲特BRK + 段永平H&H 的13F头部持仓及占比，默认折叠，点击展开）
+3. **风险判断**（一句话风险结论 + 7项红绿灯指标明细）
+4. **本周前瞻**（events + riskAlerts 前端自动融合为时间线）
+5. **市场在赌什么**（predictions，默认折叠，只显示当周强相关条目）
+6. **异动信号**（alerts，无数据时模块整体隐藏）
+
+**废弃模块（v6.0）**：
+- 综合风险评分圆圈：字段 `riskScore`/`riskLevel` 保留（供 riskAdvice 内容参考），但不再单独渲染为圆形卡片
+- 关键监控阈值表：字段 `monitorTable[]` 向后兼容保留，但**前端不再渲染**，产出时可省略或继续填写
 
 ```jsonc
 {
   "date": "2026-04-01",                    // ⚠️ string
 
-  // ===== v1.3 新增：Fear & Greed 情绪指数 =====
-  "fearGreed": {                            // 🔸 object — CNN Fear & Greed 指数（可选，无则前端不渲染该卡片）
+  // ===== Fear & Greed 情绪指数 =====
+  "fearGreed": {                            // 🔸 object — 安全信号模块上半部分；无则情绪条不渲染
     "value": 42,                            // 🔸 number — 0-100 当前值
     "label": "Fear",                        // 🔸 string — 枚举：Extreme Fear / Fear / Neutral / Greed / Extreme Greed
     "previousClose": 38,                    // 🔸 number — 昨日收盘值
@@ -496,90 +509,143 @@
     "oneMonthAgo": 61                       // 🔸 number — 一月前值
   },
 
-  // ===== v1.3 新增：预测市场 =====
-  "predictions": [                          // 🔸 array — 预测市场概率，2-4条（可选，无则前端不渲染该卡片）
+  // ===== 预测市场 =====
+  // v4.4 筛选规则：① 与本周 events[] 直接相关 ② change24h 绝对值 > 5（快速变化中） ③ 极端概率（>65% 或 <20%）
+  // 淘汰：长期宏观预测（无本周关联）/ change24h ≈ 0 的（市场无新信息）/ 成交量极小的小众事件
+  // 数量：精选 2-3 条，宁少勿滥
+  "predictions": [                          // 🔸 array — 2-4条（可选，无则前端不渲染该模块）
     {
-      "title": "美联储6月降息?",             // 🔸 string — 预测问题
-      "source": "Polymarket",               // 🔸 string — 数据来源（Polymarket / Kalshi / CME FedWatch）
+      "title": "美联储6月降息?",             // 🔸 string — 预测问题（简洁，15字以内）
+      "source": "Polymarket",               // 🔸 string — 枚举：Polymarket / Kalshi / CME FedWatch
       "probability": 72,                    // 🔸 number — 概率百分比 0-100
       "trend": "up",                        // 🔸 string — 枚举：up / down / stable
       "change24h": 5                        // 🔸 number — 24小时概率变化（正数上升，负数下降）
     }
   ],
 
-  "trafficLights": [                        // ⚠️ array — 精确7项
+  // ===== 7项红绿灯（安全信号摘要区数据源）=====
+  "trafficLights": [                        // ⚠️ array — 精确7项，顺序固定
     {
       "name": "VIX波动率",                   // ⚠️ string
-      "value": "13.0",                      // ⚠️ string — 精确数值
+      "value": "13.0",                      // ⚠️ string — 精确数值，禁止模糊前缀（~/$约/+等）
       "status": "green",                    // ⚠️ string — 枚举：green / yellow / red
-      "threshold": "<18绿 / 18-25黄 / >25红" // ⚠️ string — 阈值说明
+      "threshold": "<18绿 / 18-25黄 / >25红" // ⚠️ string — 阈值说明（复制 SKILL.md 第2.3阶段计算表）
     }
   ],
-  // trafficLights 精确7项顺序：
-  // VIX波动率 / 10Y美债收益率 / 布伦特原油 / 美元指数DXY / HY信用利差 / 外资动向（v1.2替代北向资金）/ 离岸人民币CNH
+  // trafficLights 精确7项顺序（不可改变）：
+  // VIX波动率 / 10Y美债收益率 / 布伦特原油 / 美元指数DXY / HY信用利差 / 黄金XAU / 离岸人民币CNH
 
-  "riskScore": 38,                          // ⚠️ number — 0-100
+  // ===== 综合风险评分（安全信号建议的数据支撑）=====
+  "riskScore": 38,                          // ⚠️ number — 0-100，按 SKILL.md 公式计算
   "riskLevel": "medium",                    // ⚠️ string — 枚举：low / medium / high
-  "riskAdvice": "string",                   // ⚠️ 仓位建议文本
+  // ⚠️ riskAdvice v4.4 升级规范（详见 SKILL.md §2.3）：
+  //   必须：①点名 1-2 项最危险指标说清楚危险在哪 ②结合 fearGreed.value 说情绪方向 ③给出具体仓位建议
+  //   禁止：套模板（"当前风险评分X（Y）"开头）、模糊建议（"保持谨慎"）
+  //   正确示例："布伦特原油$109（近红区间）叠加外资偏谨慎，情绪恐惧区（F&G 42），建议维持6成仓位，能源对冲维持至原油回落$100。"
+  "riskAdvice": "string",                   // ⚠️ 动态一句话建议，不超过2句，每句有信息量
 
-  "monitorTable": [                         // ⚠️ array — 5-6条触发条件
+  // ===== 关键监控阈值（向后兼容，前端 v6.0 不再渲染）=====
+  // ⚠️ v4.4 废弃渲染：前端已移除该模块，但字段向后兼容保留
+  // 建议：将核心阈值触发条件内化到 riskAlerts[] 中
+  "monitorTable": [                         // 🔸 array — 可选，前端不渲染（v4.4 废弃渲染）
     {
-      "condition": "VIX突破25",              // ⚠️ string — 触发条件
-      "action": "将股票仓位降至5成以下"       // ⚠️ string — 应对动作
+      "condition": "VIX突破25",              // 🔸 string
+      "action": "将股票仓位降至5成以下"       // 🔸 string
     }
   ],
 
-  "riskAlerts": [                           // ⚠️ array — 2-3条风险预警
-    {
-      "title": "非农数据超预期风险",          // ⚠️ string
-      "probability": "35%",                 // ⚠️ string
-      "impact": "高",                        // ⚠️ string — 高/中/低
-      "response": "string",                 // ⚠️ string — 应对建议
-      "level": "high"                       // ⚠️ string — 枚举：high / medium / low
-    }
-  ],
+  // ===== 风险预警（本周前瞻时间线的附注部分）=====
+  // 注意：前端将 events[] + riskAlerts[] 融合为「本周前瞻」时间线
+  //   - events[]：有具体日期，作为时间轴锚点
+  //   - riskAlerts[]：标注"持续"，附带概率和应对建议作为风险附注
+  "riskAlerts": [],                          // ⚠️ array — v4.8起废弃渲染，填空数组[]。风险信息通过riskAdvice和alerts覆盖，不再在本周前瞻中重复展示
 
+  // ===== 关键事件日历（本周前瞻时间线的主体）=====
   "events": [                               // ⚠️ array — 3-5条本周事件
     {
-      "date": "周三",                        // ⚠️ string — 如 "周一"/"周三"/"04/03"
-      "title": "美联储会议纪要",              // ⚠️ string
-      "impact": "high"                      // ⚠️ string — 枚举：high / medium / low
+      "date": "周三",                        // ⚠️ string — "周一"/"周四"/"04/03"等
+      "title": "FOMC 3月会议纪要发布，聚焦通胀措辞和降息路径讨论",  // ⚠️ string — 事件标题，20-40字，需说明为什么重要
+      "impact": "high",                     // ⚠️ string — 枚举：high / medium / low
+      "source": "Federal Reserve",          // 🔸 string — 数据来源名称（v3.0 新增，前端可点击跳转）
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"  // 🔸 string — 来源链接（v3.0 新增）
     }
   ],
 
-  "alerts": [                               // ⚠️ array — 2-4条异动监测
+  // ===== 异动监测（无数据时整个模块隐藏）=====
+  "alerts": [                               // ⚠️ array — 0-4条异动；空数组时前端模块不显示
     {
       "level": "danger",                    // ⚠️ string — 枚举：danger / warning / info
-      "text": "string",                     // ⚠️ 异动描述
-      "time": "23:30"                       // ⚠️ string — HH:MM 格式
+      "text": "string",                     // ⚠️ 异动描述，含具体数据和数字，禁止模糊表述
+      "time": "23:30",                      // ⚠️ string — HH:MM 格式
+      "source": "AP News",                  // 🔸 string — 消息来源名称（v3.0 新增）
+      "url": "https://..."                  // 🔸 string — 来源链接（v3.0 新增）
     }
   ],
 
-  "smartMoneyDetail": [                     // ⚠️ array — 3个梯队
+  // ===== 聪明钱三梯队（前端自动扁平化展示）=====
+  // v4.4 内容质量要求（详见 SKILL.md §2.3 radar.json 产出质量规范）：
+  //   ① T1旗舰：配置方向判断 + 具体信号，禁止"维持中性"等无信息表达
+  //   ② T2成长：对当前市场环境的判断 + 操作建议
+  //   ③ 策略师：具体看好/看空的板块或标的，禁止"关注市场变化"空话
+  // ⚠️ 前端自动将三梯队扁平化为 T1>T2>策略师 排序的列表，全部直接展示不折叠
+  "smartMoneyDetail": [                     // ⚠️ array — 3个梯队，顺序固定
     {
       "tier": "T1旗舰",                     // ⚠️ string — 枚举：T1旗舰 / T2成长 / 策略师观点
       "funds": [                            // ⚠️ array — 每梯队2-3条
         {
-          "name": "桥水基金",                // ⚠️ string
-          "action": "增持中国ETF $2.3亿",    // ⚠️ string
-          "signal": "bullish"               // ⚠️ string — 枚举：bullish / bearish / neutral
+          "name": "桥水基金",                // ⚠️ string — 机构名
+          "action": "全天候组合本周增配黄金ETF（GLD）约$4.2亿，Dalio表态「滞胀交易远未结束」",  // ⚠️ string — 具体动向，含数字+操作+理由
+          "signal": "bearish",              // ⚠️ string — 枚举：bullish / bearish / neutral
+          "source": "Bloomberg",            // 🔸 string — 信息来源名称（v3.0 新增，前端可点击跳转）
+          "url": "https://...",             // 🔸 string — 来源链接（v3.0 新增）
+          "freshness": "本周"               // 🔸 string — 枚举：本周 / 上周 / 本月（v3.2 新增，策略师观点时效标注）
+          // freshness 使用规则（详见 fund-universe.md §5.4 策略师观点时效规则）：
+          // - T1旗舰 / T2成长 梯队：通常不需要填（机构动向本身有时效性）
+          // - 策略师观点梯队：当观点不是本周发布时，必须填写
+          //   "本周" = 7天以内发布（默认，可省略）
+          //   "上周" = 8-14天前发布（action 字段前还需加 [MM/DD] 日期前缀）
+          //   "本月" = 15-30天前发布（仅在无更新观点时作为兜底使用）
+          // - 前端可据此字段显示灰色时效标签（如"上周观点"），帮助读者判断信息新鲜度
+          // - 超过 30 天的观点禁止填入（过期信息无参考价值）
         }
       ]
     }
   ],
 
+  // ===== 聪明钱持仓快照（v6.3/v3.3 新增）=====
+  // 展示巴菲特（BRK 13F）和段永平（H&H 13F）的头部持仓及占比
+  // 数据来源：SEC 13F 季度披露（有延迟，需标注数据截止时间）
+  // 前端交互：默认折叠，用户点击展开查看
+  // 更新频率：每季度 13F 披露后更新（2/5/8/11月中旬），平时保持不变
+  "smartMoneyHoldings": [                   // 🔸 array — 2-N 个投资人/机构持仓快照（可选，无则前端不渲染该模块）
+    {
+      "manager": "巴菲特 · 伯克希尔",       // ⚠️ string — 投资人/机构名称
+      "fund": "Berkshire Hathaway",         // 🔸 string — 基金/公司英文名
+      "aum": "$294.3B",                    // 🔸 string — 总持仓市值（13F披露口径）
+      "asOf": "2025Q4 · 2月披露",           // ⚠️ string — 数据截止时间+披露时间（让读者知道数据有延迟）
+      "positions": [                        // ⚠️ array — 头部持仓，推荐Top10（按占比降序）。默认折叠展示，不占空间
+        {
+          "name": "苹果",                   // ⚠️ string — 中文名
+          "symbol": "AAPL",                // ⚠️ string — 股票代码
+          "weight": "21.8%",               // ⚠️ string — 持仓占比（含%号）
+          "change": "减持"                  // 🔸 string — 本季变动（加仓/减持/新建仓/持仓不变/清仓），无变动时可省略
+        }
+      ],
+      "footnote": "持仓数36只，Top10占81.3%，Turnover 5.26%（极低换手），现金储备$3,700亿+"  // 🔸 string — 补充说明，一句话
+    }
+  ],
+
   "dataTime": "2026-04-01 09:00 BJT",       // ⚠️ string
 
-  // ===== v1.3 新增：元数据 =====
   "_meta": {                                // 🔸 object — 元数据（可选）
-    "sourceType": "heavy_analysis",         // 🔸 string — 枚举：heavy_analysis / realtime_quote / breaking_news / weekend_insight（v4.0新增）
-    "generatedAt": "2026-04-01T09:00:00+08:00",  // 🔸 string — ISO 8601 生成时间
-    "skillVersion": "v4.0"                  // 🔸 string — Skill 版本号
+    "sourceType": "heavy_analysis",         // 🔸 string — 枚举：heavy_analysis / realtime_quote / breaking_news / weekend_insight
+    "generatedAt": "2026-04-01T09:00:00+08:00",  // 🔸 string — ISO 8601
+    "skillVersion": "v4.4"                  // 🔸 string — Skill 版本号
   }
 }
 ```
 
-**红绿灯阈值标准（v1.2）**：
+**红绿灯阈值标准（v1.2 — 不变）**：
 
 | # | 指标 | 🟢 green | 🟡 yellow | 🔴 red | 判断方式 |
 |---|------|----------|-----------|--------|---------|
@@ -588,13 +654,24 @@
 | 3 | 布伦特原油 | <$90 | [$90, $110] | >$110 | `auto_traffic_status()` 程序化 |
 | 4 | 美元指数DXY | <102 | [102, 107] | >107 | `auto_traffic_status()` 程序化 |
 | 5 | HY信用利差 | <4% | [4%, 5%] | >5% | `auto_traffic_status()` 程序化 |
-| 6 | **外资动向** | **港股均涨≥+1.5%** | **港股均涨0~+1.5%** | **港股均跌** | **`calc_foreign_capital_proxy()` 代理计算**（注：北向净买额已于2024-08-19永久停止披露） |
+| 6 | **黄金XAU** | **<$2,200** | **[$2,200, $3,500]** | **>$3,500** | **避险情绪纯粹指标（v4.6替代外资动向）** |
 | 7 | 离岸人民币CNH | <7.15 | [7.15, 7.30] | >7.30 | `auto_traffic_status()` 程序化 |
 
 > **riskScore 动态计算（v1.2）**：`calc_risk_score(traffic_lights)` = 30 + Σ(灯色权重)，上限100
 > - green=0分，yellow=10分，red=20分
-> - 基础分30代表正常市场背景噪音
 > - 等级：<45=low / 45-64=medium / ≥65=high
+
+**前端展示逻辑说明（v6.1 供 AI 理解）**：
+
+| 字段 | 前端处理方式 | AI 注意事项 |
+|------|------------|------------|
+| `trafficLights[7]` | 自动统计 green/yellow/red 数量，以彩色徽标形式展示；点击展开7项明细 | 顺序和数量必须精确（⚠️ 不可改变） |
+| `smartMoneyDetail[3梯队]` | 自动展开为扁平列表，T1>T2>策略师排序，**全部直接展示不折叠**；每条显示来源链接可点击跳转 | 三梯队结构不变；`source`/`url` 可选，有则前端展示蓝色可点击来源标签 |
+| `events[] + riskAlerts[]` | 自动融合为时间线：events 带具体日期，riskAlerts 标注"持续"并附风险附注；**每条显示📎来源链接可点击** | 两个字段独立填写；`source`/`url` 可选，有则前端显示蓝色可点击来源 |
+| `predictions[]` | 默认折叠，标题行显示钩子文字（如"美联储6月降息 28% ↓"） | 筛选规则见 SKILL.md §2.3 |
+| `alerts[]` | 空数组时整个模块不显示；**每条显示来源链接** | 无异动时可填 `[]`；`source`/`url` 可选 |
+| `monitorTable[]` | **v4.4 废弃渲染，前端不显示** | 可省略或继续填写（向后兼容） |
+| `riskScore` / 圆圈 | **v4.4 废弃圆圈渲染**，数值仍用于内部计算 riskAdvice | 仍需按公式计算填写 |
 
 ---
 
@@ -637,6 +714,7 @@
 | `alerts[].level` | `danger`, `warning`, `info` |
 | `smartMoneyDetail[].tier` | `T1旗舰`, `T2成长`, `策略师观点` |
 | `smartMoneyDetail[].funds[].signal` | `bullish`, `bearish`, `neutral` |
+| `smartMoneyDetail[].funds[].freshness`（v3.2） | `本周`, `上周`, `本月` |
 | `usMarkets[].changeLabel` | `大盘指数`, `科技指数`, `蓝筹指数`, `恐慌指标` |
 | `timeStatus.marketStatus`（v1.3→v2.3） | `美股交易中`, `美股已收盘`, `盘前交易`, `盘后交易`, `美股休市`（v2.3新增，用于美国公共假日如耶稣受难日/感恩节/圣诞节等） |
 | ~~`keyDeltas[].status`~~（**已废弃 v2.0，禁止使用**） | ~~`升级`, `新增`, `活跃`, `降温`, `稳定`~~ — `keyDeltas[]` 整个模块已于 v2.0 从简报页删除，脚本/AI 均不应生成此字段 |
@@ -649,16 +727,20 @@
 
 ---
 
-> v2.3 — 2026-04-05 | **枚举健壮性升级**：①`marketStatus` 新增 `美股休市` 枚举值（用于耶稣受难日/感恩节/圣诞节等美国公共假日），解决休市日无合法枚举值导致致命错误#5的问题；②`sentimentLabel` 字段新增 score→label 对应关系注释（0-20极度恐惧/21-40偏恐惧/41-60中性/61-75偏贪婪/76-90贪婪/91-100极度贪婪），并在枚举总表中明确禁止「偏悲观」「偏乐观」等非标准值（来源：2026-04-03产出事故，score=42 写了「偏悲观」而非「中性」）；③枚举总表 `timeStatus.marketStatus` 行升级为 v2.3 版本标记。
-> v2.2 — 2026-04-05 | **风险提示模块 bullet point 升级**：①`riskNote` 字符串升级为 `riskPoints[]` 数组（2-4条独立风险点），对齐 `marketSummaryPoints` 的 bullet 渲染风格；②保留旧版 `riskNote` 字段（降级为🔸可选兼容字段），前端优先渲染 `riskPoints`，缺失时自动按句号拆分 `riskNote` 兜底；③前端图标从 ⚠️ 更换为 🛡️（盾牌），与 🎯⚡🌡️🧠 实心彩色 emoji 风格统一，不与重点事件的 🚨 重复；④组件对齐清单更新风险提示行；⑤纯文本规则中 emoji 示例更新。
-> v2.1 — 2026-04-03 20:28 | 全面审查修复（13处）：①枚举总表第553行 `actions.type` 从旧枚举（buy/sell/hold/bullish/bearish）升级为完整新枚举（hold/add/reduce/buy/sell/watch/hedge/stoploss），并增加禁止说明；②`_meta.skillVersion` 两处示例值从 v1.7/v1.3 更新为 **v3.0**；③枚举总表第567行 `keyDeltas[].status` 标记为已废弃（整个模块 v2.0 删除），加删除线和禁止提示；④metrics 6项标准表新增「类型约束」列，写死前4项必须为 string 格式（含货币符号/正负号/%后缀），新增 ⚠️ 格式强制规范注释，防止 AI 混用 number 和 string。
+> v3.3 — 2026-04-05 22:59 | **聪明钱动向取消折叠**：①前端去掉"展开/收起"按钮，聪明钱动向全部直接展示不折叠；②清理 `smartMoneyShowAll`/`smartMoneyTotal` 数据字段和 `toggleSmartMoneyAll` 方法；③对应前端 radar.js/wxml/wxss 同步精简；④Skill 规范同步更新描述。
+> v3.2 — 2026-04-05 20:01 | **策略师观点时效标注**：①`smartMoneyDetail[].funds[]` 新增 🔸 可选 `freshness` 字段（枚举：本周/上周/本月），用于标注策略师观点的发布时效；②前端可据此显示灰色时效标签帮助读者判断新鲜度；③枚举值清单同步新增 `freshness`；④超过30天的观点禁止填入。
+> v3.1 — 2026-04-05 19:14 | **雷达页来源链接+数据质量升级**：①`events[]` 新增 `source`/`url` 🔸可选字段（前端 v6.1 支持点击跳转 webview）；②`riskAlerts[]` 新增 `source`/`url`；③`alerts[]` 新增 `source`/`url`；④`smartMoneyDetail[].funds[]` 新增 `source`/`url`（每条机构动向可附来源链接）；⑤`events[].title` 内容规范升级（20-40字，需说明为什么重要，而非纯事件名称）；⑥`riskAdvice` 示例更新为动态内容规范（点名最危险指标+具体仓位建议）；⑦`smartMoneyDetail[].funds[].action` 示例更新为含具体数字的高质量内容。
+> v3.0 — 2026-04-05 18:35 | **雷达页5模块重构**：①前端 radar.wxml v6.0 重构为5模块；②废弃渲染：综合风险评分圆圈、关键监控阈值表；③`smartMoneyDetail[]` 新增内容质量规范；④`predictions[]` 新增筛选规则；⑤`riskAdvice` 动态内容规范；⑥`events[] + riskAlerts[]` 融合展示说明；⑦`alerts[]` 可为空数组。
+> v2.3 — 2026-04-05 | **枚举健壮性升级**：①`marketStatus` 新增 `美股休市` 枚举值；②`sentimentLabel` 新增 score→label 对应关系注释；③枚举总表升级。
+> v2.2 — 2026-04-05 | **风险提示模块 bullet point 升级**：①`riskNote` 升级为 `riskPoints[]` 数组；②保留旧版兼容；③图标从 ⚠️ 更换为 🛡️。
+> v2.1 — 2026-04-03 20:28 | 全面审查修复（13处）。
 > v2.0 — 2026-04-03 | 见 SKILL.md v3.0 Changelog。
-> v1.6 — 2026-04-02 20:18 | KEY DELTA 前端重构
-> v1.5 — 2026-04-02 20:02 | 数据时效性与格式规范修复：①`keyDeltas[].brief` 字长由30-80字收紧为**10-25字极简风格**（面向大老板阅读习惯，参照伊朗简报卡片样式），附正确示例（"供应链重构代价被重新定价，风险偏好承压"）和错误示例（超25字长句）；②`timeStatus.marketStatus` 新增完整时区判断规则注释（BJT与EDT/EST对照，防止时区计算错误）；③`dataTime` 新增时态标注规范，美股非收盘数据必须注明「盘前」或「盘后」，globalReaction中美股数据若非收盘值须在coreEvent.title中明确标注数据时态。
-> v1.4 — 2026-04-02 18:24 | 字段内容边界规范升级（防冗余治本）：①`keyDeltas[].brief` 重定义为专写「为何重要/影响方向/市场逻辑」，禁止重复 coreEvent.title 或 chain 已有的具体数字；②`coreEvent.chain[]` 重定义为因果逻辑推演，禁止重复 brief 中已出现的具体数字（改为描述传导机制和影响边界）；③`marketSummary` 重定义为情绪结构判断+核心风险/下一变量，禁止汇总重复 keyDeltas/coreEvent/globalReaction 中的具体数字；三处均附正确/错误示例。字长限制：marketSummary 由50-150字收紧为50-120字。
-> v1.3.2 — 2026-04-02 00:21 | markets.json 新增6个板块级 Insight 字段（usInsight/m7Insight/asiaInsight/commodityInsight/cryptoInsight/gicsInsight），每个板块数据表格底部提供30-80字高质量一句话洞察，对齐日报中的"XX信号"段落风格；原 usMarkets[0].note 迁移为独立 usInsight 字段，前端向后兼容；所有 Insight 为必填纯文本。
-> v1.3.1 — 2026-04-02 00:00 | UI精修三项：①删除简报页顶部hero冗余渐变区域（导航栏已有标题），日期信息保留在底部数据状态栏；②修复判断扩展区 jx-divider 虚线样式（dashed→渐变淡化实线）；③references 从 string[] 升级为 object[]（含 name/summary/url），前端改为可点击展开的手风琴组件，支持下拉查看信息摘要和来源链接，向后兼容旧格式纯字符串数组。
-> v1.3 — 2026-04-01 22:58 | 前端体验升级：①briefing.json 新增 `timeStatus` 时间状态栏（多时区+开市状态）；②新增 `keyDeltas[]` 增量信息 KEY DELTA 模块（借鉴 Iran Briefing 设计）；③`coreJudgments` 扩展 `keyActor/references/probability/trend` 四个可选字段；④radar.json 新增 `fearGreed` CNN Fear & Greed 情绪指数卡片；⑤新增 `predictions[]` 预测市场概率模块（Polymarket/Kalshi/CME FedWatch）；⑥所有 JSON 新增 `_meta` 元数据对象（sourceType/generatedAt/skillVersion）；⑦新增 🔸 可选标记，所有新字段均向后兼容。
-> v1.2 — 2026-04-01 | 六项数据质量深度治理：①watchlist metrics 升级为方案C（4项行情+PE(TTM)+规则化综合评级）；②trafficLights第6项由「北向资金」改为「外资动向」（港股代理，2024-08-19起北向净买额永久停止披露）；③riskScore 改为 `calc_risk_score()` 动态计算，权重公式标准化；④阈值标准表新增「判断方式」列，明确全部由 `auto_traffic_status()` 程序化执行。
-> v1.1 — 2026-04-01 | 老板直推级数据治理升级：交易数据字段强制直连行情源；`dataTime` 要显式写清分市场时点；watchlist `metrics` 改为6项可验证指标集合；删除 sparkline 估算逻辑。
-> v1.0 — 2026-04-01 | 初始版本。基于小程序 `touyanduck_appid` 的4个页面 + 5个组件逐行审查，精确定义每个字段类型、必填性、枚举范围和数组长度要求。
+> v1.6 — 2026-04-02 20:18 | KEY DELTA 前端重构。
+> v1.5 — 2026-04-02 20:02 | 数据时效性与格式规范修复。
+> v1.4 — 2026-04-02 18:24 | 字段内容边界规范升级。
+> v1.3.2 — 2026-04-02 00:21 | markets.json 新增6个板块级 Insight 字段。
+> v1.3.1 — 2026-04-02 00:00 | UI精修三项。
+> v1.3 — 2026-04-01 22:58 | 前端体验升级（timeStatus/keyDeltas/fearGreed/predictions/_meta）。
+> v1.2 — 2026-04-01 | 六项数据质量深度治理。
+> v1.1 — 2026-04-01 | 老板直推级数据治理升级。
+> v1.0 — 2026-04-01 | 初始版本。

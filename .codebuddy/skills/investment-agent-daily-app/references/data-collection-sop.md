@@ -1,4 +1,4 @@
-# 数据采集SOP — App版（v1.5）
+# 数据采集SOP — App版（v1.6）
 
 > **用途**：投研鸭小程序数据生产第一阶段数据采集的完整操作规范，含情绪与预测数据采集（Batch A）。
 > **核心原则**：数据完整性第一，精确到小数点后两位，严禁空位和模糊表述。
@@ -71,7 +71,7 @@
 | 1d | **当日焦点个股 — 精确数据 + 7天历史** | **2-5次web_fetch** | Google Finance | 周一～周五 |
 | 2 | 亚太/港股数据 + 北向资金 + 7天历史 | 2-3次 | 东方财富/同花顺/web_search | 周一～周五 |
 | 3 | 大宗商品/汇率/加密/宏观 + 7天历史 | 2-3次 | web_search/金投网 | 周一～周五 |
-| 4 | 基金&大资金动向（参照`fund-universe.md`三梯队） | 3-5次 | web_search + SEC EDGAR | 周一～周五 |
+| 4 | 基金&大资金动向（参照`fund-universe.md`三梯队） | 8-12次+1次web_fetch | web_search + web_fetch + SEC EDGAR | 周一～周五 |
 | **5** | **watchlist 标的详情采集（metrics/PE/市值/营收增速/毛利率/ROE）** | **15-20次web_fetch** | Google Finance / StockAnalysis | 周一～周五 |
 | **6** | **本周事件日历 + 风险矩阵数据** | **1-2次** | web_search | 周一～周五 |
 | **A** | **情绪与预测数据采集（CNN Fear&Greed / Polymarket / CME FedWatch）** | **2-4次web_fetch** | 详见第八章 | **周一～周五（可选批次，失败不阻断）** |
@@ -166,6 +166,8 @@ web_search: "{公司名} {TICKER} latest earnings analysis 2026"
 | **个股 PE(TTM)** | **`yfinance.Ticker.info["trailingPE"]`** | "—"（不阻断） | — |
 | **历史走势（sparkline）** | **yfinance/AkShare 真实历史序列** | **回采后重试** | **阻断发布（禁止估算）** |
 | 基金&大资金 | SEC EDGAR | WhaleWisdom | web_search |
+| **ARK 每日交易（v1.6新增）** | **`web_fetch: ark-invest.com/trade-notifications`** | **web_search "ARK daily trade"** | — |
+| **段永平/H&H 持仓（v1.6新增）** | **SEC EDGAR 13F (H&H International)** | **HedgeFollow/WhaleWisdom** | **雪球(@大道无形我有型)** |
 
 ---
 
@@ -479,6 +481,7 @@ web_search: "美联储6月降息概率 CME FedWatch"
 
 ---
 
+> v1.6 — 2026-04-05 | **Batch 4 分层定向搜索升级**：①Batch 4 搜索次数从 3-5次 升级为 8-12次+1次web_fetch（五层搜索结构，详见 `fund-universe.md` v17.7 §七）；②新增 ARK 每日交易 web_fetch 确定性抓取（`ark-invest.com/trade-notifications`）作为 Batch 4 第三层固定步骤；③新增段永平定向搜索（关联度极高，每次 Batch 4 必须有至少1次覆盖）；④13F 季度披露窗口期（2/5/8/11月10-20日）Batch 4 自动升级为「13F重点模式」（搜索次数12-16次，一级+二级全覆盖）；⑤数据源优先级表新增 ARK 每日交易 web_fetch 条目。
 > v1.5 — 2026-04-03 | **方案A 双轨分工固化**：第四章「sparkline 数据采集规范」全面改写为方案A模式——①美股/主要指数 sparkline/chartData 完全由脚本 v2.0 负责，AI 第一阶段不再采集美股历史走势；②港股/A股 sparkline 脚本跳过，AI 需在第一阶段手动从东方财富/同花顺采集；③新增港股/A股采集方式说明（web_fetch 东方财富行情页）；④AI 采集工作量大幅降低，精力集中在价格/涨跌幅/分析文字等核心字段。
 > v1.4 — 2026-04-03 10:55 | 数据分类隔离规则全面固化（详见前版本日志）。
 > v1.3 — 2026-04-02 12:57 | 步骤2修复：(1) 文件标题/章节标题版本号统一为 v1.3；(2) 用途说明补充"含情绪与预测数据采集（Batch A）"；(3) 批次1a末尾删除"使用当日价格±模拟波动生成"危险旧残留（与第四章禁止估算原则直接矛盾），改为"回到批次重试；仍失败→阻断发布（禁止估算）"；(4) 第六章降级路径补充4条情绪数据降级路径（CNN F&G / Polymarket / Kalshi / CME FedWatch），与第八章 Batch A SOP 完整衔接。
