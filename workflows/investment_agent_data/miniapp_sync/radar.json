@@ -1,202 +1,190 @@
 {
-  "date": "2026-04-02",
-
-  "fearGreed": {
-    "value": 18,
-    "label": "Extreme Fear",
-    "previousClose": 28,
-    "oneWeekAgo": 15,
-    "oneMonthAgo": 22
-  },
-
+  "date": "2026-04-05",
   "predictions": [
-    {
-      "title": "美伊停火在4月内达成?",
-      "source": "Polymarket",
-      "probability": 28,
-      "trend": "down",
-      "change24h": -18
-    },
     {
       "title": "美联储6月降息?",
       "source": "CME FedWatch",
-      "probability": 22,
+      "probability": 28,
       "trend": "down",
       "change24h": -5
     },
     {
-      "title": "油价4月突破110美元?",
+      "title": "伊朗停火协议本月达成?",
       "source": "Polymarket",
-      "probability": 55,
+      "probability": 18,
+      "trend": "down",
+      "change24h": -12
+    },
+    {
+      "title": "WTI油价4月底超120美元?",
+      "source": "Polymarket",
+      "probability": 35,
       "trend": "up",
-      "change24h": 22
+      "change24h": 15
     }
   ],
-
   "trafficLights": [
     {
       "name": "VIX波动率",
-      "value": "27.34",
-      "status": "red",
+      "value": "23.87",
+      "status": "yellow",
       "threshold": "<18绿 / 18-25黄 / >25红"
     },
     {
       "name": "10Y美债收益率",
-      "value": "4.38%",
+      "value": "4.33%",
       "status": "yellow",
-      "threshold": "<4.0%绿 / 4.0%-4.5%黄 / >4.5%红"
+      "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
     },
     {
       "name": "布伦特原油",
-      "value": "$105.80",
-      "status": "red",
-      "threshold": "<$90绿 / $90-$110黄 / >$110红"
+      "value": "$109.24",
+      "status": "yellow",
+      "threshold": "<$90绿 / $90-110黄 / >$110红"
     },
     {
       "name": "美元指数DXY",
-      "value": "103.85",
-      "status": "yellow",
+      "value": "100.04",
+      "status": "green",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
     {
       "name": "HY信用利差",
-      "value": "4.65%",
-      "status": "yellow",
-      "threshold": "<4%绿 / 4%-5%黄 / >5%红"
+      "value": "3.16%",
+      "status": "green",
+      "threshold": "<4%绿 / 4-5%黄 / >5%红"
     },
     {
       "name": "外资动向",
-      "value": "-1.02%",
+      "value": "港股均跌-1.2%，外资偏谨慎",
       "status": "red",
-      "threshold": "港股均涨≥+1.5%绿 / 0~+1.5%黄 / 均跌红"
+      "threshold": "北向实时净买额已于2024-08-19永久停止披露；以港股（恒生+恒生科技）均涨跌幅为代理：≥+1.5%绿 / 0~+1.5%黄 / 跌红"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "7.2485",
-      "status": "yellow",
+      "value": "6.8831",
+      "status": "green",
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
-
   "riskScore": 80,
   "riskLevel": "high",
-  "riskAdvice": "当前红灯3项（VIX/原油/外资动向），黄灯4项，风险分数80处于高危区间。建议股票仓位降至4成以下，增配黄金/现金，不宜重仓追涨能源板块。",
-
+  "riskAdvice": "当前风险评分 80（high）：VIX、10Y美债和布伦特仍在黄灯区，但DXY、HY利差与离岸人民币已回到偏安全区域，港股涨幅代理外资情绪回暖。建议维持中性偏多仓位，继续等待宏观数据确认。",
   "monitorTable": [
     {
-      "condition": "布伦特原油突破110美元",
-      "action": "将股票仓位进一步降至3成以下，增配能源ETF和黄金"
+      "condition": "VIX突破25并持续2日",
+      "action": "将股票仓位降至5成以下，增持现金和短期美债"
     },
     {
-      "condition": "VIX突破30",
-      "action": "暂停所有成长股买入，持有现金等待恐慌顶部信号"
+      "condition": "布伦特原油突破120美元",
+      "action": "增加能源ETF对冲仓位，减持高耗能行业（航空/化工）"
     },
     {
-      "condition": "美伊停火协议官方确认",
-      "action": "快速加仓科技/消费板块，减持能源对冲仓位"
+      "condition": "NFP低于+3万（明日公布）",
+      "action": "触发滞胀信号，防御配置提升至7成，增配黄金GLD"
     },
     {
-      "condition": "10Y美债收益率突破4.5%",
-      "action": "降低组合久期，将XLRE/XLU等利率敏感型标的减仓"
+      "condition": "10Y美债收益率升破4.5%",
+      "action": "成长股估值承压，减持高PE科技仓位至标配以下"
     },
     {
-      "condition": "标普500跌破6300点支撑",
-      "action": "触发风险警报，按计划分批止损，禁止抄底"
+      "condition": "DXY突破107",
+      "action": "新兴市场（港股/A股）资金外流风险上升，减持港股仓位"
+    },
+    {
+      "condition": "伊朗停火信号出现",
+      "action": "能源对冲仓位止盈50%，科技股增仓机会窗口打开"
     }
   ],
-
   "riskAlerts": [
     {
-      "title": "伊朗谈判破裂引发油价二次冲击风险",
-      "probability": "55%",
+      "title": "周一开市跳空缺口风险（NFP+关税+伊朗升级三重叠加）",
+      "probability": "60%",
       "impact": "高",
-      "response": "保持能源对冲仓位，关注布伦特110美元关口，一旦突破快速减仓成长股",
+      "response": "休市积压三大利空/利好信号，周一大概率出现显著跳空。建议等开盘30分钟确认方向后再操作，避免追涨杀跌。",
       "level": "high"
     },
     {
-      "title": "关税一周年引发贸易战升级风险",
-      "probability": "30%",
+      "title": "CPI二次上行确认（油价月涨34%传导）",
+      "probability": "45%",
       "impact": "高",
-      "response": "回避高对华关税敞口的美国消费品/零售股，增持本土化生产比例高的标的",
-      "level": "medium"
+      "response": "若3月核心CPI超3.0%，联储降息预期归零，10Y美债可能升破4.5%。提前将高PE科技仓位降至标配以下。",
+      "level": "high"
     },
     {
-      "title": "周五非农数据超预期引发降息预期崩溃",
-      "probability": "35%",
-      "impact": "中",
-      "response": "非农前控制杠杆，数据公布后根据实际偏差幅度决定加减仓方向",
+      "title": "曼德海峡封锁导致全球航运危机扩大",
+      "probability": "20%",
+      "impact": "高",
+      "response": "霍尔木兹+曼德海峡双封锁将使全球航运成本翻倍以上，能源对冲仓位必须维持，同时考虑增配航运和国防ETF。",
       "level": "medium"
     }
   ],
-
   "events": [
     {
-      "date": "04/03",
-      "title": "美国3月非农就业数据公布",
+      "date": "周一",
+      "title": "美股复活节后开市，消化NFP+关税双重数据",
       "impact": "high"
     },
     {
-      "date": "04/06",
-      "title": "特朗普伊朗打击暂停期截止",
+      "date": "周二",
+      "title": "FOMC 3月会议纪要发布",
       "impact": "high"
     },
     {
-      "date": "04/09",
-      "title": "美联储会议纪要公布",
+      "date": "周四",
+      "title": "美国3月CPI通胀数据发布",
       "impact": "high"
     },
     {
-      "date": "04/14",
-      "title": "美国CPI数据公布",
-      "impact": "high"
+      "date": "周五",
+      "title": "美国3月PPI生产者价格指数",
+      "impact": "medium"
     },
     {
-      "date": "04/14",
-      "title": "JPMorgan、Wells Fargo Q1财报",
+      "date": "周五",
+      "title": "密歇根大学消费者信心指数",
       "impact": "medium"
     }
   ],
-
   "alerts": [
     {
       "level": "danger",
-      "text": "IRGC威胁18家美国科技公司中东设施，包括NVDA、AAPL、MSFT，已引发科技板块异动",
-      "time": "09:45"
+      "text": "NFP实际+178K远超预期+57K，但医疗罢工回归贡献43%（76K），有机增长仅102K，数据含水",
+      "time": "20:30"
     },
     {
       "level": "danger",
-      "text": "WTI原油单日暴涨6.09%至106.22美元，霍尔木兹封锁风险重定价",
-      "time": "16:00"
+      "text": "美军F-15E被伊朗击落，20年来首次；特朗普下48小时最后通牒要求重开霍尔木兹海峡",
+      "time": "08:00"
     },
     {
       "level": "warning",
-      "text": "黄金异常下跌3.42%与原油暴涨背离，显示流动性收缩式恐慌而非地缘避险切换",
-      "time": "16:30"
+      "text": "伊朗议长暗示威胁曼德海峡（Bab el-Mandeb），胡塞武装宣布封锁红海，全球双海峡风险",
+      "time": "15:00"
     },
     {
-      "level": "info",
-      "text": "4月2日为关税解放日一周年，媒体集中回顾引发市场对贸易战长期代价的重新审视",
-      "time": "07:00"
+      "level": "warning",
+      "text": "工资增速降至3.5% YoY（前值3.8%），为2024年8月以来最低，鸽派信号利好债券",
+      "time": "20:30"
     }
   ],
-
   "smartMoneyDetail": [
     {
       "tier": "T1旗舰",
       "funds": [
         {
           "name": "桥水基金",
-          "action": "维持多元化全天候配置，战略持有黄金与大宗商品作为通胀对冲，不追涨能源",
+          "action": "继续维持对宏观与防御资产的平衡配置，不因单日反弹放松风险控制。",
           "signal": "neutral"
         },
         {
-          "name": "高盛策略团队",
-          "action": "建议客户增持能源对冲仓位，上调短期波动率预测，维持标普年度目标价不变",
+          "name": "伯克希尔",
+          "action": "伯克希尔股价收于479.20美元，资金仍偏好高质量现金流与防御性配置。",
           "signal": "neutral"
         },
         {
-          "name": "摩根大通/JPM",
-          "action": "Mike Wilson识别S&P 6300为关键支撑位，建议在此区间分批布局，但不追涨",
+          "name": "贝莱德",
+          "action": "维持大类资产分散配置思路，在利率与油价未完全回落前不追逐单一风险资产。",
           "signal": "neutral"
         }
       ]
@@ -206,13 +194,13 @@
       "funds": [
         {
           "name": "ARK Invest",
-          "action": "借今日科技回调逢低买入AI相关标的，坚持AI长期叙事不变",
+          "action": "成长资产仍然受益于风险偏好修复，但波动显著，适合分批而非一次性押注。",
           "signal": "bullish"
         },
         {
-          "name": "D.E. Shaw",
-          "action": "继续减持大型科技股，转向能源和防御性仓位",
-          "signal": "bearish"
+          "name": "港股成交代理",
+          "action": "4月1日港股均涨+2.07%，外资动向代理指标为绿灯，外资偏好回暖信号成立。",
+          "signal": "bullish"
         }
       ]
     },
@@ -220,24 +208,27 @@
       "tier": "策略师观点",
       "funds": [
         {
-          "name": "Morgan Stanley策略师",
-          "action": "标普6300-6400区间可分批加仓，等待VIX回落至22以下确认底部",
+          "name": "Goldman Sachs",
+          "action": "继续看好AI基础设施与订单兑现度更高的科技龙头。",
           "signal": "bullish"
         },
         {
-          "name": "Barclays Q2展望",
-          "action": "油价上涨和私人信贷担忧增加市场波动，但资本开支积极面可能抵消部分影响",
+          "name": "Wells Fargo",
+          "action": "提醒市场继续关注利率与盈利兑现，不建议把单日反弹线性外推。",
           "signal": "neutral"
+        },
+        {
+          "name": "Roth Capital",
+          "action": "维持对MRVL等AI互联链条的正面看法，但强调波动和仓位纪律。",
+          "signal": "bullish"
         }
       ]
     }
   ],
-
-  "dataTime": "2026-04-02 19:22 BJT（美股盘前数据，亚太已收盘）",
-
+  "dataTime": "2026-04-05 周末更新 BJT | 行情数据保留4月2日收盘 | 分析内容基于周末最新进展更新",
   "_meta": {
-    "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-02T19:22:00+08:00",
-    "skillVersion": "v1.5"
+    "sourceType": "weekend_insight",
+    "generatedAt": "2026-04-05T12:18:00+08:00",
+    "skillVersion": "v4.0"
   }
 }

@@ -9,8 +9,8 @@
  * @returns {string} 如 "2026年3月31日"
  */
 function formatDateCN(date) {
-  const d = date || new Date()
-  return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`
+  var d = date || new Date()
+  return d.getFullYear() + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日'
 }
 
 /**
@@ -19,10 +19,10 @@ function formatDateCN(date) {
  * @returns {string} 如 "2026-03-31"
  */
 function formatDateISO(date) {
-  const d = date || new Date()
-  const month = String(d.getMonth() + 1).padStart(2, '0')
-  const day = String(d.getDate()).padStart(2, '0')
-  return `${d.getFullYear()}-${month}-${day}`
+  var d = date || new Date()
+  var month = String(d.getMonth() + 1).padStart(2, '0')
+  var day = String(d.getDate()).padStart(2, '0')
+  return d.getFullYear() + '-' + month + '-' + day
 }
 
 /**
@@ -34,7 +34,7 @@ function formatDateISO(date) {
 function formatNumber(num, decimals) {
   if (num === null || num === undefined || isNaN(num)) return '--'
   decimals = decimals !== undefined ? decimals : 2
-  const parts = Number(num).toFixed(decimals).split('.')
+  var parts = Number(num).toFixed(decimals).split('.')
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   return parts.join('.')
 }
@@ -48,8 +48,8 @@ function formatNumber(num, decimals) {
 function formatChange(change, showPlus) {
   if (change === null || change === undefined || isNaN(change)) return '--'
   showPlus = showPlus !== undefined ? showPlus : true
-  const prefix = showPlus && change > 0 ? '+' : ''
-  return `${prefix}${Number(change).toFixed(2)}%`
+  var prefix = showPlus && change > 0 ? '+' : ''
+  return prefix + Number(change).toFixed(2) + '%'
 }
 
 /**
@@ -59,8 +59,8 @@ function formatChange(change, showPlus) {
  */
 function formatChangeSimple(change) {
   if (change === null || change === undefined || isNaN(change)) return '--'
-  const prefix = change > 0 ? '+' : ''
-  return `${prefix}${change}%`
+  var prefix = change > 0 ? '+' : ''
+  return prefix + change + '%'
 }
 
 /**
@@ -69,7 +69,7 @@ function formatChangeSimple(change) {
  * @returns {string} 如 "周一"
  */
 function getWeekDayCN(date) {
-  const days = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+  var days = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
   return days[(date || new Date()).getDay()]
 }
 
@@ -80,10 +80,10 @@ function getWeekDayCN(date) {
  */
 function formatTime(time) {
   if (typeof time === 'string' && time.includes(':')) return time
-  const d = new Date(time)
-  const h = String(d.getHours()).padStart(2, '0')
-  const m = String(d.getMinutes()).padStart(2, '0')
-  return `${h}:${m}`
+  var d = new Date(time)
+  var h = String(d.getHours()).padStart(2, '0')
+  var m = String(d.getMinutes()).padStart(2, '0')
+  return h + ':' + m
 }
 
 /**
@@ -166,12 +166,13 @@ function getMarketStatus() {
  */
 function getRelativeTime(dateStr) {
   if (!dateStr) return ''
+  var parts = null  // 提升到顶部，避免非BJT分支时引用未定义变量
   var target
   if (dateStr.includes('T')) {
     target = new Date(dateStr)
   } else if (dateStr.includes('BJT')) {
     // "2026-04-01 09:00 BJT" → 解析为北京时间
-    var parts = dateStr.replace(' BJT', '').split(' ')
+    parts = dateStr.replace(' BJT', '').split(' ')
     var dateParts = parts[0].split('-')
     var timeParts = (parts[1] || '00:00').split(':')
     target = new Date(dateParts[0], dateParts[1] - 1, dateParts[2], timeParts[0], timeParts[1] || 0)
@@ -195,6 +196,7 @@ function getRelativeTime(dateStr) {
   if (days === 1) return '昨天 ' + formatTime(target)
   if (days < 7) return days + '天前'
 
+  // parts 仅在 BJT 分支中有值；其他格式直接截取前10位
   return parts ? parts[0] : dateStr.slice(0, 10)
 }
 

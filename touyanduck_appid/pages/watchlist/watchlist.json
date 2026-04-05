@@ -3,7 +3,6 @@
   "enablePullDownRefresh": true,
   "usingComponents": {
     "stock-card": "/components/stock-card/stock-card",
-    "section-card": "/components/section-card/section-card",
     "skeleton": "/components/skeleton/skeleton"
   }
 }

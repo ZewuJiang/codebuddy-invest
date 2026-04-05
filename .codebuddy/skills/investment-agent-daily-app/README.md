@@ -68,7 +68,7 @@ Skill 将自动执行完整的六阶段工作流：交易日检测 → 数据采
 | 目录/文件 | 说明 |
 |-----------|------|
 | `SKILL.md` | 主控文档（工作流+铁律+版本日志） |
-| `scripts/refresh_verified_snapshot.py` | 直接行情源批量校正脚本（只修交易字段，不碰新闻解释字段） |
+| `scripts/refresh_verified_snapshot.py` | sparkline/chartData 历史序列补全脚本 v2.1（方案A：只写这两个数组字段，其他所有字段由 AI 独立保障，脚本永远不触碰） |
 | `references/json-schema.md` | **核心文件** — 4个JSON的完整字段规范 |
 | `references/stock-universe.md` | 7板块标的池 + 分类规则 |
 | `references/data-collection-sop.md` | 数据采集SOP（含sparkline/metrics额外采集） |

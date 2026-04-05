@@ -20,7 +20,7 @@ function getChangeColorClass(change) {
  * @returns {object} { label: 中文名, tagClass: 标签样式class }
  */
 function getActionInfo(type) {
-  const map = {
+  var map = {
     // 具体操作类型（推荐使用）
     hold:     { label: '持有', tagClass: 'tag-yellow' },
     add:      { label: '加仓', tagClass: 'tag-red' },
@@ -43,7 +43,7 @@ function getActionInfo(type) {
  * @returns {object} { label: 中文名, tagClass: 标签样式class }
  */
 function getTrendInfo(trend) {
-  const map = {
+  var map = {
     up:   { label: '看多', tagClass: 'tag-red' },
     down: { label: '看空', tagClass: 'tag-green' },
     hold: { label: '中性', tagClass: 'tag-yellow' }
@@ -57,7 +57,7 @@ function getTrendInfo(trend) {
  * @returns {object} { label: 中文名, className: CSS class }
  */
 function getRiskInfo(level) {
-  const map = {
+  var map = {
     low:    { label: '低风险', className: 'risk-low' },
     medium: { label: '中风险', className: 'risk-medium' },
     high:   { label: '高风险', className: 'risk-high' }
@@ -71,7 +71,7 @@ function getRiskInfo(level) {
  * @returns {object} { label: 中文名, tagClass: 标签样式class }
  */
 function getImpactInfo(impact) {
-  const map = {
+  var map = {
     high:   { label: '高影响', tagClass: 'tag-red' },
     medium: { label: '中影响', tagClass: 'tag-yellow' },
     low:    { label: '低影响', tagClass: 'tag-gray' }
@@ -85,7 +85,7 @@ function getImpactInfo(impact) {
  * @returns {object} { icon: emoji, bgClass: 背景class }
  */
 function getAlertInfo(level) {
-  const map = {
+  var map = {
     danger:  { icon: '🔴', bgClass: 'alert-danger' },
     warning: { icon: '🟡', bgClass: 'alert-warning' },
     info:    { icon: '🟢', bgClass: 'alert-info' }
@@ -99,7 +99,7 @@ function getAlertInfo(level) {
  * @returns {string} CSS class 名
  */
 function getLightClass(status) {
-  const map = {
+  var map = {
     green: 'light-green',
     yellow: 'light-yellow',
     red: 'light-red'
@@ -107,8 +107,9 @@ function getLightClass(status) {
   return map[status] || 'light-yellow'
 }
 
+// ⚠️ keyDeltas 模块已于 v2.0 删除，以下两个函数保留作向后兼容，新代码不应调用
 /**
- * KEY DELTA 状态标签映射
+ * KEY DELTA 状态标签映射（已废弃 — keyDeltas v2.0 删除，保留向后兼容）
  * @param {string} status - '升级' | '新增' | '活跃' | '降温' | '稳定'
  * @returns {object} { label, tagClass, heatLabel }
  */
@@ -124,7 +125,7 @@ function getDeltaStatusInfo(status) {
 }
 
 /**
- * 根据热度值返回文字标签（三档制）
+ * 根据热度值返回文字标签（三档制）（已废弃 — keyDeltas v2.0 删除，保留向后兼容）
  * @param {number} heat - 1-5（JSON原始值）
  * @returns {string} "加速" | "活跃" | "关注"
  *

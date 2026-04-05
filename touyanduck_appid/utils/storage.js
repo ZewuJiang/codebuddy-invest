@@ -3,7 +3,7 @@
  * 统一管理 wx.setStorageSync / getStorageSync
  */
 
-const CACHE_PREFIX = 'touyanduck_'
+var CACHE_PREFIX = 'touyanduck_'
 
 /**
  * 写入缓存
@@ -12,7 +12,7 @@ const CACHE_PREFIX = 'touyanduck_'
  * @param {number} expireMinutes - 过期时间（分钟），0表示不过期
  */
 function set(key, value, expireMinutes) {
-  const data = {
+  var data = {
     value: value,
     timestamp: Date.now(),
     expire: expireMinutes ? expireMinutes * 60 * 1000 : 0
@@ -32,11 +32,10 @@ function set(key, value, expireMinutes) {
  */
 function get(key, defaultValue) {
   try {
-    const raw = wx.getStorageSync(CACHE_PREFIX + key)
+    var raw = wx.getStorageSync(CACHE_PREFIX + key)
     if (!raw) return defaultValue !== undefined ? defaultValue : null
     
-    const data = JSON.parse(raw)
-    // 检查是否过期
+    var data = JSON.parse(raw)
     if (data.expire && (Date.now() - data.timestamp > data.expire)) {
       remove(key)
       return defaultValue !== undefined ? defaultValue : null
@@ -65,8 +64,8 @@ function remove(key) {
  */
 function clearAll() {
   try {
-    const res = wx.getStorageInfoSync()
-    const keys = res.keys || []
+    var res = wx.getStorageInfoSync()
+    var keys = res.keys || []
     keys.forEach(function(k) {
       if (k.startsWith(CACHE_PREFIX)) {
         wx.removeStorageSync(k)

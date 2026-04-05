@@ -1,46 +1,46 @@
 {
-  "date": "2026-04-02",
-
+  "date": "2026-04-05",
   "timeStatus": {
-    "bjt": "09:51",
-    "est": "21:51",
-    "marketStatus": "美股已收盘",
+    "bjt": "12:18",
+    "est": "00:18",
+    "marketStatus": "美股休市",
     "refreshInterval": "每日更新"
   },
 
-  "takeaway": "特朗普伊朗强硬表态彻底终结停火预期，油价单日暴涨14%引燃通胀担忧——今日以防御为主，持有能源对冲仓位，科技股等待VIX回落至20以下再增配，明日NFP数据或加剧波动。",
+  "takeaway": "NFP超预期+178K但【罢工回归占43%】实际增长仅+102K，工资增速降至3.5%释放鸽派信号——下周一开市将同时消化非农+关税双重冲击，【持有能源对冲】不减仓，科技股【等CPI确认后再加仓】，VIX若跳空升至25以上则启动防御。",
 
   "coreEvent": {
-    "title": "特朗普发表伊朗战争演讲，宣称继续打击直至完成目标，停火预期彻底崩塌，油价暴涨14%",
+    "title": "本周复盘：NFP+178K远超预期但含罢工水分，伊朗战事升级至美军机被击落，滞胀交易继续主导",
     "chain": [
       {
-        "title": "停火窗口关闭，战争溢价重新定价",
-        "brief": "特朗普否认谈判进展，IRGC回应升级，霍尔木兹封锁风险重燃",
+        "title": "NFP+178K大超预期，但医疗罢工回归贡献43%",
+        "brief": "剔除罢工回归后有机增长仅+102K，ADP仅+62K佐证真实就业放缓",
+        "source": "Verified Investing",
+        "url": "https://verifiedinvesting.com/blogs/us-economic-metrics/us-nonfarm-payrolls-march-2026-jobs-report"
+      },
+      {
+        "title": "工资增速降至3.5%，2024年8月以来最低",
+        "brief": "薪资压力缓解为美联储降息提供空间，但CPI需确认趋势",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/04/03/jobs-report-march-2026-.html"
+      },
+      {
+        "title": "美军F-15E被击落，特朗普下48小时最后通牒",
+        "brief": "20年来首架美军战机被敌火击落，伊朗威胁曼德海峡航运安全",
         "source": "AP News",
-        "url": "https://apnews.com/article/stocks-markets-oil-iran-trump-026e3ab83a6256e36001b85058f92b5d"
+        "url": "https://apnews.com/live/iran-war-israel-trump-04-04-2026"
       },
       {
-        "title": "WTI原油单日暴涨14%，突破112美元关键位",
-        "brief": "霍尔木兹封锁持续导致供应溢价固化，亚洲买家被迫转向煤炭应急",
-        "source": "Reuters",
-        "url": "https://www.reuters.com"
+        "title": "巴基斯坦主导调解但停火前景不明朗",
+        "brief": "巴基斯坦联合土耳其/埃及斡旋，伊朗外长有条件愿赴谈判，但特朗普最后通牒加剧对立",
+        "source": "AP News",
+        "url": "https://apnews.com/live/iran-war-israel-trump-04-04-2026"
       },
       {
-        "title": "能源板块3月单月涨幅超11%，为唯一正回报板块",
-        "brief": "聪明钱HALO策略加速流入能源和公用事业，从高估值科技股撤出",
-        "source": "Au79 Macro",
-        "url": "https://martyau79.substack.com/p/01april2026-au79-q2-and-year-end"
-      },
-      {
-        "title": "特斯拉重挫5.4%，创本轮最大单日跌幅",
-        "brief": "TSLA销售季度疲软报告叠加风险偏好下降，EV板块承压",
-        "source": "The Street",
-        "url": "https://www.thestreet.com/latest-news/stock-market-today-apr-2-2026-updates"
-      },
-      {
-        "title": "黄金逆势下跌2.4%，资金短期流入原油",
-        "brief": "地缘恐慌资金优先配置直接受益资产原油，黄金短暂承压",
-        "source": "Bloomberg"
+        "title": "下周一开市将同时消化NFP+关税双重冲击",
+        "brief": "周五休市导致价格发现延迟，开市或现显著跳空缺口",
+        "source": "Verified Investing",
+        "url": "https://verifiedinvesting.com/blogs/us-economic-metrics/us-nonfarm-payrolls-march-2026-jobs-report"
       }
     ]
   },
@@ -48,83 +48,83 @@
   "globalReaction": [
     {
       "name": "标普500",
-      "value": "+0.11%",
-      "direction": "up",
-      "note": "盘中最多跌1.2%后收复"
+      "value": "6,582.69",
+      "direction": "flat",
+      "note": "本周累计+0.11%，休市中"
     },
     {
       "name": "纳斯达克",
-      "value": "+0.18%",
-      "direction": "up",
-      "note": "科技股韧性支撑"
+      "value": "21,879.18",
+      "direction": "flat",
+      "note": "本周累计+0.18%，科技韧性"
     },
     {
-      "name": "WTI原油",
-      "value": "+13.55%",
+      "name": "布伦特原油",
+      "value": "$109.03",
       "direction": "up",
-      "note": "霍尔木兹风险溢价爆发"
+      "note": "本周累涨逾10%，月涨34%"
     },
     {
       "name": "黄金",
-      "value": "-2.38%",
-      "direction": "down",
-      "note": "资金短期转向原油"
+      "value": "$4,675",
+      "direction": "up",
+      "note": "本周反弹约4%，修复3月暴跌"
     },
     {
       "name": "10Y美债",
-      "value": "4.31%",
-      "direction": "down",
-      "note": "避险买盘压低收益率"
+      "value": "4.32%",
+      "direction": "up",
+      "note": "通胀预期推升长端利率"
     },
     {
-      "name": "比特币",
-      "value": "-2.72%",
+      "name": "美元指数",
+      "value": "100.03",
       "direction": "down",
-      "note": "风险资产同步回调"
+      "note": "本周走弱，避险资金分流"
     }
   ],
 
   "coreJudgments": [
     {
-      "title": "油价中枢系统性上移，通胀再加速",
-      "confidence": 82,
-      "logic": "停火预期崩塌，IRGC升级威胁 → 霍尔木兹溢价固化，布伦特中枢$100+硬底 → 能源通胀再加速，联储降息空间大幅收窄",
-      "keyActor": "特朗普 / Jerome Powell",
+      "title": "本周复盘：NFP表面强劲实则含水，就业真实状态偏弱",
+      "confidence": 80,
+      "logic": "NFP+178K中罢工回归占76K → 有机增长仅102K，2月下修至-133K → 劳动力市场降温趋势不变，工资3.5%给联储降息留空间",
+      "keyActor": "美联储 / BLS",
       "references": [
         {
-          "name": "高盛",
-          "summary": "每增加一周冲突布伦特额外上涨2-4美元，霍尔木兹封锁持续则油价中枢上移至115-125",
-          "url": ""
+          "name": "Verified Investing",
+          "summary": "NFP+178K但医疗罢工回归占43%，ADP仅+62K佐证真实增长放缓，工资降至3.5%为2024年8月以来最低",
+          "url": "https://verifiedinvesting.com/blogs/us-economic-metrics/us-nonfarm-payrolls-march-2026-jobs-report"
         }
       ],
       "probability": "高可能性",
-      "trend": "上升"
-    },
-    {
-      "title": "科技板块短暂承压，AI主线未被打断",
-      "confidence": 75,
-      "logic": "地缘恐慌引发风险偏好下降 → 高估值科技股获利盘松动，TSLA/META承压 → NVDA/MSFT Copilot AI资本开支叙事支撑中期底部",
-      "keyActor": "Jensen Huang / Satya Nadella",
-      "references": [
-        {
-          "name": "Microsoft",
-          "summary": "Copilot销售强劲，AI基础设施投入持续超预期，Q2指引维持",
-          "url": ""
-        }
-      ],
-      "probability": "中可能性",
       "trend": "稳定"
     },
     {
-      "title": "明日NFP是近期最关键数据节点",
-      "confidence": 88,
-      "logic": "2月非农骤降9.2万，市场预期4月报告+5.7万 → 若再度不及预期，衰退担忧与通胀叠加形成滞胀信号 → 联储两难局面加剧，市场波动率上行",
-      "keyActor": "Jerome Powell",
+      "title": "下周前瞻：CPI+FOMC纪要双剑合璧，通胀方向将被确认",
+      "confidence": 75,
+      "logic": "油价+34%→3月CPI或再超预期 → FOMC纪要若释放鹰派信号则10Y美债破4.5% → 成长股估值面临新一轮压缩",
+      "keyActor": "Jerome Powell / BLS",
       "references": [
         {
-          "name": "InvestorPlace",
-          "summary": "华尔街共识预期+5.7万，远低于关税前每月均值18万，弱就业叙事持续强化",
-          "url": "https://investorplace.com/2026/04/trumps-iran-update-spikes-volatility/"
+          "name": "Federal Reserve",
+          "summary": "3月FOMC纪要将于4月8日发布，4月28-29日下次会议前的最后一次官方政策沟通",
+          "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+        }
+      ],
+      "probability": "中可能性",
+      "trend": "上升"
+    },
+    {
+      "title": "中期趋势：伊朗冲突扩大化风险——曼德海峡成为新威胁",
+      "confidence": 82,
+      "logic": "霍尔木兹封锁已固化 → 伊朗议长暗示威胁曼德海峡，胡塞武装重新介入红海 → 双海峡风险使全球航运成本翻倍，通胀上行压力长期化",
+      "keyActor": "特朗普 / IRGC",
+      "references": [
+        {
+          "name": "AP News",
+          "summary": "伊朗议长威胁曼德海峡，胡塞武装宣布不允许美以利用红海攻击伊朗，全球航运双瓶颈风险升级",
+          "url": "https://apnews.com/live/iran-war-israel-trump-04-04-2026"
         }
       ],
       "probability": "高可能性",
@@ -136,74 +136,76 @@
     "today": [
       {
         "type": "hold",
-        "content": "持有现有科技仓位无需追跌，VIX仍在24上方，等待回落至20以下再择机增配NVDA/AVGO",
-        "reason": "地缘驱动下跌中AI基本面未变，恐慌性减仓成本高于等待成本"
-      },
-      {
-        "type": "hedge",
-        "content": "能源板块（XLE/USO）维持小仓对冲地缘风险，油价站稳$110以上动能延续",
-        "reason": "霍尔木兹封锁风险结构性，不是短期情绪冲击，能源对冲有效期延长"
+        "content": "周末不操作。维持现有仓位结构等待周一开市价格发现，不在休市期间追单场外市场反应。",
+        "reason": "周一将同时消化NFP+关税数据，跳空缺口方向不确定"
       },
       {
         "type": "watch",
-        "content": "关注明日NFP数据，若低于+4万则防御性增配GLD黄金，若超预期则科技板块反弹机会",
-        "reason": "NFP是当前唯一能打断通胀恐慌叙事的数据点"
+        "content": "周一开盘重点观察VIX开盘价位：若跳空至25以上，启动防御；若低于22，NFP超预期利好被消化，可择机增配科技。",
+        "reason": "NFP表面强劲但含水，市场如何解读决定方向"
       }
     ],
     "week": [
       {
-        "type": "reduce",
-        "content": "TSLA仓位可择机减至标配，等待Q2销售数据改善后再重新考虑加仓",
-        "reason": "TSLA销售疲软叠加地缘风险，双重压制短期难以突破$380压力位"
+        "type": "hold",
+        "content": "继续持有能源对冲仓位（XLE/XOP），伊朗局势未见缓和信号前不减持，布伦特100美元以上是硬底。",
+        "reason": "曼德海峡新威胁使双海峡风险溢价进一步固化"
       },
       {
         "type": "watch",
-        "content": "关注4月7日之后伊朗谈判信号，若停火预期再度出现则能源对冲仓位考虑止盈",
-        "reason": "地缘溢价随谈判进展波动明显，需要动态跟踪"
+        "content": "关注4月8日FOMC纪要+4月10日CPI：若CPI核心超3.0%叠加纪要鹰派，需减配高PE成长股至标配以下。",
+        "reason": "油价+34%后CPI大概率超预期，10Y美债若破4.5%将触发估值压缩"
       }
     ]
   },
 
-  "sentimentScore": 18,
-  "sentimentLabel": "极度恐惧",
+  "sentimentScore": 22,
+  "sentimentLabel": "偏恐惧",
 
   "marketSummaryPoints": [
-    "美股收盘小幅收涨，道指微跌0.13%，标普和纳指分别涨0.11%和0.18%，指数韧性掩盖了盘中最多1.2%的跌幅",
-    "核心驱动是特朗普强硬伊朗讲话打碎停火预期，WTI原油暴涨14%，VIX日内触及27.89",
-    "聪明钱HALO策略加速轮动：连续6周净卖出科技股，大举买入能源和公用事业等重资产",
-    "明日非农就业数据是近期最关键节点，市场预期+5.7万远低于正常水平，滞胀风险持续升温"
+    "本周美股在地缘冲击中表现出韧性：标普+0.11%、纳指+0.18%、道指-0.13%，盘中多次V形反转",
+    "核心矛盾是油价通胀（布伦特月涨34%）vs 就业放缓（工资降至3.5%）的滞胀格局固化",
+    "NFP+178K表面强劲但罢工回归占43%，市场周一将重新定价真实就业状态",
+    "伊朗局势质变：美军机被击落+曼德海峡威胁，双海峡风险使全球供应链压力翻倍",
+    "下周CPI+FOMC纪要是关键：若通胀确认二次上行，联储降息窗口将再次关闭"
   ],
 
   "smartMoney": [
     {
-      "source": "对冲基金（综合）",
-      "action": "连续6周净卖出美股，重点减持高估值软件和科技类",
+      "source": "Goldman Sachs",
+      "action": "预计油价冲击年底前每月减少约1万个就业岗位，维持标普500年底目标6400（下调后）",
       "signal": "bearish"
     },
     {
-      "source": "机构配置资金",
-      "action": "HALO策略加速布局能源ETF和公用事业，能源3月单月+11%",
+      "source": "Wells Fargo",
+      "action": "预计全年非农平均增速仅4万，不急于追仓风险资产",
+      "signal": "neutral"
+    },
+    {
+      "source": "Morgan Stanley",
+      "action": "维持2026全年零降息预测，建议防御配置为主",
+      "signal": "bearish"
+    },
+    {
+      "source": "HSBC 财富管理",
+      "action": "维持黄金中长期看涨，因避险需求和分散化价值不变",
       "signal": "bullish"
-    },
-    {
-      "source": "北向资金替代指标（港股均涨代理）",
-      "action": "港股4月2日均跌0.7%，外资动向偏谨慎",
-      "signal": "bearish"
-    },
-    {
-      "source": "债券市场",
-      "action": "10年期美债收益率降至4.31%，避险买盘入场",
-      "signal": "bearish"
     }
   ],
 
-  "riskNote": "地缘局势短期难以明朗，油价保持高位将持续压缩企业利润率并延缓联储降息。明日NFP数据若再度疲软将触发滞胀担忧，建议控制科技仓位，维持防御性配置。VIX回落至20以下前保持低风险敞口。",
+  "riskPoints": [
+    "周一开市跳空风险：NFP+关税+伊朗升级三重冲击在休市后集中释放，VIX可能跳至25+",
+    "CPI二次上行：油价月涨34%将直接推升3月核心CPI，若超3.0%则联储降息预期归零",
+    "曼德海峡新威胁：伊朗+胡塞双海峡封锁使全球航运成本翻倍，通胀上行压力长期化",
+    "建议：周一开盘前不预判方向，等价格发现后按VIX水位执行操作"
+  ],
+  "riskNote": "周一开市跳空风险：NFP+关税+伊朗升级三重冲击在休市后集中释放，VIX可能跳至25+。CPI二次上行：油价月涨34%将直接推升3月核心CPI。曼德海峡新威胁使航运成本翻倍。建议周一开盘前不预判方向，等价格发现后执行。",
 
-  "dataTime": "2026-04-02 收盘 BJT",
+  "dataTime": "2026-04-05 周末更新 BJT",
 
   "_meta": {
-    "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-03T09:51:00+08:00",
-    "skillVersion": "v2.2"
+    "sourceType": "weekend_insight",
+    "generatedAt": "2026-04-05T12:18:00+08:00",
+    "skillVersion": "v4.0"
   }
 }

@@ -33,6 +33,7 @@ Page({
     // §4 聪明钱速览
     smartMoney: [],
     // 风险提示
+    riskPoints: [],
     riskNote: '',
     // 数据截止时间
     dataTime: '',
@@ -246,6 +247,17 @@ Page({
         .filter(function(s) { return s.length > 0 })
     }
 
+    // riskPoints：支持新版数组；旧版 riskNote 字符串按句号自动拆分兜底
+    var riskPoints = []
+    if (Array.isArray(d.riskPoints) && d.riskPoints.length) {
+      riskPoints = d.riskPoints
+    } else if (d.riskNote) {
+      riskPoints = d.riskNote
+        .split(/[。]/)
+        .map(function(s) { return s.trim() })
+        .filter(function(s) { return s.length > 0 })
+    }
+
     that.setData({
       takeaway: d.takeaway || '',
       takeawaySegments: parseTakeaway(d.takeaway || ''),
@@ -259,6 +271,7 @@ Page({
       sentimentLabel: d.sentimentLabel || '',
       marketSummaryPoints: marketSummaryPoints,
       smartMoney: d.smartMoney || [],
+      riskPoints: riskPoints,
       riskNote: d.riskNote || '',
       dataTime: (d.dataTime || '').split('/')[0].trim(),
       dataFreshness: dataFreshness || '',

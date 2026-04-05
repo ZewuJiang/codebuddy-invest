@@ -1,4 +1,4 @@
-/* stock-card 组件样式 v4.0 — 展开/收起态 */
+/* stock-card 组件样式 v5.0 — 支持 badges + 未上市标的 */
 
 /* 入场动画 */
 .card-enter {
@@ -28,6 +28,12 @@
 .stock-card-wrap:active {
   transform: scale(0.985);
   box-shadow: 0 1rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+/* 未上市标的卡片 */
+.unlisted-card {
+  border: 1rpx dashed #ddd;
+  background: #fafbfc;
 }
 
 /* ========== 头部（收起态核心内容） ========== */
@@ -66,6 +72,14 @@
   color: #555;
 }
 
+.sc-unlisted-label {
+  font-size: 20rpx;
+  color: #999;
+  background: #f0f0f0;
+  padding: 2rpx 12rpx;
+  border-radius: 6rpx;
+}
+
 .sc-chart-area {
   flex-shrink: 0;
   margin: 0 12rpx;
@@ -88,6 +102,29 @@
   font-size: 20rpx;
   color: #bbb;
   margin-top: 4rpx;
+}
+
+/* ========== badges 特殊标签（聪明钱/已汇报等） ========== */
+.sc-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx;
+  margin-top: 10rpx;
+}
+
+.badge {
+  font-size: 18rpx;
+  font-weight: 600;
+  padding: 2rpx 12rpx;
+  border-radius: 6rpx;
+  line-height: 1.6;
+}
+
+/* 巴菲特标签 — 金色 */
+.badge-default {
+  color: #b8860b;
+  background: rgba(255, 193, 7, 0.12);
+  border: 1rpx solid rgba(255, 193, 7, 0.3);
 }
 
 /* 标签 */

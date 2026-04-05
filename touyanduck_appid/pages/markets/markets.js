@@ -27,10 +27,16 @@ Page({
     commodityInsight: '',
     cryptoInsight: '',
     gicsInsight: '',
+    usInsightChain: [],
+    m7InsightChain: [],
+    asiaInsightChain: [],
+    commodityInsightChain: [],
+    cryptoInsightChain: [],
+    gicsInsightChain: [],
     animateReady: false,
     isCloud: false,
     dataTime: '',
-    swiperHeight: '1200rpx'
+    swiperHeights: ['2200rpx', '1400rpx', '1200rpx', '1200rpx', '900rpx']
   },
 
   // 各Tab内容项数量（数据加载后更新）
@@ -56,51 +62,63 @@ Page({
       nav.marketsTab = null
       if (targetTab !== this.data.activeTab) {
         this.setData({ activeTab: targetTab })
-        this._updateSwiperHeight(targetTab)
+        this._measureTabHeight(targetTab, 0)
       }
     }
   },
 
   /**
-   * 根据当前Tab的内容数量动态计算Swiper高度
-   * @param {number} tabIndex - Tab索引
+   * 用 SelectorQuery 量取指定 Tab 的真实内容高度，赋给 swiperHeights[tabIndex]
+   * @param {number} tabIndex
+   * @param {number} [retryCount] 重试次数，最多3次（等待渲染完成）
    */
-  _updateSwiperHeight: function(tabIndex) {
-    var count = this._tabCounts[tabIndex] || 3
-    // 每个列表项约100rpx + 卡片上下padding和margin约80rpx + 底部留白40rpx
-    var baseHeight = count * 100 + 80 + 40
+  _measureTabHeight: function(tabIndex, retryCount) {
+    var that = this
+    var retry = retryCount || 0
+    var selector = '.tab-wrap-' + tabIndex
 
-    // 所有Tab都有 insight 区域（约100rpx）
-    baseHeight += 100
-
-    // 美股Tab额外加上GICS板块区(gics项数*50+标题+padding)
-    if (tabIndex === 0) {
-      if (this._hasGics) {
-        baseHeight += this.data.gics.length * 50 + 120 // GICS区域
+    wx.createSelectorQuery().select(selector).boundingClientRect(function(rect) {
+      if (rect && rect.height > 100) {
+        // 量到真实高度，加 40px 底部留白，转为 rpx（1px ≈ 2rpx，但直接用 px 赋值更准）
+        var h = Math.ceil(rect.height) + 40
+        var heights = that.data.swiperHeights.slice()
+        heights[tabIndex] = h + 'px'
+        that.setData({ swiperHeights: heights })
+      } else if (retry < 4) {
+        // 渲染尚未完成，延迟后重试
+        setTimeout(function() {
+          that._measureTabHeight(tabIndex, retry + 1)
+        }, 120)
       }
-    }
+    }).exec()
+  },
 
-    // M7巨头Tab额外加上头部
-    if (tabIndex === 1) {
-      baseHeight += 100
+  /**
+   * 数据渲染完成后，批量量取所有 5 个 Tab 的高度
+   */
+  _measureAllTabs: function() {
+    var that = this
+    for (var i = 0; i < 5; i++) {
+      ;(function(idx) {
+        setTimeout(function() {
+          that._measureTabHeight(idx, 0)
+        }, idx * 80)
+      })(i)
     }
-
-    // 最小高度保障
-    var height = Math.max(baseHeight, 500)
-    this.setData({ swiperHeight: height + 'rpx' })
   },
 
   switchTab: function(e) {
     var index = e.currentTarget.dataset.index
     this.setData({ activeTab: index })
-    this._updateSwiperHeight(index)
+    // 切换时重新量取该 Tab（可能首次尚未量到）
+    this._measureTabHeight(index, 0)
     wx.vibrateShort({ type: 'light' })
   },
 
   onSwiperChange: function(e) {
     var current = e.detail.current
     this.setData({ activeTab: current })
-    this._updateSwiperHeight(current)
+    this._measureTabHeight(current, 0)
   },
 
   onPullDownRefresh: function() {
@@ -141,9 +159,11 @@ Page({
     var that = this
     var processItems = function(items) {
       return (items || []).map(function(item, idx) {
-        item.colorClass = colorUtil.getChangeColorClass(item.change)
-        item.changeText = (item.change > 0 ? '+' : '') + item.change + '%'
-        item.isUp = item.change >= 0
+        var c = (typeof item.change === 'number' && !isNaN(item.change)) ? item.change : 0
+        item.change = c
+        item.colorClass = colorUtil.getChangeColorClass(c)
+        item.changeText = (c > 0 ? '+' : '') + c + '%'
+        item.isUp = c >= 0
         item.chartId = 'mc_' + item.name.replace(/[^a-zA-Z0-9]/g, '') + '_' + idx
         item.animDelay = idx * 60
         return item
@@ -151,16 +171,19 @@ Page({
     }
 
     var gicsData = (data.gics || []).map(function(item) {
-      var abs = Math.abs(item.change)
+      var gc = (typeof item.change === 'number' && !isNaN(item.change)) ? item.change : 0
+      var abs = Math.abs(gc)
+      var barWidth = Math.min(abs * 25, 100)
       var heatLevel = abs > 1.5 ? 'heat-3' : (abs > 0.8 ? 'heat-2' : (abs > 0.3 ? 'heat-1' : 'heat-0'))
       return {
         name: item.name,
-        change: item.change,
+        change: gc,
         etf: item.etf,
-        changeText: (item.change > 0 ? '+' : '') + item.change.toFixed(2) + '%',
-        colorClass: colorUtil.getChangeColorClass(item.change),
-        heatClass: item.change >= 0 ? 'heat-up-' + heatLevel : 'heat-down-' + heatLevel,
-        isUp: item.change >= 0
+        changeText: (gc > 0 ? '+' : '') + gc.toFixed(2) + '%',
+        colorClass: colorUtil.getChangeColorClass(gc),
+        heatClass: gc >= 0 ? 'heat-up-' + heatLevel : 'heat-down-' + heatLevel,
+        isUp: gc >= 0,
+        barWidth: barWidth
       }
     })
 
@@ -183,6 +206,14 @@ Page({
     var cryptoInsight = data.cryptoInsight || ''
     var gicsInsight = data.gicsInsight || ''
 
+    // 因果链字段
+    var usInsightChain = data.usInsightChain || []
+    var m7InsightChain = data.m7InsightChain || []
+    var asiaInsightChain = data.asiaInsightChain || []
+    var commodityInsightChain = data.commodityInsightChain || []
+    var cryptoInsightChain = data.cryptoInsightChain || []
+    var gicsInsightChain = data.gicsInsightChain || []
+
     that.setData({
       usMarkets: processItems(data.usMarkets),
       m7: processItems(data.m7),
@@ -196,6 +227,12 @@ Page({
       commodityInsight: commodityInsight,
       cryptoInsight: cryptoInsight,
       gicsInsight: gicsInsight,
+      usInsightChain: usInsightChain,
+      m7InsightChain: m7InsightChain,
+      asiaInsightChain: asiaInsightChain,
+      commodityInsightChain: commodityInsightChain,
+      cryptoInsightChain: cryptoInsightChain,
+      gicsInsightChain: gicsInsightChain,
       dataTime: dataTime,
       loading: false
     })
@@ -208,10 +245,14 @@ Page({
       (data.cryptos || []).length
     ]
     that._hasGics = gicsData.length > 0
-    that._updateSwiperHeight(that.data.activeTab)
 
+    // 数据渲染完成后，等一帧再量取所有 Tab 真实高度
     setTimeout(function() {
       that.setData({ animateReady: true })
+      // 再等一帧让动画 class 生效后量取
+      setTimeout(function() {
+        that._measureAllTabs()
+      }, 100)
     }, 50)
   }
 })

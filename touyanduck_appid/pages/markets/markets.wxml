@@ -1,5 +1,5 @@
 <!--pages/markets/markets.wxml-->
-<!-- 市场页 v4.0：5Tab + GICS热力图 -->
+<!-- 市场页 v4.1：5Tab + GICS热力图 + 竖版因果链 + SelectorQuery自适应高度 -->
 
 <skeleton type="markets" loading="{{loading}}" rows="{{4}}" />
 
@@ -19,158 +19,278 @@
           current="{{activeTab}}" 
           bindchange="onSwiperChange"
           duration="{{250}}"
-          style="height: {{swiperHeight || '1200rpx'}}">
+          style="height: {{swiperHeights[activeTab] || '1400rpx'}}">
     
-    <!-- 美股 -->
+    <!-- 美股 Tab 0 -->
     <swiper-item>
       <scroll-view scroll-y class="market-scroll">
-        <view class="market-list-card">
-          <view class="market-list-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
-                wx:for="{{usMarkets}}" wx:key="name"
-                style="animation-delay: {{item.animDelay}}ms">
-            <view class="ml-left">
-              <view class="ml-name">{{item.name}}</view>
-              <view class="ml-price">{{item.price}}</view>
-            </view>
-            <view class="ml-center">
-              <mini-chart data="{{item.sparkline}}" width="{{130}}" height="{{42}}" isUp="{{item.isUp}}" chartId="{{item.chartId}}" />
-            </view>
-            <view class="ml-right">
-              <view class="ml-change-badge {{item.colorClass}}">{{item.changeText}}</view>
-              <view class="ml-label" wx:if="{{item.changeLabel}}">{{item.changeLabel}}</view>
-            </view>
-          </view>
-        </view>
-        <view class="market-comment {{animateReady ? 'comment-show' : ''}}" wx:if="{{usInsight}}">
-          <text class="comment-icon">💡</text>
-          <text class="comment-text">{{usInsight}}</text>
-        </view>
-        <!-- GICS板块热力图 -->
-        <view class="gics-section" wx:if="{{gics.length}}">
-          <view class="gics-title">GICS 11板块轮动</view>
-          <view class="gics-grid">
-            <view class="gics-item {{item.isUp ? 'gics-up' : 'gics-down'}}" wx:for="{{gics}}" wx:key="etf">
-              <view class="gics-name">{{item.name}}</view>
-              <view class="gics-change {{item.colorClass}}">{{item.changeText}}</view>
-              <view class="gics-bar">
-                <view class="gics-bar-fill {{item.isUp ? 'bar-up' : 'bar-down'}}" style="width: {{(item.change > 0 ? item.change : -item.change) * 25}}%"></view>
+        <view class="tab-content-wrap tab-wrap-0">
+          <view class="market-list-card">
+            <view class="market-list-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
+                  wx:for="{{usMarkets}}" wx:key="name"
+                  style="animation-delay: {{item.animDelay}}ms">
+              <view class="ml-left">
+                <view class="ml-name">{{item.name}}</view>
+                <view class="ml-price">{{item.price}}</view>
+              </view>
+              <view class="ml-center">
+                <mini-chart data="{{item.sparkline}}" width="{{130}}" height="{{42}}" isUp="{{item.isUp}}" chartId="{{item.chartId}}" />
+              </view>
+              <view class="ml-right">
+                <view class="ml-change-badge {{item.colorClass}}">{{item.changeText}}</view>
+                <view class="ml-label" wx:if="{{item.changeLabel}}">{{item.changeLabel}}</view>
               </view>
             </view>
           </view>
-          <view class="market-comment {{animateReady ? 'comment-show' : ''}}" wx:if="{{gicsInsight}}">
+          <!-- 美股因果链解读（优先）/ 纯文本洞察降级兜底 -->
+          <view class="insight-chain {{animateReady ? 'comment-show' : ''}}" wx:if="{{usInsightChain.length}}">
+            <view class="chain-header">
+              <text class="chain-icon">💡</text>
+              <text class="chain-title">信号解读</text>
+            </view>
+            <view class="chain-body">
+              <view class="chain-node" wx:for="{{usInsightChain}}" wx:key="label">
+                <view class="chain-node-left">
+                  <view class="chain-dot">{{item.icon}}</view>
+                  <view class="chain-line" wx:if="{{index < usInsightChain.length - 1}}"></view>
+                </view>
+                <view class="chain-node-right">
+                  <view class="chain-label">{{item.label}}</view>
+                  <view class="chain-text">{{item.text}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="market-comment {{animateReady ? 'comment-show' : ''}}" wx:elif="{{usInsight}}">
             <text class="comment-icon">💡</text>
-            <text class="comment-text">{{gicsInsight}}</text>
+            <text class="comment-text">{{usInsight}}</text>
           </view>
-        </view>
+          <!-- GICS板块热力图 -->
+          <view class="gics-section" wx:if="{{gics.length}}">
+            <view class="gics-title">GICS 11板块轮动</view>
+            <view class="gics-grid">
+              <view class="gics-item {{item.isUp ? 'gics-up' : 'gics-down'}}" wx:for="{{gics}}" wx:key="etf">
+                <view class="gics-name">{{item.name}}</view>
+                <view class="gics-change {{item.colorClass}}">{{item.changeText}}</view>
+                <view class="gics-bar">
+                  <view class="gics-bar-fill {{item.isUp ? 'bar-up' : 'bar-down'}}" style="width: {{item.barWidth}}%"></view>
+                </view>
+              </view>
+            </view>
+            <!-- GICS因果链解读（优先）/ 纯文本洞察降级兜底 -->
+            <view class="insight-chain {{animateReady ? 'comment-show' : ''}}" wx:if="{{gicsInsightChain.length}}">
+              <view class="chain-header">
+                <text class="chain-icon">💡</text>
+                <text class="chain-title">板块解读</text>
+              </view>
+              <view class="chain-body">
+                <view class="chain-node" wx:for="{{gicsInsightChain}}" wx:key="label">
+                  <view class="chain-node-left">
+                    <view class="chain-dot">{{item.icon}}</view>
+                    <view class="chain-line" wx:if="{{index < gicsInsightChain.length - 1}}"></view>
+                  </view>
+                  <view class="chain-node-right">
+                    <view class="chain-label">{{item.label}}</view>
+                    <view class="chain-text">{{item.text}}</view>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <view class="market-comment {{animateReady ? 'comment-show' : ''}}" wx:elif="{{gicsInsight}}">
+              <text class="comment-icon">💡</text>
+              <text class="comment-text">{{gicsInsight}}</text>
+            </view>
+          </view>
+        </view><!-- /tab-wrap-0 -->
       </scroll-view>
     </swiper-item>
 
-    <!-- M7巨头 -->
+    <!-- M7巨头 Tab 1 -->
     <swiper-item>
       <scroll-view scroll-y class="market-scroll">
-        <view class="m7-header">
-          <text class="m7-title">🏆 Magnificent Seven</text>
-          <text class="m7-subtitle">科技七巨头实时行情</text>
-        </view>
-        <view class="market-list-card">
-          <view class="market-list-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
-                wx:for="{{m7}}" wx:key="name"
-                style="animation-delay: {{item.animDelay}}ms">
-            <view class="ml-left">
-              <view class="ml-name">{{item.name}}</view>
-              <view class="ml-price">{{item.price}}</view>
-            </view>
-            <view class="ml-center">
-              <mini-chart data="{{item.sparkline}}" width="{{130}}" height="{{42}}" isUp="{{item.isUp}}" chartId="{{item.chartId}}" />
-            </view>
-            <view class="ml-right">
-              <view class="ml-change-badge {{item.colorClass}}">{{item.changeText}}</view>
+        <view class="tab-content-wrap tab-wrap-1">
+          <view class="m7-header">
+            <text class="m7-title">🏆 Magnificent Seven</text>
+            <text class="m7-subtitle">科技七巨头实时行情</text>
+          </view>
+          <view class="market-list-card">
+            <view class="market-list-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
+                  wx:for="{{m7}}" wx:key="name"
+                  style="animation-delay: {{item.animDelay}}ms">
+              <view class="ml-left">
+                <view class="ml-name">{{item.name}}</view>
+                <view class="ml-price">{{item.price}}</view>
+              </view>
+              <view class="ml-center">
+                <mini-chart data="{{item.sparkline}}" width="{{130}}" height="{{42}}" isUp="{{item.isUp}}" chartId="{{item.chartId}}" />
+              </view>
+              <view class="ml-right">
+                <view class="ml-change-badge {{item.colorClass}}">{{item.changeText}}</view>
+              </view>
             </view>
           </view>
-        </view>
-        <view class="market-comment {{animateReady ? 'comment-show' : ''}}" wx:if="{{m7Insight}}">
-          <text class="comment-icon">💡</text>
-          <text class="comment-text">{{m7Insight}}</text>
-        </view>
+          <view class="insight-chain {{animateReady ? 'comment-show' : ''}}" wx:if="{{m7InsightChain.length}}">
+            <view class="chain-header">
+              <text class="chain-icon">💡</text>
+              <text class="chain-title">信号解读</text>
+            </view>
+            <view class="chain-body">
+              <view class="chain-node" wx:for="{{m7InsightChain}}" wx:key="label">
+                <view class="chain-node-left">
+                  <view class="chain-dot">{{item.icon}}</view>
+                  <view class="chain-line" wx:if="{{index < m7InsightChain.length - 1}}"></view>
+                </view>
+                <view class="chain-node-right">
+                  <view class="chain-label">{{item.label}}</view>
+                  <view class="chain-text">{{item.text}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="market-comment {{animateReady ? 'comment-show' : ''}}" wx:elif="{{m7Insight}}">
+            <text class="comment-icon">💡</text>
+            <text class="comment-text">{{m7Insight}}</text>
+          </view>
+        </view><!-- /tab-wrap-1 -->
       </scroll-view>
     </swiper-item>
 
-    <!-- 亚太 -->
+    <!-- 亚太 Tab 2 -->
     <swiper-item>
       <scroll-view scroll-y class="market-scroll">
-        <view class="market-list-card">
-          <view class="market-list-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
-                wx:for="{{asiaMarkets}}" wx:key="name"
-                style="animation-delay: {{item.animDelay}}ms">
-            <view class="ml-left">
-              <view class="ml-name">{{item.name}}</view>
-              <view class="ml-price">{{item.price}}</view>
-            </view>
-            <view class="ml-center">
-              <mini-chart data="{{item.sparkline}}" width="{{130}}" height="{{42}}" isUp="{{item.isUp}}" chartId="{{item.chartId}}" />
-            </view>
-            <view class="ml-right">
-              <view class="ml-change-badge {{item.colorClass}}">{{item.changeText}}</view>
-              <view class="ml-label" wx:if="{{item.changeLabel}}">{{item.changeLabel}}</view>
+        <view class="tab-content-wrap tab-wrap-2">
+          <view class="market-list-card">
+            <view class="market-list-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
+                  wx:for="{{asiaMarkets}}" wx:key="name"
+                  style="animation-delay: {{item.animDelay}}ms">
+              <view class="ml-left">
+                <view class="ml-name">{{item.name}}</view>
+                <view class="ml-price">{{item.price}}</view>
+              </view>
+              <view class="ml-center">
+                <mini-chart data="{{item.sparkline}}" width="{{130}}" height="{{42}}" isUp="{{item.isUp}}" chartId="{{item.chartId}}" />
+              </view>
+              <view class="ml-right">
+                <view class="ml-change-badge {{item.colorClass}}">{{item.changeText}}</view>
+                <view class="ml-label" wx:if="{{item.changeLabel}}">{{item.changeLabel}}</view>
+              </view>
             </view>
           </view>
-        </view>
-        <view class="market-comment {{animateReady ? 'comment-show' : ''}}" wx:if="{{asiaInsight}}">
-          <text class="comment-icon">💡</text>
-          <text class="comment-text">{{asiaInsight}}</text>
-        </view>
+          <view class="insight-chain {{animateReady ? 'comment-show' : ''}}" wx:if="{{asiaInsightChain.length}}">
+            <view class="chain-header">
+              <text class="chain-icon">💡</text>
+              <text class="chain-title">信号解读</text>
+            </view>
+            <view class="chain-body">
+              <view class="chain-node" wx:for="{{asiaInsightChain}}" wx:key="label">
+                <view class="chain-node-left">
+                  <view class="chain-dot">{{item.icon}}</view>
+                  <view class="chain-line" wx:if="{{index < asiaInsightChain.length - 1}}"></view>
+                </view>
+                <view class="chain-node-right">
+                  <view class="chain-label">{{item.label}}</view>
+                  <view class="chain-text">{{item.text}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="market-comment {{animateReady ? 'comment-show' : ''}}" wx:elif="{{asiaInsight}}">
+            <text class="comment-icon">💡</text>
+            <text class="comment-text">{{asiaInsight}}</text>
+          </view>
+        </view><!-- /tab-wrap-2 -->
       </scroll-view>
     </swiper-item>
 
-    <!-- 大宗 -->
+    <!-- 大宗 Tab 3 -->
     <swiper-item>
       <scroll-view scroll-y class="market-scroll">
-        <view class="market-list-card">
-          <view class="market-list-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
-                wx:for="{{commodities}}" wx:key="name"
-                style="animation-delay: {{item.animDelay}}ms">
-            <view class="ml-left">
-              <view class="ml-name">{{item.name}}</view>
-              <view class="ml-price">{{item.price}}</view>
-            </view>
-            <view class="ml-center">
-              <mini-chart data="{{item.sparkline}}" width="{{130}}" height="{{42}}" isUp="{{item.isUp}}" chartId="{{item.chartId}}" />
-            </view>
-            <view class="ml-right">
-              <view class="ml-change-badge {{item.colorClass}}">{{item.changeText}}</view>
+        <view class="tab-content-wrap tab-wrap-3">
+          <view class="market-list-card">
+            <view class="market-list-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
+                  wx:for="{{commodities}}" wx:key="name"
+                  style="animation-delay: {{item.animDelay}}ms">
+              <view class="ml-left">
+                <view class="ml-name">{{item.name}}</view>
+                <view class="ml-price">{{item.price}}</view>
+              </view>
+              <view class="ml-center">
+                <mini-chart data="{{item.sparkline}}" width="{{130}}" height="{{42}}" isUp="{{item.isUp}}" chartId="{{item.chartId}}" />
+              </view>
+              <view class="ml-right">
+                <view class="ml-change-badge {{item.colorClass}}">{{item.changeText}}</view>
+              </view>
             </view>
           </view>
-        </view>
-        <view class="market-comment {{animateReady ? 'comment-show' : ''}}" wx:if="{{commodityInsight}}">
-          <text class="comment-icon">💡</text>
-          <text class="comment-text">{{commodityInsight}}</text>
-        </view>
+          <view class="insight-chain {{animateReady ? 'comment-show' : ''}}" wx:if="{{commodityInsightChain.length}}">
+            <view class="chain-header">
+              <text class="chain-icon">💡</text>
+              <text class="chain-title">信号解读</text>
+            </view>
+            <view class="chain-body">
+              <view class="chain-node" wx:for="{{commodityInsightChain}}" wx:key="label">
+                <view class="chain-node-left">
+                  <view class="chain-dot">{{item.icon}}</view>
+                  <view class="chain-line" wx:if="{{index < commodityInsightChain.length - 1}}"></view>
+                </view>
+                <view class="chain-node-right">
+                  <view class="chain-label">{{item.label}}</view>
+                  <view class="chain-text">{{item.text}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="market-comment {{animateReady ? 'comment-show' : ''}}" wx:elif="{{commodityInsight}}">
+            <text class="comment-icon">💡</text>
+            <text class="comment-text">{{commodityInsight}}</text>
+          </view>
+        </view><!-- /tab-wrap-3 -->
       </scroll-view>
     </swiper-item>
 
-    <!-- 加密 -->
+    <!-- 加密 Tab 4 -->
     <swiper-item>
       <scroll-view scroll-y class="market-scroll">
-        <view class="market-list-card">
-          <view class="market-list-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
-                wx:for="{{cryptos}}" wx:key="name"
-                style="animation-delay: {{item.animDelay}}ms">
-            <view class="ml-left">
-              <view class="ml-name">{{item.name}}</view>
-              <view class="ml-price">{{item.price}}</view>
-            </view>
-            <view class="ml-center">
-              <mini-chart data="{{item.sparkline}}" width="{{130}}" height="{{42}}" isUp="{{item.isUp}}" chartId="{{item.chartId}}" />
-            </view>
-            <view class="ml-right">
-              <view class="ml-change-badge {{item.colorClass}}">{{item.changeText}}</view>
+        <view class="tab-content-wrap tab-wrap-4">
+          <view class="market-list-card">
+            <view class="market-list-item stagger-item {{animateReady ? 'stagger-show' : ''}}" 
+                  wx:for="{{cryptos}}" wx:key="name"
+                  style="animation-delay: {{item.animDelay}}ms">
+              <view class="ml-left">
+                <view class="ml-name">{{item.name}}</view>
+                <view class="ml-price">{{item.price}}</view>
+              </view>
+              <view class="ml-center">
+                <mini-chart data="{{item.sparkline}}" width="{{130}}" height="{{42}}" isUp="{{item.isUp}}" chartId="{{item.chartId}}" />
+              </view>
+              <view class="ml-right">
+                <view class="ml-change-badge {{item.colorClass}}">{{item.changeText}}</view>
+              </view>
             </view>
           </view>
-        </view>
-        <view class="market-comment {{animateReady ? 'comment-show' : ''}}" wx:if="{{cryptoInsight}}">
-          <text class="comment-icon">💡</text>
-          <text class="comment-text">{{cryptoInsight}}</text>
-        </view>
+          <view class="insight-chain {{animateReady ? 'comment-show' : ''}}" wx:if="{{cryptoInsightChain.length}}">
+            <view class="chain-header">
+              <text class="chain-icon">💡</text>
+              <text class="chain-title">信号解读</text>
+            </view>
+            <view class="chain-body">
+              <view class="chain-node" wx:for="{{cryptoInsightChain}}" wx:key="label">
+                <view class="chain-node-left">
+                  <view class="chain-dot">{{item.icon}}</view>
+                  <view class="chain-line" wx:if="{{index < cryptoInsightChain.length - 1}}"></view>
+                </view>
+                <view class="chain-node-right">
+                  <view class="chain-label">{{item.label}}</view>
+                  <view class="chain-text">{{item.text}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="market-comment {{animateReady ? 'comment-show' : ''}}" wx:elif="{{cryptoInsight}}">
+            <text class="comment-icon">💡</text>
+            <text class="comment-text">{{cryptoInsight}}</text>
+          </view>
+        </view><!-- /tab-wrap-4 -->
       </scroll-view>
     </swiper-item>
   </swiper>

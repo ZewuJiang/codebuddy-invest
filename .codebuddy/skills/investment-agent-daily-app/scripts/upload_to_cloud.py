@@ -93,7 +93,7 @@ ARRAY_LENGTH_RULES = {
         "gics":        (11, 11),
     },
     "watchlist": {
-        "sectors": (7, 7),
+        "sectors": (5, 5),   # v2.0 新5板块：ai_infra/ai_app/cn_ai/smart_money/hot_topic
     },
     "radar":     {
         "trafficLights": (7, 7),

@@ -1,8 +1,60 @@
-# 数据采集SOP — App版（v1.3）
+# 数据采集SOP — App版（v1.5）
 
 > **用途**：投研鸭小程序数据生产第一阶段数据采集的完整操作规范，含情绪与预测数据采集（Batch A）。
 > **核心原则**：数据完整性第一，精确到小数点后两位，严禁空位和模糊表述。
 > **与原 Skill 的差异**：额外需要采集 sparkline（7天历史）、chartData（30天历史）、metrics 指标、个股分析文本。
+
+---
+
+## 零、数据分类隔离规则（v1.4 新增 — 最高优先级）
+
+> ⚠️ **本章是所有采集批次的前置约束，任何批次的操作都不得违反本章规则。**
+
+### 0.1 两类数据的定义与合法数据源
+
+| 数据类型 | 定义 | 合法数据源（必须用） | 禁止来源 |
+|---------|------|------------------|---------|
+| **交易数据** | 价格、涨跌幅、汇率、sparkline历史序列、成交量、指数点位 | **直接行情平台**：Google Finance (web_fetch) / yfinance API / AkShare API / OilPrice.com / FRED / 东方财富行情接口 / 同花顺行情接口 / CoinGecko | 任何新闻网站、财经媒体文章（Bloomberg/Reuters/CNBC/华尔街见闻/金十数据等）|
+| **观点/事件/评论数据** | 事件背景、市场分析、机构判断、聪明钱动向、预测性观点 | 媒体网站（Bloomberg/Reuters/WSJ/FT/CNBC/华尔街见闻/第一财经等）| 不限（媒体是这类数据的合法来源）|
+
+### 0.2 交叉污染禁止清单（零容忍）
+
+以下行为视同 **RULE ZERO-A 违规**，触发阻断：
+
+| 违规行为 | 示例 | 处理 |
+|---------|------|------|
+| 从新闻文章中提取股价/涨跌幅 | 读 Reuters 新闻："标普500下跌1.02%" → 直接写入 markets.json | **阻断，回到 Google Finance 重采** |
+| 从财经媒体标题推算价格 | 看到"黄金创新高"新闻 → 估算价格 | **阻断，回到行情源采集** |
+| 用训练数据里的历史汇率填充 | CNH写7.24（2024年旧数据）| **阻断，必须从 AkShare/行情源获取当日值** |
+| 对 sparkline 使用线性估算 | 只有当日价格，手动推算7天序列 | **阻断，回到 yfinance/AkShare 重采** |
+| 用新闻转述价格补全缺失字段 | 某标的 Google Finance 超时，从 CNBC 新闻里读到价格 | **阻断，切换备选行情源（非新闻源）** |
+| **⚠️ 直接使用 web_search snippet 里的价格数字** | `web_search "DXY close"` → snippet 里显示"103.45"（来源：某财经媒体）→ 直接写入 JSON | **阻断。snippet 本质是媒体文章摘要，同样禁止。必须 `web_fetch` 到实际行情页面核实** |
+| **⚠️ insightChain 文字中的数字与 price/change 字段不一致** | `usMarkets[VIX].change = -2.73`，但 `usInsightChain[].text = "VIX急升至27.3"` — 方向矛盾 | **阻断，JSON 生成阶段必须用 price/change 字段的值反向校验 insightChain 文字中的数字** |
+
+### 0.3 批次前置自查（每个批次执行前必查）
+
+```
+在执行任何采集批次前，先问自己：
+① 我即将采集的是「交易数据」还是「观点/事件数据」？
+② 如果是交易数据 → 我的数据源是直接行情平台吗？（Google Finance/yfinance/AkShare/FRED等）
+③ 如果不是直接行情平台 → 停止！切换到正确的数据源后再继续
+④ 交易数据采集成功后，可追溯到具体的 web_fetch URL 或 API 调用吗？
+   不能 → 视为训练数据污染，阻断发布
+```
+
+### 0.4 各类数据对应的合法获取方式速查
+
+| 交易数据字段 | 合法获取方式 |
+|------------|------------|
+| 美股价格/涨跌幅 | `web_fetch: https://www.google.com/finance/quote/{TICKER}:{EXCHANGE}` |
+| 美股 7 天 sparkline | `yfinance.download(ticker, period="10d")["Close"]` |
+| 亚太指数 | 东方财富/同花顺行情接口，或 `web_fetch` Google Finance |
+| 黄金/原油实时价格 | `web_fetch: https://oilprice.com/commodity-price-charts/` |
+| 离岸人民币 CNH 汇率 | `ak.forex_hist_em("USDCNH")` 东方财富接口 |
+| 10Y美债收益率 | `web_fetch: https://fred.stlouisfed.org/series/DGS10` 或 web_search |
+| DXY 美元指数 | `web_search "DXY dollar index close YYYY-MM-DD"` → 核实来源为 ICE/Investing.com 等行情平台 |
+| BTC/ETH 价格 | `web_fetch: https://www.google.com/finance/quote/BTC-USD` 或 CoinGecko API |
+| VIX | `web_fetch: https://www.google.com/finance/quote/VIX:INDEXCBOE` |
 
 ---
 
@@ -117,30 +169,40 @@ web_search: "{公司名} {TICKER} latest earnings analysis 2026"
 
 ---
 
-## 四、sparkline 数据采集规范（v1.2）
+## 四、sparkline 数据采集规范（方案A v1.5）
 
-### 4.1 唯一合法方式（真实历史序列）
+### 4.1 双轨分工说明（方案A）
 
-从 yfinance/AkShare 直接获取近 7-30 天的真实收盘价历史序列。
+| 字段 | 谁负责 | 方式 |
+|------|--------|------|
+| `sparkline`（7天历史序列） | **脚本** `refresh_verified_snapshot.py v2.0` | yfinance 批量下载，在第三阶段自动补全 |
+| `chartData`（30天历史序列） | **脚本** `refresh_verified_snapshot.py v2.0` | yfinance 批量下载，在第三阶段自动补全 |
+| `price` / `change` | **AI** 从 Google Finance 等行情源直采 | RULE ZERO-A 保障 |
 
-```python
-# yfinance 批量获取（美股）
-last, prev, last7, last30 = yf_daily(ticker, period="40d")
+**AI 在第一阶段不需要采集 sparkline/chartData 的历史序列**。第一阶段只需采集当日价格和涨跌幅（用于 price/change 字段）；sparkline/chartData 由脚本在第三阶段自动从 yfinance 补全。
 
-# AkShare 港股
-last30 = ak.stock_hk_daily(symbol=symbol, adjust="")["close"].tail(30).tolist()
+> ⚠️ **例外**：港股（0700.HK / 3690.HK / 9992.HK）和 A股（300750.SZ / 002594.SZ）的 sparkline/chartData，yfinance 数据质量不稳定，脚本会跳过这些标的。AI 需要在第一阶段采集这些标的的历史走势（可从东方财富/同花顺行情页获取），手动填入 sparkline 数组。
 
-# AkShare A股
-last30 = ak.stock_zh_a_daily(symbol=symbol, ...)["close"].tail(30).tolist()
+### 4.2 港股/A股 sparkline 采集方式
+
+```
+# 港股历史收盘价（东方财富/同花顺行情页）
+web_fetch: https://quote.eastmoney.com/hk/03690.html
+# 或: AkShare 接口（AI 不能直接调用，但可在行情页面读取图表数据）
+
+# A股历史收盘价（东方财富行情页）
+web_fetch: https://quote.eastmoney.com/sz300750.html
 ```
 
-### 4.2 禁止事项（v1.2强制）
+取近7天收盘价构成 sparkline 数组，近30天收盘价构成 chartData 数组。
+
+### 4.3 禁止事项（方案A 不变）
 
 - **禁止**基于当日价格 ± 随机波动估算
 - **禁止**用线性插值/扩展生成 chartData
-- 如果历史数据真的无法获取 → **回到采集批次重试；仍失败 → 阻断发布**
+- **美股 sparkline/chartData 不需要 AI 手动采集**——脚本 v2.0 自动处理
 
-> v1.2 变更：完全移除估算降级路径，sparkline/chartData 只允许真实历史序列。
+> v1.5 变更：方案A 下美股/主要指数的 sparkline 完全由脚本负责，AI 采集工作量大幅降低。只有港股/A股需要 AI 在第一阶段手动采集历史走势。
 
 ---
 
@@ -160,23 +222,25 @@ last30 = ak.stock_zh_a_daily(symbol=symbol, ...)["close"].tail(30).tolist()
 | 8 | markets: asiaMarkets | ≥4项+sparkline | 回到2补采 |
 | 9 | markets: commodities | 6项+sparkline | 回到3补采 |
 | 10 | markets: gics | 11项 | 回到1c补采 |
-| 11 | watchlist: 每板块≥2只 | 7板块全覆盖 | 回到5补采 |
+| 11 | watchlist: 4个核心板块每板块≥2只 | ai_infra/ai_app/cn_ai/smart_money 全覆盖，hot_topic可为空 | 回到5补采 |
 | 12 | watchlist: 每只标的metrics | 6项 | 补充搜索 |
 | 13 | radar: trafficLights | 7项 | 补充数据 |
 | 14 | radar: riskAlerts | ≥2条 | 补充分析 |
 | 15 | radar: events | ≥3条 | 补充搜索 |
 | 16 | radar: smartMoneyDetail | 3梯队 | 补充扫描 |
 | **17** | **markets: 6个板块Insight** | **usInsight/m7Insight/asiaInsight/commodityInsight/cryptoInsight/gicsInsight，每个30-80字** | **基于已采集数据分析提炼** |
+| **18** | **markets: 6个板块 insightChain** | **usInsightChain/m7InsightChain/asiaInsightChain/commodityInsightChain/cryptoInsightChain/gicsInsightChain，每个数组3条，每条包含 icon/label/text** | **基于已采集数据生成；text 中的数字必须与对应 price/change 字段一致** |
+| **19** | **⭐ 数字一致性交叉校验（强制）** | **insightChain/insight 文字中出现的任何价格、涨跌幅、数字，必须与 markets.json 对应字段的 price/change 值一致，禁止矛盾（如 change=-2.73 但文字写"上涨"）** | **JSON 生成阶段逐一核对，不一致→修改文字使其对齐字段值** |
 
 **⭐ 可选字段建议检查（非阻断，未填充时前端对应模块不渲染）**：
 
 | # | 验证项 | 要求 | 未填时操作 |
 |---|--------|------|-----------|
-| 18 | briefing: keyDeltas（建议） | 3-5条，每条 title+status(枚举)+heat(1-5)+brief | 参照 Batch A 或媒体扫描提炼3-5条增量信息 |
-| 19 | briefing: timeStatus（建议） | bjt+est+marketStatus(枚举)+refreshInterval | 根据当前时间推算填入，或省略（前端自行计算时区） |
+| 19 | briefing: keyDeltas（建议） | 3-5条，每条 title+status(枚举)+heat(1-5)+brief | 参照 Batch A 或媒体扫描提炼3-5条增量信息 |
+| 18 | briefing: timeStatus（建议） | bjt+est+marketStatus(枚举)+refreshInterval | 根据当前时间推算填入，或省略（前端自行计算时区） |
 | 20 | radar: fearGreed（建议） | value(0-100)+label(枚举)+previousClose+oneWeekAgo+oneMonthAgo | 参照 Batch A 采集的 CNN F&G 数据填入；获取失败则省略该字段 |
 | 21 | radar: predictions（建议） | 2-4条，每条 title+source(枚举)+probability(0-100)+trend(枚举)+change24h | 参照 Batch A 采集的 Polymarket/Kalshi/CME FedWatch 数据；获取失败则省略该字段 |
-| 22 | 所有JSON: _meta（建议） | sourceType="heavy_analysis"+generatedAt(ISO8601)+skillVersion | 固定值填写：sourceType 固定为 "heavy_analysis"；generatedAt 为执行时间；skillVersion 为当前 Skill 版本号（如 "v1.4"） |
+| 22 | 所有JSON: _meta（建议） | sourceType="heavy_analysis"+generatedAt(ISO8601)+skillVersion | 固定值填写：sourceType 固定为 "heavy_analysis"；generatedAt 为执行时间（+08:00）；skillVersion 为当前 Skill 版本号（当前 "v3.0"） |
 
 ---
 
@@ -200,7 +264,7 @@ last30 = ak.stock_zh_a_daily(symbol=symbol, ...)["close"].tail(30).tolist()
 
 ---
 
-## 七、板块 Insight 生成规范（v1.2.1 新增）
+## 七、板块 Insight 生成规范（v1.3 新增）
 
 > **生成时机**：在第二阶段"结构化 JSON 生成"时，基于已采集的数据自动提炼每个板块的 Insight。
 > **生成方式**：AI 分析当日采集数据，提炼核心驱动力+关键数字+信号判断。
@@ -415,6 +479,8 @@ web_search: "美联储6月降息概率 CME FedWatch"
 
 ---
 
+> v1.5 — 2026-04-03 | **方案A 双轨分工固化**：第四章「sparkline 数据采集规范」全面改写为方案A模式——①美股/主要指数 sparkline/chartData 完全由脚本 v2.0 负责，AI 第一阶段不再采集美股历史走势；②港股/A股 sparkline 脚本跳过，AI 需在第一阶段手动从东方财富/同花顺采集；③新增港股/A股采集方式说明（web_fetch 东方财富行情页）；④AI 采集工作量大幅降低，精力集中在价格/涨跌幅/分析文字等核心字段。
+> v1.4 — 2026-04-03 10:55 | 数据分类隔离规则全面固化（详见前版本日志）。
 > v1.3 — 2026-04-02 12:57 | 步骤2修复：(1) 文件标题/章节标题版本号统一为 v1.3；(2) 用途说明补充"含情绪与预测数据采集（Batch A）"；(3) 批次1a末尾删除"使用当日价格±模拟波动生成"危险旧残留（与第四章禁止估算原则直接矛盾），改为"回到批次重试；仍失败→阻断发布（禁止估算）"；(4) 第六章降级路径补充4条情绪数据降级路径（CNN F&G / Polymarket / Kalshi / CME FedWatch），与第八章 Batch A SOP 完整衔接。
 > v1.3 — 2026-04-02 | 新增第八章"Batch A 情绪与预测数据采集SOP"：定义 CNN Fear&Greed / Polymarket / Kalshi / CME FedWatch 四个子批次的采集方式、字段映射、失败处理规则和汇总逻辑；采集批次总览表新增 Batch A 行（适用全工作日，可选非阻断）；验证门禁新增第18-22项可选字段建议检查（⭐ 非阻断）；明确 keyDeltas 生成逻辑（JSON生成阶段 AI 提炼，非行情直采）。
 > v1.2.1 — 2026-04-02 00:21 | 新增第七章"板块 Insight 生成规范"：定义6个板块级Insight字段的生成规范、内容要点和示例；数据完整性门禁新增第17项Insight验证。

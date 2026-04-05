@@ -218,8 +218,13 @@
   </section-card>
 
   <!-- 风险提示 -->
-  <section-card title="⚠️ 风险提示" extraClass="risk-card" borderColor="#e74c3c">
-    <view class="risk-text">{{riskNote}}</view>
+  <section-card title="🛡️ 风险提示" extraClass="risk-card" borderColor="#e74c3c">
+    <view class="risk-item" wx:for="{{riskPoints}}" wx:key="index">
+      <text class="risk-dot">•</text>
+      <text class="risk-item-text">{{item}}</text>
+    </view>
+    <!-- 兼容旧格式 -->
+    <view class="risk-text" wx:if="{{!riskPoints.length && riskNote}}">{{riskNote}}</view>
   </section-card>
 
   <!-- 数据更新时间 -->

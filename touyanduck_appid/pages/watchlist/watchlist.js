@@ -1,5 +1,5 @@
 // pages/watchlist/watchlist.js
-// 标的页 v4.0 — 展开/收起态 + 7板块22标的
+// 标的页 v5.0 — 5板块新架构（AI算力链/AI应用/国产AI/聪明钱/本期热点）
 
 var api = require('../../services/api')
 var colorUtil = require('../../utils/color')
@@ -7,7 +7,7 @@ var colorUtil = require('../../utils/color')
 Page({
   data: {
     loading: true,
-    activeSector: 'ai',
+    activeSector: 'ai_infra',
     sectors: [],
     currentSector: null,
     stocks: [],
@@ -121,7 +121,7 @@ Page({
 
   _applyData: function(data) {
     var that = this
-    that._allStockData = data.stocks || {}
+    that._allStockData = JSON.parse(JSON.stringify(data.stocks || {}))
 
     // 优先使用云数据中的 dataTime
     var dataTime = data.dataTime

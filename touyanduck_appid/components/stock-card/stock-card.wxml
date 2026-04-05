@@ -1,15 +1,16 @@
-<!-- stock-card 组件 v4.0 — 展开/收起态 -->
-<view class="stock-card-wrap {{showCard ? 'card-enter-show' : 'card-enter'}}" bindtap="toggleExpand">
+<!-- stock-card 组件 v5.0 — 支持 badges 特殊标签 + 未上市标的 -->
+<view class="stock-card-wrap {{showCard ? 'card-enter-show' : 'card-enter'}} {{isUnlisted ? 'unlisted-card' : ''}}" bindtap="toggleExpand">
   <!-- 收起态：名称 + 走势图 + 涨跌幅 -->
   <view class="sc-header">
     <view class="sc-name-area">
       <view class="sc-name">{{stock.name}}</view>
       <view class="sc-symbol-price">
         <text class="sc-symbol">{{stock.symbol}}</text>
-        <text class="sc-price" wx:if="{{stock.price}}">{{stock.price}}</text>
+        <text class="sc-price" wx:if="{{stock.price && !isUnlisted}}">{{stock.price}}</text>
+        <text class="sc-unlisted-label" wx:if="{{isUnlisted}}">未上市</text>
       </view>
     </view>
-    <view class="sc-chart-area" wx:if="{{stock.sparkline && stock.sparkline.length > 0}}">
+    <view class="sc-chart-area" wx:if="{{!isUnlisted && stock.sparkline && stock.sparkline.length > 0}}">
       <mini-chart 
         data="{{stock.sparkline}}" 
         width="{{140}}" 
@@ -17,10 +18,18 @@
         isUp="{{isUp}}"
         chartId="{{chartId}}" />
     </view>
-    <view class="sc-right">
+    <view class="sc-right" wx:if="{{!isUnlisted}}">
       <view class="sc-change {{changeColorClass}}">{{changeText}}</view>
       <view class="sc-expand-hint">{{expanded ? '收起' : '展开'}} {{expanded ? '︿' : '﹀'}}</view>
     </view>
+    <view class="sc-right" wx:if="{{isUnlisted}}">
+      <view class="sc-expand-hint">{{expanded ? '收起' : '展开'}} {{expanded ? '︿' : '﹀'}}</view>
+    </view>
+  </view>
+
+  <!-- badges 特殊标签（聪明钱/已汇报等） -->
+  <view class="sc-badges" wx:if="{{stock.badges && stock.badges.length > 0}}">
+    <view class="badge {{badgeClass}}" wx:for="{{stock.badges}}" wx:for-item="badgeItem" wx:key="*this">{{badgeItem}}</view>
   </view>
 
   <!-- 收起态：一句话逻辑 -->
@@ -34,8 +43,8 @@
   <!-- ===== 展开态内容 ===== -->
   <view class="sc-detail {{expanded ? 'detail-show' : 'detail-hide'}}" catchtap="">
 
-    <!-- 30日走势大图 -->
-    <view class="sc-chart-large" wx:if="{{expanded && stock.chartData && stock.chartData.length > 0}}">
+    <!-- 30日走势大图（仅已上市标的） -->
+    <view class="sc-chart-large" wx:if="{{expanded && !isUnlisted && stock.chartData && stock.chartData.length > 0}}">
       <view class="sc-chart-title">30日走势</view>
       <mini-chart 
         data="{{stock.chartData}}" 
@@ -45,8 +54,8 @@
         chartId="{{'lg_' + chartId}}" />
     </view>
 
-    <!-- 关键指标6宫格 -->
-    <view class="sc-metrics" wx:if="{{expanded && stock.metrics && stock.metrics.length > 0}}">
+    <!-- 关键指标6宫格（仅已上市标的） -->
+    <view class="sc-metrics" wx:if="{{expanded && !isUnlisted && stock.metrics && stock.metrics.length > 0}}">
       <view class="sc-metrics-title">关键指标</view>
       <view class="sc-metrics-grid">
         <view class="sc-metric-item" wx:for="{{stock.metrics}}" wx:for-item="metric" wx:key="label">
@@ -60,7 +69,7 @@
     <view class="sc-analysis" wx:if="{{expanded && stock.analysis}}">
       <view class="sc-analysis-title">
         <text class="ai-badge">AI</text>
-        <text>投资分析</text>
+        <text>{{isUnlisted ? '最新动态' : '投资分析'}}</text>
       </view>
       <view class="sc-analysis-text">{{stock.analysis}}</view>
     </view>

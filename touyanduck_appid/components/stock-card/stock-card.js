@@ -1,5 +1,5 @@
 /**
- * stock-card 组件 v4.0 — 展开/收起态（合并原stock-detail功能）
+ * stock-card 组件 v5.0 — 支持 badges 特殊标签 + 未上市标的
  */
 var colorUtil = require('../../utils/color')
 
@@ -23,6 +23,8 @@ Component({
     changeColorClass: 'color-flat',
     changeText: '--',
     isUp: true,
+    isUnlisted: false,
+    badgeClass: 'badge-default',
     chartId: '',
     showCard: false,
     expanded: false
@@ -45,10 +47,22 @@ Component({
   observers: {
     'stock': function(stock) {
       if (!stock || !stock.symbol) return
+      var isUnlisted = stock.listed === false
+      var changeText = '--'
+      var changeColorClass = 'color-flat'
+      var isUp = true
+
+      if (!isUnlisted) {
+        changeColorClass = colorUtil.getChangeColorClass(stock.change)
+        changeText = (stock.change > 0 ? '+' : '') + stock.change + '%'
+        isUp = stock.change >= 0
+      }
+
       this.setData({
-        changeColorClass: colorUtil.getChangeColorClass(stock.change),
-        changeText: (stock.change > 0 ? '+' : '') + stock.change + '%',
-        isUp: stock.change >= 0
+        changeColorClass: changeColorClass,
+        changeText: changeText,
+        isUp: isUp,
+        isUnlisted: isUnlisted
       })
     }
   },

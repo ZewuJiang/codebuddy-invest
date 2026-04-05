@@ -1,4 +1,4 @@
-# JSON Schema 完整字段规范（v1.9）
+# JSON Schema 完整字段规范（v2.2）
 
 > **用途**：定义投研鸭小程序 4 个 JSON 文件的精确字段规范。每个字段都对应小程序前端组件的一个渲染点。
 > **核心原则**：Schema 即契约。JSON 生成阶段必须逐字段对照本文件，不允许新增/缺失/改名字段。
@@ -10,7 +10,7 @@
 ## 一、briefing.json — 简报页
 
 **对应页面**：`pages/briefing/briefing.wxml` + `briefing.js`
-**涵盖模块**：时间状态栏（v1.3）、今日结论TAKEAWAY（v1.7）、今日重点事件（chain对象化 v1.7）、全球资产反应（note v1.7）、三大判断（含扩展字段v1.3）、行动建议（reason v1.7）、情绪仪表盘、聪明钱速览、风险提示、元数据（v1.3）
+**涵盖模块**：时间状态栏（v1.3）、今日结论TAKEAWAY（v1.7）、今日重点事件（chain对象化 v1.7）、全球资产反应（note v1.7）、三大判断（含扩展字段v1.3）、行动建议（reason v1.7）、情绪仪表盘、聪明钱速览、风险提示（v3.1 bullet point升级，🛡️图标）、元数据（v1.3）
 
 ```jsonc
 {
@@ -25,20 +25,25 @@
     //   夏令时 EDT（3月第2个周日 ~ 11月第1个周日）：纽约 = 北京时间 - 12小时
     //   冬令时 EST（其余时段）                   ：纽约 = 北京时间 - 13小时
     //   示例：北京 20:06 → 纽约夏令时 08:06 EDT ✅（错误写法：20:06-8=12:06 ❌，勿用UTC直接换算）
-    "marketStatus": "美股交易中",            // 🔸 string — 枚举：美股交易中 / 美股已收盘 / 盘前交易 / 盘后交易
+    "marketStatus": "美股交易中",            // 🔸 string — 枚举：美股交易中 / 美股已收盘 / 盘前交易 / 盘后交易 / 美股休市
     // ⚠️ 时区判断规则（北京时间 BJT = UTC+8，美东夏令时 EDT = UTC-4，冬令时 EST = UTC-5）：
     // BJT 21:30 ~ 次日04:00 → 美股交易中（EDT 9:30~16:00）
     // BJT 04:00 ~ 06:00    → 盘后交易（EDT 16:00~18:00）
     // BJT 13:30 ~ 21:30    → 盘前交易（EDT 22:00~9:30 次日）
     // 其余时段             → 美股已收盘
-    // 数据标注规则：globalReaction 中美股数据若非收盘值，必须在 dataTime 中注明「盘前」或「盘后」
+    // 美国公共假日（如耶稣受难日、感恩节、国庆日、圣诞节等）→ 美股休市
+    // 数据标注规则：globalReaction 中美股数据若非收盘值，必须在 dataTime 中注明「盘前」或「盘后」；休市日不需标注
     "refreshInterval": "每日更新"            // 🔸 string — 数据刷新频率说明
   },
 
   // ===== v1.7 新增：今日核心结论 TAKEAWAY =====
   "takeaway": "string",                     // 🔸 string — 30-80字，一句话宏观结论。要求：有立场、有行动方向、有条件（"如果X则Y"）；禁止：空洞废话、重复coreEvent原文。
-  // 正确示例："停火预期彻底破裂叠加关税一周年情绪共振，今日以防御为主——能源小仓对冲、科技不追跌、等待VIX回落至22以下再重新入场。"
-  // 错误示例（禁止）："今日市场受多重因素影响，投资者需保持谨慎。"（无立场、无行动方向）
+  // ===== v1.9 新增：关键词标红机制 =====
+  // 【强制】：takeaway 中的核心关键词必须用中文方括号【】包裹，前端 parseTakeaway() 正则 /【([^】]+)】/g 会将【】内的文字渲染为红色高亮（.takeaway-highlight { color: #e74c3c; font-weight: 700 }）
+  // 标红原则：每句 takeaway 标红 3~5 个关键词，选择最核心的「行动指令」和「关键条件/数据」
+  // 正确示例："停火预期彻底破裂叠加关税一周年情绪共振，今日【以防御为主】——【能源小仓对冲】、科技不追跌、等待【VIX回落至22以下】再重新入场。"
+  // 错误示例（禁止）："停火预期彻底破裂叠加关税一周年情绪共振，今日以防御为主——能源小仓对冲、科技不追跌、等待VIX回落至22以下再重新入场。"（无【】标注，前端全部显示为普通黑色文字，关键信息淹没）
+  // 错误示例（禁止）："【停火预期彻底破裂】叠加【关税一周年】【情绪共振】，【今日】【以防御为主】——..."（标红过多≥6个，失去重点，等于没有重点）
 
   "coreEvent": {                            // ⚠️ object — 核心事件
     "title": "string",                      // ⚠️ 30-80字，纯文本，禁止 markdown/emoji
@@ -64,7 +69,11 @@
   "globalReaction": [                       // ⚠️ array — 全球资产反应，5-6项
     {
       "name": "string",                     // ⚠️ 资产名（标普500/纳斯达克/恒生科技/黄金/10Y美债/BTC）
-      "value": "string",                    // ⚠️ 涨跌幅或绝对值（如 "+0.87%" 或 "4.23%"）
+      "value": "string",                    // ⚠️ 涨跌幅或绝对值（如 "+0.87%" 或 "$4,675"）
+      // ⚠️ 【精确数值强制规则】：禁止使用 `~`（约等于）、`≈`、`大约`、`左右` 等模糊前缀/后缀
+      // 所有价格/涨跌幅必须来自行情源的精确数值，前端底部显示「更新时间」，用户预期数字与该时间点一致
+      // 正确示例："$4,675" / "+7.78%" / "4.32%"
+      // 错误示例（禁止）："~$4,677"（波浪号=约等于，不精确）/ "约$4,700"（中文模糊词）/ "$4,600+"（加号模糊）
       "direction": "string",                // ⚠️ 枚举：up / down / flat
       "note": "string"                      // 🔸 string — ≤15字，极简解读（说明为什么涨跌），有则显示灰色小字
       // 正确示例："停战预期打压" / "科技股被点名承压" / "通胀预期推升收益率"
@@ -126,6 +135,14 @@
 
   "sentimentScore": 62,                     // ⚠️ number — 0-100 情绪分数
   "sentimentLabel": "偏贪婪",                // ⚠️ string — 枚举：极度恐惧/偏恐惧/中性/偏贪婪/贪婪/极度贪婪
+  // ⚠️ sentimentLabel 与 sentimentScore 的对应关系（强制）：
+  //   0-20  → 极度恐惧
+  //   21-40 → 偏恐惧
+  //   41-60 → 中性
+  //   61-75 → 偏贪婪
+  //   76-90 → 贪婪
+  //   91-100→ 极度贪婪
+  // ⚠️ 禁止使用非枚举值（如「偏悲观」「偏乐观」「恐慌」等），必须严格使用上述6个中文标签
   "marketSummaryPoints": [                  // ⚠️ array — 市场情绪 bullet point，3-5条，取代旧版 marketSummary 字符串
     "string"                                // ⚠️ 每条15-40字，独立一个观察点，条条有信息量
     // 写作规则：
@@ -146,14 +163,24 @@
     }
   ],
 
-  "riskNote": "string",                     // ⚠️ 30-100字风险提示，纯文本，禁止表格语法
+  "riskPoints": [                          // ⚠️ array — 风险提示 bullet point，2-4条，取代旧版 riskNote 字符串
+    "string"                                // ⚠️ 每条15-50字，一个独立风险点或行动建议，纯文本
+    // 写作规则：
+    // - 每条只说一个风险点，聚焦「是什么风险 + 触发条件 + 影响方向」
+    // - 最后一条可以是行动建议（如"建议今日不操作，下周一等价格发现后再行动"）
+    // - 禁止：一整段散文（前端无法分条渲染）、markdown 语法、emoji
+    // 正确示例：["NFP实际数字在低流动性环境发布，若再次大幅偏离预期，外汇和商品市场将剧烈震荡", "油价固化通胀预期——布伦特若持续站稳110美元，美联储被迫维持高利率", "建议今日不操作，下周一等价格发现后再行动"]
+    // 错误示例（禁止）：["今日最大尾部风险：NFP实际数字在低流动性环境发布，若再次意外大幅偏离预期（参考2月-92K远低预期），将引发外汇和商品市场剧烈震荡。中期最大风险仍是油价固化通胀预期——布伦特若持续站稳110美元...建议今日不操作"]（一整段散文塞进单个数组元素，等于没拆分）
+    // 旧版兼容：若 riskPoints 缺失，前端自动用 riskNote 字符串按句号拆分兜底
+  ],
+  "riskNote": "string",                     // 🔸 旧版兼容字段——30-100字风险提示散文，纯文本。新版产出时仍保留此字段作为 fallback，但前端优先渲染 riskPoints 数组
   "dataTime": "2026-04-01 09:00 BJT",       // ⚠️ string — 数据截止时间
 
   // ===== v1.3 新增：元数据 =====
   "_meta": {                                // 🔸 object — 元数据（可选，无则前端不显示来源标签）
-    "sourceType": "heavy_analysis",         // 🔸 string — 枚举：heavy_analysis / realtime_quote / breaking_news
+    "sourceType": "heavy_analysis",         // 🔸 string — 枚举：heavy_analysis / realtime_quote / breaking_news / weekend_insight（v4.0新增）
     "generatedAt": "2026-04-01T09:00:00+08:00",  // 🔸 string — ISO 8601 生成时间
-    "skillVersion": "v1.7"                  // 🔸 string — 生产此数据的 Skill 版本号
+    "skillVersion": "v4.0"                  // 🔸 string — 生产此数据的 Skill 版本号
   }
 }
 ```
@@ -173,7 +200,7 @@
 | 情绪仪表盘圆环 | `sentimentScore` + `sentimentLabel` | — | score 是 number |
 | 市场情绪 bullet list（v1.8） | `marketSummaryPoints[]` | 3-5条 | 每条15-40字独立观察点；旧版 `marketSummary` 字符串兼容（前端自动拆分） |
 | 聪明钱卡片 | `smartMoney[]` | 2-4条 | signal 枚举严格 |
-| 风险提示底部 | `riskNote` | — | 纯文本 |
+| 风险提示底部（v3.1 bullet升级） | `riskPoints[]` + `riskNote`(兼容) | 2-4条 | 前端 🛡️ 图标 + bullet point 渲染；旧版 riskNote 字符串兜底按句号拆分 |
 | 数据状态栏（v1.3） | `_meta` | — | 可选，控制底栏来源标签和版本号显示 |
 
 ---
@@ -276,90 +303,171 @@
 
 > **v1.3.2 变更**：原 `usMarkets[0].note` 字段已迁移为独立的 `usInsight` 字段，其他5个板块新增对应 Insight。所有 Insight 为必填（⚠️），格式为纯文本，禁止 markdown/emoji。前端向后兼容：有 `usInsight` 优先使用，否则降级到 `usMarkets[0].note`。
 
+**板块 insightChain 规范（v2.4 新增）**：
+
+> 每个 Insight 字段对应一个 `insightChain` 数组，用于前端渲染竖版因果链卡片（3节点）。
+
+| 字段 | 类型 | 必填 | 结构 |
+|------|------|------|------|
+| `usInsightChain` | array | ⚠️ | 3条，每条 `{ icon: string, label: string, text: string }` |
+| `m7InsightChain` | array | ⚠️ | 3条，每条同上 |
+| `asiaInsightChain` | array | ⚠️ | 3条，每条同上 |
+| `commodityInsightChain` | array | ⚠️ | 3条，每条同上 |
+| `cryptoInsightChain` | array | ⚠️ | 3条，每条同上 |
+| `gicsInsightChain` | array | ⚠️ | 3条，每条同上 |
+
+**insightChain 节点字段规范**：
+
+| 子字段 | 说明 | 示例 |
+|--------|------|------|
+| `icon` | 1个 emoji，代表该节点性质 | `"⚡"` `"📉"` `"🔄"` |
+| `label` | ≤4字，节点逻辑标签（触发/反应/轮动/背景/领涨/领跌/压力/结论/信号/展望/主驱动/异动） | `"触发"` `"反应"` |
+| `text` | 15-35字，完整短句，禁止用 `·` 分隔多个要点 | `"WTI油价暴涨14%，霍尔木兹封锁溢价固化"` |
+
+**⚠️ 数字一致性强制规则（v2.4 新增）**：
+- `insightChain[].text` 中出现的任何数字（价格/涨跌幅/百分比）必须与对应板块 `price`/`change` 字段完全一致
+- 不允许出现方向矛盾（change 为负但文字说"上涨"）
+- 不允许出现数值差异（change=-2.73 但文字说"跌5%"）
+- 正确做法：先填完 `price`/`change`，再根据这些值写 `insightChain[].text`
+- **数字来源**：insightChain 文字中的数字直接引用已采集的 `change` 字段值，不允许重新从媒体文章中"记忆"价格数字
+
 **sparkline 生成规则**：
-- 7 个数据点代表近 7 个交易日价格
-- 数据来源优先级：Google Finance 历史数据 > web_search 历史数据 > 基于当日价格 ± 估算
-- 估算公式（降级用）：`[base * (1 + rand*0.01*i) for i in range(-6, 1)]`
-- 估算时必须标记文件级 `_sparklineEstimated: true`
+- 7 个数据点代表近 7 个交易日收盘价（真实历史序列）
+- 数据来源：`yfinance.download(period="10d")["Close"]` 取最近7个交易日 / AkShare 历史接口
+- **禁止估算/插值/模拟波动生成**（v1.2起强制阻断），sparkline 缺失时回采重试，仍失败则阻断发布
 
 ---
 
-## 三、watchlist.json — 标的页
+## 三、watchlist.json — 标的页（v2.0 重构）
 
 **对应页面**：`pages/watchlist/watchlist.wxml` + `stock-card.wxml`
-**涵盖模块**：板块 Tab + 板块概述 + 股票卡片 + 展开详情
+**涵盖模块**：板块 Tab + 板块概述 + 股票卡片（含聪明钱标签）+ 展开详情 + 未上市标的动态卡
+**设计立意**：以大老板投资视角为核心（AI全产业链 + 聪明钱跟踪），板块和标的灵活可变。
 
 ```jsonc
 {
   "date": "2026-04-01",                    // ⚠️ string
 
-  "sectors": [                              // ⚠️ array — 7个板块
+  "sectors": [                              // ⚠️ array — 4-5个板块（hot_topic无事件时不包含）
     {
-      "id": "ai",                           // ⚠️ string — 枚举：ai/semi/internet/energy/consumer/pharma/finance
-      "name": "AI算力",                      // ⚠️ string
+      "id": "ai_infra",                     // ⚠️ string — 枚举：ai_infra / ai_app / cn_ai / smart_money / hot_topic
+      "name": "AI算力链",                    // ⚠️ string — 显示名称
       "trend": "up",                        // ⚠️ string — 枚举：up / down / hold
-      "summary": "string"                   // ⚠️ 板块概述，2-3句话，纯文本
+      "summary": "string"                   // ⚠️ 板块概述，2-3句话，纯文本，含关键数据+判断
     }
   ],
+  // sectors 排序固定：ai_infra → ai_app → cn_ai → smart_money → hot_topic（如有）
+  // hot_topic 为动态板块：有事件时包含，无事件时从 sectors 数组中省略（前端 wx:for 自动适配）
+  // 每个板块的 summary 要求：含具体数据（涨跌幅/价格）+ 核心驱动力判断 + 后续关注点
+  //   正确示例："NVDA收于$177(+5.6%)领涨，Blackwell出货加速叠加微软Azure资本开支上调，产业链修复确认但高波动未消。"
+  //   错误示例："AI板块整体表现不错，多只标的上涨。"（空洞无信息量）
 
   "stocks": {                               // ⚠️ object — 按板块 ID 分组
-    "ai": [                                 // ⚠️ array — 每板块至少2只
+    "ai_infra": [                           // ⚠️ array — 10-12只
       {
         "name": "英伟达",                    // ⚠️ string — 中文名
         "symbol": "NVDA",                   // ⚠️ string — 股票代码
-        "change": 4.2,                      // ⚠️ number — 涨跌幅百分比
-        "price": "$878.36",                 // ⚠️ string — 当前价格
-        "tags": ["AI芯片龙头", "GTC大会催化"], // ⚠️ string[] — 2个标签
-        "reason": "string",                 // ⚠️ 一句话推荐逻辑（20-60字）
-        "analysis": "string",              // ⚠️ AI分析摘要（2-3段，100-300字，纯文本，用\n分段）
-        "metrics": [                        // ⚠️ array — 精确6项指标
-          { "label": "PE(TTM)", "value": "72.5x" },
-          { "label": "市值", "value": "$2.3T" },
-          { "label": "营收增速", "value": "+265%" },
-          { "label": "毛利率", "value": "76.0%" },
-          { "label": "ROE", "value": "91.5%" },
-          { "label": "评级", "value": "⭐⭐⭐⭐⭐" }
+        "change": 5.59,                     // ⚠️ number — 涨跌幅百分比（正数=涨，负数=跌）
+        "price": "$174.40",                 // ⚠️ string — 当前价格（含货币符号）
+        "listed": true,                     // ⚠️ boolean — 是否已上市（默认true，未上市标的为false）
+        "tags": ["AI芯片龙头", "Blackwell出货"], // ⚠️ string[] — 2个标签，4-8字
+        "badges": ["段永平大幅增持"],         // 🔸 string[] — 特殊标签（可选，0-2个）
+        // badges 枚举：巴菲特第一重仓 / 巴菲特持有 / 段永平重仓 / 段永平持有 / 段永平大幅增持 / 段永平新建仓 / 未上市
+        // 前端渲染：badges 用独立样式（金色/蓝色小标签），区别于普通 tags（黄色）
+        "reason": "string",                 // ⚠️ 一句话核心逻辑（20-60字），要求有结论+论据
+        //   正确示例："AI数据中心资本开支持续超预期，Blackwell供不应求，产业链地位不可替代"
+        //   错误示例："英伟达是一家很好的AI公司"（空洞无论据）
+        "analysis": "string",              // ⚠️ AI分析摘要（2-3段，100-300字，纯文本，\n\n分段）
+        "metrics": [                        // ⚠️ array — 精确6项指标（方案C），已上市标的必填
+          { "label": "最新价", "value": "$174.40" },
+          { "label": "单日涨跌", "value": "+5.59%" },
+          { "label": "7日涨跌", "value": "-0.71%" },
+          { "label": "30日涨跌", "value": "-7.22%" },
+          { "label": "PE(TTM)", "value": "36.2x" },
+          { "label": "综合评级", "value": "⭐⭐⭐⭐" }
         ],
-        "risks": [                          // ⚠️ string[] — 2-3条风险
-          "估值偏高，PE超70x",
-          "AMD MI300X竞争加剧"
+        "risks": [                          // ⚠️ string[] — 2-3条风险，每条一句话
+          "AMD MI300X竞争加剧，定制ASIC分流算力需求",
+          "出口管制政策不确定性影响中国市场收入"
         ],
-        "sparkline": [850, 855, 860, 870, 868, 875, 878],  // ⚠️ number[] — 7天走势
-        "chartData": [830, 835, 840, ...]   // ⚠️ number[] — 30天走势（展开详情用）
+        "sparkline": [168, 170, 172, 171, 173, 175, 174],  // ⚠️ number[] — 7天真实收盘价
+        "chartData": [165, 166, 168, ...]   // ⚠️ number[] — 30天真实收盘价（展开详情大图用）
+      },
+      // === 未上市标的示例（字节跳动）===
+      {
+        "name": "字节跳动",
+        "symbol": "ByteDance",              // 未上市：填公司英文名
+        "change": 0,                        // 未上市：固定填0
+        "price": "未上市",                   // 未上市：固定填"未上市"
+        "listed": false,                    // ⚠️ 未上市标识
+        "tags": ["豆包日活破亿", "AI视频生成"],
+        "badges": ["未上市"],
+        "reason": "豆包+即梦+Coze构成日活最大的AI应用矩阵，Coze Agent平台开发者生态快速扩张",
+        "analysis": "字节跳动旗下AI产品矩阵全面开花...\n\n最新动态：...",  // 改为"动态+竞争格局+估值"
+        "metrics": [],                      // 未上市：空数组
+        "risks": ["未上市，无公开财务数据", "监管与上市时间表不确定"],
+        "sparkline": [],                    // 未上市：空数组
+        "chartData": []                     // 未上市：空数组
       }
     ],
-    "semi": [...],                          // ⚠️ 至少2只
-    "internet": [...],                      // ⚠️ 至少2只
-    "energy": [...],                        // ⚠️ 至少2只
-    "consumer": [...],                      // ⚠️ 至少2只
-    "pharma": [...],                        // ⚠️ 至少2只
-    "finance": [...]                        // ⚠️ 至少2只
-  }
+    "ai_app": [...],                        // ⚠️ 4-6只
+    "cn_ai": [...],                         // ⚠️ 5-7只（含未上市标的）
+    "smart_money": [...],                   // ⚠️ 5-6只
+    "hot_topic": [...]                      // 🔸 0-4只（无事件时该key可省略或空数组）
+  },
+
+  "dataTime": "美股收盘 2026-04-04 ET｜港股/A股收盘 2026-04-03 本地时区"  // ⚠️ string — 数据时效说明
 }
 ```
 
-**板块分类规则**（详见 [stock-universe.md](stock-universe.md)）：
+**板块架构规则（v2.0）**（详见 [stock-universe.md](stock-universe.md)）：
 
-| 板块 ID | 名称 | 代表标的 | 最低数量 |
-|---------|------|---------|---------|
-| `ai` | AI算力 | NVDA/AVGO/TSM/MSFT | 3-4只 |
-| `semi` | 半导体 | 000660.KS/ASML/AMD | 2-3只 |
-| `internet` | 互联网平台 | 0700.HK/PDD/3690.HK | 2-3只 |
-| `energy` | 新能源 | 300750.SZ/002594.SZ | 2只 |
-| `consumer` | 消费 | 9992.HK/COST | 2只 |
-| `pharma` | 医药 | NVO/LLY | 2只 |
-| `finance` | 金融 | BRK.B/JPM | 2只 |
+| 板块 ID | 名称 | 定位 | 标的数 | 稳定性 |
+|---------|------|------|--------|--------|
+| `ai_infra` | AI算力链 | 美股AI全产业链（芯片→制造→云→终端→基建） | 10-12只 | 基本稳定 |
+| `ai_app` | AI应用 | 5个独立AI应用方向 | 4-6只 | 较稳定 |
+| `cn_ai` | 国产AI | 中国AI核心（港股+A股+未上市动态） | 5-7只 | 灵活调整 |
+| `smart_money` | 聪明钱 | 巴菲特+段永平非AI核心持仓 | 5-6只 | 季度更新 |
+| `hot_topic` | 本期热点 | 事件驱动（每期可变，可为空） | 0-4只 | 每期可变 |
 
-**metrics 6项标准（方案C — v1.2更新）**：
+**`badges` 特殊标签系统（v2.0新增）**：
 
-| # | label | 数据来源 | 格式示例 | 说明 |
-|---|-------|---------|---------|------|
-| 1 | 最新价 | yfinance/AkShare 实时价 | "$174.40" | 自动计算 |
-| 2 | 单日涨跌 | 当日 close vs prev close | "+5.59%" | 自动计算 |
-| 3 | 7日涨跌 | last7[0] → last7[-1] | "-0.71%" | 自动计算 |
-| 4 | 30日涨跌 | last30[0] → last30[-1] | "-7.22%" | 自动计算 |
-| 5 | PE(TTM) | `yfinance Ticker.info["trailingPE"]` | "53.4x"（无数据则"—"） | 辅助指标，缺失不阻断 |
-| 6 | 综合评级 | `calc_star_rating()` 规则函数（基于30日涨跌） | "⭐⭐⭐⭐" | 规则化自动计算，可重现 |
+| badge 值 | 含义 | 前端样式 |
+|----------|------|---------|
+| `巴菲特第一重仓` | BRK持仓占比最高 | 金色标签 |
+| `巴菲特持有` | BRK持仓 | 金色标签 |
+| `段永平重仓` | 段永平核心持仓 | 蓝色标签 |
+| `段永平持有` | 段永平持有 | 蓝色标签 |
+| `段永平大幅增持` | 近一季度增持超100% | 蓝色标签 |
+| `段永平新建仓` | 近一季度首次买入 | 蓝色标签 |
+| `未上市` | 无二级市场数据 | 灰色标签 |
+
+**未上市标的字段规则**：
+
+| 字段 | 已上市标的 | 未上市标的 |
+|------|-----------|-----------|
+| `listed` | `true`（可省略） | `false`（必填） |
+| `price` | `"$174.40"`（真实价格） | `"未上市"`（固定值） |
+| `change` | 真实涨跌幅 number | `0`（固定值） |
+| `metrics` | 6项完整指标 | `[]`（空数组） |
+| `sparkline` | 7天真实数据 | `[]`（空数组） |
+| `chartData` | 30天真实数据 | `[]`（空数组） |
+| `analysis` | 公司分析+业务亮点+风险 | **最新动态+竞争格局+估值/融资** |
+| `tags` | 行业地位+催化剂 | 产品动态+赛道定位 |
+| `badges` | 聪明钱/已汇报标签 | 必含 `["未上市"]` |
+
+**metrics 6项标准（方案C — 延续）**：
+
+| # | label | 数据来源 | 格式示例 | 类型约束 | 说明 |
+|---|-------|---------|---------|---------|------|
+| 1 | 最新价 | yfinance/AkShare 实时价 | `"$174.40"` | **string**（含货币符号） | 自动计算 |
+| 2 | 单日涨跌 | 当日 close vs prev close | `"+5.59%"` | **string**（含正负号和%） | 自动计算 |
+| 3 | 7日涨跌 | last7[0] → last7[-1] | `"-0.71%"` | **string**（含正负号和%） | 自动计算 |
+| 4 | 30日涨跌 | last30[0] → last30[-1] | `"-7.22%"` | **string**（含正负号和%） | 自动计算 |
+| 5 | PE(TTM) | `yfinance Ticker.info["trailingPE"]` | `"53.4x"`（无数据则`"—"`） | **string** | 辅助指标，缺失不阻断 |
+| 6 | 综合评级 | `calc_star_rating()` 规则函数 | `"⭐⭐⭐⭐"` | **string** | 规则化自动计算 |
+
+> **⚠️ 格式强制规范**：metrics 第1项必须含货币符号（`"$"` 或 `"HK$"` 或 `"¥"`）；第2-4项必须含正负号和 `%` 后缀；全部6项的 `value` 字段必须为 **string 类型**。
 
 > **评级规则**（`calc_star_rating(change, pct_30d)`）：
 > - ⭐⭐⭐⭐⭐：30日涨超+15% 且 单日为正
@@ -464,9 +572,9 @@
 
   // ===== v1.3 新增：元数据 =====
   "_meta": {                                // 🔸 object — 元数据（可选）
-    "sourceType": "heavy_analysis",         // 🔸 string — 枚举：heavy_analysis / realtime_quote / breaking_news
+    "sourceType": "heavy_analysis",         // 🔸 string — 枚举：heavy_analysis / realtime_quote / breaking_news / weekend_insight（v4.0新增）
     "generatedAt": "2026-04-01T09:00:00+08:00",  // 🔸 string — ISO 8601 生成时间
-    "skillVersion": "v1.3"                  // 🔸 string — Skill 版本号
+    "skillVersion": "v4.0"                  // 🔸 string — Skill 版本号
   }
 }
 ```
@@ -517,9 +625,9 @@
 | 字段路径 | 允许值 |
 |----------|--------|
 | `globalReaction[].direction` | `up`, `down`, `flat` |
-| `actions.today[].type` / `actions.week[].type` | `buy`, `sell`, `hold`, `bullish`, `bearish` |
+| `actions.today[].type` / `actions.week[].type` | `hold`, `add`, `reduce`, `buy`, `sell`, `watch`, `hedge`, `stoploss`（**禁止 `bullish` / `bearish`**） |
 | `smartMoney[].signal` | `bullish`, `bearish`, `neutral` |
-| `sentimentLabel` | `极度恐惧`, `偏恐惧`, `中性`, `偏贪婪`, `贪婪`, `极度贪婪` |
+| `sentimentLabel` | `极度恐惧`, `偏恐惧`, `中性`, `偏贪婪`, `贪婪`, `极度贪婪`（**禁止**「偏悲观」「偏乐观」等非标准值；score→label映射见§1注释） |
 | `sectors[].id` | `ai`, `semi`, `internet`, `energy`, `consumer`, `pharma`, `finance` |
 | `sectors[].trend` | `up`, `down`, `hold` |
 | `trafficLights[].status` | `green`, `yellow`, `red` |
@@ -530,18 +638,22 @@
 | `smartMoneyDetail[].tier` | `T1旗舰`, `T2成长`, `策略师观点` |
 | `smartMoneyDetail[].funds[].signal` | `bullish`, `bearish`, `neutral` |
 | `usMarkets[].changeLabel` | `大盘指数`, `科技指数`, `蓝筹指数`, `恐慌指标` |
-| `timeStatus.marketStatus`（v1.3） | `美股交易中`, `美股已收盘`, `盘前交易`, `盘后交易` |
-| `keyDeltas[].status`（v1.3） | `升级`, `新增`, `活跃`, `降温`, `稳定` |
+| `timeStatus.marketStatus`（v1.3→v2.3） | `美股交易中`, `美股已收盘`, `盘前交易`, `盘后交易`, `美股休市`（v2.3新增，用于美国公共假日如耶稣受难日/感恩节/圣诞节等） |
+| ~~`keyDeltas[].status`~~（**已废弃 v2.0，禁止使用**） | ~~`升级`, `新增`, `活跃`, `降温`, `稳定`~~ — `keyDeltas[]` 整个模块已于 v2.0 从简报页删除，脚本/AI 均不应生成此字段 |
 | `coreJudgments[].probability`（v1.3） | `高可能性`, `中可能性`, `低可能性` |
 | `coreJudgments[].trend`（v1.3） | `上升`, `下降`, `稳定` |
 | `fearGreed.label`（v1.3） | `Extreme Fear`, `Fear`, `Neutral`, `Greed`, `Extreme Greed` |
 | `predictions[].trend`（v1.3） | `up`, `down`, `stable` |
 | `predictions[].source`（v1.3） | `Polymarket`, `Kalshi`, `CME FedWatch` |
-| `_meta.sourceType`（v1.3） | `heavy_analysis`, `realtime_quote`, `breaking_news` |
+| `_meta.sourceType`（v1.3, v4.0扩展） | `heavy_analysis`, `realtime_quote`, `breaking_news`, `weekend_insight` |
 
 ---
 
-> v1.6 — 2026-04-02 20:18 | KEY DELTA 前端重构 + title 字数收紧：①`keyDeltas[].title` 字数限制由20-40字收紧为**≤15字**（单行显示不折行），附正确示例（"伊朗打击升级，停火破裂"/"WTI油价盘前暴涨6%"）和错误示例（超15字长标题）；②简报页 KEY DELTA 区块从 section-card 组件改为自定义 inline 结构，标题"增量信息 KEY DELTA"改为22rpx浅灰小标签（#bbb），视觉层级与"今日核心事件"标签对齐，重点突出下方 point 内容。
+> v2.3 — 2026-04-05 | **枚举健壮性升级**：①`marketStatus` 新增 `美股休市` 枚举值（用于耶稣受难日/感恩节/圣诞节等美国公共假日），解决休市日无合法枚举值导致致命错误#5的问题；②`sentimentLabel` 字段新增 score→label 对应关系注释（0-20极度恐惧/21-40偏恐惧/41-60中性/61-75偏贪婪/76-90贪婪/91-100极度贪婪），并在枚举总表中明确禁止「偏悲观」「偏乐观」等非标准值（来源：2026-04-03产出事故，score=42 写了「偏悲观」而非「中性」）；③枚举总表 `timeStatus.marketStatus` 行升级为 v2.3 版本标记。
+> v2.2 — 2026-04-05 | **风险提示模块 bullet point 升级**：①`riskNote` 字符串升级为 `riskPoints[]` 数组（2-4条独立风险点），对齐 `marketSummaryPoints` 的 bullet 渲染风格；②保留旧版 `riskNote` 字段（降级为🔸可选兼容字段），前端优先渲染 `riskPoints`，缺失时自动按句号拆分 `riskNote` 兜底；③前端图标从 ⚠️ 更换为 🛡️（盾牌），与 🎯⚡🌡️🧠 实心彩色 emoji 风格统一，不与重点事件的 🚨 重复；④组件对齐清单更新风险提示行；⑤纯文本规则中 emoji 示例更新。
+> v2.1 — 2026-04-03 20:28 | 全面审查修复（13处）：①枚举总表第553行 `actions.type` 从旧枚举（buy/sell/hold/bullish/bearish）升级为完整新枚举（hold/add/reduce/buy/sell/watch/hedge/stoploss），并增加禁止说明；②`_meta.skillVersion` 两处示例值从 v1.7/v1.3 更新为 **v3.0**；③枚举总表第567行 `keyDeltas[].status` 标记为已废弃（整个模块 v2.0 删除），加删除线和禁止提示；④metrics 6项标准表新增「类型约束」列，写死前4项必须为 string 格式（含货币符号/正负号/%后缀），新增 ⚠️ 格式强制规范注释，防止 AI 混用 number 和 string。
+> v2.0 — 2026-04-03 | 见 SKILL.md v3.0 Changelog。
+> v1.6 — 2026-04-02 20:18 | KEY DELTA 前端重构
 > v1.5 — 2026-04-02 20:02 | 数据时效性与格式规范修复：①`keyDeltas[].brief` 字长由30-80字收紧为**10-25字极简风格**（面向大老板阅读习惯，参照伊朗简报卡片样式），附正确示例（"供应链重构代价被重新定价，风险偏好承压"）和错误示例（超25字长句）；②`timeStatus.marketStatus` 新增完整时区判断规则注释（BJT与EDT/EST对照，防止时区计算错误）；③`dataTime` 新增时态标注规范，美股非收盘数据必须注明「盘前」或「盘后」，globalReaction中美股数据若非收盘值须在coreEvent.title中明确标注数据时态。
 > v1.4 — 2026-04-02 18:24 | 字段内容边界规范升级（防冗余治本）：①`keyDeltas[].brief` 重定义为专写「为何重要/影响方向/市场逻辑」，禁止重复 coreEvent.title 或 chain 已有的具体数字；②`coreEvent.chain[]` 重定义为因果逻辑推演，禁止重复 brief 中已出现的具体数字（改为描述传导机制和影响边界）；③`marketSummary` 重定义为情绪结构判断+核心风险/下一变量，禁止汇总重复 keyDeltas/coreEvent/globalReaction 中的具体数字；三处均附正确/错误示例。字长限制：marketSummary 由50-150字收紧为50-120字。
 > v1.3.2 — 2026-04-02 00:21 | markets.json 新增6个板块级 Insight 字段（usInsight/m7Insight/asiaInsight/commodityInsight/cryptoInsight/gicsInsight），每个板块数据表格底部提供30-80字高质量一句话洞察，对齐日报中的"XX信号"段落风格；原 usMarkets[0].note 迁移为独立 usInsight 字段，前端向后兼容；所有 Insight 为必填纯文本。

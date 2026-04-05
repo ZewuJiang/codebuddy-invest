@@ -544,6 +544,33 @@
   border-left: 6rpx solid #e74c3c;
 }
 
+.risk-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16rpx;
+}
+
+.risk-item:last-child {
+  margin-bottom: 0;
+}
+
+.risk-dot {
+  color: #e74c3c;
+  font-size: 28rpx;
+  font-weight: bold;
+  margin-right: 12rpx;
+  flex-shrink: 0;
+  line-height: 1.7;
+}
+
+.risk-item-text {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.7;
+  flex: 1;
+}
+
+/* 兼容旧格式 */
 .risk-text {
   font-size: 24rpx;
   color: #666;
