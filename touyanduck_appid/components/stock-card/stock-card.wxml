@@ -20,23 +20,23 @@
     </view>
     <view class="sc-right" wx:if="{{!isUnlisted}}">
       <view class="sc-change {{changeColorClass}}">{{changeText}}</view>
-      <view class="sc-expand-hint">{{expanded ? '收起' : '展开'}} {{expanded ? '︿' : '﹀'}}</view>
+      <view class="sc-expand-hint">{{expanded ? '︿' : '﹀'}}</view>
     </view>
     <view class="sc-right" wx:if="{{isUnlisted}}">
-      <view class="sc-expand-hint">{{expanded ? '收起' : '展开'}} {{expanded ? '︿' : '﹀'}}</view>
+      <view class="sc-expand-hint">{{expanded ? '︿' : '﹀'}}</view>
     </view>
   </view>
 
   <!-- badges 特殊标签（聪明钱/已汇报等） -->
-  <view class="sc-badges" wx:if="{{stock.badges && stock.badges.length > 0}}">
-    <view class="badge {{badgeClass}}" wx:for="{{stock.badges}}" wx:for-item="badgeItem" wx:key="*this">{{badgeItem}}</view>
+  <view class="sc-badges" wx:if="{{classifiedBadges && classifiedBadges.length > 0}}">
+    <view class="badge {{item.cls}}" wx:for="{{classifiedBadges}}" wx:key="text">{{item.text}}</view>
   </view>
 
   <!-- 收起态：一句话逻辑 -->
   <view class="sc-reason-brief" wx:if="{{!expanded && stock.reason}}">{{stock.reason}}</view>
 
   <!-- 标签 -->
-  <view class="sc-tags" wx:if="{{stock.tags && stock.tags.length > 0}}">
+  <view class="sc-tags" wx:if="{{!expanded && stock.tags && stock.tags.length > 0}}">
     <view class="tag tag-yellow" wx:for="{{stock.tags}}" wx:for-item="tagItem" wx:key="*this">{{tagItem}}</view>
   </view>
 
@@ -55,22 +55,18 @@
     </view>
 
     <!-- 关键指标6宫格（仅已上市标的） -->
-    <view class="sc-metrics" wx:if="{{expanded && !isUnlisted && stock.metrics && stock.metrics.length > 0}}">
+    <view class="sc-metrics" wx:if="{{expanded && !isUnlisted && coloredMetrics && coloredMetrics.length > 0}}">
       <view class="sc-metrics-title">关键指标</view>
       <view class="sc-metrics-grid">
-        <view class="sc-metric-item" wx:for="{{stock.metrics}}" wx:for-item="metric" wx:key="label">
+        <view class="sc-metric-item" wx:for="{{coloredMetrics}}" wx:for-item="metric" wx:key="label">
           <view class="sc-metric-label">{{metric.label}}</view>
-          <view class="sc-metric-value">{{metric.value}}</view>
+          <view class="sc-metric-value {{metric.colorClass}}">{{metric.value}}</view>
         </view>
       </view>
     </view>
 
-    <!-- AI分析摘要 -->
+    <!-- 分析摘要 -->
     <view class="sc-analysis" wx:if="{{expanded && stock.analysis}}">
-      <view class="sc-analysis-title">
-        <text class="ai-badge">AI</text>
-        <text>{{isUnlisted ? '最新动态' : '投资分析'}}</text>
-      </view>
       <view class="sc-analysis-text">{{stock.analysis}}</view>
     </view>
 

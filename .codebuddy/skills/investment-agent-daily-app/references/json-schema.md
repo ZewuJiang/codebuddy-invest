@@ -1,4 +1,4 @@
-# JSON Schema 完整字段规范（v3.2）
+# JSON Schema 完整字段规范（v4.2）
 
 > **用途**：定义投研鸭小程序 4 个 JSON 文件的精确字段规范。每个字段都对应小程序前端组件的一个渲染点。
 > **核心原则**：Schema 即契约。JSON 生成阶段必须逐字段对照本文件，不允许新增/缺失/改名字段。
@@ -37,7 +37,16 @@
   },
 
   // ===== v1.7 新增：今日核心结论 TAKEAWAY =====
-  "takeaway": "string",                     // 🔸 string — 30-80字，一句话宏观结论。要求：有立场、有行动方向、有条件（"如果X则Y"）；禁止：空洞废话、重复coreEvent原文。
+  "takeaway": "string",                     // 🔸 string — 30-80字，一句话宏观结论
+  // ===== v5.1 takeaway 产出哲学（去操作化）=====
+  // 【定位】：takeaway 是"发生了什么 + 为什么重要"的精选总结，不是"你该怎么操作"的建议
+  // 【聚焦】：一句话只抓 1-2 个最核心信号，控制在 80 字以内
+  // 【视角】：价投视角——关注长期本质变化，过滤短期噪音，类似巴菲特致股东信口吻
+  // 【要求】：有立场、有条件（"如果X则Y"）；禁止：空洞废话、重复coreEvent原文
+  // 【禁止】：包含仓位建议/操作指令（如"建议维持防御仓位""能源对冲不减""等CPI后再调整"）
+  //           操作建议统一在 actionHints 中覆盖，takeaway 不承担操作指导职责
+  // 正确示例："上周美股结束【5周连跌】首次反弹，但【油价$109】固化通胀预期——本周【CPI】是决定性变量：若确认3.8%以上，全年降息预期将彻底消失"
+  // 错误示例（禁止）："...建议维持防御仓位，能源对冲不减，等待CPI数据确认通胀方向后再调整"（含操作指令，应放在 actionHints）
   // ===== v1.9 新增：关键词标红机制 =====
   // 【强制】：takeaway 中的核心关键词必须用中文方括号【】包裹，前端 parseTakeaway() 正则 /【([^】]+)】/g 会将【】内的文字渲染为红色高亮（.takeaway-highlight { color: #e74c3c; font-weight: 700 }）
   // 标红原则：每句 takeaway 标红 3~5 个关键词，选择最核心的「行动指令」和「关键条件/数据」
@@ -46,7 +55,12 @@
   // 错误示例（禁止）："【停火预期彻底破裂】叠加【关税一周年】【情绪共振】，【今日】【以防御为主】——..."（标红过多≥6个，失去重点，等于没有重点）
 
   "coreEvent": {                            // ⚠️ object — 核心事件
-    "title": "string",                      // ⚠️ 30-80字，纯文本，禁止 markdown/emoji
+    "title": "string",                      // ⚠️ 20-50字（精简优先），纯文本，禁止 markdown/emoji
+    // ===== v3.7 title 精简原则 =====
+    // 【聚焦】：title 只抓 1-2 个最核心矛盾，与 takeaway 形成「标题→结论」的层次感
+    // 【禁止】：把 3-4 个信息点全塞进标题（如"A+B+C，本周迎D和E双重考验"）
+    // 正确示例："美股反弹遇上油价暴涨——本周CPI将裁决反弹真伪"（26字，聚焦两个矛盾）
+    // 错误示例（禁止）："伊朗战争阴影下美股反弹+油价暴涨，本周迎CPI与FOMC纪要双重考验"（33字，4个信息点无重点）
     // ===== v1.7 升级：chain 从 string[] 改为 object[] =====
     "chain": [                              // ⚠️ array — 今日重点事件链，3-6条
       {
@@ -59,9 +73,10 @@
         // ⚠️ 来源与链接必须一一对应，严禁跨媒体伪造链接：
         // 正确：source="Reuters" + url="https://reuters.com/..."（路透的文章配路透链接）
         // 错误（禁止）：source="Bloomberg" + url="https://yahoo.com/..."（彭博内容配雅虎链接）
-        // ⚠️ 付费墙媒体（Bloomberg / FT / WSJ）无公开链接时：只填 source，不填 url
-        // 前端对无 url 的来源自动显示为灰色不可点文字（chain-link-no-url 样式）
-        "url": "string"                     // 🔸 string — 完整 https 公开可访问链接（中国大陆可访问优先）；付费墙内容不填此字段
+        // ⚠️ 付费墙媒体（Bloomberg / FT / WSJ）及机构付费终端（Newsquawk / Refinitiv 等）：
+        //   source 标注"Newsquawk（机构终端）"等，url 填官网首页或不填
+        //   前端对无 url 的来源自动显示为灰色不可点文字（chain-link-no-url 样式）
+        "url": "string"                     // 🔸 string — 完整 https 公开可访问链接（中国大陆可访问优先）；付费墙/机构终端内容可填官网首页或不填
       }
     ]
   },
@@ -110,30 +125,35 @@
     }
   ],
 
-  "actions": {                              // ⚠️ object — 行动建议
-    "today": [                              // ⚠️ array — 今日建议，1-3条
-      {
-        "type": "string",                   // ⚠️ 枚举（具体操作动词）：hold（持有）/ add（加仓）/ reduce（减仓）/ buy（买入）/ sell（卖出）/ watch（关注）/ hedge（对冲）/ stoploss（止损）
-        // ⚠️ 禁止使用 bullish / bearish — 这是方向判断，不是具体操作指令
-        // 正确示例："hold"（持有现有科技仓位）/ "hedge"（布局能源对冲）/ "watch"（关注黄金4600买点）
-        // 错误示例（禁止）："bullish"（看涨）/ "bearish"（看跌）— 语义模糊，无法指导操作
-        "content": "string",                // ⚠️ 具体可执行建议，含标的+条件+幅度，纯文本
-        // 正确示例："持有现有科技仓位无需操作，等VIX回落至22以下、伊朗谈判信号明朗后再择机增配NVDA/AVGO"
-        // 正确示例："能源板块（XLE）可小仓布局作地缘对冲，油价站稳105美元上方则动能延续"
-        "reason": "string"                  // 🔸 string — ≤40字，说明建议理由/数据锚点，有则显示灰色小字
-        // 正确示例："地缘恐慌性下跌中加仓风险过高，VIX已急升至27上方，底部尚未确认"
-      }
-    ],
-    "week": [                               // array — 本周建议，0-3条（可为空数组）
-      {
-        "type": "string",                   // 同今日 type 枚举规则
-        "content": "string",
-        "reason": "string"                  // 🔸 同今日建议
-      }
-    ]
-  },
+  // ===== v5.0 重构：聪明钱建议模块（原决策建议）=====
+  // 设计理念：大老板偏低频价值投资（巴菲特/段永平风格），不需要每天的买卖建议
+  // 模块标题：⚡ 聪明钱建议
+  // 布局顺序：actionHints（置顶）→ smartMoney（聪明钱动向）→ topHoldings（重点持仓）
+
+  "actionHints": [                            // 🔸 array — 操作提示，0-2条（可选，无高置信机会时为空数组[]，前端不渲染此区域）
+    {
+      "type": "string",                       // ⚠️ 枚举（具体操作动词）：hold（持有）/ add（加仓）/ reduce（减仓）/ buy（买入）/ sell（卖出）/ watch（关注）/ hedge（对冲）/ stoploss（止损）
+      // ⚠️ 禁止使用 bullish / bearish — 这是方向判断，不是具体操作指令
+      "content": "string",                    // ⚠️ 具体可执行建议，含标的+条件+理由，纯文本
+      // 正确示例："段永平4/4亲赴Westfield门店调研泡泡玛特，称right business——信号极强，值得纳入观察池深入研究"
+      "reason": "string"                      // 🔸 string — ≤40字，说明建议理由/数据锚点
+    }
+  ],
+  // ===== v5.0 actionHints 产出哲学 =====
+  // 【核心原则】：价投风格，低频精而少，不轻易建议买入/卖出
+  // 【何时有内容】：仅在出现高置信投资机会时才填入（如段永平实地调研信号、巴菲特大额建仓、极端市场机会等）
+  // 【何时为空】：大多数日子应为空数组 []。"没有操作建议"本身就是最好的建议——持有不动是价投常态
+  // 【禁止凑数】：禁止为了填满而写"维持不变"、"持续关注"等无信息量的废话。没有就是没有
+  // 【买卖建议门槛极高】：type=buy/sell 只在极端机会或极端风险时使用，日常以 watch/hold 为主
+  // 向后兼容：前端 JS 同时支持旧 actions.today/week 格式（自动合并为扁平列表）
 
   "sentimentScore": 62,                     // ⚠️ number — 0-100 情绪分数
+  // ===== v3.7 sentimentScore 独立判断原则 =====
+  // 【定位】：sentimentScore 是基于所有可观测指标（VIX/Put-Call/信用利差/期限溢价/资金流向等）的综合独立判断
+  // 【禁止】：将 sentimentScore 机械对齐 CNN Fear & Greed Index（F&G）
+  //   F&G 是散户情绪的滞后加权指标，对机构和价投参考价值有限——极端值可能方向相反（F&G=19极度恐惧 ≈ 价投买入机会）
+  //   真正有用的是 VIX 水平、Put/Call 比、信用利差、期限溢价等底层数据本身，sentimentScore 应综合这些底层指标独立打分
+  // 【原则】：sentimentScore 与 F&G 允许合理偏差（±15分以内），因为评价体系和权重不同
   "sentimentLabel": "偏贪婪",                // ⚠️ string — 枚举：极度恐惧/偏恐惧/中性/偏贪婪/贪婪/极度贪婪
   // ⚠️ sentimentLabel 与 sentimentScore 的对应关系（强制）：
   //   0-20  → 极度恐惧
@@ -155,7 +175,7 @@
     // 旧版兼容：若 marketSummaryPoints 缺失，前端自动用 marketSummary 字符串按句号/分号拆分兜底
   ],
 
-  "smartMoney": [                           // ⚠️ array — 聪明钱速览，2-4条
+  "smartMoney": [                           // ⚠️ array — 聪明钱动向（边际动作），2-4条
     {
       "source": "string",                   // ⚠️ 机构名（如 "桥水基金"/"北向资金"）
       "action": "string",                   // ⚠️ 具体操作（如 "增持中国ETF约$2.3亿"）
@@ -163,17 +183,46 @@
     }
   ],
 
-  "riskPoints": [                          // ⚠️ array — 风险提示 bullet point，2-4条，取代旧版 riskNote 字符串
-    "string"                                // ⚠️ 每条15-50字，一个独立风险点或行动建议，纯文本
+  // ===== v5.0 新增：重点持仓（聪明钱配置参考）=====
+  "topHoldings": [                          // 🔸 array — 聪明钱重点持仓快照，2-4条（可选，无则不渲染）
+    {
+      "name": "string",                     // ⚠️ 机构/KOL名称，简洁直接（如"伯克希尔"、"段永平"、"ARK旗舰"）
+      // ⚠️ 禁止冗余后缀：不写"TOP5"/"已知持仓"等，名字本身就是最好的标签
+      "holdings": "string"                  // ⚠️ 一行式持仓概要，格式：标的+占比 用 | 分隔，末尾可加补充说明
+      // 正确示例："AAPL 28% | BAC 12% | AXP 10% | KO 9% | CVX 7% · 现金$3733亿"
+      // 正确示例："AAPL | GOOG | PDD · 泡泡玛特观察中"
+      // 正确示例："TSLA 12% | CRWV 8% | COIN 7% | ROKU 6% | PLTR 5%"
+    }
+  ],
+  // ===== topHoldings 更新频率 =====
+  // 低频更新：每季度 13F 披露后（2/5/8/11月中旬）刷新占比数据
+  // 中间时段：只在有重大变动时微调（如段永平确认建仓泡泡玛特）
+  // 与 radar.json 的 smartMoneyHoldings 区别：topHoldings 是简版一行式（briefing页用），smartMoneyHoldings 是详版含 positions[] 数组（radar页用）
+  //
+  // ===== ⚠️ 持仓数据四条铁律（v5.0 事故教训，致命级）=====
+  // 铁律1【必须查证】：每次生产 topHoldings/smartMoneyHoldings 数据时，必须通过 web_search 查询权威数据源
+  //   （13Radar / Whalewisdom / StockAnalysis / SEC EDGAR），禁止 AI 凭训练数据中的模糊记忆直接输出权重数字
+  //   典型事故：伯克希尔 AAPL 凭记忆写28%，实际13F数据为22.6%——差5.4个百分点，严重误导投资判断
+  // 铁律2【交叉一致】：briefing.topHoldings 必须是 radar.smartMoneyHoldings 的精简投影（取TOP5+一行式概要）
+  //   两者的标的、排序、权重数字必须完全对应；生产时先写 radar 详版，再从 radar 数据提取 briefing 简版，禁止独立生成
+  // 铁律3【严格降序】：持仓排序必须按权重从大到小，禁止凭直觉排序
+  // 铁律4【宁缺毋错】：查不到确切数据时标注"待更新"或省略该条目，绝不编造数字
+  //   港股标的（如泡泡玛特9992.HK）不适用美国13F披露制度，不要引用13F作为港股持仓的信息来源
+
+  "riskPoints": [                          // ⚠️ array — 风险提示 bullet point，2-3条（v5.0 从2-4条收紧为2-3条），取代旧版 riskNote 字符串
+    "string"                                // ⚠️ 每条15-50字，一个独立风险点，纯文本
     // 写作规则：
     // - 每条只说一个风险点，聚焦「是什么风险 + 触发条件 + 影响方向」
-    // - 最后一条可以是行动建议（如"建议今日不操作，下周一等价格发现后再行动"）
+    // - ⚠️ v5.0 新规：riskPoints **禁止包含操作建议**（如"建议维持6成仓位"、"建议今日不操作"等）
+    //   风险模块的职责是「告诉你有什么风险」，不是「告诉你该怎么做」
+    //   操作建议统一在 actionHints 中覆盖，避免信息重复和职责混淆
     // - 禁止：一整段散文（前端无法分条渲染）、markdown 语法、emoji
-    // 正确示例：["NFP实际数字在低流动性环境发布，若再次大幅偏离预期，外汇和商品市场将剧烈震荡", "油价固化通胀预期——布伦特若持续站稳110美元，美联储被迫维持高利率", "建议今日不操作，下周一等价格发现后再行动"]
-    // 错误示例（禁止）：["今日最大尾部风险：NFP实际数字在低流动性环境发布，若再次意外大幅偏离预期（参考2月-92K远低预期），将引发外汇和商品市场剧烈震荡。中期最大风险仍是油价固化通胀预期——布伦特若持续站稳110美元...建议今日不操作"]（一整段散文塞进单个数组元素，等于没拆分）
+    // 正确示例：["油价$109近红灯区间，若霍尔木兹海峡持续受限布伦特可能突破$115，通胀中枢系统性上移", "CPI预期3.8%叠加汽油月涨36%，若实际超预期将引发美联储加息担忧", "特朗普伊朗2-3周最后通牒窗口期，若谈判破裂地缘风险将急剧升级"]
+    // 错误示例（禁止）：["...建议维持6成仓位+能源对冲，等CPI落地后再调整"]（操作建议应放在 actionHints，不放在风险点中）
     // 旧版兼容：若 riskPoints 缺失，前端自动用 riskNote 字符串按句号拆分兜底
   ],
   "riskNote": "string",                     // 🔸 旧版兼容字段——30-100字风险提示散文，纯文本。新版产出时仍保留此字段作为 fallback，但前端优先渲染 riskPoints 数组
+  // ⚠️ v3.7：riskNote 同样禁止包含操作建议（与 riskPoints 保持一致），只描述风险本身
   "dataTime": "2026-04-01 09:00 BJT",       // ⚠️ string — 格式固定为 "YYYY-MM-DD HH:MM BJT"，四个JSON保持完全一致，与简报页顶部时间同步
 
   // ===== v1.3 新增：元数据 =====
@@ -191,17 +240,41 @@
 |---|---|---|---|
 | 时间状态栏（v1.3） | `timeStatus` | — | 可选模块，前端也可自行计算时区 |
 | 今日核心结论（v1.7）| `takeaway` | — | 可选；30-80字，有立场有行动方向 |
-| 核心事件标题 | `coreEvent.title` | — | 纯文本，无 emoji |
+| 核心事件标题 | `coreEvent.title` | — | 纯文本，无 emoji，20-50字聚焦1-2个矛盾（v3.7精简） |
 | 事件链卡片（v1.7） | `coreEvent.chain[]` | 3-6条 | **对象数组**：title（必填）+ brief（可选）+ source（可选）+ url（可选，有则可点击） |
 | 全球资产 6 格卡片（v1.7） | `globalReaction[]` | 5-6项 | 固定6项；新增可选 `note` 字段（≤15字解读） |
 | 核心判断×3 + 置信度条 | `coreJudgments[]` | 精确3条 | confidence 必须是 number |
 | 判断扩展：决策者/参考源/概率/趋势（v1.3→v1.3.1） | `coreJudgments[].keyActor/references/probability/trend` | — | 全部可选；references 支持 string[] 旧格式和 object[] 新格式（含 name/summary/url） |
-| 行动建议 tag+content（v1.8） | `actions.today/week` | today 1-3, week 0-3 | type 枚举：hold/add/reduce/buy/sell/watch/hedge/stoploss；**禁止 bullish/bearish**；新增可选 `reason` 字段（≤40字） |
+| ⚡ 聪明钱建议 — 操作提示（v5.0） | `actionHints[]` | 0-2条（可为空） | **v5.0 新增，替代旧 actions**；无高置信机会时为空数组，前端不渲染；向后兼容旧 actions 格式 |
+| ⚡ 聪明钱建议 — 聪明钱动向（v5.0） | `smartMoney[]` | 2-4条 | signal 枚举严格；**v5.0 从子区域提升为聪明钱建议模块主体** |
+| ⚡ 聪明钱建议 — 重点持仓（v5.0） | `topHoldings[]` | 2-4条（可选） | **v5.0 新增**；一行式持仓概要，低频更新（季度13F） |
 | 情绪仪表盘圆环 | `sentimentScore` + `sentimentLabel` | — | score 是 number |
 | 市场情绪 bullet list（v1.8） | `marketSummaryPoints[]` | 3-5条 | 每条15-40字独立观察点；旧版 `marketSummary` 字符串兼容（前端自动拆分） |
-| 聪明钱卡片 | `smartMoney[]` | 2-4条 | signal 枚举严格 |
-| 风险提示底部（v3.1 bullet升级） | `riskPoints[]` + `riskNote`(兼容) | 2-4条 | 前端 🛡️ 图标 + bullet point 渲染；旧版 riskNote 字符串兜底按句号拆分 |
+| 🛡️ 风险情绪 — 风险点（v5.0 标题精简+规则强化） | `riskPoints[]` + `riskNote`(兼容) | 2-3条 | **v5.0 禁止包含操作建议**；前端 🛡️ 图标 + bullet point 渲染 |
 | 数据状态栏（v1.3） | `_meta` | — | 可选，控制底栏来源标签和版本号显示 |
+
+---
+
+**简报页质量基线门禁（v4.1 固化 — 每次产出 briefing.json 必须逐项自查）**：
+
+> **设计原则**：简报页是大老板每天第一眼看到的页面，takeaway+coreEvent+coreJudgments 构成核心决策信息。以下基线是 v4.1 确认的质量水平（以 2026-04-06 版为黄金样本），后续迭代只允许在此基础上提升，禁止退化。
+
+| # | 质量维度 | 基线要求 | 自查方法 |
+|---|---------|---------|---------|
+| **B1** | **takeaway 有立场有标红** | 30-80字，含条件判断（"如果X则Y"），3-5个【】标红关键词；禁止操作建议 | 检查【】数量（3-5）、是否有"建议/仓位"违禁词 |
+| **B2** | **coreEvent.title 精简聚焦** | 20-50字，只抓1-2个核心矛盾；与 takeaway 形成「标题→结论」层次 | 计字数、数信息点（≤2） |
+| **B3** | **chain 来源链接完整** | 每条 chain：非付费墙 source 必须有 https url；3-6条 | 逐条检查 url 非空（付费墙除外） |
+| **B4** | **coreJudgments 三段式** | 精确3条；logic 必须是「触发→传导→结论」箭头格式（≤50字）；每条有 references | 检查 → 符号、references 非空 |
+| **B5** | **globalReaction 精确数值** | 5-6项；value 无 `~` `≈` 模糊前缀；direction 枚举合规 | 正则扫描模糊前缀 |
+| **B6** | **actionHints 价投风格** | 0-2条（大多数日子为空数组）；type 使用操作动词（非 bullish/bearish）；不凑数 | 检查 type 枚举 + 有无"维持不变"废话 |
+| **B7** | **riskPoints 去操作化** | 2-3条纯风险描述；禁止"建议/仓位/对冲"等操作词 | 正则扫描操作违禁词 |
+| **B8** | **sentimentScore 独立判断** | 基于 VIX/Put-Call/信用利差综合打分；sentimentLabel 严格对应 score 区间 | 查表验证 score→label 映射 |
+| **B9** | **smartMoney 有具体动作** | 2-4条；每条有具体数字/操作/信号；数字可追溯到搜索来源 | 逐条检查信息量 |
+| **B10** | **topHoldings 数据查证** | 与 radar.smartMoneyHoldings 交叉一致；权重降序；数字来自 13F 查证 | briefing vs radar 比对 |
+| **B11** | **marketSummaryPoints 不重复** | 3-5条 bullet；不重复 coreEvent/globalReaction 中的具体涨跌幅数字 | 检查与其他模块的数字重叠 |
+| **B12** | **整体产出哲学** | 所有文字字段面向价投决策者（巴菲特/段永平风格），有立场有论据；无空洞废话；无 markdown 残留 | 自问："大老板读完能做判断吗？" |
+
+> **门禁执行时机**：第2.5阶段 JSON 终审时，briefing.json 必须额外过一遍上述 B1-B12。任何一项不通过则退回修正。
 
 ---
 
@@ -286,55 +359,74 @@
   ],
   // gics 精确11项：XLK/XLC/XLY/XLI/XLF/XLV/XLB/XLP/XLU/XLRE/XLE
 
-  "gicsInsight": "板块轮动明显，科技/通信领涨反映AI主线延续，能源/房地产承压显示市场偏好成长股"  // ⚠️ string — GICS板块一句话洞察，30-80字，纯文本
+  "gicsInsight": "板块轮动明显，科技/通信领涨反映AI主线延续，能源/房地产承压显示市场偏好成长股"  // ⚠️ string — GICS板块一句话洞察，30-80字。前端用 gicsInsightChain"轮动"节点渲染摘要，此字段为兜底
 }
 ```
 
-**板块 Insight 规范（v1.3.2 新增）**：
+**板块 Insight 规范（v4.4 升级 — 决策信号式写法）**：
+
+> **核心原则**：大老板是巴菲特/段永平风格的低频价值投资者。Insight 不是写给交易员的"盘面复述"，而是写给价投决策者的"精选信号"——**必须回答"对大老板意味着什么"**。
 
 | 字段 | 类型 | 必填 | 长度 | 内容要求 |
 |------|------|------|------|---------|
-| `usInsight` | string | ⚠️ | 30-80字 | 美股板块核心驱动力+关键数字+信号判断，禁止泛泛"市场上涨"，必须说清为什么涨、谁领涨、后续信号 |
-| `m7Insight` | string | ⚠️ | 30-80字 | M7整体表现+分化情况+领涨/拖累个股+驱动因素 |
-| `asiaInsight` | string | ⚠️ | 30-80字 | 亚太市场格局+港股/A股/日韩分化+核心驱动（政策/资金/外围） |
-| `commodityInsight` | string | ⚠️ | 30-80字 | 大宗核心品种走势+美元/债券联动+地缘/宏观驱动 |
-| `cryptoInsight` | string | ⚠️ | 30-80字 | BTC走势+ETF资金流向+链上信号/监管动态 |
-| `gicsInsight` | string | ⚠️ | 30-80字 | 板块轮动方向+领涨/领跌板块+资金偏好风格 |
+| `usInsight` | string | ⚠️ | 30-80字 | **决策信号式**：核心驱动力 + 关键数字 + 对价投的信号含义。禁止泛泛"市场上涨"，必须说清为什么、谁领涨、价投视角下的关键信号 |
+| `m7Insight` | string | ⚠️ | 30-80字 | M7整体格局 + 分化信号 + 对价投者的关注点（如估值拐点、业绩验证） |
+| `asiaInsight` | string | ⚠️ | 30-80字 | 亚太市场格局 + 港股/A股关键信号 + 与美股联动/背离的投资含义 |
+| `commodityInsight` | string | ⚠️ | 30-80字 | 大宗核心品种走势 + 通胀/利率含义 + 对持仓组合的影响信号 |
+| `cryptoInsight` | string | ⚠️ | 30-80字 | BTC走势 + ETF资金流信号 + 监管动态对配置的含义 |
+| `gicsInsight` | string | ⚠️ | 30-80字 | 板块轮动方向 + 资金偏好风格（成长/防御）+ 对持仓结构的暗示 |
 
-> **v1.3.2 变更**：原 `usMarkets[0].note` 字段已迁移为独立的 `usInsight` 字段，其他5个板块新增对应 Insight。所有 Insight 为必填（⚠️），格式为纯文本，禁止 markdown/emoji。前端向后兼容：有 `usInsight` 优先使用，否则降级到 `usMarkets[0].note`。
+**Insight 写作对比（v4.4）**：
 
-**板块 insightChain 规范（v2.4 新增）**：
+| 维度 | 错误示例（新闻摘要式）❌ | 正确示例（决策信号式）✅ |
+|------|------------------------|------------------------|
+| usInsight | "三大指数周涨3-4%，科技股领涨" | "SPX反弹至5570但VIX仍在23+，反弹结构脆弱——只有VIX回落至20以下才确认趋势反转" |
+| m7Insight | "NVDA涨5%领涨，TSLA跌3%拖累" | "NVDA Blackwell出货验证产业链逻辑但PE仍在50x，TSLA交付量连续两季不及预期——分化加剧意味着个股选择比板块配置更关键" |
+| commodityInsight | "油价涨至$109创新高，黄金突破$4600" | "布伦特$109逼近红灯区间（>$110），若持续将固化通胀预期、收窄降息空间——直接影响全年权益估值中枢" |
 
-> 每个 Insight 字段对应一个 `insightChain` 数组，用于前端渲染竖版因果链卡片（3节点）。
+---
 
-| 字段 | 类型 | 必填 | 结构 |
+**市场页质量基线门禁（v4.4 固化 — 每次产出 markets.json 必须逐项自查）**：
+
+> **设计原则**：市场页是大老板最高频查看的页面（每天看多次），质量必须稳如磐石。以下基线是 v4.4 确认的质量水平，后续迭代只允许在此基础上提升，禁止退化。
+
+| # | 质量维度 | 基线要求 | 自查方法 |
+|---|---------|---------|---------|
+| **Q1** | **数据完整性** | 5个Tab全部有数据：美股4项+M7精确7项+亚太4-6项+大宗精确6项+加密1-3项+GICS精确11项 | 逐Tab检查数组长度 |
+| **Q2** | **6条 Insight 全部非空** | 每个Tab摘要条都有内容（30-80字），不允许任何一个 Insight 为空字符串 | 逐条检查长度 |
+| **Q3** | **Insight 是决策信号而非新闻摘要** | 每条 Insight 必须回答"对价投决策者意味着什么"，含关键数字+信号判断+条件/阈值。禁止纯盘面复述（如"三大指数上涨"） | 自问：大老板读完这句话能做出判断吗？如果只是"知道发生了什么"而无法"判断该不该关注"，就是不合格 |
+| **Q4** | **sparkline 与 price 一致** | 每个标的的 `sparkline[-1]` 与 `price` 数值偏差 ≤1% | 逐个标的比对（重点关注脚本补全后的数据） |
+| **Q5** | **GICS 热力图有摘要** | `gicsSummarySegments` 非空——热力图顶部有一句话轮动摘要，不是光秃秃的条形图 | 检查 gicsInsightChain 或 gicsInsight 非空 |
+| **Q6** | **数字全部实时查证** | 所有 price/change 来自行情源，非 AI 记忆（RULE ZERO）。特别关注：离岸人民币CNH、VIX、10Y美债——这三个容易凭记忆写错 | 自查三问（见全局基础铁律） |
+| **Q7** | **枚举值合规** | changeLabel 只允许 `大盘指数/科技指数/蓝筹指数/恐慌指标`；GICS 精确11个ETF代码 | 逐项校验 |
+| **Q8** | **前端渲染无异常** | M7 header 只有一行（`🏆 Magnificent Seven`，无副标题）；Tab indicator 为圆点；摘要条高亮正确 | 小程序模拟器视觉检查 |
+
+> **门禁执行时机**：第2.5阶段 JSON 终审时，markets.json 必须额外过一遍上述 Q1-Q8。任何一项不通过则退回修正。
+
+---
+
+**板块 insightChain 规范（v4.4 降级为可选）**：
+
+> **v4.4 状态**：前端已不渲染因果链卡片。仅 `gicsInsightChain` 的"轮动"节点被前端提取为热力图一句话摘要。数据层保留完整结构供搜索覆盖，但非必填。
+
+| 字段 | 类型 | 必填 | 说明 |
 |------|------|------|------|
-| `usInsightChain` | array | ⚠️ | 3条，每条 `{ icon: string, label: string, text: string }` |
-| `m7InsightChain` | array | ⚠️ | 3条，每条同上 |
-| `asiaInsightChain` | array | ⚠️ | 3条，每条同上 |
-| `commodityInsightChain` | array | ⚠️ | 3条，每条同上 |
-| `cryptoInsightChain` | array | ⚠️ | 3条，每条同上 |
-| `gicsInsightChain` | array | ⚠️ | 3条，每条同上 |
+| `usInsightChain` | array | 🔸 | 3条 `{ icon, label, text }`，前端不渲染 |
+| `m7InsightChain` | array | 🔸 | 同上 |
+| `asiaInsightChain` | array | 🔸 | 同上 |
+| `commodityInsightChain` | array | 🔸 | 同上 |
+| `cryptoInsightChain` | array | 🔸 | 同上 |
+| `gicsInsightChain` | array | 🔸 | 3条同上。前端提取 label="轮动" 节点的 text 作为热力图摘要；缺失时降级到 `gicsInsight` |
 
-**insightChain 节点字段规范**：
+**insightChain 节点字段**：`icon`(1个emoji) + `label`(≤4字) + `text`(15-35字完整短句)
 
-| 子字段 | 说明 | 示例 |
-|--------|------|------|
-| `icon` | 1个 emoji，代表该节点性质 | `"⚡"` `"📉"` `"🔄"` |
-| `label` | ≤4字，节点逻辑标签（触发/反应/轮动/背景/领涨/领跌/压力/结论/信号/展望/主驱动/异动） | `"触发"` `"反应"` |
-| `text` | 15-35字，完整短句，禁止用 `·` 分隔多个要点 | `"WTI油价暴涨14%，霍尔木兹封锁溢价固化"` |
-
-**⚠️ 数字一致性强制规则（v2.4 新增）**：
-- `insightChain[].text` 中出现的任何数字（价格/涨跌幅/百分比）必须与对应板块 `price`/`change` 字段完全一致
-- 不允许出现方向矛盾（change 为负但文字说"上涨"）
-- 不允许出现数值差异（change=-2.73 但文字说"跌5%"）
-- 正确做法：先填完 `price`/`change`，再根据这些值写 `insightChain[].text`
-- **数字来源**：insightChain 文字中的数字直接引用已采集的 `change` 字段值，不允许重新从媒体文章中"记忆"价格数字
+**数字一致性规则**：insightChain[].text 中的数字必须与对应板块 `price`/`change` 一致，先填数据字段再写文字。
 
 **sparkline 生成规则**：
 - 7 个数据点代表近 7 个交易日收盘价（真实历史序列）
 - 数据来源：`yfinance.download(period="10d")["Close"]` 取最近7个交易日 / AkShare 历史接口
 - **禁止估算/插值/模拟波动生成**（v1.2起强制阻断），sparkline 缺失时回采重试，仍失败则阻断发布
+- **⚠️ v4.4 新增：sparkline 与 price 一致性校验**：`sparkline` 最后一个数据点必须与 `price` 字段的数值一致（允许千分位/货币符号格式差异，但数值偏差不超过 1%）。典型事故：AAPL price 显示 `$223.45`，但 sparkline 最后一个点是 `255.92`——差 14.5%，严重损伤数据可信度。自查：逐个标的比对 `sparkline[-1]` 与 `price` 数值，不一致则修正 sparkline 或 price
 
 ---
 
@@ -480,6 +572,26 @@
 
 ---
 
+**标的页质量基线门禁（v4.2 固化 — 每次产出 watchlist.json 必须逐项自查）**：
+
+> **设计原则**：标的页是大老板定期精选观察池，质量必须稳如磐石。以下基线是 v4.2 确认的质量水平（以 2026-04-06 版为黄金样本），后续迭代只允许在此基础上提升，禁止退化。
+
+| # | 质量维度 | 基线要求 | 自查方法 |
+|---|---------|---------|---------|
+| **W1** | **板块完整性** | 4个核心板块（ai_infra/ai_app/cn_ai/smart_money）每个 stocks 数组非空且≥2只标的；hot_topic 无事件时可省略或空数组 | 逐板块检查 stocks 数组长度 |
+| **W2** | **每只标的字段完整** | 已上市标的必须含：name/symbol/change(number)/price/listed(true)/tags(2个)/reason/analysis/metrics(6项)/risks(2-3条)/sparkline(7)/chartData(30)，全部非空 | 逐标的扫描空值 |
+| **W3** | **analysis 质量** | 2-3段（100-300字），含 ①当前业务亮点+关键数据 ②近期催化剂/事件 ③风险/估值判断。禁止泛泛空话 | 自问："大老板读完能判断该不该关注这只标的？" |
+| **W4** | **reason 有论据** | 20-60字，必须含结论+论据，禁止"是一家好公司"式空洞表达 | 检查是否含具体数据/事件/逻辑 |
+| **W5** | **tags 精准** | 每个标的2个 tag，每个4-8字。第一个=行业定位/核心能力，第二个=当期催化剂/最新动态（随行情更新） | 检查 tag 数量和时效性 |
+| **W6** | **metrics 一致性** | metrics[0].value 与 price 一致；metrics[1].value 与 change 一致（含正负号+%）；综合评级按 calc_star_rating 公式计算 | 逐标的比对 price⟷metrics[0]、change⟷metrics[1] |
+| **W7** | **sectors summary 有数据** | 每个板块 summary 含具体涨跌数字+核心驱动力+后续关注点（2-3句话），禁止"板块表现不错"式空话 | 检查 summary 是否含数字 |
+| **W8** | **sparkline[-1] 与 price 偏差≤1%** | 与市场页 Q4 同一标准——sparkline 最后一个点与 price 数值偏差不超过 1% | 逐标的比对（重点关注脚本补全后数据） |
+| **W9** | **risks 独立具体** | 每条风险15-50字，一条只讲一个风险点；禁止"市场风险"等泛泛表述 | 逐条检查独立性和具体性 |
+
+> **门禁执行时机**：第2.5阶段 JSON 终审时，watchlist.json 必须额外过一遍上述 W1-W9。任何一项不通过则退回修正。
+
+---
+
 ## 四、radar.json — 雷达页
 
 **对应页面**：`pages/radar/radar.wxml` + `radar.js`
@@ -499,15 +611,6 @@
 ```jsonc
 {
   "date": "2026-04-01",                    // ⚠️ string
-
-  // ===== Fear & Greed 情绪指数 =====
-  "fearGreed": {                            // 🔸 object — 安全信号模块上半部分；无则情绪条不渲染
-    "value": 42,                            // 🔸 number — 0-100 当前值
-    "label": "Fear",                        // 🔸 string — 枚举：Extreme Fear / Fear / Neutral / Greed / Extreme Greed
-    "previousClose": 38,                    // 🔸 number — 昨日收盘值
-    "oneWeekAgo": 55,                       // 🔸 number — 一周前值
-    "oneMonthAgo": 61                       // 🔸 number — 一月前值
-  },
 
   // ===== 预测市场 =====
   // v4.4 筛选规则：① 与本周 events[] 直接相关 ② change24h 绝对值 > 5（快速变化中） ③ 极端概率（>65% 或 <20%）
@@ -538,10 +641,11 @@
   // ===== 综合风险评分（安全信号建议的数据支撑）=====
   "riskScore": 38,                          // ⚠️ number — 0-100，按 SKILL.md 公式计算
   "riskLevel": "medium",                    // ⚠️ string — 枚举：low / medium / high
-  // ⚠️ riskAdvice v4.4 升级规范（详见 SKILL.md §2.3）：
-  //   必须：①点名 1-2 项最危险指标说清楚危险在哪 ②结合 fearGreed.value 说情绪方向 ③给出具体仓位建议
-  //   禁止：套模板（"当前风险评分X（Y）"开头）、模糊建议（"保持谨慎"）
-  //   正确示例："布伦特原油$109（近红区间）叠加外资偏谨慎，情绪恐惧区（F&G 42），建议维持6成仓位，能源对冲维持至原油回落$100。"
+  // ⚠️ riskAdvice v5.4 升级规范（详见 SKILL.md §2.3）：
+  //   必须：①点名 1-2 项最危险指标说清楚危险在哪 ②底层指标释放明确信号时可综合判断情绪方向，禁止机械引用 F&G 单一指标值 ③指向本周最关键催化剂/时间节点
+  //   禁止：套模板（"当前风险评分X（Y）"开头）、模糊建议（"保持谨慎"）、操作建议（仓位/加仓/减仓/对冲等——统一在 actionHints 中覆盖）
+  //   正确示例："黄金$4,627亮红灯（避险情绪极端），布伦特$109逼近红灯区间——若周四CPI确认通胀二次抬头，当前反弹基础将被抽空。"
+  //   错误示例（禁止）："布伦特$109叠加F&G仅19，建议维持5成仓位+能源对冲。"（机械引用F&G+含操作建议）
   "riskAdvice": "string",                   // ⚠️ 动态一句话建议，不超过2句，每句有信息量
 
   // ===== 关键监控阈值（向后兼容，前端 v6.0 不再渲染）=====
@@ -677,6 +781,18 @@
 
 ## 五、通用规则
 
+### 5.0 全局数据查证铁律（最高优先级）
+
+> **🚨 禁止 AI 凭训练数据中的模糊记忆直接输出任何数字。所有 4 个 JSON 中出现的每一个数字，都必须来自当期实时搜索/查证。**
+
+本规则适用于全部 JSON 字段中的所有数值类数据，包括但不限于：价格（price）、涨跌幅（change）、汇率、持仓权重（weight）、估值指标（PE）、AUM、目标价、预测概率、资金流金额、宏观数据（CPI/利率/信用利差）等。
+
+**自查三问**：①这个数字来自本次执行的哪次搜索？②搜索结果原文怎么写的？③时间戳是否在合理范围内？——任一答不上来→该数字必须重新搜索核实。
+
+**宁缺毋错**：查不到确切数据时标注"待更新"或省略，绝不编造数字。
+
+详见 SKILL.md「全局基础铁律」完整说明。
+
 ### 5.1 纯文本规则
 
 所有 JSON 中的 string 类型字段必须是**纯文本**，禁止包含：
@@ -702,10 +818,10 @@
 | 字段路径 | 允许值 |
 |----------|--------|
 | `globalReaction[].direction` | `up`, `down`, `flat` |
-| `actions.today[].type` / `actions.week[].type` | `hold`, `add`, `reduce`, `buy`, `sell`, `watch`, `hedge`, `stoploss`（**禁止 `bullish` / `bearish`**） |
+| `actionHints[].type` | `hold`, `add`, `reduce`, `buy`, `sell`, `watch`, `hedge`, `stoploss`（**禁止 `bullish` / `bearish`**） |
 | `smartMoney[].signal` | `bullish`, `bearish`, `neutral` |
-| `sentimentLabel` | `极度恐惧`, `偏恐惧`, `中性`, `偏贪婪`, `贪婪`, `极度贪婪`（**禁止**「偏悲观」「偏乐观」等非标准值；score→label映射见§1注释） |
-| `sectors[].id` | `ai`, `semi`, `internet`, `energy`, `consumer`, `pharma`, `finance` |
+| `sentimentLabel` | `极度恐惧`, `偏恐惧`, `中性`, `偏贪婪`, `贪婪`, `极度贪婪`（score→label映射见§1注释） |
+| `sectors[].id` | `ai_infra`, `ai_app`, `cn_ai`, `smart_money`, `hot_topic` |
 | `sectors[].trend` | `up`, `down`, `hold` |
 | `trafficLights[].status` | `green`, `yellow`, `red` |
 | `riskLevel` | `low`, `medium`, `high` |
@@ -714,33 +830,29 @@
 | `alerts[].level` | `danger`, `warning`, `info` |
 | `smartMoneyDetail[].tier` | `T1旗舰`, `T2成长`, `策略师观点` |
 | `smartMoneyDetail[].funds[].signal` | `bullish`, `bearish`, `neutral` |
-| `smartMoneyDetail[].funds[].freshness`（v3.2） | `本周`, `上周`, `本月` |
+| `smartMoneyDetail[].funds[].freshness` | `本周`, `上周`, `本月` |
 | `usMarkets[].changeLabel` | `大盘指数`, `科技指数`, `蓝筹指数`, `恐慌指标` |
-| `timeStatus.marketStatus`（v1.3→v2.3） | `美股交易中`, `美股已收盘`, `盘前交易`, `盘后交易`, `美股休市`（v2.3新增，用于美国公共假日如耶稣受难日/感恩节/圣诞节等） |
-| ~~`keyDeltas[].status`~~（**已废弃 v2.0，禁止使用**） | ~~`升级`, `新增`, `活跃`, `降温`, `稳定`~~ — `keyDeltas[]` 整个模块已于 v2.0 从简报页删除，脚本/AI 均不应生成此字段 |
-| `coreJudgments[].probability`（v1.3） | `高可能性`, `中可能性`, `低可能性` |
-| `coreJudgments[].trend`（v1.3） | `上升`, `下降`, `稳定` |
-| `fearGreed.label`（v1.3） | `Extreme Fear`, `Fear`, `Neutral`, `Greed`, `Extreme Greed` |
-| `predictions[].trend`（v1.3） | `up`, `down`, `stable` |
-| `predictions[].source`（v1.3） | `Polymarket`, `Kalshi`, `CME FedWatch` |
-| `_meta.sourceType`（v1.3, v4.0扩展） | `heavy_analysis`, `realtime_quote`, `breaking_news`, `weekend_insight` |
+| `timeStatus.marketStatus` | `美股交易中`, `美股已收盘`, `盘前交易`, `盘后交易`, `美股休市` |
+| `coreJudgments[].probability` | `高可能性`, `中可能性`, `低可能性` |
+| `coreJudgments[].trend` | `上升`, `下降`, `稳定` |
+| `fearGreed.label` | `Extreme Fear`, `Fear`, `Neutral`, `Greed`, `Extreme Greed` |
+| `predictions[].trend` | `up`, `down`, `stable` |
+| `predictions[].source` | `Polymarket`, `Kalshi`, `CME FedWatch` |
+| `_meta.sourceType` | `heavy_analysis`, `realtime_quote`, `breaking_news`, `weekend_insight` |
 
 ---
 
-> v3.3 — 2026-04-05 22:59 | **聪明钱动向取消折叠**：①前端去掉"展开/收起"按钮，聪明钱动向全部直接展示不折叠；②清理 `smartMoneyShowAll`/`smartMoneyTotal` 数据字段和 `toggleSmartMoneyAll` 方法；③对应前端 radar.js/wxml/wxss 同步精简；④Skill 规范同步更新描述。
-> v3.2 — 2026-04-05 20:01 | **策略师观点时效标注**：①`smartMoneyDetail[].funds[]` 新增 🔸 可选 `freshness` 字段（枚举：本周/上周/本月），用于标注策略师观点的发布时效；②前端可据此显示灰色时效标签帮助读者判断新鲜度；③枚举值清单同步新增 `freshness`；④超过30天的观点禁止填入。
-> v3.1 — 2026-04-05 19:14 | **雷达页来源链接+数据质量升级**：①`events[]` 新增 `source`/`url` 🔸可选字段（前端 v6.1 支持点击跳转 webview）；②`riskAlerts[]` 新增 `source`/`url`；③`alerts[]` 新增 `source`/`url`；④`smartMoneyDetail[].funds[]` 新增 `source`/`url`（每条机构动向可附来源链接）；⑤`events[].title` 内容规范升级（20-40字，需说明为什么重要，而非纯事件名称）；⑥`riskAdvice` 示例更新为动态内容规范（点名最危险指标+具体仓位建议）；⑦`smartMoneyDetail[].funds[].action` 示例更新为含具体数字的高质量内容。
-> v3.0 — 2026-04-05 18:35 | **雷达页5模块重构**：①前端 radar.wxml v6.0 重构为5模块；②废弃渲染：综合风险评分圆圈、关键监控阈值表；③`smartMoneyDetail[]` 新增内容质量规范；④`predictions[]` 新增筛选规则；⑤`riskAdvice` 动态内容规范；⑥`events[] + riskAlerts[]` 融合展示说明；⑦`alerts[]` 可为空数组。
-> v2.3 — 2026-04-05 | **枚举健壮性升级**：①`marketStatus` 新增 `美股休市` 枚举值；②`sentimentLabel` 新增 score→label 对应关系注释；③枚举总表升级。
-> v2.2 — 2026-04-05 | **风险提示模块 bullet point 升级**：①`riskNote` 升级为 `riskPoints[]` 数组；②保留旧版兼容；③图标从 ⚠️ 更换为 🛡️。
-> v2.1 — 2026-04-03 20:28 | 全面审查修复（13处）。
-> v2.0 — 2026-04-03 | 见 SKILL.md v3.0 Changelog。
-> v1.6 — 2026-04-02 20:18 | KEY DELTA 前端重构。
-> v1.5 — 2026-04-02 20:02 | 数据时效性与格式规范修复。
-> v1.4 — 2026-04-02 18:24 | 字段内容边界规范升级。
-> v1.3.2 — 2026-04-02 00:21 | markets.json 新增6个板块级 Insight 字段。
-> v1.3.1 — 2026-04-02 00:00 | UI精修三项。
-> v1.3 — 2026-04-01 22:58 | 前端体验升级（timeStatus/keyDeltas/fearGreed/predictions/_meta）。
-> v1.2 — 2026-04-01 | 六项数据质量深度治理。
-> v1.1 — 2026-04-01 | 老板直推级数据治理升级。
-> v1.0 — 2026-04-01 | 初始版本。
+> v4.1 — 2026-04-06 14:05 | **简报页质量基线门禁 B1-B12 固化 + 冗余清理**：①新增「简报页质量基线门禁 B1-B12」——12项逐条自查清单覆盖 takeaway标红/title精简/chain链接/logic三段式/globalReaction精确/actionHints价投/riskPoints去操作/sentimentScore独立/smartMoney信息量/topHoldings查证/marketSummaryPoints不重复/整体价投风格；②以 2026-04-06 版 briefing.json 为黄金样本基准。
+> v4.2 — 2026-04-06 14:06 | **标的页质量基线门禁固化+枚举修复**：①新增「标的页质量基线门禁 W1-W9」——9项覆盖板块完整性/字段完整性/analysis质量/reason论据/tags精准/metrics一致性/summary有数据/sparkline-price一致/risks独立具体；②§5.3 `sectors[].id` 枚举从旧7板块（ai/semi/internet/energy/consumer/pharma/finance）修正为新5板块（ai_infra/ai_app/cn_ai/smart_money/hot_topic）；③新增「简报页质量基线门禁 B1-B12」（v4.1已固化）。
+> v4.1 — 2026-04-06 14:00 | **简报页质量基线门禁固化**：新增 B1-B12 简报页12项质量门禁。
+> v4.0 — 2026-04-06 13:59 | **市场页 v4.4 优化 + 质量基线门禁固化**：Insight 升级为决策信号式；sparkline-price 一致性校验；新增 Q1-Q8 市场页门禁。
+> v3.9 — 2026-04-06 13:03 | riskAdvice 去操作化+F&G弱化。
+> v3.8 — 2026-04-06 12:41 | GICS因果链精简为一句话轮动摘要。
+> v3.7 — 2026-04-06 12:20 | 简报页产出哲学固化（四项规则）。
+> v3.5 — 2026-04-06 11:54 | 持仓数据准确性事故复盘+四条铁律。
+> v3.4 — 2026-04-06 11:23 | 简报页聪明钱建议模块重构+风险模块强化。
+> v3.3 — 2026-04-05 22:59 | 聪明钱动向取消折叠。
+> v3.2 — 2026-04-05 20:01 | 策略师观点时效标注。
+> v3.1 — 2026-04-05 19:14 | 雷达页来源链接+数据质量升级。
+> v3.0 — 2026-04-05 18:35 | 雷达页5模块重构。
+> v2.3及以前 | 详见 git 历史。

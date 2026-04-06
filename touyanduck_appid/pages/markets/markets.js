@@ -1,8 +1,32 @@
 // pages/markets/markets.js
-// 市场页 v4.1 — 新增缓存优先秒开，补齐与 briefing/watchlist/radar 的一致体验
+// 市场页 v4.4 — 5Tab摘要条 + GICS热力图 + 圆点Tab + M7精简
 
 var api = require('../../services/api')
 var colorUtil = require('../../utils/color')
+
+/**
+ * 解析 insight 文本，提取数字/百分比/关键标的作为高亮片段
+ * 匹配规则：$价格、±百分比、涨/跌/暴涨/暴跌、VIX/NVDA等大写标的、连续大写英文
+ */
+function parseInsightSegments(text) {
+  if (!text) return []
+  // 匹配：$数字、±数字%、涨跌关键词+数字、大写英文标的(>=2字母)、中文关键标签如【】
+  var re = /(\$[\d,.]+[KMB]?|[+-]?\d+\.?\d*%|暴[涨跌]\d*\.?\d*%?|[涨跌]\d+\.?\d*%|VIX|NVDA|TSLA|META|MSFT|AAPL|GOOGL|AMZN|BTC|ETH|XLE|XLY|XLRE|WTI|DXY|CNH|SPX|QQQ|Fear\s*&\s*Greed|[A-Z]{2,5}(?=[\s跌涨暴]))/g
+  var segments = []
+  var lastIndex = 0
+  var match
+  while ((match = re.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      segments.push({ text: text.substring(lastIndex, match.index), highlight: false })
+    }
+    segments.push({ text: match[0], highlight: true })
+    lastIndex = re.lastIndex
+  }
+  if (lastIndex < text.length) {
+    segments.push({ text: text.substring(lastIndex), highlight: false })
+  }
+  return segments
+}
 
 Page({
   data: {
@@ -27,12 +51,12 @@ Page({
     commodityInsight: '',
     cryptoInsight: '',
     gicsInsight: '',
-    usInsightChain: [],
-    m7InsightChain: [],
-    asiaInsightChain: [],
-    commodityInsightChain: [],
-    cryptoInsightChain: [],
-    gicsInsightChain: [],
+    usSummarySegments: [],
+    m7SummarySegments: [],
+    asiaSummarySegments: [],
+    commoditySummarySegments: [],
+    cryptoSummarySegments: [],
+    gicsSummarySegments: [],
     animateReady: false,
     isCloud: false,
     dataTime: '',
@@ -206,13 +230,16 @@ Page({
     var cryptoInsight = data.cryptoInsight || ''
     var gicsInsight = data.gicsInsight || ''
 
-    // 因果链字段
-    var usInsightChain = data.usInsightChain || []
-    var m7InsightChain = data.m7InsightChain || []
-    var asiaInsightChain = data.asiaInsightChain || []
-    var commodityInsightChain = data.commodityInsightChain || []
-    var cryptoInsightChain = data.cryptoInsightChain || []
+    // GICS 摘要：优先从因果链提取"轮动"节点，降级到 gicsInsight
     var gicsInsightChain = data.gicsInsightChain || []
+    var gicsSummaryText = ''
+    if (gicsInsightChain.length) {
+      var rotationNode = gicsInsightChain.filter(function(n) {
+        return n.label === '轮动' || n.label === '趋势' || n.label === '逻辑'
+      })[0]
+      gicsSummaryText = rotationNode ? rotationNode.text : gicsInsightChain[gicsInsightChain.length - 1].text
+    }
+    if (!gicsSummaryText) gicsSummaryText = gicsInsight
 
     that.setData({
       usMarkets: processItems(data.usMarkets),
@@ -227,12 +254,12 @@ Page({
       commodityInsight: commodityInsight,
       cryptoInsight: cryptoInsight,
       gicsInsight: gicsInsight,
-      usInsightChain: usInsightChain,
-      m7InsightChain: m7InsightChain,
-      asiaInsightChain: asiaInsightChain,
-      commodityInsightChain: commodityInsightChain,
-      cryptoInsightChain: cryptoInsightChain,
-      gicsInsightChain: gicsInsightChain,
+      usSummarySegments: parseInsightSegments(usInsight),
+      m7SummarySegments: parseInsightSegments(m7Insight),
+      asiaSummarySegments: parseInsightSegments(asiaInsight),
+      commoditySummarySegments: parseInsightSegments(commodityInsight),
+      cryptoSummarySegments: parseInsightSegments(cryptoInsight),
+      gicsSummarySegments: parseInsightSegments(gicsSummaryText),
       dataTime: dataTime,
       loading: false
     })

@@ -228,7 +228,6 @@ module.exports = {
   getMarkets: getMarkets,
   getWatchlist: getWatchlist,
   getRadar: getRadar,
-  getRealtimeData: getRealtimeData,
   getCache: getCache,
   clearCache: clearCache,
   isCloudMode: isCloudMode

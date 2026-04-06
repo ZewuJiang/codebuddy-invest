@@ -1,5 +1,10 @@
 /**
- * 云函数 refreshRealtimeData v2.0
+ * ⚠️ 已废弃（2026-04-06）
+ * 原因：Fear & Greed 数据已从产品中移除，predictions 通过 radar.json 日报层覆盖。
+ * 前端已移除 getRealtimeData() 调用，此云函数不再被触发。
+ * 保留代码仅供参考，建议后续清理时删除此云函数及对应的定时触发器。
+ *
+ * 云函数 refreshRealtimeData v2.0（已废弃）
  * 用途：定时拉取实时数据，写入云数据库 realtime 集合
  *
  * v2.0 新增：

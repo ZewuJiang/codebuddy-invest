@@ -112,21 +112,16 @@ web_search 返回了含价格数字的 snippet
 
 ## 一-A、情绪与预测数据源优先级（Batch A 专用）
 
-> **重要**：情绪与预测数据对应 `radar.fearGreed` 和 `radar.predictions[]` 字段，均为**可选字段（🔸）**。
+> **重要**：情绪与预测数据对应 `radar.predictions[]` 字段，为**可选字段（🔸）**。
 > 所有情绪/预测数据源**失败均不阻断主流程**，获取失败时对应字段省略（不填 null）。
 
 | 数据类型 | 首选 | 备选 | 第三选 | 失败处理 |
 |----------|------|------|--------|---------|
-| **CNN Fear & Greed Index** | `production.dataviz.cnn.com/index/fearandgreed/graphdata` (web_fetch, JSON接口) | web_search "CNN Fear Greed Index today" | — | **跳过，省略 fearGreed 字段** |
 | **Polymarket 预测概率** | `clob.polymarket.com/markets?active=true&limit=20` (web_fetch) | web_search "Polymarket [主题] probability 2026" | — | **跳过该条目，predictions 可为空数组** |
 | **Kalshi 预测概率** | `trading-api.kalshi.com/trade-api/v2/markets?limit=20&status=open` (web_fetch) | web_search "Kalshi prediction [主题]" | — | **跳过该条目** |
 | **CME FedWatch 降息概率** | `cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html` (web_fetch) | web_search "CME FedWatch probability June 2026" | web_search "美联储降息概率 CME" | **跳过该条目** |
 
-**CNN Fear & Greed 接口说明**：
-- 接口直接返回 JSON，`fear_and_greed.score`（当前值）+ `fear_and_greed.rating`（等级标签）
-- 历史对比数据在 `fear_and_greed_historical.data` 数组中，按时间倒序排列
-- 昨日值：取 `data[0].y`；一周前：取 `data[4].y`；一月前：取 `data[19].y`（约）
-- 无需 API Key，直接 web_fetch 即可访问
+**~~CNN Fear & Greed 接口说明~~**（已废弃 2026-04-06，fearGreed 字段已从产品中移除）
 
 **Polymarket 接口说明**：
 - 返回活跃市场列表，每个市场包含 `question`（标题）、`last_trade_price`（最近成交概率）、`volume_24h`（24h交易量）
@@ -168,7 +163,6 @@ web_search 返回了含价格数字的 snippet
 | **日经225 yfinance 量级校验失败** | → **ak.futures_foreign_hist("N225") AkShare 备用通道** |
 | **KOSPI 量级校验失败（>4500 或 <1500）** | → **标注"数据待核实"，不阻断整体流程** |
 | 上传失败 | → JSON 文件保留，下次可手动重传 |
-| **CNN Fear&Greed 接口失败** | → **web_search 获取当日值 → 仍失败 → 省略 fearGreed 字段（不阻断）** |
 | **Polymarket API 失败** | → **web_search 定向搜索 → 仍失败 → 省略该条目（predictions 可为空数组，不阻断）** |
 | **Kalshi API 失败** | → **web_search → 仍失败 → 省略该条目（不阻断）** |
 | **CME FedWatch 页面失败** | → **web_search "CME FedWatch probability" → 仍失败 → 省略该条目（不阻断）** |
@@ -176,10 +170,8 @@ web_search 返回了含价格数字的 snippet
 
 ---
 
-> v1.6 — 2026-04-05 17:37 | **AkShare 替代 yfinance**：sparkline/chartData 数据源从 yfinance（Yahoo 403 封禁）切换至 AkShare 新浪源（主）+ 东方财富源（fallback）；新增 A股指数+港股指数覆盖；港股/A股 sparkline 从「AI 手动采集」升级为「脚本 v3.0 自动补全」；AkShare 缺口（VIX/DXY/10Y/CNH/BTC/ETH）保留 AI 估算值；降级路径表 sparkline 行更新。
-> v1.5 — 2026-04-03 20:00 | **方案A 双轨分工**：sparkline/chartData 字段从「AI 必须采集」改为「脚本 v2.0 自动补全」；数据源表 sparkline 行更新为脚本自动处理；港股/A股标注为 AI 手动补采；降级路径表 sparkline 行更新为「脚本失败→AI 估算兜底（非阻断）」；版本号升至 v1.5。
-> v1.4 — 2026-04-03 10:55 | **双轨数据源体系**：将数据源表重构为「交易数据轨」与「观点数据轨」双轨体系；交易数据轨明确禁止使用任何新闻媒体来源，并为黄金/美债/CNH等历史问题数据类型单独强化备注；新增「跨轨污染禁止」总则；降级路径新增「交易数据来源为新闻媒体」兜底规则（任何情况均阻断）。
-> v1.3 — 2026-04-02 | 新增一-A章"情绪与预测数据源优先级"（Batch A 专用）：定义 CNN Fear&Greed / Polymarket / Kalshi / CME FedWatch 四类数据源的优先级、接口说明和字段映射说明；降级路径表新增 4 条情绪数据降级路径（全部非阻断型）。
-> v1.2 — 2026-04-01 | 六项数据质量深度治理：①CNH 改用真实离岸源 `ak.forex_hist_em`；②移除 CNY=X 批量下载，避免在岸/离岸混用；③北向资金永久缺口说明+外资动向替代方案；④日经/KOSPI 量级校验机制；⑤禁止 sparkline/CNH 估算降级；⑥个股 metrics 改为方案C（PE+规则化评级）。
-> v1.1 — 2026-04-01 | 老板直推级数据治理升级：只允许直接行情源进入交易字段；禁止新闻页回填价格；禁止 sparkline/chartData 估算；允许 metrics 改为可验证指标集合。
-> v1.0 — 2026-04-01 | 初始版本。基于原 Skill data-collection-sop.md 数据源优先级表 + App 版额外需求（sparkline/metrics/chartData）扩展。
+> v1.7 — 2026-04-06 | fearGreed 引用清理。
+> v1.6 — 2026-04-05 | AkShare 替代 yfinance（新浪源+东方财富 fallback）。
+> v1.5 — 2026-04-03 | 方案A双轨分工（sparkline由脚本自动补全）。
+> v1.4 — 2026-04-03 | 双轨数据源体系重构。
+> v1.0~v1.3 | 初始版本→情绪数据源→数据治理。详见 git 历史。

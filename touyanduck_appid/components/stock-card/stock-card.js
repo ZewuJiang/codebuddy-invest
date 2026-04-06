@@ -24,7 +24,8 @@ Component({
     changeText: '--',
     isUp: true,
     isUnlisted: false,
-    badgeClass: 'badge-default',
+    classifiedBadges: [],
+    coloredMetrics: [],
     chartId: '',
     showCard: false,
     expanded: false
@@ -58,11 +59,34 @@ Component({
         isUp = stock.change >= 0
       }
 
+      // badges 三色分类
+      var classifiedBadges = (stock.badges || []).map(function(b) {
+        var cls = 'badge-default'
+        if (b.indexOf('巴菲特') >= 0) cls = 'badge-buffett'
+        else if (b.indexOf('段永平') >= 0) cls = 'badge-duan'
+        else if (b === '未上市') cls = 'badge-unlisted'
+        return { text: b, cls: cls }
+      })
+
+      // metrics 涨跌着色：含 + 的百分比绿色，含 - 的百分比红色，其余不变
+      var coloredMetrics = (stock.metrics || []).map(function(m) {
+        var val = (m.value || '') + ''
+        var colorClass = ''
+        if (/^\+.*%$/.test(val)) {
+          colorClass = 'metric-up'
+        } else if (/^-.*%$/.test(val)) {
+          colorClass = 'metric-down'
+        }
+        return { label: m.label, value: m.value, colorClass: colorClass }
+      })
+
       this.setData({
         changeColorClass: changeColorClass,
         changeText: changeText,
         isUp: isUp,
-        isUnlisted: isUnlisted
+        isUnlisted: isUnlisted,
+        classifiedBadges: classifiedBadges,
+        coloredMetrics: coloredMetrics
       })
     }
   },

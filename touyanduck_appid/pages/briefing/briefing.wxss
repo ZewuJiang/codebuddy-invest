@@ -1,17 +1,24 @@
 /* pages/briefing/briefing.wxss */
-/* 简报页样式 v6.0 — takeaway + 今日重点事件(chain对象化) + 全球资产反应(note) + 行动建议(reason) */
+/* 简报页样式 v7.0 — 三段式精简架构：发生了什么 / 该怎么办 / 风险底线 */
 
 .page-container {
   padding-bottom: 20rpx;
 }
 
-/* ========== 今日核心结论 TAKEAWAY ========== */
-.takeaway-card {
+/* ========== ① 今日结论 + 重点事件（合并卡片）========== */
+.combined-event-card {
   background: #fff;
   border-radius: 16rpx;
   padding: 24rpx;
   margin: 0 24rpx 16rpx;
   box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.06);
+}
+
+/* 合并卡片内的分隔线 */
+.combined-divider {
+  height: 1rpx;
+  background: linear-gradient(90deg, transparent 0%, #f0f0f0 15%, #f0f0f0 85%, transparent 100%);
+  margin: 18rpx 0 16rpx;
 }
 
 /* 通用卡片标题（今日结论、今日重点事件、全球资产反应 共用） */
@@ -36,23 +43,7 @@
   font-weight: 700;
 }
 
-/* ========== §1 核心事件卡片 ========== */
-.event-card {
-  background: #fff;
-  border-radius: 16rpx;
-  padding: 24rpx;
-  margin: 0 24rpx 16rpx;
-  box-shadow: 0 2rpx 16rpx rgba(0, 0, 0, 0.06);
-}
-
-.event-title {
-  font-size: 30rpx;
-  font-weight: 700;
-  color: #1a1a2e;
-  line-height: 1.5;
-  margin-bottom: 20rpx;
-}
-
+/* ========== §1 核心事件链（在合并卡片内使用）========== */
 .event-chain {
   padding-left: 8rpx;
 }
@@ -242,12 +233,12 @@
 }
 
 .judgment-num {
-  width: 40rpx;
-  height: 40rpx;
+  width: 36rpx;
+  height: 36rpx;
   border-radius: 50%;
   background: linear-gradient(135deg, #FFB800, #FF8C00);
   color: #fff;
-  font-size: 22rpx;
+  font-size: 20rpx;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -258,7 +249,7 @@
 }
 
 .judgment-title {
-  font-size: 28rpx;
+  font-size: 25rpx;
   font-weight: 600;
   color: #1a1a2e;
   line-height: 1.5;
@@ -364,7 +355,79 @@
   margin-top: 5rpx;
 }
 
-/* ========== §2 市场情绪 ========== */
+/* ========== ③ 聪明钱建议 ========== */
+/* 操作提示区域（可选，置顶，无子标题直接渲染） */
+.action-hint-section {
+  margin-bottom: 16rpx;
+}
+
+/* 聪明钱动向子区域 */
+.sm-section {
+  /* 无操作提示时无需上分隔线（由 wx:if 控制 header 显示） */
+}
+
+.sm-section-header {
+  border-top: 1rpx solid #f0f0f0;
+  padding-top: 16rpx;
+  margin-bottom: 12rpx;
+}
+
+.sm-section-title {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #666;
+}
+
+/* 重点持仓 */
+.holdings-section {
+  margin-top: 16rpx;
+  border-top: 1rpx solid #f0f0f0;
+  padding-top: 16rpx;
+}
+
+.holdings-header {
+  margin-bottom: 12rpx;
+}
+
+.holdings-title {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #666;
+}
+
+.holdings-list {
+  margin-top: 4rpx;
+}
+
+.holdings-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 12rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.holdings-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.holdings-name {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #1a1a2e;
+  flex-shrink: 0;
+  margin-right: 16rpx;
+  min-width: 120rpx;
+}
+
+.holdings-detail {
+  font-size: 23rpx;
+  color: #888;
+  line-height: 1.6;
+  flex: 1;
+}
+
+/* ========== ④ 风险与情绪（合并卡片中的情绪仪表盘）========== */
 .sentiment-bar {
   display: flex;
   align-items: center;
@@ -436,40 +499,7 @@
   border-radius: 16rpx;
 }
 
-/* 市场情绪 bullet point 列表 */
-.market-summary-list {
-  margin-top: 16rpx;
-  padding-left: 4rpx;
-}
-
-.ms-item {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 14rpx;
-}
-
-.ms-item:last-child {
-  margin-bottom: 0;
-}
-
-.ms-dot {
-  width: 10rpx;
-  height: 10rpx;
-  border-radius: 50%;
-  background: #FFB800;
-  flex-shrink: 0;
-  margin-top: 11rpx;
-  margin-right: 14rpx;
-}
-
-.ms-text {
-  font-size: 24rpx;
-  color: #666;
-  line-height: 1.7;
-  flex: 1;
-}
-
-/* ========== §4 聪明钱速览 ========== */
+/* ========== §4 聪明钱速览（合并入决策建议卡片）========== */
 .smart-money-list {
   margin-top: 4rpx;
 }
@@ -539,9 +569,16 @@
   font-weight: 500;
 }
 
-/* ========== 风险提示 ========== */
-.risk-card {
+/* ========== ④ 风险与情绪（合并卡片）========== */
+.risk-sent-card {
   border-left: 6rpx solid #e74c3c;
+}
+
+/* 风险点列表（在合并卡片内）*/
+.risk-list-section {
+  margin-top: 20rpx;
+  border-top: 1rpx solid #fce4e4;
+  padding-top: 16rpx;
 }
 
 .risk-item {
@@ -857,16 +894,7 @@
   flex-shrink: 0;
 }
 
-/* ========== 数据更新时间 ========== */
-.data-footer {
-  text-align: center;
-  padding: 20rpx 32rpx 16rpx;
-}
-
-.footer-text {
-  font-size: 20rpx;
-  color: #bbb;
-}
+/* data-footer / footer-text 已统一到 app.wxss */
 
 /* ========== 入场动画 ========== */
 .stagger-item {

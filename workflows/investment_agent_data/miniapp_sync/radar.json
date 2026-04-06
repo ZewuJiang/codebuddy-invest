@@ -1,127 +1,79 @@
 {
-  "date": "2026-04-05",
-  "fearGreed": {
-    "value": 22,
-    "label": "Extreme Fear",
-    "previousClose": 28,
-    "oneWeekAgo": 42,
-    "oneMonthAgo": 55
-  },
+  "date": "2026-04-06",
   "predictions": [
     {
       "title": "美联储6月降息?",
-      "source": "CME FedWatch",
-      "probability": 28,
-      "trend": "down",
-      "change24h": -5
-    },
-    {
-      "title": "WTI油价4月底超$120?",
-      "source": "Polymarket",
-      "probability": 35,
-      "trend": "up",
-      "change24h": 15
-    },
-    {
-      "title": "伊朗停火协议本月达成?",
       "source": "Polymarket",
       "probability": 18,
       "trend": "down",
-      "change24h": -12
+      "change24h": -8
+    },
+    {
+      "title": "伊朗停火30天内?",
+      "source": "Polymarket",
+      "probability": 35,
+      "trend": "up",
+      "change24h": 12
+    },
+    {
+      "title": "2026年内衰退?",
+      "source": "Kalshi",
+      "probability": 42,
+      "trend": "up",
+      "change24h": 6
     }
   ],
   "trafficLights": [
-    {
-      "name": "VIX波动率",
-      "value": "23.87",
-      "status": "yellow",
-      "threshold": "<18绿 / 18-25黄 / >25红"
-    },
-    {
-      "name": "10Y美债收益率",
-      "value": "4.33%",
-      "status": "yellow",
-      "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
-    },
-    {
-      "name": "布伦特原油",
-      "value": "$109.24",
-      "status": "yellow",
-      "threshold": "<$90绿 / $90-110黄 / >$110红"
-    },
-    {
-      "name": "美元指数DXY",
-      "value": "100.04",
-      "status": "green",
-      "threshold": "<102绿 / 102-107黄 / >107红"
-    },
-    {
-      "name": "HY信用利差",
-      "value": "3.16%",
-      "status": "green",
-      "threshold": "<4%绿 / 4-5%黄 / >5%红"
-    },
-    {
-      "name": "黄金XAU",
-      "value": "$4,675",
-      "status": "red",
-      "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
-    },
-    {
-      "name": "离岸人民币CNH",
-      "value": "6.8831",
-      "status": "green",
-      "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
-    }
+    {"name": "VIX波动率", "value": "23.87", "status": "yellow", "threshold": "<18绿 / 18-25黄 / >25红"},
+    {"name": "10Y美债收益率", "value": "4.32%", "status": "yellow", "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"},
+    {"name": "布伦特原油", "value": "$109.03", "status": "yellow", "threshold": "<$90绿 / $90-110黄 / >$110红"},
+    {"name": "美元指数DXY", "value": "103.25", "status": "yellow", "threshold": "<102绿 / 102-107黄 / >107红"},
+    {"name": "HY信用利差", "value": "3.16%", "status": "green", "threshold": "<4%绿 / 4-5%黄 / >5%红"},
+    {"name": "黄金XAU", "value": "$4,627", "status": "red", "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"},
+    {"name": "离岸人民币CNH", "value": "6.885", "status": "green", "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"}
   ],
-  "riskScore": 80,
+  "riskScore": 90,
   "riskLevel": "high",
-  "riskAdvice": "油价$109逼近红区+VIX 23.87临界，建议总仓位≤5成，能源对冲维持，周一开盘前30分钟只看不动。",
+  "riskAdvice": "黄金$4,627亮红灯（避险情绪极端），布伦特$109逼近红灯区间——若周四CPI确认通胀二次抬头，当前反弹基础将被抽空。",
+  "monitorTable": [],
   "riskAlerts": [],
   "events": [
     {
-      "date": "周一",
-      "title": "美股复活节后开市，消化NFP+178K及对等关税冲击",
-      "impact": "high",
-      "source": "Verified Investing",
-      "url": "https://verifiedinvesting.com/blogs/us-economic-metrics/us-nonfarm-payrolls-march-2026-jobs-report"
-    },
-    {
       "date": "周三",
-      "title": "3月PPI发布，验证油价+34%后上游成本传导强度",
-      "impact": "medium",
-      "source": "BLS",
-      "url": "https://www.bls.gov/ppi/"
+      "title": "FOMC 3月会议纪要发布——聚焦通胀措辞和降息路径讨论，战争后首次纪要",
+      "impact": "high",
+      "source": "Federal Reserve",
+      "url": "https://www.federalreserve.gov/newsevents/calendar.htm"
     },
     {
       "date": "周四",
-      "title": "FOMC 3月会议纪要发布，聚焦通胀措辞和降息路径讨论",
+      "title": "美国3月CPI发布——预期3.8%，油价+34%后能否确认二次通胀是本周最核心数据",
       "impact": "high",
-      "source": "Federal Reserve",
-      "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+      "source": "Bureau of Labor Statistics",
+      "url": "https://www.bls.gov/cpi/"
     },
     {
-      "date": "周五",
-      "title": "美国3月CPI发布——本周最重要数据，油价+34%后通胀能否确认二次上行",
+      "date": "本周",
+      "title": "特朗普伊朗战争2-3周最后通牒窗口期——若谈判无进展地缘风险将急剧升级",
       "impact": "high",
-      "source": "BLS",
-      "url": "https://www.bls.gov/cpi/"
+      "source": "AP News",
+      "url": "https://apnews.com/article/stock-markets-war-oil-trump-iran-6fc90a2e50b1252cde130fc3e0ce0da3"
     }
   ],
   "alerts": [
     {
       "level": "danger",
-      "text": "美军F-15E被伊朗击落（20年来首次），特朗普下48小时最后通牒要求重开霍尔木兹海峡，胡塞同步宣布封锁红海",
-      "time": "08:00",
-      "source": "AP News",
-      "url": "https://apnews.com/live/iran-war-israel-trump-04-04-2026"
+      "text": "WTI原油单日暴涨11.3%至$111.54，布伦特涨7.78%至$109.03均创近四年新高，美国汽油均价月涨36%至$4.08/加仑",
+      "time": "16:00",
+      "source": "CNBC",
+      "url": "https://www.cnbc.com/2026/04/02/oil-prices-today-wti-brent-trump-speech-iran-war-.html"
     },
     {
-      "level": "danger",
-      "text": "NFP+178K远超预期，但医疗罢工回归贡献43%，剔除后有机增长仅+102K，ADP仅+62K佐证",
-      "time": "20:30",
-      "source": "Verified Investing",
-      "url": "https://verifiedinvesting.com/blogs/us-economic-metrics/us-nonfarm-payrolls-march-2026-jobs-report"
+      "level": "warning",
+      "text": "CNN Fear & Greed指数跌至19（极度恐惧），Put/Call期权比仅2.2，7个子指标中6个处于极度恐惧",
+      "time": "00:59",
+      "source": "CNN",
+      "url": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata"
     }
   ],
   "smartMoneyDetail": [
@@ -129,25 +81,25 @@
       "tier": "T1旗舰",
       "funds": [
         {
-          "name": "伯克希尔",
-          "action": "Abel重启回购（2024年5月以来首次）+个人$15.3M全额买入BRK.B；4/2发行日元债继续加码日本。巴菲特承认减持苹果「太草率」。",
+          "name": "伯克希尔·Abel时代",
+          "action": "巴菲特仍参与日常投资决策，近期有小型新建仓操作，现金储备$3733亿（Q4末下降2.1%）",
+          "signal": "neutral",
+          "source": "Morningstar",
+          "url": "https://www.morningstar.com/news/marketwatch/20260228175/berkshire-hathaway-shrinks-cash-pile-in-buffetts-last-act-as-ceo-heres-how-successor-greg-abel-is-now-looking-to-spend"
+        },
+        {
+          "name": "段永平",
+          "action": "3/30收回不投资泡泡玛特说法，4/4亲赴Westfield门店调研评价right business，信号链明确指向建仓前兆",
           "signal": "bullish",
-          "source": "247 Wall St / Observer",
-          "url": "https://247wallst.com/investing/2026/04/01/greg-abels-first-big-move-as-berkshire-ceo-had-warren-buffetts-personal-approval/"
+          "source": "雪球",
+          "url": "https://finance.sina.cn/2026-03-30/detail-inhsuknw6416760.d.html"
         },
         {
-          "name": "贝莱德",
-          "action": "3月股票ETF流入骤降至$640亿（1-2月均超$1000亿），75%资金涌入固收，能源板块资金流入6年来首超科技。",
-          "signal": "bearish",
-          "source": "iShares Q1 2026 ETF Report",
-          "url": "https://www.ishares.com/us/insights/inside-the-market/2026-etf-market-trends-and-flows"
-        },
-        {
-          "name": "桥水",
-          "action": "2025年创50年最佳——Pure Alpha +34%、All Weather +20.4%。达利欧警告处于长期债务周期末期，建议持有黄金等硬资产对冲。",
-          "signal": "bearish",
-          "source": "Substack / StartupHub",
-          "url": "https://navnoorbawa.substack.com/p/the-trade-war-dividend-druckenmillers"
+          "name": "桥水·达利欧",
+          "action": "Q4持仓达$265亿历史新高，All Weather组合大幅增持标普500 ETF(SPY)，总持仓1966只股票",
+          "signal": "bullish",
+          "source": "Gainify",
+          "url": "https://www.gainify.io/blog/ray-dalio-portfolio"
         }
       ]
     },
@@ -156,17 +108,17 @@
       "funds": [
         {
           "name": "ARK Invest",
-          "action": "4/1-2大举买入CRWV $120万+DASH $160万+OKLO $55万，清仓PINS。方向：从消费互联网全面轮动至AI基建+核能。",
+          "action": "4月1-2日连续买入CoreWeave(CRWV)$320万+Kodiak AI(KDK)$135万+Oklo核能$55万，大幅卖出Teradyne(TER)+Pinterest(PINS)清仓",
           "signal": "bullish",
           "source": "Cathie's Ark",
           "url": "https://cathiesark.com/ark-funds-combined/trades"
         },
         {
-          "name": "段永平 H&H",
-          "action": "[3/30] 雪球发文「收回不投资泡泡玛特的说法」，态度根本性转变（此前称看不懂）。",
-          "signal": "neutral",
-          "source": "雪球 / 证券时报",
-          "url": "https://finance.sina.cn/2026-03-30/detail-inhsuknw6416760.d.html?vt=4"
+          "name": "Druckenmiller",
+          "action": "Q4大举加仓Sea Limited(SE，跌77%后抄底)，同期全面增持AI三巨头AMZN/META/GOOGL",
+          "signal": "bullish",
+          "source": "247 Wall St",
+          "url": "https://247wallst.com/investing/2026/04/01/stanley-druckenmiller-loaded-up-on-this-stock-thats-down-77/"
         }
       ]
     },
@@ -174,166 +126,66 @@
       "tier": "策略师观点",
       "funds": [
         {
-          "name": "Bill Ackman",
-          "action": "[3/30] 现在是「最佳买入优质股时机」，下行有限上涨巨大；看好伊朗战后「和平红利」。PSH今年-19%但仍申请NYSE上市。",
+          "name": "高盛Kostin",
+          "action": "[4/2] 发布标普500年终目标7,600点（EPS $305-309，22x PE），预期12%总回报",
           "signal": "bullish",
-          "source": "CNBC",
-          "url": "https://www.cnbc.com/2026/03/30/bill-ackman-says-its-one-of-the-best-times-in-a-long-time-to-buy-quality-stocks.html"
+          "source": "PrismNews",
+          "url": "https://www.prismnews.com/workplace/goldman-sachs/goldman-sachs-strategists-project-12-sp-500-total-return"
         },
         {
-          "name": "Druckenmiller",
-          "action": "[3/5] 做空美元+做多黄金铜（AI数据中心需求，52周+32%）+做多日韩+做空债券。",
-          "signal": "bearish",
-          "source": "Morgan Stanley",
-          "url": "https://navnoorbawa.substack.com/p/the-trade-war-dividend-druckenmillers"
+          "name": "达利欧All Weather策略",
+          "action": "[3/31] Fool深度分析：战争压力期All Weather策略跑赢市场，适合当前不确定性极高的环境",
+          "signal": "neutral",
+          "source": "Motley Fool",
+          "url": "https://www.fool.com/investing/2026/03/31/master-investor-ray-dalios-strategy-shows-up-in-th/"
         }
       ]
     }
   ],
-  "dataTime": "2026-04-05 22:48 BJT",
-  "_meta": {
-    "sourceType": "weekend_insight",
-    "generatedAt": "2026-04-05T21:50:00+08:00",
-    "skillVersion": "v4.7"
-  },
   "smartMoneyHoldings": [
     {
       "manager": "巴菲特 · 伯克希尔",
-      "fund": "Berkshire Hathaway Inc",
+      "fund": "Berkshire Hathaway",
       "aum": "$274.2B",
-      "asOf": "截至2025.12.31 · 2026.2.17披露",
+      "asOf": "2025Q4 · 2月披露",
       "positions": [
-        {
-          "name": "苹果",
-          "symbol": "AAPL",
-          "weight": "22.6%",
-          "change": "减持"
-        },
-        {
-          "name": "美国运通",
-          "symbol": "AXP",
-          "weight": "20.5%",
-          "change": ""
-        },
-        {
-          "name": "美国银行",
-          "symbol": "BAC",
-          "weight": "10.4%",
-          "change": "减持"
-        },
-        {
-          "name": "可口可乐",
-          "symbol": "KO",
-          "weight": "10.2%",
-          "change": ""
-        },
-        {
-          "name": "雪佛龙",
-          "symbol": "CVX",
-          "weight": "7.2%",
-          "change": "增持"
-        },
-        {
-          "name": "穆迪",
-          "symbol": "MCO",
-          "weight": "4.6%",
-          "change": ""
-        },
-        {
-          "name": "西方石油",
-          "symbol": "OXY",
-          "weight": "4.0%",
-          "change": ""
-        },
-        {
-          "name": "丘博保险",
-          "symbol": "CB",
-          "weight": "3.9%",
-          "change": "增持"
-        },
-        {
-          "name": "卡夫亨氏",
-          "symbol": "KHC",
-          "weight": "2.9%",
-          "change": ""
-        },
-        {
-          "name": "谷歌",
-          "symbol": "GOOGL",
-          "weight": "2.0%",
-          "change": ""
-        }
+        {"name": "苹果", "symbol": "AAPL", "weight": "22.6%", "change": "减持-4.3%"},
+        {"name": "美国运通", "symbol": "AXP", "weight": "20.5%", "change": "持仓不变"},
+        {"name": "美国银行", "symbol": "BAC", "weight": "10.4%", "change": "减持-8.9%"},
+        {"name": "可口可乐", "symbol": "KO", "weight": "10.2%", "change": "持仓不变"},
+        {"name": "雪佛龙", "symbol": "CVX", "weight": "7.2%", "change": "增持+6.6%"},
+        {"name": "穆迪", "symbol": "MCO", "weight": "4.6%", "change": "持仓不变"},
+        {"name": "西方石油", "symbol": "OXY", "weight": "4.0%", "change": "持仓不变"},
+        {"name": "安达保险", "symbol": "CB", "weight": "3.9%", "change": "增持+9.3%"},
+        {"name": "卡夫亨氏", "symbol": "KHC", "weight": "2.9%", "change": "持仓不变"},
+        {"name": "谷歌", "symbol": "GOOGL", "weight": "2.0%", "change": "持仓不变"}
       ],
-      "footnote": "持仓42只，Top10占88.3%。Q4主要操作：增持雪佛龙/Chubb/纽约时报，减持苹果/美银/亚马逊。数据来源：SEC 13F via 13Radar"
+      "footnote": "现金储备$3733亿，Abel时代开启，巴菲特仍参与投资决策；Q4新建仓NYT，大幅减持AMZN"
     },
     {
       "manager": "段永平 · H&H",
-      "fund": "H&H International Investment LLC",
+      "fund": "H&H International Investment",
       "aum": "$17.5B",
-      "asOf": "截至2025.12.31 · 2026.2.17披露",
+      "asOf": "2025Q4 · 2月披露",
       "positions": [
-        {
-          "name": "苹果",
-          "symbol": "AAPL",
-          "weight": "50.3%",
-          "change": "减持"
-        },
-        {
-          "name": "伯克希尔",
-          "symbol": "BRK-B",
-          "weight": "20.6%",
-          "change": "增持+38%"
-        },
-        {
-          "name": "英伟达",
-          "symbol": "NVDA",
-          "weight": "7.7%",
-          "change": "大幅加仓+1110%"
-        },
-        {
-          "name": "拼多多",
-          "symbol": "PDD",
-          "weight": "7.5%",
-          "change": "增持+35%"
-        },
-        {
-          "name": "谷歌",
-          "symbol": "GOOG",
-          "weight": "3.3%",
-          "change": "增持"
-        },
-        {
-          "name": "西方石油",
-          "symbol": "OXY",
-          "weight": "3.1%",
-          "change": "减持"
-        },
-        {
-          "name": "微软",
-          "symbol": "MSFT",
-          "weight": "2.4%",
-          "change": "增持+208%"
-        },
-        {
-          "name": "阿里巴巴",
-          "symbol": "BABA",
-          "weight": "2.1%",
-          "change": "减持"
-        },
-        {
-          "name": "台积电",
-          "symbol": "TSM",
-          "weight": "2.1%",
-          "change": "增持+371%"
-        },
-        {
-          "name": "迪士尼",
-          "symbol": "DIS",
-          "weight": "0.5%",
-          "change": ""
-        }
+        {"name": "苹果", "symbol": "AAPL", "weight": "50.3%", "change": "减持-7.1%"},
+        {"name": "伯克希尔", "symbol": "BRK.B", "weight": "20.6%", "change": "大幅加仓+38.2%"},
+        {"name": "英伟达", "symbol": "NVDA", "weight": "7.7%", "change": "大幅加仓+1110%"},
+        {"name": "拼多多", "symbol": "PDD", "weight": "7.5%", "change": "加仓+34.6%"},
+        {"name": "谷歌", "symbol": "GOOG", "weight": "3.3%", "change": "小幅增持"},
+        {"name": "西方石油", "symbol": "OXY", "weight": "3.1%", "change": "小幅减持"},
+        {"name": "微软", "symbol": "MSFT", "weight": "2.4%", "change": "新建仓"},
+        {"name": "阿里巴巴", "symbol": "BABA", "weight": "2.2%", "change": "减持"},
+        {"name": "台积电", "symbol": "TSM", "weight": "2.1%", "change": "新建仓"},
+        {"name": "迪士尼", "symbol": "DIS", "weight": "0.5%", "change": "小幅减持"}
       ],
-      "footnote": "持仓14只，Top10占99.5%，极度集中。Q4重大操作：NVDA加仓1110%试水AI，新建仓MSFT/TSM/CRWV/CRDO/TEM。数据来源：SEC 13F via 13Radar"
+      "footnote": "极度集中持仓，苹果占50%+；Q4大幅加仓NVDA（11倍增持）、BRK.B，新建仓MSFT/TSM/CRWV/CRDO/TEM；泡泡玛特(港股9992.HK)实地调研中"
     }
-  ]
+  ],
+  "dataTime": "2026-04-06 10:16 BJT",
+  "_meta": {
+    "sourceType": "heavy_analysis",
+    "generatedAt": "2026-04-06T10:16:00+08:00",
+    "skillVersion": "v4.9"
+  }
 }

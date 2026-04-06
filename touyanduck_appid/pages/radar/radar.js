@@ -40,8 +40,6 @@ Page({
     animateReady: false
   },
 
-  _fgAnimTimer: null,
-
   onLoad: function() {
     this.setData({ isCloud: api.isCloudMode() })
     var cached = api.getCache('radar')

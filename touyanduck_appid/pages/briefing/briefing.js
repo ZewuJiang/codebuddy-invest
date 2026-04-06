@@ -1,5 +1,5 @@
 // pages/briefing/briefing.js
-// 简报页 v6.0 — takeaway + 今日重点事件(chain对象化) + 全球资产反应(note) + 三大核心判断 + 行动建议(reason)
+// 简报页 v7.1 — 三段式精简架构：①今日结论+重点事件 ②全球资产反应 ③聪明钱动向(+可选操作提示) ④风险情绪 ⑤核心判断(折叠)
 
 var api = require('../../services/api')
 var formatUtil = require('../../utils/format')
@@ -22,9 +22,8 @@ Page({
     globalReaction: [],
     // §1 三大核心判断
     coreJudgments: [],
-    // §1 行动建议
-    todayActions: [],
-    weekActions: [],
+    // §1 行动提示（可选，仅高置信机会时出现）
+    actionHints: [],
     // §2 市场情绪
     sentimentScore: 0,
     displaySentiment: 0,
@@ -32,6 +31,8 @@ Page({
     marketSummaryPoints: [],
     // §4 聪明钱速览
     smartMoney: [],
+    // 重点持仓
+    topHoldings: [],
     // 风险提示
     riskPoints: [],
     riskNote: '',
@@ -114,6 +115,7 @@ Page({
   _applyData: function(d, withAnimation) {
     var that = this
 
+    // 操作提示（可选，扁平列表；兼容旧版 today/week 分组格式）
     var mapAction = function(item) {
       var info = colorUtil.getActionInfo(item.type)
       return {
@@ -124,8 +126,15 @@ Page({
         tagClass: info.tagClass
       }
     }
-    var todayActions = (d.actions && d.actions.today || []).map(mapAction)
-    var weekActions = (d.actions && d.actions.week || []).map(mapAction)
+    var actionHints = []
+    if (d.actionHints && d.actionHints.length) {
+      actionHints = d.actionHints.map(mapAction)
+    } else if (d.actions) {
+      // 兼容旧格式：合并 today + week 为扁平列表
+      var todayArr = d.actions.today || []
+      var weekArr = d.actions.week || []
+      actionHints = todayArr.concat(weekArr).map(mapAction)
+    }
 
     // chain 字段兼容：支持新版对象数组 { title, brief, source, url } 及旧版字符串数组
     var coreEvent = null
@@ -264,13 +273,13 @@ Page({
       coreEvent: coreEvent,
       globalReaction: globalReaction,
       coreJudgments: coreJudgments,
-      todayActions: todayActions,
-      weekActions: weekActions,
+      actionHints: actionHints,
       sentimentScore: d.sentimentScore || 50,
       displaySentiment: withAnimation ? 0 : (d.sentimentScore || 50),
       sentimentLabel: d.sentimentLabel || '',
       marketSummaryPoints: marketSummaryPoints,
       smartMoney: d.smartMoney || [],
+      topHoldings: d.topHoldings || [],
       riskPoints: riskPoints,
       riskNote: d.riskNote || '',
       dataTime: (d.dataTime || '').split('/')[0].trim(),

@@ -209,7 +209,6 @@ module.exports = {
   getLightClass,
   getDeltaStatusInfo,
   getHeatLabel,
-  getFearGreedInfo,
   getPredictionTrendInfo,
   getProbabilityInfo,
   getJudgmentTrendInfo

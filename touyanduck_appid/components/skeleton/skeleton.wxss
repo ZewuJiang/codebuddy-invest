@@ -179,3 +179,41 @@
 .sk-alert-item:last-child {
   margin-bottom: 0;
 }
+
+/* ===== 雷达页 v6.3 骨架屏新增样式 ===== */
+
+/* 聪明钱动向条目 */
+.sk-sm-item {
+  padding: 14rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.sk-sm-item:last-child {
+  border-bottom: none;
+}
+
+/* 持仓折叠头 */
+.sk-holdings-header {
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.sk-holdings-header:last-child {
+  border-bottom: none;
+}
+
+/* 风险建议区 */
+.sk-risk-verdict {
+  background: #f8f9fc;
+  border-radius: 10rpx;
+  padding: 16rpx;
+}
+
+/* 时间线条目 */
+.sk-timeline-item {
+  margin-bottom: 16rpx;
+}
+
+.sk-timeline-item:last-child {
+  margin-bottom: 0;
+}

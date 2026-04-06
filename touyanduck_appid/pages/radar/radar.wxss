@@ -561,15 +561,7 @@
    数据更新时间
    ======================================== */
 
-.data-footer {
-  text-align: center;
-  padding: 20rpx 32rpx 16rpx;
-}
-
-.footer-text {
-  font-size: 20rpx;
-  color: #bbb;
-}
+/* data-footer / footer-text 已统一到 app.wxss */
 
 /* ========================================
    入场动画

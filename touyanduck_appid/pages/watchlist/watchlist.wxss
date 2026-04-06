@@ -82,16 +82,7 @@
   margin-top: 12rpx;
 }
 
-/* ========== 数据截止时间 ========== */
-.data-footer {
-  text-align: center;
-  padding: 24rpx 32rpx 16rpx;
-}
-
-.footer-text {
-  font-size: 20rpx;
-  color: #bbb;
-}
+/* data-footer / footer-text 已统一到 app.wxss */
 
 /* ========== 板块切换过渡动画 ========== */
 .sector-content {
