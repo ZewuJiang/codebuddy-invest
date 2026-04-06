@@ -35,7 +35,7 @@ App({
     // 开通云开发后，修改以下两个值：
     //   useCloud: true
     //   cloudEnvId: '你在微信开发者工具中看到的环境ID'
-    useCloud: true,            // 总开关：true=用云数据库, false=用Mock数据
+    useCloud: true,            // 总开关：true=用云数据库, false=仅使用本地缓存（无Mock）
     cloudEnvId: 'cloud1-3g6wj06h84f38ea8',  // 云环境ID
     cloudReady: false,         // 云开发是否初始化成功（自动设置，勿手动改）
 

@@ -1,5 +1,5 @@
 /* pages/radar/radar.wxss */
-/* 雷达页样式 v6.3 — 聪明钱最优先：动向#1 + 持仓#2 + 风险判断#3 */
+/* 雷达页样式 v7.0 — 聪明钱最优先：动向#1 + 持仓#2 + 风险判断#3 */
 
 .page-container {
   padding-bottom: 20rpx;

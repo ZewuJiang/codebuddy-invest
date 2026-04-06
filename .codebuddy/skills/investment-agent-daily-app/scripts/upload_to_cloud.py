@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 """
-upload_to_cloud.py — 投研鸭云数据库上传器 v1.1
+upload_to_cloud.py — 投研鸭云数据库上传器 v1.2
+
+v1.2 变更（2026-04-06）：
+- 新增音频文件上传到微信云存储功能 upload_audio_to_cloud()
+  - 两步式上传：①获取上传链接 ②multipart/form-data 上传文件
+  - 上传后自动将 cloud:// fileID 写入 briefing.json 的 audioUrl 字段
+  - 支持 batchDownloadFile 获取 https 临时链接（备用）
 
 v1.1 变更（2026-04-01）：
 - 新增上传后回读校验模块 verify_upload()
@@ -65,7 +71,7 @@ COLLECTIONS = ['briefing', 'markets', 'watchlist', 'radar']
 VERIFY_FIELDS = {
     "briefing":  [
         "date", "coreEvent", "globalReaction", "coreJudgments",
-        "actions", "sentimentScore", "riskNote", "dataTime",
+        "sentimentScore", "riskPoints", "dataTime",
     ],
     "markets":   [
         "date", "usMarkets", "m7", "asiaMarkets",
@@ -74,7 +80,7 @@ VERIFY_FIELDS = {
     "watchlist": ["date", "sectors", "stocks", "dataTime"],
     "radar":     [
         "date", "trafficLights", "riskScore", "riskLevel",
-        "monitorTable", "riskAlerts", "events", "alerts",
+        "riskAdvice", "events", "alerts",
         "smartMoneyDetail", "dataTime",
     ],
 }
@@ -84,6 +90,7 @@ ARRAY_LENGTH_RULES = {
     "briefing":  {
         "globalReaction": (5, 6),
         "coreJudgments":  (3, 3),
+        "riskPoints":     (2, 4),
     },
     "markets":   {
         "usMarkets":   (4, 4),
@@ -93,12 +100,11 @@ ARRAY_LENGTH_RULES = {
         "gics":        (11, 11),
     },
     "watchlist": {
-        "sectors": (5, 5),   # v2.0 新5板块：ai_infra/ai_app/cn_ai/smart_money/hot_topic
+        "sectors": (4, 5),   # v2.0 新5板块：前4个核心板块必填，hot_topic可选
     },
     "radar":     {
         "trafficLights": (7, 7),
-        "riskAlerts":    (2, 3),
-        "events":        (3, 5),
+        "events":        (3, 7),
     },
 }
 
@@ -380,13 +386,139 @@ def verify_upload(collection: str, date: str, local_data: dict) -> dict:
 
 
 # ═══════════════════════════════════════════════════════════════
+# v1.2 新增：音频文件上传到微信云存储
+# ═══════════════════════════════════════════════════════════════
+
+def upload_audio_to_cloud(audio_path, cloud_path):
+    """
+    将音频文件上传到微信云存储（两步式上传）。
+
+    步骤：
+    1. 调用 uploadfile 接口获取上传链接 + token + authorization
+    2. 使用 multipart/form-data POST 上传文件到 COS
+
+    参数：
+        audio_path: 本地音频文件路径
+        cloud_path: 云存储路径（如 "audio/briefing-2026-04-06.mp3"）
+
+    返回：
+        成功: file_id（cloud://xxx 格式）
+        失败: None
+    """
+    token = get_access_token()
+    if not token:
+        return None
+
+    env = CONFIG['CLOUD_ENV']
+
+    # 步骤1：获取上传链接
+    print(f"   📤 获取云存储上传链接...")
+    upload_url_api = f"https://api.weixin.qq.com/tcb/uploadfile?access_token={token}"
+
+    body = {
+        "env": env,
+        "path": cloud_path
+    }
+
+    try:
+        resp = requests.post(upload_url_api, json=body, timeout=15)
+        result = resp.json()
+
+        if result.get('errcode', 0) != 0:
+            print(f"   ❌ 获取上传链接失败: {result}")
+            return None
+
+        upload_url = result['url']
+        cos_token = result['token']
+        authorization = result['authorization']
+        file_id = result['file_id']
+        cos_file_id = result['cos_file_id']
+
+        print(f"   ✅ 上传链接获取成功，file_id: {file_id}")
+
+    except Exception as e:
+        print(f"   ❌ 获取上传链接异常: {e}")
+        return None
+
+    # 步骤2：上传文件到 COS
+    print(f"   📤 上传音频文件到云存储...")
+    try:
+        with open(audio_path, 'rb') as f:
+            file_data = f.read()
+
+        # multipart/form-data 格式上传
+        files = {
+            'file': (os.path.basename(audio_path), file_data, 'audio/mpeg')
+        }
+        form_data = {
+            'key': cloud_path,
+            'Signature': authorization,
+            'x-cos-security-token': cos_token,
+            'x-cos-meta-fileid': cos_file_id
+        }
+
+        resp = requests.post(upload_url, data=form_data, files=files, timeout=60)
+
+        if resp.status_code in (200, 204):
+            file_size_kb = len(file_data) / 1024
+            print(f"   ✅ 音频上传成功！({file_size_kb:.1f} KB)")
+            print(f"   📎 file_id: {file_id}")
+            return file_id
+        else:
+            print(f"   ❌ 文件上传失败，状态码: {resp.status_code}")
+            print(f"   响应: {resp.text[:300]}")
+            return None
+
+    except Exception as e:
+        print(f"   ❌ 文件上传异常: {e}")
+        return None
+
+
+def get_audio_temp_url(file_id):
+    """
+    将 cloud:// fileID 转换为 https 临时下载链接（有效期2小时）。
+    备用方案：前端也可通过 wx.cloud.getTempFileURL 自行获取。
+    """
+    token = get_access_token()
+    if not token:
+        return None
+
+    env = CONFIG['CLOUD_ENV']
+    url = f"https://api.weixin.qq.com/tcb/batchdownloadfile?access_token={token}"
+
+    body = {
+        "env": env,
+        "file_list": [
+            {"fileid": file_id, "max_age": 7200}
+        ]
+    }
+
+    try:
+        resp = requests.post(url, json=body, timeout=15)
+        result = resp.json()
+
+        if result.get('errcode', 0) == 0:
+            file_list = result.get('file_list', [])
+            if file_list and file_list[0].get('status') == 0:
+                download_url = file_list[0].get('download_url', '')
+                if download_url:
+                    print(f"   🔗 临时下载链接: {download_url[:80]}...")
+                    return download_url
+        print(f"   ⚠️ 获取临时链接失败: {result}")
+        return None
+    except Exception as e:
+        print(f"   ⚠️ 获取临时链接异常: {e}")
+        return None
+
+
+# ═══════════════════════════════════════════════════════════════
 # 主流程
 # ═══════════════════════════════════════════════════════════════
 
 def main():
     if len(sys.argv) < 3:
         print("=" * 60)
-        print("投研鸭 — 云数据库上传器 v1.1")
+        print("投研鸭 — 云数据库上传器 v1.2")
         print("=" * 60)
         print()
         print("用法: python3 upload_to_cloud.py <JSON目录> <日期>")
@@ -472,6 +604,45 @@ def main():
         except Exception as e:
             print(f"   ❌ 未知错误: {e}")
             fail_count += 1
+
+    # ─── v1.2 新增：音频文件上传到云存储 ────────────────────────────
+    audio_file = os.path.join(data_dir, f'briefing-{date}.mp3')
+    if os.path.exists(audio_file):
+        print(f"\n{'─' * 60}")
+        print(f"🎵 检测到音频文件，上传到云存储...")
+        print(f"{'─' * 60}")
+
+        cloud_audio_path = f"audio/briefing-{date}.mp3"
+        file_id = upload_audio_to_cloud(audio_file, cloud_audio_path)
+
+        if file_id:
+            # 将 fileID 写入 briefing.json 的 audioUrl 字段
+            briefing_path = os.path.join(data_dir, 'briefing.json')
+            try:
+                with open(briefing_path, 'r', encoding='utf-8') as f:
+                    briefing_data = json.load(f)
+
+                briefing_data['audioUrl'] = file_id
+
+                with open(briefing_path, 'w', encoding='utf-8') as f:
+                    json.dump(briefing_data, f, ensure_ascii=False, indent=2)
+
+                print(f"   ✅ audioUrl 已写入 briefing.json")
+
+                # 重新上传 briefing（携带 audioUrl 字段）
+                print(f"   📤 重新上传 briefing（含 audioUrl）...")
+                if upsert_data('briefing', date, briefing_data):
+                    print(f"   ✅ briefing 重新上传成功（含音频链接）")
+                    uploaded_data['briefing'] = briefing_data
+                else:
+                    print(f"   ⚠️ briefing 重新上传失败，音频链接可能不会在小程序中生效")
+
+            except Exception as e:
+                print(f"   ⚠️ 更新 briefing.json 失败: {e}")
+        else:
+            print(f"   ⚠️ 音频上传失败，跳过 audioUrl 写入")
+    else:
+        print(f"\n   ℹ️ 未检测到音频文件（{audio_file}），跳过音频上传")
 
     # ─── v1.1 新增：上传后回读校验阶段 ────────────────────────────
     if uploaded_data:

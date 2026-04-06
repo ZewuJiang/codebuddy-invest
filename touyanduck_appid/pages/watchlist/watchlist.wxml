@@ -1,5 +1,5 @@
 <!--pages/watchlist/watchlist.wxml-->
-<!-- 标的页 v4.0：展开/收起 + 7板块 -->
+<!-- 标的页 v5.0：展开/收起 + 5板块 -->
 
 <skeleton type="watchlist" loading="{{loading}}" />
 

@@ -271,7 +271,6 @@ Page({
       (data.commodities || []).length,
       (data.cryptos || []).length
     ]
-    that._hasGics = gicsData.length > 0
 
     // 数据渲染完成后，等一帧再量取所有 Tab 真实高度
     setTimeout(function() {

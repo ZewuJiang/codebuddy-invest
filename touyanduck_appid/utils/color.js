@@ -30,7 +30,7 @@ function getActionInfo(type) {
     watch:    { label: '关注', tagClass: 'tag-blue' },
     stoploss: { label: '止损', tagClass: 'tag-gray' },
     hedge:    { label: '对冲', tagClass: 'tag-orange' },
-    // 兼容旧格式
+    // @deprecated 兼容旧格式（Skill 已禁止产出 bullish/bearish，仅保留防止旧数据崩溃）
     bullish:  { label: '看涨', tagClass: 'tag-orange' },
     bearish:  { label: '看跌', tagClass: 'tag-blue' }
   }
@@ -107,56 +107,6 @@ function getLightClass(status) {
   return map[status] || 'light-yellow'
 }
 
-// ⚠️ keyDeltas 模块已于 v2.0 删除，以下两个函数保留作向后兼容，新代码不应调用
-/**
- * KEY DELTA 状态标签映射（已废弃 — keyDeltas v2.0 删除，保留向后兼容）
- * @param {string} status - '升级' | '新增' | '活跃' | '降温' | '稳定'
- * @returns {object} { label, tagClass, heatLabel }
- */
-function getDeltaStatusInfo(status) {
-  var map = {
-    '升级':  { label: '升级', tagClass: 'kd-tag-upgrade' },
-    '新增':  { label: '新增', tagClass: 'kd-tag-new' },
-    '活跃':  { label: '活跃', tagClass: 'kd-tag-active' },
-    '降温':  { label: '降温', tagClass: 'kd-tag-cool' },
-    '稳定':  { label: '稳定', tagClass: 'kd-tag-stable' }
-  }
-  return map[status] || { label: status || '活跃', tagClass: 'kd-tag-active' }
-}
-
-/**
- * 根据热度值返回文字标签（三档制）（已废弃 — keyDeltas v2.0 删除，保留向后兼容）
- * @param {number} heat - 1-5（JSON原始值）
- * @returns {string} "加速" | "活跃" | "关注"
- *
- * 三档映射规则（与 briefing.js 及前端 dot 渲染完全一致）：
- *   heat ≥ 4 → ●●● 加速（宏观/地缘突发冲击、市场结构性拐点）
- *   heat = 3 → ●●○ 活跃（重要但不紧迫的行业进展、企业战略投资）
- *   heat ≤ 2 → ●○○ 关注（背景信息、趋势性缓慢演变）
- *
- * ⚠️ 注意：旧的5档逻辑（加速中/活跃/关注/降温/平淡）已废弃。
- *   JSON 数据层仍存储 1-5 整数，前端/工具函数统一按三档归一显示。
- */
-function getHeatLabel(heat) {
-  if (heat >= 4) return '加速'
-  if (heat >= 3) return '活跃'
-  return '关注'
-}
-
-/**
- * Fear & Greed 指数信息映射
- * @param {number} value - 0-100
- * @param {string} label - 英文标签
- * @returns {object} { cnLabel, colorClass, emoji }
- */
-function getFearGreedInfo(value, label) {
-  if (value <= 25) return { cnLabel: '极度恐惧', colorClass: 'fg-extreme-fear', emoji: '😱' }
-  if (value <= 40) return { cnLabel: '恐惧', colorClass: 'fg-fear', emoji: '😰' }
-  if (value <= 60) return { cnLabel: '中性', colorClass: 'fg-neutral', emoji: '😐' }
-  if (value <= 75) return { cnLabel: '贪婪', colorClass: 'fg-greed', emoji: '😊' }
-  return { cnLabel: '极度贪婪', colorClass: 'fg-extreme-greed', emoji: '🤑' }
-}
-
 /**
  * 预测市场趋势标签映射
  * @param {string} trend - 'up' | 'down' | 'stable'
@@ -207,8 +157,6 @@ module.exports = {
   getImpactInfo,
   getAlertInfo,
   getLightClass,
-  getDeltaStatusInfo,
-  getHeatLabel,
   getPredictionTrendInfo,
   getProbabilityInfo,
   getJudgmentTrendInfo

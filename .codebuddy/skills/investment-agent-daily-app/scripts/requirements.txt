@@ -1,8 +1,9 @@
 # investment-agent-daily-app 脚本依赖
 # 使用方法: pip3 install -r requirements.txt
 
-# 云数据库上传 + 直接行情校正脚本
+# 云数据库上传 + MiniMax TTS 音频生成
 requests>=2.28
+
+# sparkline/chartData 历史序列补全（AkShare v3.0）
 pandas>=2.2
 akshare>=1.16.0
-yfinance>=0.2.65

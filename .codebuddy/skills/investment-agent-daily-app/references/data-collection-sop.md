@@ -15,7 +15,7 @@
 
 | 数据类型 | 定义 | 合法数据源（必须用） | 禁止来源 |
 |---------|------|------------------|---------|
-| **交易数据** | 价格、涨跌幅、汇率、sparkline历史序列、成交量、指数点位 | **直接行情平台**：Google Finance (web_fetch) / yfinance API / AkShare API / OilPrice.com / FRED / 东方财富行情接口 / 同花顺行情接口 / CoinGecko | 任何新闻网站、财经媒体文章（Bloomberg/Reuters/CNBC/华尔街见闻/金十数据等）|
+| **交易数据** | 价格、涨跌幅、汇率、sparkline历史序列、成交量、指数点位 | **直接行情平台**：Google Finance (web_fetch) / AkShare API / OilPrice.com / FRED / 东方财富行情接口 / 同花顺行情接口 / CoinGecko | 任何新闻网站、财经媒体文章（Bloomberg/Reuters/CNBC/华尔街见闻/金十数据等）|
 | **观点/事件/评论数据** | 事件背景、市场分析、机构判断、聪明钱动向、预测性观点 | 媒体网站（Bloomberg/Reuters/WSJ/FT/CNBC/华尔街见闻/第一财经等）| 不限（媒体是这类数据的合法来源）|
 
 ### 0.2 交叉污染禁止清单（零容忍）
@@ -27,7 +27,7 @@
 | 从新闻文章中提取股价/涨跌幅 | 读 Reuters 新闻："标普500下跌1.02%" → 直接写入 markets.json | **阻断，回到 Google Finance 重采** |
 | 从财经媒体标题推算价格 | 看到"黄金创新高"新闻 → 估算价格 | **阻断，回到行情源采集** |
 | 用训练数据里的历史汇率填充 | CNH写7.24（2024年旧数据）| **阻断，必须从 AkShare/行情源获取当日值** |
-| 对 sparkline 使用线性估算 | 只有当日价格，手动推算7天序列 | **阻断，回到 yfinance/AkShare 重采** |
+| 对 sparkline 使用线性估算 | 只有当日价格，手动推算7天序列 | **阻断，回到 AkShare/行情源重采** |
 | 用新闻转述价格补全缺失字段 | 某标的 Google Finance 超时，从 CNBC 新闻里读到价格 | **阻断，切换备选行情源（非新闻源）** |
 | **⚠️ 直接使用 web_search snippet 里的价格数字** | `web_search "DXY close"` → snippet 里显示"103.45"（来源：某财经媒体）→ 直接写入 JSON | **阻断。snippet 本质是媒体文章摘要，同样禁止。必须 `web_fetch` 到实际行情页面核实** |
 | **⚠️ insightChain 文字中的数字与 price/change 字段不一致** | `usMarkets[VIX].change = -2.73`，但 `usInsightChain[].text = "VIX急升至27.3"` — 方向矛盾 | **阻断，JSON 生成阶段必须用 price/change 字段的值反向校验 insightChain 文字中的数字** |
@@ -37,7 +37,7 @@
 ```
 在执行任何采集批次前，先问自己：
 ① 我即将采集的是「交易数据」还是「观点/事件数据」？
-② 如果是交易数据 → 我的数据源是直接行情平台吗？（Google Finance/yfinance/AkShare/FRED等）
+② 如果是交易数据 → 我的数据源是直接行情平台吗？（Google Finance/AkShare/FRED等）
 ③ 如果不是直接行情平台 → 停止！切换到正确的数据源后再继续
 ④ 交易数据采集成功后，可追溯到具体的 web_fetch URL 或 API 调用吗？
    不能 → 视为训练数据污染，阻断发布
@@ -48,7 +48,7 @@
 | 交易数据字段 | 合法获取方式 |
 |------------|------------|
 | 美股价格/涨跌幅 | `web_fetch: https://www.google.com/finance/quote/{TICKER}:{EXCHANGE}` |
-| 美股 7 天 sparkline | `yfinance.download(ticker, period="10d")["Close"]` |
+| 美股 7 天 sparkline | AkShare 新浪源（脚本第三阶段自动补全） |
 | 亚太指数 | 东方财富/同花顺行情接口，或 `web_fetch` Google Finance |
 | 黄金/原油实时价格 | `web_fetch: https://oilprice.com/commodity-price-charts/` |
 | 离岸人民币 CNH 汇率 | `ak.forex_hist_em("USDCNH")` 东方财富接口 |
@@ -135,10 +135,10 @@ web_fetch: https://www.google.com/finance/quote/XLRE:NYSEARCA
 
 ```
 # 对每只美股/港股标的获取 PE(TTM)：
-# 方式：yfinance.Ticker(ticker).info["trailingPE"]
+# 方式：AkShare / StockAnalysis.com（yfinance 已被 Yahoo 403 封禁）
 # 失败时标注"—"，不阻断主流程
 
-# 行情数据（前4项 metrics）来自主批次 yfinance/AkShare 历史序列，无需额外采集
+# 行情数据（前4项 metrics）来自主批次 AkShare 历史序列，无需额外采集
 # 综合评级（第6项 metrics）由 calc_star_rating(change, pct_30d) 规则函数自动生成
 
 # 若需要补充个股分析文本（analysis/reason/risks/tags），仍可用 web_fetch：
@@ -164,8 +164,8 @@ web_search: "{公司名} {TICKER} latest earnings analysis 2026"
 | DXY | web_search "DXY dollar index close" | 金投网 | Finlore.io |
 | 10Y美债 | web_search | FRED | — |
 | **CNH（离岸人民币）历史序列** | **`ak.forex_hist_em("USDCNH")` AkShare** | **阻断发布** | — |
-| **个股 PE(TTM)** | **`yfinance.Ticker.info["trailingPE"]`** | "—"（不阻断） | — |
-| **历史走势（sparkline）** | **yfinance/AkShare 真实历史序列** | **回采后重试** | **阻断发布（禁止估算）** |
+| **个股 PE(TTM)** | **StockAnalysis.com / web_search** | "—"（不阻断） | — |
+| **历史走势（sparkline）** | **AkShare 新浪源+东方财富 fallback 真实历史序列** | **回采后重试** | **阻断发布（禁止估算）** |
 | 基金&大资金 | SEC EDGAR | WhaleWisdom | web_search |
 | **ARK 每日交易（v1.6新增）** | **`web_fetch: ark-invest.com/trade-notifications`** | **web_search "ARK daily trade"** | — |
 | **段永平/H&H 持仓（v1.6新增）** | **SEC EDGAR 13F (H&H International)** | **HedgeFollow/WhaleWisdom** | **雪球(@大道无形我有型)** |
@@ -178,13 +178,13 @@ web_search: "{公司名} {TICKER} latest earnings analysis 2026"
 
 | 字段 | 谁负责 | 方式 |
 |------|--------|------|
-| `sparkline`（7天历史序列） | **脚本** `refresh_verified_snapshot.py v2.0` | yfinance 批量下载，在第三阶段自动补全 |
-| `chartData`（30天历史序列） | **脚本** `refresh_verified_snapshot.py v2.0` | yfinance 批量下载，在第三阶段自动补全 |
+| `sparkline`（7天历史序列） | **脚本** `refresh_verified_snapshot.py v3.0` | AkShare 新浪源+东方财富 fallback 批量下载，在第三阶段自动补全 |
+| `chartData`（30天历史序列） | **脚本** `refresh_verified_snapshot.py v3.0` | AkShare 新浪源+东方财富 fallback 批量下载，在第三阶段自动补全 |
 | `price` / `change` | **AI** 从 Google Finance 等行情源直采 | RULE ZERO-A 保障 |
 
-**AI 在第一阶段不需要采集 sparkline/chartData 的历史序列**。第一阶段只需采集当日价格和涨跌幅（用于 price/change 字段）；sparkline/chartData 由脚本在第三阶段自动从 yfinance 补全。
+**AI 在第一阶段不需要采集 sparkline/chartData 的历史序列**。第一阶段只需采集当日价格和涨跌幅（用于 price/change 字段）；sparkline/chartData 由脚本在第三阶段自动从 AkShare 补全。
 
-> ⚠️ **例外**：港股（0700.HK / 3690.HK / 9992.HK）和 A股（300750.SZ / 002594.SZ）的 sparkline/chartData，yfinance 数据质量不稳定，脚本会跳过这些标的。AI 需要在第一阶段采集这些标的的历史走势（可从东方财富/同花顺行情页获取），手动填入 sparkline 数组。
+> ⚠️ **AkShare 缺口标的**：VIX/DXY/10Y美债/CNH/BTC/ETH 的 sparkline/chartData，AkShare 缺口无法覆盖，脚本会跳过这些标的，保留 AI 估算值。
 
 ### 4.2 港股/A股 sparkline 采集方式
 
@@ -203,9 +203,9 @@ web_fetch: https://quote.eastmoney.com/sz300750.html
 
 - **禁止**基于当日价格 ± 随机波动估算
 - **禁止**用线性插值/扩展生成 chartData
-- **美股 sparkline/chartData 不需要 AI 手动采集**——脚本 v2.0 自动处理
+- **美股 sparkline/chartData 不需要 AI 手动采集**——脚本 v3.0（AkShare）自动处理
 
-> v1.5 变更：方案A 下美股/主要指数的 sparkline 完全由脚本负责，AI 采集工作量大幅降低。只有港股/A股需要 AI 在第一阶段手动采集历史走势。
+> v1.5 变更：方案A 下美股/主要指数的 sparkline 完全由脚本负责，AI 采集工作量大幅降低。v3.0 后港股/A股也由脚本覆盖（AkShare 新浪源+东方财富 fallback），仅 VIX/DXY/10Y/CNH/BTC/ETH 为 AkShare 缺口，需 AI 估算值兜底。
 
 ---
 
@@ -228,22 +228,20 @@ web_fetch: https://quote.eastmoney.com/sz300750.html
 | 11 | watchlist: 4个核心板块每板块≥2只 | ai_infra/ai_app/cn_ai/smart_money 全覆盖，hot_topic可为空 | 回到5补采 |
 | 12 | watchlist: 每只标的metrics | 6项 | 补充搜索 |
 | 13 | radar: trafficLights | 7项 | 补充数据 |
-| 14 | radar: riskAlerts | ≥2条 | 补充分析 |
+| 14 | radar: riskAlerts | 填空数组 `[]`（v4.8 废弃渲染） | 固定填 [] |
 | 15 | radar: events | ≥3条 | 补充搜索 |
 | 16 | radar: smartMoneyDetail | 3梯队 | 补充扫描 |
 | **17** | **markets: 6个板块Insight** | **usInsight/m7Insight/asiaInsight/commodityInsight/cryptoInsight/gicsInsight，每个30-80字** | **基于已采集数据分析提炼** |
-| **18** | **markets: 6个板块 insightChain** | **usInsightChain/m7InsightChain/asiaInsightChain/commodityInsightChain/cryptoInsightChain/gicsInsightChain，每个数组3条，每条包含 icon/label/text** | **基于已采集数据生成；text 中的数字必须与对应 price/change 字段一致** |
+| **18** | **markets: 6个板块 insightChain（⚠️ v4.4 起前端不渲染，建议跳过）** | **usInsightChain/m7InsightChain/asiaInsightChain/commodityInsightChain/cryptoInsightChain/gicsInsightChain，每个数组3条，每条包含 icon/label/text。v4.4 起前端不渲染因果链卡片（仅 gicsInsightChain 的"轮动"节点被提取为热力图摘要），可省略** | **可选——省略不影响发布** |
 | **19** | **⭐ 数字一致性交叉校验（强制）** | **insightChain/insight 文字中出现的任何价格、涨跌幅、数字，必须与 markets.json 对应字段的 price/change 值一致，禁止矛盾（如 change=-2.73 但文字写"上涨"）** | **JSON 生成阶段逐一核对，不一致→修改文字使其对齐字段值** |
 
 **⭐ 可选字段建议检查（非阻断，未填充时前端对应模块不渲染）**：
 
 | # | 验证项 | 要求 | 未填时操作 |
 |---|--------|------|-----------|
-| ~~19~~ | ~~briefing: keyDeltas（已废弃 v2.0）~~ | ~~keyDeltas 整体模块已从简报页移除~~ | — |
-| 18 | briefing: timeStatus（建议） | bjt+est+marketStatus(枚举)+refreshInterval | 根据当前时间推算填入，或省略（前端自行计算时区） |
-| ~~20~~ | ~~radar: fearGreed（已废弃）~~ | ~~Fear & Greed 数据已从产品中移除~~ | — |
-| 21 | radar: predictions（建议） | 2-4条，每条 title+source(枚举)+probability(0-100)+trend(枚举)+change24h | 参照 Batch A 采集的 Polymarket/Kalshi/CME FedWatch 数据；获取失败则省略该字段 |
-| 22 | 所有JSON: _meta（建议） | sourceType="heavy_analysis"+generatedAt(ISO8601)+skillVersion | 固定值填写：sourceType 固定为 "heavy_analysis"；generatedAt 为执行时间（+08:00）；skillVersion 为当前 Skill 版本号（当前 "v3.0"） |
+| O1 | briefing: timeStatus（建议） | bjt+est+marketStatus(枚举)+refreshInterval | 根据当前时间推算填入，或省略（前端自行计算时区） |
+| O2 | radar: predictions（建议） | 2-4条，每条 title+source(枚举)+probability(0-100)+trend(枚举)+change24h | 参照 Batch A 采集的 Polymarket/Kalshi/CME FedWatch 数据；获取失败则省略该字段 |
+| O3 | 所有JSON: _meta（建议） | sourceType="heavy_analysis"+generatedAt(ISO8601)+skillVersion | 固定值填写：sourceType 固定为 "heavy_analysis"；generatedAt 为执行时间（+08:00）；skillVersion 为当前 SKILL.md 顶部版本号 |
 
 ---
 
@@ -425,8 +423,6 @@ web_search: "美联储6月降息概率 CME FedWatch"
 | A2 | Polymarket 预测概率获取 | 成功-[N条]/失败-[原因] |
 | A3 | Kalshi 预测概率获取 | 成功-[N条]/失败-[原因] |
 | A4 | CME FedWatch 降息概率获取 | 成功/失败-[原因] |
-
-**~~keyDeltas 来源说明~~**（已废弃 v2.0，keyDeltas 模块已从简报页移除）：
 
 ---
 

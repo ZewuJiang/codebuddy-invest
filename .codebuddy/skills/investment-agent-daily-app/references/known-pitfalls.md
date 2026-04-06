@@ -19,9 +19,8 @@
 | 7 | 大宗期货 Google 不支持 | → OilPrice.com → 金投网 → web_search | 中 |
 | **8** | **AkShare CNH（离岸人民币）历史序列失败** | → **阻断发布，不允许退化到 CNY=X（在岸）硬编码估算；<br>降级路径仅允许 CNY=X 实时价作为当日最后备选，且无法构成7天历史序列时必须阻断** | 中 |
 | **9** | **北向资金净买额数据为空** | → **根本原因（非接口故障）：自2024-08-19起，沪深交易所永久停止实时披露北向资金净买额。<br>AkShare `stock_hsgt_fund_flow_summary_em` 净买额字段永久为空，无法修复。<br>正式替代方案：改用「外资动向」代理指标，以港股（恒生+恒生科技）均涨跌幅判断外资偏好，<br>由 `calc_foreign_capital_proxy()` 函数自动计算状态（绿/黄/红）。** | 永久性 |
-| **10** | **日经225 yfinance 量级校验失败（价格超出 18000-55000 区间）** | → **切换 AkShare `futures_foreign_hist("N225")` 备用通道；仍失败 → 阻断发布** | 低 |
-| **11** | **KOSPI yfinance 量级校验失败（价格超出 1500-4500 区间）** | → **标注"数据待核实"，不阻断整体流程；注：正常 KOSPI 综合指数约 2300-2600，若出现 5000+ 则为数据污染** | 低 |
-
+| **10** | **日经225 量级校验失败（价格超出 18000-55000 区间）** | → **切换 AkShare `index_us_stock_sina(".N225")` 备用通道；仍失败 → 阻断发布** | 低 |
+| **11** | **KOSPI 量级校验失败（价格超出 1500-4500 区间）** | → **标注"数据待核实"，不阻断整体流程；注：正常 KOSPI 综合指数约 2300-2600，若出现 5000+ 则为数据污染** | 低 |
 | **13** | **actions.type 使用了 bullish/bearish** | → **根本原因：bullish/bearish 是方向判断，不是操作指令，用户看到"看涨/看跌"标签不知道该怎么操作。<br>必须改用具体操作动词：hold（持有）/ add（加仓）/ reduce（减仓）/ buy（买入）/ sell（卖出）/ watch（关注）/ hedge（对冲）/ stoploss（止损）。<br>content 字段同步写明：标的名称 + 操作条件 + 参考价位（参考 MD 报告风格）** | 高 |
 
 | **14** | **来源链接跨媒体伪造（source 与 url 不对应）** | → **根本原因：Bloomberg/FT/WSJ 等付费墙媒体无公开链接，强行配 Yahoo Finance / 其他媒体链接会让用户点开后发现内容不匹配，严重损伤信任。<br>正确做法：只填 source，不填 url；前端自动显示灰色不可点样式（chain-link-no-url）。<br>禁止：source="Bloomberg" + url="yahoo.com/..."** | 高 |
@@ -32,9 +31,9 @@
 
 | **17** | **chain[].url 和 coreJudgments[].references 被漏填（可选字段偷懒空置）** | → **根本原因：`url` 和 `references` 在 Schema 中标记为可选字段（🔸），但「可选」的唯一合法理由是「付费墙媒体（Bloomberg/FT/WSJ）无公开链接」，绝对禁止因 AI 偷懒或遗忘而留空。这两个字段是简报页最核心的交互功能——用户点击来源才能核实信息真实性，漏填等于直接摧毁用户信任。<br>**强制规则（终审必查）**：<br>① `coreEvent.chain[]` 每一条：若 `source` 填了 Reuters/AP/MarketWatch/BullionVault 等**非付费墙媒体**，`url` 必须有真实可访问的 https 链接；不能留 `""` 或 `null`。Bloomberg/FT/WSJ 无公开链接时可留空，但必须在 source 字段里体现。<br>② `coreJudgments[]` 每一条：必须有 `references` 数组，且每个 reference 格式为 `{name, summary, url}`，url 同样遵守上述规则。references 为可选字段，但每次产出至少填 1 条（哪怕来源是公开新闻页）。<br>**终审自查口诀**：「有 source 必有 url（付费墙除外），有判断必有 references」<br>违规后果：简报链接点击无反应，等同于功能缺失，严重损伤用户体验和数据可信度。** | **高（新增 2026-04-03）** |
 
-| **18** | **`refresh_verified_snapshot.py` API 失败但脚本仍阻断全流程（旧版 v1.1 行为）** | → **根本原因（已修复）**：v1.1 脚本在 API 校正失败时直接 `exit 1`，导致上传步骤也被阻断——小程序当天完全无数据，比「用 AI 估算的 sparkline 上线」更糟糕。<br>**v1.2（方案 Alpha）已修复**：第1步（API校正）改为软依赖，失败时打印警告并继续执行上传；第0步（JSON语法校验）和第2步（上传）仍为硬依赖。<br>**v2.0（方案A）进一步升级**：脚本只写 sparkline/chartData，其他所有字段由 AI 直接填写，脚本失败对数据完整性影响降到最低。 | **永久性（设计变更）** |
+| **18** | **~~`refresh_verified_snapshot.py` API 失败但脚本仍阻断全流程~~（已归档 — 方案A v2.0 已永久解决）** | → 详见下方归档区 | **已解决** |
 
-| **19** | **`refresh_verified_snapshot.py` 脚本边界混乱（方案A之前的历史问题）** | → **根本原因（方案A已彻底解决）**：v1.x 脚本覆盖范围过大（price/change/trafficLights/riskScore/gics/metrics/sectors等），导致每次版本迭代都要在「脚本覆盖范围」和「AI数据保护范围」之间找平衡，不断出现新的覆盖事故（v1.1/v1.2/v1.3 均有修复记录）。<br>**方案A（v2.0）从根本上解决**：脚本只写两个字段——`sparkline(7天)` 和 `chartData(30天)`。原因：<br>① 这两个字段是 API 的**唯一不可替代价值**（历史序列只能从 yfinance 实时拉取，AI 无法准确生成）<br>② 其他所有字段，AI+搜索的准确性不低于（甚至高于）脚本（尤其是 price/change/GICS 等）<br>③ trafficLights/riskScore 的阈值规则已写死在 SKILL.md，AI 按公式填写同样可重现、无主观误差<br>**脚本攻击面**：从覆盖 15+ 字段降到只写 2 个数组字段，出错范围缩小到「sparkline 数组内容不对」，且失败时有 AI 估算兜底，不影响小程序上线。 | **永久性（架构升级）** |
+| **19** | **~~`refresh_verified_snapshot.py` 脚本边界混乱~~（已归档 — 方案A v2.0 已永久解决）** | → 详见下方归档区 | **已解决** |
 
 ## JSON 生成堵点
 
@@ -89,7 +88,7 @@
 
 | # | 堵点 | 解决方案 |
 |---|------|---------|
-| 1 | sparkline 缺失导致 mini-chart 空白 | 小程序端 api.js 有 Mock 数据兜底 |
+| 1 | sparkline 缺失导致 mini-chart 空白 | 前端显示空状态（无 Mock 兜底，api.js v7.0 已删除所有 Mock） |
 | 2 | 板块标的为空数组 | 小程序端显示"暂无数据" |
 | 3 | 红绿灯不足7项 | 小程序端按实际数组长度渲染 |
 | 4 | 新增字段小程序未适配 | 新字段向后兼容，小程序忽略未识别字段 |
@@ -105,6 +104,27 @@
 5. 上传失败 → JSON 文件保留，不影响其他集合
 6. 上传成功 → `verify_upload()` 自动回读校验，发现异常立即告警
 7. **任何环节不停下等用户**
+
+---
+
+## 归档区（已通过架构升级永久解决，保留仅供历史参考）
+
+<details>
+<summary>堵点 #18 — refresh_verified_snapshot.py API 失败阻断全流程（方案A v2.0 已解决）</summary>
+
+**根本原因（已修复）**：v1.1 脚本在 API 校正失败时直接 `exit 1`，导致上传步骤也被阻断。
+**v1.2（方案 Alpha）已修复**：第1步（API校正）改为软依赖，失败时打印警告并继续执行上传。
+**v2.0（方案A）进一步升级**：脚本只写 sparkline/chartData，其他所有字段由 AI 直接填写，脚本失败对数据完整性影响降到最低。
+
+</details>
+
+<details>
+<summary>堵点 #19 — refresh_verified_snapshot.py 脚本边界混乱（方案A v2.0 已解决）</summary>
+
+**根本原因（方案A已彻底解决）**：v1.x 脚本覆盖范围过大（price/change/trafficLights/riskScore 等15+字段），每次版本迭代都出现覆盖事故。
+**方案A（v2.0）从根本上解决**：脚本只写两个字段——sparkline(7天) 和 chartData(30天)。脚本攻击面从 15+ 字段降到 2 个数组字段。
+
+</details>
 
 ---
 

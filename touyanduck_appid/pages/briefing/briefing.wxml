@@ -26,6 +26,20 @@
       <view class="ts-time">{{dataFreshness || '--'}}</view>
       <view class="ts-label">数据更新</view>
     </view>
+    <!-- v1.4 语音播报按钮 -->
+    <view class="ts-divider" wx:if="{{audioUrl}}"></view>
+    <view class="ts-voice-btn {{isPlaying ? 'ts-voice-playing' : ''}}" wx:if="{{audioUrl}}" bindtap="onVoiceTap">
+      <view class="ts-voice-icon" wx:if="{{!audioLoading}}">
+        <text wx:if="{{!isPlaying}}">🔊</text>
+        <text wx:else>⏹</text>
+      </view>
+      <view class="ts-voice-loading" wx:if="{{audioLoading}}">
+        <view class="ts-voice-dot ts-dot-1"></view>
+        <view class="ts-voice-dot ts-dot-2"></view>
+        <view class="ts-voice-dot ts-dot-3"></view>
+      </view>
+      <view class="ts-voice-label">{{isPlaying ? '停止' : '播报'}}</view>
+    </view>
   </view>
 
   <!-- ① 今日结论 + 重点事件（合并卡片） -->

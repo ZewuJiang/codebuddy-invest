@@ -1,6 +1,6 @@
 # investment-agent-daily-app — 投研鸭小程序数据生产 Skill
 
-> **版本**: v1.0 | **类型**: CodeBuddy 自定义 Skill
+> **版本**: v5.9 | **类型**: CodeBuddy 自定义 Skill
 
 ## 简介
 
@@ -61,24 +61,37 @@ export WX_CLOUD_ENV="你的云环境ID"
 - `app数据更新`
 - `miniapp sync`
 
-Skill 将自动执行完整的六阶段工作流：交易日检测 → 数据采集 → 完整性门禁 → JSON生成 → 终审 → 上传云数据库。
+Skill 将自动执行完整的七阶段工作流：日期检测+模式路由 → 数据采集 → 完整性门禁 → JSON生成 → 终审（含B1-B12/Q1-Q8/W1-W9质量门禁） → sparkline补全+上传 → 执行复盘。
+
+## 三档内容引擎
+
+| 时机 | 模式 | 说明 |
+|------|------|------|
+| 周一（盘后） | Heavy + 周一特别版 | 全量采集+上周回顾+本周展望 |
+| 周二～周五（盘后） | Heavy | 全量采集+分析+建议 |
+| 周末/休市日 | Weekend | 媒体深度扫描+周度总结+前瞻 |
 
 ## 文件结构
 
 | 目录/文件 | 说明 |
 |-----------|------|
-| `SKILL.md` | 主控文档（工作流+铁律+版本日志） |
-| `scripts/refresh_verified_snapshot.py` | sparkline/chartData 历史序列补全脚本 v2.1（方案A：只写这两个数组字段，其他所有字段由 AI 独立保障，脚本永远不触碰） |
-| `references/json-schema.md` | **核心文件** — 4个JSON的完整字段规范 |
-| `references/stock-universe.md` | 7板块标的池 + 分类规则 |
-| `references/data-collection-sop.md` | 数据采集SOP（含sparkline/metrics额外采集） |
-| `references/data-source-priority.md` | 数据源优先级 + 降级路径 |
-| `references/ai-supply-chain-universe.md` | AI产业链知识库（复用自 daily） |
-| `references/fund-universe.md` | 基金&大资金知识库（复用自 daily） |
-| `references/media-watchlist.md` | 媒体追踪清单（复用自 daily） |
-| `references/known-pitfalls.md` | App 版已知堵点 |
-| `scripts/upload_to_cloud.py` | 云数据库上传脚本（复用自 daily） |
-| `templates/` | JSON 模板文件 |
+| `SKILL.md` | 主控文档（工作流+八大铁律+致命错误清单+版本日志） |
+| `scripts/run_daily.sh` | 一键串联脚本 v3.0（JSON校验→sparkline补全→上传） |
+| `scripts/refresh_verified_snapshot.py` | sparkline/chartData 历史序列补全脚本 v3.0（AkShare 新浪源+东方财富 fallback，方案A：只写 sparkline/chartData 两个字段） |
+| `scripts/upload_to_cloud.py` | 云数据库上传+回读校验脚本 v1.1 |
+| `scripts/requirements.txt` | Python 依赖（requests + pandas + akshare） |
+| `references/json-schema.md` | **核心文件** — 4个JSON完整字段规范 v4.2（含B1-B12/Q1-Q8/W1-W9质量门禁） |
+| `references/stock-universe.md` | 5板块标的池 v2.1（ai_infra/ai_app/cn_ai/smart_money/hot_topic） |
+| `references/data-collection-sop.md` | 数据采集SOP v1.8（含Batch A情绪数据） |
+| `references/data-source-priority.md` | 数据源优先级 v1.6 + 降级路径 |
+| `references/ai-supply-chain-universe.md` | AI产业链24环标的知识库 |
+| `references/fund-universe.md` | 三梯队26家基金+策略师知识库 v18.0 |
+| `references/media-watchlist.md` | 三级媒体清单+扫描SOP |
+| `references/known-pitfalls.md` | App版已知堵点 v3.0（33条） |
+| `references/weekend-mode.md` | Weekend 模式完整规范（采集+产出+工作流） |
+| `references/briefing-golden-sample.json` | 简报页黄金样本（2026-04-06版，质量基准） |
+| `templates/daily-standard.json` | 标准日JSON模板 v5.7 |
+| `templates/monday-special.json` | 周一特别版JSON模板 v5.7 |
 
 ## 产出物
 
@@ -86,14 +99,14 @@ Skill 将自动执行完整的六阶段工作流：交易日检测 → 数据采
 
 | 文件 | 小程序页面 | 关键数据 |
 |------|-----------|---------|
-| `briefing.json` | 简报页 | 核心事件+判断+建议+情绪+聪明钱 |
-| `markets.json` | 市场页 | 美股+M7+亚太+大宗+加密+sparkline+GICS热力图 |
-| `watchlist.json` | 标的页 | 7板块×标的+详情+metrics+analysis+sparkline |
-| `radar.json` | 雷达页 | 7项红绿灯+风险矩阵+事件日历+聪明钱详情 |
+| `briefing.json` | 简报页 | 核心事件+判断+actionHints+情绪+聪明钱+topHoldings+风险点 |
+| `markets.json` | 市场页 | 美股+M7+亚太+大宗+加密+sparkline+GICS热力图+6条Insight |
+| `watchlist.json` | 标的页 | 5板块×28-35只标的+详情+metrics+analysis+sparkline+chartData |
+| `radar.json` | 雷达页 | 7项红绿灯+聪明钱三梯队+持仓快照+本周前瞻+预测市场+异动信号 |
 
 ## 注意事项
 
 - 需要联网环境（实时搜索采集数据）
-- 周六～周日不执行
+- 支持 Weekend 模式（周末/休市日产出周度深度分析）
 - 需要配置微信云数据库凭证才能上传
 - JSON 文件始终保留在本地（即使上传失败）

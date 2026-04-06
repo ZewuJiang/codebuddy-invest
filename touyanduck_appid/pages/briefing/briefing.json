@@ -3,7 +3,6 @@
   "enablePullDownRefresh": true,
   "usingComponents": {
     "section-card": "/components/section-card/section-card",
-    "skeleton": "/components/skeleton/skeleton",
-    "traffic-light": "/components/traffic-light/traffic-light"
+    "skeleton": "/components/skeleton/skeleton"
   }
 }

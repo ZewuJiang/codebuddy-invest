@@ -1,9 +1,8 @@
 // pages/radar/radar.js
-// 雷达页 v6.3 — 聪明钱最优先：动向#1 + 持仓#2 + 风险判断#3
-// v6.3 变更：
-//   - 模块重排：聪明钱动向提升至#1，新增聪明钱持仓#2（默认折叠），风险判断降至#3
-//   - 新增：smartMoneyHoldings 数据处理 + toggleHoldings 折叠交互
-//   - 保留：来源链接、predictionHook 等 v6.1 功能
+// 雷达页 v7.0 — 聪明钱最优先：动向#1 + 持仓#2 + 风险判断#3
+// v7.0 变更：
+//   - 移除已废弃的 realtime 层（getRealtimeData / 双层合并逻辑）
+//   - predictions 现在完全由 radar.json 日报层提供，无需实时层合并
 
 var api = require('../../services/api')
 var colorUtil = require('../../utils/color')
@@ -62,18 +61,9 @@ Page({
       that.setData({ loading: true, animateReady: false })
     }
 
-    Promise.all([
-      api.getRadar(),
-      api.getRealtimeData().catch(function(err) {
-        console.log('[Radar] 实时层获取异常，静默降级:', err && err.message)
-        return null
-      })
-    ]).then(function(results) {
-      var radarRes     = results[0]
-      var realtimeData = results[1]
-
+    api.getRadar().then(function(radarRes) {
       if (radarRes.success && radarRes.data) {
-        that._applyData(radarRes.data, !isSilent, realtimeData)
+        that._applyData(radarRes.data, !isSilent)
       } else if (!isSilent) {
         that.setData({ loading: false })
       }
@@ -94,20 +84,14 @@ Page({
     })
   },
 
-  _applyData: function(data, withAnimation, realtimeData) {
+  _applyData: function(data, withAnimation) {
     var that = this
 
-    // ── 双层合并：实时层 predictions 优先 ──
-    var rawPredictions = (realtimeData && realtimeData.predictions && realtimeData.predictions.length > 0)
-      ? realtimeData.predictions
-      : (data.predictions || [])
+    // ── predictions 直接从 radar.json 读取 ──
+    var rawPredictions = data.predictions || []
 
-    // ── _meta 双层合并 ──
+    // ── _meta ──
     var mergedMeta = Object.assign({}, data._meta || {})
-    if (realtimeData && (realtimeData.predictions && realtimeData.predictions.length > 0)) {
-      mergedMeta.sourceType = 'realtime_quote'
-      mergedMeta.realtimeUpdatedAt = (realtimeData._meta && realtimeData._meta.updatedAt) || null
-    }
     if (!mergedMeta.sourceType) {
       mergedMeta.sourceType = 'heavy_analysis'
     }

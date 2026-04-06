@@ -225,6 +225,11 @@
   // ⚠️ v3.7：riskNote 同样禁止包含操作建议（与 riskPoints 保持一致），只描述风险本身
   "dataTime": "2026-04-01 09:00 BJT",       // ⚠️ string — 格式固定为 "YYYY-MM-DD HH:MM BJT"，四个JSON保持完全一致，与简报页顶部时间同步
 
+  // ===== v1.4 新增：语音播报 =====
+  "audioUrl": "cloud://cloud1-xxx/audio/briefing-2026-04-01.mp3",  // 🔸 string — 音频文件的云存储 fileID（cloud:// 格式）或 https URL，由 generate_audio.py + upload_to_cloud.py 自动生成和填充
+  "audioFile": "briefing-2026-04-01.mp3",    // 🔸 string — 音频文件名（本地标记，上传后自动替换为 audioUrl）
+  "voiceText": "string",                     // 🔸 string — 播报文稿原文（调试用，前端不直接使用）
+
   // ===== v1.3 新增：元数据 =====
   "_meta": {                                // 🔸 object — 元数据（可选，无则前端不显示来源标签）
     "sourceType": "heavy_analysis",         // 🔸 string — 枚举：heavy_analysis / realtime_quote / breaking_news / weekend_insight（v4.0新增）
@@ -252,6 +257,7 @@
 | 市场情绪 bullet list（v1.8） | `marketSummaryPoints[]` | 3-5条 | 每条15-40字独立观察点；旧版 `marketSummary` 字符串兼容（前端自动拆分） |
 | 🛡️ 风险情绪 — 风险点（v5.0 标题精简+规则强化） | `riskPoints[]` + `riskNote`(兼容) | 2-3条 | **v5.0 禁止包含操作建议**；前端 🛡️ 图标 + bullet point 渲染 |
 | 数据状态栏（v1.3） | `_meta` | — | 可选，控制底栏来源标签和版本号显示 |
+| 语音播报（v1.4） | `audioUrl` / `audioFile` / `voiceText` | — | 可选；`audioUrl` 由脚本自动填充，前端时间状态栏显示🔊按钮 |
 
 ---
 
@@ -424,7 +430,7 @@
 
 **sparkline 生成规则**：
 - 7 个数据点代表近 7 个交易日收盘价（真实历史序列）
-- 数据来源：`yfinance.download(period="10d")["Close"]` 取最近7个交易日 / AkShare 历史接口
+- 数据来源：AkShare 新浪源+东方财富 fallback（脚本第三阶段自动补全）
 - **禁止估算/插值/模拟波动生成**（v1.2起强制阻断），sparkline 缺失时回采重试，仍失败则阻断发布
 - **⚠️ v4.4 新增：sparkline 与 price 一致性校验**：`sparkline` 最后一个数据点必须与 `price` 字段的数值一致（允许千分位/货币符号格式差异，但数值偏差不超过 1%）。典型事故：AAPL price 显示 `$223.45`，但 sparkline 最后一个点是 `255.92`——差 14.5%，严重损伤数据可信度。自查：逐个标的比对 `sparkline[-1]` 与 `price` 数值，不一致则修正 sparkline 或 price
 
@@ -554,11 +560,11 @@
 
 | # | label | 数据来源 | 格式示例 | 类型约束 | 说明 |
 |---|-------|---------|---------|---------|------|
-| 1 | 最新价 | yfinance/AkShare 实时价 | `"$174.40"` | **string**（含货币符号） | 自动计算 |
+| 1 | 最新价 | AkShare/Google Finance 实时价 | `"$174.40"` | **string**（含货币符号） | 自动计算 |
 | 2 | 单日涨跌 | 当日 close vs prev close | `"+5.59%"` | **string**（含正负号和%） | 自动计算 |
 | 3 | 7日涨跌 | last7[0] → last7[-1] | `"-0.71%"` | **string**（含正负号和%） | 自动计算 |
 | 4 | 30日涨跌 | last30[0] → last30[-1] | `"-7.22%"` | **string**（含正负号和%） | 自动计算 |
-| 5 | PE(TTM) | `yfinance Ticker.info["trailingPE"]` | `"53.4x"`（无数据则`"—"`） | **string** | 辅助指标，缺失不阻断 |
+| 5 | PE(TTM) | `StockAnalysis / web_search` | `"53.4x"`（无数据则`"—"`） | **string** | 辅助指标，缺失不阻断 |
 | 6 | 综合评级 | `calc_star_rating()` 规则函数 | `"⭐⭐⭐⭐"` | **string** | 规则化自动计算 |
 
 > **⚠️ 格式强制规范**：metrics 第1项必须含货币符号（`"$"` 或 `"HK$"` 或 `"¥"`）；第2-4项必须含正负号和 `%` 后缀；全部6项的 `value` 字段必须为 **string 类型**。
@@ -595,7 +601,7 @@
 ## 四、radar.json — 雷达页
 
 **对应页面**：`pages/radar/radar.wxml` + `radar.js`
-**版本**：v3.3（2026-04-05，对应前端 radar.js v6.3 / radar.wxml v6.3）
+**版本**：v3.3（2026-04-05，对应前端 radar.js v7.0 / radar.wxml v7.0）
 **涵盖模块（v6.3 新6模块）**：
 1. **聪明钱动向**（三梯队扁平化，按 T1>T2>策略师 排序，全部直接展示，不折叠）
 2. **聪明钱持仓** ⭐v6.3新增（巴菲特BRK + 段永平H&H 的13F头部持仓及占比，默认折叠，点击展开）
@@ -749,21 +755,11 @@
 }
 ```
 
-**红绿灯阈值标准（v1.2 — 不变）**：
+**红绿灯阈值标准与 riskScore 计算**：
 
-| # | 指标 | 🟢 green | 🟡 yellow | 🔴 red | 判断方式 |
-|---|------|----------|-----------|--------|---------|
-| 1 | VIX波动率 | <18 | [18, 25] | >25 | `auto_traffic_status()` 程序化 |
-| 2 | 10Y美债收益率 | <4.0% | [4.0%, 4.5%] | >4.5% | `auto_traffic_status()` 程序化 |
-| 3 | 布伦特原油 | <$90 | [$90, $110] | >$110 | `auto_traffic_status()` 程序化 |
-| 4 | 美元指数DXY | <102 | [102, 107] | >107 | `auto_traffic_status()` 程序化 |
-| 5 | HY信用利差 | <4% | [4%, 5%] | >5% | `auto_traffic_status()` 程序化 |
-| 6 | **黄金XAU** | **<$2,200** | **[$2,200, $3,500]** | **>$3,500** | **避险情绪纯粹指标（v4.6替代外资动向）** |
-| 7 | 离岸人民币CNH | <7.15 | [7.15, 7.30] | >7.30 | `auto_traffic_status()` 程序化 |
-
-> **riskScore 动态计算（v1.2）**：`calc_risk_score(traffic_lights)` = 30 + Σ(灯色权重)，上限100
-> - green=0分，yellow=10分，red=20分
-> - 等级：<45=low / 45-64=medium / ≥65=high
+> 详细的 7 项指标阈值表、riskScore 计算公式（30 + Σ灯色权重）、riskLevel 分级规则 → 参见 **SKILL.md §2.3「AI 直填公式」**（唯一权威定义，避免两处维护不一致）。
+>
+> **快速参考**：green=0分/yellow=10分/red=20分，基础分30，封顶100。<45=low / 45-64=medium / ≥65=high。
 
 **前端展示逻辑说明（v6.1 供 AI 理解）**：
 
@@ -835,24 +831,14 @@
 | `timeStatus.marketStatus` | `美股交易中`, `美股已收盘`, `盘前交易`, `盘后交易`, `美股休市` |
 | `coreJudgments[].probability` | `高可能性`, `中可能性`, `低可能性` |
 | `coreJudgments[].trend` | `上升`, `下降`, `稳定` |
-| `fearGreed.label` | `Extreme Fear`, `Fear`, `Neutral`, `Greed`, `Extreme Greed` |
 | `predictions[].trend` | `up`, `down`, `stable` |
 | `predictions[].source` | `Polymarket`, `Kalshi`, `CME FedWatch` |
 | `_meta.sourceType` | `heavy_analysis`, `realtime_quote`, `breaking_news`, `weekend_insight` |
 
 ---
 
-> v4.1 — 2026-04-06 14:05 | **简报页质量基线门禁 B1-B12 固化 + 冗余清理**：①新增「简报页质量基线门禁 B1-B12」——12项逐条自查清单覆盖 takeaway标红/title精简/chain链接/logic三段式/globalReaction精确/actionHints价投/riskPoints去操作/sentimentScore独立/smartMoney信息量/topHoldings查证/marketSummaryPoints不重复/整体价投风格；②以 2026-04-06 版 briefing.json 为黄金样本基准。
-> v4.2 — 2026-04-06 14:06 | **标的页质量基线门禁固化+枚举修复**：①新增「标的页质量基线门禁 W1-W9」——9项覆盖板块完整性/字段完整性/analysis质量/reason论据/tags精准/metrics一致性/summary有数据/sparkline-price一致/risks独立具体；②§5.3 `sectors[].id` 枚举从旧7板块（ai/semi/internet/energy/consumer/pharma/finance）修正为新5板块（ai_infra/ai_app/cn_ai/smart_money/hot_topic）；③新增「简报页质量基线门禁 B1-B12」（v4.1已固化）。
-> v4.1 — 2026-04-06 14:00 | **简报页质量基线门禁固化**：新增 B1-B12 简报页12项质量门禁。
+> v4.3 — 2026-04-06 17:59 | **新增语音播报字段**：briefing.json 新增 `audioUrl`/`audioFile`/`voiceText` 三个可选字段，支持前端时间状态栏🔊播放按钮。由 `generate_audio.py`（MiniMax TTS）+ `upload_to_cloud.py` v1.2 自动生成和上传。
+> v4.2 — 2026-04-06 14:06 | **标的页质量基线门禁固化+枚举修复**：①新增「标的页质量基线门禁 W1-W9」——9项覆盖板块完整性/字段完整性/analysis质量/reason论据/tags精准/metrics一致性/summary有数据/sparkline-price一致/risks独立具体；②§5.3 `sectors[].id` 枚举从旧7板块修正为新5板块；③新增「简报页质量基线门禁 B1-B12」（v4.1已固化）。
+> v4.1 — 2026-04-06 14:05 | **简报页质量基线门禁 B1-B12 固化**：12项逐条自查清单覆盖 takeaway~整体价投风格；以 2026-04-06 版 briefing.json 为黄金样本基准。
 > v4.0 — 2026-04-06 13:59 | **市场页 v4.4 优化 + 质量基线门禁固化**：Insight 升级为决策信号式；sparkline-price 一致性校验；新增 Q1-Q8 市场页门禁。
-> v3.9 — 2026-04-06 13:03 | riskAdvice 去操作化+F&G弱化。
-> v3.8 — 2026-04-06 12:41 | GICS因果链精简为一句话轮动摘要。
-> v3.7 — 2026-04-06 12:20 | 简报页产出哲学固化（四项规则）。
-> v3.5 — 2026-04-06 11:54 | 持仓数据准确性事故复盘+四条铁律。
-> v3.4 — 2026-04-06 11:23 | 简报页聪明钱建议模块重构+风险模块强化。
-> v3.3 — 2026-04-05 22:59 | 聪明钱动向取消折叠。
-> v3.2 — 2026-04-05 20:01 | 策略师观点时效标注。
-> v3.1 — 2026-04-05 19:14 | 雷达页来源链接+数据质量升级。
-> v3.0 — 2026-04-05 18:35 | 雷达页5模块重构。
-> v2.3及以前 | 详见 git 历史。
+> v3.9 及更早 | 详见 git 历史。

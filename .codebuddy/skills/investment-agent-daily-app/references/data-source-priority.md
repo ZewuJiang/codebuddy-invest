@@ -73,13 +73,13 @@ web_search 返回了含价格数字的 snippet
 | 数据类型 | 首选（必须先用） | 备选（首选失败时） | 第三选 | 失败处理 |
 |---------|--------------|-----------------|--------|---------|
 | 美股指数（SPX/IXIC/DJI） | `web_fetch` Google Finance `.INX/.IXIC/.DJI` | 东方财富/StockAnalysis (web_fetch) | MarketWatch (web_fetch) | 回采3次→阻断 |
-| M7及美股个股 | `web_fetch` Google Finance `{TICKER}:NASDAQ/NYSE` | yfinance `download()` | StockAnalysis.com (web_fetch) | 回采→阻断 |
+| M7及美股个股 | `web_fetch` Google Finance `{TICKER}:NASDAQ/NYSE` | AkShare 新浪源 `stock_us_daily()` | StockAnalysis.com (web_fetch) | 回采→阻断 |
 | VIX 恐慌指数 | `web_fetch` Google Finance `VIX:INDEXCBOE` | web_search（核实来源为 CBOE 官方）| 同花顺行情接口 | 回采→阻断 |
-| GICS 11板块 ETF | `web_fetch` Google Finance `{XLE/XLK/...}:NYSEARCA` | yfinance `download()` | — | 回采→阻断 |
+| GICS 11板块 ETF | `web_fetch` Google Finance `{XLE/XLK/...}:NYSEARCA` | AkShare 新浪源 | — | 回采→阻断 |
 | 港股指数（恒生/恒科） | 东方财富行情接口 / 同花顺 | `web_fetch` Google Finance | 新浪财经行情接口 | 回采→阻断 |
 | A股指数（上证/深证） | 东方财富行情接口 / AkShare `stock_zh_a_daily` | 同花顺 | 新浪财经行情接口 | 回采→阻断 |
-| 日经225 | yfinance `^N225`（+ 量级校验 18000-55000）| `ak.futures_foreign_hist("N225")` | — | 量级异常→切备选→阻断 |
-| KOSPI | yfinance `^KS11`（+ 量级校验 1500-4500）| — | 标注"数据待核实" | 量级异常→标注不阻断 |
+| 日经225 | AkShare 新浪源 `index_us_stock_sina(".N225")`（+ 量级校验 18000-55000）| `web_fetch` Google Finance | — | 量级异常→切备选→阻断 |
+| KOSPI | web_search（+ 量级校验 1500-4500）| — | 标注"数据待核实" | 量级异常→标注不阻断 |
 | **黄金 XAU 价格** | **`web_fetch` OilPrice.com 或 金投网行情页** | **web_search（指定 `site:gold.org OR site:investing.com` 等行情平台）** | **Kitco 行情接口** | **阻断** |
 | 布伦特原油 | `web_fetch` OilPrice.com | 金投网行情页 | web_search（行情平台来源）| 阻断 |
 | WTI原油 | `web_fetch` OilPrice.com | 金投网行情页 | web_search（行情平台来源）| 阻断 |
@@ -90,7 +90,7 @@ web_search 返回了含价格数字的 snippet
 | BTC/ETH 加密货币 | `web_fetch` Google Finance `BTC-USD` / `ETH-USD` | CoinGecko API | web_search（指定 CoinMarketCap 来源）| 阻断 |
 | 历史走势 sparkline（7天）| **脚本 v3.0 自动补全（AkShare 新浪源+东方财富 fallback）**；VIX/DXY/10Y/CNH/BTC/ETH 为 AkShare 缺口，保留 AI 估算值 | — | — | — |
 | 历史走势 chartData（30天）| **脚本 v3.0 自动补全（AkShare 新浪源+东方财富 fallback）**；VIX/DXY/10Y/CNH/BTC/ETH 为 AkShare 缺口，保留 AI 估算值 | — | — | — |
-| 个股 PE(TTM) | yfinance `Ticker.info["trailingPE"]` | StockAnalysis.com (web_fetch) | 标注"—"（不阻断）| — |
+| 个股 PE(TTM) | StockAnalysis.com (web_fetch) | web_search | 标注"—"（不阻断）| — |
 
 ---
 
@@ -160,7 +160,7 @@ web_search 返回了含价格数字的 snippet
 | 13F 数据过季 | → WhaleWisdom → web_search |
 | DXY 直接获取困难 | → Trading Economics → 金投网 → Finlore.io → 前日值+估算（标注"前日值"）|
 | 某标的全部数据失败 | → 替换为同板块备选标的（参见 stock-universe.md）|
-| **日经225 yfinance 量级校验失败** | → **ak.futures_foreign_hist("N225") AkShare 备用通道** |
+| **日经225 量级校验失败** | → **`web_fetch` Google Finance → AkShare 备用通道** |
 | **KOSPI 量级校验失败（>4500 或 <1500）** | → **标注"数据待核实"，不阻断整体流程** |
 | 上传失败 | → JSON 文件保留，下次可手动重传 |
 | **Polymarket API 失败** | → **web_search 定向搜索 → 仍失败 → 省略该条目（predictions 可为空数组，不阻断）** |

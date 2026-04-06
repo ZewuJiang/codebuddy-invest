@@ -1,9 +1,0 @@
-{
-  "triggers": [
-    {
-      "name": "every2hours",
-      "type": "timer",
-      "config": "0 0 */2 * * * *"
-    }
-  ]
-}

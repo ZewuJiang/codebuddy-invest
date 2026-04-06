@@ -170,7 +170,8 @@ WATCHLIST_AK_MAP: Dict[str, Optional[dict]] = {
     "9988.HK":    {"type": "hk_stock", "symbol": "09988"},
     "2513.HK":    {"type": "hk_stock", "symbol": "02513"},
     "0100.HK":    {"type": "hk_stock", "symbol": "00100"},
-    "688256.SZ":  {"type": "cn_stock", "symbol": "sz688256"},
+    "1810.HK":    {"type": "hk_stock", "symbol": "01810"},
+    "688256.SH":  {"type": "cn_stock", "symbol": "sh688256"},
     # ── smart_money：聪明钱 ──
     "BRK.A":      {"type": "us_stock", "symbol": "BRK.A"},
     "KO":         {"type": "us_stock", "symbol": "KO"},

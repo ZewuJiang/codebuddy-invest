@@ -362,10 +362,6 @@
 }
 
 /* 聪明钱动向子区域 */
-.sm-section {
-  /* 无操作提示时无需上分隔线（由 wx:if 控制 header 显示） */
-}
-
 .sm-section-header {
   border-top: 1rpx solid #f0f0f0;
   padding-top: 16rpx;
@@ -672,6 +668,67 @@
 .ts-market-closed {
   background: rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.4);
+}
+
+/* ========== v1.4 语音播报按钮（嵌入时间状态栏）========== */
+.ts-voice-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8rpx 16rpx;
+  border-radius: 12rpx;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+}
+
+.ts-voice-btn:active {
+  background: rgba(255, 184, 0, 0.2);
+}
+
+.ts-voice-playing {
+  background: rgba(255, 184, 0, 0.15);
+}
+
+.ts-voice-icon {
+  font-size: 36rpx;
+  line-height: 1;
+}
+
+.ts-voice-label {
+  font-size: 18rpx;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 4rpx;
+}
+
+.ts-voice-playing .ts-voice-label {
+  color: #FFB800;
+}
+
+/* 加载动画（三个跳动圆点）*/
+.ts-voice-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6rpx;
+  height: 36rpx;
+}
+
+.ts-voice-dot {
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 50%;
+  background: #FFB800;
+  animation: voiceDotBounce 0.8s ease-in-out infinite;
+}
+
+.ts-dot-1 { animation-delay: 0s; }
+.ts-dot-2 { animation-delay: 0.15s; }
+.ts-dot-3 { animation-delay: 0.3s; }
+
+@keyframes voiceDotBounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
 }
 
 /* ========== v1.3 判断扩展信息 ========== */
