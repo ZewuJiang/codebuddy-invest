@@ -170,7 +170,7 @@ Page({
     if (predictions.length > 0) {
       var p0 = predictions[0]
       var arrow = p0.trend === 'up' ? '↑' : (p0.trend === 'down' ? '↓' : '—')
-      predictionHook = p0.title.replace(/\?$/, '') + ' ' + p0.probability + '% ' + arrow
+      predictionHook = p0.title.replace(/\?$/, '').replace(/？$/, '') + ' ' + p0.probability + '% ' + arrow
     }
 
     // ── 5. 异动信号处理（含 source/url）──

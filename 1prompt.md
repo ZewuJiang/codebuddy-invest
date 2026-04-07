@@ -1,5 +1,9 @@
 ### 产出 日报 微信小程序
 
+#### update & 迭代：
+
+investment-agent-daily-apptouyanduck_appid 请仔细小程序app的相关内容，需要和你讨论一些问题，务必严谨、全面、可靠；
+
 #### keycheck：
 
 步骤四这样的改动，你感觉合理吗？或者说适合吗？针对$10亿+个人投资者大老板来说

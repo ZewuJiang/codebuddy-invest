@@ -6,20 +6,29 @@ var colorUtil = require('../../utils/color')
 
 /**
  * 解析 insight 文本，提取数字/百分比/关键标的作为高亮片段
- * 匹配规则：$价格、±百分比、涨/跌/暴涨/暴跌、VIX/NVDA等大写标的、连续大写英文
+ * 匹配规则：$价格、±百分比、涨/跌/暴涨/暴跌、连续2-5位大写英文标的代码（通用匹配）
+ * v4.5: 改为通用大写字母匹配，不再硬编码标的列表
  */
 function parseInsightSegments(text) {
   if (!text) return []
-  // 匹配：$数字、±数字%、涨跌关键词+数字、大写英文标的(>=2字母)、中文关键标签如【】
-  var re = /(\$[\d,.]+[KMB]?|[+-]?\d+\.?\d*%|暴[涨跌]\d*\.?\d*%?|[涨跌]\d+\.?\d*%|VIX|NVDA|TSLA|META|MSFT|AAPL|GOOGL|AMZN|BTC|ETH|XLE|XLY|XLRE|WTI|DXY|CNH|SPX|QQQ|Fear\s*&\s*Greed|[A-Z]{2,5}(?=[\s跌涨暴]))/g
+  // 需排除的常见英文缩写（非标的代码）
+  var excludeWords = { 'AI': 1, 'US': 1, 'EU': 1, 'UK': 1, 'GDP': 1, 'CPI': 1, 'PPI': 1, 'PMI': 1, 'PCE': 1, 'FOMC': 1, 'FED': 1, 'IPO': 1, 'CEO': 1, 'CFO': 1, 'CTO': 1, 'THE': 1, 'AND': 1, 'FOR': 1, 'TAB': 1 }
+  // 匹配：$数字、±数字%、涨跌关键词+数字、Fear&Greed、中文方括号、2-5位大写英文
+  var re = /(\$[\d,.]+[KMB]?|[+-]?\d+\.?\d*%|暴[涨跌]\d*\.?\d*%?|[涨跌]\d+\.?\d*%|Fear\s*&\s*Greed|【[^】]+】|[A-Z][A-Z0-9]{1,4})/g
   var segments = []
   var lastIndex = 0
   var match
   while ((match = re.exec(text)) !== null) {
+    var matched = match[0]
+    // 过滤纯大写英文中的常见非标的缩写
+    var isTickerLike = /^[A-Z][A-Z0-9]{1,4}$/.test(matched)
+    if (isTickerLike && excludeWords[matched]) {
+      continue
+    }
     if (match.index > lastIndex) {
       segments.push({ text: text.substring(lastIndex, match.index), highlight: false })
     }
-    segments.push({ text: match[0], highlight: true })
+    segments.push({ text: matched, highlight: true })
     lastIndex = re.lastIndex
   }
   if (lastIndex < text.length) {
@@ -60,7 +69,7 @@ Page({
     animateReady: false,
     isCloud: false,
     dataTime: '',
-    swiperHeights: ['2200rpx', '1400rpx', '1200rpx', '1200rpx', '900rpx']
+    swiperHeights: ['1600px', '1000px', '900px', '900px', '700px']
   },
 
   // 各Tab内容项数量（数据加载后更新）
@@ -272,13 +281,14 @@ Page({
       (data.cryptos || []).length
     ]
 
-    // 数据渲染完成后，等一帧再量取所有 Tab 真实高度
+    // 数据渲染完成后，立即量取高度（不等动画）
     setTimeout(function() {
+      that._measureAllTabs()
       that.setData({ animateReady: true })
-      // 再等一帧让动画 class 生效后量取
+      // 动画完成后再量一次精确高度
       setTimeout(function() {
         that._measureAllTabs()
-      }, 100)
+      }, 500)
     }, 50)
   }
 })

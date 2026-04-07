@@ -3,6 +3,10 @@
   <canvas type="2d" 
           id="{{canvasId}}" 
           class="mini-chart-canvas" 
-          style="width: {{pxWidth}}px; height: {{pxHeight}}px;">
+          style="width: {{pxWidth}}px; height: {{pxHeight}}px;"
+          wx:if="{{!noData}}">
   </canvas>
+  <view class="mini-chart-empty" wx:if="{{noData}}">
+    <text class="empty-text">暂无走势</text>
+  </view>
 </view>

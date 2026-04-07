@@ -109,14 +109,15 @@ function getLightClass(status) {
 
 /**
  * 预测市场趋势标签映射
- * @param {string} trend - 'up' | 'down' | 'stable'
+ * @param {string} trend - 'up' | 'down' | 'stable' | 'hold'（hold 为 stable 的别名，统一兼容）
  * @returns {object} { arrow, colorClass }
  */
 function getPredictionTrendInfo(trend) {
   var map = {
     up:     { arrow: '↑', colorClass: 'pm-trend-up' },
     down:   { arrow: '↓', colorClass: 'pm-trend-down' },
-    stable: { arrow: '→', colorClass: 'pm-trend-stable' }
+    stable: { arrow: '→', colorClass: 'pm-trend-stable' },
+    hold:   { arrow: '→', colorClass: 'pm-trend-stable' }
   }
   return map[trend] || { arrow: '→', colorClass: 'pm-trend-stable' }
 }

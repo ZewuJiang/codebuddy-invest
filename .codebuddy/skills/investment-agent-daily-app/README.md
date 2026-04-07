@@ -1,6 +1,6 @@
 # investment-agent-daily-app — 投研鸭小程序数据生产 Skill
 
-> **版本**: v5.9 | **类型**: CodeBuddy 自定义 Skill
+> **版本**: v7.1 | **类型**: CodeBuddy 自定义 Skill
 
 ## 简介
 
@@ -63,12 +63,13 @@ export WX_CLOUD_ENV="你的云环境ID"
 
 Skill 将自动执行完整的七阶段工作流：日期检测+模式路由 → 数据采集 → 完整性门禁 → JSON生成 → 终审（含B1-B12/Q1-Q8/W1-W9质量门禁） → sparkline补全+上传 → 执行复盘。
 
-## 三档内容引擎
+## 四档内容引擎
 
 | 时机 | 模式 | 说明 |
 |------|------|------|
-| 周一（盘后） | Heavy + 周一特别版 | 全量采集+上周回顾+本周展望 |
-| 周二～周五（盘后） | Heavy | 全量采集+分析+建议 |
+| 周一（盘后/当天首次） | Heavy + 周一特别版 | 全量采集+上周回顾+本周展望 |
+| 周二～周五（当天首次） | Heavy | 全量采集+分析+建议 |
+| 工作日后续每4小时 | **Refresh**（v7.0新增） | **刷新行情+红绿灯+异动信号，保留深度分析** |
 | 周末/休市日 | Weekend | 媒体深度扫描+周度总结+前瞻 |
 
 ## 文件结构
@@ -80,15 +81,16 @@ Skill 将自动执行完整的七阶段工作流：日期检测+模式路由 →
 | `scripts/refresh_verified_snapshot.py` | sparkline/chartData 历史序列补全脚本 v3.0（AkShare 新浪源+东方财富 fallback，方案A：只写 sparkline/chartData 两个字段） |
 | `scripts/upload_to_cloud.py` | 云数据库上传+回读校验脚本 v1.1 |
 | `scripts/requirements.txt` | Python 依赖（requests + pandas + akshare） |
-| `references/json-schema.md` | **核心文件** — 4个JSON完整字段规范 v4.2（含B1-B12/Q1-Q8/W1-W9质量门禁） |
+| `references/json-schema.md` | **核心文件** — 4个JSON完整字段规范 v4.4（含B1-B12/Q1-Q8/W1-W9质量门禁） |
 | `references/stock-universe.md` | 5板块标的池 v2.1（ai_infra/ai_app/cn_ai/smart_money/hot_topic） |
-| `references/data-collection-sop.md` | 数据采集SOP v1.8（含Batch A情绪数据） |
+| `references/data-collection-sop.md` | 数据采集SOP v1.9（含Batch A情绪数据+Refresh精简批次R0-R3+R1 M7默认策略） |
 | `references/data-source-priority.md` | 数据源优先级 v1.6 + 降级路径 |
 | `references/ai-supply-chain-universe.md` | AI产业链24环标的知识库 |
 | `references/fund-universe.md` | 三梯队26家基金+策略师知识库 v18.0 |
 | `references/media-watchlist.md` | 三级媒体清单+扫描SOP |
-| `references/known-pitfalls.md` | App版已知堵点 v3.0（33条） |
+| `references/known-pitfalls.md` | App版已知堵点 v3.2（36条，含Refresh模式堵点） |
 | `references/weekend-mode.md` | Weekend 模式完整规范（采集+产出+工作流） |
+| `references/refresh-mode.md` | **Refresh 模式完整规范 v1.1**（精简采集+字段边界表+精简终审+工作流+sentimentScore微调规则+refreshCount） |
 | `references/briefing-golden-sample.json` | 简报页黄金样本（2026-04-06版，质量基准） |
 | `templates/daily-standard.json` | 标准日JSON模板 v5.7 |
 | `templates/monday-special.json` | 周一特别版JSON模板 v5.7 |

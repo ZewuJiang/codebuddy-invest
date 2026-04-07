@@ -232,9 +232,10 @@
 
   // ===== v1.3 新增：元数据 =====
   "_meta": {                                // 🔸 object — 元数据（可选，无则前端不显示来源标签）
-    "sourceType": "heavy_analysis",         // 🔸 string — 枚举：heavy_analysis / realtime_quote / breaking_news / weekend_insight（v4.0新增）
+    "sourceType": "heavy_analysis",         // 🔸 string — 枚举：heavy_analysis / refresh_update（v7.0新增）/ realtime_quote / breaking_news / weekend_insight（v4.0新增）
     "generatedAt": "2026-04-01T09:00:00+08:00",  // 🔸 string — ISO 8601 生成时间
-    "skillVersion": "v4.0"                  // 🔸 string — 生产此数据的 Skill 版本号
+    "skillVersion": "v4.0",                 // 🔸 string — 生产此数据的 Skill 版本号
+    "refreshCount": 1                       // 🔸 number — Refresh 模式专用：当天第几次 Refresh（1/2/3...）。Heavy/Weekend 模式不填此字段。前端不渲染，仅用于调试追溯
   }
 }
 ```
@@ -748,7 +749,7 @@
   "dataTime": "2026-04-01 09:00 BJT",       // ⚠️ string
 
   "_meta": {                                // 🔸 object — 元数据（可选）
-    "sourceType": "heavy_analysis",         // 🔸 string — 枚举：heavy_analysis / realtime_quote / breaking_news / weekend_insight
+    "sourceType": "heavy_analysis",         // 🔸 string — 枚举：heavy_analysis / refresh_update（v7.0新增）/ realtime_quote / breaking_news / weekend_insight
     "generatedAt": "2026-04-01T09:00:00+08:00",  // 🔸 string — ISO 8601
     "skillVersion": "v4.4"                  // 🔸 string — Skill 版本号
   }
@@ -833,10 +834,11 @@
 | `coreJudgments[].trend` | `上升`, `下降`, `稳定` |
 | `predictions[].trend` | `up`, `down`, `stable` |
 | `predictions[].source` | `Polymarket`, `Kalshi`, `CME FedWatch` |
-| `_meta.sourceType` | `heavy_analysis`, `realtime_quote`, `breaking_news`, `weekend_insight` |
+| `_meta.sourceType` | `heavy_analysis`, `refresh_update`, `realtime_quote`, `breaking_news`, `weekend_insight` |
 
 ---
 
+> v4.4 — 2026-04-07 13:00 | **Refresh 模式字段完善**：①`refreshInterval` 新增 Refresh 模式说明（"每4小时更新"）；②`_meta` 新增 `refreshCount` 可选字段（当天第几次 Refresh，调试追溯用）；③版本号 v4.2→v4.4 对齐 Refresh 模式变更。
 > v4.3 — 2026-04-06 17:59 | **新增语音播报字段**：briefing.json 新增 `audioUrl`/`audioFile`/`voiceText` 三个可选字段，支持前端时间状态栏🔊播放按钮。由 `generate_audio.py`（MiniMax TTS）+ `upload_to_cloud.py` v1.2 自动生成和上传。
 > v4.2 — 2026-04-06 14:06 | **标的页质量基线门禁固化+枚举修复**：①新增「标的页质量基线门禁 W1-W9」——9项覆盖板块完整性/字段完整性/analysis质量/reason论据/tags精准/metrics一致性/summary有数据/sparkline-price一致/risks独立具体；②§5.3 `sectors[].id` 枚举从旧7板块修正为新5板块；③新增「简报页质量基线门禁 B1-B12」（v4.1已固化）。
 > v4.1 — 2026-04-06 14:05 | **简报页质量基线门禁 B1-B12 固化**：12项逐条自查清单覆盖 takeaway~整体价投风格；以 2026-04-06 版 briefing.json 为黄金样本基准。

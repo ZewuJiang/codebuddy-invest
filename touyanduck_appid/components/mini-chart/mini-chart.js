@@ -49,7 +49,8 @@ Component({
   data: {
     canvasId: '',
     pxWidth: 0,
-    pxHeight: 0
+    pxHeight: 0,
+    noData: false
   },
 
   lifetimes: {
@@ -65,8 +66,10 @@ Component({
 
   observers: {
     'data': function() {
-      // 数据变化时重绘
-      if (this._canvasReady) {
+      var d = this.properties.data
+      var hasEnough = d && d.length >= 2
+      this.setData({ noData: !hasEnough })
+      if (this._canvasReady && hasEnough) {
         this.drawChart()
       }
     }
