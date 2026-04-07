@@ -1,6 +1,0 @@
-# investment-agent-html 脚本依赖
-# 使用方法: pip3 install -r requirements.txt
-
-# sparkline/chartData 历史序列补全（AkShare）
-pandas>=2.2
-akshare>=1.16.0

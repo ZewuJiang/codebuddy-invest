@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🦆 投研鸭 API — 二级市场每日策略简报</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #e0e0e0;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .container { max-width: 800px; margin: 0 auto; }
+    h1 { font-size: 2.2em; margin-bottom: 8px; color: #ffd700; }
+    .subtitle { font-size: 1.1em; color: #a0a0c0; margin-bottom: 32px; }
+    .badge {
+      display: inline-block;
+      background: rgba(255,215,0,0.15);
+      color: #ffd700;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.85em;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+    .section { margin-bottom: 32px; }
+    .section h2 {
+      font-size: 1.3em;
+      color: #ffffff;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .endpoint {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+      font-family: 'SF Mono', 'Monaco', 'Menlo', monospace;
+      font-size: 0.9em;
+    }
+    .endpoint .method { color: #4caf50; font-weight: bold; }
+    .endpoint .path { color: #64b5f6; }
+    .endpoint .desc { color: #a0a0c0; font-family: -apple-system, sans-serif; margin-top: 6px; font-size: 0.9em; }
+    .coverage { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; }
+    .coverage-item {
+      background: rgba(255,255,255,0.05);
+      border-radius: 6px;
+      padding: 10px;
+      font-size: 0.9em;
+    }
+    .coverage-item .label { color: #ffd700; }
+    .footer { margin-top: 48px; text-align: center; color: #606080; font-size: 0.85em; }
+    a { color: #64b5f6; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🦆 投研鸭 API</h1>
+    <p class="subtitle">二级市场每日策略简报 — 公开数据接口</p>
+
+    <div>
+      <span class="badge">📊 每工作日更新</span>
+      <span class="badge">🔐 29条零容忍审核</span>
+      <span class="badge">🌍 全球二级市场</span>
+      <span class="badge">🆓 免费开放</span>
+    </div>
+
+    <div class="section">
+      <h2>📡 API 端点</h2>
+
+      <div class="endpoint">
+        <span class="method">GET</span> <span class="path">/api/latest/meta.json</span>
+        <div class="desc">元数据 — 数据版本、更新时间、数据源类型</div>
+      </div>
+
+      <div class="endpoint">
+        <span class="method">GET</span> <span class="path">/api/latest/briefing.json</span>
+        <div class="desc">简报数据 — 核心结论 / 事件链 / 判断 / 建议 / 情绪评分 / 聪明钱信号</div>
+      </div>
+
+      <div class="endpoint">
+        <span class="method">GET</span> <span class="path">/api/latest/markets.json</span>
+        <div class="desc">市场数据 — 美股4指数 / M7×7 / 亚太 / 大宗 / 加密 / GICS 11板块</div>
+      </div>
+
+      <div class="endpoint">
+        <span class="method">GET</span> <span class="path">/api/latest/watchlist.json</span>
+        <div class="desc">标的数据 — 5板块重点标的 + 详细分析 + 评级 + 风险</div>
+      </div>
+
+      <div class="endpoint">
+        <span class="method">GET</span> <span class="path">/api/latest/radar.json</span>
+        <div class="desc">雷达数据 — 安全信号 / 聪明钱详情 / 前瞻事件 / 预测市场 / 异动</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🌍 覆盖范围</h2>
+      <div class="coverage">
+        <div class="coverage-item"><span class="label">🇺🇸</span> 美股三大指数 + 罗素2000</div>
+        <div class="coverage-item"><span class="label">🤖</span> M7 七巨头逐一追踪</div>
+        <div class="coverage-item"><span class="label">📊</span> GICS 11板块热力图</div>
+        <div class="coverage-item"><span class="label">🌏</span> 亚太市场（日韩港A）</div>
+        <div class="coverage-item"><span class="label">🛢️</span> 大宗商品（油金铜等）</div>
+        <div class="coverage-item"><span class="label">₿</span> 加密货币（BTC ETH SOL）</div>
+        <div class="coverage-item"><span class="label">🧠</span> 聪明钱动向追踪</div>
+        <div class="coverage-item"><span class="label">⚡</span> AI产业链24环分析</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🔧 快速接入</h2>
+      <div class="endpoint">
+        <div class="desc" style="color: #e0e0e0;">
+          <strong>OpenClaw / Claude Code 用户：</strong><br>
+          <code>clawhub install touyanduck/touyanduck-briefing</code><br><br>
+          <strong>直接调用：</strong><br>
+          <code>curl -s http://21.214.207.96:8080/api/latest/briefing.json | python3 -m json.tool</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🔐 数据质量保障</h2>
+      <p style="line-height: 1.8;">
+        所有数据由「投研鸭投资分析系统 v7.1」自动生产，执行以下质量保障：<br>
+        • 八大铁律 + 29条致命错误零容忍<br>
+        • 所有价格数据来自实时行情源（Google Finance / AkShare / 英为财情）<br>
+        • 14项JSON完整性终审 + Top10快速终审<br>
+        • 每工作日全量采集1次（日内可手动触发刷新）
+      </p>
+    </div>
+
+    <div class="footer">
+      <p>⚠️ 本数据仅供投资参考，不构成投资建议。</p>
+      <p style="margin-top: 8px;">投研鸭 touyanduck © 2026 | Powered by 投研鸭投资分析系统 v7.1</p>
+    </div>
+  </div>
+</body>
+</html>

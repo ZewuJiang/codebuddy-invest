@@ -119,6 +119,17 @@ if [ $? -ne 0 ]; then
 fi
 
 echo ""
+
+# ── 第3步：同步到公开 API（本地打包 + 远程上传供 ClawHub Skill 消费） ──
+echo "🌐 第3步：同步 JSON 到公开 API（AnyDev 服务器）..."
+echo ""
+
+bash "$SCRIPT_DIR/sync_to_edgeone.sh" "$DATE"
+SYNC_EXIT=$?
+
+echo ""
+
+# ── 总结 ─────────────────────────────────────────────────────
 echo "============================================================"
 if [ $API_CORRECTED -eq 1 ]; then
     echo "🎉 全流程完成！大老板刷新小程序即可看到最新数据"
@@ -129,5 +140,12 @@ else
     echo "   日期：${DATE}"
     echo "   数据来源：AI 采集（全量）| sparkline/chartData 为 AI 估算值（非真实历史序列）"
     echo "   建议：网络恢复后可手动补跑 refresh_verified_snapshot.py 提升 sparkline 精度"
+fi
+if [ $SYNC_EXIT -eq 0 ]; then
+    echo "   🌐 公开 API 本地数据已同步 + 上传包已准备（需 AI 推送到 AnyDev 服务器）"
+    echo "   📌 远程推送：AI 调用 AnyDev file_upload 上传 /tmp/touyanduck-api-latest.tar.gz"
+    echo "   📌 手动验证：curl -s http://21.214.207.96:8080/api/latest/meta.json"
+else
+    echo "   ⚠️  公开 API 同步失败，不影响小程序数据（可手动重跑 sync_to_edgeone.sh）"
 fi
 echo "============================================================"
