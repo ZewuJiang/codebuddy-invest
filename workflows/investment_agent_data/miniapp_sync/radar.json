@@ -19,8 +19,8 @@
   "trafficLights": [
     {
       "name": "VIX波动率",
-      "value": "24.54",
-      "status": "yellow",
+      "value": "26.23",
+      "status": "red",
       "threshold": "<18绿 / 18-25黄 / >25红"
     },
     {
@@ -31,13 +31,13 @@
     },
     {
       "name": "布伦特原油",
-      "value": "$108.76",
-      "status": "yellow",
+      "value": "$110.62",
+      "status": "red",
       "threshold": "<$90绿 / $90-110黄 / >$110红"
     },
     {
       "name": "美元指数DXY",
-      "value": "100.07",
+      "value": "99.95",
       "status": "green",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
@@ -49,20 +49,20 @@
     },
     {
       "name": "黄金XAU",
-      "value": "$4,697",
+      "value": "$4,634",
       "status": "red",
       "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "6.8826",
+      "value": "6.8642",
       "status": "green",
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
-  "riskScore": 80,
+  "riskScore": 100,
   "riskLevel": "high",
-  "riskAdvice": "布伦特从$114回落至$108.76回到黄灯区间（最后通牒到期前多空博弈加剧），但黄金$4,697仍深处红灯区+VIX盘前升至24.54——今夜8pm EST最后通牒结果是最大变量，7盏灯中3黄1红格局待验证。",
+  "riskAdvice": "VIX突破26进入红灯区叠加布伦特原油$110.62突破红灯阈值，黄金$4,634维持红灯——美以打击伊朗霍拉马巴德机场推动三项核心风险信号同时亮红，若停火谈判本周无实质进展，当前避险定价可能进一步加剧。",
   "monitorTable": [],
   "riskAlerts": [],
   "events": [
@@ -98,24 +98,11 @@
   "alerts": [
     {
       "level": "danger",
-      "text": "布伦特原油飙升至$114.07(+3.6%)，特朗普威胁完全摧毁伊朗基础设施，最后通牒今夜8pm EST到期",
-      "time": "14:16",
-      "source": "LiveMint / ExchangeRates.org.uk",
-      "url": "https://www.livemint.com/news/world/us-israel-iran-war-live-updates-donald-trump-strait-of-hormuz-ultimatum-oil-prices-bridges-power-plants-middle-east-news-11775522468948.html"
+      "text": "美以联军打击伊朗霍拉马巴德机场，特朗普发出最后通牒称周二为'电厂日+桥梁日'，停火希望急剧降温，布伦特原油突破$110"
     },
     {
       "level": "warning",
-      "text": "伊朗正式拒绝45天停火提案并警告更具毁灭性的报复，谈判陷入僵局",
-      "time": "06:00",
-      "source": "NPR",
-      "url": "https://www.npr.org/2026/04/06/nx-s1-5775383/iran-war-updates"
-    },
-    {
-      "level": "info",
-      "text": "3月非农+56K(前值-92K)好于预期，但劳动力市场仍在降温通道中",
-      "time": "08:30",
-      "source": "MENAFN",
-      "url": "https://menafn.com/1110944778/Key-Market-Events-For-The-Week-Of-April-610-2026"
+      "text": "VIX飙升至26.23（+8.52%），标普500盘中跌破6560，纳指跌超1%，市场避险情绪显著升温"
     }
   ],
   "smartMoneyDetail": [
@@ -192,11 +179,36 @@
       "aum": "待更新",
       "asOf": "2025Q4 · 2月17日披露",
       "positions": [
-        {"name": "苹果", "symbol": "AAPL", "weight": "22.6%", "change": "减持"},
-        {"name": "美国银行", "symbol": "BAC", "weight": "12.4%", "change": "持仓不变"},
-        {"name": "美国运通", "symbol": "AXP", "weight": "10.8%", "change": "持仓不变"},
-        {"name": "可口可乐", "symbol": "KO", "weight": "9.5%", "change": "持仓不变"},
-        {"name": "雪佛龙", "symbol": "CVX", "weight": "6.8%", "change": "持仓不变"}
+        {
+          "name": "苹果",
+          "symbol": "AAPL",
+          "weight": "22.6%",
+          "change": "减持"
+        },
+        {
+          "name": "美国银行",
+          "symbol": "BAC",
+          "weight": "12.4%",
+          "change": "持仓不变"
+        },
+        {
+          "name": "美国运通",
+          "symbol": "AXP",
+          "weight": "10.8%",
+          "change": "持仓不变"
+        },
+        {
+          "name": "可口可乐",
+          "symbol": "KO",
+          "weight": "9.5%",
+          "change": "持仓不变"
+        },
+        {
+          "name": "雪佛龙",
+          "symbol": "CVX",
+          "weight": "6.8%",
+          "change": "持仓不变"
+        }
       ],
       "footnote": "现金储备持续创历史新高，Turnover极低，静候极端机会"
     },
@@ -206,20 +218,45 @@
       "aum": "待更新",
       "asOf": "2025Q4 · 2月17日披露",
       "positions": [
-        {"name": "苹果", "symbol": "AAPL", "weight": "待更新", "change": "减持"},
-        {"name": "英伟达", "symbol": "NVDA", "weight": "待更新", "change": "大幅增持"},
-        {"name": "伯克希尔", "symbol": "BRK.B", "weight": "待更新", "change": "增持"},
-        {"name": "拼多多", "symbol": "PDD", "weight": "待更新", "change": "增持"},
-        {"name": "谷歌", "symbol": "GOOGL", "weight": "待更新", "change": "减持"}
+        {
+          "name": "苹果",
+          "symbol": "AAPL",
+          "weight": "待更新",
+          "change": "减持"
+        },
+        {
+          "name": "英伟达",
+          "symbol": "NVDA",
+          "weight": "待更新",
+          "change": "大幅增持"
+        },
+        {
+          "name": "伯克希尔",
+          "symbol": "BRK.B",
+          "weight": "待更新",
+          "change": "增持"
+        },
+        {
+          "name": "拼多多",
+          "symbol": "PDD",
+          "weight": "待更新",
+          "change": "增持"
+        },
+        {
+          "name": "谷歌",
+          "symbol": "GOOGL",
+          "weight": "待更新",
+          "change": "减持"
+        }
       ],
       "footnote": "极度集中策略，Q4新建仓MSFT/TSM/TEM，泡泡玛特观察中(4/4实地调研)"
     }
   ],
-  "dataTime": "2026-04-07 18:03 BJT",
+  "dataTime": "2026-04-07 22:03 BJT",
   "_meta": {
     "sourceType": "refresh_update",
-    "generatedAt": "2026-04-07T18:03:00+08:00",
-    "skillVersion": "v7.1",
-    "refreshCount": 2
+    "generatedAt": "2026-04-07T22:03:00+08:00",
+    "skillVersion": "v7.4",
+    "refreshCount": 3
   }
 }

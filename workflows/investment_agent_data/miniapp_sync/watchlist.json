@@ -31,8 +31,8 @@
       {
         "name": "英伟达",
         "symbol": "NVDA",
-        "change": -0.6,
-        "price": "$176.58",
+        "change": -1.43,
+        "price": "$175.10",
         "listed": true,
         "tags": [
           "AI芯片龙头",
@@ -46,11 +46,11 @@
         "metrics": [
           {
             "label": "最新价",
-            "value": "$176.58"
+            "value": "$175.10"
           },
           {
             "label": "单日涨跌",
-            "value": "-0.60%"
+            "value": "-1.43%"
           },
           {
             "label": "7日涨跌",
@@ -118,8 +118,8 @@
       {
         "name": "苹果",
         "symbol": "AAPL",
-        "change": -0.6,
-        "price": "$257.30",
+        "change": 1.46,
+        "price": "$249.56",
         "listed": true,
         "tags": [
           "端侧AI入口",
@@ -134,11 +134,11 @@
         "metrics": [
           {
             "label": "最新价",
-            "value": "$257.30"
+            "value": "$249.56"
           },
           {
             "label": "单日涨跌",
-            "value": "-0.60%"
+            "value": "+1.46%"
           },
           {
             "label": "7日涨跌",
@@ -206,8 +206,8 @@
       {
         "name": "微软",
         "symbol": "MSFT",
-        "change": 0.25,
-        "price": "$373.81",
+        "change": -1.07,
+        "price": "$368.88",
         "listed": true,
         "tags": [
           "Azure云+Copilot",
@@ -218,11 +218,11 @@
         "metrics": [
           {
             "label": "最新价",
-            "value": "$373.81"
+            "value": "$368.88"
           },
           {
             "label": "单日涨跌",
-            "value": "+0.25%"
+            "value": "-1.07%"
           },
           {
             "label": "7日涨跌",
@@ -290,8 +290,8 @@
       {
         "name": "谷歌",
         "symbol": "GOOGL",
-        "change": 1.31,
-        "price": "$303.93",
+        "change": -0.42,
+        "price": "$298.74",
         "listed": true,
         "tags": [
           "Gemini+GCP",
@@ -306,11 +306,11 @@
         "metrics": [
           {
             "label": "最新价",
-            "value": "$303.93"
+            "value": "$298.74"
           },
           {
             "label": "单日涨跌",
-            "value": "+1.31%"
+            "value": "-0.42%"
           },
           {
             "label": "7日涨跌",
@@ -549,8 +549,8 @@
       {
         "name": "亚马逊",
         "symbol": "AMZN",
-        "change": 0.53,
-        "price": "$213.91",
+        "change": -1.05,
+        "price": "$210.56",
         "listed": true,
         "tags": [
           "AWS云第一",
@@ -561,11 +561,11 @@
         "metrics": [
           {
             "label": "最新价",
-            "value": "$213.91"
+            "value": "$210.56"
           },
           {
             "label": "单日涨跌",
-            "value": "+0.53%"
+            "value": "-1.05%"
           },
           {
             "label": "7日涨跌",
@@ -633,8 +633,8 @@
       {
         "name": "META",
         "symbol": "META",
-        "change": -0.25,
-        "price": "$573.02",
+        "change": 0.17,
+        "price": "$567.48",
         "listed": true,
         "tags": [
           "Llama开源",
@@ -645,11 +645,11 @@
         "metrics": [
           {
             "label": "最新价",
-            "value": "$573.02"
+            "value": "$567.48"
           },
           {
             "label": "单日涨跌",
-            "value": "-0.25%"
+            "value": "+0.17%"
           },
           {
             "label": "7日涨跌",
@@ -719,8 +719,8 @@
       {
         "name": "特斯拉",
         "symbol": "TSLA",
-        "change": -0.03,
-        "price": "$352.73",
+        "change": -2.96,
+        "price": "$342.37",
         "listed": true,
         "tags": [
           "自动驾驶",
@@ -731,11 +731,11 @@
         "metrics": [
           {
             "label": "最新价",
-            "value": "$352.73"
+            "value": "$342.37"
           },
           {
             "label": "单日涨跌",
-            "value": "-0.03%"
+            "value": "-2.96%"
           },
           {
             "label": "7日涨跌",
@@ -1490,11 +1490,11 @@
       }
     ]
   },
-  "dataTime": "2026-04-07 18:03 BJT",
+  "dataTime": "2026-04-07 22:03 BJT",
   "_meta": {
     "sourceType": "refresh_update",
-    "generatedAt": "2026-04-07T18:03:00+08:00",
-    "skillVersion": "v7.1",
-    "refreshCount": 2
+    "generatedAt": "2026-04-07T22:03:00+08:00",
+    "skillVersion": "v7.4",
+    "refreshCount": 3
   }
 }

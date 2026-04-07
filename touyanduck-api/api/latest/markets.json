@@ -3,8 +3,8 @@
   "usMarkets": [
     {
       "name": "标普500",
-      "price": "6,611.83",
-      "change": 0.44,
+      "price": "6,559.90",
+      "change": -0.79,
       "changeLabel": "大盘指数",
       "sparkline": [
         6477.16,
@@ -18,8 +18,8 @@
     },
     {
       "name": "纳斯达克",
-      "price": "21,996.34",
-      "change": 0.54,
+      "price": "21,743.15",
+      "change": -1.15,
       "changeLabel": "科技指数",
       "sparkline": [
         21408.08,
@@ -33,8 +33,8 @@
     },
     {
       "name": "道琼斯",
-      "price": "46,669.88",
-      "change": 0.36,
+      "price": "46,355.98",
+      "change": -0.67,
       "changeLabel": "蓝筹指数",
       "sparkline": [
         45960.11,
@@ -48,8 +48,8 @@
     },
     {
       "name": "VIX",
-      "price": "24.54",
-      "change": 2.81,
+      "price": "26.23",
+      "change": 8.52,
       "changeLabel": "恐慌指标",
       "sparkline": [
         23.5,
@@ -66,8 +66,8 @@
   "m7": [
     {
       "name": "苹果 AAPL",
-      "price": "$257.30",
-      "change": -0.6,
+      "price": "$249.56",
+      "change": 1.46,
       "symbol": "AAPL",
       "sparkline": [
         252.89,
@@ -81,8 +81,8 @@
     },
     {
       "name": "微软 MSFT",
-      "price": "$373.81",
-      "change": 0.25,
+      "price": "$368.88",
+      "change": -1.07,
       "symbol": "MSFT",
       "sparkline": [
         365.97,
@@ -96,8 +96,8 @@
     },
     {
       "name": "英伟达 NVDA",
-      "price": "$176.58",
-      "change": -0.6,
+      "price": "$175.10",
+      "change": -1.43,
       "symbol": "NVDA",
       "sparkline": [
         171.24,
@@ -111,8 +111,8 @@
     },
     {
       "name": "谷歌 GOOGL",
-      "price": "$303.93",
-      "change": 1.31,
+      "price": "$298.74",
+      "change": -0.42,
       "symbol": "GOOGL",
       "sparkline": [
         280.92,
@@ -126,8 +126,8 @@
     },
     {
       "name": "亚马逊 AMZN",
-      "price": "$213.91",
-      "change": 0.53,
+      "price": "$210.56",
+      "change": -1.05,
       "symbol": "AMZN",
       "sparkline": [
         207.54,
@@ -141,8 +141,8 @@
     },
     {
       "name": "META",
-      "price": "$573.02",
-      "change": -0.25,
+      "price": "$567.48",
+      "change": 0.17,
       "symbol": "META",
       "sparkline": [
         582.3,
@@ -156,8 +156,8 @@
     },
     {
       "name": "特斯拉 TSLA",
-      "price": "$352.73",
-      "change": -0.03,
+      "price": "$342.37",
+      "change": -2.96,
       "symbol": "TSLA",
       "sparkline": [
         372.11,
@@ -174,8 +174,8 @@
   "asiaMarkets": [
     {
       "name": "上证指数",
-      "price": "3,880.00",
-      "change": -1.0,
+      "price": "3,890.16",
+      "change": 0.26,
       "sparkline": [
         3913.72,
         3923.29,
@@ -191,19 +191,19 @@
       "price": "12,350.00",
       "change": -1.2,
       "sparkline": [
-        13606.44,
         13760.37,
         13726.19,
         13478.06,
         13706.52,
         13486.94,
-        13352.9
+        13352.9,
+        13400.41
       ]
     },
     {
       "name": "恒生指数",
-      "price": "23,850.00",
-      "change": -0.65,
+      "price": "25,116.53",
+      "change": -0.7,
       "sparkline": [
         25335.95,
         24856.43,
@@ -230,8 +230,8 @@
     },
     {
       "name": "日经225",
-      "price": "53,797.00",
-      "change": 0.72,
+      "price": "53,429.56",
+      "change": 0.03,
       "sparkline": [
         52850,
         52400,
@@ -261,8 +261,8 @@
   "commodities": [
     {
       "name": "黄金 XAU",
-      "price": "$4,696.50",
-      "change": 0.25,
+      "price": "$4,634.10",
+      "change": -0.29,
       "sparkline": [
         4495.17,
         4510.95,
@@ -270,13 +270,13 @@
         4758.1,
         4675.99,
         4650.36,
-        4671.73
+        4643.7
       ]
     },
     {
       "name": "布伦特原油",
-      "price": "$108.76",
-      "change": -0.92,
+      "price": "$110.62",
+      "change": 0.77,
       "sparkline": [
         71.63,
         71.54,
@@ -298,13 +298,13 @@
         98.85,
         112.04,
         112.56,
-        112.28
+        116.46
       ]
     },
     {
       "name": "美元指数 DXY",
-      "price": "100.07",
-      "change": 0.06,
+      "price": "99.95",
+      "change": -0.04,
       "sparkline": [
         100.8,
         100.5,
@@ -318,7 +318,7 @@
     {
       "name": "10Y美债",
       "price": "4.34%",
-      "change": 0.02,
+      "change": -0.01,
       "sparkline": [
         4.3,
         4.33,
@@ -331,8 +331,8 @@
     },
     {
       "name": "离岸人民币 CNH",
-      "price": "6.8826",
-      "change": -0.01,
+      "price": "6.8642",
+      "change": -0.17,
       "sparkline": [
         6.862,
         6.865,
@@ -451,11 +451,11 @@
       "text": "房地产XLRE-0.42%受10Y美债4.34%压制"
     }
   ],
-  "dataTime": "2026-04-07 18:03 BJT",
+  "dataTime": "2026-04-07 22:03 BJT",
   "_meta": {
     "sourceType": "refresh_update",
-    "generatedAt": "2026-04-07T18:03:00+08:00",
-    "skillVersion": "v7.1",
-    "refreshCount": 2
+    "generatedAt": "2026-04-07T22:03:00+08:00",
+    "skillVersion": "v7.4",
+    "refreshCount": 3
   }
 }
