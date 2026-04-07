@@ -1,194 +1,189 @@
 {
-  "date": "2026-04-06",
+  "date": "2026-04-07",
   "timeStatus": {
-    "bjt": "10:16",
-    "est": "22:16",
+    "bjt": "08:44",
+    "est": "20:44",
     "marketStatus": "盘前交易",
     "refreshInterval": "每日更新"
   },
-  "takeaway": "上周美股结束【5周连跌】首次反弹，但【油价$109】固化通胀预期——本周【CPI】是决定性变量：若确认3.8%以上，全年降息预期将彻底消失，反弹逻辑随时逆转。",
+  "takeaway": "特朗普【4/7最后通牒】今夜到期，伊朗拒绝停火+威胁基础设施打击——油价【$110】逼近红灯区间，本周【CPI+PCE+FOMC纪要】三连击将裁决通胀是否固化、反弹能否延续。",
   "coreEvent": {
-    "title": "美股反弹遇上油价暴涨——本周CPI将裁决反弹真伪",
+    "title": "特朗普伊朗最后通牒今夜到期——本周通胀三连击决定利率前景",
     "chain": [
       {
-        "title": "马斯喀特协议缓和霍尔木兹航运危机",
-        "brief": "阿曼斡旋建立商业航运绿色通道，地缘溢价部分释放，VIX从30+回落至23.87",
-        "source": "AP News",
-        "url": "https://apnews.com/article/stock-markets-war-oil-trump-iran-6fc90a2e50b1252cde130fc3e0ce0da3"
+        "title": "特朗普周二晚8点最后通牒到期，威胁炸电厂桥梁",
+        "brief": "伊朗正式拒绝45天停火提案，特朗普要求霍尔木兹重新开放否则将打击基础设施，地缘升级风险骤增",
+        "source": "CNN",
+        "url": "https://www.cnn.com/2026/04/06/world/live-news/iran-war-us-trump-oil"
       },
       {
-        "title": "油价单日暴涨11%，WTI突破$111",
-        "brief": "特朗普称伊朗战争将持续2-3周，霍尔木兹海峡通行受限推升供应恐慌",
-        "source": "CNBC",
-        "url": "https://www.cnbc.com/2026/04/02/oil-prices-today-wti-brent-trump-speech-iran-war-.html"
+        "title": "伊朗拒绝停火，警告更具毁灭性的报复",
+        "brief": "伊朗高层称45天停火不够好，若美方打击民用设施将以更大规模反击，谈判陷入僵局",
+        "source": "NPR",
+        "url": "https://www.npr.org/2026/04/06/nx-s1-5775383/iran-war-updates"
       },
       {
-        "title": "三大指数结束5周连跌，纳指周涨4.4%领跑",
-        "brief": "科技股重新获得AI叙事提振，但能源和通胀担忧限制涨幅空间",
+        "title": "布伦特原油$110+，WTI $113，霍尔木兹溢价持续",
+        "brief": "霍尔木兹海峡通行受限推升供给恐慌，Murban原油单日涨3.69%",
+        "source": "OilPrice.com",
+        "url": "https://oilprice.com/oil-price-charts/"
+      },
+      {
+        "title": "美股连涨4日，标普+0.44%纳指+0.54%",
+        "brief": "市场在地缘风险与停火希望之间博弈，科技股领涨但VIX仍在24+高位",
         "source": "Investopedia",
-        "url": "https://www.investopedia.com/stock-market-today-dow-jones-s-and-p-500-04022026-11941129"
+        "url": "https://www.investopedia.com/stock-market-today-dow-jones-s-and-p-500-04062026-11943233"
       },
       {
-        "title": "特斯拉Q1交付环比暴跌14%，股价重挫5.4%",
-        "brief": "弗里蒙特工厂转产Optimus机器人关闭Model S/X产线，Wedbush称令人失望",
-        "source": "CNBC",
-        "url": "https://www.cnbc.com/2026/04/01/stock-market-today-live-updates.html"
-      },
-      {
-        "title": "本周焦点：CPI+FOMC纪要+特朗普伊朗最后通牒",
-        "brief": "CPI预期3.8%或确认二次通胀，FOMC纪要聚焦降息路径讨论，市场已定价全年不降息",
-        "source": "Newsquawk（机构终端）",
-        "url": "https://newsquawk.com"
+        "title": "本周焦点：FOMC纪要周三+PCE周四+CPI周五",
+        "brief": "CPI预期3.4%为2022年以来最大月涨幅，核心PCE若破3%将终结降息预期",
+        "source": "MENAFN",
+        "url": "https://menafn.com/1110944778/Key-Market-Events-For-The-Week-Of-April-610-2026"
       }
     ]
   },
   "globalReaction": [
     {
       "name": "标普500",
-      "value": "+0.1%",
+      "value": "+0.44%",
       "direction": "up",
-      "note": "5周连跌终结"
+      "note": "连涨4日创1月来最长"
     },
     {
       "name": "纳斯达克",
-      "value": "+0.2%",
+      "value": "+0.54%",
       "direction": "up",
-      "note": "科技股回归AI叙事"
-    },
-    {
-      "name": "布伦特原油",
-      "value": "$109.03",
-      "direction": "up",
-      "note": "单日暴涨7.78%"
+      "note": "科技股领涨"
     },
     {
       "name": "黄金",
-      "value": "$4,627",
-      "direction": "down",
-      "note": "从高位回落1.07%"
+      "value": "$4,660",
+      "direction": "up",
+      "note": "避险需求支撑"
     },
     {
       "name": "10Y美债",
-      "value": "4.32%",
+      "value": "4.34%",
       "direction": "up",
-      "note": "通胀预期推升收益率"
+      "note": "通胀预期抬升"
+    },
+    {
+      "name": "布伦特原油",
+      "value": "$110.23",
+      "direction": "up",
+      "note": "霍尔木兹封锁溢价"
     },
     {
       "name": "BTC",
-      "value": "$66,552",
+      "value": "$68,766",
       "direction": "down",
-      "note": "风险偏好受战争压制"
+      "note": "观望地缘局势"
     }
   ],
   "coreJudgments": [
     {
-      "title": "油价固化通胀，美联储全年不降息概率上升",
-      "confidence": 80,
-      "logic": "布伦特$109+汽油$4.08/加仑 → CPI预期上修至3.8% → 市场已定价全年维持利率不变",
+      "title": "油价中枢上移将固化通胀预期",
+      "confidence": 82,
+      "logic": "霍尔木兹封锁+伊朗拒绝停火 → 布伦特锚定$110+持续数周 → CPI破3.4%确认二次通胀",
+      "keyActor": "Donald Trump / Iran IRGC",
       "references": [
         {
-          "name": "AP News",
-          "summary": "汽油均价月涨36%至$4.08，油价波动打破降息预期",
-          "url": "https://apnews.com/article/stock-markets-war-oil-trump-iran-6fc90a2e50b1252cde130fc3e0ce0da3"
+          "name": "CNN",
+          "summary": "特朗普设4/7最后通牒要求霍尔木兹重新开放，伊朗拒绝45天停火并警告更大规模报复",
+          "url": "https://www.cnn.com/2026/04/06/world/live-news/iran-war-us-trump-oil"
         }
       ],
       "probability": "高可能性",
       "trend": "上升"
     },
     {
-      "title": "马斯喀特协议开启地缘降温窗口，波动率中枢下移",
-      "confidence": 65,
-      "logic": "绿色通道隔离军事与商贸 → VIX从30+降至23.87 → 机构平仓看跌对冲推动反弹",
+      "title": "美联储全年不降息概率持续上升",
+      "confidence": 75,
+      "logic": "核心PCE若破3% → 联储3月纪要鹰派基调确认 → 全年维持3.50-3.75%不变",
+      "keyActor": "Jerome Powell",
       "references": [
         {
-          "name": "MarketMinute",
-          "summary": "马斯喀特协议为商业航运建立绿色通道，VIX回落至23.87",
-          "url": "https://www.financialcontent.com/article/marketminute-2026-4-3-vix-retreats-to-2387-market-finds-stability-amid-geopolitical-de-escalation-and-ai-optimism"
+          "name": "MENAFN",
+          "summary": "本周FOMC纪要将揭示3月会议内部讨论，市场关注油价假设和降息信号",
+          "url": "https://menafn.com/1110944778/Key-Market-Events-For-The-Week-Of-April-610-2026"
+        }
+      ],
+      "probability": "高可能性",
+      "trend": "上升"
+    },
+    {
+      "title": "美股反弹结构脆弱，VIX 24+压制空间",
+      "confidence": 68,
+      "logic": "连涨4日但VIX未回落至20以下 → 停火破裂+CPI超预期双重催化 → 反弹随时逆转",
+      "references": [
+        {
+          "name": "Google Finance",
+          "summary": "VIX收于24.17仍处黄灯区间，盘中曾触25.30，恐慌情绪未实质缓解"
         }
       ],
       "probability": "中可能性",
       "trend": "下降"
-    },
-    {
-      "title": "Q1财报季将检验AI资本开支叙事的持续性",
-      "confidence": 70,
-      "logic": "2026年超大规模企业资本开支预计$6500亿 → M7财报若验证AI变现 → VIX可进一步向20靠拢",
-      "references": [
-        {
-          "name": "MarketMinute",
-          "summary": "市场对AI资本开支$6500亿的乐观预期需要Q1财报验证",
-          "url": "https://www.financialcontent.com/article/marketminute-2026-4-3-vix-retreats-to-2387-market-finds-stability-amid-geopolitical-de-escalation-and-ai-optimism"
-        }
-      ],
-      "probability": "中可能性",
-      "trend": "上升"
     }
   ],
   "actionHints": [
     {
       "type": "watch",
-      "content": "段永平4/4亲赴Westfield门店调研泡泡玛特，称right business——信号极强，值得纳入观察池深入研究",
-      "reason": "段永平从收回不投资说法到实地调研仅5天，动作节奏罕见，关注其后续公开言论及港交所权益披露"
+      "content": "今夜特朗普最后通牒到期是本周最大变量——若升级打击伊朗基础设施，油价可能冲击$120+触发全面避险，建议密切关注盘后消息",
+      "reason": "4/7 20:00 EDT最后通牒到期，结果将决定本周市场方向"
     }
   ],
-  "sentimentScore": 25,
+  "sentimentScore": 35,
   "sentimentLabel": "偏恐惧",
   "marketSummaryPoints": [
-    "上周美股结束5周连跌录得战争以来首周上涨，标普周涨3.4%、纳指周涨4.4%领跑",
-    "马斯喀特协议缓和霍尔木兹航运危机，地缘风险溢价部分释放，科技股回归AI叙事",
-    "油价暴涨抵消部分反弹效果，布伦特$109+WTI$111均创近四年新高",
-    "CNN Fear & Greed 19（极度恐惧），Put/Call期权比仅2.2，市场情绪未真正转暖",
-    "本周CPI+FOMC纪要为关键变量，特朗普伊朗最后通牒窗口期临近"
+    "美股连涨4日但VIX仍在24+高位，反弹量能不足缺乏确认信号",
+    "伊朗拒绝停火+特朗普最后通牒今夜到期，地缘尾部风险骤增",
+    "油价$110+叠加CPI预期3.4%，石油冲击与通胀数据本周正面对决",
+    "亚太市场分化：上证跌1%反映关税一周年阴影，日经涨0.7%受弱日元提振"
   ],
   "smartMoney": [
     {
       "source": "ARK Invest",
-      "action": "连续大举买入CoreWeave(CRWV)$320万+Kodiak AI(KDK)$135万，持续加仓AI算力基础设施",
+      "action": "4月初持续加仓CRWV(CoreWeave)和KDK(Kodiak AI)，卖出TER和SRTA，AI算力+自动驾驶双线押注",
       "signal": "bullish"
     },
     {
-      "source": "高盛Kostin",
-      "action": "4月2日发布标普500年终目标7,600点，预测EPS $305-309，12%总回报",
-      "signal": "bullish"
-    },
-    {
-      "source": "段永平",
-      "action": "3/30收回不投资泡泡玛特说法，4/4亲赴Westfield门店调研称right business",
-      "signal": "bullish"
-    },
-    {
-      "source": "伯克希尔",
-      "action": "Abel时代开启，巴菲特仍参与日常投资决策，现金储备$3733亿",
+      "source": "桥水基金",
+      "action": "Q4 13F显示大幅增持中国ETF和阿里巴巴，IVV(S&P 500 ETF)仍为第一大持仓，全天候配置偏向防御+新兴市场",
       "signal": "neutral"
+    },
+    {
+      "source": "段永平 H&H",
+      "action": "Q4大幅增持NVDA+新建仓MSFT和TSM，减持AAPL，极度集中持仓策略不变，4/4亲赴泡泡玛特门店调研称right business",
+      "signal": "bullish"
     }
   ],
   "topHoldings": [
     {
       "name": "伯克希尔",
-      "holdings": "AAPL 22.6% | AXP 20.5% | BAC 10.4% | KO 10.2% | CVX 7.2% · 现金$3733亿"
+      "holdings": "AAPL 22.6% | BAC 12.4% | AXP 10.8% | KO 9.5% | CVX 6.8% · 现金储备持续创新高"
     },
     {
-      "name": "段永平",
-      "holdings": "AAPL 50.3% | BRK.B 20.6% | NVDA 7.7% | PDD 7.5% | GOOG 3.3% · 泡泡玛特观察中"
+      "name": "段永平 H&H",
+      "holdings": "AAPL | NVDA | BRK.B | PDD | GOOGL · 泡泡玛特观察中"
     },
     {
       "name": "ARK旗舰",
-      "holdings": "TSLA 10.5% | CRSP 6.3% | TEM 5.0% | SHOP 4.7% | COIN 4.3%"
+      "holdings": "TSLA | CRWV | COIN | ROKU | PLTR · CRWV持续加仓中"
     }
   ],
   "riskPoints": [
-    "油价$109近红灯区间，若霍尔木兹海峡持续受限布伦特可能突破$115，通胀中枢系统性上移",
-    "CPI预期3.8%叠加汽油月涨36%，若实际超预期将引发美联储加息担忧和股市二次下探",
-    "特朗普伊朗2-3周最后通牒窗口期，若谈判破裂地缘风险将急剧升级"
+    "特朗普4/7最后通牒今夜到期，若升级打击伊朗基础设施，油价可能冲击$120触发全面避险模式",
+    "CPI预期3.4%为2022年以来最大月涨幅，若超预期将终结全年降息预期、压缩权益估值中枢",
+    "VIX 24+仍处黄灯区间，连涨4日的反弹尚未获得波动率确认，结构性脆弱"
   ],
-  "riskNote": "油价$109逼近红灯区间叠加CPI预期3.8%，若通胀确认二次上行，美联储将重新考虑加息，当前反弹基础极其脆弱。",
-  "dataTime": "2026-04-06 10:16 BJT",
+  "riskNote": "特朗普伊朗最后通牒今夜到期，油价$110逼近红灯区间叠加本周CPI/PCE/FOMC三连击——地缘升级与通胀超预期是双重尾部风险。",
+  "dataTime": "2026-04-07 08:44 BJT",
+  "audioUrl": "cloud://cloud1-3g6wj06h84f38ea8.636c-cloud1-3g6wj06h84f38ea8-1418169528/audio/briefing-2026-04-07.mp3",
+  "audioFile": "briefing-2026-04-07.mp3",
+  "voiceText": "投研鸭，4月7日，二级市场简报。\n\n今天的核心判断：特朗普4月7日最后通牒今夜到期，伊朗拒绝停火加上威胁打击基础设施，油价110美元逼近红灯区间。本周CPI、核心PCE和FOMC纪要三连击，将裁决通胀是否固化、反弹能否延续。\n\n先看驱动事件。最紧迫的是特朗普设定的周二晚8点最后通牒今夜到期，要求伊朗重新开放霍尔木兹海峡，否则将打击电厂和桥梁。伊朗方面正式拒绝了45天停火提案，并警告将以更具毁灭性的方式进行报复，谈判陷入僵局。在此背景下，布伦特原油收于110.23美元，WTI达到113.26美元，中东Murban原油单日暴涨3.69%。美股方面虽然连涨4日，标普涨0.44%，纳指涨0.54%，但恐慌指数VIX仍在24以上高位。本周焦点数据密集：周三FOMC纪要，周四核心PCE，周五CPI，市场预期CPI将达到3.4%，为2022年以来最大月涨幅。\n\n说完事件，看看市场全景。美股连涨4日创1月以来最长连涨纪录，但反弹靠的是停火希望而非基本面改善。标普500收于6611.83点，纳斯达克21996.34点，道琼斯46669.88点。值得关注的是VIX仍在24.17，处于黄灯区间，盘中一度触及25.30，说明恐慌情绪并未实质缓解。亚太市场方面，A股上证跌1%至3880点，反映关税一周年阴影，日经涨0.72%是唯一亮点。大宗商品中，黄金报4660.50美元，离岸人民币报6.877，美元指数100.03持平。\n\n接下来看重点标的。七巨头分化加剧，谷歌涨1.43%领跑，受益于Waymo 3000辆自动驾驶车队扩张和Broadcom合作深化。苹果涨1.15%，MacBook Neo AI催化剂获分析师看涨20%。但特斯拉大跌2.15%，摩根大通警告可能再跌60%，Q1交付暴跌14%持续拖累。英伟达窄幅震荡，微涨0.14%。\n\n聪明钱方面有几个值得关注的信号。ARK基金4月初持续加仓CoreWeave和Kodiak AI，卖出Teradyne并清仓SRTA，在AI算力租赁和自动驾驶上双线押注。桥水基金Q4持仓创新高，大幅增持阿里巴巴和中国ETF，全天候配置向防御和新兴市场倾斜。段永平Q4大幅增持英伟达，新建仓微软和台积电，并于4月4日亲赴泡泡玛特门店调研评价right business，这是其投资决策链的经典前兆。\n\n风险方面需要重点关注三件事。第一，特朗普最后通牒今夜到期，若升级打击伊朗基础设施，油价可能冲击120美元触发全面避险模式。第二，CPI预期3.4%为2022年以来最大月涨幅，若超预期将终结全年降息预期。第三，VIX 24以上仍处黄灯区间，连涨4日的反弹尚未获得波动率确认。红绿灯指标中，布伦特原油110美元已亮红灯，黄金4660美元同样亮红灯，其余5项中VIX和10年美债处于黄灯。本周事件日历：周三FOMC纪要、周四核心PCE、周五CPI，全部为高影响。\n\n最后是三大深度判断。第一，油价中枢上移将固化通胀预期，置信度82%。逻辑链：霍尔木兹封锁加上伊朗拒绝停火，进而布伦特锚定110美元以上持续数周，进而CPI破3.4%确认二次通胀。第二，美联储全年不降息概率持续上升，置信度75%。核心PCE若破3%，加上3月纪要鹰派基调确认，全年维持3.50到3.75%不变。第三，美股反弹结构脆弱，置信度68%。VIX未回落至20以下，停火破裂加CPI超预期双重催化随时可能逆转反弹。\n\n以上是今日简报，详细内容请查看投研鸭小程序。",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-06T10:16:00+08:00",
-    "skillVersion": "v4.9"
-  },
-  "audioFile": "briefing-2026-04-06.mp3",
-  "voiceText": "投研鸭，4月6日，二级市场简报。\n\n今日核心判断：上周美股结束五周连跌首次反弹，但油价109美元正在固化通胀预期。本周CPI是决定性变量，若确认3.8%以上，全年降息预期将彻底消失，反弹逻辑随时逆转。\n\n接下来看看本周驱动市场的关键事件。第一，马斯喀特协议缓和了霍尔木兹航运危机，阿曼斡旋建立商业航运绿色通道，地缘溢价部分释放，VIX从30以上回落至23.87。第二，油价单日暴涨11%，WTI突破111美元，特朗普称伊朗战争将持续两到三周，霍尔木兹海峡通行受限推升供应恐慌。第三，三大指数结束五周连跌，纳指周涨4.4%领跑，科技股重新获得AI叙事提振，但能源和通胀担忧限制了涨幅空间。第四，特斯拉Q1交付环比暴跌14%，股价重挫5.4%，弗里蒙特工厂转产Optimus机器人，关闭了Model S和X产线。第五，本周焦点聚集在CPI、FOMC纪要和特朗普伊朗最后通牒三大事件，CPI预期3.8%，市场已定价全年不降息。\n\n看一下大盘数据。标普500报6582点，涨0.1%。纳斯达克报21879点，涨0.2%。道琼斯报46504点，微跌0.13%。VIX恐慌指数报23.87，较高位回落5.2%。大宗商品方面，布伦特原油109美元，单日暴涨7.78%。黄金4627美元，从高位回落1.07%。十年期美债收益率4.32%，通胀预期推升了利率。市场情绪25分，偏恐惧。\n\n各市场来看。M7巨头严重分化，英伟达涨1.45%领涨，受AI资本开支乐观预期提振；特斯拉暴跌5.4%，Q1交付环比跌14%令人失望，弗里蒙特转产Optimus拖累了产量。亚太方面，港股逆势上涨，恒生科技涨0.85%，受南向资金和AI热情支撑。A股小幅调整，清明假期前缩量明显。日经受日元走强和油价冲击承压。大宗商品方面，油价一周暴涨超过30%，创近四年新高，霍尔木兹海峡通行受限叠加战争预期推升了供应恐慌，黄金从高位回落但避险需求仍然很强。\n\n再看重点标的。特斯拉跌5.4%，Q1交付35.8万辆，环比暴跌14%，弗里蒙特关闭Model S和X产线转产Optimus机器人。AMD涨3.5%，MI300X在AI推理场景性价比优势明显，微软和META等大客户开始多元化算力配置。西方石油涨3.2%，巴菲特持有，受益于油价暴涨至109美元，盈利弹性极大。礼来涨2.8%，GLP-1口服减肥药获FDA批准，市场空间预计扩大两倍。泡泡玛特涨1.8%，段永平关注，海外门店扩张加速，IP消费品全球化进展超预期。\n\n聪明钱方面。ARK Invest连续大举买入CoreWeave 320万美元和Kodiak AI 135万美元，持续加仓AI算力基础设施。高盛Kostin在4月2日发布标普500年终目标7600点，预测12%总回报。段永平3月30日收回不投资泡泡玛特的说法，4月4日亲赴Westfield门店调研，称right business，动作节奏罕见。伯克希尔Abel时代开启，巴菲特仍参与日常投资决策，现金储备3733亿美元伺机而动。\n\n风险提示。红灯信号，黄金4627美元，避险情绪极端。油价109美元逼近红灯区间，若霍尔木兹海峡持续受限，布伦特可能突破115美元，通胀中枢将系统性上移。CPI预期3.8%叠加汽油月涨36%，若实际超预期，将引发美联储加息担忧和股市二次下探。特朗普伊朗两到三周最后通牒窗口期临近，若谈判破裂，地缘风险将急剧升级。前瞻日历方面，周三关注FOMC三月会议纪要，周四关注美国三月CPI数据，这是本周最核心的变量。\n\n最后是三大深度判断。第一，油价固化通胀，美联储全年不降息概率上升，置信度80%。布伦特109美元加上汽油4.08美元每加仑，推动CPI预期上修至3.8%，市场已定价全年维持利率不变。第二，马斯喀特协议开启地缘降温窗口，波动率中枢下移，置信度65%。绿色通道隔离了军事与商贸，VIX从30以上降至23.87，机构平仓看跌对冲推动反弹。第三，Q1财报季将检验AI资本开支叙事的持续性，置信度70%。2026年超大规模企业资本开支预计6500亿美元，若M7财报验证AI变现，VIX可进一步向20靠拢。\n\n以上是今日简报，详细内容请查看投研鸭小程序。",
-  "audioUrl": "cloud://cloud1-3g6wj06h84f38ea8.636c-cloud1-3g6wj06h84f38ea8-1418169528/audio/briefing-2026-04-06.mp3"
+    "generatedAt": "2026-04-07T08:44:00+08:00",
+    "skillVersion": "v6.1"
+  }
 }
