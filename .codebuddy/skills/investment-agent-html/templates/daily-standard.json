@@ -1,0 +1,154 @@
+{
+  "_comment": "投研鸭小程序 — 标准日 JSON 模板（v5.7）",
+  "_template": "daily-standard",
+  "_version": "5.7",
+  "_schema_version": "4.2",
+  "_field_notes": {
+    "timeStatus.marketStatus_enum": "美股交易中 / 美股已收盘 / 盘前交易 / 盘后交易 / 美股休市",
+    "coreJudgments_probability_enum": "高可能性 / 中可能性 / 低可能性",
+    "coreJudgments_trend_enum": "上升 / 下降 / 稳定",
+    "sentimentLabel_enum": "极度恐惧 / 偏恐惧 / 中性 / 偏贪婪 / 贪婪 / 极度贪婪",
+    "actionHints_type_enum": "hold / add / reduce / buy / sell / watch / hedge / stoploss",
+    "smartMoney_signal_enum": "bullish / bearish / neutral",
+    "_meta_sourceType_enum": "heavy_analysis / weekend_insight (实际使用) | realtime_quote / breaking_news (TODO 未实现)",
+    "predictions_trend_enum": "up / down / stable",
+    "predictions_source_enum": "Polymarket / Kalshi / CME FedWatch",
+    "globalReaction_direction_enum": "up / down / flat",
+    "trafficLights_status_enum": "green / yellow / red",
+    "riskLevel_enum": "low / medium / high",
+    "alerts_level_enum": "danger / warning / info",
+    "smartMoneyDetail_tier_enum": "T1旗舰 / T2成长 / 策略师观点",
+    "sectors_id_enum": "ai_infra / ai_app / cn_ai / smart_money / hot_topic",
+    "sectors_trend_enum": "up / down / hold"
+  },
+
+  "briefing": {
+    "date": "YYYY-MM-DD",
+
+    "timeStatus": {
+      "bjt": "HH:MM",
+      "est": "HH:MM",
+      "marketStatus": "美股已收盘",
+      "refreshInterval": "每日更新"
+    },
+
+    "takeaway": "",
+
+    "coreEvent": {
+      "title": "",
+      "chain": []
+    },
+
+    "globalReaction": [],
+
+    "coreJudgments": [
+      {
+        "title": "",
+        "confidence": 75,
+        "logic": "",
+        "keyActor": "",
+        "references": [
+          {
+            "name": "",
+            "summary": "",
+            "url": ""
+          }
+        ],
+        "probability": "高可能性",
+        "trend": "上升"
+      },
+      {
+        "title": "",
+        "confidence": 70,
+        "logic": "",
+        "keyActor": "",
+        "references": [],
+        "probability": "中可能性",
+        "trend": "稳定"
+      },
+      {
+        "title": "",
+        "confidence": 65,
+        "logic": "",
+        "keyActor": "",
+        "references": [],
+        "probability": "中可能性",
+        "trend": "稳定"
+      }
+    ],
+
+    "actionHints": [],
+
+    "sentimentScore": 50,
+    "sentimentLabel": "中性",
+    "marketSummaryPoints": [],
+    "smartMoney": [],
+    "topHoldings": [],
+    "riskPoints": [],
+    "riskNote": "",
+    "dataTime": "",
+
+    "_meta": {
+      "sourceType": "heavy_analysis",
+      "generatedAt": "YYYY-MM-DDTHH:MM:SS+08:00",
+      "skillVersion": "v5.7"
+    }
+  },
+
+  "markets": {
+    "date": "YYYY-MM-DD",
+    "usMarkets": [],
+    "usInsight": "",
+    "m7": [],
+    "m7Insight": "",
+    "asiaMarkets": [],
+    "asiaInsight": "",
+    "commodities": [],
+    "commodityInsight": "",
+    "cryptos": [],
+    "cryptoInsight": "",
+    "gics": [],
+    "gicsInsight": ""
+  },
+
+  "watchlist": {
+    "date": "YYYY-MM-DD",
+    "sectors": [
+      { "id": "ai_infra", "name": "AI算力链", "trend": "hold", "summary": "" },
+      { "id": "ai_app", "name": "AI应用", "trend": "hold", "summary": "" },
+      { "id": "cn_ai", "name": "国产AI", "trend": "hold", "summary": "" },
+      { "id": "smart_money", "name": "聪明钱精选", "trend": "hold", "summary": "" }
+    ],
+    "stocks": {
+      "ai_infra": [],
+      "ai_app": [],
+      "cn_ai": [],
+      "smart_money": [],
+      "hot_topic": []
+    }
+  },
+
+  "radar": {
+    "date": "YYYY-MM-DD",
+
+    "predictions": [],
+
+    "trafficLights": [],
+    "riskScore": 50,
+    "riskLevel": "medium",
+    "riskAdvice": "",
+    "monitorTable": [],
+    "riskAlerts": [],
+    "events": [],
+    "alerts": [],
+    "smartMoneyDetail": [],
+    "smartMoneyHoldings": [],
+    "dataTime": "",
+
+    "_meta": {
+      "sourceType": "heavy_analysis",
+      "generatedAt": "YYYY-MM-DDTHH:MM:SS+08:00",
+      "skillVersion": "v5.7"
+    }
+  }
+}

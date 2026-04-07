@@ -144,14 +144,13 @@ REPORT_START_TIME=$(date "+%H%M")
 ### 第三阶段：MD转PDF
 
 ```bash
-# 默认路径（当前部署环境）：
-cd /Users/zewujiang/Desktop/AICo/codebuddy-invest/.codebuddy/skills/investment-agent-daily/scripts
+# 通用路径（Agent会自动解析为实际路径）：
+cd {SKILL_ROOT}/scripts
 python3 md_to_pdf.py "{MD文件路径}" "{PDF输出路径}"
-
-# 通用路径（适配其他环境）：
-# cd {SKILL_ROOT}/scripts
-# python3 md_to_pdf.py "{MD文件路径}" "{PDF输出路径}"
 # 其中 {SKILL_ROOT} = 本 Skill 所在的根目录（包含 SKILL.md 的目录）
+
+# 原作者部署环境参考：
+# cd /Users/zewujiang/Desktop/AICo/codebuddy-invest/.codebuddy/skills/investment-agent-daily/scripts
 ```
 
 **PDF转换铁律**（原 `investment-report-pdf.mdc`，已合并至此）：
@@ -269,12 +268,11 @@ python3 md_to_pdf.py "{MD文件路径}" "{PDF输出路径}"
 ## 报告输出路径（OrbitOS）
 
 ```
-# 默认输出路径（当前部署环境）：
-/Users/zewujiang/Desktop/OrbitOS/20_日常监控/每日策略简报/
+# 报告输出目录（请替换为你的实际路径）：
+{YOUR_REPORT_DIR}/每日策略简报/
 
-# 通用配置（适配其他环境）：
-# 将上方路径替换为你的报告输出目录即可，例如：
-# /path/to/your/reports/每日策略简报/
+# 原作者部署环境参考：
+# /Users/zewujiang/Desktop/OrbitOS/20_日常监控/每日策略简报/
 ```
 
 - 文件命名：`投资Agent-每日策略简报-{YYYYMMDD}.md/.pdf`

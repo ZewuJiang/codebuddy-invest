@@ -1,0 +1,1988 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>🦆 投研鸭 · 2026-04-07 每日投资策略简报</title>
+<style>
+/* ========== 基础重置 ========== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue','PingFang SC','Microsoft YaHei',sans-serif;
+  color:#333;background:#f5f6fa;line-height:1.6;-webkit-font-smoothing:antialiased;
+  max-width:480px;margin:0 auto;padding-bottom:70px;min-height:100vh;
+}
+
+/* ========== 顶部标题 ========== */
+.top-header{
+  background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff;padding:16px 20px;
+  text-align:center;position:sticky;top:0;z-index:100;
+}
+.top-title{font-size:18px;font-weight:700;color:#FFB800;letter-spacing:1px}
+.top-date{font-size:12px;color:rgba(255,255,255,.5);margin-top:4px}
+
+/* ========== 底部 TabBar ========== */
+.tab-bar{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:480px;background:#fff;display:flex;
+  border-top:1px solid #f0f0f0;z-index:100;padding:6px 0 env(safe-area-inset-bottom);
+}
+.tab-item{
+  flex:1;text-align:center;padding:8px 0;cursor:pointer;
+  transition:color .2s;color:#999;font-size:11px;
+}
+.tab-item.active{color:#FFB800;font-weight:600}
+.tab-icon{font-size:20px;display:block;margin-bottom:2px}
+
+/* ========== Tab 内容区 ========== */
+.tab-content{display:none;padding:12px}
+.tab-content.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ========== 通用卡片 ========== */
+.card{background:#fff;border-radius:12px;padding:16px;margin-bottom:12px;box-shadow:0 1px 8px rgba(0,0,0,.06)}
+.card-title{font-size:13px;font-weight:600;color:#e67e22;letter-spacing:.5px;margin-bottom:10px}
+
+/* ========== 通用标签 ========== */
+.tag{display:inline-block;font-size:11px;padding:2px 10px;border-radius:12px;font-weight:500;margin-right:4px}
+.tag-red{background:rgba(231,76,60,.1);color:#e74c3c}
+.tag-orange{background:rgba(243,156,18,.12);color:#e67e22}
+.tag-yellow{background:rgba(255,184,0,.15);color:#e6a600}
+.tag-green{background:rgba(39,174,96,.1);color:#27ae60}
+.tag-blue{background:rgba(52,152,219,.1);color:#2980b9}
+.tag-gray{background:rgba(153,153,153,.1);color:#999}
+.color-up{color:#e74c3c}.color-down{color:#27ae60}.color-flat{color:#999}
+
+/* ========== section-card 折叠组件 ========== */
+.section-card{background:#fff;border-radius:12px;margin-bottom:12px;box-shadow:0 1px 8px rgba(0,0,0,.06);overflow:hidden}
+.section-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer}
+.section-title{font-size:15px;font-weight:700;color:#1a1a2e}
+.section-arrow{font-size:14px;color:#ccc;transition:transform .3s}
+.section-arrow.open{transform:rotate(180deg)}
+.section-body{padding:0 16px 16px;overflow:hidden;transition:max-height .4s ease,opacity .3s ease}
+.section-body.collapsed{max-height:0;opacity:0;padding-top:0;padding-bottom:0}
+
+/* ========== 简报页：时间状态栏 ========== */
+.ts-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(26,26,46,.88);padding:10px 20px;margin-bottom:12px;border-radius:0 0 12px 12px;
+}
+.ts-item{flex:1;text-align:center}
+.ts-divider{width:1px;height:28px;background:rgba(255,255,255,.15);flex-shrink:0}
+.ts-time{font-size:18px;font-weight:700;color:#FFB800;letter-spacing:.5px}
+.ts-label{font-size:11px;color:rgba(255,255,255,.5);margin-top:2px}
+.ts-market-tag{font-size:10px;padding:1px 6px;border-radius:4px;font-weight:500;margin-left:4px}
+.ts-market-open{background:rgba(39,174,96,.25);color:#27ae60}
+.ts-market-closed{background:rgba(255,255,255,.1);color:rgba(255,255,255,.4)}
+
+/* ========== 简报页：takeaway ========== */
+.takeaway-text{font-size:14px;font-weight:500;color:#333;line-height:1.8}
+.takeaway-hl{color:#e74c3c;font-weight:700}
+
+/* ========== 简报页：事件链 ========== */
+.chain-item{display:flex;align-items:flex-start;margin-bottom:12px;position:relative}
+.chain-item:last-child{margin-bottom:0}
+.chain-dot{width:8px;height:8px;border-radius:50%;background:#FFB800;flex-shrink:0;margin-top:7px;margin-right:10px}
+.chain-body{flex:1;min-width:0}
+.chain-title{display:block;font-size:14px;font-weight:700;color:#1a1a2e;line-height:1.5;margin-bottom:2px}
+.chain-brief{display:block;font-size:12px;color:#888;line-height:1.6}
+.chain-source{font-size:11px;color:#2980b9;margin-top:2px;display:inline-block}
+.chain-source a{color:#2980b9;text-decoration:none}
+.chain-source a:hover{text-decoration:underline}
+
+/* ========== 简报页：全球资产反应 ========== */
+.reaction-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.reaction-item{text-align:center;padding:8px 4px;border-bottom:1px solid #f5f5f5}
+.reaction-item:nth-last-child(-n+3){border-bottom:none}
+.reaction-name{font-size:12px;color:#999;margin-bottom:4px}
+.reaction-value{font-size:15px;font-weight:700}
+.reaction-note{font-size:10px;color:#bbb;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ========== 简报页：核心判断 ========== */
+.judgment-item{margin-bottom:16px;padding:14px;background:#f8f9fc;border-radius:10px}
+.judgment-item:last-child{margin-bottom:0}
+.judgment-header{display:flex;align-items:flex-start;margin-bottom:8px}
+.judgment-num{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#FFB800,#FF8C00);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-right:8px;margin-top:1px}
+.judgment-title{font-size:13px;font-weight:600;color:#1a1a2e;line-height:1.5;flex:1}
+.confidence-row{display:flex;align-items:center;margin-bottom:8px}
+.confidence-label{font-size:12px;color:#999;margin-right:8px;flex-shrink:0}
+.confidence-bar{flex:1;height:8px;background:#eee;border-radius:4px;overflow:hidden;margin-right:8px}
+.confidence-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#FFB800,#FF8C00);transition:width .8s ease}
+.confidence-value{font-size:13px;font-weight:700;color:#FFB800;flex-shrink:0;min-width:36px;text-align:right}
+.logic-text{font-size:12px;color:#888;line-height:1.6}
+.jx-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px}
+.jx-ref{margin-top:8px;font-size:11px;color:#888}
+.jx-ref a{color:#2980b9;text-decoration:none}
+
+/* ========== 简报页：聪明钱建议 ========== */
+.action-hint-item{display:flex;align-items:flex-start;margin-bottom:10px;padding:10px;background:#f8f9fc;border-radius:8px}
+.action-hint-item:last-child{margin-bottom:0}
+.action-body{flex:1;min-width:0}
+.action-content{font-size:13px;color:#333;line-height:1.6}
+.action-reason{font-size:12px;color:#999;line-height:1.5;margin-top:4px}
+.sm-section-title{font-size:13px;font-weight:600;color:#666;border-top:1px solid #f0f0f0;padding-top:12px;margin:12px 0 8px}
+.smart-money-item{display:flex;align-items:flex-start;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f5f5f5}
+.smart-money-item:last-child{border-bottom:none;padding-bottom:0}
+.sm-left{display:flex;align-items:center;flex-shrink:0;margin-right:10px}
+.sm-signal{width:8px;height:8px;border-radius:50%;margin-right:6px}
+.sm-bullish{background:#e74c3c;box-shadow:0 0 3px rgba(231,76,60,.4)}
+.sm-bearish{background:#27ae60;box-shadow:0 0 3px rgba(39,174,96,.4)}
+.sm-neutral{background:#f1c40f;box-shadow:0 0 3px rgba(241,196,15,.4)}
+.sm-source{font-size:14px;font-weight:600;color:#1a1a2e;white-space:nowrap}
+.sm-action{font-size:12px;color:#666;line-height:1.5;text-align:right;flex:1}
+.holdings-title{font-size:13px;font-weight:600;color:#666;border-top:1px solid #f0f0f0;padding-top:12px;margin:12px 0 8px}
+.holdings-item{display:flex;align-items:flex-start;padding:8px 0;border-bottom:1px solid #f5f5f5}
+.holdings-item:last-child{border-bottom:none;padding-bottom:0}
+.holdings-name{font-size:13px;font-weight:600;color:#1a1a2e;flex-shrink:0;margin-right:10px;min-width:60px}
+.holdings-detail{font-size:12px;color:#888;line-height:1.6;flex:1}
+
+/* ========== 简报页：风险情绪 ========== */
+.risk-sent-card{border-left:4px solid #e74c3c}
+.sentiment-bar{display:flex;align-items:center;margin-top:6px}
+.sentiment-label-text{font-size:12px;color:#999;flex-shrink:0}
+.sentiment-track{flex:1;height:8px;background:#eee;border-radius:4px;margin:0 10px;overflow:visible;position:relative}
+.sentiment-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#27ae60,#f1c40f 50%,#e74c3c);transition:width .8s ease}
+.sentiment-pointer{position:absolute;top:-6px;transform:translateX(-50%);transition:left .8s ease}
+.sentiment-pointer-dot{width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid #FFB800;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+.sentiment-info{text-align:center;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:8px}
+.sentiment-number{font-size:28px;font-weight:700;color:#FFB800}
+.sentiment-tag{font-size:12px;color:#999;background:rgba(255,184,0,.1);padding:2px 10px;border-radius:10px}
+.risk-list{margin-top:14px;border-top:1px solid #fce4e4;padding-top:10px}
+.risk-item{display:flex;align-items:flex-start;margin-bottom:10px}
+.risk-item:last-child{margin-bottom:0}
+.risk-dot{color:#e74c3c;font-size:14px;font-weight:bold;margin-right:8px;flex-shrink:0;line-height:1.7}
+.risk-item-text{font-size:12px;color:#666;line-height:1.7;flex:1}
+
+/* ========== 市场页：Tab栏 ========== */
+.market-tabs{display:flex;background:#fff;padding:10px 16px;border-bottom:1px solid #f0f0f0;position:sticky;top:0;z-index:10;border-radius:12px 12px 0 0}
+.market-tab{flex:1;text-align:center;font-size:13px;color:#999;padding:8px 0;cursor:pointer;transition:color .3s;position:relative}
+.market-tab.active{color:#FFB800;font-weight:600}
+.market-tab.active::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:6px;height:6px;background:linear-gradient(135deg,#FFB800,#FF8C00);border-radius:50%}
+.market-panel{display:none;padding:12px 0}
+.market-panel.active{display:block;animation:fadeIn .3s ease}
+
+/* ========== 市场页：摘要条 ========== */
+.market-summary{padding:10px 14px;background:linear-gradient(135deg,rgba(255,184,0,.08),rgba(255,140,0,.04));border-radius:8px;border-left:3px solid #FFB800;margin-bottom:12px;font-size:13px;color:#555;line-height:1.7}
+
+/* ========== 市场页：列表 ========== */
+.market-list{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,.06)}
+.market-list-item{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #f5f5f5}
+.market-list-item:last-child{border-bottom:none}
+.ml-left{flex:1;min-width:0}
+.ml-name{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:2px}
+.ml-price{font-size:12px;color:#888}
+.ml-center{flex-shrink:0;margin:0 8px;width:80px;height:30px}
+.ml-right{text-align:right;min-width:70px;flex-shrink:0}
+.ml-change{font-size:14px;font-weight:700}
+.ml-label{font-size:10px;color:#999;margin-top:2px}
+
+/* ========== 市场页：SVG sparkline ========== */
+.sparkline-svg{display:block}
+
+/* ========== 市场页：GICS 热力图 ========== */
+.gics-section{margin-top:12px}
+.gics-title{font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:12px;padding-left:8px;border-left:3px solid #FFB800}
+.gics-item{display:flex;align-items:center;padding:6px 0}
+.gics-name{font-size:12px;color:#555;width:100px;flex-shrink:0}
+.gics-bar{flex:1;height:10px;background:#f5f5f5;border-radius:5px;overflow:hidden;margin:0 10px}
+.gics-bar-fill{height:100%;border-radius:5px;transition:width .8s ease;max-width:100%}
+.bar-up{background:linear-gradient(90deg,rgba(231,76,60,.3),#e74c3c)}
+.bar-down{background:linear-gradient(90deg,rgba(39,174,96,.3),#27ae60)}
+.gics-change{font-size:12px;font-weight:600;min-width:55px;text-align:right;flex-shrink:0}
+
+/* ========== 标的页：板块 Tab ========== */
+.sector-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.sector-tab{padding:6px 16px;font-size:13px;color:#666;border-radius:16px;background:#f5f5f5;cursor:pointer;transition:all .3s}
+.sector-tab.active{background:linear-gradient(135deg,#FFB800,#FF8C00);color:#fff;font-weight:600;box-shadow:0 2px 8px rgba(255,184,0,.3)}
+.sector-overview{background:#fff;border-radius:12px;padding:16px;margin-bottom:10px;box-shadow:0 1px 8px rgba(0,0,0,.06);border-top:3px solid #FFB800;display:none}
+.sector-overview.active{display:block}
+.sector-title-text{font-size:17px;font-weight:700;color:#1a1a2e;display:flex;justify-content:space-between;align-items:center}
+.sector-desc{font-size:13px;color:#666;line-height:1.7;margin-top:8px}
+.sector-count{font-size:11px;color:#bbb;margin-top:8px}
+
+/* ========== 标的页：stock-card ========== */
+.stock-card{background:#fff;border-radius:12px;padding:16px;margin-bottom:10px;box-shadow:0 1px 8px rgba(0,0,0,.06);cursor:pointer;transition:transform .15s,box-shadow .15s}
+.stock-card:active{transform:scale(.985)}
+.stock-card.unlisted{border:1px dashed #ddd;background:#fafbfc}
+.sc-header{display:flex;justify-content:space-between;align-items:flex-start}
+.sc-name-area{flex:1;min-width:0}
+.sc-name{font-size:16px;font-weight:700;color:#1a1a2e}
+.sc-symbol-price{display:flex;align-items:center;gap:8px;margin-top:2px}
+.sc-symbol{font-size:11px;color:#999}
+.sc-price{font-size:13px;font-weight:600;color:#555}
+.sc-unlisted-label{font-size:10px;color:#999;background:#f0f0f0;padding:1px 8px;border-radius:4px}
+.sc-chart-area{flex-shrink:0;margin:0 8px;display:flex;align-items:center}
+.sc-right{text-align:right;flex-shrink:0;min-width:60px}
+.sc-change{font-size:17px;font-weight:800}
+.sc-expand-hint{font-size:14px;color:#ccc;margin-top:2px}
+.sc-badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.badge{font-size:10px;font-weight:600;padding:1px 8px;border-radius:4px;line-height:1.6}
+.badge-buffett{color:#b8860b;background:rgba(255,193,7,.12);border:1px solid rgba(255,193,7,.3)}
+.badge-duan{color:#2563eb;background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2)}
+.badge-unlisted{color:#888;background:rgba(153,153,153,.1);border:1px solid rgba(153,153,153,.2)}
+.badge-default{color:#b8860b;background:rgba(255,193,7,.12);border:1px solid rgba(255,193,7,.3)}
+.sc-tags{margin:8px 0 4px;display:flex;flex-wrap:wrap;gap:4px}
+.sc-reason{font-size:12px;color:#888;line-height:1.6;margin-top:6px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+.sc-detail{overflow:hidden;max-height:0;opacity:0;transition:max-height .4s ease,opacity .3s ease}
+.sc-detail.open{max-height:2000px;opacity:1;margin-top:14px}
+.sc-chart-large{margin-bottom:14px;padding:12px;background:#f8f9fc;border-radius:8px}
+.sc-chart-large-title{font-size:12px;color:#999;margin-bottom:8px}
+.sc-metrics-title{font-size:13px;font-weight:600;color:#1a1a2e;margin-bottom:8px}
+.sc-metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);background:#f8f9fc;border-radius:8px;padding:6px 0}
+.sc-metric-item{text-align:center;padding:6px 0}
+.sc-metric-label{font-size:10px;color:#999}
+.sc-metric-value{font-size:13px;font-weight:600;color:#333;margin-top:2px}
+.sc-analysis{margin:12px 0;font-size:12px;color:#666;line-height:1.7;padding:10px 12px;background:#f8f9fc;border-radius:8px;border-left:3px solid #FFB800;white-space:pre-wrap}
+.sc-risks{padding:10px 12px;background:rgba(231,76,60,.04);border-radius:8px;border-left:3px solid #e74c3c}
+.sc-risks-title{font-size:12px;font-weight:600;color:#e74c3c;margin-bottom:6px}
+.sc-risk-item{display:flex;align-items:flex-start;margin-bottom:4px}
+.sc-risk-item:last-child{margin-bottom:0}
+.sc-risk-dot{width:5px;height:5px;border-radius:50%;background:#e74c3c;margin-top:7px;margin-right:6px;flex-shrink:0}
+.sc-risk-text{font-size:11px;color:#999;line-height:1.6}
+
+/* ========== 雷达页：聪明钱动向 ========== */
+.sm-flat-item{padding:10px 0;border-bottom:1px solid #f8f8f8}
+.sm-flat-item:last-child{border-bottom:none}
+.sm-flat-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.sm-flat-left{display:flex;align-items:center}
+.sm-flat-name{font-size:14px;font-weight:700;color:#1a1a2e;margin-right:4px}
+.sm-tier-badge{font-size:10px;background:rgba(255,184,0,.15);color:#FFB800;padding:1px 6px;border-radius:4px;font-weight:600}
+.sm-flat-action{font-size:12px;color:#555;line-height:1.7}
+.source-link{font-size:10px;color:#2980b9;display:inline-flex;align-items:center;gap:2px}
+.source-link a{color:#2980b9;text-decoration:none}
+
+/* ========== 雷达页：聪明钱持仓 ========== */
+.holdings-group{margin-bottom:12px}
+.holdings-group:last-child{margin-bottom:0}
+.holdings-group-header{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f0f0f0;cursor:pointer}
+.holdings-manager{font-size:14px;font-weight:700;color:#1a1a2e}
+.holdings-aum{font-size:11px;color:#999;margin-left:8px}
+.holdings-date{font-size:10px;color:#bbb;background:#f8f8f8;padding:2px 8px;border-radius:4px}
+.holdings-arrow{font-size:10px;color:#ccc;margin-left:6px}
+.holdings-body{padding:8px 0;overflow:hidden;transition:max-height .3s ease;max-height:0;opacity:0}
+.holdings-body.open{max-height:1000px;opacity:1}
+.holdings-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid #fafafa}
+.holdings-row:last-child{border-bottom:none}
+.holdings-rank{font-size:11px;font-weight:700;color:#ccc;width:20px;text-align:center;flex-shrink:0}
+.holdings-stock-info{display:flex;align-items:baseline;gap:4px;flex:1;margin-left:6px}
+.holdings-stock-name{font-size:13px;font-weight:600;color:#333}
+.holdings-stock-symbol{font-size:10px;color:#999}
+.holdings-weight{font-size:13px;font-weight:700;color:#FFB800;min-width:50px;text-align:right}
+.holdings-change-tag{font-size:10px;color:#999;background:#f5f5f5;padding:1px 6px;border-radius:4px;margin-left:6px}
+.holdings-footnote{padding:8px 0 4px;border-top:1px dashed #f0f0f0;margin-top:4px;font-size:10px;color:#bbb;line-height:1.6}
+
+/* ========== 雷达页：风险判断 ========== */
+.risk-verdict{background:linear-gradient(135deg,rgba(231,76,60,.06),rgba(255,184,0,.04));border-left:3px solid #e74c3c;border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:12px}
+.risk-verdict-text{font-size:13px;font-weight:600;color:#333;line-height:1.8}
+.traffic-lights{display:flex;flex-direction:column;gap:4px}
+.tl-item{display:flex;align-items:center;padding:6px 0;border-bottom:1px solid #fafafa}
+.tl-item:last-child{border-bottom:none}
+.tl-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-right:10px}
+.tl-green{background:#27ae60;box-shadow:0 0 4px rgba(39,174,96,.4)}
+.tl-yellow{background:#f1c40f;box-shadow:0 0 4px rgba(241,196,15,.4)}
+.tl-red{background:#e74c3c;box-shadow:0 0 4px rgba(231,76,60,.4)}
+.tl-name{font-size:13px;color:#333;flex:1;font-weight:500}
+.tl-value{font-size:13px;font-weight:600;min-width:60px;text-align:right}
+.tl-threshold{font-size:10px;color:#bbb;min-width:100px;text-align:right;margin-left:8px}
+
+/* ========== 雷达页：本周前瞻 ========== */
+.wa-item{display:flex;align-items:flex-start;margin-bottom:4px}
+.wa-item:last-child{margin-bottom:0}
+.wa-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;margin-right:14px;width:44px}
+.wa-date-badge{width:44px;padding:4px 0;border-radius:6px;text-align:center}
+.wa-badge-event{background:rgba(255,184,0,.15)}
+.wa-badge-risk{background:rgba(231,76,60,.1)}
+.wa-date-text{font-size:11px;font-weight:700}
+.wa-badge-event .wa-date-text{color:#FFB800}
+.wa-badge-risk .wa-date-text{color:#e74c3c}
+.wa-line{width:1px;flex:1;min-height:16px;background:linear-gradient(180deg,#e8e8e8,transparent);margin-top:4px}
+.wa-right{flex:1;padding-bottom:16px}
+.wa-item:last-child .wa-right{padding-bottom:4px}
+.wa-title-text{font-size:13px;font-weight:600;color:#1a1a2e;line-height:1.5}
+.wa-impact{margin-top:4px}
+
+/* ========== 雷达页：预测市场 ========== */
+.pm-item{padding:12px 0;border-bottom:1px solid #f5f5f5}
+.pm-item:last-child{border-bottom:none;padding-bottom:0}
+.pm-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.pm-title{font-size:13px;font-weight:600;color:#1a1a2e;flex:1;margin-right:8px}
+.pm-source{font-size:10px;color:#bbb;background:#f5f5f5;padding:2px 8px;border-radius:4px}
+.pm-bar-row{display:flex;align-items:center;gap:8px}
+.pm-bar-track{flex:1;height:10px;background:#f0f0f0;border-radius:5px;overflow:hidden}
+.pm-bar-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,#2980b9,#FFB800);transition:width .8s ease}
+.pm-probability{font-size:18px;font-weight:800;color:#FFB800;min-width:45px;text-align:right}
+.pm-change{font-size:11px;font-weight:500;margin-top:4px}
+
+/* ========== 雷达页：异动信号 ========== */
+.alert-item{padding:12px;border-radius:8px;margin-bottom:8px}
+.alert-item:last-child{margin-bottom:0}
+.alert-danger{background:rgba(231,76,60,.06)}
+.alert-warning{background:rgba(241,196,15,.08)}
+.alert-info{background:rgba(39,174,96,.06)}
+.alert-top-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.alert-icon{flex-shrink:0}
+.alert-time{font-size:11px;color:#bbb}
+.alert-text{font-size:13px;color:#333;line-height:1.6}
+
+/* ========== 底部 footer ========== */
+.data-footer{text-align:center;padding:16px 20px 8px;font-size:11px;color:#bbb}
+.gen-footer{text-align:center;padding:8px 20px;font-size:10px;color:#ccc}
+
+/* ========== 空状态 ========== */
+.empty-state{text-align:center;padding:40px 20px;color:#999;font-size:14px}
+.empty-icon{font-size:40px;margin-bottom:10px}
+</style>
+</head>
+<body>
+
+<!-- 顶部标题 -->
+<div class="top-header">
+  <div class="top-title">🦆 投研鸭 · 每日投资策略简报</div>
+  <div class="top-date">2026-04-07 · 由 investment-agent-html Skill 生成</div>
+</div>
+
+<!-- ==================== Tab 内容区 ==================== -->
+
+<!-- Tab 1：简报页 -->
+<div class="tab-content active" id="tab-briefing">
+  <div class="ts-bar">
+  <div class="ts-item"><div class="ts-time">14:16</div><div class="ts-label">北京时间</div></div>
+  <div class="ts-divider"></div>
+  <div class="ts-item"><div class="ts-time">02:16</div><div class="ts-label">美东时间 <span class="ts-market-tag ts-market-closed">美股已收盘</span></div></div>
+  <div class="ts-divider"></div>
+  <div class="ts-item"><div class="ts-time">每4小时更新</div><div class="ts-label">数据更新</div></div>
+</div>
+<div class="card">
+<div class="card-title">📌 今日结论</div>
+<div class="takeaway-text">特朗普<span class="takeaway-hl">【4/7最后通牒】</span>今夜到期，伊朗拒绝停火+威胁基础设施打击——油价<span class="takeaway-hl">【$110】</span>逼近红灯区间，本周<span class="takeaway-hl">【CPI+PCE+FOMC纪要】</span>三连击将裁决通胀是否固化、反弹能否延续。</div>
+<div style="height:1px;background:linear-gradient(90deg,transparent,#f0f0f0 15%,#f0f0f0 85%,transparent);margin:12px 0"></div>
+<div class="card-title">🚨 重点事件</div>
+<div class="chain-item">
+  <div class="chain-dot"></div>
+  <div class="chain-body">
+    <span class="chain-title">特朗普周二晚8点最后通牒到期，威胁炸电厂桥梁</span>
+    <span class="chain-brief">伊朗正式拒绝45天停火提案，特朗普要求霍尔木兹重新开放否则将打击基础设施，地缘升级风险骤增</span>
+    <div class="chain-source">📎 <a href="https://www.cnn.com/2026/04/06/world/live-news/iran-war-us-trump-oil" target="_blank">CNN</a> ↗</div>
+  </div>
+</div>
+<div class="chain-item">
+  <div class="chain-dot"></div>
+  <div class="chain-body">
+    <span class="chain-title">伊朗拒绝停火，警告更具毁灭性的报复</span>
+    <span class="chain-brief">伊朗高层称45天停火不够好，若美方打击民用设施将以更大规模反击，谈判陷入僵局</span>
+    <div class="chain-source">📎 <a href="https://www.npr.org/2026/04/06/nx-s1-5775383/iran-war-updates" target="_blank">NPR</a> ↗</div>
+  </div>
+</div>
+<div class="chain-item">
+  <div class="chain-dot"></div>
+  <div class="chain-body">
+    <span class="chain-title">布伦特原油$110+，WTI $113，霍尔木兹溢价持续</span>
+    <span class="chain-brief">霍尔木兹海峡通行受限推升供给恐慌，Murban原油单日涨3.69%</span>
+    <div class="chain-source">📎 <a href="https://oilprice.com/oil-price-charts/" target="_blank">OilPrice.com</a> ↗</div>
+  </div>
+</div>
+<div class="chain-item">
+  <div class="chain-dot"></div>
+  <div class="chain-body">
+    <span class="chain-title">美股连涨4日，标普+0.44%纳指+0.54%</span>
+    <span class="chain-brief">市场在地缘风险与停火希望之间博弈，科技股领涨但VIX仍在24+高位</span>
+    <div class="chain-source">📎 <a href="https://www.investopedia.com/stock-market-today-dow-jones-s-and-p-500-04062026-11943233" target="_blank">Investopedia</a> ↗</div>
+  </div>
+</div>
+<div class="chain-item">
+  <div class="chain-dot"></div>
+  <div class="chain-body">
+    <span class="chain-title">本周焦点：FOMC纪要周三+PCE周四+CPI周五</span>
+    <span class="chain-brief">CPI预期3.4%为2022年以来最大月涨幅，核心PCE若破3%将终结降息预期</span>
+    <div class="chain-source">📎 <a href="https://menafn.com/1110944778/Key-Market-Events-For-The-Week-Of-April-610-2026" target="_blank">MENAFN</a> ↗</div>
+  </div>
+</div>
+<div class="chain-item">
+  <div class="chain-dot"></div>
+  <div class="chain-body">
+    <span class="chain-title">布伦特原油飙升至$114+，最后通牒到期前油价加速上行</span>
+    <span class="chain-brief">特朗普威胁完全摧毁伊朗基础设施，市场对今夜结果定价极端化，日内涨超3.6%</span>
+    <div class="chain-source">📎 <a href="https://www.livemint.com/news/world/us-israel-iran-war-live-updates-donald-trump-strait-of-hormuz-ultimatum-oil-prices-bridges-power-plants-middle-east-news-11775522468948.html" target="_blank">LiveMint</a> ↗</div>
+  </div>
+</div>
+</div>
+<div class="card">
+<div class="card-title">📊 全球资产反应</div>
+<div class="reaction-grid">
+<div class="reaction-item">
+  <div class="reaction-name">标普500</div>
+  <div class="reaction-value color-up">+0.44%</div>
+  <div class="reaction-note">连涨4日创1月来最长</div>
+</div>
+<div class="reaction-item">
+  <div class="reaction-name">纳斯达克</div>
+  <div class="reaction-value color-up">+0.54%</div>
+  <div class="reaction-note">科技股领涨</div>
+</div>
+<div class="reaction-item">
+  <div class="reaction-name">黄金</div>
+  <div class="reaction-value color-up">$4,676</div>
+  <div class="reaction-note">避险需求+油价飙升支撑</div>
+</div>
+<div class="reaction-item">
+  <div class="reaction-name">10Y美债</div>
+  <div class="reaction-value color-up">4.335%</div>
+  <div class="reaction-note">通胀预期抬升</div>
+</div>
+<div class="reaction-item">
+  <div class="reaction-name">布伦特原油</div>
+  <div class="reaction-value color-up">$114.07</div>
+  <div class="reaction-note">最后通牒到期前飙升3.6%</div>
+</div>
+<div class="reaction-item">
+  <div class="reaction-name">BTC</div>
+  <div class="reaction-value color-down">$68,524</div>
+  <div class="reaction-note">观望地缘局势</div>
+</div>
+</div></div>
+<div class="section-card ">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="section-title">⚡ 聪明钱建议</span>
+    <span class="section-arrow open">▾</span>
+  </div>
+  <div class="section-body " >
+    <div class="action-hint-item">
+  <span class="tag tag-yellow">关注</span>
+  <div class="action-body">
+    <div class="action-content">今夜特朗普最后通牒到期是本周最大变量——若升级打击伊朗基础设施，油价可能冲击$120+触发全面避险，建议密切关注盘后消息</div>
+    <div class="action-reason">4/7 20:00 EDT最后通牒到期，结果将决定本周市场方向</div>
+  </div>
+</div>
+<div class="sm-section-title">🧠 聪明钱动向</div>
+<div class="smart-money-item">
+  <div class="sm-left">
+    <div class="sm-signal sm-bullish"></div>
+    <div class="sm-source">ARK Invest</div>
+  </div>
+  <div class="sm-action">4月初持续加仓CRWV(CoreWeave)和KDK(Kodiak AI)，卖出TER和SRTA，AI算力+自动驾驶双线押注</div>
+</div>
+<div class="smart-money-item">
+  <div class="sm-left">
+    <div class="sm-signal sm-neutral"></div>
+    <div class="sm-source">桥水基金</div>
+  </div>
+  <div class="sm-action">Q4 13F显示大幅增持中国ETF和阿里巴巴，IVV(S&amp;P 500 ETF)仍为第一大持仓，全天候配置偏向防御+新兴市场</div>
+</div>
+<div class="smart-money-item">
+  <div class="sm-left">
+    <div class="sm-signal sm-bullish"></div>
+    <div class="sm-source">段永平 H&amp;H</div>
+  </div>
+  <div class="sm-action">Q4大幅增持NVDA+新建仓MSFT和TSM，减持AAPL，极度集中持仓策略不变，4/4亲赴泡泡玛特门店调研称right business</div>
+</div>
+<div class="holdings-title">📋 持仓参考</div>
+<div class="holdings-item">
+  <div class="holdings-name">伯克希尔</div>
+  <div class="holdings-detail">AAPL 22.6% | BAC 12.4% | AXP 10.8% | KO 9.5% | CVX 6.8% · 现金储备持续创新高</div>
+</div>
+<div class="holdings-item">
+  <div class="holdings-name">段永平 H&amp;H</div>
+  <div class="holdings-detail">AAPL | NVDA | BRK.B | PDD | GOOGL · 泡泡玛特观察中</div>
+</div>
+<div class="holdings-item">
+  <div class="holdings-name">ARK旗舰</div>
+  <div class="holdings-detail">TSLA | CRWV | COIN | ROKU | PLTR · CRWV持续加仓中</div>
+</div>
+  </div>
+</div>
+<div class="section-card risk-sent-card">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="section-title">🛡️ 风险情绪</span>
+    <span class="section-arrow open">▾</span>
+  </div>
+  <div class="section-body " >
+    <div class="sentiment-bar">
+  <div class="sentiment-label-text">恐惧</div>
+  <div class="sentiment-track">
+    <div class="sentiment-fill" style="width:32%"></div>
+    <div class="sentiment-pointer" style="left:32%"><div class="sentiment-pointer-dot"></div></div>
+  </div>
+  <div class="sentiment-label-text">贪婪</div>
+</div>
+<div class="sentiment-info">
+  <span class="sentiment-number">32</span>
+  <span class="sentiment-tag">偏恐惧</span>
+</div>
+<div class="risk-list">
+<div class="risk-item"><span class="risk-dot">•</span><span class="risk-item-text">特朗普4/7最后通牒今夜到期，若升级打击伊朗基础设施，油价可能冲击$120触发全面避险模式</span></div>
+<div class="risk-item"><span class="risk-dot">•</span><span class="risk-item-text">CPI预期3.4%为2022年以来最大月涨幅，若超预期将终结全年降息预期、压缩权益估值中枢</span></div>
+<div class="risk-item"><span class="risk-dot">•</span><span class="risk-item-text">VIX 24+仍处黄灯区间，连涨4日的反弹尚未获得波动率确认，结构性脆弱</span></div>
+</div>
+  </div>
+</div>
+<div class="section-card ">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="section-title">🎯 核心判断</span>
+    <span class="section-arrow open">▾</span>
+  </div>
+  <div class="section-body " >
+    <div class="judgment-item">
+  <div class="judgment-header">
+    <div class="judgment-num">1</div>
+    <div class="judgment-title">油价中枢上移将固化通胀预期</div>
+  </div>
+  <div class="confidence-row">
+    <div class="confidence-label">置信度</div>
+    <div class="confidence-bar"><div class="confidence-fill" style="width:82%"></div></div>
+    <div class="confidence-value">82%</div>
+  </div>
+  <div class="logic-text">霍尔木兹封锁+伊朗拒绝停火 → 布伦特锚定$110+持续数周 → CPI破3.4%确认二次通胀</div>
+  <div class="jx-tags"><span class="tag tag-blue">高可能性</span><span class="tag tag-green">↑ 上升</span></div>
+  <div class="jx-ref">📎 <div style="margin-top:4px"><span style="color:#1a1a2e;font-weight:600">CNN</span> <span style="color:#888">特朗普设4/7最后通牒要求霍尔木兹重新开放，伊朗拒绝45天停火并警告更大规模报复</span> <a href="https://www.cnn.com/2026/04/06/world/live-news/iran-war-us-trump-oil" target="_blank" style="color:#2980b9;font-size:10px">↗</a></div></div>
+</div>
+<div class="judgment-item">
+  <div class="judgment-header">
+    <div class="judgment-num">2</div>
+    <div class="judgment-title">美联储全年不降息概率持续上升</div>
+  </div>
+  <div class="confidence-row">
+    <div class="confidence-label">置信度</div>
+    <div class="confidence-bar"><div class="confidence-fill" style="width:75%"></div></div>
+    <div class="confidence-value">75%</div>
+  </div>
+  <div class="logic-text">核心PCE若破3% → 联储3月纪要鹰派基调确认 → 全年维持3.50-3.75%不变</div>
+  <div class="jx-tags"><span class="tag tag-blue">高可能性</span><span class="tag tag-green">↑ 上升</span></div>
+  <div class="jx-ref">📎 <div style="margin-top:4px"><span style="color:#1a1a2e;font-weight:600">MENAFN</span> <span style="color:#888">本周FOMC纪要将揭示3月会议内部讨论，市场关注油价假设和降息信号</span> <a href="https://menafn.com/1110944778/Key-Market-Events-For-The-Week-Of-April-610-2026" target="_blank" style="color:#2980b9;font-size:10px">↗</a></div></div>
+</div>
+<div class="judgment-item">
+  <div class="judgment-header">
+    <div class="judgment-num">3</div>
+    <div class="judgment-title">美股反弹结构脆弱，VIX 24+压制空间</div>
+  </div>
+  <div class="confidence-row">
+    <div class="confidence-label">置信度</div>
+    <div class="confidence-bar"><div class="confidence-fill" style="width:68%"></div></div>
+    <div class="confidence-value">68%</div>
+  </div>
+  <div class="logic-text">连涨4日但VIX未回落至20以下 → 停火破裂+CPI超预期双重催化 → 反弹随时逆转</div>
+  <div class="jx-tags"><span class="tag tag-yellow">中可能性</span><span class="tag tag-red">↓ 下降</span></div>
+  <div class="jx-ref">📎 <div style="margin-top:4px"><span style="color:#1a1a2e;font-weight:600">Google Finance</span> <span style="color:#888">VIX收于24.17仍处黄灯区间，盘中曾触25.30，恐慌情绪未实质缓解</span></div></div>
+</div>
+  </div>
+</div>
+<div class="data-footer">更新时间 · 2026-04-07 14:16 BJT</div>
+</div>
+
+<!-- Tab 2：市场页 -->
+<div class="tab-content" id="tab-markets">
+  <div class="card" style="padding:0;overflow:hidden">
+<div class="market-tabs">
+<div class="market-tab active" data-tab="us" onclick="switchMarketTab('us')">美股</div>
+<div class="market-tab" data-tab="m7" onclick="switchMarketTab('m7')">M7</div>
+<div class="market-tab" data-tab="asia" onclick="switchMarketTab('asia')">亚太</div>
+<div class="market-tab" data-tab="commodity" onclick="switchMarketTab('commodity')">大宗</div>
+<div class="market-tab" data-tab="crypto" onclick="switchMarketTab('crypto')">加密</div>
+</div>
+<div class="market-panel active" id="mp-us">
+<div class="market-summary">连涨4日创1月来最长但VIX仍在24+黄灯区间——反弹靠停火希望驱动而非基本面改善，今夜特朗普最后通牒结果将立即验证反弹成色</div>
+<div class="market-list">
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">标普500</div>
+    <div class="ml-price">6,611.83</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,15.1 14.7,25.6 27.3,28.0 40.0,10.1 52.7,5.5 65.3,4.8 78.0,2.0 78.0,28 2.0,28" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,15.1 14.7,25.6 27.3,28.0 40.0,10.1 52.7,5.5 65.3,4.8 78.0,2.0" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="2.0" r="2" fill="#e74c3c" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-up">+0.44%</div>
+    <div class="ml-label">大盘指数</div>
+  </div>
+</div>
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">纳斯达克</div>
+    <div class="ml-price">21,996.34</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,14.7 14.7,24.7 27.3,28.0 40.0,10.8 52.7,5.4 65.3,4.5 78.0,2.0 78.0,28 2.0,28" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,14.7 14.7,24.7 27.3,28.0 40.0,10.8 52.7,5.4 65.3,4.5 78.0,2.0" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="2.0" r="2" fill="#e74c3c" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-up">+0.54%</div>
+    <div class="ml-label">科技指数</div>
+  </div>
+</div>
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">道琼斯</div>
+    <div class="ml-price">46,669.88</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,14.3 14.7,28.0 27.3,27.1 40.0,7.7 52.7,3.8 65.3,4.9 78.0,2.0 78.0,28 2.0,28" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,14.3 14.7,28.0 27.3,27.1 40.0,7.7 52.7,3.8 65.3,4.9 78.0,2.0" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="2.0" r="2" fill="#e74c3c" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-up">+0.36%</div>
+    <div class="ml-label">蓝筹指数</div>
+  </div>
+</div>
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">VIX</div>
+    <div class="ml-price">24.17</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,28.0 14.7,15.0 27.3,2.0 40.0,12.5 52.7,24.0 65.3,26.5 78.0,25.4 78.0,28 2.0,28" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,28.0 14.7,15.0 27.3,2.0 40.0,12.5 52.7,24.0 65.3,26.5 78.0,25.4" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="25.4" r="2" fill="#e74c3c" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-up">+1.26%</div>
+    <div class="ml-label">恐慌指标</div>
+  </div>
+</div>
+</div>
+</div>
+<div class="market-panel" id="mp-m7">
+<div class="market-summary">M7分化加剧：GOOGL+1.4%和AAPL+1.2%领涨受益Waymo 3000辆车队扩张和MacBook Neo催化，TSLA-2.2%摩根大通警告可能再跌60%——Q1交付暴跌后个股选择比板块配置更关键</div>
+<div style="padding:12px 16px 4px;font-size:15px;font-weight:700;color:#1a1a2e">🏆 Magnificent Seven</div>
+<div class="market-list">
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">苹果 AAPL</div>
+    <div class="ml-price">$258.86</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,14.7 14.7,23.4 27.3,28.0 40.0,12.8 52.7,8.9 65.3,8.3 78.0,2.0 78.0,28 2.0,28" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,14.7 14.7,23.4 27.3,28.0 40.0,12.8 52.7,8.9 65.3,8.3 78.0,2.0" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="2.0" r="2" fill="#e74c3c" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-up">+1.15%</div>
+    
+  </div>
+</div>
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">微软 MSFT</div>
+    <div class="ml-price">$372.88</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,13.7 14.7,28.0 27.3,24.6 40.0,7.1 52.7,8.4 65.3,2.0 78.0,2.9 78.0,28 2.0,28" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,13.7 14.7,28.0 27.3,24.6 40.0,7.1 52.7,8.4 65.3,2.0 78.0,2.9" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="2.9" r="2" fill="#27ae60" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-down">-0.43%</div>
+    
+  </div>
+</div>
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">英伟达 NVDA</div>
+    <div class="ml-price">$177.64</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,15.3 14.7,23.1 27.3,28.0 40.0,8.8 52.7,5.9 65.3,2.5 78.0,2.0 78.0,28 2.0,28" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,15.3 14.7,23.1 27.3,28.0 40.0,8.8 52.7,5.9 65.3,2.5 78.0,2.0" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="2.0" r="2" fill="#e74c3c" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-up">+0.14%</div>
+    
+  </div>
+</div>
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">谷歌 GOOGL</div>
+    <div class="ml-price">$299.99</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,20.7 14.7,27.2 27.3,28.0 40.0,14.2 52.7,4.6 65.3,6.1 78.0,2.0 78.0,28 2.0,28" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,20.7 14.7,27.2 27.3,28.0 40.0,14.2 52.7,4.6 65.3,6.1 78.0,2.0" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="2.0" r="2" fill="#e74c3c" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-up">+1.43%</div>
+    
+  </div>
+</div>
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">亚马逊 AMZN</div>
+    <div class="ml-price">$212.79</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,12.1 14.7,28.0 27.3,24.9 40.0,10.7 52.7,6.3 65.3,7.8 78.0,2.0 78.0,28 2.0,28" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,12.1 14.7,28.0 27.3,24.9 40.0,10.7 52.7,6.3 65.3,7.8 78.0,2.0" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="2.0" r="2" fill="#e74c3c" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-up">+0.85%</div>
+    
+  </div>
+</div>
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">META</div>
+    <div class="ml-price">$573.02</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,2.0 14.7,19.5 27.3,28.0 40.0,14.1 52.7,8.1 65.3,14.4 78.0,16.6 78.0,28 2.0,28" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,2.0 14.7,19.5 27.3,28.0 40.0,14.1 52.7,8.1 65.3,14.4 78.0,16.6" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="16.6" r="2" fill="#27ae60" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-down">-0.25%</div>
+    
+  </div>
+</div>
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">特斯拉 TSLA</div>
+    <div class="ml-price">$352.82</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,10.4 14.7,19.8 27.3,25.8 40.0,10.7 52.7,2.0 65.3,20.9 78.0,28.0 78.0,28 2.0,28" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,10.4 14.7,19.8 27.3,25.8 40.0,10.7 52.7,2.0 65.3,20.9 78.0,28.0" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="28.0" r="2" fill="#27ae60" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-down">-2.15%</div>
+    
+  </div>
+</div>
+</div>
+</div>
+<div class="market-panel" id="mp-asia">
+<div class="market-summary">A股跌1%反映关税一周年阴影+伊朗局势传导，港股恒生科技跌0.8%南向资金转弱——日经+0.7%是唯一亮点受弱日元出口利好，但亚太整体承压等待今夜最后通牒结果</div>
+<div class="market-list">
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">上证指数</div>
+    <div class="ml-price">3,880.00</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,24.6 14.7,15.2 27.3,11.6 40.0,23.5 52.7,2.0 65.3,13.1 78.0,28.0 78.0,28 2.0,28" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,24.6 14.7,15.2 27.3,11.6 40.0,23.5 52.7,2.0 65.3,13.1 78.0,28.0" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="28.0" r="2" fill="#27ae60" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-down">-1.00%</div>
+    
+  </div>
+</div>
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">深证成指</div>
+    <div class="ml-price">12,350.00</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,11.8 14.7,2.0 27.3,4.2 40.0,20.0 52.7,5.4 65.3,19.4 78.0,28.0 78.0,28 2.0,28" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,11.8 14.7,2.0 27.3,4.2 40.0,20.0 52.7,5.4 65.3,19.4 78.0,28.0" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="28.0" r="2" fill="#27ae60" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-down">-1.20%</div>
+    
+  </div>
+</div>
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">恒生指数</div>
+    <div class="ml-price">23,850.00</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,2.0 14.7,23.3 27.3,19.1 40.0,28.0 52.7,26.3 65.3,3.9 78.0,11.7 78.0,28 2.0,28" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,2.0 14.7,23.3 27.3,19.1 40.0,28.0 52.7,26.3 65.3,3.9 78.0,11.7" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="11.7" r="2" fill="#27ae60" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-down">-0.65%</div>
+    
+  </div>
+</div>
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">恒生科技</div>
+    <div class="ml-price">5,620.00</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,2.0 14.7,17.4 27.3,15.8 40.0,24.2 52.7,28.0 65.3,17.8 78.0,25.2 78.0,28 2.0,28" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,2.0 14.7,17.4 27.3,15.8 40.0,24.2 52.7,28.0 65.3,17.8 78.0,25.2" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="25.2" r="2" fill="#27ae60" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-down">-0.80%</div>
+    
+  </div>
+</div>
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">日经225</div>
+    <div class="ml-price">53,797.00</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,19.6 14.7,28.0 27.3,22.8 40.0,13.1 52.7,8.5 65.3,9.1 78.0,2.0 78.0,28 2.0,28" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,19.6 14.7,28.0 27.3,22.8 40.0,13.1 52.7,8.5 65.3,9.1 78.0,2.0" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="2.0" r="2" fill="#e74c3c" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-up">+0.72%</div>
+    
+  </div>
+</div>
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">KOSPI</div>
+    <div class="ml-price">2,585.00</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,20.6 14.7,28.0 27.3,15.7 40.0,5.9 52.7,2.0 65.3,4.0 78.0,8.4 78.0,28 2.0,28" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,20.6 14.7,28.0 27.3,15.7 40.0,5.9 52.7,2.0 65.3,4.0 78.0,8.4" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="8.4" r="2" fill="#27ae60" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-down">-0.35%</div>
+    
+  </div>
+</div>
+</div>
+</div>
+<div class="market-panel" id="mp-commodity">
+<div class="market-summary">布伦特$110逼近红灯区间(&gt;$110)，伊朗拒绝停火+最后通牒到期双重催化下Murban飙涨3.7%——若霍尔木兹持续封锁油价中枢将系统性上移，直接压缩全年降息空间</div>
+<div class="market-list">
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">黄金 XAU</div>
+    <div class="ml-price">$4,676.04</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,28.0 14.7,26.4 27.3,11.0 40.0,2.0 52.7,10.1 65.3,12.7 78.0,13.3 78.0,28 2.0,28" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,28.0 14.7,26.4 27.3,11.0 40.0,2.0 52.7,10.1 65.3,12.7 78.0,13.3" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="13.3" r="2" fill="#e74c3c" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-up">+0.42%</div>
+    
+  </div>
+</div>
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">布伦特原油</div>
+    <div class="ml-price">$114.07</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,12.0 14.7,13.6 27.3,4.2 40.0,2.0 52.7,28.0 65.3,26.2 78.0,19.1 78.0,28 2.0,28" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,12.0 14.7,13.6 27.3,4.2 40.0,2.0 52.7,28.0 65.3,26.2 78.0,19.1" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="19.1" r="2" fill="#e74c3c" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-up">+3.63%</div>
+    
+  </div>
+</div>
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">WTI原油</div>
+    <div class="ml-price">$113.26</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,24.4 14.7,18.5 27.3,23.8 40.0,28.0 52.7,7.5 65.3,6.7 78.0,2.0 78.0,28 2.0,28" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,24.4 14.7,18.5 27.3,23.8 40.0,28.0 52.7,7.5 65.3,6.7 78.0,2.0" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="2.0" r="2" fill="#e74c3c" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-up">+0.76%</div>
+    
+  </div>
+</div>
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">美元指数 DXY</div>
+    <div class="ml-price">100.07</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,2.0 14.7,12.1 27.3,22.3 40.0,25.6 52.7,27.3 65.3,28.0 78.0,28.0 78.0,28 2.0,28" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,2.0 14.7,12.1 27.3,22.3 40.0,25.6 52.7,27.3 65.3,28.0 78.0,28.0" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="28.0" r="2" fill="#e74c3c" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-up">+0.06%</div>
+    
+  </div>
+</div>
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">10Y美债</div>
+    <div class="ml-price">4.335%</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,28.0 14.7,12.4 27.3,2.0 40.0,22.8 52.7,12.4 65.3,2.0 78.0,7.2 78.0,28 2.0,28" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,28.0 14.7,12.4 27.3,2.0 40.0,22.8 52.7,12.4 65.3,2.0 78.0,7.2" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="7.2" r="2" fill="#27ae60" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-down">-0.01%</div>
+    
+  </div>
+</div>
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">离岸人民币 CNH</div>
+    <div class="ml-price">6.8773</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,28.0 14.7,22.8 27.3,14.1 40.0,8.9 52.7,5.5 65.3,3.7 78.0,2.0 78.0,28 2.0,28" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,28.0 14.7,22.8 27.3,14.1 40.0,8.9 52.7,5.5 65.3,3.7 78.0,2.0" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="2.0" r="2" fill="#e74c3c" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-up">+0.01%</div>
+    
+  </div>
+</div>
+</div>
+</div>
+<div class="market-panel" id="mp-crypto">
+<div class="market-summary">BTC在$68K-70K区间窄幅震荡，期权市场悄然定价下行走势——地缘不确定性抑制风险偏好，但周度ETF资金仍保持净流入，ETH山寨币资金流出形成分化</div>
+<div class="market-list">
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">比特币 BTC</div>
+    <div class="ml-price">$68,524</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,7.8 14.7,19.3 27.3,28.0 40.0,10.7 52.7,2.0 65.3,17.6 78.0,20.3 78.0,28 2.0,28" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,7.8 14.7,19.3 27.3,28.0 40.0,10.7 52.7,2.0 65.3,17.6 78.0,20.3" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="20.3" r="2" fill="#27ae60" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-down">-0.35%</div>
+    
+  </div>
+</div>
+<div class="market-list-item">
+  <div class="ml-left">
+    <div class="ml-name">以太坊 ETH</div>
+    <div class="ml-price">$2,100</div>
+  </div>
+  <div class="ml-center"><svg class="sparkline-svg" width="80" height="30" viewBox="0 0 80 30">
+  <polygon points="2.0,2.0 14.7,12.4 27.3,28.0 40.0,17.6 52.7,7.2 65.3,18.6 78.0,22.8 78.0,28 2.0,28" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,2.0 14.7,12.4 27.3,28.0 40.0,17.6 52.7,7.2 65.3,18.6 78.0,22.8" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="78.0" cy="22.8" r="2" fill="#27ae60" />
+</svg></div>
+  <div class="ml-right">
+    <div class="ml-change color-down">-0.47%</div>
+    
+  </div>
+</div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="gics-title">GICS 板块热力图</div>
+<div class="market-summary" style="margin-bottom:10px">能源板块XLE+2.15%遥遥领先受油价$110+驱动，科技+通信居中反映AI叙事延续但力度减弱——防御板块(医疗/公用/房地产)集体飘绿，资金仍偏好通胀受益+成长</div>
+<div class="gics-item">
+  <div class="gics-name">能源 XLE</div>
+  <div class="gics-bar"><div class="gics-bar-fill bar-up" style="width:100%"></div></div>
+  <div class="gics-change color-up">+2.15%</div>
+</div>
+<div class="gics-item">
+  <div class="gics-name">通信服务 XLC</div>
+  <div class="gics-bar"><div class="gics-bar-fill bar-up" style="width:43%"></div></div>
+  <div class="gics-change color-up">+0.92%</div>
+</div>
+<div class="gics-item">
+  <div class="gics-name">信息技术 XLK</div>
+  <div class="gics-bar"><div class="gics-bar-fill bar-up" style="width:36%"></div></div>
+  <div class="gics-change color-up">+0.78%</div>
+</div>
+<div class="gics-item">
+  <div class="gics-name">非必需消费 XLY</div>
+  <div class="gics-bar"><div class="gics-bar-fill bar-up" style="width:21%"></div></div>
+  <div class="gics-change color-up">+0.45%</div>
+</div>
+<div class="gics-item">
+  <div class="gics-name">工业 XLI</div>
+  <div class="gics-bar"><div class="gics-bar-fill bar-up" style="width:18%"></div></div>
+  <div class="gics-change color-up">+0.38%</div>
+</div>
+<div class="gics-item">
+  <div class="gics-name">金融 XLF</div>
+  <div class="gics-bar"><div class="gics-bar-fill bar-up" style="width:15%"></div></div>
+  <div class="gics-change color-up">+0.32%</div>
+</div>
+<div class="gics-item">
+  <div class="gics-name">材料 XLB</div>
+  <div class="gics-bar"><div class="gics-bar-fill bar-up" style="width:12%"></div></div>
+  <div class="gics-change color-up">+0.25%</div>
+</div>
+<div class="gics-item">
+  <div class="gics-name">必需消费 XLP</div>
+  <div class="gics-bar"><div class="gics-bar-fill bar-up" style="width:6%"></div></div>
+  <div class="gics-change color-up">+0.12%</div>
+</div>
+<div class="gics-item">
+  <div class="gics-name">医疗保健 XLV</div>
+  <div class="gics-bar"><div class="gics-bar-fill bar-down" style="width:7%"></div></div>
+  <div class="gics-change color-down">-0.15%</div>
+</div>
+<div class="gics-item">
+  <div class="gics-name">公用事业 XLU</div>
+  <div class="gics-bar"><div class="gics-bar-fill bar-down" style="width:13%"></div></div>
+  <div class="gics-change color-down">-0.28%</div>
+</div>
+<div class="gics-item">
+  <div class="gics-name">房地产 XLRE</div>
+  <div class="gics-bar"><div class="gics-bar-fill bar-down" style="width:20%"></div></div>
+  <div class="gics-change color-down">-0.42%</div>
+</div>
+</div>
+<div class="data-footer">数据日期 · 2026-04-07</div>
+</div>
+
+<!-- Tab 3：标的页 -->
+<div class="tab-content" id="tab-watchlist">
+  <div class="sector-tabs">
+<div class="sector-tab active" data-id="ai_infra" onclick="switchSector('ai_infra')">AI算力链</div>
+<div class="sector-tab" data-id="ai_app" onclick="switchSector('ai_app')">AI应用</div>
+<div class="sector-tab" data-id="cn_ai" onclick="switchSector('cn_ai')">国产AI</div>
+<div class="sector-tab" data-id="smart_money" onclick="switchSector('smart_money')">聪明钱</div>
+</div>
+<div class="sector-overview active" id="so-ai_infra">
+  <div class="sector-title-text">AI算力链 <span class="tag tag-yellow">→ 持平</span></div>
+  <div class="sector-desc">NVDA $177.64(+0.14%)窄幅震荡，中国芯片出口管制叠加关税一周年压制产业链情绪。AAPL $258.86(+1.15%)受MacBook Neo AI催化提振，GOOGL Waymo 3000辆车队扩张验证自动驾驶产业化进展。整体板块等待本周CPI确认通胀方向后再定估值中枢。</div>
+  <div class="sector-count">共 8 只标的 · 点击卡片展开详情</div>
+</div>
+<div class="stock-card-group" id="sg-ai_infra" style="display:block">
+<div class="stock-card" onclick="toggleStock(this)">
+  <div class="sc-header">
+    <div class="sc-name-area">
+      <div class="sc-name">英伟达</div>
+      <div class="sc-symbol-price"><span class="sc-symbol">NVDA</span><span class="sc-price">$177.64</span></div>
+    </div>
+    <div class="sc-chart-area"><svg class="sparkline-svg" width="70" height="24" viewBox="0 0 70 24">
+  <polygon points="2.0,12.3 13.0,18.2 24.0,22.0 35.0,7.2 46.0,5.0 57.0,2.4 68.0,2.0 68.0,22 2.0,22" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,12.3 13.0,18.2 24.0,22.0 35.0,7.2 46.0,5.0 57.0,2.4 68.0,2.0" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="68.0" cy="2.0" r="2" fill="#e74c3c" />
+</svg></div>
+    <div class="sc-right"><div class="sc-change color-up">+0.14%</div><div class="sc-expand-hint">﹀</div></div>
+  </div>
+  <div class="sc-badges"><span class="badge badge-duan">段永平大幅增持</span></div>
+  <div class="sc-reason">AI数据中心算力绝对核心，Blackwell供不应求，Q4营收$681亿同比增73%验证产业链地位不可替代</div>
+  <div class="sc-tags"><span class="tag tag-yellow">AI芯片龙头</span><span class="tag tag-yellow">Blackwell出货</span></div>
+  <div class="sc-detail">
+    <div class="sc-chart-large"><div class="sc-chart-large-title">30日走势</div><svg class="sparkline-svg" width="400" height="100" viewBox="0 0 400 100">
+  <polygon points="2.0,14.7 15.7,10.6 29.3,2.0 43.0,35.7 56.6,60.0 70.3,43.3 83.9,51.0 97.6,41.6 111.2,40.6 124.9,58.1 138.6,42.8 152.2,36.1 165.9,32.1 179.5,41.2 193.2,50.3 206.8,41.0 220.5,45.0 234.1,49.9 247.8,55.7 261.4,74.2 275.1,64.9 288.8,66.3 302.4,55.3 316.1,78.8 329.7,90.6 343.4,98.0 357.0,68.8 370.7,64.6 384.3,59.4 398.0,58.6 398.0,98 2.0,98" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,14.7 15.7,10.6 29.3,2.0 43.0,35.7 56.6,60.0 70.3,43.3 83.9,51.0 97.6,41.6 111.2,40.6 124.9,58.1 138.6,42.8 152.2,36.1 165.9,32.1 179.5,41.2 193.2,50.3 206.8,41.0 220.5,45.0 234.1,49.9 247.8,55.7 261.4,74.2 275.1,64.9 288.8,66.3 302.4,55.3 316.1,78.8 329.7,90.6 343.4,98.0 357.0,68.8 370.7,64.6 384.3,59.4 398.0,58.6" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="398.0" cy="58.6" r="2" fill="#e74c3c" />
+</svg></div>
+    <div class="sc-metrics-title">关键指标</div><div class="sc-metrics-grid"><div class="sc-metric-item"><div class="sc-metric-label">最新价</div><div class="sc-metric-value">$177.64</div></div><div class="sc-metric-item"><div class="sc-metric-label">单日涨跌</div><div class="sc-metric-value color-up">+0.14%</div></div><div class="sc-metric-item"><div class="sc-metric-label">7日涨跌</div><div class="sc-metric-value color-down">-0.71%</div></div><div class="sc-metric-item"><div class="sc-metric-label">30日涨跌</div><div class="sc-metric-value color-down">-8.50%</div></div><div class="sc-metric-item"><div class="sc-metric-label">PE(TTM)</div><div class="sc-metric-value">36.3x</div></div><div class="sc-metric-item"><div class="sc-metric-label">综合评级</div><div class="sc-metric-value">⭐⭐</div></div></div>
+    <div class="sc-analysis">英伟达仍是全球AI算力的绝对核心，Q4营收$681.27亿同比增73.21%，净利润$429.60亿同比增94.47%，净利润率高达63%。Blackwell架构GPU持续供不应求，CoWoS先进封装产能是当前AI算力扩张的核心瓶颈。
+
+近期中国市场出口管制不确定性和关税一周年阴影对股价形成短期压制，但长期AI资本开支超级周期逻辑不变。段永平Q4大幅增持进一步确认产业链核心地位。
+
+风险点：AMD MI300X竞争加剧+中国市场收入受限+估值PE 36x在地缘动荡期承压。</div>
+    <div class="sc-risks"><div class="sc-risks-title">⚠️ 风险提示</div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">AMD MI300X竞争加剧，定制ASIC分流算力需求</span></div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">出口管制政策不确定性影响中国市场收入</span></div></div>
+  </div>
+</div>
+<div class="stock-card" onclick="toggleStock(this)">
+  <div class="sc-header">
+    <div class="sc-name-area">
+      <div class="sc-name">苹果</div>
+      <div class="sc-symbol-price"><span class="sc-symbol">AAPL</span><span class="sc-price">$258.86</span></div>
+    </div>
+    <div class="sc-chart-area"><svg class="sparkline-svg" width="70" height="24" viewBox="0 0 70 24">
+  <polygon points="2.0,11.8 13.0,18.5 24.0,22.0 35.0,10.3 46.0,7.3 57.0,6.8 68.0,2.0 68.0,22 2.0,22" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,11.8 13.0,18.5 24.0,22.0 35.0,10.3 46.0,7.3 57.0,6.8 68.0,2.0" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="68.0" cy="2.0" r="2" fill="#e74c3c" />
+</svg></div>
+    <div class="sc-right"><div class="sc-change color-up">+1.15%</div><div class="sc-expand-hint">﹀</div></div>
+  </div>
+  <div class="sc-badges"><span class="badge badge-buffett">巴菲特第一重仓</span><span class="badge badge-duan">段永平持有</span></div>
+  <div class="sc-reason">20亿设备端侧AI入口，MacBook Neo可能成为AI PC关键催化剂，分析师看涨20%空间</div>
+  <div class="sc-tags"><span class="tag tag-yellow">端侧AI入口</span><span class="tag tag-yellow">MacBook Neo催化</span></div>
+  <div class="sc-detail">
+    <div class="sc-chart-large"><div class="sc-chart-large-title">30日走势</div><svg class="sparkline-svg" width="400" height="100" viewBox="0 0 400 100">
+  <polygon points="2.0,30.0 15.7,9.3 29.3,2.0 43.0,6.5 56.6,37.0 70.3,35.1 83.9,38.5 97.6,42.7 111.2,50.5 124.9,60.3 138.6,51.9 152.2,48.6 165.9,48.7 179.5,66.2 193.2,85.9 206.8,76.5 220.5,71.6 234.1,86.5 247.8,89.9 261.4,93.3 275.1,81.1 288.8,80.6 302.4,77.2 316.1,76.2 329.7,90.5 343.4,98.0 357.0,73.1 370.7,66.7 384.3,65.7 398.0,55.5 398.0,98 2.0,98" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,30.0 15.7,9.3 29.3,2.0 43.0,6.5 56.6,37.0 70.3,35.1 83.9,38.5 97.6,42.7 111.2,50.5 124.9,60.3 138.6,51.9 152.2,48.6 165.9,48.7 179.5,66.2 193.2,85.9 206.8,76.5 220.5,71.6 234.1,86.5 247.8,89.9 261.4,93.3 275.1,81.1 288.8,80.6 302.4,77.2 316.1,76.2 329.7,90.5 343.4,98.0 357.0,73.1 370.7,66.7 384.3,65.7 398.0,55.5" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="398.0" cy="55.5" r="2" fill="#e74c3c" />
+</svg></div>
+    <div class="sc-metrics-title">关键指标</div><div class="sc-metrics-grid"><div class="sc-metric-item"><div class="sc-metric-label">最新价</div><div class="sc-metric-value">$258.86</div></div><div class="sc-metric-item"><div class="sc-metric-label">单日涨跌</div><div class="sc-metric-value color-up">+1.15%</div></div><div class="sc-metric-item"><div class="sc-metric-label">7日涨跌</div><div class="sc-metric-value color-up">+2.56%</div></div><div class="sc-metric-item"><div class="sc-metric-label">30日涨跌</div><div class="sc-metric-value color-down">-5.80%</div></div><div class="sc-metric-item"><div class="sc-metric-label">PE(TTM)</div><div class="sc-metric-value">32.8x</div></div><div class="sc-metric-item"><div class="sc-metric-label">综合评级</div><div class="sc-metric-value">⭐⭐</div></div></div>
+    <div class="sc-analysis">苹果以$258.86收盘涨1.15%，市值$3.80万亿。Fiscal Q1 2026营收$1437.6亿同比增15.65%，自由现金流$436.4亿同比暴增169.57%，现金流创造能力极强。
+
+近期催化：MacBook Neo有望成为AI PC的里程碑产品，Zacks分析师预测股价可能再涨20%。Tim Cook近期卖出公司股票引发关注但属例行安排。
+
+估值PE 32.75x处于历史中位水平，段永平长期持有14年累计收益超16倍。</div>
+    <div class="sc-risks"><div class="sc-risks-title">⚠️ 风险提示</div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">中国市场竞争加剧，华为等国产品牌抢占份额</span></div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">AI功能落后于安卓阵营，Siri进化速度待验证</span></div></div>
+  </div>
+</div>
+<div class="stock-card" onclick="toggleStock(this)">
+  <div class="sc-header">
+    <div class="sc-name-area">
+      <div class="sc-name">微软</div>
+      <div class="sc-symbol-price"><span class="sc-symbol">MSFT</span><span class="sc-price">$372.88</span></div>
+    </div>
+    <div class="sc-chart-area"><svg class="sparkline-svg" width="70" height="24" viewBox="0 0 70 24">
+  <polygon points="2.0,11.0 13.0,22.0 24.0,19.4 35.0,5.9 46.0,6.9 57.0,2.0 68.0,2.7 68.0,22 2.0,22" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,11.0 13.0,22.0 24.0,19.4 35.0,5.9 46.0,6.9 57.0,2.0 68.0,2.7" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="68.0" cy="2.7" r="2" fill="#27ae60" />
+</svg></div>
+    <div class="sc-right"><div class="sc-change color-down">-0.43%</div><div class="sc-expand-hint">﹀</div></div>
+  </div>
+  
+  <div class="sc-reason">Azure云+Copilot驱动AI商业化最快路径，Q2营收$812.73亿同比增16.72%，段永平Q4新建仓确认长期价值</div>
+  <div class="sc-tags"><span class="tag tag-yellow">Azure云+Copilot</span><span class="tag tag-yellow">AI商业化最快</span></div>
+  <div class="sc-detail">
+    <div class="sc-chart-large"><div class="sc-chart-large-title">30日走势</div><svg class="sparkline-svg" width="400" height="100" viewBox="0 0 400 100">
+  <polygon points="2.0,48.7 15.7,40.6 29.3,19.9 43.0,18.0 56.6,33.9 70.3,23.6 83.9,14.0 97.6,11.8 111.2,2.0 124.9,5.1 138.6,4.3 152.2,10.8 165.9,12.3 179.5,17.7 193.2,28.9 206.8,21.1 220.5,22.1 234.1,35.6 247.8,40.6 261.4,53.3 275.1,51.3 288.8,69.6 302.4,72.6 316.1,81.6 329.7,98.0 343.4,94.1 357.0,74.1 370.7,75.6 384.3,68.3 398.0,69.3 398.0,98 2.0,98" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,48.7 15.7,40.6 29.3,19.9 43.0,18.0 56.6,33.9 70.3,23.6 83.9,14.0 97.6,11.8 111.2,2.0 124.9,5.1 138.6,4.3 152.2,10.8 165.9,12.3 179.5,17.7 193.2,28.9 206.8,21.1 220.5,22.1 234.1,35.6 247.8,40.6 261.4,53.3 275.1,51.3 288.8,69.6 302.4,72.6 316.1,81.6 329.7,98.0 343.4,94.1 357.0,74.1 370.7,75.6 384.3,68.3 398.0,69.3" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="398.0" cy="69.3" r="2" fill="#27ae60" />
+</svg></div>
+    <div class="sc-metrics-title">关键指标</div><div class="sc-metrics-grid"><div class="sc-metric-item"><div class="sc-metric-label">最新价</div><div class="sc-metric-value">$372.88</div></div><div class="sc-metric-item"><div class="sc-metric-label">单日涨跌</div><div class="sc-metric-value color-down">-0.43%</div></div><div class="sc-metric-item"><div class="sc-metric-label">7日涨跌</div><div class="sc-metric-value color-up">+1.80%</div></div><div class="sc-metric-item"><div class="sc-metric-label">30日涨跌</div><div class="sc-metric-value color-down">-4.20%</div></div><div class="sc-metric-item"><div class="sc-metric-label">PE(TTM)</div><div class="sc-metric-value">23.3x</div></div><div class="sc-metric-item"><div class="sc-metric-label">综合评级</div><div class="sc-metric-value">⭐⭐⭐</div></div></div>
+    <div class="sc-analysis">微软以$372.88收盘微跌0.43%，但长期基本面极强。Q2营收$812.73亿同比增16.72%，净利润$384.58亿同比暴增59.52%。Azure AI服务收入增速持续超预期。
+
+Copilot在Office生态的渗透率持续提升，企业AI workflow自动化需求爆发。段永平Q4首次建仓MSFT是重要的价值确认信号。
+
+估值PE 23.33x处于历史低位区间，下行空间有限。</div>
+    <div class="sc-risks"><div class="sc-risks-title">⚠️ 风险提示</div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">Azure增速放缓风险，AWS和GCP竞争激烈</span></div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">Copilot付费转化率仍待验证</span></div></div>
+  </div>
+</div>
+<div class="stock-card" onclick="toggleStock(this)">
+  <div class="sc-header">
+    <div class="sc-name-area">
+      <div class="sc-name">谷歌</div>
+      <div class="sc-symbol-price"><span class="sc-symbol">GOOGL</span><span class="sc-price">$299.99</span></div>
+    </div>
+    <div class="sc-chart-area"><svg class="sparkline-svg" width="70" height="24" viewBox="0 0 70 24">
+  <polygon points="2.0,16.4 13.0,21.4 24.0,22.0 35.0,11.4 46.0,4.0 57.0,5.2 68.0,2.0 68.0,22 2.0,22" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,16.4 13.0,21.4 24.0,22.0 35.0,11.4 46.0,4.0 57.0,5.2 68.0,2.0" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="68.0" cy="2.0" r="2" fill="#e74c3c" />
+</svg></div>
+    <div class="sc-right"><div class="sc-change color-up">+1.43%</div><div class="sc-expand-hint">﹀</div></div>
+  </div>
+  <div class="sc-badges"><span class="badge badge-duan">段永平持有</span><span class="badge badge-buffett">巴菲特持有</span></div>
+  <div class="sc-reason">搜索+模型+云三位一体，Waymo 3000辆车队扩张验证自动驾驶产业化，Broadcom合作深化TPU生态</div>
+  <div class="sc-tags"><span class="tag tag-yellow">Gemini+GCP</span><span class="tag tag-yellow">Waymo 3000辆</span></div>
+  <div class="sc-detail">
+    <div class="sc-chart-large"><div class="sc-chart-large-title">30日走势</div><svg class="sparkline-svg" width="400" height="100" viewBox="0 0 400 100">
+  <polygon points="2.0,5.5 15.7,6.9 29.3,2.0 43.0,15.5 56.6,4.8 70.3,17.6 83.9,24.8 97.6,25.9 111.2,31.4 124.9,37.2 138.6,17.5 152.2,15.8 165.9,11.8 179.5,24.4 193.2,27.5 206.8,19.5 220.5,6.3 234.1,14.2 247.8,15.6 261.4,30.6 275.1,28.0 288.8,56.5 302.4,55.3 316.1,79.8 329.7,95.9 343.4,98.0 357.0,63.6 370.7,39.5 384.3,43.4 398.0,33.1 398.0,98 2.0,98" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,5.5 15.7,6.9 29.3,2.0 43.0,15.5 56.6,4.8 70.3,17.6 83.9,24.8 97.6,25.9 111.2,31.4 124.9,37.2 138.6,17.5 152.2,15.8 165.9,11.8 179.5,24.4 193.2,27.5 206.8,19.5 220.5,6.3 234.1,14.2 247.8,15.6 261.4,30.6 275.1,28.0 288.8,56.5 302.4,55.3 316.1,79.8 329.7,95.9 343.4,98.0 357.0,63.6 370.7,39.5 384.3,43.4 398.0,33.1" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="398.0" cy="33.1" r="2" fill="#e74c3c" />
+</svg></div>
+    <div class="sc-metrics-title">关键指标</div><div class="sc-metrics-grid"><div class="sc-metric-item"><div class="sc-metric-label">最新价</div><div class="sc-metric-value">$299.99</div></div><div class="sc-metric-item"><div class="sc-metric-label">单日涨跌</div><div class="sc-metric-value color-up">+1.43%</div></div><div class="sc-metric-item"><div class="sc-metric-label">7日涨跌</div><div class="sc-metric-value color-up">+3.10%</div></div><div class="sc-metric-item"><div class="sc-metric-label">30日涨跌</div><div class="sc-metric-value color-down">-2.50%</div></div><div class="sc-metric-item"><div class="sc-metric-label">PE(TTM)</div><div class="sc-metric-value">27.8x</div></div><div class="sc-metric-item"><div class="sc-metric-label">综合评级</div><div class="sc-metric-value">⭐⭐⭐</div></div></div>
+    <div class="sc-analysis">谷歌以$299.99收盘涨1.43%，市值$3.62万亿。Q4营收$1138.3亿同比增18%，净利润$344.6亿同比增29.84%。Waymo最新披露3000辆自动驾驶车队上路，产业化加速。
+
+Broadcom合作文件曝光深化TPU芯片供应链，Ken Griffin(Citadel)将GOOGL列为2026年AI首选标的。GCP云增速与Azure/AWS差距持续缩小。</div>
+    <div class="sc-risks"><div class="sc-risks-title">⚠️ 风险提示</div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">反垄断诉讼持续，搜索市场分拆风险</span></div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">Gemini模型与GPT/Claude竞争激烈</span></div></div>
+  </div>
+</div>
+<div class="stock-card" onclick="toggleStock(this)">
+  <div class="sc-header">
+    <div class="sc-name-area">
+      <div class="sc-name">博通</div>
+      <div class="sc-symbol-price"><span class="sc-symbol">AVGO</span><span class="sc-price">$215.50</span></div>
+    </div>
+    <div class="sc-chart-area"><svg class="sparkline-svg" width="70" height="24" viewBox="0 0 70 24">
+  <polygon points="2.0,6.9 13.0,15.1 24.0,22.0 35.0,6.8 46.0,3.0 57.0,2.0 68.0,2.1 68.0,22 2.0,22" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,6.9 13.0,15.1 24.0,22.0 35.0,6.8 46.0,3.0 57.0,2.0 68.0,2.1" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="68.0" cy="2.1" r="2" fill="#e74c3c" />
+</svg></div>
+    <div class="sc-right"><div class="sc-change color-up">+0.55%</div><div class="sc-expand-hint">﹀</div></div>
+  </div>
+  
+  <div class="sc-reason">定制AI芯片第二极，与Google TPU深度绑定，网络芯片在AI集群中不可替代</div>
+  <div class="sc-tags"><span class="tag tag-yellow">ASIC+网络芯片</span><span class="tag tag-yellow">Google TPU供应商</span></div>
+  <div class="sc-detail">
+    <div class="sc-chart-large"><div class="sc-chart-large-title">30日走势</div><svg class="sparkline-svg" width="400" height="100" viewBox="0 0 400 100">
+  <polygon points="2.0,30.6 15.7,39.6 29.3,27.0 43.0,46.7 56.6,50.7 70.3,52.0 83.9,61.3 97.6,54.4 111.2,26.1 124.9,30.4 138.6,2.0 152.2,7.9 165.9,9.8 179.5,20.2 193.2,45.8 206.8,40.7 220.5,47.4 234.1,57.4 247.8,50.1 261.4,67.4 275.1,44.0 288.8,51.8 302.4,50.8 316.1,68.3 329.7,84.5 343.4,98.0 357.0,68.1 370.7,60.7 384.3,58.7 398.0,59.0 398.0,98 2.0,98" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,30.6 15.7,39.6 29.3,27.0 43.0,46.7 56.6,50.7 70.3,52.0 83.9,61.3 97.6,54.4 111.2,26.1 124.9,30.4 138.6,2.0 152.2,7.9 165.9,9.8 179.5,20.2 193.2,45.8 206.8,40.7 220.5,47.4 234.1,57.4 247.8,50.1 261.4,67.4 275.1,44.0 288.8,51.8 302.4,50.8 316.1,68.3 329.7,84.5 343.4,98.0 357.0,68.1 370.7,60.7 384.3,58.7 398.0,59.0" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="398.0" cy="59.0" r="2" fill="#e74c3c" />
+</svg></div>
+    <div class="sc-metrics-title">关键指标</div><div class="sc-metrics-grid"><div class="sc-metric-item"><div class="sc-metric-label">最新价</div><div class="sc-metric-value">$215.50</div></div><div class="sc-metric-item"><div class="sc-metric-label">单日涨跌</div><div class="sc-metric-value color-up">+0.55%</div></div><div class="sc-metric-item"><div class="sc-metric-label">7日涨跌</div><div class="sc-metric-value color-up">+1.20%</div></div><div class="sc-metric-item"><div class="sc-metric-label">30日涨跌</div><div class="sc-metric-value color-down">-6.80%</div></div><div class="sc-metric-item"><div class="sc-metric-label">PE(TTM)</div><div class="sc-metric-value">38.5x</div></div><div class="sc-metric-item"><div class="sc-metric-label">综合评级</div><div class="sc-metric-value">⭐⭐</div></div></div>
+    <div class="sc-analysis">博通作为定制AI芯片(ASIC)的核心供应商，与Google、Meta等云厂商的合作持续深化。最新Broadcom-Google合作文件显示TPU供应链关系进一步加强。
+
+网络芯片在大规模AI集群互联中的地位不可替代，AI相关收入占比持续提升。</div>
+    <div class="sc-risks"><div class="sc-risks-title">⚠️ 风险提示</div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">ASIC竞争加剧，Marvell等对手追赶</span></div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">客户集中度高依赖少数云厂商</span></div></div>
+  </div>
+</div>
+<div class="stock-card" onclick="toggleStock(this)">
+  <div class="sc-header">
+    <div class="sc-name-area">
+      <div class="sc-name">台积电</div>
+      <div class="sc-symbol-price"><span class="sc-symbol">TSM</span><span class="sc-price">$192.40</span></div>
+    </div>
+    <div class="sc-chart-area"><svg class="sparkline-svg" width="70" height="24" viewBox="0 0 70 24">
+  <polygon points="2.0,14.4 13.0,13.9 24.0,22.0 35.0,5.0 46.0,2.2 57.0,4.2 68.0,2.0 68.0,22 2.0,22" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,14.4 13.0,13.9 24.0,22.0 35.0,5.0 46.0,2.2 57.0,4.2 68.0,2.0" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="68.0" cy="2.0" r="2" fill="#e74c3c" />
+</svg></div>
+    <div class="sc-right"><div class="sc-change color-up">+0.30%</div><div class="sc-expand-hint">﹀</div></div>
+  </div>
+  <div class="sc-badges"><span class="badge badge-duan">段永平持有</span></div>
+  <div class="sc-reason">CoWoS先进封装是AI算力扩张核心瓶颈，全球唯一3nm量产代工厂</div>
+  <div class="sc-tags"><span class="tag tag-yellow">先进封装</span><span class="tag tag-yellow">CoWoS瓶颈</span></div>
+  <div class="sc-detail">
+    <div class="sc-chart-large"><div class="sc-chart-large-title">30日走势</div><svg class="sparkline-svg" width="400" height="100" viewBox="0 0 400 100">
+  <polygon points="2.0,26.1 15.7,4.7 29.3,2.0 43.0,16.9 56.6,19.9 70.3,27.4 83.9,49.1 97.6,43.3 111.2,48.1 124.9,68.5 138.6,55.2 152.2,57.4 165.9,47.2 179.5,71.5 193.2,69.3 206.8,66.7 220.5,57.8 234.1,66.6 247.8,67.6 261.4,80.6 275.1,68.1 288.8,61.6 302.4,55.4 316.1,84.9 329.7,84.1 343.4,98.0 357.0,68.8 370.7,64.0 384.3,67.3 398.0,63.6 398.0,98 2.0,98" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,26.1 15.7,4.7 29.3,2.0 43.0,16.9 56.6,19.9 70.3,27.4 83.9,49.1 97.6,43.3 111.2,48.1 124.9,68.5 138.6,55.2 152.2,57.4 165.9,47.2 179.5,71.5 193.2,69.3 206.8,66.7 220.5,57.8 234.1,66.6 247.8,67.6 261.4,80.6 275.1,68.1 288.8,61.6 302.4,55.4 316.1,84.9 329.7,84.1 343.4,98.0 357.0,68.8 370.7,64.0 384.3,67.3 398.0,63.6" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="398.0" cy="63.6" r="2" fill="#e74c3c" />
+</svg></div>
+    <div class="sc-metrics-title">关键指标</div><div class="sc-metrics-grid"><div class="sc-metric-item"><div class="sc-metric-label">最新价</div><div class="sc-metric-value">$192.40</div></div><div class="sc-metric-item"><div class="sc-metric-label">单日涨跌</div><div class="sc-metric-value color-up">+0.30%</div></div><div class="sc-metric-item"><div class="sc-metric-label">7日涨跌</div><div class="sc-metric-value color-up">+0.80%</div></div><div class="sc-metric-item"><div class="sc-metric-label">30日涨跌</div><div class="sc-metric-value color-down">-7.50%</div></div><div class="sc-metric-item"><div class="sc-metric-label">PE(TTM)</div><div class="sc-metric-value">24.5x</div></div><div class="sc-metric-item"><div class="sc-metric-label">综合评级</div><div class="sc-metric-value">⭐⭐</div></div></div>
+    <div class="sc-analysis">台积电作为全球唯一具备3nm量产能力的晶圆代工厂，CoWoS先进封装产能是AI芯片产能的关键瓶颈。段永平Q4新建仓TSM确认长期产业链价值。
+
+美国建厂进度和地缘政治风险是短期扰动因素，但技术垄断地位短期内无可替代。</div>
+    <div class="sc-risks"><div class="sc-risks-title">⚠️ 风险提示</div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">台海地缘风险长期存在</span></div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">美国建厂成本高企侵蚀利润</span></div></div>
+  </div>
+</div>
+<div class="stock-card" onclick="toggleStock(this)">
+  <div class="sc-header">
+    <div class="sc-name-area">
+      <div class="sc-name">亚马逊</div>
+      <div class="sc-symbol-price"><span class="sc-symbol">AMZN</span><span class="sc-price">$212.79</span></div>
+    </div>
+    <div class="sc-chart-area"><svg class="sparkline-svg" width="70" height="24" viewBox="0 0 70 24">
+  <polygon points="2.0,9.8 13.0,22.0 24.0,19.6 35.0,8.7 46.0,5.3 57.0,6.5 68.0,2.0 68.0,22 2.0,22" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,9.8 13.0,22.0 24.0,19.6 35.0,8.7 46.0,5.3 57.0,6.5 68.0,2.0" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="68.0" cy="2.0" r="2" fill="#e74c3c" />
+</svg></div>
+    <div class="sc-right"><div class="sc-change color-up">+0.85%</div><div class="sc-expand-hint">﹀</div></div>
+  </div>
+  
+  <div class="sc-reason">云计算第一+押注Claude/Anthropic，AWS AI服务增速加速</div>
+  <div class="sc-tags"><span class="tag tag-yellow">AWS云第一</span><span class="tag tag-yellow">Anthropic押注</span></div>
+  <div class="sc-detail">
+    <div class="sc-chart-large"><div class="sc-chart-large-title">30日走势</div><svg class="sparkline-svg" width="400" height="100" viewBox="0 0 400 100">
+  <polygon points="2.0,69.0 15.7,52.8 29.3,42.7 43.0,56.0 56.6,45.8 70.3,53.7 83.9,52.0 97.6,12.4 111.2,2.0 124.9,30.1 138.6,28.7 152.2,24.6 165.9,32.8 179.5,48.1 193.2,57.2 206.8,37.3 220.5,20.3 234.1,46.4 247.8,51.9 261.4,68.5 275.1,45.1 288.8,59.3 302.4,37.4 316.1,57.8 329.7,98.0 343.4,90.1 357.0,54.3 370.7,43.0 384.3,46.9 398.0,32.1 398.0,98 2.0,98" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,69.0 15.7,52.8 29.3,42.7 43.0,56.0 56.6,45.8 70.3,53.7 83.9,52.0 97.6,12.4 111.2,2.0 124.9,30.1 138.6,28.7 152.2,24.6 165.9,32.8 179.5,48.1 193.2,57.2 206.8,37.3 220.5,20.3 234.1,46.4 247.8,51.9 261.4,68.5 275.1,45.1 288.8,59.3 302.4,37.4 316.1,57.8 329.7,98.0 343.4,90.1 357.0,54.3 370.7,43.0 384.3,46.9 398.0,32.1" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="398.0" cy="32.1" r="2" fill="#e74c3c" />
+</svg></div>
+    <div class="sc-metrics-title">关键指标</div><div class="sc-metrics-grid"><div class="sc-metric-item"><div class="sc-metric-label">最新价</div><div class="sc-metric-value">$212.79</div></div><div class="sc-metric-item"><div class="sc-metric-label">单日涨跌</div><div class="sc-metric-value color-up">+0.85%</div></div><div class="sc-metric-item"><div class="sc-metric-label">7日涨跌</div><div class="sc-metric-value color-up">+2.30%</div></div><div class="sc-metric-item"><div class="sc-metric-label">30日涨跌</div><div class="sc-metric-value color-down">-5.60%</div></div><div class="sc-metric-item"><div class="sc-metric-label">PE(TTM)</div><div class="sc-metric-value">29.7x</div></div><div class="sc-metric-item"><div class="sc-metric-label">综合评级</div><div class="sc-metric-value">⭐⭐</div></div></div>
+    <div class="sc-analysis">亚马逊以$212.79收盘涨0.85%，市值$2.28万亿。AWS作为全球最大云平台持续受益于AI基础设施投资浪潮，对Anthropic的押注使其在大模型竞争中占据有利位置。
+
+电商业务利润率持续改善，广告业务高增长成为第二增长曲线。</div>
+    <div class="sc-risks"><div class="sc-risks-title">⚠️ 风险提示</div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">反垄断监管压力持续</span></div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">Anthropic投资回报期不确定</span></div></div>
+  </div>
+</div>
+<div class="stock-card" onclick="toggleStock(this)">
+  <div class="sc-header">
+    <div class="sc-name-area">
+      <div class="sc-name">META</div>
+      <div class="sc-symbol-price"><span class="sc-symbol">META</span><span class="sc-price">$573.02</span></div>
+    </div>
+    <div class="sc-chart-area"><svg class="sparkline-svg" width="70" height="24" viewBox="0 0 70 24">
+  <polygon points="2.0,13.8 13.0,22.0 24.0,18.0 35.0,4.7 46.0,2.0 57.0,3.8 68.0,4.3 68.0,22 2.0,22" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,13.8 13.0,22.0 24.0,18.0 35.0,4.7 46.0,2.0 57.0,3.8 68.0,4.3" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="68.0" cy="4.3" r="2" fill="#27ae60" />
+</svg></div>
+    <div class="sc-right"><div class="sc-change color-down">-0.25%</div><div class="sc-expand-hint">﹀</div></div>
+  </div>
+  
+  <div class="sc-reason">开源大模型Llama+AI广告变现，VP of AI年薪$65万反映AI人才投入力度</div>
+  <div class="sc-tags"><span class="tag tag-yellow">Llama开源</span><span class="tag tag-yellow">AI广告变现</span></div>
+  <div class="sc-detail">
+    <div class="sc-chart-large"><div class="sc-chart-large-title">30日走势</div><svg class="sparkline-svg" width="400" height="100" viewBox="0 0 400 100">
+  <polygon points="2.0,22.7 15.7,21.3 29.3,11.5 43.0,9.3 56.6,15.3 70.3,11.6 83.9,10.6 97.6,2.0 111.2,6.9 124.9,17.5 138.6,15.8 152.2,11.3 165.9,10.7 179.5,22.1 193.2,38.7 206.8,29.0 220.5,32.2 234.1,37.0 247.8,43.1 261.4,51.9 275.1,44.8 288.8,52.4 302.4,51.1 316.1,83.2 329.7,98.0 343.4,90.8 357.0,66.5 370.7,61.7 384.3,64.9 398.0,65.9 398.0,98 2.0,98" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,22.7 15.7,21.3 29.3,11.5 43.0,9.3 56.6,15.3 70.3,11.6 83.9,10.6 97.6,2.0 111.2,6.9 124.9,17.5 138.6,15.8 152.2,11.3 165.9,10.7 179.5,22.1 193.2,38.7 206.8,29.0 220.5,32.2 234.1,37.0 247.8,43.1 261.4,51.9 275.1,44.8 288.8,52.4 302.4,51.1 316.1,83.2 329.7,98.0 343.4,90.8 357.0,66.5 370.7,61.7 384.3,64.9 398.0,65.9" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="398.0" cy="65.9" r="2" fill="#27ae60" />
+</svg></div>
+    <div class="sc-metrics-title">关键指标</div><div class="sc-metrics-grid"><div class="sc-metric-item"><div class="sc-metric-label">最新价</div><div class="sc-metric-value">$573.02</div></div><div class="sc-metric-item"><div class="sc-metric-label">单日涨跌</div><div class="sc-metric-value color-down">-0.25%</div></div><div class="sc-metric-item"><div class="sc-metric-label">7日涨跌</div><div class="sc-metric-value color-up">+0.50%</div></div><div class="sc-metric-item"><div class="sc-metric-label">30日涨跌</div><div class="sc-metric-value color-down">-8.20%</div></div><div class="sc-metric-item"><div class="sc-metric-label">PE(TTM)</div><div class="sc-metric-value">22.5x</div></div><div class="sc-metric-item"><div class="sc-metric-label">综合评级</div><div class="sc-metric-value">⭐⭐</div></div></div>
+    <div class="sc-analysis">META以$573.02微跌0.25%，市值$1.45万亿。AI赋能广告精准投放持续提升ARPU，Llama开源策略建立开发者生态护城河。
+
+近期裁员约200人集中在湾区，同时AI基础设施投入数十亿美元，显示资源从传统业务向AI倾斜。</div>
+    <div class="sc-risks"><div class="sc-risks-title">⚠️ 风险提示</div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">监管风险持续，欧盟数据隐私罚款</span></div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">Metaverse投入回报遥遥无期</span></div></div>
+  </div>
+</div>
+</div>
+<div class="sector-overview" id="so-ai_app">
+  <div class="sector-title-text">AI应用 <span class="tag tag-green">↓ 看跌</span></div>
+  <div class="sector-desc">TSLA $352.82(-2.15%)摩根大通警告可能再跌60%，Q1交付暴跌14%叠加弗里蒙特产线调整持续承压。PLTR虽有AIP平台增长但整体AI应用板块受地缘风险压制，资金流向防御型标的。</div>
+  <div class="sector-count">共 3 只标的 · 点击卡片展开详情</div>
+</div>
+<div class="stock-card-group" id="sg-ai_app" style="display:none">
+<div class="stock-card" onclick="toggleStock(this)">
+  <div class="sc-header">
+    <div class="sc-name-area">
+      <div class="sc-name">特斯拉</div>
+      <div class="sc-symbol-price"><span class="sc-symbol">TSLA</span><span class="sc-price">$352.82</span></div>
+    </div>
+    <div class="sc-chart-area"><svg class="sparkline-svg" width="70" height="24" viewBox="0 0 70 24">
+  <polygon points="2.0,8.4 13.0,15.7 24.0,20.3 35.0,8.7 46.0,2.0 57.0,16.5 68.0,22.0 68.0,22 2.0,22" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,8.4 13.0,15.7 24.0,20.3 35.0,8.7 46.0,2.0 57.0,16.5 68.0,22.0" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="68.0" cy="22.0" r="2" fill="#27ae60" />
+</svg></div>
+    <div class="sc-right"><div class="sc-change color-down">-2.15%</div><div class="sc-expand-hint">﹀</div></div>
+  </div>
+  
+  <div class="sc-reason">FSD+Optimus双AI叙事，但Q1交付暴跌14%+摩根大通警告可能跌60%，短期承压严重</div>
+  <div class="sc-tags"><span class="tag tag-yellow">自动驾驶</span><span class="tag tag-yellow">摩根大通看跌</span></div>
+  <div class="sc-detail">
+    <div class="sc-chart-large"><div class="sc-chart-large-title">30日走势</div><svg class="sparkline-svg" width="400" height="100" viewBox="0 0 400 100">
+  <polygon points="2.0,28.1 15.7,13.9 29.3,2.0 43.0,15.1 56.6,24.1 70.3,22.9 83.9,39.1 97.6,19.0 111.2,19.6 124.9,32.7 138.6,29.8 152.2,29.0 165.9,16.2 179.5,35.3 193.2,40.9 206.8,34.5 220.5,29.0 234.1,38.6 247.8,57.2 261.4,75.5 275.1,56.3 288.8,53.1 302.4,48.8 316.1,69.3 329.7,84.6 343.4,94.3 357.0,69.9 370.7,55.7 384.3,86.4 398.0,98.0 398.0,98 2.0,98" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,28.1 15.7,13.9 29.3,2.0 43.0,15.1 56.6,24.1 70.3,22.9 83.9,39.1 97.6,19.0 111.2,19.6 124.9,32.7 138.6,29.8 152.2,29.0 165.9,16.2 179.5,35.3 193.2,40.9 206.8,34.5 220.5,29.0 234.1,38.6 247.8,57.2 261.4,75.5 275.1,56.3 288.8,53.1 302.4,48.8 316.1,69.3 329.7,84.6 343.4,94.3 357.0,69.9 370.7,55.7 384.3,86.4 398.0,98.0" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="398.0" cy="98.0" r="2" fill="#27ae60" />
+</svg></div>
+    <div class="sc-metrics-title">关键指标</div><div class="sc-metrics-grid"><div class="sc-metric-item"><div class="sc-metric-label">最新价</div><div class="sc-metric-value">$352.82</div></div><div class="sc-metric-item"><div class="sc-metric-label">单日涨跌</div><div class="sc-metric-value color-down">-2.15%</div></div><div class="sc-metric-item"><div class="sc-metric-label">7日涨跌</div><div class="sc-metric-value color-down">-5.30%</div></div><div class="sc-metric-item"><div class="sc-metric-label">30日涨跌</div><div class="sc-metric-value color-down">-12.80%</div></div><div class="sc-metric-item"><div class="sc-metric-label">PE(TTM)</div><div class="sc-metric-value">328.1x</div></div><div class="sc-metric-item"><div class="sc-metric-label">综合评级</div><div class="sc-metric-value">⭐⭐</div></div></div>
+    <div class="sc-analysis">特斯拉以$352.82大跌2.15%，市值$1.11万亿，PE高达328x。Q1交付环比暴跌14%，弗里蒙特工厂关闭Model S/X产线转产Optimus机器人。
+
+摩根大通警告股价可能下跌60%，SpaceX IPO传闻对特斯拉股票形成间接影响。FSD自动驾驶和Optimus机器人是长期看点但短期无法兑现。</div>
+    <div class="sc-risks"><div class="sc-risks-title">⚠️ 风险提示</div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">Q1交付暴跌后市场信心脆弱</span></div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">PE 328x估值极度依赖远期叙事</span></div></div>
+  </div>
+</div>
+<div class="stock-card" onclick="toggleStock(this)">
+  <div class="sc-header">
+    <div class="sc-name-area">
+      <div class="sc-name">Palantir</div>
+      <div class="sc-symbol-price"><span class="sc-symbol">PLTR</span><span class="sc-price">$118.50</span></div>
+    </div>
+    <div class="sc-chart-area"><svg class="sparkline-svg" width="70" height="24" viewBox="0 0 70 24">
+  <polygon points="2.0,3.6 13.0,11.9 24.0,22.0 35.0,6.0 46.0,5.6 57.0,2.0 68.0,3.0 68.0,22 2.0,22" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,3.6 13.0,11.9 24.0,22.0 35.0,6.0 46.0,5.6 57.0,2.0 68.0,3.0" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="68.0" cy="3.0" r="2" fill="#e74c3c" />
+</svg></div>
+    <div class="sc-right"><div class="sc-change color-up">+0.65%</div><div class="sc-expand-hint">﹀</div></div>
+  </div>
+  
+  <div class="sc-reason">AIP平台政企AI爆发，AI收入增速超50%，政府+商业双轮驱动</div>
+  <div class="sc-tags"><span class="tag tag-yellow">数据分析龙头</span><span class="tag tag-yellow">AIP平台爆发</span></div>
+  <div class="sc-detail">
+    <div class="sc-chart-large"><div class="sc-chart-large-title">30日走势</div><svg class="sparkline-svg" width="400" height="100" viewBox="0 0 400 100">
+  <polygon points="2.0,92.7 15.7,98.0 29.3,82.0 43.0,76.7 56.6,73.0 70.3,49.0 83.9,42.9 97.6,25.0 111.2,26.5 124.9,13.0 138.6,15.2 152.2,31.1 165.9,29.7 179.5,24.0 193.2,31.7 206.8,26.4 220.5,19.3 234.1,26.2 247.8,17.5 261.4,32.5 275.1,2.0 288.8,20.2 302.4,19.6 316.1,41.8 329.7,55.3 343.4,71.9 357.0,45.7 370.7,45.0 384.3,39.1 398.0,40.7 398.0,98 2.0,98" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,92.7 15.7,98.0 29.3,82.0 43.0,76.7 56.6,73.0 70.3,49.0 83.9,42.9 97.6,25.0 111.2,26.5 124.9,13.0 138.6,15.2 152.2,31.1 165.9,29.7 179.5,24.0 193.2,31.7 206.8,26.4 220.5,19.3 234.1,26.2 247.8,17.5 261.4,32.5 275.1,2.0 288.8,20.2 302.4,19.6 316.1,41.8 329.7,55.3 343.4,71.9 357.0,45.7 370.7,45.0 384.3,39.1 398.0,40.7" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="398.0" cy="40.7" r="2" fill="#e74c3c" />
+</svg></div>
+    <div class="sc-metrics-title">关键指标</div><div class="sc-metrics-grid"><div class="sc-metric-item"><div class="sc-metric-label">最新价</div><div class="sc-metric-value">$118.50</div></div><div class="sc-metric-item"><div class="sc-metric-label">单日涨跌</div><div class="sc-metric-value color-up">+0.65%</div></div><div class="sc-metric-item"><div class="sc-metric-label">7日涨跌</div><div class="sc-metric-value color-up">+1.80%</div></div><div class="sc-metric-item"><div class="sc-metric-label">30日涨跌</div><div class="sc-metric-value color-down">-4.50%</div></div><div class="sc-metric-item"><div class="sc-metric-label">PE(TTM)</div><div class="sc-metric-value">185.0x</div></div><div class="sc-metric-item"><div class="sc-metric-label">综合评级</div><div class="sc-metric-value">⭐⭐⭐</div></div></div>
+    <div class="sc-analysis">Palantir AIP平台继续获得美国政府和企业大单，AI驱动的数据分析需求在地缘紧张期间尤为突出。商业收入增速加快缩小与政府收入的差距。</div>
+    <div class="sc-risks"><div class="sc-risks-title">⚠️ 风险提示</div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">估值极高依赖高增长预期持续</span></div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">政府合同续约和预算风险</span></div></div>
+  </div>
+</div>
+<div class="stock-card" onclick="toggleStock(this)">
+  <div class="sc-header">
+    <div class="sc-name-area">
+      <div class="sc-name">Tempus AI</div>
+      <div class="sc-symbol-price"><span class="sc-symbol">TEM</span><span class="sc-price">$78.20</span></div>
+    </div>
+    <div class="sc-chart-area"><svg class="sparkline-svg" width="70" height="24" viewBox="0 0 70 24">
+  <polygon points="2.0,9.4 13.0,21.0 24.0,22.0 35.0,10.6 46.0,3.4 57.0,2.0 68.0,2.4 68.0,22 2.0,22" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,9.4 13.0,21.0 24.0,22.0 35.0,10.6 46.0,3.4 57.0,2.0 68.0,2.4" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="68.0" cy="2.4" r="2" fill="#e74c3c" />
+</svg></div>
+    <div class="sc-right"><div class="sc-change color-up">+0.40%</div><div class="sc-expand-hint">﹀</div></div>
+  </div>
+  <div class="sc-badges"><span class="badge badge-duan">段永平新建仓</span></div>
+  <div class="sc-reason">AI+医疗独特交叉赛道，段永平Q4新建仓确认长期价值</div>
+  <div class="sc-tags"><span class="tag tag-yellow">AI精准医疗</span><span class="tag tag-yellow">段永平新建仓</span></div>
+  <div class="sc-detail">
+    <div class="sc-chart-large"><div class="sc-chart-large-title">30日走势</div><svg class="sparkline-svg" width="400" height="100" viewBox="0 0 400 100">
+  <polygon points="2.0,6.1 15.7,2.0 29.3,28.1 43.0,17.7 56.6,31.0 70.3,30.6 83.9,42.4 97.6,43.0 111.2,32.2 124.9,37.1 138.6,36.7 152.2,45.4 165.9,34.5 179.5,53.9 193.2,51.1 206.8,45.6 220.5,45.8 234.1,59.1 247.8,58.7 261.4,69.7 275.1,56.3 288.8,58.2 302.4,70.9 316.1,78.5 329.7,96.5 343.4,98.0 357.0,80.4 370.7,69.3 384.3,67.1 398.0,67.6 398.0,98 2.0,98" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,6.1 15.7,2.0 29.3,28.1 43.0,17.7 56.6,31.0 70.3,30.6 83.9,42.4 97.6,43.0 111.2,32.2 124.9,37.1 138.6,36.7 152.2,45.4 165.9,34.5 179.5,53.9 193.2,51.1 206.8,45.6 220.5,45.8 234.1,59.1 247.8,58.7 261.4,69.7 275.1,56.3 288.8,58.2 302.4,70.9 316.1,78.5 329.7,96.5 343.4,98.0 357.0,80.4 370.7,69.3 384.3,67.1 398.0,67.6" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="398.0" cy="67.6" r="2" fill="#e74c3c" />
+</svg></div>
+    <div class="sc-metrics-title">关键指标</div><div class="sc-metrics-grid"><div class="sc-metric-item"><div class="sc-metric-label">最新价</div><div class="sc-metric-value">$78.20</div></div><div class="sc-metric-item"><div class="sc-metric-label">单日涨跌</div><div class="sc-metric-value color-up">+0.40%</div></div><div class="sc-metric-item"><div class="sc-metric-label">7日涨跌</div><div class="sc-metric-value color-up">+2.10%</div></div><div class="sc-metric-item"><div class="sc-metric-label">30日涨跌</div><div class="sc-metric-value color-down">-3.80%</div></div><div class="sc-metric-item"><div class="sc-metric-label">PE(TTM)</div><div class="sc-metric-value">—</div></div><div class="sc-metric-item"><div class="sc-metric-label">综合评级</div><div class="sc-metric-value">⭐⭐⭐</div></div></div>
+    <div class="sc-analysis">Tempus AI是AI精准医疗的独特标的，将机器学习应用于临床数据分析和药物研发。段永平Q4首次建仓TEM是重要的价值确认信号。
+
+AI+医疗赛道处于早期爆发阶段，长期空间巨大但短期盈利能力仍需验证。</div>
+    <div class="sc-risks"><div class="sc-risks-title">⚠️ 风险提示</div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">AI医疗监管审批周期长</span></div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">盈利能力尚未证明</span></div></div>
+  </div>
+</div>
+</div>
+<div class="sector-overview" id="so-cn_ai">
+  <div class="sector-title-text">国产AI <span class="tag tag-green">↓ 看跌</span></div>
+  <div class="sector-desc">A股跌1%反映关税一周年阴影，上证3880点承压。腾讯、阿里等港股科技标的随恒生科技-0.8%回调，中国AI板块短期受制于外部不确定性，但AI应用生态（元宝/通义千问）基本面不变。</div>
+  <div class="sector-count">共 3 只标的 · 点击卡片展开详情</div>
+</div>
+<div class="stock-card-group" id="sg-cn_ai" style="display:none">
+<div class="stock-card" onclick="toggleStock(this)">
+  <div class="sc-header">
+    <div class="sc-name-area">
+      <div class="sc-name">腾讯</div>
+      <div class="sc-symbol-price"><span class="sc-symbol">0700.HK</span><span class="sc-price">HK$484.00</span></div>
+    </div>
+    <div class="sc-chart-area"><svg class="sparkline-svg" width="70" height="24" viewBox="0 0 70 24">
+  <polygon points="2.0,2.0 13.0,10.3 24.0,12.1 35.0,22.0 46.0,20.0 57.0,9.4 68.0,15.6 68.0,22 2.0,22" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,2.0 13.0,10.3 24.0,12.1 35.0,22.0 46.0,20.0 57.0,9.4 68.0,15.6" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="68.0" cy="15.6" r="2" fill="#27ae60" />
+</svg></div>
+    <div class="sc-right"><div class="sc-change color-down">-0.80%</div><div class="sc-expand-hint">﹀</div></div>
+  </div>
+  <div class="sc-badges"><span class="badge badge-duan">段永平重仓</span></div>
+  <div class="sc-reason">中国AI应用最大平台，混元大模型+元宝AI助手+企业微信AI生态全面开花</div>
+  <div class="sc-tags"><span class="tag tag-yellow">混元大模型</span><span class="tag tag-yellow">AI云+元宝</span></div>
+  <div class="sc-detail">
+    <div class="sc-chart-large"><div class="sc-chart-large-title">30日走势</div><svg class="sparkline-svg" width="400" height="100" viewBox="0 0 400 100">
+  <polygon points="2.0,47.6 15.7,27.6 29.3,50.1 43.0,46.9 56.6,60.0 70.3,52.6 83.9,57.6 97.6,61.9 111.2,67.5 124.9,72.5 138.6,51.3 152.2,55.1 165.9,8.2 179.5,10.1 193.2,17.0 206.8,15.7 220.5,2.0 234.1,12.6 247.8,12.0 261.4,58.8 275.1,65.0 288.8,77.0 302.4,57.6 316.1,68.2 329.7,80.5 343.4,83.3 357.0,98.0 370.7,95.0 384.3,79.3 398.0,88.5 398.0,98 2.0,98" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,47.6 15.7,27.6 29.3,50.1 43.0,46.9 56.6,60.0 70.3,52.6 83.9,57.6 97.6,61.9 111.2,67.5 124.9,72.5 138.6,51.3 152.2,55.1 165.9,8.2 179.5,10.1 193.2,17.0 206.8,15.7 220.5,2.0 234.1,12.6 247.8,12.0 261.4,58.8 275.1,65.0 288.8,77.0 302.4,57.6 316.1,68.2 329.7,80.5 343.4,83.3 357.0,98.0 370.7,95.0 384.3,79.3 398.0,88.5" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="398.0" cy="88.5" r="2" fill="#27ae60" />
+</svg></div>
+    <div class="sc-metrics-title">关键指标</div><div class="sc-metrics-grid"><div class="sc-metric-item"><div class="sc-metric-label">最新价</div><div class="sc-metric-value">HK$484.00</div></div><div class="sc-metric-item"><div class="sc-metric-label">单日涨跌</div><div class="sc-metric-value color-down">-0.80%</div></div><div class="sc-metric-item"><div class="sc-metric-label">7日涨跌</div><div class="sc-metric-value color-down">-1.50%</div></div><div class="sc-metric-item"><div class="sc-metric-label">30日涨跌</div><div class="sc-metric-value color-down">-3.20%</div></div><div class="sc-metric-item"><div class="sc-metric-label">PE(TTM)</div><div class="sc-metric-value">21.5x</div></div><div class="sc-metric-item"><div class="sc-metric-label">综合评级</div><div class="sc-metric-value">⭐⭐⭐</div></div></div>
+    <div class="sc-analysis">腾讯随恒生科技-0.8%回调，短期受关税一周年阴影和地缘不确定性压制。但AI应用生态基本面不变，元宝AI助手日活持续增长，混元大模型在企业级应用中加速落地。
+
+微信生态的AI化改造是最大看点，用户基础为全球最强的AI应用分发渠道。</div>
+    <div class="sc-risks"><div class="sc-risks-title">⚠️ 风险提示</div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">中美关系不确定性影响估值</span></div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">游戏监管政策变化风险</span></div></div>
+  </div>
+</div>
+<div class="stock-card" onclick="toggleStock(this)">
+  <div class="sc-header">
+    <div class="sc-name-area">
+      <div class="sc-name">阿里巴巴</div>
+      <div class="sc-symbol-price"><span class="sc-symbol">9988.HK</span><span class="sc-price">HK$135.50</span></div>
+    </div>
+    <div class="sc-chart-area"><svg class="sparkline-svg" width="70" height="24" viewBox="0 0 70 24">
+  <polygon points="2.0,2.0 13.0,13.3 24.0,14.1 35.0,18.2 46.0,21.0 57.0,13.9 68.0,22.0 68.0,22 2.0,22" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,2.0 13.0,13.3 24.0,14.1 35.0,18.2 46.0,21.0 57.0,13.9 68.0,22.0" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="68.0" cy="22.0" r="2" fill="#27ae60" />
+</svg></div>
+    <div class="sc-right"><div class="sc-change color-down">-1.10%</div><div class="sc-expand-hint">﹀</div></div>
+  </div>
+  
+  <div class="sc-reason">中国开源大模型最激进，阿里云AI收入增速领先，桥水Q4大幅增持</div>
+  <div class="sc-tags"><span class="tag tag-yellow">通义千问</span><span class="tag tag-yellow">阿里云AI</span></div>
+  <div class="sc-detail">
+    <div class="sc-chart-large"><div class="sc-chart-large-title">30日走势</div><svg class="sparkline-svg" width="400" height="100" viewBox="0 0 400 100">
+  <polygon points="2.0,16.5 15.7,2.0 29.3,14.0 43.0,13.1 56.6,28.2 70.3,28.5 83.9,47.0 97.6,51.6 111.2,65.5 124.9,75.8 138.6,63.2 152.2,68.9 165.9,55.3 179.5,56.1 193.2,60.7 206.8,58.1 220.5,53.8 234.1,52.1 247.8,43.3 261.4,59.5 275.1,83.2 288.8,94.6 302.4,84.6 316.1,68.4 329.7,85.2 343.4,86.3 357.0,92.3 370.7,96.6 384.3,86.0 398.0,98.0 398.0,98 2.0,98" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,16.5 15.7,2.0 29.3,14.0 43.0,13.1 56.6,28.2 70.3,28.5 83.9,47.0 97.6,51.6 111.2,65.5 124.9,75.8 138.6,63.2 152.2,68.9 165.9,55.3 179.5,56.1 193.2,60.7 206.8,58.1 220.5,53.8 234.1,52.1 247.8,43.3 261.4,59.5 275.1,83.2 288.8,94.6 302.4,84.6 316.1,68.4 329.7,85.2 343.4,86.3 357.0,92.3 370.7,96.6 384.3,86.0 398.0,98.0" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="398.0" cy="98.0" r="2" fill="#27ae60" />
+</svg></div>
+    <div class="sc-metrics-title">关键指标</div><div class="sc-metrics-grid"><div class="sc-metric-item"><div class="sc-metric-label">最新价</div><div class="sc-metric-value">HK$135.50</div></div><div class="sc-metric-item"><div class="sc-metric-label">单日涨跌</div><div class="sc-metric-value color-down">-1.10%</div></div><div class="sc-metric-item"><div class="sc-metric-label">7日涨跌</div><div class="sc-metric-value color-down">-2.30%</div></div><div class="sc-metric-item"><div class="sc-metric-label">30日涨跌</div><div class="sc-metric-value color-down">-5.50%</div></div><div class="sc-metric-item"><div class="sc-metric-label">PE(TTM)</div><div class="sc-metric-value">14.2x</div></div><div class="sc-metric-item"><div class="sc-metric-label">综合评级</div><div class="sc-metric-value">⭐⭐</div></div></div>
+    <div class="sc-analysis">阿里巴巴跌1.1%至HK$135.50，受A股整体疲弱和关税阴影影响。桥水基金Q4 13F大幅增持阿里巴巴是重要的价值信号。
+
+通义千问在开源大模型领域布局最激进，阿里云AI服务收入增速在中国云厂商中领先。</div>
+    <div class="sc-risks"><div class="sc-risks-title">⚠️ 风险提示</div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">反垄断持续影响</span></div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">云计算竞争激烈利润率承压</span></div></div>
+  </div>
+</div>
+<div class="stock-card" onclick="toggleStock(this)">
+  <div class="sc-header">
+    <div class="sc-name-area">
+      <div class="sc-name">寒武纪</div>
+      <div class="sc-symbol-price"><span class="sc-symbol">688256.SH</span><span class="sc-price">¥405.00</span></div>
+    </div>
+    <div class="sc-chart-area"><svg class="sparkline-svg" width="70" height="24" viewBox="0 0 70 24">
+  <polygon points="2.0,9.7 13.0,10.0 24.0,14.3 35.0,22.0 46.0,2.0 57.0,17.3 68.0,9.5 68.0,22 2.0,22" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,9.7 13.0,10.0 24.0,14.3 35.0,22.0 46.0,2.0 57.0,17.3 68.0,9.5" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="68.0" cy="9.5" r="2" fill="#27ae60" />
+</svg></div>
+    <div class="sc-right"><div class="sc-change color-down">-1.80%</div><div class="sc-expand-hint">﹀</div></div>
+  </div>
+  
+  <div class="sc-reason">国产AI算力唯一纯正标的，受益于自主可控和国产替代大逻辑</div>
+  <div class="sc-tags"><span class="tag tag-yellow">国产AI芯片</span><span class="tag tag-yellow">算力替代</span></div>
+  <div class="sc-detail">
+    <div class="sc-chart-large"><div class="sc-chart-large-title">30日走势</div><svg class="sparkline-svg" width="400" height="100" viewBox="0 0 400 100">
+  <polygon points="2.0,33.0 15.7,54.4 29.3,49.5 43.0,12.1 56.6,8.0 70.3,2.0 83.9,27.6 97.6,34.6 111.2,12.4 124.9,18.1 138.6,30.7 152.2,21.5 165.9,42.4 179.5,42.4 193.2,43.7 206.8,46.4 220.5,50.7 234.1,56.8 247.8,69.4 261.4,74.6 275.1,98.0 288.8,73.1 302.4,68.5 316.1,74.7 329.7,75.1 343.4,81.4 357.0,92.9 370.7,63.1 384.3,85.9 398.0,74.3 398.0,98 2.0,98" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,33.0 15.7,54.4 29.3,49.5 43.0,12.1 56.6,8.0 70.3,2.0 83.9,27.6 97.6,34.6 111.2,12.4 124.9,18.1 138.6,30.7 152.2,21.5 165.9,42.4 179.5,42.4 193.2,43.7 206.8,46.4 220.5,50.7 234.1,56.8 247.8,69.4 261.4,74.6 275.1,98.0 288.8,73.1 302.4,68.5 316.1,74.7 329.7,75.1 343.4,81.4 357.0,92.9 370.7,63.1 384.3,85.9 398.0,74.3" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="398.0" cy="74.3" r="2" fill="#27ae60" />
+</svg></div>
+    <div class="sc-metrics-title">关键指标</div><div class="sc-metrics-grid"><div class="sc-metric-item"><div class="sc-metric-label">最新价</div><div class="sc-metric-value">¥405.00</div></div><div class="sc-metric-item"><div class="sc-metric-label">单日涨跌</div><div class="sc-metric-value color-down">-1.80%</div></div><div class="sc-metric-item"><div class="sc-metric-label">7日涨跌</div><div class="sc-metric-value color-down">-3.50%</div></div><div class="sc-metric-item"><div class="sc-metric-label">30日涨跌</div><div class="sc-metric-value color-down">-8.00%</div></div><div class="sc-metric-item"><div class="sc-metric-label">PE(TTM)</div><div class="sc-metric-value">—</div></div><div class="sc-metric-item"><div class="sc-metric-label">综合评级</div><div class="sc-metric-value">⭐⭐</div></div></div>
+    <div class="sc-analysis">寒武纪跌1.8%至¥405，受A股整体回调拖累。作为国产AI芯片唯一纯正标的，长期受益于自主可控和国产替代逻辑，但短期估值偏高需要业绩验证。</div>
+    <div class="sc-risks"><div class="sc-risks-title">⚠️ 风险提示</div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">估值极高缺乏盈利支撑</span></div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">与国际芯片巨头技术差距仍大</span></div></div>
+  </div>
+</div>
+</div>
+<div class="sector-overview" id="so-smart_money">
+  <div class="sector-title-text">聪明钱 <span class="tag tag-yellow">→ 持平</span></div>
+  <div class="sector-desc">段永平Q4大幅增持NVDA+新建仓MSFT/TSM确认AI产业链判断不变，4/4实地调研泡泡玛特门店评价right business为潜在建仓信号。伯克希尔现金储备持续创新高，巴菲特静候机会不急操作。</div>
+  <div class="sector-count">共 3 只标的 · 点击卡片展开详情</div>
+</div>
+<div class="stock-card-group" id="sg-smart_money" style="display:none">
+<div class="stock-card" onclick="toggleStock(this)">
+  <div class="sc-header">
+    <div class="sc-name-area">
+      <div class="sc-name">伯克希尔</div>
+      <div class="sc-symbol-price"><span class="sc-symbol">BRK.A</span><span class="sc-price">$786,500</span></div>
+    </div>
+    <div class="sc-chart-area"><svg class="sparkline-svg" width="70" height="24" viewBox="0 0 70 24">
+  <polygon points="2.0,9.8 13.0,22.0 24.0,9.5 35.0,2.0 46.0,4.6 57.0,4.5 68.0,4.3 68.0,22 2.0,22" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,9.8 13.0,22.0 24.0,9.5 35.0,2.0 46.0,4.6 57.0,4.5 68.0,4.3" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="68.0" cy="4.3" r="2" fill="#e74c3c" />
+</svg></div>
+    <div class="sc-right"><div class="sc-change color-up">+0.25%</div><div class="sc-expand-hint">﹀</div></div>
+  </div>
+  
+  <div class="sc-reason">巴菲特价值投资旗舰，现金储备持续创历史新高是全球最重要的宏观温度计</div>
+  <div class="sc-tags"><span class="tag tag-yellow">价值投资旗舰</span><span class="tag tag-yellow">现金创新高</span></div>
+  <div class="sc-detail">
+    <div class="sc-chart-large"><div class="sc-chart-large-title">30日走势</div><svg class="sparkline-svg" width="400" height="100" viewBox="0 0 400 100">
+  <polygon points="2.0,32.3 15.7,30.5 29.3,29.0 43.0,8.8 56.6,2.0 70.3,68.6 83.9,66.8 97.6,49.4 111.2,13.3 124.9,18.6 138.6,23.3 152.2,32.6 165.9,32.6 179.5,38.7 193.2,41.9 206.8,36.2 220.5,35.5 234.1,56.9 247.8,63.6 261.4,67.4 275.1,68.6 288.8,71.8 302.4,77.7 316.1,82.2 329.7,98.0 343.4,81.8 357.0,72.0 370.7,75.4 384.3,75.3 398.0,74.9 398.0,98 2.0,98" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,32.3 15.7,30.5 29.3,29.0 43.0,8.8 56.6,2.0 70.3,68.6 83.9,66.8 97.6,49.4 111.2,13.3 124.9,18.6 138.6,23.3 152.2,32.6 165.9,32.6 179.5,38.7 193.2,41.9 206.8,36.2 220.5,35.5 234.1,56.9 247.8,63.6 261.4,67.4 275.1,68.6 288.8,71.8 302.4,77.7 316.1,82.2 329.7,98.0 343.4,81.8 357.0,72.0 370.7,75.4 384.3,75.3 398.0,74.9" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="398.0" cy="74.9" r="2" fill="#e74c3c" />
+</svg></div>
+    <div class="sc-metrics-title">关键指标</div><div class="sc-metrics-grid"><div class="sc-metric-item"><div class="sc-metric-label">最新价</div><div class="sc-metric-value">$786,500</div></div><div class="sc-metric-item"><div class="sc-metric-label">单日涨跌</div><div class="sc-metric-value color-up">+0.25%</div></div><div class="sc-metric-item"><div class="sc-metric-label">7日涨跌</div><div class="sc-metric-value color-up">+1.00%</div></div><div class="sc-metric-item"><div class="sc-metric-label">30日涨跌</div><div class="sc-metric-value color-up">+2.50%</div></div><div class="sc-metric-item"><div class="sc-metric-label">PE(TTM)</div><div class="sc-metric-value">9.8x</div></div><div class="sc-metric-item"><div class="sc-metric-label">综合评级</div><div class="sc-metric-value">⭐⭐⭐</div></div></div>
+    <div class="sc-analysis">伯克希尔现金储备持续创新高，巴菲特在高估值+地缘动荡环境下持续囤积现金的策略清晰——等待市场出现错误定价时大举出手。
+
+段永平Q4继续增持BRK.B，与巴菲特的投资哲学高度共振。GEICO保险业务和能源板块受益于当前通胀环境。</div>
+    <div class="sc-risks"><div class="sc-risks-title">⚠️ 风险提示</div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">巴菲特年龄和接班人过渡风险</span></div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">保险业务受自然灾害影响</span></div></div>
+  </div>
+</div>
+<div class="stock-card" onclick="toggleStock(this)">
+  <div class="sc-header">
+    <div class="sc-name-area">
+      <div class="sc-name">拼多多</div>
+      <div class="sc-symbol-price"><span class="sc-symbol">PDD</span><span class="sc-price">$128.60</span></div>
+    </div>
+    <div class="sc-chart-area"><svg class="sparkline-svg" width="70" height="24" viewBox="0 0 70 24">
+  <polygon points="2.0,10.3 13.0,14.6 24.0,22.0 35.0,2.0 46.0,4.1 57.0,9.0 68.0,8.8 68.0,22 2.0,22" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,10.3 13.0,14.6 24.0,22.0 35.0,2.0 46.0,4.1 57.0,9.0 68.0,8.8" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="68.0" cy="8.8" r="2" fill="#e74c3c" />
+</svg></div>
+    <div class="sc-right"><div class="sc-change color-up">+0.50%</div><div class="sc-expand-hint">﹀</div></div>
+  </div>
+  <div class="sc-badges"><span class="badge badge-duan">段永平持有</span></div>
+  <div class="sc-reason">Temu出海增长强劲，段永平Q4增持确认价值，但关税一周年对跨境电商有压制</div>
+  <div class="sc-tags"><span class="tag tag-yellow">电商出海</span><span class="tag tag-yellow">Temu全球化</span></div>
+  <div class="sc-detail">
+    <div class="sc-chart-large"><div class="sc-chart-large-title">30日走势</div><svg class="sparkline-svg" width="400" height="100" viewBox="0 0 400 100">
+  <polygon points="2.0,12.2 15.7,2.2 29.3,2.0 43.0,15.5 56.6,30.4 70.3,38.6 83.9,57.5 97.6,53.2 111.2,57.2 124.9,46.2 138.6,40.2 152.2,20.3 165.9,37.5 179.5,49.3 193.2,40.1 206.8,29.4 220.5,24.7 234.1,57.4 247.8,86.9 261.4,98.0 275.1,97.5 288.8,81.0 302.4,40.5 316.1,58.3 329.7,65.6 343.4,78.0 357.0,44.3 370.7,47.9 384.3,56.1 398.0,55.7 398.0,98 2.0,98" fill="rgba(231,76,60,0.1)" />
+  <polyline points="2.0,12.2 15.7,2.2 29.3,2.0 43.0,15.5 56.6,30.4 70.3,38.6 83.9,57.5 97.6,53.2 111.2,57.2 124.9,46.2 138.6,40.2 152.2,20.3 165.9,37.5 179.5,49.3 193.2,40.1 206.8,29.4 220.5,24.7 234.1,57.4 247.8,86.9 261.4,98.0 275.1,97.5 288.8,81.0 302.4,40.5 316.1,58.3 329.7,65.6 343.4,78.0 357.0,44.3 370.7,47.9 384.3,56.1 398.0,55.7" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="398.0" cy="55.7" r="2" fill="#e74c3c" />
+</svg></div>
+    <div class="sc-metrics-title">关键指标</div><div class="sc-metrics-grid"><div class="sc-metric-item"><div class="sc-metric-label">最新价</div><div class="sc-metric-value">$128.60</div></div><div class="sc-metric-item"><div class="sc-metric-label">单日涨跌</div><div class="sc-metric-value color-up">+0.50%</div></div><div class="sc-metric-item"><div class="sc-metric-label">7日涨跌</div><div class="sc-metric-value color-up">+1.20%</div></div><div class="sc-metric-item"><div class="sc-metric-label">30日涨跌</div><div class="sc-metric-value color-down">-4.80%</div></div><div class="sc-metric-item"><div class="sc-metric-label">PE(TTM)</div><div class="sc-metric-value">12.5x</div></div><div class="sc-metric-item"><div class="sc-metric-label">综合评级</div><div class="sc-metric-value">⭐⭐⭐</div></div></div>
+    <div class="sc-analysis">拼多多以$128.60涨0.5%，Temu海外扩张继续贡献增量收入，但关税一周年对跨境电商模式形成结构性压力。
+
+段永平Q4继续增持PDD确认长期价值判断，低价电商在通胀环境下的消费降级趋势中具有防御性。</div>
+    <div class="sc-risks"><div class="sc-risks-title">⚠️ 风险提示</div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">关税政策对跨境电商的结构性影响</span></div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">Temu海外监管和合规风险</span></div></div>
+  </div>
+</div>
+<div class="stock-card" onclick="toggleStock(this)">
+  <div class="sc-header">
+    <div class="sc-name-area">
+      <div class="sc-name">泡泡玛特</div>
+      <div class="sc-symbol-price"><span class="sc-symbol">9992.HK</span><span class="sc-price">HK$148.00</span></div>
+    </div>
+    <div class="sc-chart-area"><svg class="sparkline-svg" width="70" height="24" viewBox="0 0 70 24">
+  <polygon points="2.0,2.0 13.0,15.3 24.0,16.1 35.0,16.8 46.0,20.6 57.0,19.4 68.0,22.0 68.0,22 2.0,22" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,2.0 13.0,15.3 24.0,16.1 35.0,16.8 46.0,20.6 57.0,19.4 68.0,22.0" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="68.0" cy="22.0" r="2" fill="#27ae60" />
+</svg></div>
+    <div class="sc-right"><div class="sc-change color-down">-0.50%</div><div class="sc-expand-hint">﹀</div></div>
+  </div>
+  <div class="sc-badges"><span class="badge badge-duan">段永平关注</span></div>
+  <div class="sc-reason">中国产品国际化先驱，段永平4/4亲赴门店调研称right business，5月13F披露是否建仓</div>
+  <div class="sc-tags"><span class="tag tag-yellow">IP消费全球化</span><span class="tag tag-yellow">段永平实地调研</span></div>
+  <div class="sc-detail">
+    <div class="sc-chart-large"><div class="sc-chart-large-title">30日走势</div><svg class="sparkline-svg" width="400" height="100" viewBox="0 0 400 100">
+  <polygon points="2.0,5.6 15.7,2.0 29.3,15.1 43.0,16.0 56.6,22.9 70.3,18.8 83.9,23.1 97.6,34.2 111.2,39.3 124.9,40.0 138.6,38.9 152.2,40.0 165.9,40.2 179.5,41.3 193.2,40.9 206.8,41.3 220.5,37.7 234.1,31.7 247.8,26.0 261.4,34.1 275.1,36.9 288.8,43.6 302.4,30.1 316.1,74.1 329.7,90.0 343.4,91.0 357.0,91.8 370.7,96.4 384.3,94.8 398.0,98.0 398.0,98 2.0,98" fill="rgba(39,174,96,0.1)" />
+  <polyline points="2.0,5.6 15.7,2.0 29.3,15.1 43.0,16.0 56.6,22.9 70.3,18.8 83.9,23.1 97.6,34.2 111.2,39.3 124.9,40.0 138.6,38.9 152.2,40.0 165.9,40.2 179.5,41.3 193.2,40.9 206.8,41.3 220.5,37.7 234.1,31.7 247.8,26.0 261.4,34.1 275.1,36.9 288.8,43.6 302.4,30.1 316.1,74.1 329.7,90.0 343.4,91.0 357.0,91.8 370.7,96.4 384.3,94.8 398.0,98.0" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+  <circle cx="398.0" cy="98.0" r="2" fill="#27ae60" />
+</svg></div>
+    <div class="sc-metrics-title">关键指标</div><div class="sc-metrics-grid"><div class="sc-metric-item"><div class="sc-metric-label">最新价</div><div class="sc-metric-value">HK$148.00</div></div><div class="sc-metric-item"><div class="sc-metric-label">单日涨跌</div><div class="sc-metric-value color-down">-0.50%</div></div><div class="sc-metric-item"><div class="sc-metric-label">7日涨跌</div><div class="sc-metric-value color-up">+2.50%</div></div><div class="sc-metric-item"><div class="sc-metric-label">30日涨跌</div><div class="sc-metric-value color-up">+8.50%</div></div><div class="sc-metric-item"><div class="sc-metric-label">PE(TTM)</div><div class="sc-metric-value">38.0x</div></div><div class="sc-metric-item"><div class="sc-metric-label">综合评级</div><div class="sc-metric-value">⭐⭐⭐⭐</div></div></div>
+    <div class="sc-analysis">泡泡玛特是段永平最新关注的重点标的。4/4亲赴Westfield门店实地调研，评价right business——这是段永平投资决策链的经典前兆：看不懂→深度研究→收回说法→实地调研→评价right business。
+
+海外门店扩张速度超预期，IP消费品全球化是核心逻辑。关键节点：2026Q1 13F（5月中旬披露）是否出现持仓确认。</div>
+    <div class="sc-risks"><div class="sc-risks-title">⚠️ 风险提示</div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">IP热度生命周期不确定</span></div><div class="sc-risk-item"><div class="sc-risk-dot"></div><span class="sc-risk-text">海外扩张执行风险和库存管理</span></div></div>
+  </div>
+</div>
+</div>
+<div class="data-footer">更新时间 · 2026-04-07 14:16 BJT</div>
+</div>
+
+<!-- Tab 4：雷达页 -->
+<div class="tab-content" id="tab-radar">
+  <div class="section-card ">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="section-title">🧠 聪明钱动向</span>
+    <span class="section-arrow open">▾</span>
+  </div>
+  <div class="section-body " >
+    <div class="sm-flat-item">
+  <div class="sm-flat-header">
+    <div class="sm-flat-left">
+      <div class="sm-signal sm-neutral"></div>
+      <span class="sm-flat-name">桥水基金</span>
+      <span class="sm-tier-badge">旗舰</span>
+    </div>
+    <span class="source-link"><a href="https://blog.valuesense.io/ray-dalio-bridgewater-associates-portfolio-holdings/" target="_blank">ValueSense</a> ›</span>
+  </div>
+  <div class="sm-flat-action">Q4 13F持仓创新高，IVV(S&amp;P 500 ETF)仍为第一大持仓，大幅增持阿里巴巴和中国ETF——全天候配置向防御+新兴市场倾斜</div>
+</div><div class="sm-flat-item">
+  <div class="sm-flat-header">
+    <div class="sm-flat-left">
+      <div class="sm-signal sm-bearish"></div>
+      <span class="sm-flat-name">伯克希尔</span>
+      <span class="sm-tier-badge">旗舰</span>
+    </div>
+    <span class="source-link"><a href="https://hedgefollow.com/funds/Berkshire+Hathaway" target="_blank">HedgeFollow</a> ›</span>
+  </div>
+  <div class="sm-flat-action">现金储备持续创历史新高，Q4未有重大新建仓——巴菲特在高估值+地缘动荡中继续等待，现金水位是最强的宏观谨慎信号</div>
+</div><div class="sm-flat-item">
+  <div class="sm-flat-header">
+    <div class="sm-flat-left">
+      <div class="sm-signal sm-bullish"></div>
+      <span class="sm-flat-name">段永平 H&amp;H</span>
+      <span class="sm-tier-badge">旗舰</span>
+    </div>
+    <span class="source-link"><a href="https://xueqiu.com/8168266567/380604517" target="_blank">雪球</a> ›</span>
+  </div>
+  <div class="sm-flat-action">Q4大幅增持NVDA+新建仓MSFT/TSM/TEM，4/4亲赴Westfield调研泡泡玛特评价right business——极度集中策略不变，AI产业链判断坚定</div>
+</div><div class="sm-flat-item">
+  <div class="sm-flat-header">
+    <div class="sm-flat-left">
+      <div class="sm-signal sm-bullish"></div>
+      <span class="sm-flat-name">ARK Invest</span>
+      
+    </div>
+    <span class="source-link"><a href="https://cathiesark.com/ark-funds-combined/trades" target="_blank">Cathie's Ark</a> ›</span>
+  </div>
+  <div class="sm-flat-action">4月初持续加仓CRWV(CoreWeave)+KDK(Kodiak AI自动驾驶)，卖出TER(Teradyne)和SRTA(清仓)——AI算力租赁+自动驾驶双线押注不变</div>
+</div><div class="sm-flat-item">
+  <div class="sm-flat-header">
+    <div class="sm-flat-left">
+      <div class="sm-signal sm-bullish"></div>
+      <span class="sm-flat-name">高瓴资本</span>
+      
+    </div>
+    <span class="source-link">SEC EDGAR</span>
+  </div>
+  <div class="sm-flat-action">Q4 13F显示继续重仓中国科技+消费赛道，与桥水增持阿里方向一致——对中国AI和消费复苏的长期押注不变</div>
+</div><div class="sm-flat-item">
+  <div class="sm-flat-header">
+    <div class="sm-flat-left">
+      <div class="sm-signal sm-bullish"></div>
+      <span class="sm-flat-name">高盛 Kostin</span>
+      
+    </div>
+    <span class="source-link"><a href="https://www.financialcontent.com/article/marketminute-2025-12-22-goldman-sachs-2026-market-outlook-gdp-acceleration-and-the-s-and-p-500s-path-to-7200" target="_blank">Goldman Sachs</a> ›</span>
+  </div>
+  <div class="sm-flat-action">2026年S&amp;P 500目标价7200，GDP加速增长为核心假设——但伊朗战争和油价冲击尚未纳入模型，实际目标可能下修</div>
+</div><div class="sm-flat-item">
+  <div class="sm-flat-header">
+    <div class="sm-flat-left">
+      <div class="sm-signal sm-bearish"></div>
+      <span class="sm-flat-name">高盛对冲基金主管</span>
+      
+    </div>
+    <span class="source-link"><a href="https://www.zhitongcaijing.com/focus.html" target="_blank">智通财经</a> ›</span>
+  </div>
+  <div class="sm-flat-action">警告市场参与难度前所未见，下行风险压过上行——美伊冲突拖延越久越易演变为增长恐慌，建议简化持仓增持防御</div>
+</div>
+  </div>
+</div>
+<div class="section-card ">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="section-title">💼 聪明钱持仓</span>
+    <span class="section-arrow open">▾</span>
+  </div>
+  <div class="section-body " >
+    <div class="holdings-group">
+  <div class="holdings-group-header" onclick="toggleHoldings(this)">
+    <div><span class="holdings-manager">巴菲特 · 伯克希尔</span><span class="holdings-aum">待更新</span></div>
+    <div><span class="holdings-date">2025Q4 · 2月17日披露</span><span class="holdings-arrow">▲</span></div>
+  </div>
+  <div class="holdings-body open" style="max-height:1000px;opacity:1"><div class="holdings-row">
+  <div style="display:flex;align-items:center;gap:6px;flex:1">
+    <span class="holdings-rank">1</span>
+    <div class="holdings-stock-info"><span class="holdings-stock-name">苹果</span><span class="holdings-stock-symbol">AAPL</span></div>
+  </div>
+  <div style="display:flex;align-items:center"><span class="holdings-weight">22.6%</span><span class="holdings-change-tag">减持</span></div>
+</div><div class="holdings-row">
+  <div style="display:flex;align-items:center;gap:6px;flex:1">
+    <span class="holdings-rank">2</span>
+    <div class="holdings-stock-info"><span class="holdings-stock-name">美国银行</span><span class="holdings-stock-symbol">BAC</span></div>
+  </div>
+  <div style="display:flex;align-items:center"><span class="holdings-weight">12.4%</span><span class="holdings-change-tag">持仓不变</span></div>
+</div><div class="holdings-row">
+  <div style="display:flex;align-items:center;gap:6px;flex:1">
+    <span class="holdings-rank">3</span>
+    <div class="holdings-stock-info"><span class="holdings-stock-name">美国运通</span><span class="holdings-stock-symbol">AXP</span></div>
+  </div>
+  <div style="display:flex;align-items:center"><span class="holdings-weight">10.8%</span><span class="holdings-change-tag">持仓不变</span></div>
+</div><div class="holdings-row">
+  <div style="display:flex;align-items:center;gap:6px;flex:1">
+    <span class="holdings-rank">4</span>
+    <div class="holdings-stock-info"><span class="holdings-stock-name">可口可乐</span><span class="holdings-stock-symbol">KO</span></div>
+  </div>
+  <div style="display:flex;align-items:center"><span class="holdings-weight">9.5%</span><span class="holdings-change-tag">持仓不变</span></div>
+</div><div class="holdings-row">
+  <div style="display:flex;align-items:center;gap:6px;flex:1">
+    <span class="holdings-rank">5</span>
+    <div class="holdings-stock-info"><span class="holdings-stock-name">雪佛龙</span><span class="holdings-stock-symbol">CVX</span></div>
+  </div>
+  <div style="display:flex;align-items:center"><span class="holdings-weight">6.8%</span><span class="holdings-change-tag">持仓不变</span></div>
+</div><div class="holdings-footnote">现金储备持续创历史新高，Turnover极低，静候极端机会</div></div>
+</div><div class="holdings-group">
+  <div class="holdings-group-header" onclick="toggleHoldings(this)">
+    <div><span class="holdings-manager">段永平 · H&amp;H</span><span class="holdings-aum">待更新</span></div>
+    <div><span class="holdings-date">2025Q4 · 2月17日披露</span><span class="holdings-arrow">▲</span></div>
+  </div>
+  <div class="holdings-body open" style="max-height:1000px;opacity:1"><div class="holdings-row">
+  <div style="display:flex;align-items:center;gap:6px;flex:1">
+    <span class="holdings-rank">1</span>
+    <div class="holdings-stock-info"><span class="holdings-stock-name">苹果</span><span class="holdings-stock-symbol">AAPL</span></div>
+  </div>
+  <div style="display:flex;align-items:center"><span class="holdings-weight">待更新</span><span class="holdings-change-tag">减持</span></div>
+</div><div class="holdings-row">
+  <div style="display:flex;align-items:center;gap:6px;flex:1">
+    <span class="holdings-rank">2</span>
+    <div class="holdings-stock-info"><span class="holdings-stock-name">英伟达</span><span class="holdings-stock-symbol">NVDA</span></div>
+  </div>
+  <div style="display:flex;align-items:center"><span class="holdings-weight">待更新</span><span class="holdings-change-tag">大幅增持</span></div>
+</div><div class="holdings-row">
+  <div style="display:flex;align-items:center;gap:6px;flex:1">
+    <span class="holdings-rank">3</span>
+    <div class="holdings-stock-info"><span class="holdings-stock-name">伯克希尔</span><span class="holdings-stock-symbol">BRK.B</span></div>
+  </div>
+  <div style="display:flex;align-items:center"><span class="holdings-weight">待更新</span><span class="holdings-change-tag">增持</span></div>
+</div><div class="holdings-row">
+  <div style="display:flex;align-items:center;gap:6px;flex:1">
+    <span class="holdings-rank">4</span>
+    <div class="holdings-stock-info"><span class="holdings-stock-name">拼多多</span><span class="holdings-stock-symbol">PDD</span></div>
+  </div>
+  <div style="display:flex;align-items:center"><span class="holdings-weight">待更新</span><span class="holdings-change-tag">增持</span></div>
+</div><div class="holdings-row">
+  <div style="display:flex;align-items:center;gap:6px;flex:1">
+    <span class="holdings-rank">5</span>
+    <div class="holdings-stock-info"><span class="holdings-stock-name">谷歌</span><span class="holdings-stock-symbol">GOOGL</span></div>
+  </div>
+  <div style="display:flex;align-items:center"><span class="holdings-weight">待更新</span><span class="holdings-change-tag">减持</span></div>
+</div><div class="holdings-footnote">极度集中策略，Q4新建仓MSFT/TSM/TEM，泡泡玛特观察中(4/4实地调研)</div></div>
+</div>
+  </div>
+</div>
+<div class="section-card ">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="section-title">🛡️ 风险判断</span>
+    <span class="section-arrow open">▾</span>
+  </div>
+  <div class="section-body " >
+    <div class="risk-verdict"><div class="risk-verdict-text">布伦特飙升至$114深入红灯区间（最后通牒到期前日内涨3.6%），叠加黄金$4,676避险极端化——今夜8pm EST结果若触发基础设施打击，油价冲击$120将把VIX从黄灯推入红灯。</div></div><div class="traffic-lights"><div class="tl-item">
+  <div class="tl-dot tl-yellow"></div>
+  <div class="tl-name">VIX波动率</div>
+  <div class="tl-value">24.17</div>
+  <div class="tl-threshold">&lt;18绿 / 18-25黄 / &gt;25红</div>
+</div><div class="tl-item">
+  <div class="tl-dot tl-yellow"></div>
+  <div class="tl-name">10Y美债收益率</div>
+  <div class="tl-value">4.335%</div>
+  <div class="tl-threshold">&lt;4.0%绿 / 4.0-4.5%黄 / &gt;4.5%红</div>
+</div><div class="tl-item">
+  <div class="tl-dot tl-red"></div>
+  <div class="tl-name">布伦特原油</div>
+  <div class="tl-value">$114.07</div>
+  <div class="tl-threshold">&lt;$90绿 / $90-110黄 / &gt;$110红</div>
+</div><div class="tl-item">
+  <div class="tl-dot tl-green"></div>
+  <div class="tl-name">美元指数DXY</div>
+  <div class="tl-value">100.07</div>
+  <div class="tl-threshold">&lt;102绿 / 102-107黄 / &gt;107红</div>
+</div><div class="tl-item">
+  <div class="tl-dot tl-green"></div>
+  <div class="tl-name">HY信用利差</div>
+  <div class="tl-value">3.17%</div>
+  <div class="tl-threshold">&lt;4%绿 / 4-5%黄 / &gt;5%红</div>
+</div><div class="tl-item">
+  <div class="tl-dot tl-red"></div>
+  <div class="tl-name">黄金XAU</div>
+  <div class="tl-value">$4,676</div>
+  <div class="tl-threshold">&lt;$2200绿 / $2200-3500黄 / &gt;$3500红</div>
+</div><div class="tl-item">
+  <div class="tl-dot tl-green"></div>
+  <div class="tl-name">离岸人民币CNH</div>
+  <div class="tl-value">6.8773</div>
+  <div class="tl-threshold">&lt;7.15绿 / 7.15-7.30黄 / &gt;7.30红</div>
+</div></div>
+  </div>
+</div>
+<div class="section-card ">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="section-title">📅 本周前瞻</span>
+    <span class="section-arrow open">▾</span>
+  </div>
+  <div class="section-body " >
+    <div class="wa-item">
+  <div class="wa-left">
+    <div class="wa-date-badge wa-badge-event"><div class="wa-date-text">周三 4/8</div></div>
+    <div class="wa-line"></div>
+  </div>
+  <div class="wa-right">
+    <div class="wa-title-text">FOMC 3月会议纪要发布——聚焦联储对油价通胀的内部建模和降息路径讨论</div>
+    <div class="wa-impact"><span class="tag tag-red">高影响</span></div>
+  </div>
+</div><div class="wa-item">
+  <div class="wa-left">
+    <div class="wa-date-badge wa-badge-event"><div class="wa-date-text">周四 4/9</div></div>
+    <div class="wa-line"></div>
+  </div>
+  <div class="wa-right">
+    <div class="wa-title-text">核心PCE公布——美联储首选通胀指标，若年率回升至3%将确认通胀粘性</div>
+    <div class="wa-impact"><span class="tag tag-red">高影响</span></div>
+  </div>
+</div><div class="wa-item">
+  <div class="wa-left">
+    <div class="wa-date-badge wa-badge-event"><div class="wa-date-text">周五 4/10</div></div>
+    <div class="wa-line"></div>
+  </div>
+  <div class="wa-right">
+    <div class="wa-title-text">3月CPI发布——预期3.4%为2022年以来最大月涨幅，石油冲击能否固化通胀</div>
+    <div class="wa-impact"><span class="tag tag-red">高影响</span></div>
+  </div>
+</div><div class="wa-item">
+  <div class="wa-left">
+    <div class="wa-date-badge wa-badge-event"><div class="wa-date-text">周二 4/7</div></div>
+    
+  </div>
+  <div class="wa-right">
+    <div class="wa-title-text">特朗普伊朗最后通牒今夜到期——霍尔木兹重新开放或基础设施打击二选一</div>
+    <div class="wa-impact"><span class="tag tag-red">高影响</span></div>
+  </div>
+</div>
+  </div>
+</div>
+<div class="section-card ">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="section-title">📊 市场预测</span>
+    <span class="section-arrow open">▾</span>
+  </div>
+  <div class="section-body " >
+    <div class="pm-item">
+  <div class="pm-header">
+    <div class="pm-title">伊朗4月底前停火?</div>
+    <div class="pm-source">Polymarket</div>
+  </div>
+  <div class="pm-bar-row">
+    <div class="pm-bar-track"><div class="pm-bar-fill" style="width:38%"></div></div>
+    <div class="pm-probability">38%</div>
+  </div>
+  <div class="pm-change color-down">↓ 24h -8</div>
+</div><div class="pm-item">
+  <div class="pm-header">
+    <div class="pm-title">美联储6月降息?</div>
+    <div class="pm-source">CME FedWatch</div>
+  </div>
+  <div class="pm-bar-row">
+    <div class="pm-bar-track"><div class="pm-bar-fill" style="width:15%"></div></div>
+    <div class="pm-probability">15%</div>
+  </div>
+  <div class="pm-change color-down">↓ 24h -5</div>
+</div>
+  </div>
+</div>
+<div class="section-card ">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="section-title">⚡ 异动信号</span>
+    <span class="section-arrow open">▾</span>
+  </div>
+  <div class="section-body " >
+    <div class="alert-item alert-danger">
+  <div class="alert-top-row"><div class="alert-icon">🔴</div><div class="alert-time">14:16</div></div>
+  <div class="alert-text">布伦特原油飙升至$114.07(+3.6%)，特朗普威胁完全摧毁伊朗基础设施，最后通牒今夜8pm EST到期</div>
+  <div class="source-link" style="margin-top:4px"><a href="https://www.livemint.com/news/world/us-israel-iran-war-live-updates-donald-trump-strait-of-hormuz-ultimatum-oil-prices-bridges-power-plants-middle-east-news-11775522468948.html" target="_blank">LiveMint / ExchangeRates.org.uk</a> ›</div>
+</div><div class="alert-item alert-warning">
+  <div class="alert-top-row"><div class="alert-icon">🟡</div><div class="alert-time">06:00</div></div>
+  <div class="alert-text">伊朗正式拒绝45天停火提案并警告更具毁灭性的报复，谈判陷入僵局</div>
+  <div class="source-link" style="margin-top:4px"><a href="https://www.npr.org/2026/04/06/nx-s1-5775383/iran-war-updates" target="_blank">NPR</a> ›</div>
+</div><div class="alert-item alert-info">
+  <div class="alert-top-row"><div class="alert-icon">🟢</div><div class="alert-time">08:30</div></div>
+  <div class="alert-text">3月非农+56K(前值-92K)好于预期，但劳动力市场仍在降温通道中</div>
+  <div class="source-link" style="margin-top:4px"><a href="https://menafn.com/1110944778/Key-Market-Events-For-The-Week-Of-April-610-2026" target="_blank">MENAFN</a> ›</div>
+</div>
+  </div>
+</div>
+<div class="data-footer">更新时间 · 2026-04-07 14:16 BJT</div>
+</div>
+
+<!-- 底部 TabBar -->
+<div class="tab-bar">
+  <div class="tab-item active" onclick="switchTab('briefing')">
+    <span class="tab-icon">📌</span>简报
+  </div>
+  <div class="tab-item" onclick="switchTab('markets')">
+    <span class="tab-icon">📊</span>市场
+  </div>
+  <div class="tab-item" onclick="switchTab('watchlist')">
+    <span class="tab-icon">⭐</span>标的
+  </div>
+  <div class="tab-item" onclick="switchTab('radar')">
+    <span class="tab-icon">🛡️</span>雷达
+  </div>
+</div>
+
+<!-- ==================== JavaScript ==================== -->
+<script>
+// Tab 切换
+function switchTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-item').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  document.querySelectorAll('.tab-item').forEach(el => {
+    if (el.textContent.trim().includes({briefing:'简报',markets:'市场',watchlist:'标的',radar:'雷达'}[name])) el.classList.add('active');
+  });
+  window.scrollTo(0, 0);
+}
+
+// 市场页子 Tab 切换
+function switchMarketTab(name) {
+  document.querySelectorAll('.market-panel').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.market-tab').forEach(el => el.classList.remove('active'));
+  document.getElementById('mp-' + name).classList.add('active');
+  document.querySelectorAll('.market-tab').forEach(el => {
+    if (el.getAttribute('data-tab') === name) el.classList.add('active');
+  });
+}
+
+// 标的页板块切换
+function switchSector(id) {
+  document.querySelectorAll('.sector-tab').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.sector-overview').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.stock-card-group').forEach(el => el.style.display = 'none');
+  document.querySelector('.sector-tab[data-id="' + id + '"]').classList.add('active');
+  var overview = document.getElementById('so-' + id);
+  if (overview) overview.classList.add('active');
+  var group = document.getElementById('sg-' + id);
+  if (group) group.style.display = 'block';
+}
+
+// stock-card 展开/收起
+function toggleStock(el) {
+  var detail = el.querySelector('.sc-detail');
+  var hint = el.querySelector('.sc-expand-hint');
+  if (detail.classList.contains('open')) {
+    detail.classList.remove('open');
+    if (hint) hint.textContent = '﹀';
+  } else {
+    detail.classList.add('open');
+    if (hint) hint.textContent = '︿';
+  }
+}
+
+// section-card 折叠/展开
+function toggleSection(btn) {
+  var card = btn.closest('.section-card');
+  var body = card.querySelector('.section-body');
+  var arrow = btn.querySelector('.section-arrow');
+  if (body.classList.contains('collapsed')) {
+    body.classList.remove('collapsed');
+    body.style.maxHeight = body.scrollHeight + 200 + 'px';
+    body.style.opacity = '1';
+    body.style.padding = '0 16px 16px';
+    if (arrow) arrow.classList.add('open');
+  } else {
+    body.classList.add('collapsed');
+    body.style.maxHeight = '0';
+    body.style.opacity = '0';
+    body.style.padding = '0 16px 0';
+    if (arrow) arrow.classList.remove('open');
+  }
+}
+
+// 雷达页持仓折叠
+function toggleHoldings(el) {
+  var body = el.nextElementSibling;
+  var arrow = el.querySelector('.holdings-arrow');
+  if (body.classList.contains('open')) {
+    body.classList.remove('open');
+    body.style.maxHeight = '0';
+    body.style.opacity = '0';
+    if (arrow) arrow.textContent = '▼';
+  } else {
+    body.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 100 + 'px';
+    body.style.opacity = '1';
+    if (arrow) arrow.textContent = '▲';
+  }
+}
+</script>
+
+<div class="gen-footer">投研鸭 Skill v1.0 · 生成时间 2026-04-07 16:21:59 · 数据来源: 实时搜索</div>
+</body>
+</html>
