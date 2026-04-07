@@ -142,9 +142,9 @@ else
     echo "   建议：网络恢复后可手动补跑 refresh_verified_snapshot.py 提升 sparkline 精度"
 fi
 if [ $SYNC_EXIT -eq 0 ]; then
-    echo "   🌐 公开 API 本地数据已同步 + 上传包已准备（需 AI 推送到 AnyDev 服务器）"
-    echo "   📌 远程推送：AI 调用 AnyDev file_upload 上传 /tmp/touyanduck-api-latest.tar.gz"
-    echo "   📌 手动验证：curl -s http://21.214.207.96:8080/api/latest/meta.json"
+    echo "   🌐 公开 API 本地数据已同步 + 上传包已准备"
+    echo "   📌 AnyDev 远程同步由 daily-app Skill 第4.3阶段自动完成"
+    echo "   📌 手动验证: curl -s http://21.214.207.96:8080/touyanduck | head -3"
 else
     echo "   ⚠️  公开 API 同步失败，不影响小程序数据（可手动重跑 sync_to_edgeone.sh）"
 fi

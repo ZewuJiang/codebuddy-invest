@@ -4,7 +4,7 @@ description: 投研鸭二级市场每日策略简报，每工作日更新，每4
 ---
 # 🦆 投研鸭 — 二级市场每日策略简报
 
-> 数据源: 投研鸭投资分析系统 v7.3 | 覆盖: 美股/M7/亚太/大宗/加密/聪明钱/AI产业链/预测市场
+> 数据源: 投研鸭投资分析系统 v7.4 | 覆盖: 美股/M7/亚太/大宗/加密/聪明钱/AI产业链/预测市场
 > 更新频率: 每工作日全量采集 + 每4小时刷新行情
 > 数据质量: 八大铁律 + 29条致命错误零容忍
 
@@ -20,7 +20,7 @@ description: 投研鸭二级市场每日策略简报，每工作日更新，每4
 ### 第一步：获取最新简报
 
 ```bash
-curl -s "http://21.214.207.96:8080/touyanduck"
+curl -s "https://zewujiang.github.io/touyanduck-api/briefing.md"
 ```
 
 这会返回一整页 Markdown 格式的简报（约 14KB），包含：
@@ -48,13 +48,14 @@ curl -s "http://21.214.207.96:8080/touyanduck"
 | --------- | --------------------------------- |
 | ≤ 12小时 | ✅ 数据新鲜，正常展示             |
 | 12~24小时 | ⚠️ 提示数据可能不含最新盘后变动 |
-| > 24小时  | 🔴 警告数据已过期，告知用户      |
+| > 24小时  | 🔴 警告数据已过期，告知用户       |
 
 ### 第三步：根据用户问题回答
 
 阅读简报 Markdown 内容，从中提取对应信息回答用户。
 
 **回答原则**：
+
 1. 简报已包含所有数据和分析，直接从中提取即可
 2. 保留 ◆/◇ 证据标记和来源链接，让用户知道信息可信度
 3. 保留【】重点标记，这是核心强调
@@ -66,10 +67,10 @@ curl -s "http://21.214.207.96:8080/touyanduck"
 简报 Markdown 已覆盖 80%+ 的问题。如需原始 JSON 数据（如精确到小数的价格、sparkline 数组等），可按需获取：
 
 ```bash
-curl -s "http://21.214.207.96:8080/api/latest/briefing.json"   # 核心简报
-curl -s "http://21.214.207.96:8080/api/latest/markets.json"    # 全球市场详情
-curl -s "http://21.214.207.96:8080/api/latest/watchlist.json"  # 重点标的分析
-curl -s "http://21.214.207.96:8080/api/latest/radar.json"      # 风险雷达
+curl -s "https://zewujiang.github.io/touyanduck-api/briefing.json"   # 核心简报
+curl -s "https://zewujiang.github.io/touyanduck-api/markets.json"    # 全球市场详情
+curl -s "https://zewujiang.github.io/touyanduck-api/watchlist.json"  # 重点标的分析
+curl -s "https://zewujiang.github.io/touyanduck-api/radar.json"      # 风险雷达
 ```
 
 ## 免责声明
@@ -78,4 +79,4 @@ curl -s "http://21.214.207.96:8080/api/latest/radar.json"      # 风险雷达
 
 ---
 
-📱 微信小程序: 搜索「投研鸭」 | 🦆 投研鸭 v7.3
+📱 微信小程序: 搜索「投研鸭」 | 🦆 投研鸭 v7.4

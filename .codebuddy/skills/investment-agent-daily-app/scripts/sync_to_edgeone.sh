@@ -17,9 +17,9 @@
 #     → http://21.214.207.96:8080/api/latest/ 公网可访问
 #
 # 远程同步说明：
-#   本脚本的远程同步部分（第3步）设计为由 CodeBuddy AI 调用
-#   AnyDev Integration API（file_upload + webshell）完成。
-#   手动运行时仅执行本地同步（第1-2步），远程同步需通过 AI 触发。
+#   本脚本负责本地渲染（render_briefing.py）+ 打包（tar.gz）。
+#   AnyDev 远程上传（file_upload + webshell 解压）由 daily-app SKILL.md
+#   第4.3阶段统一调用，手动运行本脚本时仅执行本地部分（第0.5-3步）。
 # ============================================================
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -128,8 +128,9 @@ if [ $COPY_OK -eq 1 ]; then
     echo "   文件列表:"
     ls -la "$API_DIR"/*.json 2>/dev/null | awk '{print "     " $NF " (" $5 " bytes)"}'
     echo ""
-    echo "   🌐 公网 API: http://${REMOTE_IP}:${REMOTE_PORT}/api/latest/"
-    echo "   📦 上传包: $UPLOAD_ARCHIVE（等待 AI 推送到远程服务器）"
+    echo "   🌐 公网 API: https://zewujiang.github.io/touyanduck-api/ (GitHub Pages)"
+    echo "   🌐 备用 API: http://${REMOTE_IP}:${REMOTE_PORT}/api/latest/ (AnyDev 内网)"
+    echo "   📦 上传包: $UPLOAD_ARCHIVE（等待 AI 推送到 AnyDev 服务器）"
 else
     echo "⚠️  数据同步完成（部分文件跳过）"
     echo "   请检查源数据目录: $SYNC_DIR"
