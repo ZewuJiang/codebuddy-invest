@@ -261,8 +261,8 @@
   "commodities": [
     {
       "name": "黄金 XAU",
-      "price": "$4,660.50",
-      "change": 0.2,
+      "price": "$4,676.04",
+      "change": 0.42,
       "sparkline": [
         4495.17,
         4510.95,
@@ -270,13 +270,13 @@
         4758.1,
         4675.99,
         4650.36,
-        4658.29
+        4643.53
       ]
     },
     {
       "name": "布伦特原油",
-      "price": "$110.23",
-      "change": 0.42,
+      "price": "$114.07",
+      "change": 3.63,
       "sparkline": [
         71.63,
         71.54,
@@ -298,13 +298,13 @@
         98.85,
         112.04,
         112.56,
-        113.28
+        115.56
       ]
     },
     {
       "name": "美元指数 DXY",
-      "price": "100.03",
-      "change": 0.0,
+      "price": "100.07",
+      "change": 0.06,
       "sparkline": [
         100.8,
         100.5,
@@ -317,7 +317,7 @@
     },
     {
       "name": "10Y美债",
-      "price": "4.34%",
+      "price": "4.335%",
       "change": -0.01,
       "sparkline": [
         4.3,
@@ -331,7 +331,7 @@
     },
     {
       "name": "离岸人民币 CNH",
-      "price": "6.877",
+      "price": "6.8773",
       "change": 0.01,
       "sparkline": [
         6.862,
@@ -348,8 +348,8 @@
   "cryptos": [
     {
       "name": "比特币 BTC",
-      "price": "$68,766",
-      "change": -0.14,
+      "price": "$68,524",
+      "change": -0.35,
       "sparkline": [
         69200,
         68800,
@@ -362,8 +362,8 @@
     },
     {
       "name": "以太坊 ETH",
-      "price": "$2,110",
-      "change": -0.35,
+      "price": "$2,100",
+      "change": -0.47,
       "sparkline": [
         2150,
         2130,
@@ -451,5 +451,11 @@
       "text": "房地产XLRE-0.42%受10Y美债4.34%压制"
     }
   ],
-  "dataTime": "2026-04-07 08:44 BJT"
+  "dataTime": "2026-04-07 14:16 BJT",
+  "_meta": {
+    "sourceType": "refresh_update",
+    "generatedAt": "2026-04-07T14:16:00+08:00",
+    "skillVersion": "v7.1",
+    "refreshCount": 1
+  }
 }

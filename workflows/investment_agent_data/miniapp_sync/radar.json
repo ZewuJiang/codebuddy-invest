@@ -25,19 +25,19 @@
     },
     {
       "name": "10Y美债收益率",
-      "value": "4.34%",
+      "value": "4.335%",
       "status": "yellow",
       "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
     },
     {
       "name": "布伦特原油",
-      "value": "$110.23",
+      "value": "$114.07",
       "status": "red",
       "threshold": "<$90绿 / $90-110黄 / >$110红"
     },
     {
       "name": "美元指数DXY",
-      "value": "100.03",
+      "value": "100.07",
       "status": "green",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
@@ -49,20 +49,20 @@
     },
     {
       "name": "黄金XAU",
-      "value": "$4,660",
+      "value": "$4,676",
       "status": "red",
       "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "6.877",
+      "value": "6.8773",
       "status": "green",
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
   "riskScore": 60,
   "riskLevel": "medium",
-  "riskAdvice": "布伦特$110突破红灯区间叠加黄金$4,660避险极端化——今夜特朗普最后通牒到期若升级基础设施打击，油价可能冲击$120并将VIX从黄灯推入红灯。",
+  "riskAdvice": "布伦特飙升至$114深入红灯区间（最后通牒到期前日内涨3.6%），叠加黄金$4,676避险极端化——今夜8pm EST结果若触发基础设施打击，油价冲击$120将把VIX从黄灯推入红灯。",
   "monitorTable": [],
   "riskAlerts": [],
   "events": [
@@ -98,10 +98,10 @@
   "alerts": [
     {
       "level": "danger",
-      "text": "特朗普设定4/7 20:00 EDT最后通牒，若伊朗不重新开放霍尔木兹海峡将打击电厂和桥梁，地缘升级风险今夜到达临界点",
-      "time": "08:44",
-      "source": "Gulf News",
-      "url": "https://gulfnews.com/world/mena/if-no-hormuz-deal-trump-sets-tuesday-800-pm-april-7-midnight-gmt-as-power-plant-day-and-bridge-day-in-stark-threat-to-iran-after-us-airman-rescued-1.500495959"
+      "text": "布伦特原油飙升至$114.07(+3.6%)，特朗普威胁完全摧毁伊朗基础设施，最后通牒今夜8pm EST到期",
+      "time": "14:16",
+      "source": "LiveMint / ExchangeRates.org.uk",
+      "url": "https://www.livemint.com/news/world/us-israel-iran-war-live-updates-donald-trump-strait-of-hormuz-ultimatum-oil-prices-bridges-power-plants-middle-east-news-11775522468948.html"
     },
     {
       "level": "warning",
@@ -215,10 +215,11 @@
       "footnote": "极度集中策略，Q4新建仓MSFT/TSM/TEM，泡泡玛特观察中(4/4实地调研)"
     }
   ],
-  "dataTime": "2026-04-07 08:44 BJT",
+  "dataTime": "2026-04-07 14:16 BJT",
   "_meta": {
-    "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-07T08:44:00+08:00",
-    "skillVersion": "v6.1"
+    "sourceType": "refresh_update",
+    "generatedAt": "2026-04-07T14:16:00+08:00",
+    "skillVersion": "v7.1",
+    "refreshCount": 1
   }
 }
