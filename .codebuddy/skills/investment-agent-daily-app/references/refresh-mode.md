@@ -18,6 +18,21 @@
 2. **保留字段零篡改**：Refresh 不得修改任何保留字段，即使 AI 认为"可以写得更好"——保留字段的质量由 Heavy 模式终审保障
 3. **结构完整性不破坏**：Refresh 产出的 JSON 必须 100% 对齐 json-schema.md，不新增、不缺失、不改名字段
 
+**第四条红线（2026-04-07 新增，血泪教训）**：
+4. **事件状态时效性强制校验**：R0 阶段必须执行"事件状态比对"——将当前时间与 Heavy 版 coreEvent/riskPoints 中的时效性文字对比，若发现过期描述（如"今夜到期"已到期、"待定"事件已发生），**必须强制更新 briefing.json 的以下字段**：
+   - `takeaway`（从🔒升级为⚠️条件更新）
+   - `coreEvent.title`（从🔒升级为⚠️条件更新）
+   - `coreEvent.chain[]`（末尾追加"已发生"事件节点）
+   - `riskPoints[]`（从🔒升级为⚠️条件更新）
+   - `riskNote`（从🔒升级为⚠️条件更新）
+   - `marketSummaryPoints[]`（从🔒升级为⚠️条件更新）
+   - `actionHints[]`（从🔒升级为⚠️条件更新）
+
+   **触发条件（满足任意一条即触发）**：
+   - coreEvent/riskPoints 中含有时效性词汇（"今夜""今日""即将""最后通牒到期""待定""可能发生"），且事件时间已过
+   - R0 搜索发现事件已以某种方式落地（无论升级/降级/取消），与 Heavy 版预期不符
+   - riskScore 在本次 Refresh 中发生了 ≥20 分的变化（如从80→100），说明局势有重大变化，文案必须同步
+
 ---
 
 ## 模式判定逻辑
@@ -65,6 +80,24 @@ web_search: "美股 最新消息 今日" （可选，亚洲时段补充）
 - 有重大突发（战争升级/央行紧急行动/黑天鹅事件）→ 后续 R1/R2 正常执行 + 更新 alerts + 考虑更新 coreEvent.chain
 - 无重大突发 → 后续 R1/R2 正常执行，alerts/coreEvent 保留基准版
 
+**【新增 v1.2】事件状态时效性强制比对（R0 必做，不可跳过）**：
+```
+Step R0-B：读取基准 briefing.json 的以下字段：
+  - coreEvent.title / coreEvent.chain[-1].title
+  - riskPoints[]
+  - actionHints[0].content
+
+检查是否含有以下时效性词汇：
+  "今夜" / "今日" / "即将" / "最后通牒到期" / "待定" / "可能发生" / "尚未" / 具体时间点（如"20:00"）
+
+若包含 → 比对当前时间，判断该事件是否已发生或已过期
+  → 已发生/已过期 → 标记为"需要更新"，在R3阶段执行相应字段的条件更新
+  → 未发生 → 继续保留
+
+同时检查 riskScore 变化幅度：
+  若本次 Refresh 计算出的 riskScore 与基准 riskScore 差值 ≥20 → 标记"需要更新"
+```
+
 #### R1 — 美股行情刷新（必执行）
 
 ```
@@ -97,17 +130,29 @@ web_search: "gold price brent oil DXY today"
 - 亚太收盘后（北京时间 14:00+）：亚太行情为当日收盘数据，与 Heavy 可能不同（因 Heavy 在 06:00 采集时亚太尚未开盘）
 - 大宗商品/加密货币全天交易，每次 Refresh 都应有最新数据
 
-#### R3 — 异动信号检查（条件执行）
+#### R3 — 异动信号检查 + 文案时效更新（条件执行）
 
-**触发条件**：R0 发现重大突发事件时才执行
-**产出**：更新 radar.json 的 alerts[] 数组
+**触发条件 A**：R0 发现重大突发事件时才执行异动信号更新
+**产出 A**：更新 radar.json 的 alerts[] 数组
+
+**触发条件 B（v1.2 新增）**：R0-B 标记了"需要更新"的字段
+**产出 B**：更新 briefing.json 的以下条件字段（根据实际情况选择需要更新的）：
+- `takeaway`：重写，反映事件最新状态（已发生/已解除/已升级）
+- `coreEvent.title`：更新标题
+- `coreEvent.chain[]`：末尾追加"【已发生/已解除】..."节点
+- `riskPoints[]`：全部重写，去掉"今夜/即将"等时效词，改为事后陈述
+- `riskNote`：同步更新
+- `marketSummaryPoints[]`：同步更新
+- `actionHints[]`：将"密切关注"类建议升级为"执行对冲/持有/减仓"类行动建议
 
 ```
-# 仅当 R0 发现突发事件时执行
+# 仅当 R0 发现突发事件时执行 A
 web_search: "{突发事件关键词} latest impact markets"
+
+# 仅当 R0-B 标记需要更新时执行 B（无需额外搜索，基于已有的 R0+riskScore 数据重写文案）
 ```
 
-**未触发时**：alerts[] 保留基准 JSON 的内容不变
+**未触发时**：alerts[] 保留基准 JSON 的内容不变；上述文案字段保留不动
 
 ---
 
@@ -120,18 +165,18 @@ web_search: "{突发事件关键词} latest impact markets"
 | `date` | 🔄 更新 | 写当天日期 |
 | `dataTime` | 🔄 更新 | 写 Refresh 执行时间（如 "2026-04-07 10:00 BJT"） |
 | `timeStatus` | 🔄 更新 | 重新计算 bjt/est/marketStatus；**`refreshInterval` 从 `"每日更新"` 改为 `"每4小时更新"`**（Refresh 模式标识） |
-| `takeaway` | 🔒 保留 | Heavy 版的核心结论，Refresh 不改 |
-| `coreEvent.title` | 🔒 保留 | 当天核心事件标题不变 |
+| `takeaway` | ⚠️ 条件更新 | **默认保留**；但触发第四条红线时必须更新（事件状态过期/riskScore变化≥20分） |
+| `coreEvent.title` | ⚠️ 条件更新 | **默认保留**；触发第四条红线时必须更新标题反映事件最新状态 |
 | `coreEvent.brief` | 🔒 保留 | 极简摘要不变 |
-| `coreEvent.chain[]` | ⚠️ 条件更新 | **仅当 R0 发现重大突发事件时**，在 chain 末尾追加新事件（不删除原有事件）；无突发则保留 |
+| `coreEvent.chain[]` | ⚠️ 条件更新 | **仅当 R0 发现重大突发事件或事件已落地时**，在 chain 末尾追加新事件（不删除原有事件）；无突发则保留 |
 | `globalReaction[]` | 🔄 更新 | 刷新 value/direction（行情变了，资产反应自然要变）；note 保留 |
 | `coreJudgments[]` | 🔒 保留 | 3条深度判断一天不变 |
-| `actionHints[]` | 🔒 保留 | 操作建议一天不变 |
+| `actionHints[]` | ⚠️ 条件更新 | **默认保留**；触发第四条红线时（事件已落地/riskScore封顶）必须更新操作建议 |
 | `sentimentScore` | ⚠️ 微调 | 允许基于最新行情微调 ±5 分，但不得大幅偏离 Heavy 版。**微调触发条件**：①VIX 变化 >3 点（每3点 ≈ ±2分）；②标普500 变化 >1.5%（每1.5% ≈ ±2分）；③出现重大突发事件（R0 判定有突发 → ±3-5分）。**无触发条件时保持原值不动** |
 | `sentimentLabel` | ⚠️ 联动 | 若 sentimentScore 微调后跨越枚举阈值，则同步更新 |
-| `riskNote` | 🔒 保留 | Heavy 版风险摘要 |
-| `riskPoints[]` | 🔒 保留 | Heavy 版风险点 |
-| `marketSummaryPoints[]` | 🔒 保留 | Heavy 版市场摘要 |
+| `riskNote` | ⚠️ 条件更新 | **默认保留**；触发第四条红线时必须更新反映最新风险状态 |
+| `riskPoints[]` | ⚠️ 条件更新 | **默认保留**；触发第四条红线时（riskScore变化≥20或事件已落地）必须更新 |
+| `marketSummaryPoints[]` | ⚠️ 条件更新 | **默认保留**；触发第四条红线时必须同步更新 |
 | `smartMoney[]` | 🔒 保留 | 聪明钱建议一天不变 |
 | `topHoldings[]` | 🔒 保留 | 持仓参考季度更新 |
 | `voiceText` | 🔒 保留 | 语音文稿 Heavy 版 |
@@ -255,6 +300,7 @@ Refresh 在不同时段采集的行情数据时态不同，需要在 `dataTime` 
 | R5 | **枚举值合规** | direction/marketStatus/sourceType 等在合法范围 |
 | R6 | **保留字段未被篡改** | 抽检 3-5 个保留字段（coreJudgments/analysis/smartMoneyDetail），确认与基准 JSON 完全一致 |
 | R7 | **JSON 语法合法** | 4个文件均可被 `json.loads()` 正确解析 |
+| R8 | **【v1.2 新增】文案时效性校验** | 检查 briefing.json 的 takeaway/riskPoints/riskNote 是否含有已过期的时效词汇（"今夜""即将""最后通牒到期"等）；若含有且对应事件已发生 → **必须打回重做，不允许带着过期文案通过终审** |
 
 ### 跳过项（Heavy 已保障）
 
@@ -361,5 +407,6 @@ Refresh 在不同时段采集的行情数据时态不同，需要在 `dataTime` 
 
 ---
 
+> v1.2 — 2026-04-07 | 【血泪教训】新增第四条红线：事件状态时效性强制校验。R0新增R0-B步骤（时效词检测+riskScore变化≥20触发），R3新增触发条件B（文案条件更新），终审新增R8门禁（过期文案不得通过终审）。字段边界表：takeaway/coreEvent.title/riskPoints/riskNote/marketSummaryPoints/actionHints从🔒保留升级为⚠️条件更新。背景：22:00 Refresh执行时riskScore从80→100（美以打击伊朗），但briefing文案仍写"今夜最后通牒到期"，大老板在小程序看到完全过期信息。
 > v1.1 — 2026-04-07 | refreshInterval Refresh模式写"每4小时更新"；sentimentScore微调量化规则（VIX±3点/SPX±1.5%/突发事件）；_meta.refreshCount字段；R1批次M7默认策略明确化；briefing/markets/watchlist/radar四个JSON的_meta边界表同步补全refreshCount。
 > v1.0 — 2026-04-07 | 初始版本，新增 Refresh 模式完整规范。

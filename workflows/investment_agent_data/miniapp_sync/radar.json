@@ -1,108 +1,121 @@
 {
-  "date": "2026-04-07",
+  "date": "2026-04-08",
   "predictions": [
     {
-      "title": "伊朗4月底前停火?",
+      "title": "美伊4月底前停火?",
       "source": "Polymarket",
-      "probability": 38,
+      "probability": 46,
       "trend": "down",
-      "change24h": -8
+      "change24h": -5
     },
     {
       "title": "美联储6月降息?",
       "source": "CME FedWatch",
-      "probability": 15,
+      "probability": 28,
       "trend": "down",
-      "change24h": -5
+      "change24h": -4
+    },
+    {
+      "title": "2026年内美国衰退?",
+      "source": "Polymarket",
+      "probability": 35,
+      "trend": "up",
+      "change24h": 3
     }
   ],
   "trafficLights": [
     {
       "name": "VIX波动率",
-      "value": "26.23",
+      "value": "25.78",
       "status": "red",
       "threshold": "<18绿 / 18-25黄 / >25红"
     },
     {
       "name": "10Y美债收益率",
-      "value": "4.34%",
+      "value": "4.30%",
       "status": "yellow",
       "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
     },
     {
       "name": "布伦特原油",
-      "value": "$110.62",
-      "status": "red",
+      "value": "$109.62",
+      "status": "yellow",
       "threshold": "<$90绿 / $90-110黄 / >$110红"
     },
     {
       "name": "美元指数DXY",
-      "value": "99.95",
+      "value": "99.50",
       "status": "green",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
     {
       "name": "HY信用利差",
-      "value": "3.17%",
-      "status": "green",
+      "value": "4.2%",
+      "status": "yellow",
       "threshold": "<4%绿 / 4-5%黄 / >5%红"
     },
     {
       "name": "黄金XAU",
-      "value": "$4,634",
+      "value": "$4,675",
       "status": "red",
       "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "6.8642",
-      "status": "green",
+      "value": "7.26",
+      "status": "yellow",
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
   "riskScore": 100,
   "riskLevel": "high",
-  "riskAdvice": "VIX突破26进入红灯区叠加布伦特原油$110.62突破红灯阈值，黄金$4,634维持红灯——美以打击伊朗霍拉马巴德机场推动三项核心风险信号同时亮红，若停火谈判本周无实质进展，当前避险定价可能进一步加剧。",
+  "riskAdvice": "VIX 25.78已亮红灯（恐慌区间），黄金$4,675避险情绪极端叠加布伦特$109.62逼近红灯——若周五CPI确认通胀因油价上行超预期，全年降息预期将被进一步压缩。",
   "monitorTable": [],
   "riskAlerts": [],
   "events": [
     {
-      "date": "周三 4/8",
-      "title": "FOMC 3月会议纪要发布——聚焦联储对油价通胀的内部建模和降息路径讨论",
+      "date": "周三",
+      "title": "FOMC 3月会议纪要发布——聚焦美联储对伊朗战争通胀传导的讨论措辞",
       "impact": "high",
       "source": "Federal Reserve",
       "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
     },
     {
-      "date": "周四 4/9",
-      "title": "核心PCE公布——美联储首选通胀指标，若年率回升至3%将确认通胀粘性",
+      "date": "周四",
+      "title": "2月PCE/核心PCE数据——美联储最关注的通胀指标，油价上涨前的基线读数",
       "impact": "high",
       "source": "BEA",
       "url": "https://www.bea.gov/news/schedule"
     },
     {
-      "date": "周五 4/10",
-      "title": "3月CPI发布——预期3.4%为2022年以来最大月涨幅，石油冲击能否固化通胀",
+      "date": "周五",
+      "title": "3月CPI发布——本周最重要数据，汽油月涨叠加关税一周年，决定全年通胀叙事",
       "impact": "high",
       "source": "BLS",
-      "url": "https://www.bls.gov/schedule/news_release/cpi.htm"
-    },
-    {
-      "date": "周二 4/7",
-      "title": "特朗普伊朗最后通牒今夜到期——霍尔木兹重新开放或基础设施打击二选一",
-      "impact": "high",
-      "source": "CNN",
-      "url": "https://www.cnn.com/2026/04/06/world/live-news/iran-war-us-trump-oil"
+      "url": "https://www.bls.gov/cpi/"
     }
   ],
   "alerts": [
     {
       "level": "danger",
-      "text": "美以联军打击伊朗霍拉马巴德机场，特朗普发出最后通牒称周二为'电厂日+桥梁日'，停火希望急剧降温，布伦特原油突破$110"
+      "text": "特朗普设定4/7晚8点最后通牒要求伊朗重新开放霍尔木兹海峡，否则将打击发电厂和桥梁，巴基斯坦总理斡旋提议推迟两周",
+      "time": "20:00",
+      "source": "Reuters",
+      "url": "https://www.reuters.com/"
     },
     {
       "level": "warning",
-      "text": "VIX飙升至26.23（+8.52%），标普500盘中跌破6560，纳指跌超1%，市场避险情绪显著升温"
+      "text": "纽约联储3月通胀预期调查：1年期升至3.4%(+0.4pct)，汽油价格预期9.4%(2022年3月以来最高)",
+      "time": "10:00",
+      "source": "NY Fed",
+      "url": "https://www.newyorkfed.org/"
+    },
+    {
+      "level": "info",
+      "text": "UBS下调2026年标普500目标价至7500(前值7700)，中期目标7000(前值7250)，理由为能源驱动通胀不确定性",
+      "time": "09:00",
+      "source": "UBS",
+      "url": "https://www.thestreet.com/investing/ubs-resets-2026-sp-500-target"
     }
   ],
   "smartMoneyDetail": [
@@ -110,25 +123,18 @@
       "tier": "T1旗舰",
       "funds": [
         {
-          "name": "桥水基金",
-          "action": "Q4 13F持仓创新高，IVV(S&P 500 ETF)仍为第一大持仓，大幅增持阿里巴巴和中国ETF——全天候配置向防御+新兴市场倾斜",
-          "signal": "neutral",
-          "source": "ValueSense",
-          "url": "https://blog.valuesense.io/ray-dalio-bridgewater-associates-portfolio-holdings/"
-        },
-        {
           "name": "伯克希尔",
-          "action": "现金储备持续创历史新高，Q4未有重大新建仓——巴菲特在高估值+地缘动荡中继续等待，现金水位是最强的宏观谨慎信号",
-          "signal": "bearish",
-          "source": "HedgeFollow",
-          "url": "https://hedgefollow.com/funds/Berkshire+Hathaway"
+          "action": "Greg Abel重启回购(巴菲特亲自批准)，这是2024年5月以来首次回购(暂停21个月)，信号：管理层认为股价低于内在价值",
+          "signal": "bullish",
+          "source": "CNBC",
+          "url": "https://www.cnbc.com/2026/03/31/warren-buffett-says-hes-still-making-calls-on-investments-at-berkshire-flags-tiny-new-buy.html"
         },
         {
-          "name": "段永平 H&H",
-          "action": "Q4大幅增持NVDA+新建仓MSFT/TSM/TEM，4/4亲赴Westfield调研泡泡玛特评价right business——极度集中策略不变，AI产业链判断坚定",
-          "signal": "bullish",
-          "source": "雪球",
-          "url": "https://xueqiu.com/8168266567/380604517"
+          "name": "贝莱德",
+          "action": "高盛信用调查显示做空信用市场仓位创历史新高，固收基金3月占ETF总流入75%+，资金大规模涌入超短期国债",
+          "signal": "bearish",
+          "source": "Goldman Sachs",
+          "url": "https://www.cnbc.com/2026/04/06/stock-market-today-live-updates.html"
         }
       ]
     },
@@ -137,16 +143,17 @@
       "funds": [
         {
           "name": "ARK Invest",
-          "action": "4月初持续加仓CRWV(CoreWeave)+KDK(Kodiak AI自动驾驶)，卖出TER(Teradyne)和SRTA(清仓)——AI算力租赁+自动驾驶双线押注不变",
+          "action": "4/6跨三只基金买入特斯拉$14.3M(ARKK $10.6M+ARKQ $3.3M+ARKX $328K)，同时清仓Teradyne $7.9M和BWX Technologies $6.4M",
           "signal": "bullish",
           "source": "Cathie's Ark",
           "url": "https://cathiesark.com/ark-funds-combined/trades"
         },
         {
-          "name": "高瓴资本",
-          "action": "Q4 13F显示继续重仓中国科技+消费赛道，与桥水增持阿里方向一致——对中国AI和消费复苏的长期押注不变",
+          "name": "Pershing Square",
+          "action": "Bill Ackman以$644亿竞购环球音乐集团(UMG)，溢价78%，为2026年最大PE交易之一",
           "signal": "bullish",
-          "source": "SEC EDGAR"
+          "source": "CNBC",
+          "url": "https://www.cnbc.com/2026/04/06/stock-market-today-live-updates.html"
         }
       ]
     },
@@ -154,19 +161,11 @@
       "tier": "策略师观点",
       "funds": [
         {
-          "name": "高盛 Kostin",
-          "action": "2026年S&P 500目标价7200，GDP加速增长为核心假设——但伊朗战争和油价冲击尚未纳入模型，实际目标可能下修",
-          "signal": "bullish",
-          "source": "Goldman Sachs",
-          "url": "https://www.financialcontent.com/article/marketminute-2025-12-22-goldman-sachs-2026-market-outlook-gdp-acceleration-and-the-s-and-p-500s-path-to-7200",
-          "freshness": "本月"
-        },
-        {
-          "name": "高盛对冲基金主管",
-          "action": "警告市场参与难度前所未见，下行风险压过上行——美伊冲突拖延越久越易演变为增长恐慌，建议简化持仓增持防御",
+          "name": "UBS",
+          "action": "4/6下调标普500年终目标至7500(前值7700)、中期目标至7000(前值7250)，理由：伊朗战争推高能源价格压制增长、延迟降息",
           "signal": "bearish",
-          "source": "智通财经",
-          "url": "https://www.zhitongcaijing.com/focus.html",
+          "source": "UBS",
+          "url": "https://invezz.com/news/2026/04/07/ubs-cuts-sp-500-2026-targets-amid-rising-oil-prices/",
           "freshness": "本周"
         }
       ]
@@ -176,87 +175,34 @@
     {
       "manager": "巴菲特 · 伯克希尔",
       "fund": "Berkshire Hathaway",
-      "aum": "待更新",
-      "asOf": "2025Q4 · 2月17日披露",
+      "asOf": "2025Q4 · 2月披露",
       "positions": [
-        {
-          "name": "苹果",
-          "symbol": "AAPL",
-          "weight": "22.6%",
-          "change": "减持"
-        },
-        {
-          "name": "美国银行",
-          "symbol": "BAC",
-          "weight": "12.4%",
-          "change": "持仓不变"
-        },
-        {
-          "name": "美国运通",
-          "symbol": "AXP",
-          "weight": "10.8%",
-          "change": "持仓不变"
-        },
-        {
-          "name": "可口可乐",
-          "symbol": "KO",
-          "weight": "9.5%",
-          "change": "持仓不变"
-        },
-        {
-          "name": "雪佛龙",
-          "symbol": "CVX",
-          "weight": "6.8%",
-          "change": "持仓不变"
-        }
+        {"name": "苹果", "symbol": "AAPL", "weight": "22.6%", "change": "减持"},
+        {"name": "美国运通", "symbol": "AXP", "weight": "20.5%", "change": "持仓不变"},
+        {"name": "可口可乐", "symbol": "KO", "weight": "10.2%", "change": "持仓不变"},
+        {"name": "西方石油", "symbol": "OXY", "weight": "5.8%", "change": "持续持有"},
+        {"name": "穆迪", "symbol": "MCO", "weight": "5.1%", "change": "持仓不变"}
       ],
-      "footnote": "现金储备持续创历史新高，Turnover极低，静候极端机会"
+      "footnote": "Greg Abel首次重启回购(巴菲特批准)，暗示管理层认为当前股价低于内在价值"
     },
     {
       "manager": "段永平 · H&H",
       "fund": "H&H International Investment",
-      "aum": "待更新",
-      "asOf": "2025Q4 · 2月17日披露",
+      "asOf": "2025Q4 · 2月披露",
       "positions": [
-        {
-          "name": "苹果",
-          "symbol": "AAPL",
-          "weight": "待更新",
-          "change": "减持"
-        },
-        {
-          "name": "英伟达",
-          "symbol": "NVDA",
-          "weight": "待更新",
-          "change": "大幅增持"
-        },
-        {
-          "name": "伯克希尔",
-          "symbol": "BRK.B",
-          "weight": "待更新",
-          "change": "增持"
-        },
-        {
-          "name": "拼多多",
-          "symbol": "PDD",
-          "weight": "待更新",
-          "change": "增持"
-        },
-        {
-          "name": "谷歌",
-          "symbol": "GOOGL",
-          "weight": "待更新",
-          "change": "减持"
-        }
+        {"name": "苹果", "symbol": "AAPL", "weight": "待更新"},
+        {"name": "英伟达", "symbol": "NVDA", "weight": "待更新", "change": "大幅增持"},
+        {"name": "拼多多", "symbol": "PDD", "weight": "待更新", "change": "增持"},
+        {"name": "谷歌", "symbol": "GOOGL", "weight": "待更新"},
+        {"name": "伯克希尔", "symbol": "BRK.B", "weight": "待更新", "change": "增持"}
       ],
-      "footnote": "极度集中策略，Q4新建仓MSFT/TSM/TEM，泡泡玛特观察中(4/4实地调研)"
+      "footnote": "3/30收回不投资泡泡玛特说法，4/4亲赴Westfield门店调研评价right business，关注2026Q1 13F(5月披露)"
     }
   ],
-  "dataTime": "2026-04-07 22:03 BJT",
+  "dataTime": "2026-04-08 06:00 BJT",
   "_meta": {
-    "sourceType": "refresh_update",
-    "generatedAt": "2026-04-07T22:03:00+08:00",
-    "skillVersion": "v7.4",
-    "refreshCount": 3
+    "sourceType": "heavy_analysis",
+    "generatedAt": "2026-04-08T06:00:00+08:00",
+    "skillVersion": "v7.4"
   }
 }
