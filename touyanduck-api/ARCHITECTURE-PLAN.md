@@ -1,6 +1,6 @@
 # 🦆 投研鸭公网端点架构升级方案
 
-> 版本: v1.0 | 日期: 2026-04-08 | 状态: 方案评审
+> 版本: v1.2 | 日期: 2026-04-08 | 状态: ✅ 阶段1+阶段2已实施（GitHub Pages 历史归档 + 自定义域名 api.touyanduck.com）
 
 ---
 
@@ -23,7 +23,7 @@ miniapp_sync/                    ← 数据暂存区（~86KB）
   │           │
   │           └──→ git push      ← GitHub Pages 公网发布
   │                 │
-  │                 └──→ https://zewujiang.github.io/touyanduck-api/
+  │                 └──→ https://api.touyanduck.com/
   │                       │
   │                       └──→ ClawHub Skill（大老板的 OpenClaw curl 读取）
   │
@@ -177,16 +177,16 @@ ClawHub Skill 需要告诉 AI 新增了哪些端点：
 ## 使用方式
 
 ### 获取最新简报（默认）
-curl -s "https://zewujiang.github.io/touyanduck-api/briefing.md"
+curl -s "https://api.touyanduck.com/briefing.md"
 
 ### 查看历史归档索引
-curl -s "https://zewujiang.github.io/touyanduck-api/archive/index.json"
+curl -s "https://api.touyanduck.com/archive/index.json"
 
 ### 获取某天的摘要（用于跨天对比）
-curl -s "https://zewujiang.github.io/touyanduck-api/archive/2026-04-07/summary.json"
+curl -s "https://api.touyanduck.com/archive/2026-04-07/summary.json"
 
 ### 获取某天的完整简报
-curl -s "https://zewujiang.github.io/touyanduck-api/archive/2026-04-07/briefing.md"
+curl -s "https://api.touyanduck.com/archive/2026-04-07/briefing.md"
 ```
 
 **AI 使用策略**（写入 SKILL.md 指引 AI 行为）：
@@ -233,11 +233,11 @@ curl -s "https://zewujiang.github.io/touyanduck-api/archive/2026-04-07/briefing.
 
 ## 三、未来演进路线（文档记录，暂不实施）
 
-### 阶段2：自定义域名绑定（1-2 周后）
+### 阶段2：自定义域名绑定 ✅ 已完成（2026-04-08）
 
 | 项目 | 内容 |
 |------|------|
-| 操作 | 将 `api.touyanduck.com` CNAME 到 `zewujiang.github.io` |
+| 操作 | `api.touyanduck.com` CNAME 到 `zewujiang.github.io`，GitHub Pages Custom Domain + Enforce HTTPS |
 | 工作量 | DNS 配置 30 分钟 + SKILL.md URL 替换 |
 | 需要备案 | **不需要**（GitHub Pages 服务器在海外） |
 | 好处 | ① 更专业的 URL ② ClawHub 安全评分可能提升 ③ 以后换托管平台不需要改 SKILL.md |

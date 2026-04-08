@@ -86,7 +86,7 @@
 ```
 每4小时自动运行 → 产出4个JSON → 渲染为 Markdown → 部署到 GitHub Pages
                                                     ↓
-                                        https://zewujiang.github.io/touyanduck-api/
+                                        https://api.touyanduck.com/
                                                     ↓
                                         OpenClaw Skill (curl URL → 读MD → 回答)
 ```

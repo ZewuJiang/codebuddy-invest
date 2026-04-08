@@ -40,21 +40,21 @@ if [ -z "$CODEBUDDY_BIN" ]; then
 fi
 echo "✅ codebuddy 路径: $CODEBUDDY_BIN" >> "$LOG_FILE"
 
-# macOS 无 GNU timeout，用 perl 实现超时控制（900秒=15分钟）
-# 启动后台子进程执行 codebuddy，超时后自动终止
+# macOS 无 GNU timeout，用后台进程+轮询实现超时控制（1800秒=30分钟）
+# v10.0 全量模式（Standard）需要约20-25分钟完成全流程
 "$CODEBUDDY_BIN" -p \
-  "执行app数据更新，日期为${TODAY}" \
+  "投研鸭小程序数据 app数据更新，日期为${TODAY}，执行 investment-agent-daily-app Skill 全流程" \
   -y \
   --output-format json \
   >> "$LOG_FILE" 2>&1 &
 CMD_PID=$!
 
-# 等待最多900秒
-TIMEOUT=900
+# 等待最多1800秒
+TIMEOUT=1800
 ELAPSED=0
 while kill -0 "$CMD_PID" 2>/dev/null; do
     if [ "$ELAPSED" -ge "$TIMEOUT" ]; then
-        echo "⚠️ 执行超时（${TIMEOUT}秒），强制终止 PID=$CMD_PID" >> "$LOG_FILE"
+        echo "⚠️ 执行超时（${TIMEOUT}秒=1小时），强制终止 PID=$CMD_PID" >> "$LOG_FILE"
         kill -TERM "$CMD_PID" 2>/dev/null
         sleep 2
         kill -9 "$CMD_PID" 2>/dev/null

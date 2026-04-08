@@ -1,9 +1,9 @@
-# 数据采集SOP — App版（v1.9）
+# 数据采集SOP — App版（v2.0）
 
 > **用途**：投研鸭小程序数据生产第一阶段数据采集的完整操作规范，含情绪与预测数据采集（Batch A）。
 > **核心原则**：数据完整性第一，精确到小数点后两位，严禁空位和模糊表述。
 > **与原 Skill 的差异**：额外需要采集 sparkline（7天历史）、chartData（30天历史）、metrics 指标、个股分析文本。
-> **v1.9 变更**：新增第九章 Refresh 精简采集批次定义（R0-R3）；R1 批次默认策略明确化。
+> **v2.0 变更**：删除第九章 Refresh 精简采集批次定义（v9.0 统一为 Standard 全量执行）。
 
 ---
 
@@ -241,7 +241,7 @@ web_fetch: https://quote.eastmoney.com/sz300750.html
 |---|--------|------|-----------|
 | O1 | briefing: timeStatus（建议） | bjt+est+marketStatus(枚举)+refreshInterval | 根据当前时间推算填入，或省略（前端自行计算时区） |
 | O2 | radar: predictions（建议） | 2-4条，每条 title+source(枚举)+probability(0-100)+trend(枚举)+change24h | 参照 Batch A 采集的 Polymarket/Kalshi/CME FedWatch 数据；获取失败则省略该字段 |
-| O3 | 所有JSON: _meta（建议） | sourceType+generatedAt(ISO8601)+skillVersion | sourceType 按模式填写（Heavy→`heavy_analysis` / Refresh→`refresh_update` / Weekend→`weekend_insight`）；generatedAt 为执行时间（+08:00）；skillVersion 为当前 SKILL.md 顶部版本号 |
+| O3 | 所有JSON: _meta（建议） | sourceType+generatedAt(ISO8601)+skillVersion | sourceType 按模式填写（Standard→`heavy_analysis` / Weekend→`weekend_insight`）；generatedAt 为执行时间（+08:00）；skillVersion 为当前 SKILL.md 顶部版本号 |
 
 ---
 
@@ -428,75 +428,7 @@ web_search: "美联储6月降息概率 CME FedWatch"
 
 ---
 
-## 九、Refresh 模式精简采集批次定义（v1.9 新增）
-
-> **定位**：Refresh 模式在当天 Heavy 全量执行后的后续4小时增量刷新中使用。
-> **目标**：只采集时效性最强的行情+突发事件数据，深度分析/聪明钱/事件日历等低频内容完全跳过。
-> **搜索总量基线**：Refresh ≥ 2次 web_search + 4次 web_fetch
-
-### 9.1 Refresh 采集批次总览
-
-| 批次 | 内容 | 搜索次数 | 数据源 | 执行条件 |
-|------|------|---------|--------|---------|
-| **R0** | 快扫头条：有无重大突发？ | 1-2次 web_search | Bloomberg/Reuters/WSJ 标题 | **必执行** |
-| **R1** | 美股行情刷新（指数+VIX+M7） | 3-4次 web_fetch | Google Finance | **必执行** |
-| **R2** | 亚太/大宗/汇率/加密行情刷新 | 1-2次 web_search | 东方财富/OilPrice.com | **必执行** |
-| **R3** | 异动信号检查 | 0-1次 web_search | 基于 R0 结果 | **条件执行**（R0 发现突发时） |
-
-### 9.2 各批次操作模板
-
-**R0 — 快扫头条**：
-```
-web_search: "breaking news markets today YYYY-MM-DD"
-web_search: "美股 最新消息 今日"  （亚洲时段可选补充）
-```
-
-**R1 — 美股行情刷新**：
-```
-web_fetch: https://www.google.com/finance/quote/.INX:INDEXSP
-web_fetch: https://www.google.com/finance/quote/.IXIC:INDEXNASDAQ
-web_fetch: https://www.google.com/finance/quote/.DJI:INDEXDJX
-web_fetch: https://www.google.com/finance/quote/VIX:INDEXCBOE
-# M7 策略（定时任务自动执行时的默认策略）：
-#   ① 指数+VIX = 4次 web_fetch（必须执行，不可省略）
-#   ② M7 默认用 1次 web_search "NVDA AAPL MSFT GOOGL AMZN META TSLA stock price" 批量获取
-#   ③ 若 web_search 结果中 M7 价格缺失 → 逐个 web_fetch 补采（最多7次）
-#   ④ 已收盘时段（BJT 10:00/14:00）：M7 数据与 Heavy 一致，可跳过 M7 采集
-```
-
-**R2 — 亚太/大宗/加密行情刷新**：
-```
-web_search: "亚太股市 今日行情 上证 恒生 日经"
-web_search: "gold price brent oil DXY today"
-```
-
-**R3 — 异动信号检查**（仅 R0 发现突发时执行）：
-```
-web_search: "{突发事件关键词} latest impact markets"
-```
-
-### 9.3 Refresh 采集注意事项
-
-- **数据隔离规则不降级**：Refresh 同样遵守第零章全部规则，行情数据只允许来自直接行情平台
-- **不执行 Batch 0/0a/0b**（深度媒体扫描）：R0 是极简版头条快扫，不是 Heavy 的全量扫描
-- **不执行 Batch 1c**（GICS 11板块ETF）：板块ETF收盘后才有意义
-- **不执行 Batch 1d**（焦点个股）：个股深度由 Heavy 负责
-- **不执行 Batch 4**（基金&大资金动向）：RULE SEVEN 豁免 Refresh
-- **不执行 Batch 5**（watchlist 标的详情）：metrics/analysis 一天不变
-- **不执行 Batch 6**（事件日历）：一周稳定
-- **不执行 Batch A**（情绪与预测）：一天不变
-
-### 9.4 Refresh 完成确认清单
-
-| # | 检查项 | 状态记录 |
-|---|--------|---------|
-| R0 | 头条快扫完成 | 有突发/无突发 |
-| R1 | 美股指数+VIX 价格获取 | 成功-[4项]/失败-[原因] |
-| R2 | 亚太/大宗/加密 价格获取 | 成功-[N项]/失败-[原因] |
-| R3 | 异动信号检查（条件） | 执行/跳过 |
-
----
-
+> v2.0 — 2026-04-08 | **Harness v9.0**：删除第九章 Refresh 精简采集批次定义（Refresh 模式已移除）；O3 sourceType 枚举清理。
 > v1.9 — 2026-04-07 | 新增第九章 Refresh 模式精简采集批次定义；R1 批次 M7 默认策略明确化（指数+VIX 必须 web_fetch，M7 分时段策略）。
 > v1.8 — 2026-04-06 | 清理废弃的 keyDeltas/fearGreed/旧 actions 引用。
 > v1.6 — 2026-04-05 | Batch 4 分层定向搜索升级（8-12次+web_fetch）。

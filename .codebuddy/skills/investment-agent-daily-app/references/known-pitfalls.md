@@ -1,6 +1,6 @@
-# 已知堵点与应对策略 — App版（v3.6）
+# 已知堵点与应对策略 — App版（v4.0）
 
-> **用途**：投研鸭小程序数据生产过程中的已知堵点与应对方案（共43条）。
+> **用途**：投研鸭小程序数据生产过程中的已知堵点与应对方案（共42条活跃）。
 > **核心原则**：先保真，再发布。核心行情缺失时宁可阻断，也不能用估算值顶上。
 
 ---
@@ -61,14 +61,6 @@
 | 4 | 部分集合上传成功/失败 | 成功生效，失败保持旧数据 |
 | 5 | 上传后字段缺失/dataTime 不一致 | v1.1 `verify_upload()` 回读校验 |
 
-## Refresh 模式堵点
-
-| # | 堵点 | 降级路径 | 频率 |
-|---|------|---------|------|
-| 34 | Refresh 启动时基准 JSON 不完整 | → 自动降级为 Heavy 全量执行 | 低 |
-| 35 | Refresh 行情数据时态混乱 | → marketStatus 必须按美东时间准确标注；dataTime 写实际执行时间 | 中 |
-| 36 | Refresh 误修改保留字段 | → R6 终审抽检保留字段一致性，口诀：「Refresh 只刷行情，分析不动」 | 高 |
-
 ## 质量退化堵点
 
 | # | 堵点 | 降级路径 | 频率 |
@@ -76,7 +68,7 @@
 | 37 | topHoldings 退化(3→2家) | → R1 门禁 ≥3 硬约束 + holdings-cache.json 兜底 | 致命 |
 | 38 | positions 退化(Top10→Top5) | → R2 门禁 ≥Top10 硬约束 + holdings-cache.json 兜底 | 致命 |
 | 39 | 权重全写"待更新" | → 非13F窗口期引用 holdings-cache.json，禁止写"待更新" | 高 |
-| 40 | 规范膨胀致 AI 注意力分散 | → R1-R8 回归门禁 + holdings-cache + diff 输出 + validate.py 自动化 | 系统性 |
+| 40 | 规范膨胀致 AI 注意力分散 | → R1-R8 回归门禁 + holdings-cache + diff 输出 + validate.py 自动化 + auto_compute.py 公式自动计算 | 系统性 |
 
 ## Harness Engineering 堵点
 
@@ -85,6 +77,10 @@
 | 41 | validate.py 被绕过(直接调 upload) | → **禁止**直接调 upload_to_cloud.py，必须通过 run_daily.sh；--skip-warn 仅跳过 WARN 级 | 系统性 |
 | 42 | Heavy 产出 smartMoneyHoldings 不引用 holdings-cache.json，凭记忆写不完整数据（只有5条+"待更新"） | → **R9 [FATAL]** validate.py 自动比对 holdings-cache.json，不一致则阻断上传（不可绕过）；同时 R2(≥Top10) + R3(禁止"待更新") 也标记为 FATAL | 高频 |
 | 43 | --skip-validate 成为万能逃生口，一旦有任何 FAIL 就整体跳过，连带放过致命错误 | → v2.0 FATAL/WARN 双级机制：--skip-validate 已废弃→--skip-warn；FATAL 级(R2/R3/R9)永远执行不可跳过 | 系统性 |
+| 44 | smartMoneyHoldings manager/asOf 文字过长，小程序一行放不下 | → v10.0：前端 radar.js 自动去括号紧凑化 + CSS 溢出截断。**数据侧规则**：manager≤10中文字、asOf≤12中文字，括号内补充信息不影响渲染 | 高 |
+| 45 | 语音播报功能在全量更新时被遗漏（audioUrl/voiceText 为空） | → v10.0：validate.py 新增 V35 检查 audioUrl 非空（WARN级），SKILL.md 第3.5阶段设为**强制步骤**不可跳过 | 高 |
+| 46 | AI 编造期权/虚构标的进入聪明钱持仓（如"AAPL PUT 2.8% 新建仓"） | → **致命**。V39 [FATAL] 自动拦截 symbol 含 PUT/CALL/OPTION 以及 name 含"期权/权证"等衍生品关键词。**根因**：AI 将 Sell PUT（卖出看跌期权，不产生多头持仓）误解为 Buy PUT（持有看跌期权多头），编造了 13F 中不存在的标的。**唯一数据源**：SEC 13F-HR 原始文件（StockZoa/13Radar/WhaleeWisdom 解析版），禁止凭社交媒体传闻或 AI 训练记忆推断持仓 | 致命 |
+| 47 | 聪明钱持仓 change 字段（加仓/减持/新建仓等）凭记忆编写而非对比 Q3→Q4 13F 差异 | → 必须对比相邻两个季度的 13F 数据来判定 change。无法确认时填"持仓不变"（保守策略），禁止编造"大幅增持"等需要 Q3 基准的判断 | 高 |
 
 ## 小程序端兼容性堵点
 
@@ -116,11 +112,16 @@
 |---|------|------|
 | 18 | refresh_verified_snapshot.py API 失败阻断全流程 | 方案A v2.0 已解决：脚本只写 sparkline/chartData |
 | 19 | refresh_verified_snapshot.py 脚本边界混乱 | 方案A v2.0 已解决：攻击面从 15+ 字段降到 2 个 |
+| 34 | Refresh 启动时基准 JSON 不完整 | v9.0 归档：Refresh 模式已删除，每次都全量执行 |
+| 35 | Refresh 行情数据时态混乱 | v9.0 归档：Refresh 模式已删除 |
+| 36 | Refresh 误修改保留字段 | v9.0 归档：Refresh 模式已删除，不再有"保留字段"概念 |
 
 </details>
 
 ---
 
+> v4.1 — 2026-04-08 | **13F 合规性防护**：新增堵点 #46(AI编造期权/虚构标的进聪明钱持仓)/#47(change字段凭记忆编写)，对应 validate.py V39 [FATAL]，活跃堵点数 40→42。
+> v4.0 — 2026-04-08 | **Harness v9.0**：Refresh 堵点 #34/#35/#36 移入归档区（Refresh 模式已删除），堵点 #40 更新（新增 auto_compute.py），活跃堵点数 43→40。
 > v3.6 — 2026-04-08 | 新增堵点 #42(Heavy不引用cache)/#43(skip-validate万能逃生口)，FATAL/WARN双级机制落地，堵点总数41→43。
 > v3.5 — 2026-04-08 | 全文精简（去除冗余描述，保留核心信息），堵点总数不变 41条。
 > v3.4 — 2026-04-08 | 新增堵点 #41（Harness Engineering 绕过风险）。

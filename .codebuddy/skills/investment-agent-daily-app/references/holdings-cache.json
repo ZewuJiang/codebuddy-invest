@@ -1,51 +1,52 @@
 {
   "_comment": "持仓数据缓存 — 非13F窗口期的兜底数据源",
-  "_version": "v1.0",
-  "_lastVerified": "2026-04-06",
-  "_source": "13Radar / Whalewisdom / StockAnalysis — 基于 2025Q4 13F 披露数据",
+  "_version": "v1.1",
+  "_lastVerified": "2026-04-08",
+  "_source": "StockZoa / 13Radar — 基于 SEC EDGAR 2025Q4 13F-HR 原始文件解析",
   "_nextUpdateWindow": "2026-05-15（2026Q1 13F 披露窗口）",
   "_updateRule": "13F窗口期（2/5/8/11月中旬）必须搜索最新13F数据并更新本缓存；非窗口期直接引用，禁止凭记忆修改数字；有重大变动新闻时可微调footnote但不改权重",
+  "_v1.1_changelog": "2026-04-08 修正：①伯克希尔权重按13Radar精确数据修正(OXY 5.8→3.97%, MCO 5.1→4.60%, CB 3.5→3.90%, DVA出局→GOOGL 2.04%入围, AUM 294.3B→274.2B, 持仓数36→42只, Top10占比92.5→88.3%); ②段永平去掉AI编造的AAPL PUT/META/AMZN/TSLA，替换为13F真实持仓OXY/BABA/TSM/DIS; ③change字段按Q3→Q4差异修正(AAPL减持/BRK.B增持/PDD增持等)",
 
   "berkshire": {
     "manager": "巴菲特 · 伯克希尔",
     "fund": "Berkshire Hathaway",
-    "aum": "$294.3B",
+    "aum": "$274.2B",
     "asOf": "2025Q4 · 2月披露",
     "topHoldingsOneLiner": "AAPL 22.6% | AXP 20.5% | BAC 10.4% | KO 10.2% | CVX 7.2% · 现金$3733亿",
     "positions": [
-      { "name": "苹果", "symbol": "AAPL", "weight": "22.6%", "change": "减持" },
-      { "name": "美国运通", "symbol": "AXP", "weight": "20.5%", "change": "持仓不变" },
-      { "name": "美国银行", "symbol": "BAC", "weight": "10.4%", "change": "减持" },
-      { "name": "可口可乐", "symbol": "KO", "weight": "10.2%", "change": "持仓不变" },
-      { "name": "雪佛龙", "symbol": "CVX", "weight": "7.2%", "change": "减持" },
-      { "name": "西方石油", "symbol": "OXY", "weight": "5.8%", "change": "持仓不变" },
-      { "name": "穆迪", "symbol": "MCO", "weight": "5.1%", "change": "持仓不变" },
-      { "name": "卡夫亨氏", "symbol": "KHC", "weight": "4.4%", "change": "持仓不变" },
-      { "name": "Chubb", "symbol": "CB", "weight": "3.5%", "change": "持仓不变" },
-      { "name": "达维塔", "symbol": "DVA", "weight": "2.8%", "change": "持仓不变" }
+      { "name": "苹果", "symbol": "AAPL", "weight": "22.60%", "change": "减持" },
+      { "name": "美国运通", "symbol": "AXP", "weight": "20.46%", "change": "持仓不变" },
+      { "name": "美国银行", "symbol": "BAC", "weight": "10.38%", "change": "减持" },
+      { "name": "可口可乐", "symbol": "KO", "weight": "10.20%", "change": "持仓不变" },
+      { "name": "雪佛龙", "symbol": "CVX", "weight": "7.24%", "change": "增持" },
+      { "name": "穆迪", "symbol": "MCO", "weight": "4.60%", "change": "持仓不变" },
+      { "name": "西方石油", "symbol": "OXY", "weight": "3.97%", "change": "持仓不变" },
+      { "name": "Chubb", "symbol": "CB", "weight": "3.90%", "change": "增持" },
+      { "name": "卡夫亨氏", "symbol": "KHC", "weight": "2.88%", "change": "持仓不变" },
+      { "name": "Alphabet", "symbol": "GOOGL", "weight": "2.04%", "change": "持仓不变" }
     ],
-    "footnote": "持仓数36只，Top10占92.5%，Turnover 5.26%（极低换手），现金储备$3,733亿（Greg Abel首个大动作：重启回购）"
+    "footnote": "持仓数42只，Top10占88.3%，现金储备$3,733亿（Greg Abel首次重启回购），Q4增持CVX(+6.6%)/CB(+9.3%)，减持AAPL(-4.3%)/BAC(-8.9%)"
   },
 
   "duanyongping": {
     "manager": "段永平 · H&H",
     "fund": "H&H International Investment",
-    "aum": "$1.2B",
+    "aum": "$18B",
     "asOf": "2025Q4 · 2月披露",
     "topHoldingsOneLiner": "AAPL 50.3% | BRK.B 20.6% | NVDA 7.7% | PDD 7.5% | GOOG 3.3% · 泡泡玛特观察中",
     "positions": [
-      { "name": "苹果", "symbol": "AAPL", "weight": "50.3%", "change": "持仓不变" },
-      { "name": "伯克希尔B", "symbol": "BRK.B", "weight": "20.6%", "change": "持仓不变" },
+      { "name": "苹果", "symbol": "AAPL", "weight": "50.3%", "change": "减持" },
+      { "name": "伯克希尔B", "symbol": "BRK.B", "weight": "20.6%", "change": "增持" },
       { "name": "英伟达", "symbol": "NVDA", "weight": "7.7%", "change": "大幅增持" },
-      { "name": "拼多多", "symbol": "PDD", "weight": "7.5%", "change": "持仓不变" },
-      { "name": "谷歌", "symbol": "GOOG", "weight": "3.3%", "change": "持仓不变" },
-      { "name": "苹果看跌期权", "symbol": "AAPL PUT", "weight": "2.8%", "change": "新建仓" },
-      { "name": "Meta", "symbol": "META", "weight": "2.5%", "change": "持仓不变" },
-      { "name": "亚马逊", "symbol": "AMZN", "weight": "2.1%", "change": "持仓不变" },
-      { "name": "微软", "symbol": "MSFT", "weight": "1.8%", "change": "持仓不变" },
-      { "name": "特斯拉", "symbol": "TSLA", "weight": "1.4%", "change": "减持" }
+      { "name": "拼多多", "symbol": "PDD", "weight": "7.5%", "change": "增持" },
+      { "name": "谷歌", "symbol": "GOOG", "weight": "3.3%", "change": "小幅增持" },
+      { "name": "西方石油", "symbol": "OXY", "weight": "3.1%", "change": "减持" },
+      { "name": "微软", "symbol": "MSFT", "weight": "2.4%", "change": "大幅增持" },
+      { "name": "阿里巴巴", "symbol": "BABA", "weight": "2.1%", "change": "减持" },
+      { "name": "台积电", "symbol": "TSM", "weight": "2.1%", "change": "大幅增持" },
+      { "name": "迪士尼", "symbol": "DIS", "weight": "0.5%", "change": "减持" }
     ],
-    "footnote": "核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA，4/4亲赴门店调研泡泡玛特（5月13F确认）"
+    "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，新建仓CRWV/CRDO/TEM"
   },
 
   "arkFlagship": {

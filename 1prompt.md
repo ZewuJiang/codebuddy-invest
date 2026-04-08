@@ -1,5 +1,9 @@
 ### 产出 日报 微信小程序
 
+#### Harness engineering：
+
+基于此，如何对skills或者app做一些优化处理，以便于ai更好的、更精准的识别每一条内容，是否需要做一些结构化的处理，搭建一个更完善的环境或者工作流，可以仔细帮我想一想，类似harness engineering的概念，构建出稳定的、高质量的产出 投研鸭 app skill 和小程序app
+
 #### update & 迭代：
 
 investment-agent-daily-apptouyanduck_appid 请仔细小程序app的相关内容，需要和你讨论一些问题，务必严谨、全面、可靠；

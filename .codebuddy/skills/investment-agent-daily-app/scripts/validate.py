@@ -1,20 +1,41 @@
 #!/usr/bin/env python3
 """
-投研鸭小程序数据质量自动化校验脚本 v2.0
+投研鸭小程序数据质量自动化校验脚本 v5.0
 ============================================================
 核心理念（Harness Engineering）:
   把"AI 记住规则"转变为"环境自动约束 AI"。
-  本脚本在 run_daily.sh 中的 JSON 语法校验之后、sparkline 补全之前执行。
+  本脚本在 run_daily.sh 中的 auto_compute.py 之后、sparkline 补全之前执行。
 
-v2.0 重大升级：
-  - FATAL / WARN 双级机制：FATAL 级错误即使 --skip-warn 也无法绕过
-  - R9 新增：自动比对 radar.smartMoneyHoldings 与 holdings-cache.json 一致性
-  - --skip-validate 改为 --skip-warn：只跳过 WARN 级，FATAL 永远执行
+v5.1 Harness v10.2 聪明钱持仓 13F 合规性校验：
+  - 新增 V39 [FATAL] 聪明钱持仓 13F 数据合规性校验（拦截 AI 编造的期权/虚构标的）
+    - symbol 黑名单（PUT/CALL/OPTION/WARRANT）
+    - name 黑名单（看跌期权/看涨期权/认购/认沽/期权/权证）
+    - 权重合计 ≤ 105%（防止编造持仓导致溢出）
+  - V39 标记为 FATAL 级，不可被 --skip-warn 绕过
+  - 校验项从44→45项
 
+v5.0 Harness v10.1 数据安全防护升级：
+  - 新增 V36 跨JSON数据交叉验证（radar↔markets↔watchlist同一数据点一致性）
+  - 新增 V37 数值合理性检测（防训练数据污染，如CNH=7.27而非6.82）
+  - 新增 V38 sparkline趋势 vs change方向一致性（拦截涨跌符号反转）
+  - 校验项从41→44项
+
+v4.0 Harness v10.0 升级：
+  - 新增 V30-V34 内容质量检测层（套话/模板/空洞/数字矛盾/tags时效）
+  - Insight 长度上限从80→100字（决策信号式洞察需要更多空间）
+  - V7 比对精度修复（abs值比对）
+  - 废弃字段清理（riskAlerts 不再必填）
+
+v3.0 Harness v9.0 升级：
+  - 删除 Refresh 模式分支：--mode 只接受 standard 和 weekend
+  - heavy 作为别名映射到 standard（向后兼容）
+  - 回归门禁统一执行（standard + weekend 均执行，不再有 refresh 豁免）
+
+v2.0 升级：FATAL / WARN 双级机制
 v1.1 新增：V27(Insight长度) + V28(metrics数量) + V29(logic箭头格式)
 
 用法:
-  python3 validate.py <sync_dir> [--mode heavy|refresh|weekend]
+  python3 validate.py <sync_dir> [--mode standard|weekend]
 
 退出码:
   0 = 全部通过
@@ -38,7 +59,7 @@ BASELINE_PATH = REFERENCES_DIR / "golden-baseline.json"
 HOLDINGS_CACHE_PATH = REFERENCES_DIR / "holdings-cache.json"
 
 # FATAL 级校验项（不可被 --skip-warn 绕过）
-FATAL_CODES = {"R2", "R3", "R9"}
+FATAL_CODES = {"R2", "R3", "R9", "V39"}
 
 # ============================================================
 # 工具函数
@@ -76,7 +97,7 @@ class ValidationResult:
 
     def print_report(self):
         print("\n" + "=" * 70)
-        print("📋 投研鸭数据质量自动化校验报告 (v2.0 FATAL/WARN 双级)")
+        print("📋 投研鸭数据质量自动化校验报告 (v4.0 Standard/Weekend 统一)")
         print("=" * 70)
 
         for r in self.results:
@@ -509,12 +530,9 @@ def validate_metrics_consistency(files, vr):
                 m1_val = metrics[1].get("value", "")
                 change = stock.get("change")
                 if isinstance(change, (int, float)) and m1_val:
-                    # 格式化 change 为类似 "+5.59%" 或 "-2.30%"
-                    expected_sign = "+" if change >= 0 else ""
-                    expected_str = f"{expected_sign}{change}%"
-                    # 简化比较：提取数值
+                    # 验证：metrics[1] 应该是 "+X.XX%" 或 "-X.XX%" 格式
                     m1_num = parse_number_from_string(m1_val)
-                    if m1_num is not None and abs(m1_num - abs(change)) > 0.05:
+                    if m1_num is not None and abs(abs(m1_num) - abs(change)) > 0.01:
                         name = stock.get("name", "?")
                         inconsistencies.append(f"{name}: metrics[1]={m1_val} vs change={change}")
 
@@ -601,10 +619,7 @@ def validate_risk_score(files, baseline, vr):
 
 
 def validate_regression_gates(files, baseline, vr, mode):
-    """R1-R8 回归门禁"""
-    if mode == "refresh":
-        vr.add("R1-R8", "回归门禁（Refresh 模式豁免）", None, "Refresh 不执行回归门禁")
-        return
+    """R1-R8 回归门禁（v9.0: standard + weekend 均执行）"""
 
     gates = baseline.get("regressionGates", {})
     briefing = files.get("briefing")
@@ -931,6 +946,478 @@ def validate_logic_arrow_format(files, vr):
            "; ".join(violations) if violations else "")
 
 
+# ============================================================
+# v4.0 新增：V30-V34 内容质量检测层
+# ============================================================
+
+def validate_insight_clichés(files, baseline, vr):
+    """V30: Insight 套话检测 — 检测低信息量模式"""
+    markets = files.get("markets")
+    if not markets:
+        vr.add("V30", "Insight 套话检测", None, "markets 数据缺失")
+        return
+
+    cliché_patterns = baseline.get("textQuality", {}).get("insight_cliche_patterns", [])
+    insight_fields = ["usInsight", "m7Insight", "asiaInsight", "commodityInsight", "cryptoInsight", "gicsInsight"]
+    violations = []
+
+    for field in insight_fields:
+        val = markets.get(field, "")
+        if not val:
+            continue
+        for pattern in cliché_patterns:
+            if pattern in val:
+                violations.append(f"{field} 含套话'{pattern}'")
+                break  # 每个字段只报一次
+
+    vr.add("V30", "Insight 套话检测 (禁止低信息量模式)", len(violations) == 0,
+           "; ".join(violations) if violations else "")
+
+
+def validate_risk_advice_template(files, baseline, vr):
+    """V31: riskAdvice 模板检测 — 禁止套模板"""
+    radar = files.get("radar")
+    if not radar:
+        vr.add("V31", "riskAdvice 模板检测", None, "radar 数据缺失")
+        return
+
+    template_patterns = baseline.get("textQuality", {}).get("riskAdvice_template_patterns", [])
+    advice = radar.get("riskAdvice", "")
+    violations = []
+
+    if not advice:
+        violations.append("riskAdvice 为空")
+    else:
+        for pattern in template_patterns:
+            if pattern in advice:
+                violations.append(f"含套话'{pattern}'")
+
+    vr.add("V31", "riskAdvice 非模板化检测", len(violations) == 0,
+           "; ".join(violations) if violations else "")
+
+
+def validate_analysis_depth(files, baseline, vr):
+    """V32: watchlist analysis 深度检测 — 每只标的分析≥80字"""
+    watchlist = files.get("watchlist")
+    if not watchlist:
+        vr.add("V32", "watchlist analysis 深度检测", None, "watchlist 数据缺失")
+        return
+
+    min_len = baseline.get("textQuality", {}).get("watchlist_analysis_min_length", 80)
+    violations = []
+    stocks = watchlist.get("stocks", {})
+    for sector_id, stock_list in stocks.items():
+        if not isinstance(stock_list, list):
+            continue
+        for stock in stock_list:
+            analysis = stock.get("analysis", "")
+            name = stock.get("name", stock.get("symbol", "?"))
+            if analysis and len(analysis) < min_len:
+                violations.append(f"{sector_id}/{name}: {len(analysis)}字 < {min_len}")
+
+    vr.add("V32", f"watchlist analysis 深度 (≥{min_len}字)", len(violations) == 0,
+           "; ".join(violations[:5]) if violations else "")
+
+
+def validate_action_hints_quality(files, vr):
+    """V33: actionHints 质量检测 — 禁止凑数（"维持不变"/"持续关注"）"""
+    briefing = files.get("briefing")
+    if not briefing:
+        vr.add("V33", "actionHints 质量检测", None, "briefing 数据缺失")
+        return
+
+    action_hints = briefing.get("actionHints", [])
+    violations = []
+    filler_patterns = ["维持不变", "持续关注", "保持现有", "暂时观望", "继续持有现有"]
+
+    for i, ah in enumerate(action_hints):
+        content = ah.get("content", "")
+        for pattern in filler_patterns:
+            if pattern in content:
+                violations.append(f"actionHints[{i}] 含凑数表达'{pattern}'")
+                break
+
+    vr.add("V33", "actionHints 无凑数表达检测", len(violations) == 0,
+           "; ".join(violations) if violations else "")
+
+
+def validate_source_type_consistency(files, vr):
+    """V34: 4个JSON的 sourceType 一致性 — 必须全部相同"""
+    types_found = {}
+    for name, data in files.items():
+        if data and "_meta" in data:
+            st = data["_meta"].get("sourceType", "")
+            if st:
+                types_found[name] = st
+
+    if len(types_found) < 2:
+        vr.add("V34", "4个JSON sourceType 一致性", True, "不足2个有_meta")
+        return
+
+    unique_types = set(types_found.values())
+    if len(unique_types) == 1:
+        vr.add("V34", "4个JSON sourceType 一致性", True,
+               f"全部为'{list(unique_types)[0]}' ✓")
+    else:
+        details = [f"{k}='{v}'" for k, v in types_found.items()]
+        vr.add("V34", "4个JSON sourceType 一致性", False,
+               f"不一致: {'; '.join(details)}")
+
+
+def validate_audio_url(files, vr):
+    """V35: briefing.audioUrl 非空检测（语音播报功能保障）"""
+    briefing = files.get("briefing")
+    if not briefing:
+        vr.add("V35", "briefing.audioUrl 语音播报", None, "briefing 数据缺失")
+        return
+
+    audio_url = briefing.get("audioUrl", "")
+    voice_text = briefing.get("voiceText", "")
+
+    if audio_url:
+        vr.add("V35", "briefing.audioUrl 语音播报", True, f"audioUrl 已填充 ✓")
+    elif voice_text:
+        vr.add("V35", "briefing.audioUrl 语音播报", False,
+               "voiceText 已有但 audioUrl 为空——需执行 TTS 生成+上传步骤")
+    else:
+        vr.add("V35", "briefing.audioUrl 语音播报", False,
+               "audioUrl 和 voiceText 均为空——第3.5阶段（语音播报）被跳过")
+
+
+# ============================================================
+# v10.1 新增：V36-V38 数据安全防护层（Harness Engineering）
+# 设计理念：把"AI记住不犯错"转变为"环境自动拦截错误"
+# ============================================================
+
+def validate_cross_json_consistency(files, vr):
+    """V36: 跨JSON数据交叉验证 — 同一数据点在不同JSON中必须一致
+    
+    检查项：
+    1. radar.trafficLights[离岸人民币CNH].value vs markets.commodities[离岸人民币CNH].price
+    2. radar.trafficLights[布伦特原油].value vs markets.commodities[布伦特原油].price
+    3. radar.trafficLights[VIX].value vs markets.usMarkets[VIX].price
+    4. radar.trafficLights[10Y美债].value vs markets.commodities[10Y美债].price
+    5. radar.trafficLights[黄金XAU].value vs markets.commodities[黄金XAU].price
+    6. radar.trafficLights[美元指数DXY].value vs markets.commodities[美元指数DXY].price
+    7. watchlist AVGO price vs markets m7(若在M7中)
+    8. watchlist 中重复标的价格一致性
+    """
+    radar = files.get("radar")
+    markets = files.get("markets")
+    watchlist = files.get("watchlist")
+
+    if not radar or not markets:
+        vr.add("V36", "跨JSON数据交叉验证", None, "radar 或 markets 数据缺失")
+        return
+
+    inconsistencies = []
+    tolerance = 0.03  # 3% 容差
+
+    # 1. radar.trafficLights vs markets.commodities 交叉验证
+    tl_map = {}
+    for tl in radar.get("trafficLights", []):
+        name = tl.get("name", "")
+        value_str = tl.get("value", "")
+        tl_map[name] = value_str
+
+    # 构建 markets 价格映射
+    market_price_map = {}
+    for section in ["usMarkets", "commodities"]:
+        for item in markets.get(section, []):
+            name = item.get("name", "")
+            price = item.get("price", "")
+            market_price_map[name] = price
+
+    # 交叉比对表：红绿灯名称 → markets 中对应的名称
+    cross_check_map = {
+        "离岸人民币CNH": "离岸人民币CNH",
+        "布伦特原油": "布伦特原油",
+        "VIX波动率": "VIX恐慌指数",
+        "10Y美债收益率": "10Y美债",
+        "黄金XAU": "黄金 XAU",
+        "美元指数DXY": "美元指数DXY",
+    }
+
+    for tl_name, market_name in cross_check_map.items():
+        tl_val_str = tl_map.get(tl_name, "")
+        market_price_str = market_price_map.get(market_name, "")
+
+        if not tl_val_str or not market_price_str:
+            continue
+
+        tl_num = parse_number_from_string(tl_val_str)
+        market_num = parse_number_from_string(market_price_str)
+
+        if tl_num is None or market_num is None or market_num == 0:
+            continue
+
+        deviation = abs(tl_num - market_num) / max(abs(market_num), 1)
+        if deviation > tolerance:
+            inconsistencies.append(
+                f"{tl_name}: radar={tl_val_str} vs markets={market_price_str} (偏差{deviation:.1%})"
+            )
+
+    # 2. watchlist 中同一标的在不同板块出现时价格一致性
+    if watchlist:
+        symbol_prices = {}
+        stocks = watchlist.get("stocks", {})
+        for sector_id, stock_list in stocks.items():
+            if not isinstance(stock_list, list):
+                continue
+            for stock in stock_list:
+                symbol = stock.get("symbol", "")
+                price = stock.get("price", "")
+                if symbol in symbol_prices:
+                    if symbol_prices[symbol] != price:
+                        inconsistencies.append(
+                            f"watchlist重复标的{symbol}: {symbol_prices[symbol]} vs {price}"
+                        )
+                else:
+                    symbol_prices[symbol] = price
+
+    # 3. markets.m7 标的价格 vs watchlist 同标的价格
+    if watchlist:
+        wl_prices = {}
+        for sector_id, stock_list in watchlist.get("stocks", {}).items():
+            if isinstance(stock_list, list):
+                for s in stock_list:
+                    wl_prices[s.get("symbol", "")] = s.get("price", "")
+
+        for m7_stock in markets.get("m7", []):
+            symbol = m7_stock.get("symbol", "")
+            m7_price = m7_stock.get("price", "")
+            wl_price = wl_prices.get(symbol, "")
+            if m7_price and wl_price and m7_price != wl_price:
+                m7_num = parse_number_from_string(m7_price)
+                wl_num = parse_number_from_string(wl_price)
+                if m7_num and wl_num and m7_num > 0:
+                    dev = abs(m7_num - wl_num) / m7_num
+                    if dev > tolerance:
+                        inconsistencies.append(
+                            f"M7 vs watchlist [{symbol}]: m7={m7_price} vs watchlist={wl_price} (偏差{dev:.1%})"
+                        )
+
+    vr.add("V36", "跨JSON数据交叉验证 (radar↔markets↔watchlist)", len(inconsistencies) == 0,
+           "; ".join(inconsistencies[:8]) if inconsistencies else "全部一致 ✓")
+
+
+def validate_value_reasonableness(files, vr):
+    """V37: 数值合理性检测 — 拦截明显不合理的数字（防止训练数据污染）
+    
+    检查项（基于常识性阈值）：
+    1. USDCNH 离岸人民币汇率应在 6.0-8.0 区间（2020-2026历史范围）
+    2. 恒生科技指数应在 2000-10000 区间（2020-2026历史范围）
+    3. 标普500 应在 3000-10000 区间
+    4. VIX 应在 8-80 区间
+    5. 10Y美债 应在 1.0-7.0% 区间
+    6. DXY 美元指数 应在 85-120 区间
+    7. WTI/布伦特原油 应在 20-200 区间
+    8. 黄金 XAU 应在 1500-8000 区间
+    9. BTC 应在 15000-250000 区间
+    10. 个股价格不应为负数
+    """
+    markets = files.get("markets")
+    watchlist = files.get("watchlist")
+
+    if not markets:
+        vr.add("V37", "数值合理性检测", None, "markets 数据缺失")
+        return
+
+    violations = []
+
+    # 合理性阈值表：名称关键词 → (min, max)
+    reasonableness_ranges = {
+        "离岸人民币": (6.0, 8.0),
+        "恒生科技": (2000, 12000),
+        "恒生指数": (15000, 40000),
+        "上证指数": (2500, 7000),
+        "深证成指": (8000, 20000),
+        "标普500": (3000, 10000),
+        "纳斯达克": (10000, 35000),
+        "道琼斯": (25000, 65000),
+        "VIX": (8, 80),
+        "10Y美债": (1.0, 7.0),
+        "美元指数": (85, 120),
+        "布伦特原油": (20, 200),
+        "WTI原油": (20, 200),
+        "黄金": (1500, 8000),
+        "比特币": (15000, 250000),
+        "以太坊": (500, 15000),
+        "日经": (20000, 70000),
+        "KOSPI": (1500, 8000),
+    }
+
+    # 检查所有 markets 数据
+    for section in ["usMarkets", "asiaMarkets", "commodities", "cryptos"]:
+        for item in markets.get(section, []):
+            name = item.get("name", "")
+            price_str = item.get("price", "")
+            price_num = parse_number_from_string(price_str)
+            if price_num is None:
+                continue
+
+            for keyword, (vmin, vmax) in reasonableness_ranges.items():
+                if keyword in name:
+                    if price_num < vmin or price_num > vmax:
+                        violations.append(
+                            f"{name}={price_str}: 超出合理区间[{vmin}-{vmax}]"
+                        )
+                    break
+
+    # 检查 watchlist 个股价格不为负
+    if watchlist:
+        for sector_id, stock_list in watchlist.get("stocks", {}).items():
+            if not isinstance(stock_list, list):
+                continue
+            for stock in stock_list:
+                if stock.get("listed", True) is False:
+                    continue
+                price_str = stock.get("price", "")
+                if price_str == "未上市":
+                    continue
+                price_num = parse_number_from_string(price_str)
+                if price_num is not None and price_num <= 0:
+                    name = stock.get("name", stock.get("symbol", "?"))
+                    violations.append(f"watchlist[{name}]: price={price_str} ≤ 0")
+
+    vr.add("V37", "数值合理性检测 (防训练数据污染)", len(violations) == 0,
+           "; ".join(violations[:8]) if violations else "全部在合理区间 ✓")
+
+
+def validate_sparkline_trend_vs_change(files, vr):
+    """V38: sparkline趋势方向 vs change符号一致性 — 拦截涨跌方向反转错误
+    
+    检查逻辑：
+    若 sparkline[-1] < sparkline[-2]（最后两天趋势为跌），但 change > 0（标记为涨），
+    且偏差超过 0.5%，则标记为 WARN。
+    
+    这可以拦截如 AAPL +2.13% 实际是 -2.07%、TSLA +1.75% 实际是 -1.75% 的错误。
+    """
+    markets = files.get("markets")
+    watchlist = files.get("watchlist")
+
+    if not markets and not watchlist:
+        vr.add("V38", "sparkline趋势 vs change方向一致", None, "数据缺失")
+        return
+
+    direction_conflicts = []
+    tolerance = 0.005  # 0.5% 容差（避免小幅波动误报）
+
+    def check_item(item, location):
+        sparkline = item.get("sparkline", [])
+        change = item.get("change")
+        price_str = item.get("price", "")
+        name = item.get("name", "")
+
+        if not sparkline or len(sparkline) < 2:
+            return
+        if not isinstance(change, (int, float)):
+            return
+
+        last = sparkline[-1]
+        prev = sparkline[-2]
+
+        if not isinstance(last, (int, float)) or not isinstance(prev, (int, float)):
+            return
+        if prev == 0:
+            return
+
+        spark_pct = (last - prev) / prev
+        change_pct = change / 100.0
+
+        # 如果 sparkline 趋势和 change 方向相反，且幅度都大于容差
+        if abs(spark_pct) > tolerance and abs(change_pct) > tolerance:
+            if (spark_pct > 0 and change_pct < 0) or (spark_pct < 0 and change_pct > 0):
+                direction_conflicts.append(
+                    f"{location}[{name}]: sparkline尾部{spark_pct:+.2%} vs change={change:+.2f}% 方向矛盾"
+                )
+
+    # 检查 markets
+    if markets:
+        for section in ["usMarkets", "m7", "asiaMarkets", "commodities", "cryptos"]:
+            for item in markets.get(section, []):
+                check_item(item, f"markets.{section}")
+
+    # 检查 watchlist
+    if watchlist:
+        for sector_id, stock_list in watchlist.get("stocks", {}).items():
+            if isinstance(stock_list, list):
+                for stock in stock_list:
+                    if stock.get("listed", True) is False:
+                        continue
+                    check_item(stock, f"watchlist.{sector_id}")
+
+    vr.add("V38", "sparkline趋势 vs change方向一致性", len(direction_conflicts) == 0,
+           "; ".join(direction_conflicts[:8]) if direction_conflicts else "全部一致 ✓")
+
+
+def validate_holdings_13f_compliance(files, vr):
+    """V39 [FATAL]: 聪明钱持仓 13F 数据合规性校验 — 拦截 AI 编造的期权/虚构标的
+    
+    设计背景（2026-04-08 事故）：
+    AI 将段永平历史上的 "sell put" 操作错误理解为持有 AAPL PUT 多头，
+    编造了 "苹果看跌期权 AAPL PUT 2.8% 新建仓"，以及 META/AMZN/TSLA 等
+    13F 中根本不存在的标的。本检测项从三个维度拦截此类错误。
+    
+    检查维度：
+    1. symbol 格式合规性：禁止 PUT/CALL 等期权后缀（13F 多头持仓不包含期权）
+    2. 名称合规性：禁止"看跌期权""看涨期权""认购""认沽"等衍生品关键词
+    3. 权重合计校验：同一机构所有 positions 的 weight 之和应 ≤ 105%（容差5%）
+    """
+    radar = files.get("radar")
+    if not radar:
+        vr.add("V39", "聪明钱持仓 13F 合规性 [FATAL]", None, "radar 数据缺失")
+        return
+
+    smh = radar.get("smartMoneyHoldings", [])
+    violations = []
+
+    # 期权/衍生品黑名单关键词
+    symbol_blacklist = ["PUT", "CALL", "OPTION", "WARRANT"]
+    name_blacklist = ["看跌期权", "看涨期权", "认购", "认沽", "期权", "权证", "PUT", "CALL"]
+
+    for holding in smh:
+        manager = holding.get("manager", "?")
+        positions = holding.get("positions", [])
+        total_weight = 0.0
+
+        for pos in positions:
+            symbol = pos.get("symbol", "")
+            name = pos.get("name", "")
+            weight_str = pos.get("weight", "0%")
+
+            # 检查1: symbol 中不应包含期权后缀
+            symbol_upper = symbol.upper().strip()
+            for blackword in symbol_blacklist:
+                if blackword in symbol_upper:
+                    violations.append(
+                        f"{manager}/{symbol}: symbol含'{blackword}'——13F多头持仓不包含期权，疑似AI编造"
+                    )
+
+            # 检查2: name 中不应包含衍生品关键词
+            for blackword in name_blacklist:
+                if blackword in name:
+                    violations.append(
+                        f"{manager}/{name}: 名称含'{blackword}'——13F持仓不应有衍生品，疑似AI编造"
+                    )
+
+            # 累加权重
+            try:
+                w = float(weight_str.replace("%", "").strip())
+                total_weight += w
+            except (ValueError, AttributeError):
+                pass
+
+        # 检查3: 权重合计不应超过 105%（正常 13F 所有持仓合计约 100%）
+        if total_weight > 105:
+            violations.append(
+                f"{manager}: 权重合计 {total_weight:.1f}% > 105%，可能存在编造持仓"
+            )
+
+    vr.add("V39", "聪明钱持仓 13F 合规性 [FATAL]", len(violations) == 0,
+           "; ".join(violations[:8]) if violations else "全部合规 ✓")
+
+
 def validate_chain_urls(files, vr):
     """V22: chain[].url 非空校验（非付费墙）"""
     briefing = files.get("briefing")
@@ -1027,19 +1514,23 @@ def validate_traffic_lights_consistency(files, baseline, vr):
 
 def main():
     if len(sys.argv) < 2:
-        print("用法: python3 validate.py <sync_dir> [--mode heavy|refresh|weekend]")
+        print("用法: python3 validate.py <sync_dir> [--mode standard|weekend]")
         sys.exit(2)
 
     sync_dir = sys.argv[1]
-    mode = "heavy"  # 默认
+    mode = "standard"  # 默认
 
     for i, arg in enumerate(sys.argv):
         if arg == "--mode" and i + 1 < len(sys.argv):
             mode = sys.argv[i + 1].lower()
 
-    if mode not in ("heavy", "refresh", "weekend"):
-        print(f"⚠️  未知模式 '{mode}'，使用默认 'heavy'")
-        mode = "heavy"
+    # v9.0: heavy 映射到 standard（向后兼容）
+    if mode == "heavy":
+        mode = "standard"
+
+    if mode not in ("standard", "weekend"):
+        print(f"⚠️  未知模式 '{mode}'，使用默认 'standard'")
+        mode = "standard"
 
     if not os.path.isdir(sync_dir):
         print(f"❌ 目录不存在: {sync_dir}")
@@ -1114,6 +1605,22 @@ def main():
 
     # === V29: coreJudgments logic 箭头格式 ===
     validate_logic_arrow_format(files, vr)
+
+    # === V30-V34: 内容质量检测层 (v4.0 新增) ===
+    validate_insight_clichés(files, baseline, vr)
+    validate_risk_advice_template(files, baseline, vr)
+    validate_analysis_depth(files, baseline, vr)
+    validate_action_hints_quality(files, vr)
+    validate_source_type_consistency(files, vr)
+    validate_audio_url(files, vr)
+
+    # === V36-V38: 数据安全防护层 (v10.1 Harness Engineering 新增) ===
+    validate_cross_json_consistency(files, vr)
+    validate_value_reasonableness(files, vr)
+    validate_sparkline_trend_vs_change(files, vr)
+
+    # === V39 [FATAL]: 聪明钱持仓 13F 合规性 (v10.2 新增) ===
+    validate_holdings_13f_compliance(files, vr)
 
     # === R1-R8: 回归门禁 ===
     validate_regression_gates(files, baseline, vr, mode)

@@ -1,6 +1,6 @@
 {
   "_comment": "黄金基线定义 — validate.py 自动化校验的参数源",
-  "_version": "v1.0",
+  "_version": "v1.1",
   "_baseDate": "2026-04-06",
   "_basedOn": "briefing-golden-sample.json (2026-04-06 Heavy 产出)",
 
@@ -49,7 +49,7 @@
       "gics_exact": 11,
       "sparkline_length": 7,
       "insight_min_length": 30,
-      "insight_max_length": 80
+      "insight_max_length": 100
     },
     "watchlist": {
       "requiredTopLevel": ["date", "sectors", "stocks", "dataTime"],
@@ -61,7 +61,7 @@
       "risks_max": 3
     },
     "radar": {
-      "requiredTopLevel": ["date", "trafficLights", "riskScore", "riskLevel", "riskAdvice", "riskAlerts", "events", "alerts", "smartMoneyDetail", "smartMoneyHoldings", "dataTime"],
+      "requiredTopLevel": ["date", "trafficLights", "riskScore", "riskLevel", "riskAdvice", "events", "alerts", "smartMoneyDetail", "smartMoneyHoldings", "dataTime"],
       "trafficLights_exact": 7,
       "trafficLights_order": ["VIX波动率", "10Y美债收益率", "布伦特原油", "美元指数DXY", "HY信用利差", "黄金XAU", "离岸人民币CNH"],
       "events_min": 3,
@@ -91,7 +91,7 @@
     "changeLabel": ["大盘指数", "科技指数", "蓝筹指数", "恐慌指标"],
     "judgmentProbability": ["高可能性", "中可能性", "低可能性"],
     "judgmentTrend": ["上升", "下降", "稳定"],
-    "sourceType": ["heavy_analysis", "refresh_update", "realtime_quote", "breaking_news", "weekend_insight"]
+    "sourceType": ["heavy_analysis", "weekend_insight"]
   },
 
   "sentimentScoreMapping": {
@@ -145,6 +145,10 @@
     "riskPoints_forbidden_words": ["建议", "仓位", "对冲", "加仓", "减仓"],
     "markdown_patterns": ["\\*\\*", "\\|.*\\|", "^>", "^- ", "^• "],
     "fuzzy_prefix_patterns": ["~", "≈", "约", "左右", "大约"],
-    "price_sparkline_tolerance": 0.01
+    "price_sparkline_tolerance": 0.01,
+    "insight_cliche_patterns": ["整体表现不错", "整体表现良好", "板块领涨", "三大指数上涨", "三大指数下跌", "市场整体", "表现平稳", "小幅波动", "市场情绪偏"],
+    "riskAdvice_template_patterns": ["当前风险评分", "保持谨慎", "保持关注", "持续关注", "建议维持"],
+    "analysis_min_length": 80,
+    "watchlist_analysis_min_length": 80
   }
 }

@@ -3,8 +3,8 @@
   "usMarkets": [
     {
       "name": "标普500",
-      "price": "6,616.85",
-      "change": 0.08,
+      "price": "6,773.44",
+      "change": 2.37,
       "changeLabel": "大盘指数",
       "sparkline": [
         6368.85,
@@ -18,8 +18,8 @@
     },
     {
       "name": "纳斯达克",
-      "price": "22,017.85",
-      "change": 0.1,
+      "price": "22,640.41",
+      "change": 2.84,
       "changeLabel": "科技指数",
       "sparkline": [
         20948.36,
@@ -33,8 +33,8 @@
     },
     {
       "name": "道琼斯",
-      "price": "46,584.46",
-      "change": -0.18,
+      "price": "47,885.91",
+      "change": 2.79,
       "changeLabel": "蓝筹指数",
       "sparkline": [
         45166.64,
@@ -48,26 +48,17 @@
     },
     {
       "name": "VIX恐慌指数",
-      "price": "25.78",
-      "change": 6.66,
+      "price": "20.34",
+      "change": -21.1,
       "changeLabel": "恐慌指标",
-      "sparkline": [
-        22.5,
-        23.1,
-        23.8,
-        24.0,
-        23.5,
-        24.17,
-        25.78
-      ]
+      "sparkline": []
     }
   ],
-  "usInsight": "SPX微涨0.08%但VIX飙升至25.78红灯区间(+6.66%)，恐慌指数与指数走势严重背离——市场表面平静实则暗流涌动，特朗普对伊朗最后通牒前尾盘急拉掩盖了日内剧烈波动",
   "m7": [
     {
       "name": "苹果 AAPL",
-      "price": "$253.50",
-      "change": -2.07,
+      "price": "$258.81",
+      "change": 2.09,
       "symbol": "AAPL",
       "sparkline": [
         248.8,
@@ -81,8 +72,8 @@
     },
     {
       "name": "微软 MSFT",
-      "price": "$372.29",
-      "change": 0.16,
+      "price": "$378.83",
+      "change": 1.76,
       "symbol": "MSFT",
       "sparkline": [
         356.77,
@@ -96,8 +87,8 @@
     },
     {
       "name": "英伟达 NVDA",
-      "price": "$178.10",
-      "change": 0.26,
+      "price": "$182.13",
+      "change": 2.26,
       "symbol": "NVDA",
       "sparkline": [
         167.52,
@@ -111,8 +102,8 @@
     },
     {
       "name": "谷歌 GOOGL",
-      "price": "$305.46",
-      "change": 1.32,
+      "price": "$316.04",
+      "change": 3.47,
       "symbol": "GOOGL",
       "sparkline": [
         274.34,
@@ -126,8 +117,8 @@
     },
     {
       "name": "亚马逊 AMZN",
-      "price": "$213.77",
-      "change": 0.46,
+      "price": "$220.28",
+      "change": 3.04,
       "symbol": "AMZN",
       "sparkline": [
         199.34,
@@ -141,23 +132,15 @@
     },
     {
       "name": "META",
-      "price": "$575.05",
-      "change": 0.35,
+      "price": "$597.93",
+      "change": 3.98,
       "symbol": "META",
-      "sparkline": [
-        570,
-        572,
-        573,
-        574,
-        572,
-        573,
-        575
-      ]
+      "sparkline": []
     },
     {
       "name": "特斯拉 TSLA",
-      "price": "$346.65",
-      "change": -1.75,
+      "price": "$351.87",
+      "change": 1.51,
       "symbol": "TSLA",
       "sparkline": [
         361.83,
@@ -170,108 +153,82 @@
       ]
     }
   ],
-  "m7Insight": "M7分化显著：AAPL因折叠iPhone工程延迟大跌2.07%拖累Dow，GOOGL(+1.32%)和AVGO扩大AI合作提振算力链情绪——本周M7面临PCE+CPI双重数据考验，估值修正压力未解",
   "asiaMarkets": [
     {
       "name": "上证指数",
-      "price": "3,964.72",
-      "change": 1.92,
+      "price": "3,995",
+      "change": 2.69,
       "sparkline": [
-        3913.72,
         3923.29,
         3891.86,
         3948.55,
         3919.28,
         3880.1,
-        3890.16
+        3890.16,
+        3995.0
       ]
     },
     {
       "name": "深证成指",
-      "price": "13,660.00",
-      "change": 1.94,
+      "price": "--",
+      "change": 4.79,
       "sparkline": [
-        13760.37,
         13726.19,
         13478.06,
         13706.52,
         13486.94,
         13352.9,
-        13400.41
+        13400.41,
+        14042.5
       ]
     },
     {
       "name": "恒生指数",
-      "price": "25,821.88",
+      "price": "--",
       "change": 2.81,
       "sparkline": [
-        25335.95,
         24856.43,
         24951.88,
         24750.79,
         24788.14,
         25294.03,
-        25116.53
+        25116.53,
+        25893.02
       ]
     },
     {
       "name": "恒生科技",
-      "price": "4,810.50",
-      "change": 2.81,
+      "price": "--",
+      "change": 4.42,
       "sparkline": [
-        4922.94,
         4761.54,
         4778.01,
         4690.08,
         4649.82,
         4756.45,
-        4679.1
+        4679.1,
+        4923.25
       ]
     },
     {
       "name": "日经225",
-      "price": "53,429.00",
-      "change": 0.0,
-      "sparkline": [
-        53200,
-        53300,
-        53350,
-        53400,
-        53380,
-        53414,
-        53430
-      ]
+      "price": "--",
+      "change": 5.0,
+      "sparkline": []
     },
     {
-      "name": "KOSPI",
-      "price": "3,232.00",
-      "change": 0.69,
-      "sparkline": [
-        3220,
-        3225,
-        3218,
-        3215,
-        3212,
-        3224,
-        3210
-      ]
+      "name": "韩国KOSPI",
+      "price": "5,872",
+      "change": 6.87,
+      "sparkline": []
     }
   ],
-  "asiaInsight": "A股小幅收涨(沪+0.26%/深+0.36%)抗住外围波动，但港股恒指(-0.70%)恒生科技(-0.85%)走弱——美伊局势不确定性压制风险偏好，外资对港股短期谨慎，关注本周FOMC纪要对亚太资金面影响",
   "commodities": [
     {
-      "name": "黄金 XAU",
-      "price": "$4,797",
-      "change": 1.89,
-      "sparkline": [
-        4510.95,
-        4667.05,
-        4758.1,
-        4675.99,
-        4650.36,
-        4705.48,
-        4794.27
-      ]
+      "name": "黄金XAU",
+      "price": "$4,774.08",
+      "change": 1.4,
+      "sparkline": []
     },
     {
       "name": "布伦特原油",
@@ -289,8 +246,8 @@
     },
     {
       "name": "WTI原油",
-      "price": "$96.41",
-      "change": -14.64,
+      "price": "--",
+      "change": -13.0,
       "sparkline": [
         104.98,
         101.52,
@@ -298,147 +255,109 @@
         112.04,
         112.56,
         110.32,
-        96.32
+        93.04
       ]
     },
     {
       "name": "美元指数DXY",
-      "price": "99.50",
-      "change": -0.48,
-      "sparkline": [
-        100.2,
-        100.0,
-        99.8,
-        99.6,
-        99.7,
-        100.0,
-        99.5
-      ]
+      "price": "98.79",
+      "change": -1.07,
+      "sparkline": []
     },
     {
-      "name": "10Y美债",
-      "price": "4.25%",
-      "change": -1.16,
-      "sparkline": [
-        4.35,
-        4.33,
-        4.32,
-        4.31,
-        4.3,
-        4.34,
-        4.3
-      ]
+      "name": "10Y美债收益率",
+      "price": "4.33%",
+      "change": -0.01,
+      "sparkline": []
     },
     {
       "name": "离岸人民币CNH",
-      "price": "6.8308",
-      "change": -0.35,
-      "sparkline": [
-        7.24,
-        7.25,
-        7.25,
-        7.26,
-        7.25,
-        7.25,
-        7.26
-      ]
+      "price": "6.82",
+      "change": 0.87,
+      "sparkline": []
     }
   ],
-  "commodityInsight": "黄金$4,675维持高位但距ATH($5,589)已回撤17%，布伦特$109.62逼近$110红灯线——若伊朗局势升级油价突破$110将直接触发通胀预期上修，对全年权益估值中枢构成系统性压力",
   "cryptos": [
     {
       "name": "比特币 BTC",
-      "price": "$71,478",
-      "change": 2.08,
-      "sparkline": [
-        68000,
-        68500,
-        69000,
-        69200,
-        69500,
-        68859,
-        70023
-      ]
+      "price": "$71,661",
+      "change": -0.4,
+      "sparkline": []
     },
     {
       "name": "以太坊 ETH",
-      "price": "$2,150",
-      "change": 2.09,
-      "sparkline": [
-        2120,
-        2130,
-        2100,
-        2110,
-        2105,
-        2123,
-        2106
-      ]
+      "price": "$2,108",
+      "change": 6.01,
+      "sparkline": []
     }
   ],
-  "cryptoInsight": "BTC站上$70,000(+1.61%)显示避险资金从传统资产外溢，ETH走弱(-0.78%)与BTC形成分化——地缘避险叙事利好BTC，但高利率环境压制ETH生态估值",
   "gics": [
     {
-      "name": "能源 XLE",
-      "change": 0.8,
-      "etf": "XLE"
-    },
-    {
-      "name": "信息技术 XLK",
-      "change": 0.48,
-      "etf": "XLK"
-    },
-    {
-      "name": "医疗保健 XLV",
-      "change": 0.2,
-      "etf": "XLV"
-    },
-    {
-      "name": "公用事业 XLU",
-      "change": 0.22,
-      "etf": "XLU"
-    },
-    {
       "name": "通信服务 XLC",
-      "change": 0.05,
+      "change": 3.54,
       "etf": "XLC"
     },
     {
-      "name": "房地产 XLRE",
-      "change": -0.1,
-      "etf": "XLRE"
+      "name": "非必需消费 XLY",
+      "change": 3.53,
+      "etf": "XLY"
+    },
+    {
+      "name": "信息技术 XLK",
+      "change": 2.82,
+      "etf": "XLK"
+    },
+    {
+      "name": "金融 XLF",
+      "change": 2.67,
+      "etf": "XLF"
+    },
+    {
+      "name": "能源 XLE",
+      "change": 2.3,
+      "etf": "XLE"
+    },
+    {
+      "name": "医疗 XLV",
+      "change": 2.3,
+      "etf": "XLV"
     },
     {
       "name": "工业 XLI",
-      "change": -0.2,
+      "change": 2.3,
       "etf": "XLI"
     },
     {
       "name": "材料 XLB",
-      "change": -0.28,
+      "change": 2.12,
       "etf": "XLB"
     },
     {
-      "name": "金融 XLF",
-      "change": -0.48,
-      "etf": "XLF"
-    },
-    {
-      "name": "非必需消费 XLY",
-      "change": -1.16,
-      "etf": "XLY"
+      "name": "房地产 XLRE",
+      "change": 1.68,
+      "etf": "XLRE"
     },
     {
       "name": "必需消费 XLP",
-      "change": -1.69,
+      "change": 1.05,
       "etf": "XLP"
+    },
+    {
+      "name": "公用事业 XLU",
+      "change": 0.35,
+      "etf": "XLU"
     }
   ],
-  "gicsInsight": "能源(+0.80%)和科技(+0.48%)领涨而消费(-1.69%/-1.16%)大跌——板块轮动呈现典型滞胀特征：通胀受益板块走强、消费承压，暗示市场定价高油价+高通胀对消费力的挤压",
-  "dataTime": "2026-04-08 12:00 BJT",
+  "usInsight": "美伊两周停火触发全面risk-on行情，三大指数涨超2%，VIX暴跌21%至20.34降至战前水平。但停火条件模糊+仅两周窗口，市场可能过度定价和平预期",
+  "m7Insight": "M7全线上涨但分化明显：META领涨+3.98%受益广告AI预期，GOOGL涨3.47%，TSLA仅+1.51%。苹果折叠iPhone工程挫折拖累但被整体停火利好对冲收涨2.09%",
+  "asiaInsight": "亚太市场对停火反应最为剧烈——韩国KOSPI飙升6.87%触发熔断(海峡关闭期间氦气短缺严重冲击半导体产业)，日经涨5%，A股百点长阳创业板涨5.91%受益人民币升值",
+  "commodityInsight": "布伦特暴跌13.8%至$94创近6年最大单日跌幅，但仍高于战前$70逾30%。黄金逆势涨1.4%至$4774说明深层避险底仓未撤，DXY跌至98.79创多年新低，CNH升破6.85关口",
+  "cryptoInsight": "BTC微跌0.4%至$71661对停火反应平淡——加密市场更关注流动性和监管叙事而非地缘。ETH涨6%受链上活跃度回暖+Pectra升级预期支撑",
+  "gicsInsight": "通信服务和非必需消费领涨(+3.5%)反映风险偏好急剧回归，能源板块仅涨2.3%——油价暴跌的利空被停火利好对冲。必需消费和公用事业垫底符合risk-on轮动逻辑",
+  "dataTime": "2026-04-08 22:15 BJT",
   "_meta": {
-    "sourceType": "refresh_update",
-    "generatedAt": "2026-04-08T12:00:00+08:00",
-    "skillVersion": "v8.1",
-    "refreshCount": 2
+    "sourceType": "heavy_analysis",
+    "generatedAt": "",
+    "skillVersion": "v10.0"
   }
 }

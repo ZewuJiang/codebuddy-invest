@@ -1,0 +1,33 @@
+{
+  "version": "7.1",
+  "date": "2026-04-08",
+  "updatedAt": "2026-04-08T19:28:50+08:00",
+  "sourceType": "heavy_analysis",
+  "refreshInterval": "每工作日更新（日内可手动刷新）",
+  "collections": [
+    "briefing",
+    "markets",
+    "watchlist",
+    "radar"
+  ],
+  "collectionsCount": 4,
+  "totalSizeKB": 86.2,
+  "skillVersion": "v7.1",
+  "author": "投研鸭 touyanduck",
+  "description": "二级市场每日策略简报 — 覆盖美股/M7/GICS/亚太/大宗/加密/聪明钱/AI产业链",
+  "qualityChecks": [
+    "八大铁律",
+    "29条致命错误零容忍",
+    "14项JSON完整性终审",
+    "Top10快速终审"
+  ],
+  "dataSources": [
+    "Google Finance",
+    "AkShare",
+    "英为财情",
+    "OilPrice.com",
+    "FRED",
+    "CoinGecko"
+  ],
+  "disclaimer": "本数据仅供投资参考，不构成投资建议。数据虽经严格审核，仍可能存在延迟或偏差。"
+}

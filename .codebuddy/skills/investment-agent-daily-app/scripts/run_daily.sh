@@ -1,9 +1,14 @@
 #!/bin/bash
 # ============================================================
-# 投研鸭小程序 — 每日数据更新串联脚本 v5.0（Harness Engineering v2.0）
-# 执行顺序：JSON语法校验 → validate.py自动化校验(35+项) → sparkline补全 → 上传 → 同步API
+# 投研鸭小程序 — 每日数据更新串联脚本 v6.0（Harness v9.0）
+# 执行顺序：JSON语法校验 → auto_compute.py公式计算 → validate.py自动化校验(35+项) → sparkline补全 → 上传 → 同步API
 #
 # 用法：bash run_daily.sh [YYYY-MM-DD] [--skip-warn]
+#
+# 【v9.0 改动】：
+#   - 新增第0.3步：auto_compute.py 自动计算公式字段
+#   - 模式检测简化：只有 standard / weekend 两档（去掉 refresh）
+#   - validate.py v3.0：去掉 refresh 分支
 #
 # 【校验双级机制 v2.0】：
 #   FATAL 级（R2/R3/R9）：不可绕过，必须修复（--skip-warn 无效）
@@ -11,6 +16,7 @@
 #
 # 【依赖层级】：
 #   第0步（JSON语法校验）：硬依赖
+#   第0.3步（auto_compute.py）：硬依赖（公式自动计算）
 #   第0.5步（validate.py）：硬依赖（FATAL 不可跳过 / WARN 可用 --skip-warn 跳过）
 #   第1步（sparkline补全）：软依赖，失败不阻断
 #   第2步（上传云数据库）：硬依赖
@@ -72,19 +78,30 @@ echo ""
 echo "✅ JSON 语法校验通过"
 echo ""
 
-# ── 第0.5步：数据质量自动化校验（Harness Engineering v2.0 — FATAL/WARN 双级） ──────────
-echo "🔍 第0.5步：数据质量自动化校验（validate.py — 35+ 项 FATAL/WARN 双级门禁）..."
+# ── 第0.3步：公式字段自动计算（Harness v9.0 新增） ──────────────
+echo "🔧 第0.3步：公式字段自动计算（auto_compute.py v1.0）..."
+echo "   自动计算：trafficLights.status / riskScore / riskLevel / sentimentLabel / metrics联动"
 echo ""
 
-# 检测执行模式：若基准JSON的_meta.sourceType为refresh_update则为Refresh
-VALIDATE_MODE="heavy"
-if [ -f "$SYNC_DIR/briefing.json" ]; then
-    SOURCE_TYPE=$(python3 -c "import json; d=json.load(open('$SYNC_DIR/briefing.json')); print(d.get('_meta',{}).get('sourceType',''))" 2>/dev/null)
-    if [ "$SOURCE_TYPE" = "refresh_update" ]; then
-        VALIDATE_MODE="refresh"
-    elif [ "$SOURCE_TYPE" = "weekend_insight" ]; then
-        VALIDATE_MODE="weekend"
-    fi
+python3 "$SCRIPT_DIR/auto_compute.py" "$SYNC_DIR"
+COMPUTE_EXIT=$?
+
+if [ $COMPUTE_EXIT -ne 0 ]; then
+    echo ""
+    echo "⚠️  auto_compute.py 执行异常（退出码=$COMPUTE_EXIT），但不阻断流程"
+    echo ""
+fi
+
+# ── 第0.5步：数据质量自动化校验（FATAL/WARN 双级） ──────────
+echo "🔍 第0.5步：数据质量自动化校验（validate.py v3.0 — 35+ 项 FATAL/WARN 双级门禁）..."
+echo ""
+
+# 模式检测：根据星期几判断（v9.0 简化：只有 standard / weekend）
+DAY_OF_WEEK=$(date +%u)
+if [ "$DAY_OF_WEEK" -ge 6 ]; then
+    VALIDATE_MODE="weekend"
+else
+    VALIDATE_MODE="standard"
 fi
 
 python3 "$SCRIPT_DIR/validate.py" "$SYNC_DIR" --mode "$VALIDATE_MODE"
@@ -183,16 +200,18 @@ if [ $API_CORRECTED -eq 1 ]; then
     echo "🎉 全流程完成！大老板刷新小程序即可看到最新数据"
     echo "   日期：${DATE}"
     echo "   数据来源：AI 采集（price/change/metrics/trafficLights/文字）+ AkShare（sparkline/chartData）"
+    echo "   公式计算：auto_compute.py（riskScore/riskLevel/sentimentLabel/trafficLights.status）"
 else
     echo "🎉 全流程完成（sparkline补全已跳过）！大老板刷新小程序即可看到最新数据"
     echo "   日期：${DATE}"
     echo "   数据来源：AI 采集（全量）| sparkline/chartData 为 AI 估算值（非真实历史序列）"
+    echo "   公式计算：auto_compute.py（riskScore/riskLevel/sentimentLabel/trafficLights.status）"
     echo "   建议：网络恢复后可手动补跑 refresh_verified_snapshot.py 提升 sparkline 精度"
 fi
 if [ $SYNC_EXIT -eq 0 ]; then
     echo "   🌐 公开 API 本地数据已同步"
     echo "   📌 GitHub Pages 推送由 daily-app Skill 第4.3阶段自动完成"
-    echo "   📌 手动验证: curl -s https://zewujiang.github.io/touyanduck-api/briefing.md | head -3"
+    echo "   📌 手动验证: curl -s https://api.touyanduck.com/briefing.md | head -3"
 else
     echo "   ⚠️  公开 API 同步失败，不影响小程序数据（可手动重跑 sync_to_edgeone.sh）"
 fi

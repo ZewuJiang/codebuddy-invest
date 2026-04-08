@@ -1,4 +1,4 @@
-# JSON Schema 完整字段规范（v4.6）
+# JSON Schema 完整字段规范（v5.0）
 
 > **用途**：定义投研鸭小程序 4 个 JSON 文件的精确字段规范。每个字段都对应小程序前端组件的一个渲染点。
 > **核心原则**：Schema 即契约。JSON 生成阶段必须逐字段对照本文件，不允许新增/缺失/改名字段。
@@ -35,7 +35,7 @@
     // 其余时段             → 美股已收盘
     // 美国公共假日（如耶稣受难日、感恩节、国庆日、圣诞节等）→ 美股休市
     // 数据标注规则：globalReaction 中美股数据若非收盘值，必须在 dataTime 中注明「盘前」或「盘后」；休市日不需标注
-    "refreshInterval": "每日更新"            // 🔸 string — 数据刷新频率说明
+    "refreshInterval": "每日更新"            // 🔸 string — 数据刷新频率说明（固定值）
   },
 
   // ===== v1.7 新增：今日核心结论 TAKEAWAY =====
@@ -193,10 +193,10 @@
 
   // ===== v1.3 新增：元数据 =====
   "_meta": {                                // 🔸 object — 元数据（可选，无则前端不显示来源标签）
-    "sourceType": "heavy_analysis",         // 🔸 string — 枚举：heavy_analysis / refresh_update（v7.0新增）/ realtime_quote / breaking_news / weekend_insight（v4.0新增）
+    "sourceType": "heavy_analysis",         // 🔸 string — 枚举：heavy_analysis / realtime_quote / breaking_news / weekend_insight（v4.0新增）
     "generatedAt": "2026-04-01T09:00:00+08:00",  // 🔸 string — ISO 8601 生成时间
     "skillVersion": "v4.0",                 // 🔸 string — 生产此数据的 Skill 版本号
-    "refreshCount": 1                       // 🔸 number — Refresh 模式专用：当天第几次 Refresh（1/2/3...）。Heavy/Weekend 模式不填此字段。前端不渲染，仅用于调试追溯
+    "refreshCount": 1                       // 🔸 number — 已废弃（v9.0 删除 Refresh 模式）。保留字段向后兼容，新产出不填此字段
   }
 }
 ```
@@ -700,7 +700,7 @@
   "dataTime": "2026-04-01 09:00 BJT",       // ⚠️ string
 
   "_meta": {                                // 🔸 object — 元数据（可选）
-    "sourceType": "heavy_analysis",         // 🔸 string — 枚举：heavy_analysis / refresh_update（v7.0新增）/ realtime_quote / breaking_news / weekend_insight
+    "sourceType": "heavy_analysis",         // 🔸 string — 枚举：heavy_analysis / realtime_quote / breaking_news / weekend_insight
     "generatedAt": "2026-04-01T09:00:00+08:00",  // 🔸 string — ISO 8601
     "skillVersion": "v4.4"                  // 🔸 string — Skill 版本号
   }
@@ -786,10 +786,11 @@
 | `coreJudgments[].trend` | `上升`, `下降`, `稳定` |
 | `predictions[].trend` | `up`, `down`, `stable` |
 | `predictions[].source` | `Polymarket`, `Kalshi`, `CME FedWatch` |
-| `_meta.sourceType` | `heavy_analysis`, `refresh_update`, `realtime_quote`, `breaking_news`, `weekend_insight` |
+| `_meta.sourceType` | `heavy_analysis`, `realtime_quote`, `breaking_news`, `weekend_insight` |
 
 ---
 
+> v5.0 — 2026-04-08 | **Harness v9.0**：清理 Refresh 模式相关引用——sourceType 枚举去掉 `refresh_update`、refreshCount 标注废弃、refreshInterval 固定为"每日更新"。
 > v4.6 — 2026-04-08 | **持仓字段硬约束升级（回归门禁 R1-R8 配套）**：①`topHoldings` 从"🔸可选2-4条"升级为"⚠️必填≥3条"（伯克希尔+段永平+ARK旗舰缺一不可）；②`smartMoneyHoldings` 从"🔸可选"升级为"⚠️必填"（伯克希尔+段永平必须存在）；③`positions` 从"推荐Top10"升级为"≥Top10硬约束"；④新增 `holdings-cache.json` 引用规则（非13F窗口期直接引用缓存，禁止凭记忆修改权重）
 > v4.5 — 2026-04-07 | `coreEvent.chain[]` 新增 `source_count` 可选字段（多源交叉验证标记）：①`refreshInterval` 新增 Refresh 模式说明（"每4小时更新"）；②`_meta` 新增 `refreshCount` 可选字段（当天第几次 Refresh，调试追溯用）；③版本号 v4.2→v4.4 对齐 Refresh 模式变更。
 > v4.3 — 2026-04-06 17:59 | **新增语音播报字段**：briefing.json 新增 `audioUrl`/`audioFile`/`voiceText` 三个可选字段，支持前端时间状态栏🔊播放按钮。由 `generate_audio.py`（MiniMax TTS）+ `upload_to_cloud.py` v1.2 自动生成和上传。

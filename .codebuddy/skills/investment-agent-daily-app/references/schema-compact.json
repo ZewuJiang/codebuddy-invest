@@ -1,0 +1,87 @@
+{
+  "_comment": "投研鸭小程序 Schema 紧凑定义 v1.0 — AI 产出阶段直接参照本文件",
+  "_version": "v1.0",
+  "_usage": "替代 800行 json-schema.md 的执行阶段参考。AI 生成 JSON 时逐字段核对。",
+
+  "briefing": {
+    "required": ["date", "coreEvent", "globalReaction", "coreJudgments", "sentimentScore", "sentimentLabel", "marketSummaryPoints", "smartMoney", "topHoldings", "riskPoints", "riskNote", "dataTime"],
+    "optional": ["takeaway", "timeStatus", "actionHints", "audioUrl", "audioFile", "voiceText", "_meta"],
+    "fields": {
+      "date": "string YYYY-MM-DD",
+      "takeaway": { "type": "string", "len": "30-80字", "highlights": "3-5个【】", "禁止": "操作建议" },
+      "coreEvent.title": { "type": "string", "len": "20-50字", "要求": "1-2个核心矛盾" },
+      "coreEvent.chain[]": { "type": "object[]", "count": "3-6", "fields": ["title*(≤20字)", "brief?(15-40字)", "source?", "url?", "source_count?"] },
+      "globalReaction[]": { "type": "object[]", "count": "5-6", "fields": ["name*", "value*(精确数值)", "direction*(up/down/flat)", "note?(≤15字)"] },
+      "coreJudgments[]": { "type": "object[]", "count": "精确3", "fields": ["title*(10-30字)", "confidence*(number 30-95)", "logic*(→三段式)", "keyActor?", "references?[]", "probability?", "trend?"] },
+      "actionHints[]": { "type": "object[]", "count": "0-2", "fields": ["type*(hold/add/reduce/buy/sell/watch/hedge/stoploss)", "content*", "reason?"], "note": "大多数日子为空[]" },
+      "sentimentScore": "number 0-100 (auto_compute计算label)",
+      "sentimentLabel": "string 自动计算 (禁止手填)",
+      "marketSummaryPoints[]": { "type": "string[]", "count": "3-5", "len": "每条15-40字" },
+      "smartMoney[]": { "type": "object[]", "count": "2-4", "fields": ["source*", "action*(含具体数字)", "signal*(bullish/bearish/neutral)"] },
+      "topHoldings[]": { "type": "object[]", "count": "≥3", "fields": ["name*", "holdings*(一行式概要)"], "note": "伯克希尔+段永平+ARK必须存在" },
+      "riskPoints[]": { "type": "string[]", "count": "2-3", "len": "每条15-50字", "禁止": "操作建议" },
+      "riskNote": "string 30-100字 (兼容字段)",
+      "dataTime": "string 'YYYY-MM-DD HH:MM BJT' (auto_compute自动填充)"
+    }
+  },
+
+  "markets": {
+    "required": ["date", "usMarkets", "m7", "asiaMarkets", "commodities", "cryptos", "gics", "usInsight", "m7Insight", "asiaInsight", "commodityInsight", "cryptoInsight", "gicsInsight"],
+    "fields": {
+      "usMarkets[]": { "count": "精确4", "order": "标普500/纳斯达克/道琼斯/VIX", "fields": ["name*", "price*(string千分位)", "change*(number)", "changeLabel*(大盘指数/科技指数/蓝筹指数/恐慌指标)", "sparkline*(number[7])"] },
+      "m7[]": { "count": "精确7", "order": "AAPL/MSFT/NVDA/GOOGL/AMZN/META/TSLA", "fields": ["name*('中文名 代码')", "price*", "change*(number)", "symbol*", "sparkline*(number[7])"] },
+      "asiaMarkets[]": { "count": "4-6", "推荐": "上证/深证/恒生/恒科/日经/KOSPI" },
+      "commodities[]": { "count": "精确6", "order": "黄金/布伦特/WTI/DXY/10Y美债/CNH" },
+      "cryptos[]": { "count": "1-3", "推荐": "BTC/ETH/SOL" },
+      "gics[]": { "count": "精确11", "order": "按change降序(auto_compute自动排序)", "fields": ["name*('中文名 ETF代码')", "change*(number)", "etf*"] },
+      "Insight×6": { "type": "string", "len": "30-100字", "要求": "决策信号式(非新闻摘要)" }
+    }
+  },
+
+  "watchlist": {
+    "required": ["date", "sectors", "stocks", "dataTime"],
+    "fields": {
+      "sectors[]": { "count": "4-5", "order": "ai_infra→ai_app→cn_ai→smart_money→hot_topic(可选)", "fields": ["id*(枚举)", "name*", "trend*(up/down/hold)", "summary*(含数字+判断)"] },
+      "stocks.{sector_id}[]": {
+        "已上市": ["name*", "symbol*", "change*(number)", "price*(string含$)", "listed(true)", "tags*(2个)", "badges?[]", "reason*(20-60字含论据)", "analysis*(100-300字)", "metrics*(精确6项)", "risks*(2-3条)", "sparkline*(number[7])", "chartData*(number[30])"],
+        "未上市": ["listed=false", "price='未上市'", "change=0", "metrics=[]", "sparkline=[]", "chartData=[]", "badges=['未上市']"],
+        "metrics6项": ["最新价(auto)", "单日涨跌(auto)", "7日涨跌(auto)", "30日涨跌(auto)", "PE(TTM)", "综合评级(auto)"],
+        "auto标记": "auto_compute.py 自动计算的字段AI无需手填"
+      }
+    }
+  },
+
+  "radar": {
+    "required": ["date", "trafficLights", "riskScore", "riskLevel", "riskAdvice", "events", "alerts", "smartMoneyDetail", "smartMoneyHoldings", "dataTime"],
+    "optional": ["predictions", "monitorTable", "riskAlerts(固定[])"],
+    "fields": {
+      "trafficLights[]": { "count": "精确7", "order": "VIX/10Y美债/布伦特/DXY/HY信用利差/黄金/CNH", "fields": ["name*", "value*(精确数值)", "status*(auto_compute)", "threshold*(复制formulas.md)"] },
+      "riskScore": "number (auto_compute自动计算)",
+      "riskLevel": "string (auto_compute自动计算)",
+      "riskAdvice": { "type": "string", "len": "≤2句", "要求": "点名危险指标+催化剂", "禁止": "套模板/操作建议" },
+      "events[]": { "count": "3-5", "fields": ["date*(周X)", "title*(20-40字)", "impact*(high/medium/low)", "source?", "url?"] },
+      "alerts[]": { "count": "0-4", "fields": ["level*(danger/warning/info)", "text*", "time*(HH:MM)", "source?", "url?"] },
+      "smartMoneyDetail[]": { "count": "3梯队", "tiers": ["T1旗舰", "T2成长", "策略师观点"], "fields_per_fund": ["name*", "action*(含数字+操作+理由)", "signal*(bullish/bearish/neutral)", "source?", "url?", "freshness?"] },
+      "smartMoneyHoldings[]": { "count": "≥2", "fields": ["manager*", "fund?", "aum?", "asOf*", "positions*(≥Top10)", "footnote?"], "note": "非13F窗口直接引用 holdings-cache.json" },
+      "predictions[]": { "count": "2-4(可选)", "fields": ["title*(≤15字)", "source*(Polymarket/Kalshi/CME FedWatch)", "probability*(number 0-100)", "trend*(up/down/stable)", "change24h*(number)"] }
+    }
+  },
+
+  "autoComputed": {
+    "_comment": "以下字段由 auto_compute.py v2.0 自动计算，AI无需手填",
+    "fields": [
+      "trafficLights[].status",
+      "riskScore",
+      "riskLevel",
+      "sentimentLabel",
+      "watchlist.stocks[].metrics[0].value (=price)",
+      "watchlist.stocks[].metrics[1].value (=±change%)",
+      "watchlist.stocks[].metrics[2].value (7日涨跌, from sparkline)",
+      "watchlist.stocks[].metrics[3].value (30日涨跌, from chartData)",
+      "watchlist.stocks[].metrics[5].value (综合评级, from change+pct30d)",
+      "markets.gics[] 排序 (按change降序)",
+      "4个JSON dataTime (当前时间)",
+      "4个JSON _meta.sourceType (修正废弃值)"
+    ]
+  }
+}

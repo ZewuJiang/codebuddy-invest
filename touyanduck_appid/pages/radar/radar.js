@@ -184,13 +184,17 @@ Page({
       })
     })
 
-    // ── 6. 聪明钱持仓处理（v6.3 新增）──
+    // ── 6. 聪明钱持仓处理（v6.3 新增，v10.0 紧凑化 manager/asOf）──
     var holdings = (data.smartMoneyHoldings || []).map(function(h) {
+      // 紧凑化 manager：去掉过长的修饰词
+      var shortManager = (h.manager || '').replace(/\s*·\s*/g, ' · ')
+      // 紧凑化 asOf：只保留核心日期信息
+      var shortAsOf = (h.asOf || '').replace(/（[^）]+）/g, '').replace(/\([^)]+\)/g, '').trim()
       return {
-        manager: h.manager || '',
+        manager: shortManager,
         fund: h.fund || '',
         aum: h.aum || '',
-        asOf: h.asOf || '',
+        asOf: shortAsOf,
         positions: (h.positions || []).map(function(pos, idx) {
           return {
             rank: idx + 1,

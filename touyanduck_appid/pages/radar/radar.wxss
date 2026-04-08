@@ -109,31 +109,44 @@
   display: flex;
   align-items: baseline;
   gap: 12rpx;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .holdings-manager {
   font-size: 28rpx;
   font-weight: 700;
   color: #1a1a2e;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .holdings-aum {
   font-size: 20rpx;
   color: #999;
+  flex-shrink: 0;
 }
 
 .holdings-header-right {
   display: flex;
   align-items: center;
-  gap: 12rpx;
+  gap: 8rpx;
+  flex-shrink: 0;
+  margin-left: 12rpx;
 }
 
 .holdings-date {
-  font-size: 20rpx;
+  font-size: 18rpx;
   color: #bbb;
   background: #f8f8f8;
-  padding: 4rpx 12rpx;
+  padding: 4rpx 10rpx;
   border-radius: 8rpx;
+  max-width: 200rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .holdings-arrow {

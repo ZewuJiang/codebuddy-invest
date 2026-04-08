@@ -11,7 +11,7 @@
     "sentimentLabel_enum": "极度恐惧 / 偏恐惧 / 中性 / 偏贪婪 / 贪婪 / 极度贪婪",
     "actionHints_type_enum": "hold / add / reduce / buy / sell / watch / hedge / stoploss",
     "smartMoney_signal_enum": "bullish / bearish / neutral",
-    "_meta_sourceType_enum": "heavy_analysis / realtime_quote / breaking_news / weekend_insight",
+    "_meta_sourceType_enum": "heavy_analysis / weekend_insight (实际使用) | realtime_quote / breaking_news (TODO 未实现)",
     "predictions_trend_enum": "up / down / stable",
     "predictions_source_enum": "Polymarket / Kalshi / CME FedWatch",
     "globalReaction_direction_enum": "up / down / flat",
