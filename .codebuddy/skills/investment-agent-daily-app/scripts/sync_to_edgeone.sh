@@ -1,10 +1,10 @@
 #!/bin/bash
 # ============================================================
-# 投研鸭 — 公开 API 数据同步脚本 v2.0
+# 投研鸭 — 公开 API 数据同步脚本 v3.0
 #
 # 将 miniapp_sync/ 下的 4 个 JSON 同步到：
 #   1. 本地 touyanduck-api/api/latest/（本地副本）
-#   2. AnyDev 远程服务器 /data/touyanduck-api/api/latest/（公网 API）
+#   2. GitHub Pages（公网 HTTPS 端点）
 #
 # 用法（由 run_daily.sh 或手动调用）：
 #   bash sync_to_edgeone.sh [YYYY-MM-DD]
@@ -13,13 +13,8 @@
 # 数据流：
 #   miniapp_sync/*.json
 #     → touyanduck-api/api/latest/*.json + meta.json（本地）
-#     → 打包 tar.gz → AnyDev file_upload → webshell 解压（远程）
-#     → http://21.214.207.96:8080/api/latest/ 公网可访问
-#
-# 远程同步说明：
-#   本脚本负责本地渲染（render_briefing.py）+ 打包（tar.gz）。
-#   AnyDev 远程上传（file_upload + webshell 解压）由 daily-app SKILL.md
-#   第4.3阶段统一调用，手动运行本脚本时仅执行本地部分（第0.5-3步）。
+#     → 复制到 github-pages/ → git push → GitHub Pages 自动更新
+#     → https://zewujiang.github.io/touyanduck-api/ 全球可访问
 # ============================================================
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -27,16 +22,11 @@ PROJECT_DIR="$(cd "$SCRIPT_DIR/../../../.." && pwd)"
 SYNC_DIR="$PROJECT_DIR/workflows/investment_agent_data/miniapp_sync"
 API_DIR="$PROJECT_DIR/touyanduck-api/api/latest"
 
-# AnyDev 远程服务器配置
-REMOTE_IP="21.214.207.96"
-REMOTE_API_DIR="/data/touyanduck-api/api/latest"
-REMOTE_PORT=8080
-
 # 日期参数（默认今天）
 DATE="${1:-$(date +%Y-%m-%d)}"
 
 echo "============================================================"
-echo "🌐 投研鸭公开 API 数据同步 v2.0 — ${DATE}"
+echo "🌐 投研鸭公开 API 数据同步 v3.0 — ${DATE}"
 echo "============================================================"
 echo ""
 
@@ -98,28 +88,6 @@ fi
 
 echo ""
 
-# ── 第3步：打包用于远程上传的 tar.gz ──────────────────────────
-echo "📦 第3步：打包 API 数据用于远程同步..."
-
-UPLOAD_ARCHIVE="/tmp/touyanduck-api-latest.tar.gz"
-cd "$API_DIR"
-tar -czf "$UPLOAD_ARCHIVE" briefing.json markets.json watchlist.json radar.json meta.json briefing.md 2>/dev/null
-
-if [ $? -eq 0 ]; then
-    ARCHIVE_SIZE=$(du -k "$UPLOAD_ARCHIVE" | cut -f1)
-    echo "  ✅ 打包完成: $UPLOAD_ARCHIVE (${ARCHIVE_SIZE}KB)"
-    echo ""
-    echo "  📌 远程同步提示："
-    echo "     本脚本已准备好上传包: $UPLOAD_ARCHIVE"
-    echo "     远程目标: ${REMOTE_IP}:${REMOTE_PORT} → ${REMOTE_API_DIR}/"
-    echo "     上传方式: 由 CodeBuddy AI 通过 AnyDev Integration API 自动完成"
-    echo "     手动验证: curl -s http://${REMOTE_IP}:${REMOTE_PORT}/api/latest/meta.json"
-else
-    echo "  ⚠️  打包失败，远程同步跳过（本地数据已更新）"
-fi
-
-echo ""
-
 # ── 总结 ────────────────────────────────────────────────────
 echo "============================================================"
 if [ $COPY_OK -eq 1 ]; then
@@ -129,8 +97,7 @@ if [ $COPY_OK -eq 1 ]; then
     ls -la "$API_DIR"/*.json 2>/dev/null | awk '{print "     " $NF " (" $5 " bytes)"}'
     echo ""
     echo "   🌐 公网 API: https://zewujiang.github.io/touyanduck-api/ (GitHub Pages)"
-    echo "   🌐 备用 API: http://${REMOTE_IP}:${REMOTE_PORT}/api/latest/ (AnyDev 内网)"
-    echo "   📦 上传包: $UPLOAD_ARCHIVE（等待 AI 推送到 AnyDev 服务器）"
+    echo "   📌 下一步：复制到 github-pages/ 并 git push"
 else
     echo "⚠️  数据同步完成（部分文件跳过）"
     echo "   请检查源数据目录: $SYNC_DIR"

@@ -1,0 +1,150 @@
+{
+  "_comment": "黄金基线定义 — validate.py 自动化校验的参数源",
+  "_version": "v1.0",
+  "_baseDate": "2026-04-06",
+  "_basedOn": "briefing-golden-sample.json (2026-04-06 Heavy 产出)",
+
+  "regressionGates": {
+    "_comment": "回归门禁 R1-R8 的数值阈值（零退化铁律）",
+    "R1_topHoldings_min": 3,
+    "R1_required_names": ["伯克希尔", "段永平", "ARK旗舰"],
+    "R2_positions_min_per_fund": 10,
+    "R3_forbidden_strings": ["待更新"],
+    "R4_ark_name_patterns": ["ARK", "Cathie", "ARKK"],
+    "R5_cross_consistency": true,
+    "R6_smartMoney_min": 2,
+    "R7_dyp_weight_pattern": "\\d+\\.\\d%",
+    "R7_dyp_weight_min_count": 3,
+    "R8_smartMoneyDetail_tiers": ["T1旗舰", "T2成长", "策略师观点"],
+    "R8_min_funds_per_tier": 1
+  },
+
+  "structureChecks": {
+    "_comment": "JSON 结构校验参数",
+    "briefing": {
+      "requiredTopLevel": ["date", "coreEvent", "globalReaction", "coreJudgments", "sentimentScore", "sentimentLabel", "marketSummaryPoints", "smartMoney", "topHoldings", "riskPoints", "riskNote", "dataTime"],
+      "globalReaction_min": 5,
+      "coreJudgments_exact": 3,
+      "marketSummaryPoints_min": 3,
+      "marketSummaryPoints_max": 5,
+      "smartMoney_min": 2,
+      "smartMoney_max": 4,
+      "topHoldings_min": 3,
+      "riskPoints_min": 2,
+      "riskPoints_max": 4,
+      "takeaway_highlight_min": 3,
+      "takeaway_highlight_max": 5,
+      "chain_min": 3,
+      "chain_max": 6
+    },
+    "markets": {
+      "requiredTopLevel": ["date", "usMarkets", "m7", "asiaMarkets", "commodities", "cryptos", "gics", "usInsight", "m7Insight", "asiaInsight", "commodityInsight", "cryptoInsight", "gicsInsight"],
+      "usMarkets_exact": 4,
+      "m7_exact": 7,
+      "asiaMarkets_min": 4,
+      "asiaMarkets_max": 6,
+      "commodities_exact": 6,
+      "cryptos_min": 1,
+      "cryptos_max": 3,
+      "gics_exact": 11,
+      "sparkline_length": 7,
+      "insight_min_length": 30,
+      "insight_max_length": 80
+    },
+    "watchlist": {
+      "requiredTopLevel": ["date", "sectors", "stocks", "dataTime"],
+      "core_sectors": ["ai_infra", "ai_app", "cn_ai", "smart_money"],
+      "min_stocks_per_core_sector": 2,
+      "metrics_exact": 6,
+      "tags_exact": 2,
+      "risks_min": 2,
+      "risks_max": 3
+    },
+    "radar": {
+      "requiredTopLevel": ["date", "trafficLights", "riskScore", "riskLevel", "riskAdvice", "riskAlerts", "events", "alerts", "smartMoneyDetail", "smartMoneyHoldings", "dataTime"],
+      "trafficLights_exact": 7,
+      "trafficLights_order": ["VIX波动率", "10Y美债收益率", "布伦特原油", "美元指数DXY", "HY信用利差", "黄金XAU", "离岸人民币CNH"],
+      "events_min": 3,
+      "events_max": 5,
+      "smartMoneyDetail_tiers": 3,
+      "smartMoneyHoldings_min": 2
+    }
+  },
+
+  "enumValidation": {
+    "_comment": "所有受控枚举值的唯一权威定义",
+    "direction": ["up", "down", "flat"],
+    "signal": ["bullish", "bearish", "neutral"],
+    "actionType": ["hold", "add", "reduce", "buy", "sell", "watch", "hedge", "stoploss"],
+    "sentimentLabel": ["极度恐惧", "偏恐惧", "中性", "偏贪婪", "贪婪", "极度贪婪"],
+    "marketStatus": ["美股交易中", "美股已收盘", "盘前交易", "盘后交易", "美股休市"],
+    "trafficLightStatus": ["green", "yellow", "red"],
+    "riskLevel": ["low", "medium", "high"],
+    "eventImpact": ["high", "medium", "low"],
+    "alertLevel": ["danger", "warning", "info"],
+    "sectorId": ["ai_infra", "ai_app", "cn_ai", "smart_money", "hot_topic"],
+    "sectorTrend": ["up", "down", "hold"],
+    "predictionSource": ["Polymarket", "Kalshi", "CME FedWatch"],
+    "predictionTrend": ["up", "down", "stable"],
+    "smartMoneyTier": ["T1旗舰", "T2成长", "策略师观点"],
+    "freshness": ["本周", "上周", "本月"],
+    "changeLabel": ["大盘指数", "科技指数", "蓝筹指数", "恐慌指标"],
+    "judgmentProbability": ["高可能性", "中可能性", "低可能性"],
+    "judgmentTrend": ["上升", "下降", "稳定"],
+    "sourceType": ["heavy_analysis", "refresh_update", "realtime_quote", "breaking_news", "weekend_insight"]
+  },
+
+  "sentimentScoreMapping": {
+    "_comment": "sentimentScore → sentimentLabel 强制映射（唯一权威）",
+    "ranges": [
+      { "min": 0, "max": 20, "label": "极度恐惧" },
+      { "min": 21, "max": 40, "label": "偏恐惧" },
+      { "min": 41, "max": 60, "label": "中性" },
+      { "min": 61, "max": 75, "label": "偏贪婪" },
+      { "min": 76, "max": 90, "label": "贪婪" },
+      { "min": 91, "max": 100, "label": "极度贪婪" }
+    ]
+  },
+
+  "riskScoreFormula": {
+    "_comment": "riskScore 计算公式（唯一权威）",
+    "base": 30,
+    "weights": { "green": 0, "yellow": 10, "red": 20 },
+    "cap": 100,
+    "levelThresholds": {
+      "low_max": 44,
+      "medium_max": 64,
+      "high_min": 65
+    }
+  },
+
+  "trafficLightThresholds": {
+    "_comment": "7项红绿灯阈值定义（唯一权威）",
+    "VIX波动率": { "green_max": 18, "yellow_max": 25, "threshold_text": "<18绿 / 18-25黄 / >25红" },
+    "10Y美债收益率": { "green_max": 4.0, "yellow_max": 4.5, "threshold_text": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红" },
+    "布伦特原油": { "green_max": 90, "yellow_max": 110, "threshold_text": "<$90绿 / $90-110黄 / >$110红" },
+    "美元指数DXY": { "green_max": 102, "yellow_max": 107, "threshold_text": "<102绿 / 102-107黄 / >107红" },
+    "HY信用利差": { "green_max": 4.0, "yellow_max": 5.0, "threshold_text": "<4%绿 / 4-5%黄 / >5%红" },
+    "黄金XAU": { "green_max": 2200, "yellow_max": 3500, "threshold_text": "<$2200绿 / $2200-3500黄 / >$3500红" },
+    "离岸人民币CNH": { "green_max": 7.15, "yellow_max": 7.30, "threshold_text": "<7.15绿 / 7.15-7.30黄 / >7.30红" }
+  },
+
+  "starRatingRules": {
+    "_comment": "综合评级计算规则（唯一权威）",
+    "rules": [
+      { "stars": 5, "condition": "30日涨超+15% 且 单日为正", "pct30d_min": 15, "change_positive": true },
+      { "stars": 4, "condition": "30日涨+5%~+15%，或单日涨超+3%", "pct30d_min": 5, "pct30d_max": 15, "change_alt_min": 3 },
+      { "stars": 3, "condition": "30日在-5%~+5%", "pct30d_min": -5, "pct30d_max": 5 },
+      { "stars": 2, "condition": "30日跌-5%~-15%", "pct30d_min": -15, "pct30d_max": -5 },
+      { "stars": 1, "condition": "30日跌超-15%", "pct30d_max": -15 }
+    ]
+  },
+
+  "textQuality": {
+    "_comment": "文本质量校验参数",
+    "riskPoints_forbidden_words": ["建议", "仓位", "对冲", "加仓", "减仓"],
+    "markdown_patterns": ["\\*\\*", "\\|.*\\|", "^>", "^- ", "^• "],
+    "fuzzy_prefix_patterns": ["~", "≈", "约", "左右", "大约"],
+    "price_sparkline_tolerance": 0.01
+  }
+}

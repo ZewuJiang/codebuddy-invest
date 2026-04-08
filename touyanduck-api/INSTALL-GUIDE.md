@@ -84,21 +84,20 @@
 ## 六、技术架构（给懂技术的人看）
 
 ```
-每4小时自动运行 → 产出4个JSON → 渲染为 Markdown → 部署到公网服务器
+每4小时自动运行 → 产出4个JSON → 渲染为 Markdown → 部署到 GitHub Pages
                                                     ↓
-                                        http://21.214.207.96:8080/touyanduck
+                                        https://zewujiang.github.io/touyanduck-api/
                                                     ↓
                                         OpenClaw Skill (curl URL → 读MD → 回答)
 ```
 
-**公网端点**：
-- `/touyanduck` — 完整 Markdown 简报（AI 主要读这个）
-- `/briefing.md` — 同上（别名）
-- `/api/latest/briefing.json` — 核心简报 JSON
-- `/api/latest/markets.json` — 市场详情 JSON
-- `/api/latest/watchlist.json` — 标的分析 JSON
-- `/api/latest/radar.json` — 风险雷达 JSON
-- `/health` — 健康检查
+**公网端点**（GitHub Pages，全球 HTTPS）：
+- `/briefing.md` — 完整 Markdown 简报（AI 主要读这个）
+- `/briefing.json` — 核心简报 JSON
+- `/markets.json` — 市场详情 JSON
+- `/watchlist.json` — 标的分析 JSON
+- `/radar.json` — 风险雷达 JSON
+- `/meta.json` — 元数据（版本、更新时间）
 
 ---
 
