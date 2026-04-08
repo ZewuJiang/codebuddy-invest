@@ -1,6 +1,6 @@
-# 已知堵点与应对策略 — App版（v4.0）
+# 已知堵点与应对策略 — App版（v4.3）
 
-> **用途**：投研鸭小程序数据生产过程中的已知堵点与应对方案（共42条活跃）。
+> **用途**：投研鸭小程序数据生产过程中的已知堵点与应对方案（共48条活跃）。
 > **核心原则**：先保真，再发布。核心行情缺失时宁可阻断，也不能用估算值顶上。
 
 ---
@@ -81,6 +81,12 @@
 | 45 | 语音播报功能在全量更新时被遗漏（audioUrl/voiceText 为空） | → v10.0：validate.py 新增 V35 检查 audioUrl 非空（WARN级），SKILL.md 第3.5阶段设为**强制步骤**不可跳过 | 高 |
 | 46 | AI 编造期权/虚构标的进入聪明钱持仓（如"AAPL PUT 2.8% 新建仓"） | → **致命**。V39 [FATAL] 自动拦截 symbol 含 PUT/CALL/OPTION 以及 name 含"期权/权证"等衍生品关键词。**根因**：AI 将 Sell PUT（卖出看跌期权，不产生多头持仓）误解为 Buy PUT（持有看跌期权多头），编造了 13F 中不存在的标的。**唯一数据源**：SEC 13F-HR 原始文件（StockZoa/13Radar/WhaleeWisdom 解析版），禁止凭社交媒体传闻或 AI 训练记忆推断持仓 | 致命 |
 | 47 | 聪明钱持仓 change 字段（加仓/减持/新建仓等）凭记忆编写而非对比 Q3→Q4 13F 差异 | → 必须对比相邻两个季度的 13F 数据来判定 change。无法确认时填"持仓不变"（保守策略），禁止编造"大幅增持"等需要 Q3 基准的判断 | 高 |
+| 48 | globalReaction.value 混合格式（如"6,773 (+2.37%)"），导致前端33%宽度格子溢出换行 | → V41 校验：禁止括号，≤15字符。value 只放涨跌幅（"+2.37%"）或绝对值（"$4,774"），二选一。前端 `.reaction-item` 宽度 33.33%，长字符串必然溢出 | 高 |
+| 49 | watchlist metrics[2]/[3]（7日/30日涨跌）为空字符串，前端渲染为空白格子 | → V40 校验：禁止任何 metrics.value 为空字符串。auto_compute.py 从 sparkline/chartData 自动计算，无数据时填"—"（非空字符串） | 致命 |
+| 50 | _meta.generatedAt 为空字符串，导致前端 getRelativeTime() 降级显示原始 dataTime 而非"xx分钟前" | → V42 校验：4个JSON的 generatedAt 必须为非空 ISO 8601 格式。auto_compute.py v2.0 应自动填充 | 高 |
+| 51 | AI 生成 JSON 时 price 写了 "--" 占位符未填实际价格，前端直接显示 "--" | → **致命**。V43 [FATAL] 拦截 price 为 "--"/"N/A"/空值。auto_compute.py v3.0 自动从 sparkline[-1] 推导填充兜底。**根因**：AI 在第二阶段查不到某些标的价格时用占位符先跳过，但后续未回填 | 致命 |
+| 52 | sparkline[-1] 与 price 偏差大（有的>80%），前端走势图末尾与顶部价格矛盾 | → auto_compute.py v3.0 自动将 sparkline[-1] 对齐 price（偏差>0.5%时修正），同时修复 sparkline 尾部方向与 change 符号的矛盾 | 高 |
+| 53 | chain[].url 和 coreJudgments[].references 被漏填，信源链可信度降低 | → V22/V23 校验拦截。AI 在第二阶段写 coreEvent.chain 时必须同步填 url（付费墙除外），写 coreJudgments 时必须填 references | 高 |
 
 ## 小程序端兼容性堵点
 

@@ -360,10 +360,10 @@
       "change24h": 12
     }
   ],
-  "dataTime": "2026-04-08 22:15 BJT",
+  "dataTime": "2026-04-08 23:50 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "",
+    "generatedAt": "2026-04-08T22:15:00+08:00",
     "skillVersion": "v10.0"
   }
 }

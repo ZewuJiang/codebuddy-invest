@@ -7,66 +7,71 @@
       {
         "title": "巴基斯坦斡旋促成停火",
         "brief": "特朗普最后通牒前数小时，巴基斯坦推动美伊达成两周停火协议",
-        "source": "CNBC"
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/04/08/us-iran-war-ceasefire-middle-east-strait-of-hormuz-oil-markets.html"
       },
       {
         "title": "霍尔木兹海峡附条件开放",
         "brief": "伊朗称将与阿曼协调海上联合协议管理油轮通行，但存在技术限制模糊条款",
-        "source": "CNBC"
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/04/08/us-iran-ceasefire-gold-oil-stocks-treasuries.html"
       },
       {
         "title": "布伦特原油暴跌至$94",
         "brief": "布伦特单日跌幅近14%，创近6年最大单日跌幅，但仍高于战前$70基准$24",
-        "source": "Trading Economics"
+        "source": "Trading Economics",
+        "url": "https://tradingeconomics.com/commodity/brent-crude-oil"
       },
       {
         "title": "全球股市普涨风险偏好回归",
         "brief": "韩国KOSPI飙升7%触发熔断，日经涨5%，美股三大指数涨超2%",
-        "source": "Fortune"
+        "source": "Fortune",
+        "url": "https://fortune.com/2026/04/08/asian-markets-rally-us-iran-ceasefire-strait-of-hormuz-oil-uncertainty/"
       },
       {
         "title": "苹果折叠iPhone工程难题曝光",
         "brief": "日经报道苹果折叠手机工程测试遇重大挫折，股价盘中一度跌超5%后收窄",
-        "source": "Seeking Alpha"
+        "source": "Seeking Alpha",
+        "url": "https://seekingalpha.com/news/4572838-apple-foldable-iphone-faces-engineering-setbacks-potential-production-delay-nikkei"
       }
     ]
   },
   "globalReaction": [
     {
       "name": "标普500",
-      "value": "6,773 (+2.37%)",
+      "value": "+2.37%",
       "direction": "up",
       "note": "停火利好风险资产"
     },
     {
       "name": "布伦特原油",
-      "value": "$94.19 (-13.8%)",
+      "value": "-13.8%",
       "direction": "down",
       "note": "海峡开放预期压制"
     },
     {
       "name": "VIX恐慌指数",
-      "value": "20.34 (-21.1%)",
+      "value": "20.34",
       "direction": "down",
       "note": "降至战前水平附近"
     },
     {
       "name": "黄金XAU",
-      "value": "$4,774 (+1.4%)",
+      "value": "$4,774",
       "direction": "up",
       "note": "避险底仓未松动"
     },
     {
       "name": "美元DXY",
-      "value": "98.79 (-1.07%)",
+      "value": "98.79",
       "direction": "down",
-      "note": "风险偏好回升压制美元"
+      "note": "风险偏好回升压制"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "6.82 (升破6.85)",
+      "value": "6.82",
       "direction": "up",
-      "note": "创23年4月以来新高"
+      "note": "创23年4月新高"
     }
   ],
   "coreJudgments": [
@@ -76,7 +81,19 @@
       "logic": "两周停火仅是暂停非终结 → 伊朗10项条件含铀浓缩和全面制裁解除 → BCA Research预测本月内即可能恢复战斗 → 油价溢价$30+未消化=反弹天花板明确",
       "keyActor": "美伊双方+以色列",
       "probability": "高可能性",
-      "trend": "下降"
+      "trend": "下降",
+      "references": [
+        {
+          "name": "CNBC 2026/04/08 US-Iran Ceasefire Analysis",
+          "summary": "",
+          "url": ""
+        },
+        {
+          "name": "BCA Research Iran Conflict Dashboard 2026/04",
+          "summary": "",
+          "url": ""
+        }
+      ]
     },
     {
       "title": "油价中枢下移但难回战前水平",
@@ -84,7 +101,19 @@
       "logic": "霍尔木兹重新开放 → 全球原油供应链恢复预期 → 但各国政府囤油行为+伊朗技术限制条款 → 结构性价格底部远高于战前$70 → 布伦特中枢$85-95区间震荡",
       "keyActor": "OPEC+/伊朗/各国战略储备",
       "probability": "中可能性",
-      "trend": "下降"
+      "trend": "下降",
+      "references": [
+        {
+          "name": "Trading Economics Brent Crude Oil 2026/04/08",
+          "summary": "",
+          "url": ""
+        },
+        {
+          "name": "AP News Oil Prices Plunge 2026/04/08",
+          "summary": "",
+          "url": ""
+        }
+      ]
     },
     {
       "title": "A股/港股短线强势受益地缘缓和+人民币走强",
@@ -92,7 +121,19 @@
       "logic": "油价下跌缓解输入性通胀 → 离岸人民币升破6.85创新高 → 外资回流+科技成长弹性释放 → 但持续性取决于停火后续进展和美联储政策路径",
       "keyActor": "PBOC/北向资金",
       "probability": "中可能性",
-      "trend": "上升"
+      "trend": "上升",
+      "references": [
+        {
+          "name": "Fortune 2026/04/08 Asian Markets Rally",
+          "summary": "",
+          "url": ""
+        },
+        {
+          "name": "AP News Asian Shares Soar 2026/04/08",
+          "summary": "",
+          "url": ""
+        }
+      ]
     }
   ],
   "actionHints": [
@@ -148,12 +189,12 @@
     "苹果折叠iPhone工程测试遇重大挫折可能推迟量产，关注供应链传导风险"
   ],
   "riskNote": "停火是暂停而非和平——BCA Research警告本月内即可能恢复战斗。周五伊斯兰堡谈判是关键验证窗口，若伊朗条件遭拒，油价和VIX将报复性反弹。黄金$4774亮红灯说明市场深层避险底仓未撤。",
-  "dataTime": "2026-04-08 22:15 BJT",
+  "dataTime": "2026-04-08 23:50 BJT",
   "audioUrl": "cloud://cloud1-3g6wj06h84f38ea8.636c-cloud1-3g6wj06h84f38ea8-1418169528/audio/briefing-2026-04-08.mp3",
   "voiceText": "今天是2026年4月8日，投研鸭每日简报。今天全球市场迎来了一次重大转折。美国和伊朗在巴基斯坦斡旋下达成了两周临时停火协议，霍尔木兹海峡有望重新开放。这一消息引爆了全球风险偏好，布伦特原油暴跌近14%至94美元，创下近6年最大单日跌幅。美股三大指数全线上涨超过2%，标普500报6773点。亚太市场反应更为剧烈，韩国KOSPI飙升近7%触发熔断，日经涨5%，A股创业板大涨5.9%。但需要特别注意的是，这次停火非常脆弱。伊朗提出了包含铀浓缩权和全面制裁解除在内的10项条件，分析师警告本月内就可能恢复战斗。布伦特虽然大跌，但仍比战前水平高出24美元。黄金逆势上涨1.4%至4774美元，说明市场深层的避险底仓并没有撤离。聪明钱方面，伯克希尔在Greg Abel领导下首次重启回购，ARK本周大手笔买入Robinhood1250万美元。本周最关键的验证窗口是周五的伊斯兰堡谈判，如果伊朗条件遭拒，油价和VIX将出现报复性反弹。以上就是今天的投研鸭简报，记得关注后续进展。",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "",
+    "generatedAt": "2026-04-08T22:15:00+08:00",
     "skillVersion": "v10.0"
   },
   "audioFile": "briefing-2026-04-08.mp3"

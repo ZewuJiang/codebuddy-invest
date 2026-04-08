@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 """
-投研鸭小程序数据质量自动化校验脚本 v5.0
+投研鸭小程序数据质量自动化校验脚本 v5.3
 ============================================================
 核心理念（Harness Engineering）:
   把"AI 记住规则"转变为"环境自动约束 AI"。
   本脚本在 run_daily.sh 中的 auto_compute.py 之后、sparkline 补全之前执行。
+
+v5.3 Harness v10.3 4/8基准质量巩固：
+  - 新增 V43 [FATAL] price 禁止占位符（拦截 "--"/"N/A"/空值）
+  - 校验项从49→50项
 
 v5.1 Harness v10.2 聪明钱持仓 13F 合规性校验：
   - 新增 V39 [FATAL] 聪明钱持仓 13F 数据合规性校验（拦截 AI 编造的期权/虚构标的）
@@ -59,7 +63,7 @@ BASELINE_PATH = REFERENCES_DIR / "golden-baseline.json"
 HOLDINGS_CACHE_PATH = REFERENCES_DIR / "holdings-cache.json"
 
 # FATAL 级校验项（不可被 --skip-warn 绕过）
-FATAL_CODES = {"R2", "R3", "R9", "V39"}
+FATAL_CODES = {"R2", "R3", "R9", "V39", "V43"}
 
 # ============================================================
 # 工具函数
@@ -1418,6 +1422,120 @@ def validate_holdings_13f_compliance(files, vr):
            "; ".join(violations[:8]) if violations else "全部合规 ✓")
 
 
+def validate_metrics_no_empty_values(files, vr):
+    """V40: watchlist metrics 不允许空值 — 拦截 auto_compute 未覆盖的空缺
+    
+    设计背景（2026-04-08 事故）：
+    auto_compute.py 从 sparkline/chartData 计算 7日/30日涨跌，但当标的
+    缺少 sparkline 时，metrics[2]/[3] 留空。前端渲染出空白，用户看到"大量数据缺失"。
+    """
+    watchlist = files.get("watchlist")
+    if not watchlist:
+        vr.add("V40", "watchlist metrics 无空值", None, "watchlist 数据缺失")
+        return
+
+    empty_fields = []
+    stocks = watchlist.get("stocks", {})
+    for sector_id, stock_list in stocks.items():
+        if not isinstance(stock_list, list):
+            continue
+        for stock in stock_list:
+            if stock.get("listed", True) is False:
+                continue
+            for m in stock.get("metrics", []):
+                val = m.get("value", "")
+                if val == "" or val is None:
+                    name = stock.get("symbol", "?")
+                    empty_fields.append(f"{sector_id}/{name}/{m.get('label', '?')}")
+
+    vr.add("V40", "watchlist metrics 无空值（禁止空字符串）", len(empty_fields) == 0,
+           f"{len(empty_fields)}处空值: " + "; ".join(empty_fields[:8]) if empty_fields else "全部有值 ✓")
+
+
+def validate_global_reaction_value_format(files, vr):
+    """V41: globalReaction value 格式校验 — 拦截过长/含括号的混合格式
+    
+    设计背景（2026-04-08 事故）：
+    AI 把 value 写成 "6,773 (+2.37%)" 而非 "+2.37%"，导致前端 33.33% 宽度的
+    格子放不下，文字换行显示错乱。value 应该简洁：涨跌幅或绝对值二选一。
+    """
+    briefing = files.get("briefing")
+    if not briefing:
+        vr.add("V41", "globalReaction value 格式", None, "briefing 数据缺失")
+        return
+
+    violations = []
+    for item in briefing.get("globalReaction", []):
+        v = item.get("value", "")
+        name = item.get("name", "?")
+        # 不允许包含括号（说明是混合格式）
+        if "(" in v or ")" in v or "（" in v or "）" in v:
+            violations.append(f"{name}: value='{v}' 含括号（应只放涨跌幅或绝对值）")
+        # 不允许超过 15 字符
+        if len(v) > 15:
+            violations.append(f"{name}: value='{v}' 过长({len(v)}字符>15)")
+
+    vr.add("V41", "globalReaction value 简洁格式（无括号/≤15字符）", len(violations) == 0,
+           "; ".join(violations) if violations else "全部简洁 ✓")
+
+
+def validate_generated_at_nonempty(files, vr):
+    """V42: _meta.generatedAt 非空 — 确保前端相对时间显示正常
+    
+    设计背景（2026-04-08 事故）：
+    generatedAt 为空字符串时，前端 getRelativeTime() 无法解析，
+    降级显示原始 dataTime 字符串（如 "2026-04-08 22:15 BJT"），
+    而非预期的 "xx分钟前" 格式。
+    """
+    violations = []
+    for fname in ["briefing", "markets", "watchlist", "radar"]:
+        data = files.get(fname)
+        if not data:
+            continue
+        meta = data.get("_meta", {})
+        ga = meta.get("generatedAt", "")
+        if not ga or "T" not in str(ga):
+            violations.append(f"{fname}.json: generatedAt='{ga}' (应为 ISO 8601)")
+
+    vr.add("V42", "_meta.generatedAt 非空（ISO 8601 格式）", len(violations) == 0,
+           "; ".join(violations) if violations else "4个JSON均已填充 ✓")
+
+
+def validate_price_no_placeholder(files, vr):
+    """V43 [FATAL]: price 禁止占位符 — 拦截 "--" / 空值 / "N/A" 等非价格值
+
+    设计背景（2026-04-08 23:25 事故）：
+    AI 生成 JSON 时部分标的 price 写了 "--" 占位符未填实际价格，
+    前端直接渲染 "--"，用户看到市场页大量空缺。
+    """
+    markets = files.get("markets")
+    watchlist = files.get("watchlist")
+    placeholders = {"--", "N/A", "n/a", "—", "", "TBD", "待更新"}
+    violations = []
+
+    if markets:
+        for section in ["usMarkets", "m7", "asiaMarkets", "commodities", "cryptos"]:
+            for item in markets.get(section, []):
+                price = item.get("price", "")
+                if price in placeholders:
+                    violations.append(f"markets.{section}[{item.get('name','')}]: price='{price}'")
+
+    if watchlist:
+        for sector_id, stock_list in watchlist.get("stocks", {}).items():
+            if isinstance(stock_list, list):
+                for stock in stock_list:
+                    if stock.get("listed", True) is False:
+                        continue
+                    price = stock.get("price", "")
+                    if price in placeholders or price == "未上市":
+                        continue
+                    if price in placeholders:
+                        violations.append(f"watchlist.{sector_id}[{stock.get('name','')}]: price='{price}'")
+
+    vr.add("V43", "price 禁止占位符 (--/N\\/A/空值) [FATAL]", len(violations) == 0,
+           "; ".join(violations[:8]) if violations else "全部有效 ✓")
+
+
 def validate_chain_urls(files, vr):
     """V22: chain[].url 非空校验（非付费墙）"""
     briefing = files.get("briefing")
@@ -1450,7 +1568,9 @@ def validate_core_judgments_references(files, vr):
     missing = []
     for i, cj in enumerate(briefing.get("coreJudgments", [])):
         refs = cj.get("references", [])
-        if not refs or len(refs) == 0:
+        if isinstance(refs, str):
+            missing.append(f"coreJudgments[{i}] references 是字符串（必须是数组 [{{name,summary,url}}]）")
+        elif not refs or len(refs) == 0:
             missing.append(f"coreJudgments[{i}] references 为空")
         else:
             for j, ref in enumerate(refs):
@@ -1621,6 +1741,14 @@ def main():
 
     # === V39 [FATAL]: 聪明钱持仓 13F 合规性 (v10.2 新增) ===
     validate_holdings_13f_compliance(files, vr)
+
+    # === V40-V42: 格式完整性防护层 (v10.2 新增) ===
+    validate_metrics_no_empty_values(files, vr)
+    validate_global_reaction_value_format(files, vr)
+    validate_generated_at_nonempty(files, vr)
+
+    # === V43 [FATAL]: price 禁止占位符 (v10.3 新增) ===
+    validate_price_no_placeholder(files, vr)
 
     # === R1-R8: 回归门禁 ===
     validate_regression_gates(files, baseline, vr, mode)

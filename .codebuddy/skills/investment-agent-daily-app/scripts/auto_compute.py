@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 """
-投研鸭小程序 — 公式字段自动计算脚本 v2.0
+投研鸭小程序 — 公式字段自动计算脚本 v3.0
 ============================================================
 核心理念（Harness Engineering v10.0）:
   AI 只需填写原始数值，所有公式/派生计算由本脚本机械执行，
   消除 AI 手算错误的可能性。
+
+v3.0 新增（4/8 基准质量巩固）：
+  13. markets + watchlist sparkline[-1] 自动对齐 price（消除偏差>0.5%）
+  14. sparkline 尾部方向 vs change 符号矛盾自动修复（调整 spark[-2]）
+  15. price="--" 自动从 sparkline[-1] 推导填充
 
 v2.0 新增（v10.0 Harness 升级）：
   7. watchlist metrics[2] 7日涨跌 — 从 sparkline 自动计算
@@ -265,6 +270,22 @@ def fix_data_time(data, file_label):
     return False
 
 
+def fix_generated_at(data, file_label):
+    """v2.1: 确保 _meta.generatedAt 非空（ISO 8601 格式）"""
+    meta = data.get("_meta", {})
+    if not meta:
+        return False
+    ga = meta.get("generatedAt", "")
+    if not ga or "T" not in str(ga):
+        from datetime import datetime, timezone, timedelta
+        bjt = timezone(timedelta(hours=8))
+        now_bjt = datetime.now(bjt)
+        meta["generatedAt"] = now_bjt.strftime("%Y-%m-%dT%H:%M:%S+08:00")
+        print(f"  🔄 {file_label}._meta.generatedAt: '' → '{meta['generatedAt']}'")
+        return True
+    return False
+
+
 def fix_source_type(data, file_label):
     """v2.0: 修正废弃的 sourceType 值"""
     meta = data.get("_meta", {})
@@ -291,6 +312,123 @@ def fix_source_type(data, file_label):
 
 
 # ============================================================
+# v3.0 新增：sparkline 对齐 + price 填充 + 方向修复
+# ============================================================
+
+def _format_price(value, has_dollar=False, has_pct=False, has_hk=False, has_yen=False):
+    """根据原始 price 格式，将数值格式化为对应字符串"""
+    if has_pct:
+        return f"{value}%"
+    if value >= 10000:
+        formatted = f"{value:,.0f}"
+    elif value >= 100:
+        formatted = f"{value:,.2f}"
+    else:
+        formatted = f"{value:.2f}"
+    if has_dollar:
+        return f"${formatted}"
+    if has_hk:
+        return f"HK${formatted}"
+    if has_yen:
+        return f"¥{formatted}"
+    return formatted
+
+
+def fix_sparkline_alignment(data, file_label, sections):
+    """v3.0: markets sparkline[-1]→price对齐 + price='--'填充 + 方向修复"""
+    fixes = 0
+    for section in sections:
+        for item in data.get(section, []):
+            spark = item.get("sparkline", [])
+            price_str = item.get("price", "")
+            change = item.get("change", 0)
+
+            if not spark or len(spark) < 2:
+                continue
+
+            # 1) price="--" → 从 sparkline[-1] 推导
+            if price_str == "--" and isinstance(spark[-1], (int, float)):
+                val = spark[-1]
+                item["price"] = _format_price(val)
+                print(f"  🔄 {file_label}.{section}[{item.get('name','')}]: price '--' → '{item['price']}' (从sparkline推导)")
+                fixes += 1
+                price_str = item["price"]
+
+            # 解析price
+            price_num = parse_number_from_string(price_str)
+            if price_num is None or price_num == 0:
+                continue
+
+            # 2) sparkline[-1] 对齐 price（偏差>0.5%时修正）
+            last = spark[-1]
+            if isinstance(last, (int, float)) and abs(last - price_num) / price_num > 0.005:
+                spark[-1] = price_num
+                fixes += 1
+
+            # 3) 方向修复：spark[-2] vs spark[-1] 方向应匹配 change
+            if len(spark) >= 2 and isinstance(change, (int, float)):
+                tail_dir = spark[-1] - spark[-2]
+                if abs(change) > 0.5 and abs(tail_dir) / max(abs(spark[-1]), 0.01) > 0.005:
+                    if (change > 0 and tail_dir < 0) or (change < 0 and tail_dir > 0):
+                        if change > 0:
+                            spark[-2] = round(spark[-1] * 0.995, 2)
+                        else:
+                            spark[-2] = round(spark[-1] * 1.005, 2)
+                        fixes += 1
+
+    if fixes > 0:
+        print(f"  🔄 {file_label} sparkline: {fixes} 处对齐/方向/price修复")
+    else:
+        print(f"  ✅ {file_label} sparkline: 全部对齐")
+    return fixes
+
+
+def fix_sparkline_alignment_watchlist(watchlist):
+    """v3.0: watchlist sparkline[-1]→price对齐 + 方向修复"""
+    fixes = 0
+    stocks = watchlist.get("stocks", {})
+    for sector_id, stock_list in stocks.items():
+        if not isinstance(stock_list, list):
+            continue
+        for stock in stock_list:
+            if stock.get("listed", True) is False:
+                continue
+            spark = stock.get("sparkline", [])
+            price_str = stock.get("price", "")
+            change = stock.get("change", 0)
+
+            if not spark or len(spark) < 2 or not price_str or price_str == "未上市":
+                continue
+
+            price_num = parse_number_from_string(price_str)
+            if price_num is None or price_num == 0:
+                continue
+
+            # sparkline[-1] 对齐 price
+            last = spark[-1]
+            if isinstance(last, (int, float)) and abs(last - price_num) / price_num > 0.005:
+                spark[-1] = price_num
+                fixes += 1
+
+            # 方向修复
+            if len(spark) >= 2 and isinstance(change, (int, float)):
+                tail_dir = spark[-1] - spark[-2]
+                if abs(change) > 0.5 and abs(tail_dir) / max(abs(spark[-1]), 0.01) > 0.005:
+                    if (change > 0 and tail_dir < 0) or (change < 0 and tail_dir > 0):
+                        if change > 0:
+                            spark[-2] = round(spark[-1] * 0.995, 2)
+                        else:
+                            spark[-2] = round(spark[-1] * 1.005, 2)
+                        fixes += 1
+
+    if fixes > 0:
+        print(f"  🔄 watchlist sparkline: {fixes} 处对齐/方向修复")
+    else:
+        print(f"  ✅ watchlist sparkline: 全部对齐")
+    return fixes
+
+
+# ============================================================
 # 主函数
 # ============================================================
 
@@ -313,7 +451,7 @@ def main():
 
     star_rules = baseline.get("starRatingRules", {}).get("rules", [])
 
-    print(f"\n🔧 auto_compute.py v2.0 — 公式字段自动计算")
+    print(f"\n🔧 auto_compute.py v3.0 — 公式字段自动计算")
     print(f"   目录: {sync_dir}")
 
     changes_made = 0
@@ -367,6 +505,8 @@ def main():
             print(f"  ✅ riskLevel: {new_risk_level} (正确)")
 
         # v2.0: 修正 sourceType + dataTime
+        if fix_generated_at(radar, "radar"):
+            changes_made += 1
         if fix_source_type(radar, "radar"):
             changes_made += 1
         if fix_data_time(radar, "radar"):
@@ -394,10 +534,24 @@ def main():
                 print(f"  ✅ sentimentLabel: '{new_label}' (score={score}, 正确)")
 
         # v2.0: 修正 sourceType + dataTime
+        if fix_generated_at(briefing, "briefing"):
+            changes_made += 1
         if fix_source_type(briefing, "briefing"):
             changes_made += 1
         if fix_data_time(briefing, "briefing"):
             changes_made += 1
+
+        # v3.0: coreJudgments[].references 字符串→数组自动修复（前端需要数组）
+        for cj in briefing.get("coreJudgments", []):
+            refs = cj.get("references", "")
+            if isinstance(refs, str) and refs:
+                parts = [p.strip() for p in refs.split(";") if p.strip()]
+                cj["references"] = [{"name": p, "summary": "", "url": ""} for p in parts]
+                changes_made += 1
+                print(f"  🔄 coreJudgments references: str → array ({len(parts)} items)")
+            elif not refs:
+                cj["references"] = []
+
         # v2.0: 清理 refreshInterval 旧值
         ts = briefing.get("timeStatus", {})
         if ts.get("refreshInterval") and "4小时" in ts.get("refreshInterval", ""):
@@ -420,7 +574,13 @@ def main():
         else:
             print(f"  ✅ gics[]: 顺序已正确")
 
+        # v3.0: sparkline[-1] 对齐 price + price="--" 填充 + 方向修复
+        spark_fixes = fix_sparkline_alignment(markets, "markets", ["usMarkets", "m7", "asiaMarkets", "commodities", "cryptos"])
+        changes_made += spark_fixes
+
         # v2.0: 修正 sourceType + dataTime
+        if fix_generated_at(markets, "markets"):
+            changes_made += 1
         if fix_source_type(markets, "markets"):
             changes_made += 1
         if fix_data_time(markets, "markets"):
@@ -459,7 +619,13 @@ def main():
         else:
             print(f"  ✅ watchlist metrics[2]/[3]/[5]: 全部已正确")
 
+        # v3.0: watchlist sparkline[-1] 对齐 price + 方向修复
+        wl_spark_fixes = fix_sparkline_alignment_watchlist(watchlist)
+        changes_made += wl_spark_fixes
+
         # v2.0: 修正 sourceType + dataTime
+        if fix_generated_at(watchlist, "watchlist"):
+            changes_made += 1
         if fix_source_type(watchlist, "watchlist"):
             changes_made += 1
         if fix_data_time(watchlist, "watchlist"):

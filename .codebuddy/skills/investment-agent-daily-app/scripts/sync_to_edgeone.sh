@@ -36,6 +36,9 @@ API_DIR="$PROJECT_DIR/touyanduck-api/api/latest"
 # 日期参数（默认今天）
 DATE="${1:-$(date +%Y-%m-%d)}"
 
+# EdgeOne 开关（域名备案完成前设为 0，备案完成后改为 1 即可启用）
+EDGEONE_ENABLED=0
+
 echo "============================================================"
 echo "🌐 投研鸭公开 API 数据同步 v5.0 — ${DATE}"
 echo "============================================================"
@@ -100,17 +103,21 @@ fi
 echo ""
 
 # ── 第3步：同步静态文件到 public/（EdgeOne Pages） ─────────────
-echo "📦 第3步：同步静态文件到 EdgeOne Pages public/ 目录..."
-PUBLIC_DIR="$PROJECT_DIR/touyanduck-api/public"
-mkdir -p "$PUBLIC_DIR"
+if [ "$EDGEONE_ENABLED" -eq 1 ]; then
+    echo "📦 第3步：同步静态文件到 EdgeOne Pages public/ 目录..."
+    PUBLIC_DIR="$PROJECT_DIR/touyanduck-api/public"
+    mkdir -p "$PUBLIC_DIR"
 
-for f in briefing.json markets.json watchlist.json radar.json meta.json briefing.md; do
-    SRC="$API_DIR/$f"
-    if [ -f "$SRC" ]; then
-        cp "$SRC" "$PUBLIC_DIR/$f"
-        echo "  ✅ $f → public/$f"
-    fi
-done
+    for f in briefing.json markets.json watchlist.json radar.json meta.json briefing.md; do
+        SRC="$API_DIR/$f"
+        if [ -f "$SRC" ]; then
+            cp "$SRC" "$PUBLIC_DIR/$f"
+            echo "  ✅ $f → public/$f"
+        fi
+    done
+else
+    echo "⏭️  第3步：EdgeOne Pages 同步已跳过（EDGEONE_ENABLED=0，待域名备案完成）"
+fi
 echo ""
 
 # ── 第3.5步：同步到 github-pages/（覆盖最新） ─────────────────
@@ -229,14 +236,19 @@ echo "  ✅ archive/index.json 更新完成"
 echo ""
 
 # ── 第4步：推送数据到 EdgeOne Pages KV ────────────────────────
-echo "🚀 第4步：推送数据到 EdgeOne Pages KV..."
-python3 "$SCRIPT_DIR/sync_to_edgeone_kv.py" "$SYNC_DIR" "$DATE"
-KV_EXIT=$?
+if [ "$EDGEONE_ENABLED" -eq 1 ]; then
+    echo "🚀 第4步：推送数据到 EdgeOne Pages KV..."
+    python3 "$SCRIPT_DIR/sync_to_edgeone_kv.py" "$SYNC_DIR" "$DATE"
+    KV_EXIT=$?
 
-if [ $KV_EXIT -eq 0 ]; then
-    echo "  ✅ EdgeOne KV 同步成功"
+    if [ $KV_EXIT -eq 0 ]; then
+        echo "  ✅ EdgeOne KV 同步成功"
+    else
+        echo "  ⚠️  EdgeOne KV 同步失败（不影响本地数据和小程序）"
+    fi
 else
-    echo "  ⚠️  EdgeOne KV 同步失败（不影响本地数据和小程序）"
+    echo "⏭️  第4步：EdgeOne KV 推送已跳过（EDGEONE_ENABLED=0，待域名备案完成）"
+    KV_EXIT=1
 fi
 echo ""
 
@@ -273,7 +285,11 @@ if [ $COPY_OK -eq 1 ]; then
     echo "🎉 v5.0 数据同步完成！"
     echo ""
     echo "   📁 本地 API: $API_DIR"
-    echo "   📁 EdgeOne:  $PUBLIC_DIR"
+    if [ "$EDGEONE_ENABLED" -eq 1 ]; then
+        echo "   📁 EdgeOne:  $PUBLIC_DIR"
+    else
+        echo "   📁 EdgeOne:  已跳过（EDGEONE_ENABLED=0）"
+    fi
     echo "   📁 GitHub:   $GHPAGES_DIR"
     echo ""
     echo "   📚 历史归档: $GHPAGES_DIR/archive/${DATE}/"
