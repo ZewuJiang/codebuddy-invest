@@ -1,137 +1,137 @@
 {
-  "date": "2026-04-08",
-  "takeaway": "【美伊停火】霍尔木兹海峡有望重新开放，油价暴跌13%，全球股市【普涨2-7%】，但停火仅两周且条件模糊——【脆弱停火】下VIX仍在20上方，【原油溢价$30】远未消化，需关注【周五伊斯兰堡谈判】能否实质推进",
+  "date": "2026-04-09",
+  "takeaway": "【停火后首日】美伊停火脆弱生效，以色列袭击黎巴嫩引发伊朗一度关闭海峡。道指飙升1325点创年内最佳日，但今晨布伦特已反弹至$97——市场过度乐观正在被【脆弱现实】对冲。周五【CPI】将检验通胀路径",
   "coreEvent": {
-    "title": "美伊达成两周临时停火，霍尔木兹海峡有望重新开放，油价单日暴跌13%",
+    "title": "停火脆弱性比预期更快暴露：伊朗指控美方违约+以色列扩大黎巴嫩袭击+油价今晨反弹",
     "chain": [
       {
-        "title": "巴基斯坦斡旋促成停火",
-        "brief": "特朗普最后通牒前数小时，巴基斯坦推动美伊达成两周停火协议",
-        "source": "CNBC",
-        "url": "https://www.cnbc.com/2026/04/08/us-iran-war-ceasefire-middle-east-strait-of-hormuz-oil-markets.html"
+        "title": "美伊以达成两周停火",
+        "brief": "巴基斯坦斡旋下特朗普宣布暂停对伊轰炸两周，伊朗同意开放霍尔木兹海峡",
+        "source": "NPR",
+        "url": "https://www.npr.org/2026/04/07/nx-s1-5776377/iran-war-updates"
       },
       {
-        "title": "霍尔木兹海峡附条件开放",
-        "brief": "伊朗称将与阿曼协调海上联合协议管理油轮通行，但存在技术限制模糊条款",
-        "source": "CNBC",
-        "url": "https://www.cnbc.com/2026/04/08/us-iran-ceasefire-gold-oil-stocks-treasuries.html"
+        "title": "以色列袭击黎巴嫩威胁停火",
+        "brief": "停火生效后以色列对黎巴嫩发动袭击，伊朗一度再次关闭霍尔木兹海峡回应",
+        "source": "AP News",
+        "url": "https://apnews.com/article/iran-us-israel-trump-lebanon-april-8-2026-38d75d5e4f1c7339a1456fc99415bb2a"
       },
       {
-        "title": "布伦特原油暴跌至$94",
-        "brief": "布伦特单日跌幅近14%，创近6年最大单日跌幅，但仍高于战前$70基准$24",
+        "title": "全球股市爆发性反弹",
+        "brief": "道指飙升1325点涨2.85%创年内最佳日，KOSPI暴涨6.87%触发熔断，日经涨5.39%",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/04/07/stock-market-today-live-updates.html"
+      },
+      {
+        "title": "油价创近6年最大单日跌幅",
+        "brief": "WTI暴跌16%至$94.41，布伦特跌13%至$94.75，但仍远高于战前$70基准",
         "source": "Trading Economics",
-        "url": "https://tradingeconomics.com/commodity/brent-crude-oil"
+        "url": "https://tradingeconomics.com/commodity/crude-oil"
       },
       {
-        "title": "全球股市普涨风险偏好回归",
-        "brief": "韩国KOSPI飙升7%触发熔断，日经涨5%，美股三大指数涨超2%",
-        "source": "Fortune",
-        "url": "https://fortune.com/2026/04/08/asian-markets-rally-us-iran-ceasefire-strait-of-hormuz-oil-uncertainty/"
-      },
-      {
-        "title": "苹果折叠iPhone工程难题曝光",
-        "brief": "日经报道苹果折叠手机工程测试遇重大挫折，股价盘中一度跌超5%后收窄",
-        "source": "Seeking Alpha",
-        "url": "https://seekingalpha.com/news/4572838-apple-foldable-iphone-faces-engineering-setbacks-potential-production-delay-nikkei"
+        "title": "今晚CPI数据将验证通胀路径",
+        "brief": "纽约联储消费者调查显示1年期通胀预期升至3.4%，CPI若超预期将压制降息预期",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/04/07/stock-market-today-live-updates.html"
       }
     ]
   },
   "globalReaction": [
     {
       "name": "标普500",
-      "value": "+2.37%",
+      "value": "+2.51%",
       "direction": "up",
-      "note": "停火利好风险资产"
+      "note": "停火驱动全面risk-on"
     },
     {
       "name": "布伦特原油",
-      "value": "-13.8%",
-      "direction": "down",
-      "note": "海峡开放预期压制"
+      "value": "$97.23",
+      "direction": "up",
+      "note": "停火脆弱性驱动反弹"
     },
     {
       "name": "VIX恐慌指数",
-      "value": "20.34",
+      "value": "21.04",
       "direction": "down",
-      "note": "降至战前水平附近"
+      "note": "暴跌18%但仍在20上方"
     },
     {
       "name": "黄金XAU",
-      "value": "$4,774",
+      "value": "$4,718",
       "direction": "up",
-      "note": "避险底仓未松动"
+      "note": "避险底仓坚挺红灯不灭"
     },
     {
       "name": "美元DXY",
-      "value": "98.79",
+      "value": "98.5",
       "direction": "down",
-      "note": "风险偏好回升压制"
+      "note": "风险偏好回升压制美元"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "6.82",
+      "value": "6.83",
       "direction": "up",
-      "note": "创23年4月新高"
+      "note": "人民币强势延续"
     }
   ],
   "coreJudgments": [
     {
-      "title": "停火脆弱性被低估，反弹窗口有限",
-      "confidence": 75,
-      "logic": "两周停火仅是暂停非终结 → 伊朗10项条件含铀浓缩和全面制裁解除 → BCA Research预测本月内即可能恢复战斗 → 油价溢价$30+未消化=反弹天花板明确",
-      "keyActor": "美伊双方+以色列",
+      "title": "停火极度脆弱，以色列变量被市场低估",
+      "confidence": 80,
+      "logic": "以色列袭击黎巴嫩已引发伊朗一度关闭海峡 → 停火条件含铀浓缩权和全面制裁解除(双方底线不可能妥协) → AP报道停火'悬一线' → 油价反弹风险远大于进一步下跌空间",
+      "keyActor": "以色列/伊朗/美国",
       "probability": "高可能性",
       "trend": "下降",
       "references": [
         {
-          "name": "CNBC 2026/04/08 US-Iran Ceasefire Analysis",
-          "summary": "",
-          "url": ""
+          "name": "AP News 2026/04/08 Ceasefire Threatened",
+          "summary": "以色列扩大黎巴嫩袭击令停火悬一线",
+          "url": "https://apnews.com/article/iran-us-israel-trump-lebanon-april-8-2026-38d75d5e4f1c7339a1456fc99415bb2a"
         },
         {
-          "name": "BCA Research Iran Conflict Dashboard 2026/04",
-          "summary": "",
-          "url": ""
+          "name": "CNBC 2026/04/08 Ceasefire Analysis",
+          "summary": "停火条件含深层信任赤字",
+          "url": "https://www.cnbc.com/2026/04/08/us-iran-war-ceasefire-middle-east-strait-of-hormuz-oil-markets.html"
         }
       ]
     },
     {
-      "title": "油价中枢下移但难回战前水平",
+      "title": "CPI将决定降息窗口是否彻底关闭",
       "confidence": 70,
-      "logic": "霍尔木兹重新开放 → 全球原油供应链恢复预期 → 但各国政府囤油行为+伊朗技术限制条款 → 结构性价格底部远高于战前$70 → 布伦特中枢$85-95区间震荡",
-      "keyActor": "OPEC+/伊朗/各国战略储备",
+      "logic": "纽约联储1年期通胀预期升至3.4%(+0.4pct) → 油价虽暴跌但战前溢价$24仍在 → CPI若超3.5%将彻底堵死6月降息可能 → 债券和成长股承压",
+      "keyActor": "美联储/劳工部",
       "probability": "中可能性",
       "trend": "下降",
       "references": [
         {
-          "name": "Trading Economics Brent Crude Oil 2026/04/08",
-          "summary": "",
-          "url": ""
+          "name": "Kiplinger 2026/04/07 CPI Preview",
+          "summary": "伊朗战争预计推升通胀",
+          "url": "https://www.kiplinger.com/investing/economy/cpi-report-march-2026-what-to-expect"
         },
         {
-          "name": "AP News Oil Prices Plunge 2026/04/08",
-          "summary": "",
-          "url": ""
+          "name": "Trading Economics 2026/04/09 10Y Yield",
+          "summary": "10Y美债回升至4.30%",
+          "url": "https://tradingeconomics.com/united-states/government-bond-yield"
         }
       ]
     },
     {
-      "title": "A股/港股短线强势受益地缘缓和+人民币走强",
+      "title": "工业和半导体板块将领跑反弹第二波",
       "confidence": 65,
-      "logic": "油价下跌缓解输入性通胀 → 离岸人民币升破6.85创新高 → 外资回流+科技成长弹性释放 → 但持续性取决于停火后续进展和美联储政策路径",
-      "keyActor": "PBOC/北向资金",
+      "logic": "工业板块+3.75%创年内最佳日 → 半导体ETF SMH涨5% → 韩国氦气供应链恢复缓解芯片产能瓶颈 → 但持续性取决于停火能否延续+CPI落地",
+      "keyActor": "三星/台积电/ASML",
       "probability": "中可能性",
       "trend": "上升",
       "references": [
         {
-          "name": "Fortune 2026/04/08 Asian Markets Rally",
-          "summary": "",
-          "url": ""
+          "name": "Trading Economics 2026/04/09 Brent",
+          "summary": "布伦特反弹至$97.23(+2.62%)",
+          "url": "https://tradingeconomics.com/commodity/brent-crude-oil"
         },
         {
-          "name": "AP News Asian Shares Soar 2026/04/08",
-          "summary": "",
-          "url": ""
+          "name": "CNBC 2026/04/08 Markets",
+          "summary": "工业板块+3.75%领涨",
+          "url": "https://www.cnbc.com/2026/04/07/stock-market-today-live-updates.html"
         }
       ]
     }
@@ -139,33 +139,33 @@
   "actionHints": [
     {
       "type": "watch",
-      "content": "关注周五伊斯兰堡谈判进展，若伊朗10项条件遭拒，停火崩盘风险骤升",
-      "reason": "两周停火窗口极短，任何一方违约将触发油价和VIX报复性反弹"
+      "content": "关注周五(4/11)美国3月CPI数据，若核心CPI环比超0.3%将打压降息预期",
+      "reason": "通胀预期已上修至3.4%，CPI若超预期将与停火反弹形成短期对冲"
     }
   ],
-  "sentimentScore": 55,
+  "sentimentScore": 58,
   "sentimentLabel": "中性",
   "marketSummaryPoints": [
-    "美伊两周停火协议推动全球风险偏好骤升，美股三大指数涨超2%",
-    "布伦特原油暴跌13.8%至$94，但仍高于战前基准$30以上",
-    "VIX暴跌21%至20.34，降至中东冲突以来最低水平",
-    "A股百点长阳，创业板涨5.91%，离岸人民币升破6.85关口",
-    "Anthropic推出新顶级AI模型，网络安全股连续第六日收涨"
+    "美伊两周停火驱动道指飙升1325点(+2.85%)创年内最佳日，S&P500报6782.81",
+    "今晨布伦特已从$94.75反弹至$97.23(+2.62%)——伊朗指控美方违约，停火脆弱性正在重新定价",
+    "WTI原油暴跌16%至$94.41创2020年以来最大单日跌幅，布伦特跌13%至$94.75",
+    "亚太市场剧烈反弹：KOSPI暴涨6.87%触发熔断，日经+5.39%，A股上证+2.69%",
+    "以色列袭击黎巴嫩引发停火动摇，伊朗一度再关闭霍尔木兹海峡"
   ],
   "smartMoney": [
     {
       "source": "伯克希尔·巴菲特",
-      "action": "Greg Abel上任后首次重启回购+个人投入$1530万购买公司股票，巴菲特称仍深度参与投资决策",
+      "action": "Greg Abel上任后首次重启回购+个人投入$1530万购买公司股票，$3733亿现金储备待部署",
       "signal": "bullish"
     },
     {
       "source": "ARK Invest·木头姐",
-      "action": "4/7大手笔买入HOOD $1250万(三只基金联合)+TSLA $240万，同步清仓BWXT/TER等防御股",
+      "action": "4/7大手笔买入HOOD $1250万+TSLA $240万，清仓防御股BWXT/TER转向成长",
       "signal": "bullish"
     },
     {
       "source": "段永平·H&H",
-      "action": "继续关注泡泡玛特(4/4实地调研Westfield门店评价right business)，明确表态不买黄金",
+      "action": "明确表态不买黄金，继续关注泡泡玛特(4/4实地调研Westfield门店评价right business)",
       "signal": "neutral"
     }
   ],
@@ -180,22 +180,22 @@
     },
     {
       "name": "ARK旗舰",
-      "holdings": "TSLA 10.5% | CRSP 6.3% | TEM 5.0% | SHOP 4.7% | COIN 4.3% · 近日连续买入TSLA和HOOD · 每日披露"
+      "holdings": "TSLA 10.5% | CRSP 6.3% | TEM 5.0% | SHOP 4.7% | COIN 4.3% · 近日买入HOOD$1250万+TSLA$240万 · 每日披露"
     }
   ],
   "riskPoints": [
-    "两周停火窗口极短，伊朗10项条件含铀浓缩权和全面制裁解除，谈判破裂概率高",
-    "布伦特虽暴跌13%但仍在$94，战前溢价$24未消化，半导体级氦气短缺影响台韩芯片厂",
-    "苹果折叠iPhone工程测试遇重大挫折可能推迟量产，关注供应链传导风险"
+    "停火比预期更脆弱——伊朗指控美方违约+以色列扩大黎巴嫩袭击，今晨布伦特已反弹至$97",
+    "黄金$4718亮红灯且大资金避险底仓未撤，说明深层风险偏好尚未真正转向",
+    "周五CPI若超预期(通胀预期已升至3.4%)将彻底堵死6月降息可能，反弹基础将被抽空"
   ],
-  "riskNote": "停火是暂停而非和平——BCA Research警告本月内即可能恢复战斗。周五伊斯兰堡谈判是关键验证窗口，若伊朗条件遭拒，油价和VIX将报复性反弹。黄金$4774亮红灯说明市场深层避险底仓未撤。",
-  "dataTime": "2026-04-08 23:50 BJT",
-  "audioUrl": "cloud://cloud1-3g6wj06h84f38ea8.636c-cloud1-3g6wj06h84f38ea8-1418169528/audio/briefing-2026-04-08.mp3",
-  "voiceText": "今天是2026年4月8日，投研鸭每日简报。今天全球市场迎来了一次重大转折。美国和伊朗在巴基斯坦斡旋下达成了两周临时停火协议，霍尔木兹海峡有望重新开放。这一消息引爆了全球风险偏好，布伦特原油暴跌近14%至94美元，创下近6年最大单日跌幅。美股三大指数全线上涨超过2%，标普500报6773点。亚太市场反应更为剧烈，韩国KOSPI飙升近7%触发熔断，日经涨5%，A股创业板大涨5.9%。但需要特别注意的是，这次停火非常脆弱。伊朗提出了包含铀浓缩权和全面制裁解除在内的10项条件，分析师警告本月内就可能恢复战斗。布伦特虽然大跌，但仍比战前水平高出24美元。黄金逆势上涨1.4%至4774美元，说明市场深层的避险底仓并没有撤离。聪明钱方面，伯克希尔在Greg Abel领导下首次重启回购，ARK本周大手笔买入Robinhood1250万美元。本周最关键的验证窗口是周五的伊斯兰堡谈判，如果伊朗条件遭拒，油价和VIX将出现报复性反弹。以上就是今天的投研鸭简报，记得关注后续进展。",
+  "riskNote": "停火比想象更脆弱——以色列对黎巴嫩的袭击已引发伊朗一度关闭海峡。黄金$4718亮红灯表明大资金未撤离避险阵地。今晚CPI是第二个关键催化剂，通胀预期3.4%高位下若数据超预期，停火反弹将被通胀现实对冲。",
+  "dataTime": "2026-04-09 09:20 BJT",
+  "audioUrl": "cloud://cloud1-3g6wj06h84f38ea8.636c-cloud1-3g6wj06h84f38ea8-1418169528/audio/briefing-2026-04-09.mp3",
+  "voiceText": "大老板早上好，我是投研鸭，今天是2026年4月9号周三。\n\n昨晚美股因美伊停火大涨：道指飙升1325点涨2.85%创年内最佳日，标普涨2.51%至6782点，纳斯达克涨2.8%。META领涨M7暴涨6.5%，受益于新发布的Muse Spark AI模型和广告收入强劲。谷歌涨3.88%，亚马逊涨3.5%。但特斯拉逆势微跌0.98%，分化明显。\n\n但请注意：停火比想象更脆弱。以色列昨天袭击了黎巴嫩真主党，伊朗一度再次关闭霍尔木兹海峡。今晨伊朗已公开指控美方违反停火框架，称协议\"不合理\"。布伦特原油从昨天暴跌后的94.75美元反弹至97.23美元涨2.62%——停火脆弱性正在重新定价。\n\n亚太市场昨天反应最为剧烈：韩国KOSPI暴涨6.87%触发熔断，日经涨5.39%，A股上证涨2.69%创业板涨4.79%。\n\n红绿灯方面：黄金4718美元亮红灯且大资金避险底仓未撤，说明深层风险偏好并未真正转向。VIX暴跌至21但仍在20上方。10年美债回升至4.3%。\n\n聪明钱方面：伯克希尔Greg Abel首次重启回购并个人投入1530万美元购买公司股票。ARK 4月7号大手笔买入HOOD 1250万美元和特斯拉240万美元。段永平明确不买黄金，继续关注泡泡玛特。\n\n本周关键催化剂：周五美国3月CPI数据将验证通胀路径，若核心CPI超预期将堵死6月降息可能。周五美伊代表团在伊斯兰堡的谈判将决定停火能否延续。\n\n情绪评分58分中性。总结一句话：停火驱动的反弹基础正在被脆弱现实对冲，不要追高，等周五CPI和谈判结果落地。\n\n以上就是今天的投研鸭简报，祝大老板投资顺利！",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-08T22:15:00+08:00",
-    "skillVersion": "v10.0"
+    "generatedAt": "2026-04-09T06:29:39+08:00",
+    "skillVersion": "v10.3"
   },
-  "audioFile": "briefing-2026-04-08.mp3"
+  "audioFile": "briefing-2026-04-09.mp3"
 }

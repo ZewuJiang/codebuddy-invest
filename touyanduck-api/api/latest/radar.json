@@ -1,27 +1,27 @@
 {
-  "date": "2026-04-08",
+  "date": "2026-04-09",
   "trafficLights": [
     {
       "name": "VIX波动率",
-      "value": "20.34",
+      "value": "21.04",
       "status": "yellow",
       "threshold": "<18绿 / 18-25黄 / >25红"
     },
     {
       "name": "10Y美债收益率",
-      "value": "4.33%",
+      "value": "4.30%",
       "status": "yellow",
       "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
     },
     {
       "name": "布伦特原油",
-      "value": "$94.19",
+      "value": "$97.23",
       "status": "yellow",
       "threshold": "<$90绿 / $90-110黄 / >$110红"
     },
     {
       "name": "美元指数DXY",
-      "value": "98.79",
+      "value": "98.5",
       "status": "green",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
@@ -33,61 +33,66 @@
     },
     {
       "name": "黄金XAU",
-      "value": "$4,774",
+      "value": "$4,718",
       "status": "red",
       "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "6.82",
+      "value": "6.83",
       "status": "green",
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
   "riskScore": 80,
   "riskLevel": "high",
-  "riskAdvice": "黄金$4774亮红灯(避险底仓未撤揭示深层不安)，布伦特$94虽暴跌但仍处黄灯区间——周五伊斯兰堡谈判若伊朗10项条件遭拒，停火崩盘将触发油价和VIX报复性反弹。",
+  "riskAdvice": "黄金$4718红灯+布伦特反弹至$97.23——停火脆弱性比市场定价的更严峻。伊朗已指控美方违约，以色列持续袭击黎巴嫩，周五CPI是第二个催化剂。",
   "riskAlerts": [],
   "events": [
     {
-      "date": "周五",
-      "title": "美伊代表团伊斯兰堡谈判(停火存续关键验证窗口)",
+      "date": "周五(4/11)",
+      "title": "美国3月CPI数据公布(北京时间20:30，通胀路径关键验证点)",
       "impact": "high"
     },
     {
-      "date": "周四",
-      "title": "美国3月CPI数据公布(通胀二次抬头核心验证点)",
+      "date": "周五",
+      "title": "美伊代表团伊斯兰堡谈判(停火能否延续的决定性窗口)",
       "impact": "high"
     },
     {
       "date": "本周",
-      "title": "霍尔木兹海峡油轮通行恢复进展(伊朗与阿曼联合协议落实)",
+      "title": "霍尔木兹海峡油轮通行恢复进展(伊朗以色列黎巴嫩三方博弈)",
       "impact": "high"
     },
     {
       "date": "周五",
-      "title": "大型银行财报季启动(JPM/WFC/C/BLK)",
+      "title": "大型银行财报季启动(JPM/WFC/C/BLK Q1财报)",
       "impact": "medium"
+    },
+    {
+      "date": "本周",
+      "title": "摩根士丹利BTC ETF(MSBT)上市首周表现(费率0.14%同类最低)",
+      "impact": "low"
     }
   ],
   "alerts": [
     {
+      "level": "danger",
+      "text": "伊朗指控美方违反停火框架，称协议'不合理'——以色列持续袭击黎巴嫩真主党",
+      "time": "06:00",
+      "source": "AP News"
+    },
+    {
       "level": "warning",
-      "text": "美伊停火仅两周且附条件模糊，BCA Research预测本月内即可能恢复战斗",
-      "time": "22:00",
+      "text": "布伦特今晨反弹至$97.23(+2.62%)，停火脆弱性正在重新定价油价",
+      "time": "06:00",
       "source": "CNBC"
     },
     {
       "level": "info",
-      "text": "苹果折叠iPhone工程测试遇重大挫折，日经报道可能推迟量产和出货",
-      "time": "21:00",
-      "source": "Seeking Alpha"
-    },
-    {
-      "level": "info",
-      "text": "Anthropic推出新顶级AI模型，网络安全股连续第六个交易日收涨",
-      "time": "20:00",
-      "source": "华尔街见闻"
+      "text": "CME FedWatch显示6月降息概率升至43%，基于停火+油价下跌假设",
+      "time": "06:00",
+      "source": "CME FedWatch"
     }
   ],
   "smartMoneyDetail": [
@@ -95,18 +100,18 @@
       "tier": "T1旗舰",
       "funds": [
         {
-          "name": "伯克希尔·巴菲特/Abel",
-          "action": "Greg Abel上任CEO后首次重启回购，个人以2026年薪酬$1530万购入BRK股票。巴菲特最新CNBC采访称仍深度参与投资决策，对苹果作为第一重仓非常满意。伯克希尔计划发行Abel时代首笔日元债券，继续加码日本投资",
+          "name": "伯克希尔·哈撒韦",
+          "action": "Greg Abel上任后首次重启回购+个人投入$1530万购买公司股票，维持$3733亿现金储备",
           "signal": "bullish",
-          "source": "CNBC/Observer/247WallSt",
-          "freshness": "本周"
+          "source": "SEC Filing",
+          "freshness": "2026-04-07"
         },
         {
-          "name": "段永平·H&H",
-          "action": "4/4亲赴Westfield门店实地调研泡泡玛特，评价right business(投资决策链经典前兆)；明确表态不买黄金。13F待5月中旬更新(关注Q1是否出现泡泡玛特)",
-          "signal": "neutral",
-          "source": "雪球/新浪财经",
-          "freshness": "本周"
+          "name": "桥水基金",
+          "action": "达利欧持续减配美股增配黄金和大宗，2026H1宏观策略偏防御",
+          "signal": "bearish",
+          "source": "Bloomberg",
+          "freshness": "2026-04-05"
         }
       ]
     },
@@ -114,11 +119,18 @@
       "tier": "T2成长",
       "funds": [
         {
-          "name": "ARK Invest·木头姐",
-          "action": "4/7大手笔买入HOOD(Robinhood) $1250万(ARKK $900万+ARKW $230万+ARKF $120万)，TSLA $240万(ARKK+ARKQ+ARKX)，同步清仓防御股BWXT/TER/TWST/ROKU部分仓位。4/6同样重仓买入TSLA $1420万",
+          "name": "ARK Invest",
+          "action": "4/7大手笔买入HOOD $1250万(三只基金联合)+TSLA $240万，清仓防御股BWXT/TER",
           "signal": "bullish",
-          "source": "cathiesark.com",
-          "freshness": "本周"
+          "source": "ARK Trade Notifications",
+          "freshness": "2026-04-07"
+        },
+        {
+          "name": "段永平·H&H",
+          "action": "明确不买黄金，继续关注泡泡玛特(4/4实地调研Westfield门店评价right business)，2025Q4大幅增持NVDA+1110%/MSFT+207%/TSM+370%",
+          "signal": "neutral",
+          "source": "雪球/SEC 13F",
+          "freshness": "2026-04-08"
         }
       ]
     },
@@ -126,11 +138,18 @@
       "tier": "策略师观点",
       "funds": [
         {
-          "name": "BCA Research·Matt Gertken",
-          "action": "警告美伊停火是暂停而非和平，称any deal concerning lasting peace will be complicated by a major trust deficit，预测战斗可能later this year if not later this month恢复",
+          "name": "UBS",
+          "action": "将2026年S&P500年底目标从7700下调至7500，理由为地缘不确定性+油价溢价",
+          "signal": "neutral",
+          "source": "UBS Research",
+          "freshness": "2026-04-07"
+        },
+        {
+          "name": "BCA Research",
+          "action": "警告停火本月内即可能恢复战斗，建议增配黄金和国债",
           "signal": "bearish",
-          "source": "CNBC",
-          "freshness": "本周"
+          "source": "BCA Research",
+          "freshness": "2026-04-08"
         }
       ]
     }
@@ -203,7 +222,7 @@
           "change": "持仓不变"
         }
       ],
-      "footnote": "持仓数42只，Top10占88.3%，现金储备$3,733亿（Greg Abel首次重启回购），Q4增持CVX(+6.6%)/CB(+9.3%)，减持AAPL(-4.3%)/BAC(-8.9%)"
+      "footnote": "持仓数42只，Top10占88.3%，现金储备$3,733亿，Greg Abel首次重启回购。Q4增持CVX(+6.6%)/CB(+9.3%)，减持AAPL(-4.3%)/BAC(-8.9%)"
     },
     {
       "manager": "段永平 · H&H",
@@ -272,13 +291,13 @@
           "change": "减持"
         }
       ],
-      "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，新建仓CRWV/CRDO/TEM"
+      "footnote": "持仓数14只，核心集中(AAPL+BRK.B占71%)。2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，新建仓CRWV/CRDO/TEM。4/4实地调研泡泡玛特，明确不买黄金"
     },
     {
       "manager": "Cathie Wood · ARK旗舰",
       "fund": "ARK Innovation ETF (ARKK)",
       "aum": "$6.8B",
-      "asOf": "2026-04-07（ARK每日持仓披露）",
+      "asOf": "2026-04-05（ARK每日持仓披露）",
       "positions": [
         {
           "name": "特斯拉",
@@ -341,29 +360,29 @@
           "change": "持仓不变"
         }
       ],
-      "footnote": "ARK每日披露持仓变动，4/7大手笔买入HOOD $1250万+TSLA $240万，同步清仓BWXT/TER等防御股。近期连续买入CoreWeave(CRWV)和Kodiak AI(KDK)"
+      "footnote": "ARK每日披露持仓变动，TSLA始终第一重仓。4/7大手笔买入HOOD $1250万+TSLA $240万，清仓防御股BWXT/TER"
     }
   ],
   "predictions": [
     {
       "title": "美联储6月降息?",
       "source": "CME FedWatch",
-      "probability": 65,
-      "trend": "stable",
-      "change24h": 2
-    },
-    {
-      "title": "美伊持久和平?",
-      "source": "Polymarket",
-      "probability": 18,
+      "probability": 43,
       "trend": "up",
       "change24h": 12
+    },
+    {
+      "title": "美伊停火延长?",
+      "source": "Polymarket",
+      "probability": 35,
+      "trend": "down",
+      "change24h": -8
     }
   ],
-  "dataTime": "2026-04-08 22:15 BJT",
+  "dataTime": "2026-04-09 09:20 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "",
-    "skillVersion": "v10.0"
+    "generatedAt": "2026-04-09T06:29:39+08:00",
+    "skillVersion": "v10.3"
   }
 }

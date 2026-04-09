@@ -40,8 +40,8 @@ if [ -z "$CODEBUDDY_BIN" ]; then
 fi
 echo "✅ codebuddy 路径: $CODEBUDDY_BIN" >> "$LOG_FILE"
 
-# macOS 无 GNU timeout，用后台进程+轮询实现超时控制（1800秒=30分钟）
-# v10.0 全量模式（Standard）需要约20-25分钟完成全流程
+# macOS 无 GNU timeout，用后台进程+轮询实现超时控制（3600秒=1小时）
+# v10.0 全量模式（Standard）需要约20-30分钟完成全流程，网络慢时可能更长
 "$CODEBUDDY_BIN" -p \
   "投研鸭小程序数据 app数据更新，日期为${TODAY}，执行 investment-agent-daily-app Skill 全流程" \
   -y \
@@ -49,8 +49,8 @@ echo "✅ codebuddy 路径: $CODEBUDDY_BIN" >> "$LOG_FILE"
   >> "$LOG_FILE" 2>&1 &
 CMD_PID=$!
 
-# 等待最多1800秒
-TIMEOUT=1800
+# 等待最多3600秒（1小时）
+TIMEOUT=3600
 ELAPSED=0
 while kill -0 "$CMD_PID" 2>/dev/null; do
     if [ "$ELAPSED" -ge "$TIMEOUT" ]; then
