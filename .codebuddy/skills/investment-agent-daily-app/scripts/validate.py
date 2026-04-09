@@ -116,7 +116,7 @@ class ValidationResult:
 
     def print_report(self):
         print("\n" + "=" * 70)
-        print("📋 投研鸭数据质量自动化校验报告 (v4.0 Standard/Weekend 统一)")
+        print("📋 投研鸭数据质量自动化校验报告 (v5.5 Harness v10.5)")
         print("=" * 70)
 
         for r in self.results:
@@ -519,7 +519,7 @@ def validate_sparkline_price_consistency(files, baseline, vr):
                                     )
 
     if inconsistencies:
-        vr.add("V6", "sparkline[-1] vs price 一致性 (≤1%)", False,
+        vr.add("V6", "sparkline[-1] vs price 一致性 (≤5%)", False,
                f"{len(inconsistencies)} 处不一致: {'; '.join(inconsistencies[:5])}")
     else:
         vr.add("V6", "sparkline[-1] vs price 一致性", True)
