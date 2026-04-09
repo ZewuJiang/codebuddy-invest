@@ -1,8 +1,9 @@
-# 数据采集SOP — App版（v2.0）
+# 数据采集SOP — App版（v2.1）
 
 > **用途**：投研鸭小程序数据生产第一阶段数据采集的完整操作规范，含情绪与预测数据采集（Batch A）。
 > **核心原则**：数据完整性第一，精确到小数点后两位，严禁空位和模糊表述。
 > **与原 Skill 的差异**：额外需要采集 sparkline（7天历史）、chartData（30天历史）、metrics 指标、个股分析文本。
+> **v2.1 变更（2026-04-09）**：新增第0.5节"price与sparkline同源规则"和第0.6节"sparkline禁止零值填充规则"（Harness v10.4 教训）。
 > **v2.0 变更**：删除第九章 Refresh 精简采集批次定义（v9.0 统一为 Standard 全量执行）。
 
 ---
@@ -56,6 +57,99 @@
 | DXY 美元指数 | `web_search "DXY dollar index close YYYY-MM-DD"` → 核实来源为 ICE/Investing.com 等行情平台 |
 | BTC/ETH 价格 | `web_fetch: https://www.google.com/finance/quote/BTC-USD` 或 CoinGecko API |
 | VIX | `web_fetch: https://www.google.com/finance/quote/VIX:INDEXCBOE` |
+
+### 0.5 price 与 sparkline 必须来自同一数据源（v2.1 新增 — FATAL 违规）
+
+> ⚠️ **2026-04-09 事故教训**：AI 在填写 `price` 字段时使用了每手价格/旧数据源，导致：
+> - 智谱AI price=HK$42.80（正确为 HK$929）差22倍
+> - MiniMax price=HK$38.50（正确为 HK$999）差26倍
+> - 博通 AVGO price=$179.83（正确为 $353.81）差2倍
+> - 其余 10 个标的均有类似问题
+>
+> **触发原因**：price 和 sparkline 来自不同搜索结果，sparkline 是正确的行情价格，price 错误地使用了其他来源。
+
+**强制规则**：
+1. `price` 必须等于 `sparkline[-1]`（最后一个历史价格点），误差 ≤ 1%
+2. 如果 `price` 和 `sparkline[-1]` 差距超过 5%，必须重新搜索确认，两者使用同一数据源
+3. **禁止**：先搜到 price，再单独搜 sparkline 历史——两者应在同一个 `web_fetch` 请求中从同一数据源获取
+4. validate.py V45 [FATAL] 会自动检测数量级差异（>50%），差异 1-50% 范围由 V6 [WARN] 处理
+
+**港股特别注意**（两类常见错误）：
+| 错误类型 | 示例 | 处理 |
+|---------|------|------|
+| 使用"每手价格"而非"每股价格" | 每手50股，误把每手价格HK$46视为每股价格 | Google Finance 显示的是每股价格，直接使用 |
+| 使用旧来源/过期缓存价格 | 缺乏历史数据的标的用训练数据中的旧价格 | 必须实时 web_fetch 行情源 |
+
+### 0.6 sparkline 禁止零值填充（v2.1 新增 — FATAL 违规）
+
+> ⚠️ **2026-04-09 事故教训**：AI 对 VIX、日经225、KOSPI、黄金、DXY、10Y美债、CNH、BTC/ETH 等**没有7日历史数据**的标的，直接用 `0` 填充 sparkline，导致：
+> - 前端图表渲染为从0跳到当前价的断崖曲线（视觉错误）
+> - auto_compute.py 的 `compute_pct_change(sparkline[0]=0)` 返回 None → 7日涨跌空白
+>
+> **validate.py V44 [FATAL]** 会自动拦截 sparkline 中 >50% 为 0 的情况。
+
+**强制规则**：
+1. 任何标的的 sparkline **禁止** 使用 `0` 作为历史价格占位符
+2. 获取不到历史数据时，必须：
+   - 搜索 `stockanalysis.com`、`macrotrends.net`、`ycharts.com`、`chartexchange.com` 等历史价格数据库
+   - 或通过 `web_search "{标的名} price history April 2026"` 获取7日历史
+   - 或在同一行情源页面切换到 "5D" 视图获取5日历史（至少填充后5个点）
+3. 实在获取不到历史数据 → 使用当前价作为所有7个点（平线），不要用 0
+   - 例：`[97.47, 97.47, 97.47, 97.47, 97.47, 97.47, 97.47]` 胜过 `[0, 0, 0, 0, 0, 97.47, 97.47]`
+
+---
+
+## 〇.七、质量门禁与重试机制（v2.1 新增 — 数据准确性 > 执行速度）
+
+> ⚠️ **核心原则**：宁可多搜几轮花多几分钟，也不能让错误数据发布到前端。
+
+### 每个标的的数据采集必须通过以下 4 道门禁：
+
+```
+门禁1: price ≠ 0 且 ≠ "" 且 ≠ "--" → 否则阻断（V43 FATAL）
+门禁2: sparkline 7个点全部 > 0 → 否则阻断（V44 FATAL）
+门禁3: |price / sparkline[-1] - 1| < 30% → 否则阻断（V45 FATAL）
+门禁4: sparkline[-1] vs price 偏差 < 5% → 否则阻断（V6 FATAL）
+```
+
+### 搜索失败时的重试 SOP：
+
+```
+第1次搜索: Google Finance (web_fetch)
+  ↓ 如果失败或数据不完整
+第2次搜索: StockAnalysis.com / ChartExchange.com (web_fetch)
+  ↓ 如果仍然失败
+第3次搜索: web_search "{标的名} stock price April 2026 history" → 核实来源
+  ↓ 如果仍然失败
+第4次搜索: 东方财富/同花顺/新浪财经 (中国标的) 或 macrotrends.net/ycharts.com (海外标的)
+  ↓ 如果全部失败（极罕见）
+降级处理: 使用当前价填充sparkline为平线，validate V47 会标记为 WARN 提醒
+```
+
+### 发布前必须运行 validate.py：
+
+```bash
+python3 validate.py <sync_dir> --mode standard
+
+# 通过标准：
+#   🔴 FATAL: 0（必须为0，否则阻断发布）
+#   🟡 WARN: ≤3（超过3条建议修复后再发布）
+```
+
+### 当前 FATAL 级校验项清单（10项，全部不可绕过）：
+
+| 校验项 | 规则 | 阈值 |
+|--------|------|------|
+| V6 | sparkline[-1] vs price 偏差 | ≤5% |
+| V39 | 13F 持仓合规（无期权/伪造） | 零容忍 |
+| V40 | metrics 无空值 | 零容忍 |
+| V43 | price 非占位符 | 零容忍 |
+| V44 | sparkline 无零值 | 零容忍 |
+| V45 | price vs sparkline 数量级 | ≤30% |
+| V46 | chartData 无零值 | 零容忍 |
+| R2 | smartMoneyHoldings ≥ Top10 | 零容忍 |
+| R3 | 无"待更新"占位符 | 零容忍 |
+| R9 | 持仓与cache一致 | 零容忍 |
 
 ---
 

@@ -1,42 +1,42 @@
 {
   "date": "2026-04-09",
-  "takeaway": "美伊停火引爆全球【逼空行情】，原油暴跌近20%释放【通胀缓解】信号，但两周停火窗口极短、霍尔木兹【仍关闭】，反弹基础需CPI验证",
+  "takeaway": "美伊停火墨迹未干伊朗即指控违约，霍尔木兹【再度关闭】推动油价反弹3%，亚太全线回落——停火【红利兑现极短】，明日【CPI】决定反弹能否延续",
   "coreEvent": {
-    "title": "美伊达成两周停火协议，原油暴跌近20%引发全球风险资产史诗级反弹",
+    "title": "伊朗指控美国违反停火协议，霍尔木兹海峡再度关闭，全球市场回吐昨日涨幅",
     "chain": [
       {
-        "title": "美伊宣布两周停火",
-        "brief": "经38天冲突后首个正式停火窗口，特朗普称'全面胜利'",
-        "source": "新华网",
-        "url": "http://www3.xinhuanet.com/world/20260408/d61754700cc74174adbc6afbd5ad4dbe/c.html",
-        "source_count": 5
-      },
-      {
-        "title": "原油暴跌创2020年来最大跌幅",
-        "brief": "WTI -16.41%至$94.41，布伦特 -13.29%至$94.75",
-        "source": "Trading Economics",
-        "url": "https://tradingeconomics.com/commodity/brent-crude-oil",
+        "title": "停火不满24小时即生变数",
+        "brief": "伊朗指控美国空袭违反停火条款，霍尔木兹海峡再度关闭，两周停火窗口脆弱性暴露",
+        "source": "AP News",
+        "url": "https://apnews.com/article/financial-markets-iran-oil-bcd3342cd0b4e60ebedc1e81db08f465",
         "source_count": 4
       },
       {
-        "title": "全球股市史诗级反弹",
-        "brief": "美股创2020年来最大逼空行情，韩国KOSPI+6.87%触发熔断",
-        "source": "CNBC",
-        "url": "https://www.cnbc.com/world-markets/",
-        "source_count": 6
-      },
-      {
-        "title": "META发布Llama 4开源大模型",
-        "brief": "4000亿参数完全免费商用，META单日涨6.50%领跑M7",
-        "source": "界面新闻",
-        "url": "https://www.jiemian.com/article/12569827.html",
+        "title": "油价技术性反弹3%修复超跌",
+        "brief": "布伦特从$94反弹至$97-99，WTI涨3%，停火不确定性重新推升能源溢价",
+        "source": "Trading Economics",
+        "url": "https://tradingeconomics.com/commodity/brent-crude-oil",
         "source_count": 3
       },
       {
-        "title": "段永平启动泡泡玛特sell put布局",
-        "brief": "称'保险公司正式开张'，详细阐述品牌壁垒和全球化逻辑",
-        "source": "雪球",
-        "url": "https://news.qq.com/rain/a/20260409A060QE00",
+        "title": "亚太市场全线回落消化停火变数",
+        "brief": "日经-0.76%、上证-0.72%、恒指-0.54%、KOSPI-1.41%，昨日暴涨后获利了结叠加地缘反复",
+        "source": "ICMarkets",
+        "url": "https://www.icmarkets-vnk.com/blog/thursday-9th-april-2026-asia-pacific-markets-fall-as-iran-accuses-u-s-of-ceasefire-breach-amid-rising-tensions/",
+        "source_count": 5
+      },
+      {
+        "title": "美股盘中小幅回调消化涨幅",
+        "brief": "S&P -0.28%、纳指-0.42%、道指-0.31%，VIX维持21附近，MSFT跌1.77%领跌",
+        "source": "Google Finance",
+        "url": "https://www.google.com/finance/quote/.INX:INDEXSP",
+        "source_count": 3
+      },
+      {
+        "title": "明日CPI数据成关键变量",
+        "brief": "3月CPI预期环比+0.3%，核心通胀若粘性将直接打压降息预期和当前反弹基础",
+        "source": "Trading Economics",
+        "url": "https://tradingeconomics.com/united-states/government-bond-yield",
         "source_count": 2
       }
     ]
@@ -44,82 +44,97 @@
   "globalReaction": [
     {
       "name": "标普500",
-      "value": "+2.51%",
-      "direction": "up",
-      "note": "六连涨"
+      "value": "-0.28%",
+      "direction": "down",
+      "note": "盘中回调消化涨幅"
     },
     {
       "name": "纳斯达克",
-      "value": "+2.80%",
-      "direction": "up",
-      "note": "六连涨"
+      "value": "-0.42%",
+      "direction": "down",
+      "note": "MSFT拖累科技"
     },
     {
-      "name": "WTI原油",
-      "value": "-16.41%",
-      "direction": "down",
-      "note": "2020年来最大跌幅"
+      "name": "布伦特原油",
+      "value": "+3.16%",
+      "direction": "up",
+      "note": "停火变数推升"
     },
     {
       "name": "日经225",
-      "value": "+5.39%",
-      "direction": "up",
-      "note": "创阶段新高"
+      "value": "-0.76%",
+      "direction": "down",
+      "note": "回吐昨日涨幅"
     },
     {
       "name": "黄金",
-      "value": "+1.29%",
-      "direction": "up",
-      "note": "$4,726高位韧性"
+      "value": "-0.72%",
+      "direction": "down",
+      "note": "$4,742高位震荡"
     },
     {
       "name": "VIX",
-      "value": "-16.76%",
+      "value": "-0.48%",
       "direction": "down",
-      "note": "降至21.46"
+      "note": "维持21附近"
     }
   ],
   "coreJudgments": [
     {
-      "title": "停火红利释放地缘溢价但窗口极短",
+      "title": "停火脆弱性暴露地缘溢价未完全释放",
       "confidence": 80,
-      "logic": "38天冲突后首次停火 → 地缘风险溢价集中释放(原油-16%) → 但仅两周窗口+霍尔木兹仍关闭+伊朗10项条款被拒，反弹持续性高度依赖谈判进展",
+      "logic": "停火不满24小时伊朗即指控违约 → 霍尔木兹再度关闭+油价反弹3% → 两周停火窗口远不等于持久和平，地缘溢价随时可能回归",
       "keyActor": "特朗普/伊朗最高领袖",
       "references": [
-        "新华网美伊停火报道",
-        "知乎详细分析"
-      ]
+        {
+          "name": "AP News",
+          "summary": "伊朗指控美国空袭违反停火协议，停火脆弱性暴露",
+          "url": "https://apnews.com/article/financial-markets-iran-oil-bcd3342cd0b4e60ebedc1e81db08f465"
+        }
+      ],
+      "probability": "高可能性",
+      "trend": "上升"
     },
     {
-      "title": "油价暴跌打开通胀下行空间但需CPI验证",
+      "title": "CPI数据将验证通胀缓解逻辑是否成立",
       "confidence": 70,
-      "logic": "布伦特从$110+暴跌至$97 → 能源成本快速下降缓解通胀预期 → 周四CPI数据将验证此逻辑，若核心通胀仍粘性则降息预期继续推迟",
+      "logic": "油价暴跌释放通胀缓解信号 → 但今日油价反弹3%削弱逻辑 → 明日CPI若核心通胀仍粘性(>0.3%环比)，降息预期和反弹基础将同时被抽空",
       "keyActor": "美联储/CPI数据",
       "references": [
-        "CME FedWatch概率数据",
-        "Trading Economics 10Y收益率"
-      ]
+        {
+          "name": "Trading Economics",
+          "summary": "10Y美债收益率4.32%，市场等待CPI验证通胀方向",
+          "url": "https://tradingeconomics.com/united-states/government-bond-yield"
+        }
+      ],
+      "probability": "中可能性",
+      "trend": "稳定"
     },
     {
-      "title": "AI开源竞赛升级加速应用落地",
+      "title": "科技股分化加剧MSFT承压META维持强势",
       "confidence": 75,
-      "logic": "META发布Llama 4(4000亿参数完全开源) → 开源vs闭源竞争白热化 → AI应用开发成本进一步下降，利好AI基础设施和应用生态",
-      "keyActor": "META/OpenAI/Google",
+      "logic": "MSFT盘中跌1.77%（AI资本开支回报担忧） → META/AMZN逆势涨2%+(Llama 4余热+停火偏好) → M7内部分化加剧，选股比配置更重要",
+      "keyActor": "META/MSFT",
       "references": [
-        "界面新闻Llama 4发布报道",
-        "腾讯云开发者社区前景分析"
-      ]
+        {
+          "name": "Google Finance",
+          "summary": "M7分化：META +2.16%, AMZN +1.84%, MSFT -1.77%",
+          "url": "https://www.google.com/finance/quote/META:NASDAQ"
+        }
+      ],
+      "probability": "高可能性",
+      "trend": "稳定"
     }
   ],
   "actionHints": [],
-  "sentimentScore": 65,
-  "sentimentLabel": "偏贪婪",
+  "sentimentScore": 55,
+  "sentimentLabel": "中性",
   "marketSummaryPoints": [
-    "美伊停火引爆2020年来最大逼空行情，三大指数涨幅均超2.5%，纳指标普六连涨",
-    "WTI原油暴跌16.41%创2020年来最大跌幅，布伦特跌13.29%，但霍尔木兹海峡仍未开放",
-    "A股成交2.43万亿创年内纪录，超5100只上涨135只涨停，创业板暴涨5.91%",
-    "META涨6.50%领跑M7，Llama 4开源催化AI军备竞赛升级，TSLA逆势跌0.98%",
-    "巴菲特正式交棒Greg Abel，伯克希尔重启回购；段永平启动泡泡玛特sell put布局"
+    "伊朗指控停火违约引发全球市场回吐，亚太全线下跌，KOSPI跌1.41%领跌",
+    "油价反弹3%修复昨日超跌，布伦特回到$97-99区间，停火不确定性重新定价",
+    "美股盘中小幅回调，S&P -0.28%，MSFT跌1.77%领跌但META/AMZN逆势上涨",
+    "加密市场恐惧指数14(极度恐惧)，BTC跌1%至$70,749，资金持续观望",
+    "明日CPI数据是本周最关键催化剂，将决定停火反弹能否延续"
   ],
   "smartMoney": [
     {
@@ -129,7 +144,7 @@
     },
     {
       "source": "伯克希尔",
-      "action": "Greg Abel 4月1日接任CEO并重启股票回购，同时个人投入$15.3M购入公司股票，现金储备$3,733亿",
+      "action": "Greg Abel 4月1日接任CEO并重启股票回购，个人投入$15.3M购入公司股票，现金储备$3,733亿",
       "signal": "neutral"
     },
     {
@@ -153,18 +168,18 @@
     }
   ],
   "riskPoints": [
-    "停火仅两周窗口，伊朗10项条款被特朗普扔进垃圾桶，谈崩风险极高",
-    "霍尔木兹海峡仍关闭，若开放进度不及预期原油将急速反弹",
-    "周四CPI若显示核心通胀粘性，将直接打压降息预期和当前反弹基础"
+    "停火不满24小时即生变数，霍尔木兹再度关闭，油价反弹3%暗示市场重新定价地缘风险",
+    "明日CPI若核心通胀环比超0.3%，将直接打压降息预期和当前反弹基础",
+    "加密市场F&G仅14(极度恐惧)，与股市情绪背离暗示风险偏好修复尚不稳固"
   ],
-  "riskNote": "地缘停火窗口极短(仅两周)叠加霍尔木兹仍关闭，当前反弹更像'停火交易'而非趋势反转，CPI数据和谈判进展将决定后续方向",
-  "dataTime": "2026-04-09 18:16 BJT",
+  "riskNote": "停火脆弱性已暴露(伊朗指控违约+霍尔木兹再关闭)，昨日史诗级反弹面临现实检验，明日CPI+停火谈判进展将双重决定后续方向",
+  "dataTime": "2026-04-09 22:52 BJT",
   "audioUrl": "cloud://cloud1-3g6wj06h84f38ea8.636c-cloud1-3g6wj06h84f38ea8-1418169528/audio/briefing-2026-04-09.mp3",
   "audioFile": "",
   "voiceText": "",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-09T18:15:04+08:00",
-    "skillVersion": "v10.3"
+    "generatedAt": "2026-04-09T22:35:00+08:00",
+    "skillVersion": "v10.5"
   }
 }

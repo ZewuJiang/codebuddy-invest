@@ -4,6 +4,46 @@
 
 ---
 
+## v10.5（2026-04-09 22:19）— Harness v10.5 门槛全面收紧
+
+**原则**：数据准确性 > 执行速度。宁可多搜几轮花多几分钟，也不能让错误数据发布。
+
+**validate.py v5.4→v5.5**：
+- V6  **WARN→FATAL** 升级：sparkline[-1] vs price 偏差容差从 1%→5%（FATAL 级，形成 V6/V45 双层防护）
+- V40 **WARN→FATAL** 升级：metrics 空值 = 前端空白 = 阻断发布
+- V44 **阈值收紧**：从 >50% 零值 → **任何零值（>=1个）即 FATAL**
+- V45 **阈值收紧**：price vs sparkline[-1] 差距从 50%→**30%**
+- 新增 **V46 [FATAL]** chartData 禁止零值（与 V44 平行，覆盖30日数据）
+- 新增 **V47 [WARN]** sparkline 禁止全平线（拦截估算填充）
+- **FATAL 项**：从 5 → **10 个**（V6/V39/V40/V43/V44/V45/V46/R2/R3/R9）
+- **校验项**：52 → **54 项**
+
+**data-collection-sop.md v2.0→v2.1**：
+- 新增 §0.7 质量门禁与重试机制（4道门禁 + 4级搜索重试 SOP + 10项FATAL清单表格）
+
+---
+
+## v10.4（2026-04-09 21:53）— Harness v10.4 结构性数据防护
+
+**根因**：2026-04-09 发现两类系统性结构错误：
+1. AI 对新上市/无历史数据标的（VIX/日经/KOSPI/黄金/BTC/ETH/CNH/DXY等）直接用 `0` 填充 sparkline → 图表断崖+7日涨跌空白
+2. AI 填写 price 时使用错误来源（智谱 HK$42.80 实为 HK$929，MiniMax HK$38.50 实为 HK$999，AVGO $179.83 实为 $353.81 等 13 个标的错误）— **价格与 sparkline 数量级不一致**
+
+**修复**：
+- **数据修复**：watchlist.json 修正 13 个标的 price + 全部 32 个标的补全 7日/30日涨跌；markets.json 修复 VIX/META/日经/KOSPI/黄金/布伦特/DXY/10Y美债/CNH/BTC/ETH 共 11 个 sparkline
+- validate.py **v5.3→v5.4**：
+  - 新增 V44 [FATAL] sparkline 禁止大量0值（>50%为0 → FATAL，拦截AI零值填充历史数据）
+  - 新增 V45 [FATAL] price 与 sparkline[-1] 数量级一致性（差距>50% → FATAL，拦截数据来源不一致）
+  - FATAL_CODES 新增 V44/V45
+  - 校验项 50→52 项
+
+**结构性教训**：
+- 直接能取的数不应让 AI 计算（5D/1M 涨跌 Google Finance 直接有）
+- sparkline 一律从历史行情搜索，禁止 AI 手写估算值
+- price 与 sparkline 必须来自同一数据源
+
+---
+
 ## v10.0（2026-04-08 17:30）— Harness v10.0 工具链全面升级
 - **核心理念**：AI 只做搜索+写分析，其余全部由工具链接管
 - auto_compute.py v1.0→v2.0：新增6类自动计算（metrics[2-5]+gics排序+dataTime+sourceType修正），总计12类

@@ -1,10 +1,25 @@
 #!/usr/bin/env python3
 """
-投研鸭小程序数据质量自动化校验脚本 v5.3
+投研鸭小程序数据质量自动化校验脚本 v5.5
 ============================================================
 核心理念（Harness Engineering）:
   把"AI 记住规则"转变为"环境自动约束 AI"。
   本脚本在 run_daily.sh 中的 auto_compute.py 之后、sparkline 补全之前执行。
+
+v5.5 Harness v10.5 门槛全面收紧（数据准确性 > 执行速度）：
+  - V6  WARN→FATAL 升级：sparkline[-1] vs price 偏差 ≤5%（形成 V6/V45 双层防护）
+  - V40 WARN→FATAL 升级：metrics 空值 = 前端空白 = 阻断发布
+  - V44 阈值收紧：从 >50% 零值 → 任何零值(>=1个)即 FATAL
+  - V45 阈值收紧：price vs sparkline[-1] 差距从 50%→30%
+  - 新增 V46 [FATAL] chartData 禁止零值（与 V44 平行，覆盖30日数据）
+  - 新增 V47 [WARN] sparkline/chartData 禁止全平线（拦截估算填充）
+  - FATAL_CODES 新增 V6/V40/V46（从5→10个FATAL项）
+  - 校验项 52→54 项
+
+v5.4 Harness v10.4 结构性数据防护（2026-04-09 事故修复）：
+  - 新增 V44 [FATAL] sparkline 禁止零值
+  - 新增 V45 [FATAL] price 与 sparkline 数量级一致性
+  - 校验项从50→52项
 
 v5.3 Harness v10.3 4/8基准质量巩固：
   - 新增 V43 [FATAL] price 禁止占位符（拦截 "--"/"N/A"/空值）
@@ -63,7 +78,7 @@ BASELINE_PATH = REFERENCES_DIR / "golden-baseline.json"
 HOLDINGS_CACHE_PATH = REFERENCES_DIR / "holdings-cache.json"
 
 # FATAL 级校验项（不可被 --skip-warn 绕过）
-FATAL_CODES = {"R2", "R3", "R9", "V39", "V43"}
+FATAL_CODES = {"R2", "R3", "R9", "V6", "V39", "V40", "V43", "V44", "V45", "V46"}
 
 # ============================================================
 # 工具函数
@@ -453,8 +468,12 @@ def validate_enums_comprehensive(files, baseline, vr):
 
 
 def validate_sparkline_price_consistency(files, baseline, vr):
-    """V6: sparkline[-1] vs price 偏差 ≤1%"""
-    tolerance = baseline.get("textQuality", {}).get("price_sparkline_tolerance", 0.01)
+    """V6 [FATAL]: sparkline[-1] vs price 偏差 ≤5%
+    
+    v10.5 升级：从 WARN→FATAL，容差从 1%→5%。
+    V45 拦截数量级差异(>50%)，V6 拦截中等差异(5-50%)，形成双层防护。
+    """
+    tolerance = 0.05  # 5% — 升级为更严格的 FATAL 门禁
     inconsistencies = []
 
     # markets
@@ -1423,9 +1442,11 @@ def validate_holdings_13f_compliance(files, vr):
 
 
 def validate_metrics_no_empty_values(files, vr):
-    """V40: watchlist metrics 不允许空值 — 拦截 auto_compute 未覆盖的空缺
+    """V40 [FATAL]: watchlist metrics 不允许空值 — 拦截 auto_compute 未覆盖的空缺
     
-    设计背景（2026-04-08 事故）：
+    v10.5 升级：从 WARN→FATAL。metrics 空值 = 前端空白 = 用户体验0分，必须阻断发布。
+    
+    设计背景（2026-04-08/09 事故）：
     auto_compute.py 从 sparkline/chartData 计算 7日/30日涨跌，但当标的
     缺少 sparkline 时，metrics[2]/[3] 留空。前端渲染出空白，用户看到"大量数据缺失"。
     """
@@ -1534,6 +1555,194 @@ def validate_price_no_placeholder(files, vr):
 
     vr.add("V43", "price 禁止占位符 (--/N\\/A/空值) [FATAL]", len(violations) == 0,
            "; ".join(violations[:8]) if violations else "全部有效 ✓")
+
+
+def validate_sparkline_no_zero_flood(files, vr):
+    """V44 [FATAL]: sparkline 不允许任何 0 值 — 拦截 AI 用 0 填充历史数据
+
+    v10.5 升级：从 >50% 零值 → **任何 0 值即 FATAL**。
+    零值 = 数据缺失 = 前端断崖曲线 + 7日涨跌空白，必须搜索真实历史价格。
+
+    设计背景（2026-04-09 事故）：
+    AI 对新上市/数据不全的标的（VIX、日经、KOSPI、黄金、BTC/ETH、CNH、DXY 等）
+    直接用 0 填充 sparkline，导致图表和计算全面失败。
+
+    规则：sparkline 中包含任何 0 → FATAL
+    例外：sparkline 为空 [] 不触发（交由其他校验项处理）
+    """
+    markets = files.get("markets")
+    watchlist = files.get("watchlist")
+    violations = []
+
+    def check_sparkline(sparkline, location):
+        if not sparkline or len(sparkline) == 0:
+            return
+        zero_count = sum(1 for v in sparkline if v == 0)
+        if zero_count > 0:
+            violations.append(
+                f"{location}: sparkline 含 {zero_count} 个零值"
+                f"——禁止用0填充，请搜索真实历史价格"
+            )
+
+    if markets:
+        for section in ["usMarkets", "m7", "asiaMarkets", "commodities", "cryptos"]:
+            for item in markets.get(section, []):
+                check_sparkline(item.get("sparkline", []),
+                                f"markets.{section}[{item.get('name', '')}]")
+
+    if watchlist:
+        for sector_id, stock_list in watchlist.get("stocks", {}).items():
+            if not isinstance(stock_list, list):
+                continue
+            for stock in stock_list:
+                if stock.get("listed", True) is False:
+                    continue
+                check_sparkline(stock.get("sparkline", []),
+                                f"watchlist.{sector_id}[{stock.get('symbol', '')}]")
+
+    vr.add("V44", "sparkline 禁止任何零值（0=数据缺失）[FATAL]",
+           len(violations) == 0,
+           "; ".join(violations[:8]) if violations else "全部无零值 ✓")
+
+
+def validate_price_sparkline_magnitude(files, vr):
+    """V45 [FATAL]: price 与 sparkline 数量级一致性 — 拦截 price 与 sparkline 来源不一致
+
+    v10.5 升级：阈值从 50%→30%。差距 30% 几乎不可能是同一标的正常日内波动。
+
+    设计背景（2026-04-09 事故）：
+    AI 在填写 price 时使用了错误数据源（如每手价格/旧价格/错误市场），
+    导致智谱 price=HK$42.80 实际 HK$929（差22x）等严重错误。
+
+    规则：|price / sparkline[-1] - 1| > 30% → FATAL
+
+    例外：sparkline[-1] = 0（由 V44 处理）、price = "未上市" 跳过
+    """
+    markets = files.get("markets")
+    watchlist = files.get("watchlist")
+    violations = []
+
+    def check_magnitude(price_str, sparkline, location):
+        if not sparkline or len(sparkline) == 0:
+            return
+        last = sparkline[-1]
+        if not isinstance(last, (int, float)) or last == 0:
+            return
+        if not price_str or price_str in {"未上市", "--", "N/A", ""}:
+            return
+        # 解析 price 数字（去除货币符号、逗号）
+        try:
+            p_str = price_str.replace("$", "").replace("HK$", "").replace("¥", "")
+            p_str = p_str.replace(",", "").replace("%", "").strip()
+            price_num = float(p_str)
+        except (ValueError, AttributeError):
+            return
+
+        ratio = price_num / last
+        # 差距超过 30%（ratio < 0.7 或 ratio > 1.3）
+        if ratio < 0.7 or ratio > 1.3:
+            violations.append(
+                f"{location}: price={price_str}, sparkline[-1]={last:.2f}, "
+                f"比例={ratio:.2f}x——来源不一致，price 与 sparkline 数量级差异 > 30%"
+            )
+
+    if markets:
+        for section in ["usMarkets", "m7", "asiaMarkets", "commodities", "cryptos"]:
+            for item in markets.get(section, []):
+                check_magnitude(item.get("price", ""), item.get("sparkline", []),
+                                f"markets.{section}[{item.get('name', '')}]")
+
+    if watchlist:
+        for sector_id, stock_list in watchlist.get("stocks", {}).items():
+            if not isinstance(stock_list, list):
+                continue
+            for stock in stock_list:
+                if stock.get("listed", True) is False:
+                    continue
+                check_magnitude(stock.get("price", ""), stock.get("sparkline", []),
+                                f"watchlist.{sector_id}[{stock.get('symbol', '')}]")
+
+    vr.add("V45", "price 与 sparkline[-1] 数量级一致（差距 < 30%）[FATAL]",
+           len(violations) == 0,
+           "; ".join(violations[:5]) if violations else "全部一致 ✓")
+
+
+def validate_chartdata_no_zero(files, vr):
+    """V46 [FATAL]: chartData 不允许任何 0 值 — 与 V44 平行，覆盖30日数据
+
+    设计背景（2026-04-09 事故）：
+    中国石油、中国神华的 chartData 全30个点均为 0，前端30日图表完全空白。
+    """
+    watchlist = files.get("watchlist")
+    violations = []
+
+    if watchlist:
+        for sector_id, stock_list in watchlist.get("stocks", {}).items():
+            if not isinstance(stock_list, list):
+                continue
+            for stock in stock_list:
+                if stock.get("listed", True) is False:
+                    continue
+                chart = stock.get("chartData", [])
+                if not chart or len(chart) == 0:
+                    continue
+                zero_count = sum(1 for v in chart if v == 0)
+                if zero_count > 0:
+                    sym = stock.get("symbol", "?")
+                    violations.append(
+                        f"watchlist.{sector_id}[{sym}]: chartData 含 {zero_count}/{len(chart)} 个零值"
+                    )
+
+    vr.add("V46", "chartData 禁止任何零值（0=历史数据缺失）[FATAL]",
+           len(violations) == 0,
+           "; ".join(violations[:8]) if violations else "全部无零值 ✓")
+
+
+def validate_sparkline_no_flat_line(files, vr):
+    """V47 [FATAL]: sparkline/chartData 禁止全平线（拦截用当前价填充所有历史点的估算行为）
+
+    设计背景：
+    data-collection-sop.md §0.6 允许"实在获取不到历史数据时用当前价填充所有点"作为降级，
+    但这只是临时措施。V47 检测 sparkline 7个点中 ≥6个完全相同的情况，
+    标记为 WARN 提醒需要补充真实历史数据。
+
+    规则：sparkline 7个点中 ≥6个完全相同 → WARN（不阻断，但提醒）
+    """
+    watchlist = files.get("watchlist")
+    markets = files.get("markets")
+    violations = []
+
+    def check_flat(arr, location, label="sparkline"):
+        if not arr or len(arr) < 5:
+            return
+        from collections import Counter
+        counts = Counter(arr)
+        most_common_count = counts.most_common(1)[0][1]
+        if most_common_count >= len(arr) - 1:
+            violations.append(
+                f"{location}: {label} {len(arr)}个点中 {most_common_count}个相同值"
+                f"={counts.most_common(1)[0][0]}——疑似估算填充，请补充真实历史数据"
+            )
+
+    if markets:
+        for section in ["usMarkets", "m7", "asiaMarkets", "commodities", "cryptos"]:
+            for item in markets.get(section, []):
+                check_flat(item.get("sparkline", []),
+                           f"markets.{section}[{item.get('name', '')}]")
+
+    if watchlist:
+        for sector_id, stock_list in watchlist.get("stocks", {}).items():
+            if not isinstance(stock_list, list):
+                continue
+            for stock in stock_list:
+                if stock.get("listed", True) is False:
+                    continue
+                check_flat(stock.get("sparkline", []),
+                           f"watchlist.{sector_id}[{stock.get('symbol', '')}]")
+
+    vr.add("V47", "sparkline 禁止全平线（拦截估算填充）",
+           len(violations) == 0,
+           "; ".join(violations[:5]) if violations else "全部有波动 ✓")
 
 
 def validate_chain_urls(files, vr):
@@ -1749,6 +1958,18 @@ def main():
 
     # === V43 [FATAL]: price 禁止占位符 (v10.3 新增) ===
     validate_price_no_placeholder(files, vr)
+
+    # === V44 [FATAL]: sparkline 不允许大量 0 值 (v10.4 新增) ===
+    validate_sparkline_no_zero_flood(files, vr)
+
+    # === V45 [FATAL]: price 与 sparkline 数量级一致性 (v10.4 新增) ===
+    validate_price_sparkline_magnitude(files, vr)
+
+    # === V46 [FATAL]: chartData 禁止零值 (v10.5 新增) ===
+    validate_chartdata_no_zero(files, vr)
+
+    # === V47: sparkline 禁止全平线 (v10.5 新增) ===
+    validate_sparkline_no_flat_line(files, vr)
 
     # === R1-R8: 回归门禁 ===
     validate_regression_gates(files, baseline, vr, mode)

@@ -3,13 +3,13 @@
   "trafficLights": [
     {
       "name": "VIX波动率",
-      "value": "21.46",
+      "value": "20.94",
       "status": "yellow",
       "threshold": "<18绿 / 18-25黄 / >25红"
     },
     {
       "name": "10Y美债收益率",
-      "value": "4.29%",
+      "value": "4.32%",
       "status": "yellow",
       "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
     },
@@ -21,80 +21,76 @@
     },
     {
       "name": "美元指数DXY",
-      "value": "98.99",
+      "value": "99.06",
       "status": "green",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
     {
       "name": "HY信用利差",
-      "value": "3.05%",
+      "value": "3.17%",
       "status": "green",
       "threshold": "<4%绿 / 4-5%黄 / >5%红"
     },
     {
       "name": "黄金XAU",
-      "value": "$4,726",
+      "value": "$4,742",
       "status": "red",
       "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "6.8274",
+      "value": "6.8300",
       "status": "green",
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
   "riskScore": 80,
   "riskLevel": "high",
-  "riskAdvice": "黄金$4,726红灯区(避险定价远超历史中枢)，VIX/10Y/布伦特三项同处黄灯——若霍尔木兹海峡开放进度不及预期或伊朗停火条款谈崩，原油和VIX将迅速重返红灯",
+  "riskAdvice": "黄金$4,742红灯区(避险定价远超历史中枢)，VIX/10Y/布伦特三项同处黄灯——伊朗已指控停火违约、霍尔木兹再度关闭，若谈判破裂油价和VIX将迅速重返红灯",
   "riskAlerts": [],
   "events": [
     {
-      "date": "周三",
-      "title": "FOMC 3月会议纪要公布，关注滞胀讨论措辞",
-      "impact": "high"
+      "date": "周四",
+      "title": "美国3月CPI数据公布(8:30AM ET)，核心通胀是否回落是本周最关键变量",
+      "impact": "high",
+      "source": "Bureau of Labor Statistics",
+      "url": "https://www.bls.gov/cpi/"
     },
     {
       "date": "周四",
-      "title": "美国3月CPI数据公布，核心通胀是否回落是关键",
-      "impact": "high"
-    },
-    {
-      "date": "周四",
-      "title": "霍尔木兹海峡可能有条件重新开放（伊朗表态）",
+      "title": "霍尔木兹海峡开放谈判持续，伊朗已指控停火违约",
       "impact": "high"
     },
     {
       "date": "周五",
       "title": "美国3月PPI数据公布，验证通胀传导链条",
-      "impact": "medium"
+      "impact": "medium",
+      "source": "Bureau of Labor Statistics",
+      "url": "https://www.bls.gov/ppi/"
     },
     {
       "date": "周五",
-      "title": "美伊停火谈判持续，伊朗10项条款待实质回应",
+      "title": "美伊停火谈判续期窗口评估（两周停火第2天）",
       "impact": "high"
     }
   ],
   "alerts": [
     {
       "level": "warning",
-      "text": "韩国KOSPI暴涨6.87%触发指数熔断机制，创2020年来最大单日涨幅",
-      "time": "14:30"
+      "text": "伊朗指控美国违反停火协议，霍尔木兹海峡再度关闭，布伦特反弹至$97-99",
+      "time": "08:00",
+      "source": "AP News",
+      "url": "https://apnews.com/article/financial-markets-iran-oil-bcd3342cd0b4e60ebedc1e81db08f465"
     },
     {
       "level": "info",
-      "text": "A股成交2.43万亿创年内纪录，超5100只上涨135只涨停",
-      "time": "15:00"
-    },
-    {
-      "level": "warning",
-      "text": "WTI原油单日暴跌16.41%，创2020年以来最大单日跌幅",
-      "time": "22:00"
+      "text": "亚太市场全线回落：KOSPI -1.41%、恒生科技 -2.06%、上证 -0.72%",
+      "time": "16:00"
     },
     {
       "level": "info",
-      "text": "META单日涨6.50%，Llama 4开源4000亿参数催化资金涌入",
-      "time": "21:00"
+      "text": "加密市场F&G指数降至14(极度恐惧)，BTC跌1%至$70,749",
+      "time": "20:00"
     }
   ],
   "smartMoneyDetail": [
@@ -108,7 +104,7 @@
         },
         {
           "name": "段永平 · H&H",
-          "action": "正式启动泡泡玛特sell put布局，称'保险公司正式开张'，详述品牌+艺术家签约+全球门店+管理团队四大壁垒，看好PDD 1400亿市值5年回本逻辑",
+          "action": "正式启动泡泡玛特sell put布局，称'保险公司正式开张'，详述品牌+艺术家签约+全球门店+管理团队四大壁垒",
           "signal": "bullish"
         }
       ]
@@ -118,8 +114,15 @@
       "funds": [
         {
           "name": "ARK Invest",
-          "action": "4月6-8日连续买入TSLA合计$13.6M跨ARKQ/ARKK，同时大幅减持Teradyne $22.7M和ROKU $3.9M，加仓Kodiak AI和Tempus AI",
+          "action": "4月6-8日连续买入TSLA合计$13.6M跨ARKQ/ARKK，同时大幅减持Teradyne $22.7M和ROKU $3.9M，加仓Tempus AI",
           "signal": "bullish"
+        },
+        {
+          "name": "桥水基金",
+          "action": "2026年初战略性增配中国资产和亚太区域基金，Greg Jensen表态'宽松货币政策+技术变革期是核心配置逻辑'",
+          "signal": "bullish",
+          "source": "Institutional Investor",
+          "url": "https://inv.institutionalinvestor.com/article/behind-bridgewaters-surge"
         }
       ]
     },
@@ -128,7 +131,7 @@
       "funds": [
         {
           "name": "CME FedWatch",
-          "action": "6月FOMC降息概率仅28%，9月升至48%——市场预期下半年才有首次降息窗口，停火缓解通胀但数据尚需验证",
+          "action": "6月FOMC降息概率仅28%，9月升至48%——市场预期下半年才有首次降息窗口，明日CPI是关键验证",
           "signal": "neutral"
         }
       ]
@@ -354,9 +357,9 @@
     {
       "title": "美伊达成永久协议?",
       "source": "Polymarket",
-      "probability": 35,
-      "trend": "up",
-      "change24h": 15
+      "probability": 30,
+      "trend": "down",
+      "change24h": -5
     },
     {
       "title": "美联储9月降息?",
@@ -366,10 +369,10 @@
       "change24h": 2
     }
   ],
-  "dataTime": "2026-04-09 18:16 BJT",
+  "dataTime": "2026-04-09 22:52 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-09T18:15:04+08:00",
-    "skillVersion": "v10.3"
+    "generatedAt": "2026-04-09T22:35:00+08:00",
+    "skillVersion": "v10.5"
   }
 }

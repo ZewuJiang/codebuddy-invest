@@ -1,6 +1,6 @@
-# 已知堵点与应对策略 — App版（v4.3）
+# 已知堵点与应对策略 — App版（v4.4）
 
-> **用途**：投研鸭小程序数据生产过程中的已知堵点与应对方案（共48条活跃）。
+> **用途**：投研鸭小程序数据生产过程中的已知堵点与应对方案（共56条活跃）。
 > **核心原则**：先保真，再发布。核心行情缺失时宁可阻断，也不能用估算值顶上。
 
 ---
@@ -87,6 +87,9 @@
 | 51 | AI 生成 JSON 时 price 写了 "--" 占位符未填实际价格，前端直接显示 "--" | → **致命**。V43 [FATAL] 拦截 price 为 "--"/"N/A"/空值。auto_compute.py v3.0 自动从 sparkline[-1] 推导填充兜底。**根因**：AI 在第二阶段查不到某些标的价格时用占位符先跳过，但后续未回填 | 致命 |
 | 52 | sparkline[-1] 与 price 偏差大（有的>80%），前端走势图末尾与顶部价格矛盾 | → auto_compute.py v3.0 自动将 sparkline[-1] 对齐 price（偏差>0.5%时修正），同时修复 sparkline 尾部方向与 change 符号的矛盾 | 高 |
 | 53 | chain[].url 和 coreJudgments[].references 被漏填，信源链可信度降低 | → V22/V23 校验拦截。AI 在第二阶段写 coreEvent.chain 时必须同步填 url（付费墙除外），写 coreJudgments 时必须填 references | 高 |
+| 54 | **price 与 sparkline 来自不同数据源，数量级差异 2-26 倍**（智谱price=HK$42实际929，MiniMax price=HK$38实际999，AVGO/TSM/ASML/AMD等15个标的全错） | → **致命**。V45 [FATAL] 拦截 price/sparkline[-1] 差距>30%。V6 [FATAL] 拦截>5%偏差。**根因**：AI 搜到 price 和 sparkline 分别来自不同来源（每手价格/旧缓存/错误市场）。**强制规则**：price 必须等于 sparkline[-1]（误差≤5%），两者必须来自同一 web_fetch 请求 | 致命 |
+| 55 | **sparkline 用 0 填充历史数据**（VIX/日经/KOSPI/黄金/BTC/ETH/DXY/CNH/布伦特/META/中国石油/中国神华共13个标的） | → **致命**。V44 [FATAL] 零容忍任何零值。V46 [FATAL] chartData 同理。**根因**：AI 搜不到历史数据时直接用 0 占位而非重试。**强制规则**：4级降级搜索重试（Google Finance→StockAnalysis→web_search→东方财富），全部失败才降级为平线填充 | 致命 |
+| 56 | **7日/30日涨跌全部为空字符串**（全部32个标的metrics[2][3]=""） | → **致命**。V40 [FATAL] 拦截所有 metrics 空值。**根因**：auto_compute 从错误的 sparkline（含0）计算涨跌→返回None→前端空白。**强制规则**：sparkline 必须全部>0（V44），确保 auto_compute 能正确计算；或直接从 Google Finance 5D/1M 视图取涨跌幅直填 | 致命 |
 
 ## 小程序端兼容性堵点
 
