@@ -43,7 +43,7 @@ echo "✅ codebuddy 路径: $CODEBUDDY_BIN" >> "$LOG_FILE"
 # macOS 无 GNU timeout，用后台进程+轮询实现超时控制（3600秒=1小时）
 # v10.0 全量模式（Standard）需要约20-30分钟完成全流程，网络慢时可能更长
 "$CODEBUDDY_BIN" -p \
-  "投研鸭小程序数据 app数据更新，日期为${TODAY}，执行 investment-agent-daily-app Skill 全流程" \
+  "投研鸭小程序 app 内容和数据更新，日期为${TODAY}，执行 investment-agent-daily-app Skill 全流程" \
   -y \
   --output-format json \
   >> "$LOG_FILE" 2>&1 &
