@@ -3,88 +3,98 @@
   "trafficLights": [
     {
       "name": "VIX波动率",
-      "value": "21.04",
+      "value": "21.46",
       "status": "yellow",
       "threshold": "<18绿 / 18-25黄 / >25红"
     },
     {
       "name": "10Y美债收益率",
-      "value": "4.27%",
+      "value": "4.29%",
       "status": "yellow",
       "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
     },
     {
       "name": "布伦特原油",
-      "value": "$95.12",
+      "value": "$97.74",
       "status": "yellow",
       "threshold": "<$90绿 / $90-110黄 / >$110红"
     },
     {
       "name": "美元指数DXY",
-      "value": "99.0",
+      "value": "98.99",
       "status": "green",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
     {
       "name": "HY信用利差",
-      "value": "4.2%",
-      "status": "yellow",
+      "value": "3.05%",
+      "status": "green",
       "threshold": "<4%绿 / 4-5%黄 / >5%红"
     },
     {
       "name": "黄金XAU",
-      "value": "$4,850",
+      "value": "$4,726",
       "status": "red",
       "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "7.21",
-      "status": "yellow",
+      "value": "6.8274",
+      "status": "green",
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
-  "riskScore": 100,
+  "riskScore": 80,
   "riskLevel": "high",
-  "riskAdvice": "黄金$4,850亮红灯（避险定价仍极端），油价虽暴跌但VIX/信用利差/10Y均处黄灯区——两周停火窗口极脆弱，4/10伊斯兰堡谈判是关键催化剂。",
+  "riskAdvice": "黄金$4,726红灯区(避险定价远超历史中枢)，VIX/10Y/布伦特三项同处黄灯——若霍尔木兹海峡开放进度不及预期或伊朗停火条款谈崩，原油和VIX将迅速重返红灯",
   "riskAlerts": [],
   "events": [
     {
-      "date": "周四",
-      "title": "美伊伊斯兰堡谈判启动（4/10），停火后首轮正式磋商",
+      "date": "周三",
+      "title": "FOMC 3月会议纪要公布，关注滞胀讨论措辞",
       "impact": "high"
     },
     {
       "date": "周四",
-      "title": "美国3月CPI数据发布，市场关注通胀二次抬头风险",
+      "title": "美国3月CPI数据公布，核心通胀是否回落是关键",
+      "impact": "high"
+    },
+    {
+      "date": "周四",
+      "title": "霍尔木兹海峡可能有条件重新开放（伊朗表态）",
       "impact": "high"
     },
     {
       "date": "周五",
-      "title": "美国3月PPI数据发布，生产端通胀压力验证",
+      "title": "美国3月PPI数据公布，验证通胀传导链条",
       "impact": "medium"
     },
     {
-      "date": "下周",
-      "title": "美股Q1财报季开启（摩根大通/花旗/富国银行）",
+      "date": "周五",
+      "title": "美伊停火谈判持续，伊朗10项条款待实质回应",
       "impact": "high"
     }
   ],
   "alerts": [
     {
       "level": "warning",
-      "text": "停火仅两周临时协议，霍尔木兹海峡全面修复需数月，油价反弹风险悬顶",
-      "time": "14:00"
-    },
-    {
-      "level": "warning",
-      "text": "标普连涨六日+2020年来最大逼空，技术面RSI进入超买区间",
-      "time": "14:00"
+      "text": "韩国KOSPI暴涨6.87%触发指数熔断机制，创2020年来最大单日涨幅",
+      "time": "14:30"
     },
     {
       "level": "info",
-      "text": "Meta发布Muse Spark大模型，AI军备竞赛进入新阶段，关注算力链受益",
-      "time": "14:00"
+      "text": "A股成交2.43万亿创年内纪录，超5100只上涨135只涨停",
+      "time": "15:00"
+    },
+    {
+      "level": "warning",
+      "text": "WTI原油单日暴跌16.41%，创2020年以来最大单日跌幅",
+      "time": "22:00"
+    },
+    {
+      "level": "info",
+      "text": "META单日涨6.50%，Llama 4开源4000亿参数催化资金涌入",
+      "time": "21:00"
     }
   ],
   "smartMoneyDetail": [
@@ -92,16 +102,14 @@
       "tier": "T1旗舰",
       "funds": [
         {
-          "name": "巴菲特/伯克希尔",
-          "action": "[4/6] CNBC专访明确表示乐于持有苹果为第一重仓，但不会在当前市场加仓，Buffett Indicator达211%为历史极值，现金储备$3733亿保持防御",
-          "signal": "bearish",
-          "freshness": "本周"
+          "name": "伯克希尔",
+          "action": "Greg Abel 4月1日正式接任CEO并重启股票回购，个人投入$15.3M购入公司股票，现金储备$3,733亿保持观望",
+          "signal": "neutral"
         },
         {
-          "name": "段永平/H&H",
-          "action": "[3/30] 收回不投资泡泡玛特说法，[4/4] 亲赴Westfield门店调研评价right business，投资决策链经典前兆推进中，但尚未在13F确认建仓",
-          "signal": "neutral",
-          "freshness": "两周内"
+          "name": "段永平 · H&H",
+          "action": "正式启动泡泡玛特sell put布局，称'保险公司正式开张'，详述品牌+艺术家签约+全球门店+管理团队四大壁垒，看好PDD 1400亿市值5年回本逻辑",
+          "signal": "bullish"
         }
       ]
     },
@@ -109,16 +117,9 @@
       "tier": "T2成长",
       "funds": [
         {
-          "name": "ARK/Cathie Wood",
-          "action": "4/7-8日大举买入TSLA $1320万(跨4只ETF)、新建仓HOOD $1250万(Treasury合作催化)，同时清仓TER $1480万+减持ROKU $380万，持续加码AI出行+金融科技",
-          "signal": "bullish",
-          "freshness": "今日"
-        },
-        {
-          "name": "Blackstone/黑石",
-          "action": "Jon Gray持续推进AI基础设施战略，CoreWeave(CRWV)为其GPU云核心投资标的，AI数据中心资本支出加速",
-          "signal": "bullish",
-          "freshness": "本月"
+          "name": "ARK Invest",
+          "action": "4月6-8日连续买入TSLA合计$13.6M跨ARKQ/ARKK，同时大幅减持Teradyne $22.7M和ROKU $3.9M，加仓Kodiak AI和Tempus AI",
+          "signal": "bullish"
         }
       ]
     },
@@ -126,16 +127,9 @@
       "tier": "策略师观点",
       "funds": [
         {
-          "name": "Goldman Sachs/Kostin",
-          "action": "[年初] 2026年标普500目标价7200，GDP加速增长预期，但近期警告短期反弹面临阻力（估值偏高+地缘不确定性）",
-          "signal": "neutral",
-          "freshness": "本月"
-        },
-        {
-          "name": "Morgan Stanley/Wilson",
-          "action": "[年初] 维持growth positive的非共识立场，认为2026年增长将超预期，但短期风险集中在通胀持续性",
-          "signal": "bullish",
-          "freshness": "本月"
+          "name": "CME FedWatch",
+          "action": "6月FOMC降息概率仅28%，9月升至48%——市场预期下半年才有首次降息窗口，停火缓解通胀但数据尚需验证",
+          "signal": "neutral"
         }
       ]
     }
@@ -208,7 +202,7 @@
           "change": "持仓不变"
         }
       ],
-      "footnote": "持仓数42只，Top10占88.3%，现金储备$3,733亿，Q4增持CVX(+6.6%)/CB(+9.3%)，减持AAPL(-4.3%)/BAC(-8.9%)"
+      "footnote": "持仓数42只，Top10占88.3%，现金$3,733亿，Greg Abel首次重启回购并个人投入$15.3M"
     },
     {
       "manager": "段永平 · H&H",
@@ -277,19 +271,19 @@
           "change": "减持"
         }
       ],
-      "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，新建仓CRWV/CRDO/TEM，泡泡玛特观察中"
+      "footnote": "核心持仓极度集中(AAPL+BRK.B占71%)，Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，正式启动泡泡玛特sell put布局"
     },
     {
       "manager": "Cathie Wood · ARK旗舰",
       "fund": "ARK Innovation ETF (ARKK)",
       "aum": "$6.8B",
-      "asOf": "2026-04-08（ARK每日持仓披露）",
+      "asOf": "2026-04-08",
       "positions": [
         {
           "name": "特斯拉",
           "symbol": "TSLA",
           "weight": "10.5%",
-          "change": "加仓"
+          "change": "持仓不变"
         },
         {
           "name": "CRISPR治疗",
@@ -319,7 +313,7 @@
           "name": "Roku",
           "symbol": "ROKU",
           "weight": "4.2%",
-          "change": "减持"
+          "change": "减仓"
         },
         {
           "name": "Palantir",
@@ -346,14 +340,36 @@
           "change": "持仓不变"
         }
       ],
-      "footnote": "4/7-8日ARK跨基金大举买入TSLA $1320万、新建仓HOOD $1250万(Robinhood)，清仓TER $1480万(Teradyne)，持续买入KDK(Kodiak AI)"
+      "footnote": "4/6-8连续买入TSLA $13.6M跨ARKQ/ARKK，大幅减持Teradyne $22.7M和ROKU $3.9M"
     }
   ],
-  "predictions": [],
-  "dataTime": "2026-04-09 14:10 BJT",
+  "predictions": [
+    {
+      "title": "美联储6月降息?",
+      "source": "CME FedWatch",
+      "probability": 28,
+      "trend": "down",
+      "change24h": -4
+    },
+    {
+      "title": "美伊达成永久协议?",
+      "source": "Polymarket",
+      "probability": 35,
+      "trend": "up",
+      "change24h": 15
+    },
+    {
+      "title": "美联储9月降息?",
+      "source": "CME FedWatch",
+      "probability": 48,
+      "trend": "stable",
+      "change24h": 2
+    }
+  ],
+  "dataTime": "2026-04-09 18:16 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-09T14:00:00+08:00",
+    "generatedAt": "2026-04-09T18:15:04+08:00",
     "skillVersion": "v10.3"
   }
 }

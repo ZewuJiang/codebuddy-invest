@@ -1,168 +1,170 @@
 {
   "date": "2026-04-09",
-  "timeStatus": {
-    "bjt": "14:00",
-    "est": "02:00",
-    "marketStatus": "美股已收盘",
-    "refreshInterval": "每日更新"
-  },
-  "takeaway": "【美伊停火】推动全球风险资产暴涨，【油价暴跌15%】霍尔木兹海峡临时开放，标普连涨六日创2020年来【最大逼空】行情",
+  "takeaway": "美伊停火引爆全球【逼空行情】，原油暴跌近20%释放【通胀缓解】信号，但两周停火窗口极短、霍尔木兹【仍关闭】，反弹基础需CPI验证",
   "coreEvent": {
-    "title": "美伊达成两周停火协议，霍尔木兹海峡临时开放引发全球风险资产暴涨",
+    "title": "美伊达成两周停火协议，原油暴跌近20%引发全球风险资产史诗级反弹",
     "chain": [
       {
-        "title": "美伊停火两周协议达成",
-        "brief": "巴基斯坦斡旋下伊朗接受停火提案，特朗普同意暂停对伊打击，双方4月10日伊斯兰堡启动新谈判",
-        "source": "华尔街见闻/Reuters",
-        "url": "https://news.qq.com/rain/a/20260409A020OR00"
+        "title": "美伊宣布两周停火",
+        "brief": "经38天冲突后首个正式停火窗口，特朗普称'全面胜利'",
+        "source": "新华网",
+        "url": "http://www3.xinhuanet.com/world/20260408/d61754700cc74174adbc6afbd5ad4dbe/c.html",
+        "source_count": 5
       },
       {
-        "title": "霍尔木兹海峡临时重开",
-        "brief": "伊朗同意两周内临时开放海峡，全球1/5石油和LNG运输通道恢复，WTI暴跌14.6%至$96.44",
-        "source": "第一财经",
-        "url": "https://www.yicai.com/news/103123406.html"
+        "title": "原油暴跌创2020年来最大跌幅",
+        "brief": "WTI -16.41%至$94.41，布伦特 -13.29%至$94.75",
+        "source": "Trading Economics",
+        "url": "https://tradingeconomics.com/commodity/brent-crude-oil",
+        "source_count": 4
       },
       {
-        "title": "全球股市集体暴涨",
-        "brief": "标普+2.51%连涨六日创2020年来最大逼空，韩国KOSPI+6.98%领涨亚太，欧洲Stoxx600+3.6%",
-        "source": "CNBC/Bloomberg",
-        "url": "https://www.cnbc.com/2026/04/06/stock-market-today-live-updates.html"
+        "title": "全球股市史诗级反弹",
+        "brief": "美股创2020年来最大逼空行情，韩国KOSPI+6.87%触发熔断",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/world-markets/",
+        "source_count": 6
       },
       {
-        "title": "Meta发布Muse Spark大模型",
-        "brief": "Meta超级智能实验室首个模型发布，Alexandr Wang操盘，META股价暴涨6.5%领跑M7",
-        "source": "TechCrunch/CNBC",
-        "url": "https://techcrunch.com/2026/04/08/meta-debuts-the-muse-spark-model-in-a-ground-up-overhaul-of-its-ai/"
+        "title": "META发布Llama 4开源大模型",
+        "brief": "4000亿参数完全免费商用，META单日涨6.50%领跑M7",
+        "source": "界面新闻",
+        "url": "https://www.jiemian.com/article/12569827.html",
+        "source_count": 3
       },
       {
-        "title": "OPEC+宣布5月增产20万桶/日",
-        "brief": "叠加停火预期，供给端双重利空令能源板块承压，XLE跌3.51%成唯一下跌板块",
-        "source": "Reuters",
-        "url": "https://www.reuters.com"
+        "title": "段永平启动泡泡玛特sell put布局",
+        "brief": "称'保险公司正式开张'，详细阐述品牌壁垒和全球化逻辑",
+        "source": "雪球",
+        "url": "https://news.qq.com/rain/a/20260409A060QE00",
+        "source_count": 2
       }
     ]
   },
   "globalReaction": [
     {
       "name": "标普500",
-      "value": "6,782.81",
+      "value": "+2.51%",
       "direction": "up",
-      "note": "连涨六日"
+      "note": "六连涨"
+    },
+    {
+      "name": "纳斯达克",
+      "value": "+2.80%",
+      "direction": "up",
+      "note": "六连涨"
     },
     {
       "name": "WTI原油",
-      "value": "$96.44",
+      "value": "-16.41%",
       "direction": "down",
-      "note": "2020年来最大单日跌幅"
+      "note": "2020年来最大跌幅"
     },
     {
-      "name": "VIX恐慌指数",
-      "value": "21.04",
-      "direction": "down",
-      "note": "中东冲突以来首次逼近20"
+      "name": "日经225",
+      "value": "+5.39%",
+      "direction": "up",
+      "note": "创阶段新高"
     },
     {
       "name": "黄金",
-      "value": "$4,850",
+      "value": "+1.29%",
       "direction": "up",
-      "note": "三周新高"
+      "note": "$4,726高位韧性"
     },
     {
-      "name": "美元指数DXY",
-      "value": "99.0",
+      "name": "VIX",
+      "value": "-16.76%",
       "direction": "down",
-      "note": "跌破100关口"
-    },
-    {
-      "name": "10Y美债收益率",
-      "value": "4.27%",
-      "direction": "flat",
-      "note": "基本持平"
+      "note": "降至21.46"
     }
   ],
   "coreJudgments": [
     {
-      "title": "停火脆弱性高，油价反弹风险大于继续下跌空间",
-      "confidence": 75,
-      "logic": "两周临时停火→非永久和平→中东产能设施战损修复需时→油价仍高于冲突前40%→任何谈判破裂即触发油价急弹",
-      "keyActor": "特朗普/伊朗最高国家安全委员会",
-      "probability": "高可能性",
-      "trend": "上升",
-      "references": []
+      "title": "停火红利释放地缘溢价但窗口极短",
+      "confidence": 80,
+      "logic": "38天冲突后首次停火 → 地缘风险溢价集中释放(原油-16%) → 但仅两周窗口+霍尔木兹仍关闭+伊朗10项条款被拒，反弹持续性高度依赖谈判进展",
+      "keyActor": "特朗普/伊朗最高领袖",
+      "references": [
+        "新华网美伊停火报道",
+        "知乎详细分析"
+      ]
     },
     {
-      "title": "AI资本开支叙事再加速，Meta Muse Spark引领新一轮军备竞赛",
+      "title": "油价暴跌打开通胀下行空间但需CPI验证",
       "confidence": 70,
-      "logic": "Meta投$140亿挖角Alexandr Wang→Muse Spark首发→巨头AI投入超预期→算力链受益确定性提升",
-      "keyActor": "Meta/Alexandr Wang",
-      "probability": "高可能性",
-      "trend": "上升",
-      "references": []
+      "logic": "布伦特从$110+暴跌至$97 → 能源成本快速下降缓解通胀预期 → 周四CPI数据将验证此逻辑，若核心通胀仍粘性则降息预期继续推迟",
+      "keyActor": "美联储/CPI数据",
+      "references": [
+        "CME FedWatch概率数据",
+        "Trading Economics 10Y收益率"
+      ]
     },
     {
-      "title": "逼空行情延续性存疑，技术面超买信号累积",
-      "confidence": 65,
-      "logic": "标普连涨六日+2020年来最大逼空→空头回补为主→VIX仍在21非极低→停火不确定性下追高风险大于收益",
-      "keyActor": "市场空头",
-      "probability": "中可能性",
-      "trend": "稳定",
-      "references": []
+      "title": "AI开源竞赛升级加速应用落地",
+      "confidence": 75,
+      "logic": "META发布Llama 4(4000亿参数完全开源) → 开源vs闭源竞争白热化 → AI应用开发成本进一步下降，利好AI基础设施和应用生态",
+      "keyActor": "META/OpenAI/Google",
+      "references": [
+        "界面新闻Llama 4发布报道",
+        "腾讯云开发者社区前景分析"
+      ]
     }
   ],
   "actionHints": [],
-  "sentimentScore": 68,
+  "sentimentScore": 65,
   "sentimentLabel": "偏贪婪",
   "marketSummaryPoints": [
-    "美伊达成两周停火协议，霍尔木兹海峡临时开放，WTI暴跌14.6%至$96.44",
-    "全球风险资产暴涨，标普+2.51%连涨六日，KOSPI+6.98%领涨全球",
-    "Meta发布Muse Spark大模型，META暴涨6.5%领跑M7，AI军备竞赛加速",
-    "黄金创三周新高$4,850，美元跌破100关口，避险与风险资产罕见同涨",
-    "巴菲特称乐意持有苹果但不会在当前市场加仓，暗示估值偏高"
+    "美伊停火引爆2020年来最大逼空行情，三大指数涨幅均超2.5%，纳指标普六连涨",
+    "WTI原油暴跌16.41%创2020年来最大跌幅，布伦特跌13.29%，但霍尔木兹海峡仍未开放",
+    "A股成交2.43万亿创年内纪录，超5100只上涨135只涨停，创业板暴涨5.91%",
+    "META涨6.50%领跑M7，Llama 4开源催化AI军备竞赛升级，TSLA逆势跌0.98%",
+    "巴菲特正式交棒Greg Abel，伯克希尔重启回购；段永平启动泡泡玛特sell put布局"
   ],
   "smartMoney": [
     {
-      "source": "巴菲特/伯克希尔",
-      "action": "CNBC专访称乐于持有苹果为第一重仓，但明确表示不会在当前市场价格加仓，Buffett Indicator达211%暗示整体估值偏高",
-      "signal": "bearish"
-    },
-    {
-      "source": "ARK/Cathie Wood",
-      "action": "4月7-8日大举买入TSLA $1320万(4笔)、HOOD $1250万(Robinhood 3笔新建仓)，同时卖出TER $1480万、ROKU $380万",
+      "source": "段永平",
+      "action": "正式启动泡泡玛特sell put布局，称'保险公司正式开张'，详述品牌+艺术家签约+全球门店+管理团队四大壁垒",
       "signal": "bullish"
     },
     {
-      "source": "段永平/H&H",
-      "action": "收回不投资泡泡玛特说法(3/30)，4/4亲赴Westfield门店调研，评价right business，投资决策链明显推进",
+      "source": "伯克希尔",
+      "action": "Greg Abel 4月1日接任CEO并重启股票回购，同时个人投入$15.3M购入公司股票，现金储备$3,733亿",
       "signal": "neutral"
+    },
+    {
+      "source": "ARK Invest",
+      "action": "4月6-8日连续买入TSLA合计$13.6M跨ARKQ/ARKK/ARKX，同时减持Teradyne $22.7M和ROKU $3.9M",
+      "signal": "bullish"
     }
   ],
   "topHoldings": [
     {
       "name": "巴菲特 · 伯克希尔",
-      "holdings": "AAPL 22.6% | AXP 20.5% | BAC 10.4% | KO 10.2% | CVX 7.2% · 现金$3733亿"
+      "holdings": "AAPL 22.6% | AXP 20.5% | BAC 10.4% | KO 10.2% | CVX 7.2% · 现金$3,733亿 · Greg Abel重启回购"
     },
     {
       "name": "段永平 · H&H",
-      "holdings": "AAPL 50.3% | BRK.B 20.6% | NVDA 7.7% | PDD 7.5% | GOOG 3.3% · 泡泡玛特观察中"
+      "holdings": "AAPL 50.3% | BRK.B 20.6% | NVDA 7.7% | PDD 7.5% | GOOG 3.3% · 泡泡玛特sell put开张"
     },
     {
       "name": "Cathie Wood · ARK旗舰",
-      "holdings": "TSLA 10.5% | CRSP 6.3% | TEM 5.0% | SHOP 4.7% | COIN 4.3%"
+      "holdings": "TSLA 10.5% | CRSP 6.3% | TEM 5.0% | SHOP 4.7% | COIN 4.3% · 连续加仓TSLA"
     }
   ],
   "riskPoints": [
-    "停火仅为两周临时协议，4/10伊斯兰堡谈判若破裂油价将急弹，中东产能修复需数月",
-    "标普连涨六日+2020年来最大逼空，技术面严重超买，VIX仍在21说明市场并非真正放心",
-    "OPEC+增产叠加需求不确定性，能源板块已跌3.5%率先计价衰退风险"
+    "停火仅两周窗口，伊朗10项条款被特朗普扔进垃圾桶，谈崩风险极高",
+    "霍尔木兹海峡仍关闭，若开放进度不及预期原油将急速反弹",
+    "周四CPI若显示核心通胀粘性，将直接打压降息预期和当前反弹基础"
   ],
-  "riskNote": "两周停火窗口极脆弱，市场在逼空亢奋与地缘不确定性之间走钢丝。油价虽暴跌但仍高于冲突前40%，不宜过度乐观。",
-  "dataTime": "2026-04-09 14:10 BJT",
+  "riskNote": "地缘停火窗口极短(仅两周)叠加霍尔木兹仍关闭，当前反弹更像'停火交易'而非趋势反转，CPI数据和谈判进展将决定后续方向",
+  "dataTime": "2026-04-09 18:16 BJT",
+  "audioUrl": "cloud://cloud1-3g6wj06h84f38ea8.636c-cloud1-3g6wj06h84f38ea8-1418169528/audio/briefing-2026-04-09.mp3",
+  "audioFile": "briefing-2026-04-09.mp3",
+  "voiceText": "各位投研鸭用户，早上好。今天是2026年4月9日，周三。\n\n昨天全球市场迎来一场史诗级反弹。核心触发点是美国和伊朗达成了为期两周的停火协议，这是持续38天冲突以来的首个正式停火窗口。\n\n受此影响，原油价格暴跌。WTI原油单日下跌16.4%至94美元，布伦特跌13.3%至95美元附近，均创下2020年以来最大单日跌幅。油价暴跌释放了强烈的通胀缓解信号，直接点燃了全球股市做多热情。\n\n美股三大指数全面大涨。标普500涨2.5%，纳斯达克涨2.8%，道琼斯涨2.85%，实现六连涨。亚太市场更为疯狂：韩国KOSPI暴涨6.87%触发了熔断机制，日经涨5.39%创阶段新高，A股成交2.43万亿创年内纪录，超过5100只个股上涨，135只涨停。\n\n在M7当中，META独涨6.5%领跑，受益于Llama 4开源大模型的发布催化。4000亿参数的大模型完全免费商用，开源和闭源的竞争进入白热化阶段。\n\n聪明钱方面有两个重要信号。第一，段永平今天正式宣布对泡泡玛特启动了sell put布局，他用\"保险公司正式开张\"来形容这次操作，并详细阐述了品牌、艺术家签约、全球门店和管理团队四大竞争壁垒。第二，伯克希尔的CEO正式交棒给Greg Abel，Abel上任第一个动作就是重启了股票回购。\n\n风险方面需要注意三点。一是停火只有两周窗口，伊朗提出的10项条款已被特朗普拒绝，谈崩风险极高。二是霍尔木兹海峡目前仍然关闭。三是明天将公布美国3月CPI数据，如果核心通胀仍然粘性，将直接打压降息预期和当前的反弹基础。\n\n综合来看，当前情绪评分65分，属于偏贪婪区间。风险评分80分，处于高风险级别。黄金4726美元仍在红灯区，表明市场对停火的持续性仍存疑虑。\n\n以上就是今天的投研鸭简报，祝各位投资顺利。",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-09T14:00:00+08:00",
+    "generatedAt": "2026-04-09T18:15:04+08:00",
     "skillVersion": "v10.3"
-  },
-  "voiceText": "各位投研鸭用户早上好，我是你的AI投资助手，以下是4月9日的市场速递。今天最重要的事件是美伊达成两周停火协议，巴基斯坦斡旋成功，霍尔木兹海峡临时开放。这直接引爆了全球风险资产暴涨，油价暴跌超15%，WTI跌至96美元。美股方面，标普500上涨2.51%连涨六日，创2020年以来最大逼空行情。道琼斯涨2.85%，纳斯达克涨2.8%。七巨头中Meta暴涨6.5%领跑，得益于发布了Muse Spark大模型，标志着AI军备竞赛进入新阶段。谷歌涨3.56%，亚马逊涨3.5%紧随其后。亚太市场更加火爆，韩国KOSPI暴涨近7%领涨全球，日经涨5.4%，深证涨4.8%。大宗商品方面，黄金逆势创三周新高突破4850美元，美元指数跌破100关口。聪明钱动态方面，巴菲特最新专访表示乐于持有苹果为第一重仓，但不会在当前市场加仓，暗示整体估值偏高。ARK的Cathie Wood两天大举买入特斯拉1320万美元，同时新建仓Robinhood 1250万美元。风险提示：停火仅为两周临时协议，4月10日伊斯兰堡谈判是关键催化剂，标普技术面已严重超买。以上就是今天的速递，祝大家投资顺利。",
-  "audioUrl": "cloud://cloud1-3g6wj06h84f38ea8.636c-cloud1-3g6wj06h84f38ea8-1418169528/audio/briefing-2026-04-09.mp3",
-  "audioFile": "briefing-2026-04-09.mp3"
+  }
 }

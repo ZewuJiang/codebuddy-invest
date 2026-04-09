@@ -48,10 +48,18 @@
     },
     {
       "name": "VIX恐慌指数",
-      "price": "21.04",
-      "change": -18.39,
+      "price": "21.46",
+      "change": -16.76,
       "changeLabel": "恐慌指标",
-      "sparkline": []
+      "sparkline": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        21.57,
+        21.46
+      ]
     }
   ],
   "m7": [
@@ -103,7 +111,7 @@
     {
       "name": "谷歌 GOOGL",
       "price": "$317.32",
-      "change": 3.56,
+      "change": 3.5,
       "symbol": "GOOGL",
       "sparkline": [
         273.5,
@@ -131,24 +139,24 @@
       ]
     },
     {
-      "name": "Meta META",
+      "name": "META META",
       "price": "$612.42",
       "change": 6.5,
       "symbol": "META",
       "sparkline": [
-        536.38,
-        572.13,
-        579.23,
-        574.46,
-        573.02,
-        575.05,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
         612.42
       ]
     },
     {
       "name": "特斯拉 TSLA",
       "price": "$343.25",
-      "change": 0.98,
+      "change": -0.98,
       "symbol": "TSLA",
       "sparkline": [
         355.28,
@@ -163,14 +171,22 @@
   ],
   "asiaMarkets": [
     {
-      "name": "上证综指",
-      "price": "3,350",
+      "name": "上证指数",
+      "price": "3,995.00",
       "change": 2.69,
-      "sparkline": []
+      "sparkline": [
+        3891.86,
+        3948.55,
+        3919.28,
+        3880.1,
+        3890.16,
+        3995.0,
+        3966.17
+      ]
     },
     {
       "name": "深证成指",
-      "price": "10,650",
+      "price": "14,042.50",
       "change": 4.79,
       "sparkline": [
         13726.19,
@@ -184,8 +200,8 @@
     },
     {
       "name": "恒生指数",
-      "price": "22,800",
-      "change": 2.95,
+      "price": "25,893.02",
+      "change": 3.09,
       "sparkline": [
         24856.43,
         24951.88,
@@ -198,8 +214,8 @@
     },
     {
       "name": "恒生科技",
-      "price": "4,885.87",
-      "change": 3.5,
+      "price": "4,923.25",
+      "change": 5.22,
       "sparkline": [
         4761.54,
         4778.01,
@@ -214,26 +230,50 @@
       "name": "日经225",
       "price": "56,308.42",
       "change": 5.39,
-      "sparkline": []
+      "sparkline": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        56308.42
+      ]
     },
     {
       "name": "KOSPI",
       "price": "5,872.34",
-      "change": 6.98,
-      "sparkline": []
+      "change": 6.87,
+      "sparkline": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5872.34
+      ]
     }
   ],
   "commodities": [
     {
       "name": "黄金",
-      "price": "$4,850",
-      "change": 3.0,
-      "sparkline": []
+      "price": "$4,726",
+      "change": 1.29,
+      "sparkline": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4726.0
+      ]
     },
     {
       "name": "布伦特原油",
-      "price": "$95.12",
-      "change": -12.88,
+      "price": "$97.74",
+      "change": 3.16,
       "sparkline": [
         71.63,
         71.54,
@@ -246,8 +286,8 @@
     },
     {
       "name": "WTI原油",
-      "price": "$96.44",
-      "change": -14.62,
+      "price": "$94.41",
+      "change": -16.41,
       "sparkline": [
         101.52,
         98.85,
@@ -255,57 +295,102 @@
         112.56,
         110.32,
         96.5,
-        97.3
+        98.45
       ]
     },
     {
       "name": "美元指数DXY",
-      "price": "99.0",
-      "change": -1.2,
-      "sparkline": []
+      "price": "98.99",
+      "change": -0.15,
+      "sparkline": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        98.99
+      ]
     },
     {
-      "name": "10Y美债收益率",
-      "price": "4.27%",
-      "change": 0.01,
-      "sparkline": []
+      "name": "10Y美债",
+      "price": "4.29%",
+      "change": -0.01,
+      "sparkline": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4.29
+      ]
     },
     {
       "name": "离岸人民币CNH",
-      "price": "7.21",
-      "change": -0.3,
-      "sparkline": []
+      "price": "6.8274",
+      "change": 0.47,
+      "sparkline": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        6.8274
+      ]
     }
   ],
   "cryptos": [
     {
       "name": "比特币 BTC",
-      "price": "$70,972",
-      "change": 2.85,
-      "sparkline": []
+      "price": "$71,490",
+      "change": 0.53,
+      "sparkline": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        71490.0
+      ]
     },
     {
       "name": "以太坊 ETH",
-      "price": "$2,181",
-      "change": 0.2,
-      "sparkline": []
+      "price": "$2,194",
+      "change": 0.17,
+      "sparkline": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2194.0
+      ]
     }
   ],
   "gics": [
     {
-      "name": "工业 XLI",
-      "change": 3.75,
-      "etf": "XLI"
-    },
-    {
-      "name": "材料 XLB",
-      "change": 3.33,
+      "name": "原材料 XLB",
+      "change": 3.34,
       "etf": "XLB"
     },
     {
+      "name": "工业 XLI",
+      "change": 2.97,
+      "etf": "XLI"
+    },
+    {
       "name": "科技 XLK",
-      "change": 3.1,
+      "change": 2.87,
       "etf": "XLK"
+    },
+    {
+      "name": "通信 XLC",
+      "change": 2.83,
+      "etf": "XLC"
     },
     {
       "name": "可选消费 XLY",
@@ -313,28 +398,18 @@
       "etf": "XLY"
     },
     {
-      "name": "金融 XLF",
-      "change": 2.65,
-      "etf": "XLF"
-    },
-    {
       "name": "医疗 XLV",
-      "change": 2.12,
+      "change": 2.11,
       "etf": "XLV"
     },
     {
       "name": "必需消费 XLP",
-      "change": 1.87,
+      "change": 2.03,
       "etf": "XLP"
     },
     {
-      "name": "通信 XLC",
-      "change": 1.78,
-      "etf": "XLC"
-    },
-    {
       "name": "房地产 XLRE",
-      "change": 1.73,
+      "change": 1.72,
       "etf": "XLRE"
     },
     {
@@ -343,21 +418,26 @@
       "etf": "XLU"
     },
     {
+      "name": "金融 XLF",
+      "change": 0.49,
+      "etf": "XLF"
+    },
+    {
       "name": "能源 XLE",
-      "change": -3.51,
+      "change": -0.48,
       "etf": "XLE"
     }
   ],
-  "usInsight": "美伊停火引爆2020年来最大逼空行情，标普连涨六日+2.51%，工业/材料领涨反映经济复苏预期，但能源XLE独跌3.5%计价油价暴跌冲击",
-  "m7Insight": "META暴涨6.5%独占鳌头，Muse Spark大模型发布+AI广告变现双驱动；GOOGL/AMZN跟涨3.5%受益AI资本开支叙事；MSFT/TSLA涨幅不足1%拖后腿",
-  "asiaInsight": "KOSPI+6.98%领涨全球受益半导体+油价下跌双利好，日经+5.39%日元贬值+出口复苏，深证+4.79%科技成长弹性最强，恒生科技+3.5%南向资金回流",
-  "commodityInsight": "油价崩跌15%为2020年来最猛——霍尔木兹海峡重开+OPEC增产双重利空；黄金逆势涨3%至$4,850创三周新高，美元跌破100驱动贵金属重估",
-  "cryptoInsight": "BTC跟随风险资产涨2.85%至$70,972但弹性弱于美股，ETH仅微涨0.2%，加密市场更多受利率预期而非地缘缓和驱动",
-  "gicsInsight": "10涨1跌极端分化——工业XLI+3.75%领涨反映供应链修复预期，能源XLE-3.51%独跌计价油价暴跌，成长>价值、周期>防御的轮动格局明显",
-  "dataTime": "2026-04-09 14:10 BJT",
+  "usInsight": "美伊停火引爆2020年来最大逼空行情，三大指数涨幅均超2.5%，纳指标普实现六连涨，油价暴跌释放通胀缓解信号推动风险偏好全面修复",
+  "m7Insight": "META独涨6.50%领跑受Llama 4开源催化，GOOGL/AMZN同涨3.5%AI军备竞赛升级，TSLA逆势跌0.98%成唯一拖累，MSFT仅涨0.55%分化加剧",
+  "asiaInsight": "停火红利全面传导亚太，韩国KOSPI暴涨6.87%触发熔断机制，日经+5.39%创阶段新高，A股成交2.43万亿创年内纪录，超5100只上涨135只涨停",
+  "commodityInsight": "原油暴跌近20%后今日技术性反弹3%，霍尔木兹海峡仍关闭留悬念，黄金$4,726高位韧性强——避险溢价未完全释放暗示市场对停火持续性存疑",
+  "cryptoInsight": "BTC $71,490窄幅震荡，停火利好未有效传导至加密市场，资金仍在观望传统风险资产反弹的持续性",
+  "gicsInsight": "原材料+工业领涨反映停火后实体经济修复预期，能源板块逆势下跌0.48%承受油价暴跌冲击，科技+通信受AI催化提振",
+  "dataTime": "2026-04-09 18:16 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-09T14:00:00+08:00",
+    "generatedAt": "2026-04-09T18:15:04+08:00",
     "skillVersion": "v10.3"
   }
 }
