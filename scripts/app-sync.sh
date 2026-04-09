@@ -6,11 +6,45 @@
 #
 # 运行环境：macOS launchd（不加载 .zshrc/.bash_profile）
 # 环境变量由 plist EnvironmentVariables 注入
+#
+# 注意：此脚本放在 ~/.local/bin/ 而非 ~/Desktop/ 下
+# 原因：macOS 26+ 的 TCC 安全策略阻止 launchd 直接执行
+#       ~/Desktop 下的脚本（exit code 78: EX_CONFIG）
 # ============================================================
 
 PROJECT_DIR="$HOME/Desktop/AICo/codebuddy-invest"
 LOG_DIR="$PROJECT_DIR/logs"
 mkdir -p "$LOG_DIR"
+
+# ============================================================
+# 互斥锁：防止多个实例并发执行
+# ============================================================
+LOCK_FILE="$LOG_DIR/.app-sync.lock"
+
+# 检查是否已有实例在运行
+if [ -f "$LOCK_FILE" ]; then
+    OLD_PID=$(cat "$LOCK_FILE" 2>/dev/null)
+    if [ -n "$OLD_PID" ] && kill -0 "$OLD_PID" 2>/dev/null; then
+        echo "[$(date)] ⚠️ 已有实例在运行 (PID=$OLD_PID)，跳过本次执行" >> "$LOG_DIR/app-sync-skipped.log"
+        exit 0
+    else
+        # 锁文件存在但进程已不在，清理旧锁
+        rm -f "$LOCK_FILE"
+    fi
+fi
+
+# 写入当前 PID 作为锁
+echo $$ > "$LOCK_FILE"
+
+# 确保退出时清理锁文件和子进程
+cleanup() {
+    rm -f "$LOCK_FILE"
+    # 如果 codebuddy 子进程还在运行，也一并终止
+    if [ -n "$CMD_PID" ] && kill -0 "$CMD_PID" 2>/dev/null; then
+        kill -TERM "$CMD_PID" 2>/dev/null
+    fi
+}
+trap cleanup EXIT INT TERM
 
 TODAY=$(date +%Y-%m-%d)
 NOW=$(date +%Y%m%d-%H%M)
@@ -18,6 +52,7 @@ LOG_FILE="$LOG_DIR/app-sync-${NOW}.log"
 
 echo "========================================" >> "$LOG_FILE"
 echo "开始执行: $(date)" >> "$LOG_FILE"
+echo "脚本路径: $0" >> "$LOG_FILE"
 echo "环境: PATH=$PATH" >> "$LOG_FILE"
 echo "========================================" >> "$LOG_FILE"
 
@@ -40,8 +75,9 @@ if [ -z "$CODEBUDDY_BIN" ]; then
 fi
 echo "✅ codebuddy 路径: $CODEBUDDY_BIN" >> "$LOG_FILE"
 
-# macOS 无 GNU timeout，用后台进程+轮询实现超时控制（3600秒=1小时）
-# v10.0 全量模式（Standard）需要约20-30分钟完成全流程，网络慢时可能更长
+# macOS 无 GNU timeout，用后台进程+轮询实现超时控制
+# v10.0 全量模式（Standard）实测需要 ~15-25分钟，网络慢时可能更长
+# 超时设为7200秒（2小时），留足余量避免误杀
 "$CODEBUDDY_BIN" -p \
   "投研鸭小程序 app 内容和数据更新，日期为${TODAY}，执行 investment-agent-daily-app Skill 全流程" \
   -y \
@@ -49,12 +85,12 @@ echo "✅ codebuddy 路径: $CODEBUDDY_BIN" >> "$LOG_FILE"
   >> "$LOG_FILE" 2>&1 &
 CMD_PID=$!
 
-# 等待最多3600秒（1小时）
-TIMEOUT=3600
+# 等待最多7200秒（2小时）
+TIMEOUT=7200
 ELAPSED=0
 while kill -0 "$CMD_PID" 2>/dev/null; do
     if [ "$ELAPSED" -ge "$TIMEOUT" ]; then
-        echo "⚠️ 执行超时（${TIMEOUT}秒=1小时），强制终止 PID=$CMD_PID" >> "$LOG_FILE"
+        echo "⚠️ 执行超时（${TIMEOUT}秒=2小时），强制终止 PID=$CMD_PID" >> "$LOG_FILE"
         kill -TERM "$CMD_PID" 2>/dev/null
         sleep 2
         kill -9 "$CMD_PID" 2>/dev/null
@@ -70,6 +106,14 @@ EXIT_CODE=$?
 echo "========================================" >> "$LOG_FILE"
 echo "执行结束: $(date), 退出码: $EXIT_CODE, 耗时: ${ELAPSED}秒" >> "$LOG_FILE"
 echo "========================================" >> "$LOG_FILE"
+
+# 健康检查日志（追加到统一文件，方便快速查看历史执行状态）
+HEALTH_LOG="$LOG_DIR/app-sync-health.log"
+if [ "$EXIT_CODE" -eq 0 ] && [ "$ELAPSED" -lt "$TIMEOUT" ]; then
+    echo "[$(date)] ✅ 成功 | 耗时${ELAPSED}秒 | 日志: $(basename $LOG_FILE)" >> "$HEALTH_LOG"
+else
+    echo "[$(date)] ❌ 失败(code=$EXIT_CODE) | 耗时${ELAPSED}秒 | 日志: $(basename $LOG_FILE)" >> "$HEALTH_LOG"
+fi
 
 # 清理30天前旧日志
 find "$LOG_DIR" -name "app-sync-*.log" -mtime +30 -delete 2>/dev/null

@@ -1,6 +1,9 @@
 ---
 description: To use the AnyDev 云研发 integration, you must first read this rule to fully implement the integration.
 alwaysApply: false
+enabled: false
+updatedAt: 2026-04-09T06:14:32.040Z
+provider: 
 ---
 
 Connect the current project to Anydev
