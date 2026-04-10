@@ -1,42 +1,42 @@
 {
-  "date": "2026-04-09",
-  "takeaway": "美伊停火墨迹未干伊朗即指控违约，霍尔木兹【再度关闭】推动油价反弹3%，亚太全线回落——停火【红利兑现极短】，明日【CPI】决定反弹能否延续",
+  "date": "2026-04-10",
+  "takeaway": "美股【七连阳】VIX跌破20，【亚马逊】AI芯片年收入破200亿推动单日暴涨5.6%——但停火【脆弱】+今日【CPI】公布，七连阳后【贪婪信号】初现",
   "coreEvent": {
-    "title": "伊朗指控美国违反停火协议，霍尔木兹海峡再度关闭，全球市场回吐昨日涨幅",
+    "title": "美股七连阳收复战争跌幅，亚马逊AI芯片爆发，CPI今日公布成关键变量",
     "chain": [
       {
-        "title": "停火不满24小时即生变数",
-        "brief": "伊朗指控美国空袭违反停火条款，霍尔木兹海峡再度关闭，两周停火窗口脆弱性暴露",
-        "source": "AP News",
-        "url": "https://apnews.com/article/financial-markets-iran-oil-bcd3342cd0b4e60ebedc1e81db08f465",
+        "title": "美股连涨七日VIX跌破20",
+        "brief": "标普500收6824.66涨0.62%，VIX收19.49跌7.37%为冲突以来首次跌破20，市场从战争恐慌中快速修复",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/04/09/stock-market-today-live-updates.html",
         "source_count": 4
       },
       {
-        "title": "油价技术性反弹3%修复超跌",
-        "brief": "布伦特从$94反弹至$97-99，WTI涨3%，停火不确定性重新推升能源溢价",
-        "source": "Trading Economics",
-        "url": "https://tradingeconomics.com/commodity/brent-crude-oil",
+        "title": "亚马逊Trainium年收入破200亿美元",
+        "brief": "AWS自研AI芯片Trainium年化收入超$200亿，验证云厂商自研芯片规模化可行性，AMZN单日涨5.6%",
+        "source": "新浪财经",
+        "url": "https://finance.sina.com.cn/stock/usstock/",
         "source_count": 3
       },
       {
-        "title": "亚太市场全线回落消化停火变数",
-        "brief": "日经-0.76%、上证-0.72%、恒指-0.54%、KOSPI-1.41%，昨日暴涨后获利了结叠加地缘反复",
-        "source": "ICMarkets",
-        "url": "https://www.icmarkets-vnk.com/blog/thursday-9th-april-2026-asia-pacific-markets-fall-as-iran-accuses-u-s-of-ceasefire-breach-amid-rising-tensions/",
+        "title": "伊朗停火脆弱但谈判推进",
+        "brief": "两周停火协议4/7宣布后伊朗指控违约，霍尔木兹短暂关闭后重开，周五将在伊斯兰堡启动正式谈判",
+        "source": "AP News",
+        "url": "https://apnews.com/live/iran-war-israel-trump-04-07-2026",
         "source_count": 5
       },
       {
-        "title": "美股盘中小幅回调消化涨幅",
-        "brief": "S&P -0.28%、纳指-0.42%、道指-0.31%，VIX维持21附近，MSFT跌1.77%领跌",
-        "source": "Google Finance",
-        "url": "https://www.google.com/finance/quote/.INX:INDEXSP",
+        "title": "油价高位震荡停火红利有限",
+        "brief": "布伦特$96.80/WTI $97.30，较峰值回落约13%但仍处$90+黄灯区间，停火不确定性限制进一步下行",
+        "source": "OilPrice",
+        "url": "https://oilprice.com/",
         "source_count": 3
       },
       {
-        "title": "明日CPI数据成关键变量",
-        "brief": "3月CPI预期环比+0.3%，核心通胀若粘性将直接打压降息预期和当前反弹基础",
+        "title": "今日CPI数据决定反弹持续性",
+        "brief": "3月核心CPI预期环比+0.3%，若高于预期将打压降息预期，在七连阳后可能触发获利了结",
         "source": "Trading Economics",
-        "url": "https://tradingeconomics.com/united-states/government-bond-yield",
+        "url": "https://tradingeconomics.com/united-states/inflation-cpi",
         "source_count": 2
       }
     ]
@@ -44,66 +44,66 @@
   "globalReaction": [
     {
       "name": "标普500",
-      "value": "-0.28%",
-      "direction": "down",
-      "note": "盘中回调消化涨幅"
+      "value": "+0.62%",
+      "direction": "up",
+      "note": "七连阳收复冲突跌幅"
     },
     {
       "name": "纳斯达克",
-      "value": "-0.42%",
-      "direction": "down",
-      "note": "MSFT拖累科技"
+      "value": "+0.83%",
+      "direction": "up",
+      "note": "AMZN涨5.6%领涨"
     },
     {
       "name": "布伦特原油",
-      "value": "+3.16%",
-      "direction": "up",
-      "note": "停火变数推升"
-    },
-    {
-      "name": "日经225",
-      "value": "-0.76%",
+      "value": "$96.80",
       "direction": "down",
-      "note": "回吐昨日涨幅"
+      "note": "较峰值回落13%但仍高位"
     },
     {
       "name": "黄金",
-      "value": "-0.72%",
-      "direction": "down",
-      "note": "$4,742高位震荡"
+      "value": "$4,751",
+      "direction": "flat",
+      "note": "红灯区间避险未消退"
     },
     {
-      "name": "VIX",
-      "value": "-0.48%",
+      "name": "10Y美债",
+      "value": "4.28%",
       "direction": "down",
-      "note": "维持21附近"
+      "note": "CPI前收益率微降"
+    },
+    {
+      "name": "BTC",
+      "value": "$72,258",
+      "direction": "up",
+      "note": "跟随风险资产温和反弹"
     }
   ],
   "coreJudgments": [
     {
-      "title": "停火脆弱性暴露地缘溢价未完全释放",
-      "confidence": 80,
-      "logic": "停火不满24小时伊朗即指控违约 → 霍尔木兹再度关闭+油价反弹3% → 两周停火窗口远不等于持久和平，地缘溢价随时可能回归",
-      "keyActor": "特朗普/伊朗最高领袖",
+      "title": "停火谈判进程决定油价与市场波动中枢",
+      "confidence": 72,
+      "logic": "两周停火宣布+霍尔木兹重开 → 油价回落13%至$96-97 → 但伊朗指控违约+谈判不确定 → 周五伊斯兰堡谈判成败将决定下一波方向",
+      "keyActor": "美伊谈判代表",
       "references": [
         {
           "name": "AP News",
-          "summary": "伊朗指控美国空袭违反停火协议，停火脆弱性暴露",
-          "url": "https://apnews.com/article/financial-markets-iran-oil-bcd3342cd0b4e60ebedc1e81db08f465"
+          "summary": "美伊停火协议脆弱，伊朗指控美方违约，周五将在伊斯兰堡启动谈判",
+          "url": "https://apnews.com/live/iran-war-israel-trump-04-07-2026"
         }
       ],
-      "probability": "高可能性",
-      "trend": "上升"
+      "probability": "中可能性",
+      "trend": "稳定"
     },
     {
-      "title": "CPI数据将验证通胀缓解逻辑是否成立",
-      "confidence": 70,
-      "logic": "油价暴跌释放通胀缓解信号 → 但今日油价反弹3%削弱逻辑 → 明日CPI若核心通胀仍粘性(>0.3%环比)，降息预期和反弹基础将同时被抽空",
-      "keyActor": "美联储/CPI数据",
+      "title": "CPI数据将测试七连阳反弹的持续性",
+      "confidence": 68,
+      "logic": "七连阳积累获利盘 → 核心CPI若>0.3%环比 → 降息预期推迟+10Y上行 → 成长股估值承压 → 可能终结连涨",
+      "keyActor": "美联储/BLS",
       "references": [
         {
           "name": "Trading Economics",
-          "summary": "10Y美债收益率4.32%，市场等待CPI验证通胀方向",
+          "summary": "10Y美债收益率4.28%，市场等待CPI验证通胀方向",
           "url": "https://tradingeconomics.com/united-states/government-bond-yield"
         }
       ],
@@ -111,52 +111,51 @@
       "trend": "稳定"
     },
     {
-      "title": "科技股分化加剧MSFT承压META维持强势",
+      "title": "AI芯片自研趋势加速M7内部分化加剧",
       "confidence": 75,
-      "logic": "MSFT盘中跌1.77%（AI资本开支回报担忧） → META/AMZN逆势涨2%+(Llama 4余热+停火偏好) → M7内部分化加剧，选股比配置更重要",
-      "keyActor": "META/MSFT",
+      "logic": "亚马逊Trainium年收入破$200亿 → 云厂商自研芯片规模化验证 → AMZN涨5.6%/NVDA仅涨1.02% → M7选股比配置更重要",
+      "keyActor": "亚马逊AWS/Jensen Huang",
       "references": [
         {
-          "name": "Google Finance",
-          "summary": "M7分化：META +2.16%, AMZN +1.84%, MSFT -1.77%",
-          "url": "https://www.google.com/finance/quote/META:NASDAQ"
+          "name": "新浪财经",
+          "summary": "亚马逊称自研芯片年化营收已超200亿美元",
+          "url": "https://finance.sina.com.cn/stock/usstock/"
         }
       ],
       "probability": "高可能性",
-      "trend": "稳定"
+      "trend": "上升"
     }
   ],
   "actionHints": [],
-  "sentimentScore": 55,
-  "sentimentLabel": "中性",
+  "sentimentScore": 63,
+  "sentimentLabel": "偏贪婪",
   "marketSummaryPoints": [
-    "伊朗指控停火违约引发全球市场回吐，亚太全线下跌，KOSPI跌1.41%领跌",
-    "油价反弹3%修复昨日超跌，布伦特回到$97-99区间，停火不确定性重新定价",
-    "美股盘中小幅回调，S&P -0.28%，MSFT跌1.77%领跌但META/AMZN逆势上涨",
-    "加密市场恐惧指数14(极度恐惧)，BTC跌1%至$70,749，资金持续观望",
-    "明日CPI数据是本周最关键催化剂，将决定停火反弹能否延续"
+    "美股七连阳标普收6824.66点，VIX跌破20为冲突以来首次，恐慌快速消退",
+    "亚马逊AI自研芯片年收入破200亿推动单日暴涨5.6%，M7内部分化加剧",
+    "黄金$4751仍处红灯区间，与股市乐观形成背离，机构避险仓位未完全撤离",
+    "今日CPI数据成本周最关键催化剂，将决定七连阳能否延续"
   ],
   "smartMoney": [
     {
       "source": "段永平",
-      "action": "正式启动泡泡玛特sell put布局，称'保险公司正式开张'，详述品牌+艺术家签约+全球门店+管理团队四大壁垒",
+      "action": "正式启动泡泡玛特sell put布局，称保险公司正式开张，持续看好品牌+全球门店模式",
       "signal": "bullish"
     },
     {
       "source": "伯克希尔",
-      "action": "Greg Abel 4月1日接任CEO并重启股票回购，个人投入$15.3M购入公司股票，现金储备$3,733亿",
+      "action": "Greg Abel 4/1接任CEO重启回购，个人投$15.3M购入公司股票，现金储备$3733亿",
       "signal": "neutral"
     },
     {
       "source": "ARK Invest",
-      "action": "4月6-8日连续买入TSLA合计$13.6M跨ARKQ/ARKK/ARKX，同时减持Teradyne $22.7M和ROKU $3.9M",
+      "action": "4/6-8连续买入TSLA(跨ARKK/ARKQ/ARKX)，卖出ROKU和TER，新买入HOOD和Kodiak AI(KDK)",
       "signal": "bullish"
     }
   ],
   "topHoldings": [
     {
       "name": "巴菲特 · 伯克希尔",
-      "holdings": "AAPL 22.6% | AXP 20.5% | BAC 10.4% | KO 10.2% | CVX 7.2% · 现金$3,733亿 · Greg Abel重启回购"
+      "holdings": "AAPL 22.6% | AXP 20.5% | BAC 10.4% | KO 10.2% | CVX 7.2% · 现金$3733亿 · Greg Abel重启回购"
     },
     {
       "name": "段永平 · H&H",
@@ -168,18 +167,18 @@
     }
   ],
   "riskPoints": [
-    "停火不满24小时即生变数，霍尔木兹再度关闭，油价反弹3%暗示市场重新定价地缘风险",
-    "明日CPI若核心通胀环比超0.3%，将直接打压降息预期和当前反弹基础",
-    "加密市场F&G仅14(极度恐惧)，与股市情绪背离暗示风险偏好修复尚不稳固"
+    "停火极度脆弱(伊朗已指控违约)，周五伊斯兰堡谈判若破裂油价将冲击$100+",
+    "七连阳后获利回吐压力积聚，CPI数据若超预期将触发集中抛售",
+    "黄金$4751红灯区间+VIX仍在19.49(非低位)，避险仓位与股市乐观形成结构性背离"
   ],
-  "riskNote": "停火脆弱性已暴露(伊朗指控违约+霍尔木兹再关闭)，昨日史诗级反弹面临现实检验，明日CPI+停火谈判进展将双重决定后续方向",
-  "dataTime": "2026-04-09 22:52 BJT",
-  "audioUrl": "cloud://cloud1-3g6wj06h84f38ea8.636c-cloud1-3g6wj06h84f38ea8-1418169528/audio/briefing-2026-04-09.mp3",
-  "audioFile": "",
-  "voiceText": "",
+  "riskNote": "停火谈判与CPI数据双重不确定性叠加，七连阳后市场对利空敏感度骤升，需关注周五伊斯兰堡谈判进展",
+  "dataTime": "2026-04-10 06:41 BJT",
+  "audioUrl": "cloud://cloud1-3g6wj06h84f38ea8.636c-cloud1-3g6wj06h84f38ea8-1418169528/audio/briefing-2026-04-10.mp3",
+  "audioFile": "briefing-2026-04-10.mp3",
+  "voiceText": "各位投资者早上好，这里是投研鸭每日简报，今天是2026年4月10日。昨夜美股实现七连阳，标普500收于6824点涨0.62%，纳斯达克涨0.83%，道指涨0.58%。最值得关注的是VIX恐慌指数大跌7.37%收于19.49，这是自伊朗冲突爆发以来首次跌破20的关键阈值，标志着市场恐慌情绪显著缓解。个股方面，亚马逊成为最大亮点，单日暴涨5.6%，原因是自研AI芯片Trainium年化收入突破200亿美元，验证了云厂商自研芯片规模化的可行性。这对英伟达形成长期竞争压力，但短期AI总需求仍在扩张。三大核心判断：第一，美伊停火谈判进程将决定油价和市场波动方向，目前布伦特原油96.8美元仍在黄灯区间，周五伊斯兰堡谈判至关重要。第二，今天公布的3月CPI数据是本周最关键催化剂，核心CPI预期环比0.3%，若超预期将打压降息预期并可能终结七连阳。第三，AI芯片自研趋势加速，M7内部分化加剧，选股比配置更重要。风险提示：黄金4751美元仍处红灯区间，表明机构避险仓位未完全撤离，与股市乐观形成结构性背离。当前情绪评分63分，偏贪婪，七连阳后需警惕回调风险。以上就是今天的投研鸭简报，祝您投资顺利。",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-09T22:35:00+08:00",
+    "generatedAt": "2026-04-10T06:00:00+08:00",
     "skillVersion": "v10.5"
   }
 }
