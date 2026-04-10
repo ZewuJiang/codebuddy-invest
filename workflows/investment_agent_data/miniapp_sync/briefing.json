@@ -1,42 +1,49 @@
 {
   "date": "2026-04-10",
-  "takeaway": "美股【七连阳】VIX跌破20，【亚马逊】AI芯片年收入破200亿推动单日暴涨5.6%——但停火【脆弱】+今日【CPI】公布，七连阳后【贪婪信号】初现",
+  "takeaway": "美伊停火后【反弹延续第八日】科技领涨纳指+0.58%，【VIX降至18.95】逼近绿灯但【黄金$4779红灯】避险未退——今晚【CPI】+明日【伊斯兰堡谈判】双重催化决定方向",
   "coreEvent": {
-    "title": "美股七连阳收复战争跌幅，亚马逊AI芯片爆发，CPI今日公布成关键变量",
+    "title": "CPI+大行财报超级数据日，美股科技主导反弹但分化加剧",
     "chain": [
       {
-        "title": "美股连涨七日VIX跌破20",
-        "brief": "标普500收6824.66涨0.62%，VIX收19.49跌7.37%为冲突以来首次跌破20，市场从战争恐慌中快速修复",
-        "source": "CNBC",
-        "url": "https://www.cnbc.com/2026/04/09/stock-market-today-live-updates.html",
+        "title": "纳指+0.58%科技领涨道指微跌",
+        "brief": "AMZN+2.52%/NVDA+1.87%领涨M7全线飘红，但道指-0.22%蓝筹拖累，VIX降至18.95逼近绿灯区间",
+        "source": "Google Finance",
+        "url": "https://www.google.com/finance/quote/.IXIC:INDEXNASDAQ",
+        "source_count": 3
+      },
+      {
+        "title": "CPI今晚公布+JPM/WFC/BLK三大行财报同日",
+        "brief": "3月CPI预期整体3.3%/核心2.7%，若超预期将打压降息预期；JPMorgan/Wells Fargo/BlackRock Q1财报今日发布开启财报季",
+        "source": "BLS",
+        "url": "https://www.bls.gov/cpi/",
         "source_count": 4
       },
       {
-        "title": "亚马逊Trainium年收入破200亿美元",
-        "brief": "AWS自研AI芯片Trainium年化收入超$200亿，验证云厂商自研芯片规模化可行性，AMZN单日涨5.6%",
-        "source": "新浪财经",
-        "url": "https://finance.sina.com.cn/stock/usstock/",
-        "source_count": 3
-      },
-      {
-        "title": "伊朗停火脆弱但谈判推进",
-        "brief": "两周停火协议4/7宣布后伊朗指控违约，霍尔木兹短暂关闭后重开，周五将在伊斯兰堡启动正式谈判",
+        "title": "美伊伊斯兰堡谈判明日启动",
+        "brief": "停火协议4/8生效后伊朗指控违约，巴基斯坦斡旋下明日将在伊斯兰堡启动正式谈判，成败决定油价中枢",
         "source": "AP News",
-        "url": "https://apnews.com/live/iran-war-israel-trump-04-07-2026",
+        "url": "https://apnews.com/live/iran-war-israel-trump-04-08-2026",
         "source_count": 5
       },
       {
-        "title": "油价高位震荡停火红利有限",
-        "brief": "布伦特$96.80/WTI $97.30，较峰值回落约13%但仍处$90+黄灯区间，停火不确定性限制进一步下行",
-        "source": "OilPrice",
-        "url": "https://oilprice.com/",
-        "source_count": 3
+        "title": "亚太全线收涨日经大涨2.63%",
+        "brief": "日经+2.63%(+1468点)，深证+2.24%创业板创四年新高，上证盘中站上4000点但收盘退至3986，北向资金净流入约85亿",
+        "source": "金融界",
+        "url": "https://stock.jrj.com.cn/2026/04/10161356692327.shtml",
+        "source_count": 4
       },
       {
-        "title": "今日CPI数据决定反弹持续性",
-        "brief": "3月核心CPI预期环比+0.3%，若高于预期将打压降息预期，在七连阳后可能触发获利了结",
+        "title": "段永平暂别雪球投资信号完整释放",
+        "brief": "4/10宣布长时间不上雪球，此前已启动泡泡玛特sell put+力挺PDD估值，投资观点在离场前集中输出",
+        "source": "雪球",
+        "url": "https://xueqiu.com/u/1247347556",
+        "source_count": 4
+      },
+      {
+        "title": "DXY跌破99美元指数年内新低",
+        "brief": "DXY 98.56为年内新低，停火降风险偏好+降息预期微升共同压制美元，利好新兴市场和大宗商品重定价",
         "source": "Trading Economics",
-        "url": "https://tradingeconomics.com/united-states/inflation-cpi",
+        "url": "https://tradingeconomics.com/dxy:cur",
         "source_count": 2
       }
     ]
@@ -44,112 +51,117 @@
   "globalReaction": [
     {
       "name": "标普500",
-      "value": "+0.62%",
+      "value": "+0.19%",
       "direction": "up",
-      "note": "七连阳收复冲突跌幅"
+      "note": "科技领涨延续反弹"
     },
     {
       "name": "纳斯达克",
-      "value": "+0.83%",
+      "value": "+0.58%",
       "direction": "up",
-      "note": "AMZN涨5.6%领涨"
+      "note": "AMZN/NVDA双引擎"
     },
     {
       "name": "布伦特原油",
-      "value": "$96.80",
-      "direction": "down",
-      "note": "较峰值回落13%但仍高位"
+      "value": "$96.08",
+      "direction": "up",
+      "note": "停火谈判前窄幅波动"
     },
     {
       "name": "黄金",
-      "value": "$4,751",
-      "direction": "flat",
-      "note": "红灯区间避险未消退"
+      "value": "$4,779",
+      "direction": "up",
+      "note": "红灯区间避险未退"
     },
     {
       "name": "10Y美债",
-      "value": "4.28%",
-      "direction": "down",
-      "note": "CPI前收益率微降"
+      "value": "4.31%",
+      "direction": "up",
+      "note": "CPI前收益率微升"
     },
     {
       "name": "BTC",
-      "value": "$72,258",
+      "value": "$72,943",
       "direction": "up",
-      "note": "跟随风险资产温和反弹"
+      "note": "站稳7.3万盘中涨1.6%"
     }
   ],
   "coreJudgments": [
     {
-      "title": "停火谈判进程决定油价与市场波动中枢",
-      "confidence": 72,
-      "logic": "两周停火宣布+霍尔木兹重开 → 油价回落13%至$96-97 → 但伊朗指控违约+谈判不确定 → 周五伊斯兰堡谈判成败将决定下一波方向",
-      "keyActor": "美伊谈判代表",
-      "references": [
-        {
-          "name": "AP News",
-          "summary": "美伊停火协议脆弱，伊朗指控美方违约，周五将在伊斯兰堡启动谈判",
-          "url": "https://apnews.com/live/iran-war-israel-trump-04-07-2026"
-        }
-      ],
-      "probability": "中可能性",
-      "trend": "稳定"
-    },
-    {
-      "title": "CPI数据将测试七连阳反弹的持续性",
-      "confidence": 68,
-      "logic": "七连阳积累获利盘 → 核心CPI若>0.3%环比 → 降息预期推迟+10Y上行 → 成长股估值承压 → 可能终结连涨",
-      "keyActor": "美联储/BLS",
+      "title": "CPI今晚公布将决定八连阳后走势方向",
+      "confidence": 78,
+      "logic": "八连阳积累获利盘 → 核心CPI若>0.3%环比 → 降息预期推迟+10Y上行 → 成长股估值承压终结连涨",
+      "keyActor": "BLS/美联储",
       "references": [
         {
           "name": "Trading Economics",
-          "summary": "10Y美债收益率4.28%，市场等待CPI验证通胀方向",
-          "url": "https://tradingeconomics.com/united-states/government-bond-yield"
+          "summary": "3月CPI预期整体3.3%/核心2.7%，10Y美债4.31%反映市场等待数据落地",
+          "url": "https://tradingeconomics.com/united-states/inflation-cpi"
         }
       ],
       "probability": "中可能性",
       "trend": "稳定"
     },
     {
-      "title": "AI芯片自研趋势加速M7内部分化加剧",
-      "confidence": 75,
-      "logic": "亚马逊Trainium年收入破$200亿 → 云厂商自研芯片规模化验证 → AMZN涨5.6%/NVDA仅涨1.02% → M7选股比配置更重要",
-      "keyActor": "亚马逊AWS/Jensen Huang",
+      "title": "伊斯兰堡谈判成败决定油价和地缘溢价方向",
+      "confidence": 70,
+      "logic": "停火脆弱(Trump指责伊朗违约) → 明日伊斯兰堡谈判启动 → 成功则油价回$85-90/失败则冲$105+ → 直接影响通胀预期和降息空间",
+      "keyActor": "美伊谈判代表/巴基斯坦",
       "references": [
         {
-          "name": "新浪财经",
-          "summary": "亚马逊称自研芯片年化营收已超200亿美元",
-          "url": "https://finance.sina.com.cn/stock/usstock/"
+          "name": "AP News",
+          "summary": "美伊以三方在巴基斯坦斡旋下启动伊斯兰堡正式谈判，Trump指责伊朗做得非常差",
+          "url": "https://apnews.com/live/iran-war-israel-trump-04-08-2026"
         }
       ],
-      "probability": "高可能性",
+      "probability": "中可能性",
+      "trend": "稳定"
+    },
+    {
+      "title": "DXY破99+亚太强势暗示资金风格切换加速",
+      "confidence": 68,
+      "logic": "DXY跌至98.56年内新低 → 亚太全线大涨(日经+2.63%/创业板+3.78%) → 资金从美元避险回流风险资产 → 新兴市场和大宗相对受益窗口期",
+      "keyActor": "全球资金流",
+      "references": [
+        {
+          "name": "金融界",
+          "summary": "A股创业板指涨3.78%创四年新高，北向资金净流入约85亿元",
+          "url": "https://stock.jrj.com.cn/2026/04/10161356692327.shtml"
+        }
+      ],
+      "probability": "中可能性",
       "trend": "上升"
     }
   ],
   "actionHints": [],
-  "sentimentScore": 63,
+  "sentimentScore": 62,
   "sentimentLabel": "偏贪婪",
   "marketSummaryPoints": [
-    "美股七连阳标普收6824.66点，VIX跌破20为冲突以来首次，恐慌快速消退",
-    "亚马逊AI自研芯片年收入破200亿推动单日暴涨5.6%，M7内部分化加剧",
-    "黄金$4751仍处红灯区间，与股市乐观形成背离，机构避险仓位未完全撤离",
-    "今日CPI数据成本周最关键催化剂，将决定七连阳能否延续"
+    "美股盘中科技主导——纳指+0.58%由AMZN+2.52%/NVDA+1.87%领涨，道指-0.22%蓝筹微弱，VIX降至18.95逼近绿灯",
+    "亚太4/10全线收涨，日经+2.63%(+1468点)/KOSPI+1.40%/深证+2.24%/创业板创四年新高",
+    "DXY跌破99至98.56年内新低+黄金$4779红灯，避险与风险偏好信号仍然矛盾",
+    "今晚CPI+JPM/WFC/BLK大行财报+明日伊斯兰堡谈判，三重催化密集轰炸"
   ],
   "smartMoney": [
     {
       "source": "段永平",
-      "action": "正式启动泡泡玛特sell put布局，称保险公司正式开张，持续看好品牌+全球门店模式",
+      "action": "4/10宣布暂别雪球，4/9启动泡泡玛特sell put(保险公司开张)并力挺PDD估值(1400亿扣现金5年回本)",
       "signal": "bullish"
-    },
-    {
-      "source": "伯克希尔",
-      "action": "Greg Abel 4/1接任CEO重启回购，个人投$15.3M购入公司股票，现金储备$3733亿",
-      "signal": "neutral"
     },
     {
       "source": "ARK Invest",
-      "action": "4/6-8连续买入TSLA(跨ARKK/ARKQ/ARKX)，卖出ROKU和TER，新买入HOOD和Kodiak AI(KDK)",
+      "action": "本周累计买入TSLA约$2780万+HOOD $1270万，4/9新买WGS卖出BWXT，连续加仓成长股",
       "signal": "bullish"
+    },
+    {
+      "source": "桥水/Dalio",
+      "action": "4/9 Dalio警告距世界大战仅4步(发布13步周期框架)，认为市场严重低估伊朗冲突持续性",
+      "signal": "bearish"
+    },
+    {
+      "source": "伯克希尔",
+      "action": "发行2723亿日元债资助东京海上收购，加入美国DFC海上再保险计划($400亿霍尔木兹保障)",
+      "signal": "neutral"
     }
   ],
   "topHoldings": [
@@ -163,22 +175,22 @@
     },
     {
       "name": "Cathie Wood · ARK旗舰",
-      "holdings": "TSLA 10.5% | CRSP 6.3% | TEM 5.0% | SHOP 4.7% | COIN 4.3% · 连续加仓TSLA"
+      "holdings": "TSLA 10.5% | CRSP 6.3% | TEM 5.0% | SHOP 4.7% | COIN 4.3% · 本周大举加仓TSLA+HOOD"
     }
   ],
   "riskPoints": [
-    "停火极度脆弱(伊朗已指控违约)，周五伊斯兰堡谈判若破裂油价将冲击$100+",
-    "七连阳后获利回吐压力积聚，CPI数据若超预期将触发集中抛售",
-    "黄金$4751红灯区间+VIX仍在19.49(非低位)，避险仓位与股市乐观形成结构性背离"
+    "停火极度脆弱(Trump指责伊朗违约)，明日伊斯兰堡谈判若破裂布伦特将冲击$105+",
+    "八连阳后道指已微跌，CPI若超预期3.3%将触发集中获利了结+10Y上行",
+    "黄金$4779红灯+DXY跌破99，避险资金与股市乐观形成结构性背离——4月基金平均亏7.8%为四年最重"
   ],
-  "riskNote": "停火谈判与CPI数据双重不确定性叠加，七连阳后市场对利空敏感度骤升，需关注周五伊斯兰堡谈判进展",
-  "dataTime": "2026-04-10 06:41 BJT",
+  "riskNote": "CPI+伊斯兰堡谈判+大行财报三重催化叠加八连阳获利盘，市场对利空敏感度处于高位，对冲基金4月平均亏损7.8%为四年最重",
+  "dataTime": "2026-04-10 22:36 BJT",
   "audioUrl": "cloud://cloud1-3g6wj06h84f38ea8.636c-cloud1-3g6wj06h84f38ea8-1418169528/audio/briefing-2026-04-10.mp3",
   "audioFile": "briefing-2026-04-10.mp3",
-  "voiceText": "各位投资者早上好，这里是投研鸭每日简报，今天是2026年4月10日。昨夜美股实现七连阳，标普500收于6824点涨0.62%，纳斯达克涨0.83%，道指涨0.58%。最值得关注的是VIX恐慌指数大跌7.37%收于19.49，这是自伊朗冲突爆发以来首次跌破20的关键阈值，标志着市场恐慌情绪显著缓解。个股方面，亚马逊成为最大亮点，单日暴涨5.6%，原因是自研AI芯片Trainium年化收入突破200亿美元，验证了云厂商自研芯片规模化的可行性。这对英伟达形成长期竞争压力，但短期AI总需求仍在扩张。三大核心判断：第一，美伊停火谈判进程将决定油价和市场波动方向，目前布伦特原油96.8美元仍在黄灯区间，周五伊斯兰堡谈判至关重要。第二，今天公布的3月CPI数据是本周最关键催化剂，核心CPI预期环比0.3%，若超预期将打压降息预期并可能终结七连阳。第三，AI芯片自研趋势加速，M7内部分化加剧，选股比配置更重要。风险提示：黄金4751美元仍处红灯区间，表明机构避险仓位未完全撤离，与股市乐观形成结构性背离。当前情绪评分63分，偏贪婪，七连阳后需警惕回调风险。以上就是今天的投研鸭简报，祝您投资顺利。",
+  "voiceText": "各位投资者晚上好，这里是投研鸭每日简报，今天是2026年4月10日。美股盘中继续反弹延续八连阳——纳斯达克涨0.58%由亚马逊+2.52%和英伟达+1.87%领涨，标普500涨0.19%，但道琼斯微跌0.22%蓝筹表现偏弱。VIX恐慌指数降至18.95，逼近18的绿灯区间。亚太市场今日全线收涨，日经225大涨2.63%涨幅达1468点，A股深证成指涨2.24%创业板创四年新高，上证盘中一度站上4000点。北向资金净流入约85亿元。今晚三大催化密集轰炸：第一，3月CPI数据即将公布，预期整体3.3%、核心2.7%，若超预期将打压降息预期。第二，摩根大通、富国银行、贝莱德三大行Q1财报今日发布，开启财报季。第三，明天美伊将在伊斯兰堡启动正式停火谈判，成败决定油价中枢。聪明钱方面，段永平今天宣布暂别雪球，此前已启动泡泡玛特卖出看跌期权并力挺拼多多估值。ARK本周累计买入特斯拉约2780万美元。桥水达利欧则警告距世界大战仅4步。风险提示：黄金4779美元仍处红灯区间，美元指数跌破99至年内新低，避险信号与股市乐观形成背离。对冲基金4月平均亏损7.8%为四年来最重。以上就是投研鸭简报更新，祝您投资顺利。",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-10T06:00:00+08:00",
+    "generatedAt": "2026-04-10T22:30:00+08:00",
     "skillVersion": "v10.5"
   }
 }

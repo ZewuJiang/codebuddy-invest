@@ -2,54 +2,61 @@
   "date": "2026-04-10",
   "predictions": [
     {
-      "title": "美联储6月维持利率?",
-      "source": "CME FedWatch",
-      "probability": 60,
+      "title": "美联储4月维持利率?",
+      "source": "Polymarket",
+      "probability": 98,
       "trend": "stable",
-      "change24h": -2
+      "change24h": 0
     },
     {
-      "title": "美伊停火延长至永久?",
-      "source": "Polymarket",
-      "probability": 25,
+      "title": "年底前降息概率?",
+      "source": "CME FedWatch",
+      "probability": 43,
       "trend": "up",
-      "change24h": 8
+      "change24h": 29
+    },
+    {
+      "title": "2026年底前美国衰退?",
+      "source": "Polymarket",
+      "probability": 30,
+      "trend": "down",
+      "change24h": -2
     }
   ],
   "trafficLights": [
     {
       "name": "VIX波动率",
-      "value": "19.49",
+      "value": "18.95",
       "status": "yellow",
       "threshold": "<18绿 / 18-25黄 / >25红"
     },
     {
       "name": "10Y美债收益率",
-      "value": "4.28%",
+      "value": "4.31%",
       "status": "yellow",
       "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
     },
     {
       "name": "布伦特原油",
-      "value": "$96.80",
+      "value": "$96.08",
       "status": "yellow",
       "threshold": "<$90绿 / $90-110黄 / >$110红"
     },
     {
       "name": "美元指数DXY",
-      "value": "98.80",
+      "value": "98.56",
       "status": "green",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
     {
       "name": "HY信用利差",
-      "value": "3.15%",
+      "value": "3.17%",
       "status": "green",
       "threshold": "<4%绿 / 4-5%黄 / >5%红"
     },
     {
       "name": "黄金XAU",
-      "value": "$4,751",
+      "value": "$4,779",
       "status": "red",
       "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
     },
@@ -62,52 +69,59 @@
   ],
   "riskScore": 80,
   "riskLevel": "high",
-  "riskAdvice": "黄金$4751红灯(避险定价极端)叠加VIX/10Y/布伦特三项黄灯——七连阳后贪婪信号初现，今日CPI若超预期+周五伊斯兰堡谈判变数，连涨基础将迅速被消解",
+  "riskAdvice": "黄金$4779红灯(避险定价极端)+布伦特$96+VIX 18.95三项黄灯——今晚CPI若确认通胀韧性(预期3.3%)叠加明日伊斯兰堡谈判不确定性，八连阳的获利回吐可能加速",
   "riskAlerts": [],
   "events": [
     {
       "date": "周四(4/10)",
-      "title": "美国3月CPI数据公布，核心CPI预期环比+0.3%，是本周最关键催化剂",
+      "title": "3月CPI今晚公布(预期整体3.3%/核心2.7%)+PCE物价指数同日发布，通胀验证日",
       "impact": "high",
       "source": "BLS",
       "url": "https://www.bls.gov/cpi/"
     },
     {
+      "date": "周四(4/10)",
+      "title": "JPMorgan/Wells Fargo/BlackRock三大行Q1财报今日发布，开启财报季",
+      "impact": "high",
+      "source": "FactSet",
+      "url": ""
+    },
+    {
       "date": "周五(4/11)",
-      "title": "美伊在伊斯兰堡启动正式停火谈判，结果将决定油价和地缘溢价方向",
+      "title": "美伊在伊斯兰堡启动正式停火谈判，结果将决定油价中枢和地缘溢价方向",
       "impact": "high",
       "source": "AP News",
-      "url": "https://apnews.com/live/iran-war-israel-trump-04-07-2026"
+      "url": "https://apnews.com/live/iran-war-israel-trump-04-08-2026"
     },
     {
       "date": "周五(4/11)",
-      "title": "美国3月PPI数据公布，配合CPI验证通胀趋势",
+      "title": "密歇根大学消费者信心指数发布，检验消费者对通胀和关税的预期变化",
       "impact": "medium",
-      "source": "BLS",
-      "url": "https://www.bls.gov/ppi/"
-    },
-    {
-      "date": "持续",
-      "title": "Q1财报季即将开启(下周摩根大通等大行率先发布)，盈利预期成市场焦点",
-      "impact": "medium",
-      "source": "FactSet",
+      "source": "University of Michigan",
       "url": ""
     }
   ],
   "alerts": [
     {
       "level": "warning",
-      "text": "VIX跌破20为伊朗冲突以来首次，七连阳后技术面超买，RSI接近70",
-      "time": "16:00",
-      "source": "CBOE",
+      "text": "对冲基金4月遭4年来最重回撤(平均亏7.8%)，科技多头/杠杆策略受伤最深，共识交易踩踏风险",
+      "time": "22:20",
+      "source": "Bloomberg",
       "url": ""
     },
     {
       "level": "info",
-      "text": "亚马逊Trainium AI芯片年收入破$200亿，单日暴涨5.6%创2024年2月以来最大涨幅",
-      "time": "16:00",
-      "source": "新浪财经",
-      "url": "https://finance.sina.com.cn/stock/usstock/"
+      "text": "段永平4/10宣布暂别雪球，此前已完成泡泡玛特sell put+PDD估值表态，投资信号集中释放后离场",
+      "time": "22:15",
+      "source": "雪球",
+      "url": "https://xueqiu.com/u/1247347556"
+    },
+    {
+      "level": "info",
+      "text": "停火后降息预期从14%飙升至43%(CME FedWatch)，但Dalio警告距世界大战仅4步",
+      "time": "22:10",
+      "source": "CME Group",
+      "url": ""
     }
   ],
   "smartMoneyDetail": [
@@ -115,18 +129,26 @@
       "tier": "T1旗舰",
       "funds": [
         {
+          "name": "段永平 H&H",
+          "action": "4/10宣布暂别雪球，4/9启动泡泡玛特sell put(称保险公司开张)+力挺PDD估值(1400亿扣现金5年回本)——投资信号在离场前集中释放",
+          "signal": "bullish",
+          "source": "雪球",
+          "url": "https://xueqiu.com/u/1247347556",
+          "freshness": "本周"
+        },
+        {
           "name": "伯克希尔",
-          "action": "Greg Abel 4/1正式接任CEO并重启股票回购，个人投入$15.3M购入公司股票，现金储备$3733亿仍处历史高位",
+          "action": "发行2723亿日元债资助东京海上收购+加入DFC海上再保险计划($400亿霍尔木兹保障)，Greg Abel接任后积极拓展国际业务",
           "signal": "neutral",
-          "source": "SEC Filing",
+          "source": "Bloomberg",
           "url": "",
           "freshness": "本周"
         },
         {
-          "name": "段永平 H&H",
-          "action": "正式启动泡泡玛特sell put操作称保险公司开张，从品牌壁垒/艺术家签约/全球门店/管理团队四维度详述看好逻辑",
-          "signal": "bullish",
-          "source": "雪球",
+          "name": "桥水/Dalio",
+          "action": "4/9 Dalio发布13步世界大战周期框架，警告距战争仅4步，认为市场严重低估伊朗冲突持续性和扩散风险",
+          "signal": "bearish",
+          "source": "LinkedIn",
           "url": "",
           "freshness": "本周"
         }
@@ -137,7 +159,7 @@
       "funds": [
         {
           "name": "ARK Invest",
-          "action": "4/6-8连续三天买入TSLA(跨ARKK/ARKQ/ARKX三只ETF)，同时减持ROKU和Teradyne(TER)，新买入HOOD(Robinhood)和KDK(Kodiak AI)",
+          "action": "本周累计买入TSLA约$2780万(含4/8 ARKQ 33210股$1140万)+4/7买入HOOD $1270万，4/9新买WGS(GeneDx)$196万",
           "signal": "bullish",
           "source": "cathiesark.com",
           "url": "https://cathiesark.com/ark-funds-combined/trades",
@@ -149,20 +171,28 @@
       "tier": "策略师观点",
       "funds": [
         {
-          "name": "Morgan Stanley",
-          "action": "Mike Wilson维持2026年标普500目标价7800点，认为AI驱动的盈利增长将支撑估值，但地缘风险可能导致短期波动",
+          "name": "Goldman Sachs/Kostin",
+          "action": "标普500年末目标7200，EPS增长12%；看好工业/材料/地产/金融轮动，科技溢价收窄",
           "signal": "bullish",
-          "source": "Morgan Stanley",
+          "source": "Goldman Sachs",
           "url": "",
           "freshness": "本月"
         },
         {
-          "name": "Goldman Sachs",
-          "action": "David Kostin维持标普500年底目标价7100点，认为关税和地缘风险已部分定价，Q1财报季将成关键验证",
+          "name": "Morgan Stanley/Wilson",
+          "action": "[3/16] 标普500短期可能回撤至6300，中长期看好2026下半年估值扩张，推荐穿越波动的个股策略",
           "signal": "neutral",
-          "source": "Goldman Sachs",
+          "source": "Morgan Stanley",
           "url": "",
-          "freshness": "本月"
+          "freshness": "上周"
+        },
+        {
+          "name": "贝莱德/Fink",
+          "action": "[3/23] 年度信核心：AI将加剧收入不平等，建议不要择时保持投资，AI从炒作进入实用阶段",
+          "signal": "bullish",
+          "source": "BlackRock",
+          "url": "",
+          "freshness": "上周"
         }
       ]
     }
@@ -310,7 +340,7 @@
       "manager": "Cathie Wood · ARK旗舰",
       "fund": "ARK Innovation ETF (ARKK)",
       "aum": "$6.8B",
-      "asOf": "2026-04-08(ARK每日持仓披露)",
+      "asOf": "2026-04-09(ARK每日持仓披露)",
       "positions": [
         {
           "name": "特斯拉",
@@ -373,13 +403,13 @@
           "change": "持仓不变"
         }
       ],
-      "footnote": "ARK每日披露持仓变动，4/6-8连续三天加仓TSLA(跨三只ETF)，减持ROKU和TER，新买入HOOD和Kodiak AI(KDK)"
+      "footnote": "ARK每日披露持仓变动，本周累计买入TSLA约$2780万+HOOD $1270万+WGS $196万，TSLA目标价$4600(Robotaxi占60%估值)"
     }
   ],
-  "dataTime": "2026-04-10 06:41 BJT",
+  "dataTime": "2026-04-10 22:36 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-10T06:00:00+08:00",
+    "generatedAt": "2026-04-10T22:30:00+08:00",
     "skillVersion": "v10.5"
   }
 }
