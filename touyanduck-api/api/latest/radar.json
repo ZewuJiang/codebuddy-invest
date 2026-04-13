@@ -31,7 +31,7 @@
     },
     {
       "name": "布伦特原油",
-      "value": "$101.88",
+      "value": "$103.47",
       "status": "yellow",
       "threshold": "<$90绿 / $90-110黄 / >$110红"
     },
@@ -49,20 +49,20 @@
     },
     {
       "name": "黄金XAU",
-      "value": "$4,750",
+      "value": "$4,666",
       "status": "red",
       "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "7.2800",
-      "status": "yellow",
+      "value": "6.8323",
+      "status": "green",
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
-  "riskScore": 90,
+  "riskScore": 80,
   "riskLevel": "high",
-  "riskAdvice": "黄金$4,750亮红灯（极端避险情绪），布伦特$102逼近黄灯上沿——美伊和谈破裂叠加霍尔木兹封锁威胁，若本周GS/JPM财报指引悲观，当前脆弱的反弹基础将被重新检验。",
+  "riskAdvice": "布伦特$103快速逼近$110红灯，若霍尔木兹封锁实质执行将触发红灯——密歇根信心47.6创74年新低，消费+能源双重压力下，本周GS/JPM财报指引是检验反弹基础的最终裁判。",
   "monitorTable": [],
   "riskAlerts": [],
   "events": [
@@ -392,10 +392,10 @@
       "footnote": "4/10买入PLTR+590万$/卖出AMD-590万$，近期连续关注CoreWeave(CRWV)和Kodiak AI(KDK)但尚未进入Top10"
     }
   ],
-  "dataTime": "2026-04-13 10:33 BJT",
+  "dataTime": "2026-04-13 14:27 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-13T10:15:00+08:00",
-    "skillVersion": "v10.5"
+    "generatedAt": "2026-04-13T14:15:00+08:00",
+    "skillVersion": "v10.6"
   }
 }
