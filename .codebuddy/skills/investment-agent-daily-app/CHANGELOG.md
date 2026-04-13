@@ -4,6 +4,27 @@
 
 ---
 
+## v10.6（2026-04-13 11:05）— Harness v10.6 FATAL 项全面升级
+
+**原则**：目标每次全部通过，零 WARN。前端渲染安全与核心功能完整性纳入 FATAL 门禁。
+
+**validate.py v5.5→v5.6**：
+- V35  **WARN→FATAL**：audioUrl 为空 = 语音播报失效，不可绕过
+- V38  **WARN→FATAL**：sparkline 趋势与 change 方向矛盾 = 数据错误
+- V41  **WARN→FATAL**：globalReaction value 超长/含括号 = 前端布局溢出
+- V42  **WARN→FATAL**：generatedAt 为空 = 前端时间显示异常
+- V24  **WARN→FATAL**：Markdown 残留 = 前端乱码
+- R1   **WARN→FATAL**：topHoldings < 3 = 聪明钱核心展示不完整
+- V_TL **WARN→FATAL**：红绿灯 value↔status 不一致 = 前端颜色错误
+- **FATAL 项**：10 → **17 个**
+- **校验项**：54 项（不变）
+
+**SKILL.md**：
+- 第3.5阶段语音播报标注升级为 🔴 FATAL 级强制
+- 质量宪章 WARN 上限从 ≤3 → 目标 0 WARN（≤1 可接受）
+
+---
+
 ## v10.5（2026-04-09 22:19）— Harness v10.5 门槛全面收紧
 
 **原则**：数据准确性 > 执行速度。宁可多搜几轮花多几分钟，也不能让错误数据发布。

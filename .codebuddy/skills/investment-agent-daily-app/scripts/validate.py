@@ -1,10 +1,21 @@
 #!/usr/bin/env python3
 """
-投研鸭小程序数据质量自动化校验脚本 v5.5
+投研鸭小程序数据质量自动化校验脚本 v5.6
 ============================================================
 核心理念（Harness Engineering）:
   把"AI 记住规则"转变为"环境自动约束 AI"。
   本脚本在 run_daily.sh 中的 auto_compute.py 之后、sparkline 补全之前执行。
+
+v5.6 Harness v10.6 全面收紧 FATAL 门禁（目标：每次全部通过）：
+  - V35  WARN→FATAL 升级：audioUrl 为空 = 语音播报失效（核心功能）
+  - V38  WARN→FATAL 升级：sparkline 趋势与 change 方向矛盾 = 数据错误
+  - V41  WARN→FATAL 升级：globalReaction value 超长/含括号 = 前端布局溢出
+  - V42  WARN→FATAL 升级：generatedAt 为空 = 前端时间显示异常
+  - V24  WARN→FATAL 升级：Markdown 残留 = 前端直接渲染乱码
+  - R1   WARN→FATAL 升级：topHoldings < 3 = 聪明钱核心展示严重不完整
+  - V_TL WARN→FATAL 升级：红绿灯 value↔status 不一致 = 前端颜色错误
+  - FATAL_CODES 从 10 → 17 项
+  - 校验项数量不变（54项）
 
 v5.5 Harness v10.5 门槛全面收紧（数据准确性 > 执行速度）：
   - V6  WARN→FATAL 升级：sparkline[-1] vs price 偏差 ≤5%（形成 V6/V45 双层防护）
@@ -78,7 +89,22 @@ BASELINE_PATH = REFERENCES_DIR / "golden-baseline.json"
 HOLDINGS_CACHE_PATH = REFERENCES_DIR / "holdings-cache.json"
 
 # FATAL 级校验项（不可被 --skip-warn 绕过）
-FATAL_CODES = {"R2", "R3", "R9", "V6", "V39", "V40", "V43", "V44", "V45", "V46"}
+# v5.6 新增：V24/V35/V38/V41/V42/R1/V_TL（FATAL 项 10→17，目标：每次全部通过）
+FATAL_CODES = {
+    # 数据准确性（原有）
+    "V6", "V43", "V44", "V45", "V46",
+    # 持仓合规（原有）
+    "V39", "V40", "R2", "R3", "R9",
+    # v5.6 新升级：前端渲染安全
+    "V24",   # Markdown 残留 → 前端乱码
+    "V41",   # globalReaction value 超长/含括号 → 布局溢出
+    "V42",   # generatedAt 为空 → 前端时间显示异常
+    # v5.6 新升级：核心功能完整性
+    "V35",   # audioUrl 为空 → 语音播报功能失效
+    "V38",   # sparkline趋势 vs change 方向矛盾 → 数据错误
+    "R1",    # topHoldings < 3 → 聪明钱持仓核心展示不完整
+    "V_TL",  # 红绿灯 value↔status 阈值不一致 → 前端颜色错误
+}
 
 # ============================================================
 # 工具函数
@@ -116,7 +142,7 @@ class ValidationResult:
 
     def print_report(self):
         print("\n" + "=" * 70)
-        print("📋 投研鸭数据质量自动化校验报告 (v5.5 Harness v10.5)")
+        print("📋 投研鸭数据质量自动化校验报告 (v5.6 Harness v10.6)")
         print("=" * 70)
 
         for r in self.results:

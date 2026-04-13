@@ -1,26 +1,19 @@
 {
-  "date": "2026-04-12",
+  "date": "2026-04-13",
   "predictions": [
     {
       "title": "美联储6月降息?",
       "source": "CME FedWatch",
       "probability": 55,
-      "trend": "up",
-      "change24h": 12
-    },
-    {
-      "title": "美伊停火能否延续?",
-      "source": "Polymarket",
-      "probability": 35,
       "trend": "down",
-      "change24h": -18
+      "change24h": -8
     },
     {
-      "title": "2026年底前美国衰退?",
+      "title": "美伊本月停火?",
       "source": "Polymarket",
-      "probability": 33,
-      "trend": "up",
-      "change24h": 3
+      "probability": 28,
+      "trend": "down",
+      "change24h": -15
     }
   ],
   "trafficLights": [
@@ -32,96 +25,97 @@
     },
     {
       "name": "10Y美债收益率",
-      "value": "4.31%",
+      "value": "4.355%",
       "status": "yellow",
       "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
     },
     {
       "name": "布伦特原油",
-      "value": "$94.45",
+      "value": "$101.88",
       "status": "yellow",
       "threshold": "<$90绿 / $90-110黄 / >$110红"
     },
     {
       "name": "美元指数DXY",
-      "value": "98.71",
+      "value": "99.03",
       "status": "green",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
     {
       "name": "HY信用利差",
-      "value": "3.17%",
+      "value": "2.90%",
       "status": "green",
       "threshold": "<4%绿 / 4-5%黄 / >5%红"
     },
     {
       "name": "黄金XAU",
-      "value": "$4,751",
+      "value": "$4,750",
       "status": "red",
       "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "6.8282",
-      "status": "green",
+      "value": "7.2800",
+      "status": "yellow",
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
-  "riskScore": 80,
+  "riskScore": 90,
   "riskLevel": "high",
-  "riskAdvice": "黄金$4751红灯+布伦特$94.45黄灯(谈判破裂后随时可冲$100+)+VIX 19.23黄灯——CPI 3.3%封堵降息窗口，本周高盛/JPM财报若不及预期将触发本轮反弹以来最大回撤",
+  "riskAdvice": "黄金$4,750亮红灯（极端避险情绪），布伦特$102逼近黄灯上沿——美伊和谈破裂叠加霍尔木兹封锁威胁，若本周GS/JPM财报指引悲观，当前脆弱的反弹基础将被重新检验。",
+  "monitorTable": [],
   "riskAlerts": [],
   "events": [
     {
-      "date": "周一(4/13)",
-      "title": "高盛Q1财报(EPS预期$16.34/营收$16.9B)发布，交易+IPO复苏是核心看点，开启财报季",
+      "date": "周一",
+      "title": "高盛盘前发布Q1财报，关注地缘背景下交易收入与M&A活动能否抵消战争不确定性",
       "impact": "high",
       "source": "Goldman Sachs",
-      "url": "https://www.goldmansachs.com/investor-relations/"
+      "url": "https://www.goldmansachs.com/investor-relations/financials/quarterly-earnings-releases/"
     },
     {
-      "date": "周二(4/14)",
-      "title": "摩根大通/美国银行/富国银行Q1财报密集公布，大行财报周是市场情绪转折点",
+      "date": "周二",
+      "title": "摩根大通、富国银行、花旗集团Q1财报集中发布，大银行财报周最关键日，指引决定市场方向",
       "impact": "high",
-      "source": "JPMorgan Chase",
-      "url": "https://www.jpmorganchase.com/ir/quarterly-earnings"
+      "source": "CNBC",
+      "url": "https://www.cnbc.com/2026/04/12/earnings-playbook-jpm-nflx-kick-off-the-reporting-season.html"
     },
     {
-      "date": "本周",
-      "title": "美伊停火后续谈判走向：Vance无协议返美，下轮谈判时间未定，停火有效期每日悬而未决",
+      "date": "周三",
+      "title": "美国银行、摩根士丹利Q1财报，关注交易和财富管理业务在伊朗战争背景下的韧性",
+      "impact": "medium",
+      "source": "CNBC",
+      "url": "https://www.cnbc.com/2026/04/12/earnings-playbook-jpm-nflx-kick-off-the-reporting-season.html"
+    },
+    {
+      "date": "周四",
+      "title": "奈飞盘后发布Q1财报，高盛上调至买入，关注流媒体用户增长与AI内容战略",
+      "impact": "medium",
+      "source": "CNBC",
+      "url": "https://www.cnbc.com/2026/04/12/earnings-playbook-jpm-nflx-kick-off-the-reporting-season.html"
+    },
+    {
+      "date": "持续",
+      "title": "霍尔木兹海峡局势实时跟踪：特朗普宣布封锁，伊朗海军回应，布伦特原油价格是最直接的晴雨表",
       "impact": "high",
       "source": "AP News",
-      "url": "https://apnews.com/article/iran-us-israel-trump-lebanon-april-11-2026-2be904aee3f804892336730279e054b9"
-    },
-    {
-      "date": "周三-周五",
-      "title": "美国3月零售销售+工业产出数据，检验能源价格暴涨对消费的实际传导程度",
-      "impact": "medium",
-      "source": "U.S. Commerce Dept.",
-      "url": ""
+      "url": "https://apnews.com/article/prediction-markets-kalshi-polymarket-iran-maduro-823b748b446f2fccbbe760b6e60fbab3"
     }
   ],
   "alerts": [
     {
       "level": "danger",
-      "text": "伊斯兰堡谈判4/11无协议破裂，Vance空手而归——停火可能随时失效，布伦特$94.45面临再冲$100+的风险",
-      "time": "06:30",
-      "source": "AP News",
-      "url": "https://apnews.com/article/iran-us-israel-trump-lebanon-april-11-2026-2be904aee3f804892336730279e054b9"
+      "text": "美伊和平谈判4月12日在巴基斯坦彻底破裂，特朗普宣布美国海军将封锁霍尔木兹海峡，伊朗海军司令称威胁荒谬——布伦特原油当日盘中飙升7%至$101.88",
+      "time": "09:30",
+      "source": "NPR / Politico",
+      "url": "https://www.npr.org/2026/04/12/nx-s1-5782538/u-s-iran-peace-talks-islamabad-collapse"
     },
     {
       "level": "warning",
-      "text": "CPI 3.3%确认通胀反弹(能源环比+6.7%)，美联储降息窗口被进一步推迟，市场6月降息预期仍仅55%",
-      "time": "22:30",
-      "source": "CNBC",
-      "url": "https://www.cnbc.com/2026/04/10/cpi-inflation-report-march-2026.html"
-    },
-    {
-      "level": "info",
-      "text": "Dalio 4/9警告距世界大战仅4步的判断被伊斯兰堡谈判破裂所印证，桥水全天候组合防御配置已提升",
-      "time": "16:00",
-      "source": "LinkedIn",
-      "url": ""
+      "text": "英国央行行长贝利警告伊朗战争可能引发2008式金融危机，凯雷集团旗舰私人信贷基金遭大规模赎回请求，私人信贷市场承压",
+      "time": "09:15",
+      "source": "Climate and Economy",
+      "url": "https://climateandeconomy.com/2026/04/11/11th-april-2026-todays-round-up-of-economic-news/"
     }
   ],
   "smartMoneyDetail": [
@@ -129,27 +123,26 @@
       "tier": "T1旗舰",
       "funds": [
         {
-          "name": "段永平 H&H",
-          "action": "4/10宣布暂别雪球，4/9启动泡泡玛特sell put(不计入13F持仓，称保险公司开张)+力挺PDD估值(1400亿扣现金5年回本)——在地缘动荡背景下集中释放价值投资信号",
-          "signal": "bullish",
-          "source": "雪球",
-          "url": "https://xueqiu.com/u/1247347556",
-          "freshness": "本周"
-        },
-        {
-          "name": "伯克希尔",
-          "action": "发行2723亿日元债资助东京海上收购+加入DFC海上再保险计划($400亿霍尔木兹保障)，Greg Abel在地缘高风险期积极布局保险和大宗对冲",
+          "name": "伯克希尔（巴菲特）",
+          "action": "现金储备$3733亿维持历史高位，持仓结构稳定——CVX能源持仓占比7.24%在高油价下增值，AAPL减持后维持22.6%第一重仓，传递市场整体估值偏高的隐性信号",
           "signal": "neutral",
-          "source": "Bloomberg",
-          "url": "",
+          "source": "StockZoa/13Radar",
+          "freshness": "本月"
+        },
+        {
+          "name": "段永平 H&H",
+          "action": "4月9日宣布泡泡玛特sell put策略正式开张，称商业壁垒远超想象；仍看好PDD（4月8日称'蛮有吸引力'）；明确表态不买黄金——核心持仓AAPL/BRK.B/NVDA/PDD结构未变",
+          "signal": "bullish",
+          "source": "腾讯新闻/雪球@大道无形我有型",
+          "url": "https://news.qq.com/rain/a/20260409A060QE00",
           "freshness": "本周"
         },
         {
-          "name": "桥水/Dalio",
-          "action": "4/9发布13步世界大战周期框架，警告距战争仅4步。4/11谈判破裂印证判断，桥水全天候增配黄金+实物资产，战略看空美元",
-          "signal": "bearish",
-          "source": "LinkedIn",
-          "url": "",
+          "name": "ARK Invest（木头姐）",
+          "action": "4月10日买入PLTR约590万美元（占比提升至3.26%），同时卖出AMD约590万美元（短期获利了结）；TSLA仍维持第一重仓10.5%，CoreWeave新兴持仓持续关注",
+          "signal": "bullish",
+          "source": "Cathie's Ark",
+          "url": "https://cathiesark.com/arkk/trades",
           "freshness": "本周"
         }
       ]
@@ -158,11 +151,16 @@
       "tier": "T2成长",
       "funds": [
         {
-          "name": "ARK Invest",
-          "action": "本周累计买入TSLA约$2780万(4/8 ARKQ买入33210股$1140万)+HOOD $1270万+4/9新买WGS(GeneDx精准医疗)$196万，Cathie Wood维持TSLA目标价$4600",
+          "name": "黑石集团",
+          "action": "AI基础设施投资布局持续加速，CoreWeave（CRWV）是其核心押注——CRWV与Anthropic签数十亿美元协议后CRWV+10.87%，验证黑石AI基建赛道判断；苏世民重申另类资产配置重心正转向AI基建",
           "signal": "bullish",
-          "source": "cathiesark.com",
-          "url": "https://cathiesark.com/ark-funds-combined/trades",
+          "freshness": "本月"
+        },
+        {
+          "name": "Millennium（Israel Englander）",
+          "action": "[4/10] 13F显示新建仓ASML约980万美元，在AI光刻机半导体设备赛道建立战略性配置——与Ken Fisher同期选择ASML作为2026年AI首选股逻辑一致",
+          "signal": "bullish",
+          "source": "MarketBeat",
           "freshness": "本周"
         }
       ]
@@ -171,27 +169,15 @@
       "tier": "策略师观点",
       "funds": [
         {
-          "name": "Goldman Sachs/Kostin",
-          "action": "标普500年末目标7200，EPS增长12%——但4/13财报前若CPI持续高企将可能下修目标，关注明日高盛自身财报",
-          "signal": "bullish",
-          "source": "Goldman Sachs",
-          "url": "",
-          "freshness": "本月"
-        },
-        {
-          "name": "Morgan Stanley/Wilson",
-          "action": "[4/7] 维持短期谨慎立场——SPX在没有CPI数据落地前存在回撤至6300的可能，推荐高质量盈利个股策略",
+          "name": "高盛 David Kostin",
+          "action": "Q1财报季开幕，高盛自身今日率先发布——Kostin团队维持S&P 500 2026年目标区间，关注点在于油价上涨是否将导致企业指引下调；历史上87%概率超出预期",
           "signal": "neutral",
-          "source": "Morgan Stanley",
-          "url": "",
           "freshness": "本周"
         },
         {
-          "name": "贝莱德/Fink",
-          "action": "[4/10] BlackRock Q1财报确认，交易量强劲驱动营收——Fink坚持不择时策略，战略增配基础设施+私市资产对冲地缘风险",
+          "name": "Tom Lee（Fundstrat）",
+          "action": "[4/11] 称美股2026年最强反弹周结束后，财报季将是下一个重要定价锚，若大银行超预期，SPX有望重新挑战6900-7000区间；仍对科技/AI持乐观看法",
           "signal": "bullish",
-          "source": "BlackRock",
-          "url": "",
           "freshness": "本周"
         }
       ]
@@ -265,7 +251,7 @@
           "change": "持仓不变"
         }
       ],
-      "footnote": "持仓数42只，Top10占88.3%，现金储备$3733亿(Greg Abel首次重启回购)，Q4增持CVX(+6.6%)/CB(+9.3%)，减持AAPL(-4.3%)/BAC(-8.9%)"
+      "footnote": "持仓数42只，Top10占88.3%，现金储备$3,733亿（Greg Abel首次重启回购），Q4增持CVX(+6.6%)/CB(+9.3%)，减持AAPL(-4.3%)/BAC(-8.9%)"
     },
     {
       "manager": "段永平 · H&H",
@@ -334,19 +320,19 @@
           "change": "减持"
         }
       ],
-      "footnote": "持仓数14只，核心集中(AAPL+BRK.B占71%)，2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，另有泡泡玛特sell put操作(不计入持仓)"
+      "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，泡泡玛特4月9日开始sell put布局（尚未进入13F）"
     },
     {
       "manager": "Cathie Wood · ARK旗舰",
       "fund": "ARK Innovation ETF (ARKK)",
       "aum": "$6.8B",
-      "asOf": "2026-04-10(ARK每日持仓披露)",
+      "asOf": "2026-04-10（ARK每日持仓披露）",
       "positions": [
         {
           "name": "特斯拉",
           "symbol": "TSLA",
           "weight": "10.5%",
-          "change": "持续加仓"
+          "change": "持仓不变"
         },
         {
           "name": "CRISPR治疗",
@@ -382,7 +368,7 @@
           "name": "Palantir",
           "symbol": "PLTR",
           "weight": "3.8%",
-          "change": "持仓不变"
+          "change": "加仓"
         },
         {
           "name": "Block",
@@ -403,13 +389,13 @@
           "change": "持仓不变"
         }
       ],
-      "footnote": "ARK每日披露持仓，本周累计买入TSLA约$2780万+HOOD $1270万+WGS $196万，TSLA目标价$4600(Robotaxi占60%)"
+      "footnote": "4/10买入PLTR+590万$/卖出AMD-590万$，近期连续关注CoreWeave(CRWV)和Kodiak AI(KDK)但尚未进入Top10"
     }
   ],
-  "dataTime": "2026-04-12 16:45 BJT",
+  "dataTime": "2026-04-13 10:33 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-12T16:30:00+08:00",
+    "generatedAt": "2026-04-13T10:15:00+08:00",
     "skillVersion": "v10.5"
   }
 }
