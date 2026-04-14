@@ -4,9 +4,16 @@
     {
       "title": "美联储5月降息?",
       "source": "CME FedWatch",
-      "probability": 15,
+      "probability": 3,
       "trend": "down",
-      "change24h": -3
+      "change24h": -12
+    },
+    {
+      "title": "美联储6月降息?",
+      "source": "CME FedWatch",
+      "probability": 55,
+      "trend": "stable",
+      "change24h": 0
     },
     {
       "title": "伊朗停火4/22续约?",
@@ -38,38 +45,38 @@
     },
     {
       "name": "布伦特原油",
-      "value": "$101.87",
+      "value": "$98.88",
       "status": "yellow",
       "threshold": "<$90绿 / $90-110黄 / >$110红"
     },
     {
       "name": "美元指数DXY",
-      "value": "98.70",
+      "value": "98.37",
       "status": "green",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
     {
       "name": "HY信用利差",
-      "value": "3.85%",
+      "value": "2.90%",
       "status": "green",
       "threshold": "<4%绿 / 4-5%黄 / >5%红"
     },
     {
       "name": "黄金XAU",
-      "value": "$4,741",
+      "value": "$4,764",
       "status": "red",
       "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "6.8356",
+      "value": "6.8164",
       "status": "green",
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
   "riskScore": 80,
   "riskLevel": "high",
-  "riskAdvice": "黄金$4,741亮红灯（避险情绪高位），布伦特$101.87逼近$110红灯——若4/22停火到期后封锁升级，油价中枢将系统性突破红线，本周银行财报指引是短期最关键定价锚。",
+  "riskAdvice": "黄金$4,764创历史新高亮红灯（避险情绪极端），布伦特$98.88仍处黄灯区——4/22停火到期+本周台积电财报+中国GDP三重催化，任一超预期都将重新定价风险。",
   "monitorTable": [],
   "riskAlerts": [],
   "events": [
@@ -86,6 +93,18 @@
       "impact": "high",
       "source": "CNBC",
       "url": "https://www.cnbc.com/2026/04/12/earnings-playbook-jpm-nflx-kick-off-the-reporting-season.html"
+    },
+    {
+      "date": "周三",
+      "title": "中国一季度GDP+3月工业增加值+社零发布，市场预期GDP 5.2%——全年增长定调",
+      "impact": "high",
+      "source": "国家统计局"
+    },
+    {
+      "date": "周三",
+      "title": "台积电Q1财报电话会+ASML Q1财报——AI芯片需求晴雨表",
+      "impact": "high",
+      "source": "CNBC"
     },
     {
       "date": "周四",
@@ -396,10 +415,10 @@
       "footnote": "ARK每日披露，本周大买PLTR$990万+TSLA$14.1M+HOOD$12.5M，清仓AMD$1090万+卖出TER$14.8M——AI军事+自动驾驶方向加码"
     }
   ],
-  "dataTime": "2026-04-14 06:25 BJT",
+  "dataTime": "2026-04-14 14:37 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-14T06:30:00+08:00",
+    "generatedAt": "2026-04-14T14:01:00+08:00",
     "skillVersion": "v10.6"
   }
 }
