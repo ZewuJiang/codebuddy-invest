@@ -1,121 +1,120 @@
 {
-  "date": "2026-04-13",
+  "date": "2026-04-14",
   "predictions": [
     {
-      "title": "美联储6月降息?",
+      "title": "美联储5月降息?",
       "source": "CME FedWatch",
-      "probability": 55,
+      "probability": 15,
       "trend": "down",
-      "change24h": -8
+      "change24h": -3
     },
     {
-      "title": "美伊本月停火?",
+      "title": "伊朗停火4/22续约?",
       "source": "Polymarket",
-      "probability": 28,
+      "probability": 25,
       "trend": "down",
       "change24h": -15
+    },
+    {
+      "title": "布伦特4月底破$110?",
+      "source": "Polymarket",
+      "probability": 42,
+      "trend": "up",
+      "change24h": 12
     }
   ],
   "trafficLights": [
     {
       "name": "VIX波动率",
-      "value": "19.23",
+      "value": "19.12",
       "status": "yellow",
       "threshold": "<18绿 / 18-25黄 / >25红"
     },
     {
       "name": "10Y美债收益率",
-      "value": "4.355%",
+      "value": "4.29%",
       "status": "yellow",
       "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
     },
     {
       "name": "布伦特原油",
-      "value": "$103.47",
+      "value": "$101.87",
       "status": "yellow",
       "threshold": "<$90绿 / $90-110黄 / >$110红"
     },
     {
       "name": "美元指数DXY",
-      "value": "99.03",
+      "value": "98.70",
       "status": "green",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
     {
       "name": "HY信用利差",
-      "value": "2.90%",
+      "value": "3.85%",
       "status": "green",
       "threshold": "<4%绿 / 4-5%黄 / >5%红"
     },
     {
       "name": "黄金XAU",
-      "value": "$4,666",
+      "value": "$4,741",
       "status": "red",
       "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "6.8323",
+      "value": "6.8356",
       "status": "green",
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
   "riskScore": 80,
   "riskLevel": "high",
-  "riskAdvice": "布伦特$103快速逼近$110红灯，若霍尔木兹封锁实质执行将触发红灯——密歇根信心47.6创74年新低，消费+能源双重压力下，本周GS/JPM财报指引是检验反弹基础的最终裁判。",
+  "riskAdvice": "黄金$4,741亮红灯（避险情绪高位），布伦特$101.87逼近$110红灯——若4/22停火到期后封锁升级，油价中枢将系统性突破红线，本周银行财报指引是短期最关键定价锚。",
   "monitorTable": [],
   "riskAlerts": [],
   "events": [
     {
       "date": "周一",
-      "title": "高盛盘前发布Q1财报，关注地缘背景下交易收入与M&A活动能否抵消战争不确定性",
+      "title": "高盛Q1财报公布（EPS $17.55超预期），JPM/WFC/JNJ/C明日跟进",
       "impact": "high",
       "source": "Goldman Sachs",
-      "url": "https://www.goldmansachs.com/investor-relations/financials/quarterly-earnings-releases/"
+      "url": "https://www.goldmansachs.com/pressroom/press-releases/2026/2026-04-13-q1-results"
     },
     {
       "date": "周二",
-      "title": "摩根大通、富国银行、花旗集团Q1财报集中发布，大银行财报周最关键日，指引决定市场方向",
+      "title": "JPM/BAC/WFC/C集中发布Q1财报，银行能源成本指引为关键",
       "impact": "high",
-      "source": "CNBC",
-      "url": "https://www.cnbc.com/2026/04/12/earnings-playbook-jpm-nflx-kick-off-the-reporting-season.html"
-    },
-    {
-      "date": "周三",
-      "title": "美国银行、摩根士丹利Q1财报，关注交易和财富管理业务在伊朗战争背景下的韧性",
-      "impact": "medium",
       "source": "CNBC",
       "url": "https://www.cnbc.com/2026/04/12/earnings-playbook-jpm-nflx-kick-off-the-reporting-season.html"
     },
     {
       "date": "周四",
-      "title": "奈飞盘后发布Q1财报，高盛上调至买入，关注流媒体用户增长与AI内容战略",
+      "title": "Netflix Q1财报发布——AI内容推荐+广告业务增速是焦点",
       "impact": "medium",
-      "source": "CNBC",
-      "url": "https://www.cnbc.com/2026/04/12/earnings-playbook-jpm-nflx-kick-off-the-reporting-season.html"
+      "source": "CNBC"
     },
     {
-      "date": "持续",
-      "title": "霍尔木兹海峡局势实时跟踪：特朗普宣布封锁，伊朗海军回应，布伦特原油价格是最直接的晴雨表",
+      "date": "4/22",
+      "title": "美伊临时停火到期——霍尔木兹封锁是否全面升级的决定性节点",
       "impact": "high",
-      "source": "AP News",
-      "url": "https://apnews.com/article/prediction-markets-kalshi-polymarket-iran-maduro-823b748b446f2fccbbe760b6e60fbab3"
+      "source": "CoinAlertNews",
+      "url": "https://coinalertnews.com/news/2026/04/13/strait-of-hormuz-blockade-oil-inflation-impact"
     }
   ],
   "alerts": [
     {
       "level": "danger",
-      "text": "美伊和平谈判4月12日在巴基斯坦彻底破裂，特朗普宣布美国海军将封锁霍尔木兹海峡，伊朗海军司令称威胁荒谬——布伦特原油当日盘中飙升7%至$101.88",
-      "time": "09:30",
-      "source": "NPR / Politico",
-      "url": "https://www.npr.org/2026/04/12/nx-s1-5782538/u-s-iran-peace-talks-islamabad-collapse"
+      "text": "美军4/13正式封锁伊朗港口海上交通，布伦特跳涨6.5%至$101.87，Dated Brent现货曾触及$126",
+      "time": "22:00",
+      "source": "CNBC",
+      "url": "https://www.cnbc.com/2026/04/13/trump-hormuz-blockade-oil-shock-china-iran-india-vessels-peace-talks.html"
     },
     {
       "level": "warning",
-      "text": "英国央行行长贝利警告伊朗战争可能引发2008式金融危机，凯雷集团旗舰私人信贷基金遭大规模赎回请求，私人信贷市场承压",
-      "time": "09:15",
-      "source": "Climate and Economy",
-      "url": "https://climateandeconomy.com/2026/04/11/11th-april-2026-todays-round-up-of-economic-news/"
+      "text": "密歇根消费者信心4月初值47.6创74年新低，1年通胀预期飙至4.8%（前值3.8%）",
+      "time": "22:30",
+      "source": "华尔街见闻",
+      "url": "https://wallstreetcn.com/articles/3769781"
     }
   ],
   "smartMoneyDetail": [
@@ -123,27 +122,19 @@
       "tier": "T1旗舰",
       "funds": [
         {
-          "name": "伯克希尔（巴菲特）",
-          "action": "现金储备$3733亿维持历史高位，持仓结构稳定——CVX能源持仓占比7.24%在高油价下增值，AAPL减持后维持22.6%第一重仓，传递市场整体估值偏高的隐性信号",
+          "name": "伯克希尔",
+          "action": "Q4增持CVX(+6.6%)/CB(+9.3%)、减持AAPL(-4.3%)/BAC(-8.9%)，现金储备$3,733亿创历史新高——Greg Abel首次重启回购，油价上涨利好CVX持仓",
           "signal": "neutral",
-          "source": "StockZoa/13Radar",
+          "source": "SEC EDGAR 13F",
           "freshness": "本月"
         },
         {
-          "name": "段永平 H&H",
-          "action": "4月9日宣布泡泡玛特sell put策略正式开张，称商业壁垒远超想象；仍看好PDD（4月8日称'蛮有吸引力'）；明确表态不买黄金——核心持仓AAPL/BRK.B/NVDA/PDD结构未变",
-          "signal": "bullish",
-          "source": "腾讯新闻/雪球@大道无形我有型",
-          "url": "https://news.qq.com/rain/a/20260409A060QE00",
-          "freshness": "本周"
-        },
-        {
-          "name": "ARK Invest（木头姐）",
-          "action": "4月10日买入PLTR约590万美元（占比提升至3.26%），同时卖出AMD约590万美元（短期获利了结）；TSLA仍维持第一重仓10.5%，CoreWeave新兴持仓持续关注",
-          "signal": "bullish",
-          "source": "Cathie's Ark",
-          "url": "https://cathiesark.com/arkk/trades",
-          "freshness": "本周"
+          "name": "桥水基金",
+          "action": "全天候组合持仓$274亿覆盖1966只股票，Dalio持续看好黄金和大宗——地缘冲突环境下滞胀交易仍为核心策略",
+          "signal": "bearish",
+          "source": "HedgeFollow",
+          "url": "https://hedgefollow.com/funds/Bridgewater+Associates",
+          "freshness": "本月"
         }
       ]
     },
@@ -151,16 +142,19 @@
       "tier": "T2成长",
       "funds": [
         {
-          "name": "黑石集团",
-          "action": "AI基础设施投资布局持续加速，CoreWeave（CRWV）是其核心押注——CRWV与Anthropic签数十亿美元协议后CRWV+10.87%，验证黑石AI基建赛道判断；苏世民重申另类资产配置重心正转向AI基建",
+          "name": "ARK Invest",
+          "action": "4/10全线买入PLTR共$990万+清仓AMD$1090万；4/7-8买入TSLA $14.1M+HOOD $12.5M，连续卖出ROKU/TER——重仓AI军事+自动驾驶方向",
           "signal": "bullish",
-          "freshness": "本月"
+          "source": "cathiesark.com",
+          "url": "https://cathiesark.com/ark-funds-combined/trades",
+          "freshness": "本周"
         },
         {
-          "name": "Millennium（Israel Englander）",
-          "action": "[4/10] 13F显示新建仓ASML约980万美元，在AI光刻机半导体设备赛道建立战略性配置——与Ken Fisher同期选择ASML作为2026年AI首选股逻辑一致",
+          "name": "段永平 H&H",
+          "action": "4/9正式开设泡泡玛特sell put（保险公司开张），评价其IP+门店+管理团队壁垒远超想象；对拼多多称蛮有吸引力，1400亿市值扣现金5年回本",
           "signal": "bullish",
-          "source": "MarketBeat",
+          "source": "腾讯新闻",
+          "url": "https://news.qq.com/rain/a/20260409A060QE00",
           "freshness": "本周"
         }
       ]
@@ -169,15 +163,25 @@
       "tier": "策略师观点",
       "funds": [
         {
-          "name": "高盛 David Kostin",
-          "action": "Q1财报季开幕，高盛自身今日率先发布——Kostin团队维持S&P 500 2026年目标区间，关注点在于油价上涨是否将导致企业指引下调；历史上87%概率超出预期",
+          "name": "Goldman Sachs",
+          "action": "Q1 EPS $17.55大幅超预期，ROE 19.8%，交易业务强势——年内一次降息（年末3.25-3.50%）基准预测不变",
           "signal": "neutral",
+          "source": "Goldman Sachs",
+          "url": "https://www.goldmansachs.com/pressroom/press-releases/2026/2026-04-13-q1-results",
           "freshness": "本周"
         },
         {
-          "name": "Tom Lee（Fundstrat）",
-          "action": "[4/11] 称美股2026年最强反弹周结束后，财报季将是下一个重要定价锚，若大银行超预期，SPX有望重新挑战6900-7000区间；仍对科技/AI持乐观看法",
-          "signal": "bullish",
+          "name": "Morgan Stanley",
+          "action": "全年零降息预测不变（鹰派hold），核心PCE 2.8%仍显著高于2%目标——stagflation风险下看空债市",
+          "signal": "bearish",
+          "source": "primerates.com",
+          "freshness": "本周"
+        },
+        {
+          "name": "JPMorgan",
+          "action": "警告若霍尔木兹封锁持续，美国汽油价格可能达$5/加仑——年内一次降息基准预测但下行风险增大",
+          "signal": "bearish",
+          "source": "CoinAlertNews",
           "freshness": "本周"
         }
       ]
@@ -320,7 +324,7 @@
           "change": "减持"
         }
       ],
-      "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，泡泡玛特4月9日开始sell put布局（尚未进入13F）"
+      "footnote": "持仓数14只，核心极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，新建仓CRWV/CRDO/TEM，4/9泡泡玛特sell put开张"
     },
     {
       "manager": "Cathie Wood · ARK旗舰",
@@ -332,7 +336,7 @@
           "name": "特斯拉",
           "symbol": "TSLA",
           "weight": "10.5%",
-          "change": "持仓不变"
+          "change": "加仓"
         },
         {
           "name": "CRISPR治疗",
@@ -362,7 +366,7 @@
           "name": "Roku",
           "symbol": "ROKU",
           "weight": "4.2%",
-          "change": "持仓不变"
+          "change": "减持"
         },
         {
           "name": "Palantir",
@@ -389,13 +393,13 @@
           "change": "持仓不变"
         }
       ],
-      "footnote": "4/10买入PLTR+590万$/卖出AMD-590万$，近期连续关注CoreWeave(CRWV)和Kodiak AI(KDK)但尚未进入Top10"
+      "footnote": "ARK每日披露，本周大买PLTR$990万+TSLA$14.1M+HOOD$12.5M，清仓AMD$1090万+卖出TER$14.8M——AI军事+自动驾驶方向加码"
     }
   ],
-  "dataTime": "2026-04-13 14:27 BJT",
+  "dataTime": "2026-04-14 06:25 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-13T14:15:00+08:00",
+    "generatedAt": "2026-04-14T06:30:00+08:00",
     "skillVersion": "v10.6"
   }
 }
