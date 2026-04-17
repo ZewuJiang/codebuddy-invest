@@ -1,111 +1,114 @@
 {
-  "date": "2026-04-15",
+  "date": "2026-04-17",
   "predictions": [
     {
       "title": "美联储6月降息?",
       "source": "CME FedWatch",
       "probability": 28,
       "trend": "stable",
-      "change24h": -2
+      "change24h": 0
     },
     {
-      "title": "美伊达成停火协议?",
+      "title": "美联储9月降息?",
+      "source": "CME FedWatch",
+      "probability": 48,
+      "trend": "stable",
+      "change24h": 0
+    },
+    {
+      "title": "美伊达成永久停火协议?",
       "source": "Polymarket",
-      "probability": 35,
-      "trend": "down",
-      "change24h": -8
+      "probability": 52,
+      "trend": "up",
+      "change24h": 0
     }
   ],
   "trafficLights": [
     {
       "name": "VIX波动率",
-      "value": "18.36",
-      "status": "yellow",
+      "value": "17.94",
+      "status": "green",
       "threshold": "<18绿 / 18-25黄 / >25红"
     },
     {
       "name": "10Y美债收益率",
-      "value": "4.25%",
+      "value": "4.32%",
       "status": "yellow",
       "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
     },
     {
       "name": "布伦特原油",
-      "value": "$102.91",
+      "value": "$96.40",
       "status": "yellow",
       "threshold": "<$90绿 / $90-110黄 / >$110红"
     },
     {
       "name": "美元指数DXY",
-      "value": "98.14",
+      "value": "98.22",
       "status": "green",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
     {
       "name": "HY信用利差",
-      "value": "2.94%",
+      "value": "2.84%",
       "status": "green",
       "threshold": "<4%绿 / 4-5%黄 / >5%红"
     },
     {
       "name": "黄金XAU",
-      "value": "$4,787",
+      "value": "$4,839",
       "status": "red",
       "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "6.8356",
+      "value": "6.82",
       "status": "green",
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
-  "riskScore": 80,
+  "riskScore": 70,
   "riskLevel": "high",
-  "riskAdvice": "黄金$4,787亮红灯（避险情绪极端化），布伦特$103虽从高位回落但封锁未解除——4/21停火到期前若无协议，油价将重新冲击$110红灯阈值，通胀再定价风险急升。",
+  "riskAdvice": "VIX 17.94回落至绿灯(<18)是积极信号，但黄金$4,839独亮红灯揭示避险资金仍未撤离——10Y美债4.32%+布伦特$96.40双黄灯，riskScore 70(high)。纳指12连涨动能衰减+GICS 6涨5跌分化+4/22停火到期倒计时5天+UNH 4/21财报——短期事件密集期需保持警惕。",
   "riskAlerts": [],
   "events": [
     {
-      "date": "周三",
-      "title": "美伊第二轮谈判可能重启，特朗普暗示数日内恢复对话",
-      "impact": "high",
-      "source": "White House",
-      "url": "https://www.cnbc.com/2026/04/14/trump-iran-war-strait-of-hormuz-negotiations.html"
+      "date": "04/17(今日)",
+      "title": "Netflix Q1财报消化(盘后已发布超预期)+美国初请失业金数据",
+      "impact": "medium"
     },
     {
       "date": "04/21",
-      "title": "美伊停火协议到期——若无续期或新协议，封锁全面升级",
+      "title": "UNH联合健康Q1财报——医疗保健板块风向标，XLV-0.78%已承压",
+      "impact": "high"
+    },
+    {
+      "date": "04/22",
+      "title": "美伊停火协议到期——倒计时5天，调解方原则同意延长但细节未明",
       "impact": "high",
-      "source": "NPR",
-      "url": "https://www.npr.org/2026/04/12/nx-s1-5782538/u-s-iran-peace-talks-islamabad-collapse"
+      "source": "Reuters",
+      "url": "https://www.reuters.com/world/middle-east/iran-ceasefire-talks-2026-04-16/"
     },
     {
-      "date": "周三",
-      "title": "IMF春季会议期间发布全球经济展望更新",
-      "impact": "medium",
-      "source": "IMF",
-      "url": "https://www.imf.org/en/live"
-    },
-    {
-      "date": "周四",
-      "title": "美国周度初请失业金数据发布，关注劳动力市场韧性",
-      "impact": "medium"
+      "date": "下周",
+      "title": "TSLA/GOOGL/META/MSFT等科技巨头Q1财报季密集发布",
+      "impact": "high"
     }
   ],
   "alerts": [
     {
       "level": "warning",
-      "text": "霍尔木兹海峡封锁生效首日，6艘商船被美军劝返，全球20%石油通道受阻",
-      "time": "09:00",
+      "text": "纳指12连涨但涨幅从+1.59%收窄至+0.36%，GICS 6涨5跌分化加剧——连涨动能明显衰减，XLE-1.41%能源领跌+M7内部4涨3跌，均值回归压力累积",
+      "time": "06:00",
       "source": "CNBC",
-      "url": "https://www.cnbc.com/2026/04/14/trump-iran-war-strait-of-hormuz-negotiations.html"
+      "url": "https://www.cnbc.com/2026/04/15/stock-market-today-live-updates.html"
     },
     {
       "level": "info",
-      "text": "BTC单日涨5.15%突破$74K，空头清算$4.5亿，创近两个月新高",
-      "time": "22:00",
-      "source": "Blockchair",
-      "url": "https://blockchair.com/news/btc-price-analysis-april-14-2026--73b75669d6"
+      "text": "MS/Citi/BlackRock 4/14同日将美股升级至超配——2026最强多头共识信号，GS维持目标7200(+2.3%)，中期趋势方向获顶级策略师集体背书",
+      "time": "06:00",
+      "source": "Bloomberg",
+      "url": "https://www.bloomberg.com/news/articles/2026-04-14/wall-street-strategists-turn-bullish"
     }
   ],
   "smartMoneyDetail": [
@@ -113,17 +116,22 @@
       "tier": "T1旗舰",
       "funds": [
         {
-          "name": "伯克希尔",
-          "action": "2025Q4 13F显示减持AAPL(-4.3%)/BAC(-8.9%)，增持CVX(+6.6%)/CB(+9.3%)，现金储备$3,733亿创历史新高——Greg Abel即将接任后首次启动回购",
+          "name": "伯克希尔/Abel",
+          "action": "Greg Abel正式接任CEO，现金储备$3,250亿(最新)+持续减持AAPL(-75%至3亿股)/BAC(-50%)，OXY增至28%+",
           "signal": "neutral",
           "source": "SEC EDGAR"
         },
         {
           "name": "贝莱德",
-          "action": "2026投资展望维持超配美股立场，Larry Fink强调AI基础设施投资将驱动新一轮资本开支周期",
+          "action": "4/14将美股升级至超配(Overweight)，IBIT单周净流入$6.12亿(BTC ETF持续吸金)",
           "signal": "bullish",
-          "source": "BlackRock Investment Institute",
-          "url": "https://www.blackrock.com/corporate/insights/blackrock-investment-institute/publications/outlook"
+          "source": "BlackRock Investment Institute"
+        },
+        {
+          "name": "桥水 Bridgewater",
+          "action": "新增SPY($30.4亿)/NVDA($7.2亿)/AMZN($4.5亿)，13F持仓全面增仓",
+          "signal": "bullish",
+          "source": "SEC EDGAR 13F"
         }
       ]
     },
@@ -132,14 +140,14 @@
       "funds": [
         {
           "name": "ARK Invest",
-          "action": "4/13减持Serica Technologies(SRTA)约$74万，ARKX全仓清仓该标的；近期持续买入CoreWeave(CRWV)和Kodiak AI(KDK)但尚未进入Top10",
-          "signal": "neutral",
+          "action": "4/10跨全基金大买PLTR约$1090万+同日清仓AMD约$1100万——从GPU算力转向AI Agent，4/7-8买TSLA+HOOD",
+          "signal": "bullish",
           "source": "CathiesArk",
           "url": "https://cathiesark.com/ark-funds-combined/trades"
         },
         {
           "name": "段永平 H&H",
-          "action": "2025Q4 13F大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，新建仓CRWV/CRDO/TEM，持仓极度集中AAPL+BRK.B占71%",
+          "action": "4/9 sell put泡泡玛特正式建仓('泡泡玛特保险公司开张')，继续看好拼多多，2025Q4 13F大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)",
           "signal": "bullish",
           "source": "SEC EDGAR 13F"
         }
@@ -149,19 +157,18 @@
       "tier": "策略师观点",
       "funds": [
         {
-          "name": "高盛 David Kostin",
-          "action": "[4/6] 维持标普500年度目标7,800点（+12%），强调AI资本开支、企业盈利韧性和联储支持三大支柱",
+          "name": "策略师共识",
+          "action": "[4/14] MS/Citi/BlackRock同日转多——2026最强多头共识信号，GS维持目标7,200(+2.3%)",
           "signal": "bullish",
-          "source": "Goldman Sachs Research",
-          "url": "https://www.financialcontent.com/article/marketminute-2026-4-6-goldman-sachs-forecasts-12-s-and-p-500-surge-in-2026-the-five-pillars-of-a-maturing-bull-market",
-          "freshness": "上周"
+          "source": "Bloomberg",
+          "freshness": "本周"
         },
         {
-          "name": "大摩 Mike Wilson",
-          "action": "年初目标SPX 7,800点不变，偏好美股超配全球同行，看好企业盈利增速延续",
+          "name": "高盛 David Kostin",
+          "action": "[4/6] 维持标普500年度目标7,200点(+2.3%)，强调AI资本开支和企业盈利韧性",
           "signal": "bullish",
-          "source": "Morgan Stanley",
-          "freshness": "本月"
+          "source": "Goldman Sachs Research",
+          "freshness": "上周"
         }
       ]
     }
@@ -234,7 +241,7 @@
           "change": "持仓不变"
         }
       ],
-      "footnote": "持仓数42只，Top10占88.3%，现金储备$3,733亿（Greg Abel首次重启回购），Q4增持CVX(+6.6%)/CB(+9.3%)，减持AAPL(-4.3%)/BAC(-8.9%)"
+      "footnote": "持仓数42只，Top10占88.3%，现金储备$3,250亿(Greg Abel正式接任CEO)，持续减持AAPL(-75%至3亿股)/BAC(-50%)，OXY增至28%+"
     },
     {
       "manager": "段永平 · H&H",
@@ -303,7 +310,7 @@
           "change": "减持"
         }
       ],
-      "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，新建仓CRWV/CRDO/TEM"
+      "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，4/9 sell put泡泡玛特建仓"
     },
     {
       "manager": "Cathie Wood · ARK旗舰",
@@ -351,7 +358,7 @@
           "name": "Palantir",
           "symbol": "PLTR",
           "weight": "3.8%",
-          "change": "持仓不变"
+          "change": "加仓"
         },
         {
           "name": "Block",
@@ -372,13 +379,13 @@
           "change": "持仓不变"
         }
       ],
-      "footnote": "ARK每日披露持仓变动，TSLA始终第一重仓，近期连续买入CoreWeave(CRWV)和Kodiak AI(KDK)但尚未进入Top10"
+      "footnote": "ARK每日披露持仓变动，4/10跨基金大买PLTR$1090万+清仓AMD$1100万，4/7-8买TSLA+HOOD，TSLA始终第一重仓"
     }
   ],
-  "dataTime": "2026-04-15 10:21 BJT",
+  "dataTime": "2026-04-17 06:28 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-15T10:00:00+08:00",
+    "generatedAt": "2026-04-17T06:00:00+08:00",
     "skillVersion": "v10.6"
   }
 }

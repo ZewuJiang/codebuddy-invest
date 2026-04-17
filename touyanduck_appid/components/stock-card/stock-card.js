@@ -55,7 +55,7 @@ Component({
 
       if (!isUnlisted) {
         changeColorClass = colorUtil.getChangeColorClass(stock.change)
-        changeText = (stock.change > 0 ? '+' : '') + stock.change + '%'
+        changeText = (stock.change > 0 ? '+' : '') + Number(stock.change).toFixed(2) + '%'
         isUp = stock.change >= 0
       }
 

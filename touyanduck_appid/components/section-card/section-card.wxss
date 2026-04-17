@@ -53,7 +53,7 @@
 }
 
 .sec-body-show {
-  max-height: 2000rpx;
+  max-height: 8000rpx;
   opacity: 1;
   margin-top: 16rpx;
 }

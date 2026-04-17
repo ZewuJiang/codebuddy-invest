@@ -95,7 +95,7 @@ def main():
         }
         print(f"  {status} {fname} → {desc[fname]}")
 
-    print(f"\n🔧 公式自动计算：auto_compute.py v2.0 已执行")
+    print(f"\n🔧 公式自动计算：auto_compute.py v3.0 已执行")
     print(f"📊 数据完整度：{completeness}")
 
     # 质量回归 diff

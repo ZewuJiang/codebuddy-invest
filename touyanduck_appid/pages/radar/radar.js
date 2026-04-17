@@ -163,7 +163,7 @@ Page({
         trendArrow: trendInfo.arrow,
         trendClass: trendInfo.colorClass,
         change24h: item.change24h || 0,
-        changeLabel: (item.change24h > 0 ? '+' : '') + (item.change24h || 0) + '%'
+        changeLabel: (item.change24h > 0 ? '+' : '') + Number(item.change24h || 0).toFixed(1) + '%'
       }
     })
     var predictionHook = ''

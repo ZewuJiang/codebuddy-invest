@@ -195,7 +195,7 @@ Page({
         var c = (typeof item.change === 'number' && !isNaN(item.change)) ? item.change : 0
         item.change = c
         item.colorClass = colorUtil.getChangeColorClass(c)
-        item.changeText = (c > 0 ? '+' : '') + c + '%'
+        item.changeText = (c > 0 ? '+' : '') + c.toFixed(2) + '%'
         item.isUp = c >= 0
         item.chartId = 'mc_' + item.name.replace(/[^a-zA-Z0-9]/g, '') + '_' + idx
         item.animDelay = idx * 60

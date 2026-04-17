@@ -445,7 +445,7 @@ def render(briefing, markets, watchlist, radar):
 
     # ── 页脚 ──
     lines.append("---")
-    lines.append(f"🦆 投研鸭 {version} | 八大铁律+29条零容忍 | 每工作日更新（每4小时刷新行情）")
+    lines.append(f"🦆 投研鸭 {version} | 九大铁律+29条零容忍+17项FATAL门禁 | 每工作日更新")
     lines.append(f"📱 微信小程序: 搜索「投研鸭」 | ⚠️ 仅供参考，不构成投资建议")
     lines.append("")
 
