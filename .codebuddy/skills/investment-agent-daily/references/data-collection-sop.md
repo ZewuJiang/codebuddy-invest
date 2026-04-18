@@ -73,7 +73,7 @@ web_fetch: https://www.google.com/finance/quote/XLRE:NYSEARCA  (房地产)
 | 美股指数/个股 | Google Finance (web_fetch) | 东方财富/StockAnalysis | MarketWatch |
 | VIX | Google Finance `VIX:INDEXCBOE` | web_search | 同花顺 |
 | 港股/A股 | 东方财富/同花顺 | Google Finance | 新浪财经 |
-| 加密 | Google Finance `BTC-USD` | CoinGecko | — |
+| 加密 | Google Finance `BTC-USD`（取"前收价"字段，标注"GF前收价UTC{日期}"）⚠️ | CoinGecko历史K线 | CoinMarketCap历史数据 |
 | 黄金/白银 | web_search + 金投网 | OilPrice.com | — |
 | **布伦特原油（主指标）** | **web_fetch OilPrice.com** | **金投网** | **web_search** |
 | WTI原油（辅指标） | web_fetch OilPrice.com | 金投网 | web_search |

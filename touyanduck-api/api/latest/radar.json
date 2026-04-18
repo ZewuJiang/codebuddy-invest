@@ -4,23 +4,23 @@
     {
       "title": "美联储6月降息?",
       "source": "CME FedWatch",
-      "probability": 28,
-      "trend": "stable",
-      "change24h": 0
-    },
-    {
-      "title": "美联储9月降息?",
-      "source": "CME FedWatch",
-      "probability": 48,
-      "trend": "stable",
-      "change24h": 0
-    },
-    {
-      "title": "美伊达成永久停火协议?",
-      "source": "Polymarket",
-      "probability": 52,
+      "probability": 35,
       "trend": "up",
-      "change24h": 0
+      "change24h": 7
+    },
+    {
+      "title": "美伊达成永久停火?",
+      "source": "Polymarket",
+      "probability": 58,
+      "trend": "up",
+      "change24h": 6
+    },
+    {
+      "title": "布伦特年底低于$90?",
+      "source": "Polymarket",
+      "probability": 45,
+      "trend": "up",
+      "change24h": 20
     }
   ],
   "trafficLights": [
@@ -32,31 +32,31 @@
     },
     {
       "name": "10Y美债收益率",
-      "value": "4.32%",
+      "value": "4.25%",
       "status": "yellow",
       "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
     },
     {
       "name": "布伦特原油",
-      "value": "$96.40",
-      "status": "yellow",
+      "value": "$88.91",
+      "status": "green",
       "threshold": "<$90绿 / $90-110黄 / >$110红"
     },
     {
       "name": "美元指数DXY",
-      "value": "98.22",
+      "value": "97.75",
       "status": "green",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
     {
       "name": "HY信用利差",
-      "value": "2.84%",
+      "value": "2.85%",
       "status": "green",
       "threshold": "<4%绿 / 4-5%黄 / >5%红"
     },
     {
       "name": "黄金XAU",
-      "value": "$4,839",
+      "value": "$4,867",
       "status": "red",
       "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
     },
@@ -67,48 +67,54 @@
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
-  "riskScore": 70,
-  "riskLevel": "high",
-  "riskAdvice": "VIX 17.94回落至绿灯(<18)是积极信号，但黄金$4,839独亮红灯揭示避险资金仍未撤离——10Y美债4.32%+布伦特$96.40双黄灯，riskScore 70(high)。纳指12连涨动能衰减+GICS 6涨5跌分化+4/22停火到期倒计时5天+UNH 4/21财报——短期事件密集期需保持警惕。",
+  "riskScore": 60,
+  "riskLevel": "medium",
+  "riskAdvice": "布伦特暴跌10%至$88.91从黄灯翻绿是重大利好，但黄金$4,867独亮红灯(避险极端)揭示市场并未完全信任停火持久性——4/21停火到期是决定油价是否V型反弹的关键节点。",
   "riskAlerts": [],
   "events": [
     {
       "date": "04/17(今日)",
-      "title": "Netflix Q1财报消化(盘后已发布超预期)+美国初请失业金数据",
-      "impact": "medium"
-    },
-    {
-      "date": "04/21",
-      "title": "UNH联合健康Q1财报——医疗保健板块风向标，XLV-0.78%已承压",
+      "title": "伊朗开放霍尔木兹海峡+原油暴跌10%——市场定价地缘风险急降",
       "impact": "high"
     },
     {
-      "date": "04/22",
-      "title": "美伊停火协议到期——倒计时5天，调解方原则同意延长但细节未明",
+      "date": "04/21",
+      "title": "美伊停火协议到期——倒计时4天，续约与否决定油价方向",
       "impact": "high",
       "source": "Reuters",
-      "url": "https://www.reuters.com/world/middle-east/iran-ceasefire-talks-2026-04-16/"
+      "url": "https://www.reuters.com/world/middle-east/"
     },
     {
-      "date": "下周",
-      "title": "TSLA/GOOGL/META/MSFT等科技巨头Q1财报季密集发布",
+      "date": "04/22",
+      "title": "TSLA特斯拉Q1财报——FSD进展+Optimus更新+交付数据",
+      "impact": "high"
+    },
+    {
+      "date": "04/23-24",
+      "title": "GOOGL/META/MSFT等科技巨头Q1财报集中发布",
       "impact": "high"
     }
   ],
   "alerts": [
     {
+      "level": "danger",
+      "text": "布伦特原油暴跌-10.55%至$88.91——伊朗开放霍尔木兹海峡+黎以停火推动2020年以来最大单日跌幅，XLE-3.45%能源板块独跌",
+      "time": "10:00",
+      "source": "Reuters",
+      "url": "https://www.reuters.com/world/middle-east/"
+    },
+    {
       "level": "warning",
-      "text": "纳指12连涨但涨幅从+1.59%收窄至+0.36%，GICS 6涨5跌分化加剧——连涨动能明显衰减，XLE-1.41%能源领跌+M7内部4涨3跌，均值回归压力累积",
-      "time": "06:00",
+      "text": "Netflix Q1财报不及预期盘前暴跌10%——用户增长放缓，流媒体板块承压但整体市场选择性忽视",
+      "time": "09:00",
       "source": "CNBC",
-      "url": "https://www.cnbc.com/2026/04/15/stock-market-today-live-updates.html"
+      "url": "https://www.cnbc.com/2026/04/17/netflix-earnings.html"
     },
     {
       "level": "info",
-      "text": "MS/Citi/BlackRock 4/14同日将美股升级至超配——2026最强多头共识信号，GS维持目标7200(+2.3%)，中期趋势方向获顶级策略师集体背书",
-      "time": "06:00",
-      "source": "Bloomberg",
-      "url": "https://www.bloomberg.com/news/articles/2026-04-14/wall-street-strategists-turn-bullish"
+      "text": "AMD创历史新高+7.8%、ANET+4.33%——台积电Q1利润+58%催化半导体全面走强，AI算力军备竞赛加速",
+      "time": "10:00",
+      "source": "CNBC"
     }
   ],
   "smartMoneyDetail": [
@@ -117,7 +123,7 @@
       "funds": [
         {
           "name": "伯克希尔/Abel",
-          "action": "Greg Abel正式接任CEO，现金储备$3,250亿(最新)+持续减持AAPL(-75%至3亿股)/BAC(-50%)，OXY增至28%+",
+          "action": "Greg Abel正式接任CEO，现金储备$3,733亿+持续减持AAPL/BAC，CVX占比升至7.24%但今日能源板块暴跌-3.45%",
           "signal": "neutral",
           "source": "SEC EDGAR"
         },
@@ -129,7 +135,7 @@
         },
         {
           "name": "桥水 Bridgewater",
-          "action": "新增SPY($30.4亿)/NVDA($7.2亿)/AMZN($4.5亿)，13F持仓全面增仓",
+          "action": "新增SPY($30.4亿)/NVDA($7.2亿)/AMZN($4.5亿)，13F持仓全面增仓——最大对冲基金显著加仓美股",
           "signal": "bullish",
           "source": "SEC EDGAR 13F"
         }
@@ -147,7 +153,7 @@
         },
         {
           "name": "段永平 H&H",
-          "action": "4/9 sell put泡泡玛特正式建仓('泡泡玛特保险公司开张')，继续看好拼多多，2025Q4 13F大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)",
+          "action": "4/9 sell put泡泡玛特正式建仓('泡泡玛特保险公司开张')，继续看好拼多多，2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)",
           "signal": "bullish",
           "source": "SEC EDGAR 13F"
         }
@@ -158,14 +164,14 @@
       "funds": [
         {
           "name": "策略师共识",
-          "action": "[4/14] MS/Citi/BlackRock同日转多——2026最强多头共识信号，GS维持目标7,200(+2.3%)",
+          "action": "[4/14] MS/Citi/BlackRock同日转多——2026最强多头共识信号，GS维持目标7,200(+1.2%)",
           "signal": "bullish",
           "source": "Bloomberg",
           "freshness": "本周"
         },
         {
           "name": "高盛 David Kostin",
-          "action": "[4/6] 维持标普500年度目标7,200点(+2.3%)，强调AI资本开支和企业盈利韧性",
+          "action": "[4/6] 维持标普500年度目标7,200点(+1.2%)，强调AI资本开支和企业盈利韧性",
           "signal": "bullish",
           "source": "Goldman Sachs Research",
           "freshness": "上周"
@@ -241,7 +247,7 @@
           "change": "持仓不变"
         }
       ],
-      "footnote": "持仓数42只，Top10占88.3%，现金储备$3,250亿(Greg Abel正式接任CEO)，持续减持AAPL(-75%至3亿股)/BAC(-50%)，OXY增至28%+"
+      "footnote": "持仓数42只，Top10占88.3%，现金储备$3,733亿(Greg Abel正式接任CEO)，Q4增持CVX(+6.6%)/CB(+9.3%)，减持AAPL(-4.3%)/BAC(-8.9%)"
     },
     {
       "manager": "段永平 · H&H",
@@ -382,10 +388,10 @@
       "footnote": "ARK每日披露持仓变动，4/10跨基金大买PLTR$1090万+清仓AMD$1100万，4/7-8买TSLA+HOOD，TSLA始终第一重仓"
     }
   ],
-  "dataTime": "2026-04-17 06:28 BJT",
+  "dataTime": "2026-04-17 22:30 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-17T06:00:00+08:00",
+    "generatedAt": "2026-04-17T22:00:00+08:00",
     "skillVersion": "v10.6"
   }
 }
