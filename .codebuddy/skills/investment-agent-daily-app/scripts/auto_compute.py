@@ -271,17 +271,18 @@ def fix_data_time(data, file_label):
 
 
 def fix_generated_at(data, file_label):
-    """v2.1: 确保 _meta.generatedAt 非空（ISO 8601 格式）"""
+    """v2.2: 每次执行都强制更新 _meta.generatedAt 为当前时间（确保前端显示准确）"""
     meta = data.get("_meta", {})
     if not meta:
         return False
-    ga = meta.get("generatedAt", "")
-    if not ga or "T" not in str(ga):
-        from datetime import datetime, timezone, timedelta
-        bjt = timezone(timedelta(hours=8))
-        now_bjt = datetime.now(bjt)
-        meta["generatedAt"] = now_bjt.strftime("%Y-%m-%dT%H:%M:%S+08:00")
-        print(f"  🔄 {file_label}._meta.generatedAt: '' → '{meta['generatedAt']}'")
+    from datetime import datetime, timezone, timedelta
+    bjt = timezone(timedelta(hours=8))
+    now_bjt = datetime.now(bjt)
+    new_val = now_bjt.strftime("%Y-%m-%dT%H:%M:%S+08:00")
+    old_val = meta.get("generatedAt", "")
+    meta["generatedAt"] = new_val
+    if old_val != new_val:
+        print(f"  🔄 {file_label}._meta.generatedAt: '{old_val}' → '{new_val}'")
         return True
     return False
 

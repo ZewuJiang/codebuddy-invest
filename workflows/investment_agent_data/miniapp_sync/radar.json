@@ -1,32 +1,32 @@
 {
-  "date": "2026-04-17",
+  "date": "2026-04-20",
   "predictions": [
     {
-      "title": "美联储6月降息?",
+      "title": "2026年美联储降息0次",
+      "source": "Polymarket",
+      "probability": 41.5,
+      "trend": "up",
+      "change24h": 2.5
+    },
+    {
+      "title": "2026年美联储降息1次",
+      "source": "Polymarket",
+      "probability": 23.5,
+      "trend": "stable",
+      "change24h": 0.3
+    },
+    {
+      "title": "4月FOMC维持利率",
       "source": "CME FedWatch",
-      "probability": 35,
-      "trend": "up",
-      "change24h": 7
-    },
-    {
-      "title": "美伊达成永久停火?",
-      "source": "Polymarket",
-      "probability": 58,
-      "trend": "up",
-      "change24h": 6
-    },
-    {
-      "title": "布伦特年底低于$90?",
-      "source": "Polymarket",
-      "probability": 45,
-      "trend": "up",
-      "change24h": 20
+      "probability": 98.9,
+      "trend": "stable",
+      "change24h": 0
     }
   ],
   "trafficLights": [
     {
       "name": "VIX波动率",
-      "value": "17.94",
+      "value": "17.48",
       "status": "green",
       "threshold": "<18绿 / 18-25黄 / >25红"
     },
@@ -38,106 +38,96 @@
     },
     {
       "name": "布伦特原油",
-      "value": "$88.91",
-      "status": "green",
+      "value": "$96.06",
+      "status": "yellow",
       "threshold": "<$90绿 / $90-110黄 / >$110红"
     },
     {
       "name": "美元指数DXY",
-      "value": "97.75",
+      "value": "98.43",
       "status": "green",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
     {
       "name": "HY信用利差",
-      "value": "2.85%",
+      "value": "3.8%",
       "status": "green",
       "threshold": "<4%绿 / 4-5%黄 / >5%红"
     },
     {
       "name": "黄金XAU",
-      "value": "$4,867",
+      "value": "$4,832",
       "status": "red",
       "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "6.82",
+      "value": "6.81",
       "status": "green",
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
-  "riskScore": 60,
-  "riskLevel": "medium",
-  "riskAdvice": "布伦特暴跌10%至$88.91从黄灯翻绿是重大利好，但黄金$4,867独亮红灯(避险极端)揭示市场并未完全信任停火持久性——4/21停火到期是决定油价是否V型反弹的关键节点。",
+  "riskScore": 70,
+  "riskLevel": "high",
+  "riskAdvice": "VIX降至17.48绿灯，市场情绪乐观。中东停火消除地缘溢价，原油回落至安全区间。黄金$4832仍处黄灯区间但已脱离极端高位。本周关注特斯拉财报（周三盘后）及全球PMI数据，若经济数据超预期强劲可能压制降息预期。",
   "riskAlerts": [],
   "events": [
     {
-      "date": "04/17(今日)",
-      "title": "伊朗开放霍尔木兹海峡+原油暴跌10%——市场定价地缘风险急降",
-      "impact": "high"
-    },
-    {
-      "date": "04/21",
-      "title": "美伊停火协议到期——倒计时4天，续约与否决定油价方向",
+      "date": "周一 4/20",
+      "title": "中国LPR利率决议，英特尔(INTC)财报发布（盘后）",
       "impact": "high",
-      "source": "Reuters",
-      "url": "https://www.reuters.com/world/middle-east/"
+      "source": "Trading Economics"
     },
     {
-      "date": "04/22",
-      "title": "TSLA特斯拉Q1财报——FSD进展+Optimus更新+交付数据",
-      "impact": "high"
+      "date": "周二 4/21",
+      "title": "美国零售销售环比0.6%（低于预期1.1%），联合健康(UNH)、GE航空财报",
+      "impact": "high",
+      "source": "Trading Economics"
     },
     {
-      "date": "04/23-24",
-      "title": "GOOGL/META/MSFT等科技巨头Q1财报集中发布",
-      "impact": "high"
+      "date": "周三 4/22",
+      "title": "特斯拉(TSLA)财报发布（盘后），英国CPI同比3.0%",
+      "impact": "high",
+      "source": "Tesla IR"
+    },
+    {
+      "date": "周四 4/23",
+      "title": "全球PMI初值（欧元区51.6/美国52.3），美国初请失业金207K",
+      "impact": "high",
+      "source": "Trading Economics"
+    },
+    {
+      "date": "周五 4/24",
+      "title": "美国密歇根消费者信心终值53.3（超预期47.6）",
+      "impact": "medium",
+      "source": "University of Michigan"
     }
   ],
-  "alerts": [
-    {
-      "level": "danger",
-      "text": "布伦特原油暴跌-10.55%至$88.91——伊朗开放霍尔木兹海峡+黎以停火推动2020年以来最大单日跌幅，XLE-3.45%能源板块独跌",
-      "time": "10:00",
-      "source": "Reuters",
-      "url": "https://www.reuters.com/world/middle-east/"
-    },
-    {
-      "level": "warning",
-      "text": "Netflix Q1财报不及预期盘前暴跌10%——用户增长放缓，流媒体板块承压但整体市场选择性忽视",
-      "time": "09:00",
-      "source": "CNBC",
-      "url": "https://www.cnbc.com/2026/04/17/netflix-earnings.html"
-    },
-    {
-      "level": "info",
-      "text": "AMD创历史新高+7.8%、ANET+4.33%——台积电Q1利润+58%催化半导体全面走强，AI算力军备竞赛加速",
-      "time": "10:00",
-      "source": "CNBC"
-    }
-  ],
+  "alerts": [],
   "smartMoneyDetail": [
     {
       "tier": "T1旗舰",
       "funds": [
         {
-          "name": "伯克希尔/Abel",
-          "action": "Greg Abel正式接任CEO，现金储备$3,733亿+持续减持AAPL/BAC，CVX占比升至7.24%但今日能源板块暴跌-3.45%",
+          "name": "OpenAI",
+          "action": "完成$1100亿融资，Amazon领投$500亿+NVIDIA $300亿+软银$300亿，估值$8400亿创历史纪录，年化收入$250亿",
+          "signal": "bullish",
+          "source": "State of AI Newsletter",
+          "url": "https://press.airstreet.com/p/state-of-ai-april-2026-newsletter"
+        },
+        {
+          "name": "伯克希尔",
+          "action": "现金储备维持$3733亿历史高位，等待估值回归机会，Greg Abel接班进程推进",
           "signal": "neutral",
-          "source": "SEC EDGAR"
+          "source": "SEC 13F",
+          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&type=13F"
         },
         {
-          "name": "贝莱德",
-          "action": "4/14将美股升级至超配(Overweight)，IBIT单周净流入$6.12亿(BTC ETF持续吸金)",
+          "name": "段永平",
+          "action": "核心持仓稳定，4月正式建仓泡泡玛特称壁垒比想象中大，2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)",
           "signal": "bullish",
-          "source": "BlackRock Investment Institute"
-        },
-        {
-          "name": "桥水 Bridgewater",
-          "action": "新增SPY($30.4亿)/NVDA($7.2亿)/AMZN($4.5亿)，13F持仓全面增仓——最大对冲基金显著加仓美股",
-          "signal": "bullish",
-          "source": "SEC EDGAR 13F"
+          "source": "SEC 13F",
+          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&type=13F"
         }
       ]
     },
@@ -146,16 +136,16 @@
       "funds": [
         {
           "name": "ARK Invest",
-          "action": "4/10跨全基金大买PLTR约$1090万+同日清仓AMD约$1100万——从GPU算力转向AI Agent，4/7-8买TSLA+HOOD",
+          "action": "TSLA维持第一重仓10.5%，近期持续买入CoreWeave(CRWV)和Kodiak AI(KDK)",
           "signal": "bullish",
-          "source": "CathiesArk",
+          "source": "ARK Daily Trade",
           "url": "https://cathiesark.com/ark-funds-combined/trades"
         },
         {
-          "name": "段永平 H&H",
-          "action": "4/9 sell put泡泡玛特正式建仓('泡泡玛特保险公司开张')，继续看好拼多多，2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)",
-          "signal": "bullish",
-          "source": "SEC EDGAR 13F"
+          "name": "桥水基金",
+          "action": "All Weather组合维持黄金超配，对中国资产配置谨慎乐观",
+          "signal": "neutral",
+          "source": "Bloomberg"
         }
       ]
     },
@@ -163,17 +153,17 @@
       "tier": "策略师观点",
       "funds": [
         {
-          "name": "策略师共识",
-          "action": "[4/14] MS/Citi/BlackRock同日转多——2026最强多头共识信号，GS维持目标7,200(+1.2%)",
-          "signal": "bullish",
-          "source": "Bloomberg",
-          "freshness": "本周"
-        },
-        {
           "name": "高盛 David Kostin",
-          "action": "[4/6] 维持标普500年度目标7,200点(+1.2%)，强调AI资本开支和企业盈利韧性",
+          "action": "维持标普500年终目标价6200点，认为关税对企业盈利冲击有限，AI资本开支支撑科技股",
           "signal": "bullish",
           "source": "Goldman Sachs Research",
+          "freshness": "上周"
+        },
+        {
+          "name": "大摩 Mike Wilson",
+          "action": "[4/10] 警告美股估值过高，建议降低仓位等待回调，认为盈利预期过于乐观",
+          "signal": "bearish",
+          "source": "Morgan Stanley Research",
           "freshness": "上周"
         }
       ]
@@ -247,7 +237,7 @@
           "change": "持仓不变"
         }
       ],
-      "footnote": "持仓数42只，Top10占88.3%，现金储备$3,733亿(Greg Abel正式接任CEO)，Q4增持CVX(+6.6%)/CB(+9.3%)，减持AAPL(-4.3%)/BAC(-8.9%)"
+      "footnote": "持仓数42只，Top10占88.3%，现金储备$3,733亿（Greg Abel首次重启回购）"
     },
     {
       "manager": "段永平 · H&H",
@@ -316,13 +306,13 @@
           "change": "减持"
         }
       ],
-      "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，4/9 sell put泡泡玛特建仓"
+      "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA/MSFT/TSM，4月正式建仓泡泡玛特"
     },
     {
       "manager": "Cathie Wood · ARK旗舰",
       "fund": "ARK Innovation ETF (ARKK)",
       "aum": "$6.8B",
-      "asOf": "2026-04-13（ARK每日持仓披露）",
+      "asOf": "2026-04-05",
       "positions": [
         {
           "name": "特斯拉",
@@ -364,7 +354,7 @@
           "name": "Palantir",
           "symbol": "PLTR",
           "weight": "3.8%",
-          "change": "加仓"
+          "change": "持仓不变"
         },
         {
           "name": "Block",
@@ -385,13 +375,13 @@
           "change": "持仓不变"
         }
       ],
-      "footnote": "ARK每日披露持仓变动，4/10跨基金大买PLTR$1090万+清仓AMD$1100万，4/7-8买TSLA+HOOD，TSLA始终第一重仓"
+      "footnote": "ARK每日披露持仓变动，TSLA始终第一重仓，近期连续买入CRWV/KDK"
     }
   ],
-  "dataTime": "2026-04-17 22:30 BJT",
+  "dataTime": "2026-04-20 10:05 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-17T22:00:00+08:00",
+    "generatedAt": "2026-04-20T06:00:00+08:00",
     "skillVersion": "v10.6"
   }
 }

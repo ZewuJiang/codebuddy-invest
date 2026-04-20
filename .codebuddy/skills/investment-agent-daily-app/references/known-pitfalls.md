@@ -83,7 +83,7 @@
 | 47 | 聪明钱持仓 change 字段（加仓/减持/新建仓等）凭记忆编写而非对比 Q3→Q4 13F 差异 | → 必须对比相邻两个季度的 13F 数据来判定 change。无法确认时填"持仓不变"（保守策略），禁止编造"大幅增持"等需要 Q3 基准的判断 | 高 |
 | 48 | globalReaction.value 混合格式（如"6,773 (+2.37%)"），导致前端33%宽度格子溢出换行 | → V41 校验：禁止括号，≤15字符。value 只放涨跌幅（"+2.37%"）或绝对值（"$4,774"），二选一。前端 `.reaction-item` 宽度 33.33%，长字符串必然溢出 | 高 |
 | 49 | watchlist metrics[2]/[3]（7日/30日涨跌）为空字符串，前端渲染为空白格子 | → V40 校验：禁止任何 metrics.value 为空字符串。auto_compute.py 从 sparkline/chartData 自动计算，无数据时填"—"（非空字符串） | 致命 |
-| 50 | _meta.generatedAt 为空字符串，导致前端 getRelativeTime() 降级显示原始 dataTime 而非"xx分钟前" | → V42 校验：4个JSON的 generatedAt 必须为非空 ISO 8601 格式。auto_compute.py v2.0 应自动填充 | 高 |
+| 50 | _meta.generatedAt 不更新：第二批及后续批次执行时，generatedAt 保留首批写入值（如06:00），前端显示"4小时前"而非实际更新时间 | → auto_compute.py v2.2 修复：每次执行强制覆盖 generatedAt 为当前时间，不再仅在为空时填充 | 高 |
 | 51 | AI 生成 JSON 时 price 写了 "--" 占位符未填实际价格，前端直接显示 "--" | → **致命**。V43 [FATAL] 拦截 price 为 "--"/"N/A"/空值。auto_compute.py v3.0 自动从 sparkline[-1] 推导填充兜底。**根因**：AI 在第二阶段查不到某些标的价格时用占位符先跳过，但后续未回填 | 致命 |
 | 52 | sparkline[-1] 与 price 偏差大（有的>80%），前端走势图末尾与顶部价格矛盾 | → auto_compute.py v3.0 自动将 sparkline[-1] 对齐 price（偏差>0.5%时修正），同时修复 sparkline 尾部方向与 change 符号的矛盾 | 高 |
 | 53 | chain[].url 和 coreJudgments[].references 被漏填，信源链可信度降低 | → V22/V23 校验拦截。AI 在第二阶段写 coreEvent.chain 时必须同步填 url（付费墙除外），写 coreJudgments 时必须填 references | 高 |

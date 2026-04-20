@@ -1,0 +1,179 @@
+{
+  "date": "2026-04-18",
+  "timeStatus": {
+    "bjt": "19:30",
+    "est": "07:30",
+    "marketStatus": "美股休市",
+    "refreshInterval": "每日更新"
+  },
+  "takeaway": "美股延续强势，【纳指12连涨】创1992年以来最长连涨纪录，【标普首次突破7100点】再创历史新高，但【VIX降至17.5】下方暗示短期可能过度乐观——关注下周财报密集期能否支撑估值。",
+  "coreEvent": {
+    "title": "美股史诗级连涨遇上黄金创历史新高——多头情绪全面释放后需警惕均值回归",
+    "chain": [
+      {
+        "title": "纳指豪取12连涨，追平1992年以来最长连涨纪录",
+        "brief": "科技股领涨带动纳指收于24,468点，AI板块延续强势，市场情绪极度乐观",
+        "source": "金融界",
+        "url": "https://usstock.jrj.com.cn/2026/04/17082156781065.shtml",
+        "source_count": 3
+      },
+      {
+        "title": "标普500首次突破7100点创历史新高",
+        "brief": "标普收于7,126点，年内涨幅扩大，AI算力链和消费股领涨",
+        "source": "雪球",
+        "url": "https://xueqiu.com/3338215700/384302180",
+        "source_count": 2
+      },
+      {
+        "title": "布伦特原油暴跌7.6%，霍尔木兹海峡停火缓解供应担忧",
+        "brief": "伊朗外长宣布霍尔木兹海峡在停火期间对商业交通完全开放，油价从$99暴跌至$92",
+        "source": "TradingEconomics",
+        "url": "https://tradingeconomics.com/commodity/brent-crude-oil",
+        "source_count": 2
+      },
+      {
+        "title": "黄金突破$4,800创历史新高，避险与央行购金双轮驱动",
+        "brief": "现货黄金收于$4,833/盎司，年涨幅超40%，美元走弱叠加地缘不确定性支撑",
+        "source": "TradingEconomics",
+        "url": "https://tradingeconomics.com/commodity/gold",
+        "source_count": 2
+      }
+    ]
+  },
+  "globalReaction": [
+    {
+      "name": "标普500",
+      "value": "+1.20%",
+      "direction": "up",
+      "note": "首次突破7100点"
+    },
+    {
+      "name": "纳斯达克",
+      "value": "+1.52%",
+      "direction": "up",
+      "note": "12连涨创纪录"
+    },
+    {
+      "name": "恒生科技",
+      "value": "+1.0%",
+      "direction": "up",
+      "note": "科技股反弹"
+    },
+    {
+      "name": "黄金",
+      "value": "$4,834",
+      "direction": "up",
+      "note": "创历史新高"
+    },
+    {
+      "name": "布伦特原油",
+      "value": "-7.57%",
+      "direction": "down",
+      "note": "停火缓解供应担忧"
+    },
+    {
+      "name": "10Y美债",
+      "value": "4.25%",
+      "direction": "down",
+      "note": "收益率小幅回落"
+    }
+  ],
+  "coreJudgments": [
+    {
+      "title": "美股连涨动能或接近尾声，短期需警惕技术性回调",
+      "confidence": 72,
+      "logic": "纳指12连涨追平33年纪录 → VIX降至17.5下方接近历史低位 → 波动率过度压缩后均值回归风险上升",
+      "keyActor": "市场技术面",
+      "references": [
+        {
+          "name": "金融界",
+          "summary": "纳指连续12个交易日上涨，追平2009年以来连涨纪录",
+          "url": "https://usstock.jrj.com.cn/2026/04/17082156781065.shtml"
+        }
+      ],
+      "probability": "中可能性",
+      "trend": "稳定"
+    },
+    {
+      "title": "黄金突破$4,800后仍有上行空间，但需关注美元反弹风险",
+      "confidence": 68,
+      "logic": "央行购金+避险需求双轮驱动 → 黄金年涨40%创历史新高 → 美元指数跌破98支撑位，若反弹将压制金价",
+      "keyActor": "全球央行",
+      "references": [
+        {
+          "name": "TradingEconomics",
+          "summary": "黄金年涨幅达40.74%，创历史新高",
+          "url": "https://tradingeconomics.com/commodity/gold"
+        }
+      ],
+      "probability": "中可能性",
+      "trend": "上升"
+    },
+    {
+      "title": "油价暴跌反映地缘溢价快速消退，布伦特或下探$85",
+      "confidence": 65,
+      "logic": "霍尔木兹海峡开放承诺 → 地缘溢价单日蒸发$7 → OPEC+产量政策与需求前景将重新定价",
+      "keyActor": "伊朗外长",
+      "references": [
+        {
+          "name": "TradingEconomics",
+          "summary": "布伦特单日暴跌7.57%，跌破$92关口",
+          "url": "https://tradingeconomics.com/commodity/brent-crude-oil"
+        }
+      ],
+      "probability": "高可能性",
+      "trend": "下降"
+    }
+  ],
+  "actionHints": [],
+  "sentimentScore": 72,
+  "sentimentLabel": "偏贪婪",
+  "marketSummaryPoints": [
+    "美股三大指数集体收涨，纳指12连涨创33年纪录，标普首次突破7100点，市场情绪极度乐观",
+    "AI算力链领涨，NVDA/AAPL/TSLA涨幅均超1.5%，科技股成为连涨主力军",
+    "VIX降至17.5下方，波动率压缩至历史低位区间，需警惕均值回归风险",
+    "黄金突破$4,800创历史新高，避险资产与风险资产同步上涨反映流动性充裕",
+    "布伦特原油暴跌7.6%，地缘溢价快速消退，下周关注OPEC+产量政策"
+  ],
+  "smartMoney": [
+    {
+      "source": "段永平",
+      "action": "4/4亲赴Westfield门店调研泡泡玛特，收回\"不投资\"说法后持续跟踪，评价\"right business\"",
+      "signal": "bullish"
+    },
+    {
+      "source": "ARK Invest",
+      "action": "4/17减持Circle约121.5万美元和Bullish约25万美元，连续买入TSLA后小幅获利了结",
+      "signal": "neutral"
+    }
+  ],
+  "topHoldings": [
+    {
+      "name": "伯克希尔",
+      "holdings": "AAPL 22.6% | AXP 20.5% | BAC 10.4% | KO 10.2% | CVX 7.2% · 现金$3733亿"
+    },
+    {
+      "name": "段永平",
+      "holdings": "AAPL 50.3% | BRK.B 20.6% | NVDA 7.7% | PDD 7.5% | GOOG 3.3% · 泡泡玛特观察中"
+    },
+    {
+      "name": "ARK旗舰",
+      "holdings": "TSLA 10.5% | CRSP 6.3% | TEM 5.0% | SHOP 4.7% | COIN 4.3%"
+    }
+  ],
+  "riskPoints": [
+    "VIX降至17.5下方接近历史低位，波动率过度压缩后存在均值回归风险",
+    "黄金$4,833亮红灯（避险情绪极端），若美元反弹将压制贵金属价格",
+    "纳指12连涨后技术面超买，下周财报密集期若不及预期可能触发回调"
+  ],
+  "riskNote": "市场情绪极度乐观，VIX降至历史低位区间，短期需警惕技术性回调风险。黄金创历史新高亮红灯，布伦特油价暴跌反映地缘溢价快速消退。",
+  "dataTime": "2026-04-18 19:46 BJT",
+  "audioUrl": "cloud://cloud1-3g6wj06h84f38ea8.636c-cloud1-3g6wj06h84f38ea8-1418169528/audio/briefing-2026-04-18.mp3",
+  "audioFile": "briefing-2026-04-18.mp3",
+  "voiceText": "今天是2026年4月18日，周五。美股延续强势，纳指豪取12连涨，创1992年以来最长连涨纪录。标普500首次突破7100点，收于7126点，再创历史新高。科技股成为连涨主力军，英伟达、苹果、特斯拉涨幅均超1.5%。VIX恐慌指数降至17.5下方，波动率压缩至历史低位区间，需警惕均值回归风险。黄金突破4800美元创历史新高，年涨幅超40%，避险与央行购金双轮驱动。布伦特原油暴跌7.6%至92美元，霍尔木兹海峡停火缓解供应担忧。段永平4月4日亲赴Westfield门店调研泡泡玛特，评价是门好生意，收回此前不投资说法。风险提示：VIX降至历史低位，短期需警惕技术性回调风险。",
+  "_meta": {
+    "sourceType": "heavy_analysis",
+    "generatedAt": "2026-04-18T19:30:00+08:00",
+    "skillVersion": "v10.6"
+  }
+}
