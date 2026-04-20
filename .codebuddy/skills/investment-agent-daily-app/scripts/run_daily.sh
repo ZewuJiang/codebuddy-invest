@@ -170,6 +170,46 @@ else
 fi
 echo ""
 
+# ── 第1.5步：强制刷新 _meta.generatedAt（确保前端时间显示准确）────
+# 【设计说明】此步骤是 shell 层硬保障，不依赖 AI 行为，无论何种模型/跳过何种步骤，
+#            upload 前 generatedAt 必被更新为当前执行时间。
+echo "🕐 第1.5步：强制刷新 _meta.generatedAt 为当前时间..."
+echo ""
+
+python3 -c "
+import json, os
+from datetime import datetime, timezone, timedelta
+
+sync_dir = '$SYNC_DIR'
+bjt = timezone(timedelta(hours=8))
+now_val = datetime.now(bjt).strftime('%Y-%m-%dT%H:%M:%S+08:00')
+
+for fname in ['briefing.json', 'markets.json', 'watchlist.json', 'radar.json']:
+    fpath = os.path.join(sync_dir, fname)
+    if not os.path.exists(fpath):
+        print(f'  ⚠️  {fname} 不存在，跳过')
+        continue
+    with open(fpath, 'r', encoding='utf-8') as f:
+        d = json.load(f)
+    meta = d.get('_meta')
+    if meta is None:
+        d['_meta'] = {}
+        meta = d['_meta']
+    old = meta.get('generatedAt', '')
+    meta['generatedAt'] = now_val
+    with open(fpath, 'w', encoding='utf-8') as f:
+        json.dump(d, f, ensure_ascii=False, indent=2)
+    print(f'  ✅ {fname}: {old!r} → {now_val!r}')
+"
+
+if [ $? -eq 0 ]; then
+    echo "  ✅ 全部 _meta.generatedAt 刷新完成"
+else
+    echo "  ❌ generatedAt 刷新失败，请检查 JSON 文件是否完整"
+    exit 1
+fi
+echo ""
+
 # ── 第2步：上传到微信云数据库 ──────────────────────────────────
 echo "☁️  第2步：上传校正后的 JSON 到微信云数据库..."
 echo ""

@@ -1,7 +1,7 @@
 {
   "version": "7.1",
-  "date": "2026-04-20",
-  "updatedAt": "2026-04-20T10:06:08+08:00",
+  "date": "/Users/zewujiang/Desktop/AICo/codebuddy-invest/workflows/investment_agent_data/miniapp_sync",
+  "updatedAt": "2026-04-20T14:08:09+08:00",
   "sourceType": "heavy_analysis",
   "refreshInterval": "每工作日更新（日内可手动刷新）",
   "collections": [
