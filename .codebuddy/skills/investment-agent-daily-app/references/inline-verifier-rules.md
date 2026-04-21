@@ -1,6 +1,6 @@
 # Generator-Verifier 内联自校验规则（v1.0）
 
-> **用途**：Phase 2 每生成一个 JSON 后立即执行的内联校验清单。从 validate.py v5.6 的 17 项 FATAL + 关键 WARN 中提取"可在写入时即时检测"的子集。
+> **用途**：Phase 2 每生成一个 JSON 后立即执行的内联校验清单。从 validate.py v5.7 的 17 项 FATAL + 关键 WARN 中提取"可在写入时即时检测"的子集。
 > **设计原则**：Generator-Verifier 是**前置过滤**，validate.py 仍是**终极门禁**。两层防护，不是替代关系。
 > **核心价值**：在 Phase 2 就拦截明显错误，避免进入 Phase 3 run_daily.sh 后触发 FATAL 导致整体重来。
 > **加载时机**：L3 批次（Phase 2 前加载）

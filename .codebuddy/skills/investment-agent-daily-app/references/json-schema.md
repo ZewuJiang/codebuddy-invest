@@ -552,7 +552,7 @@
 ## 四、radar.json — 雷达页
 
 **对应页面**：`pages/radar/radar.wxml` + `radar.js`
-**版本**：v3.3（2026-04-05，对应前端 radar.js v7.0 / radar.wxml v7.0）
+**版本**：v3.3（2026-04-05，对应前端 radar.js v7.1 / radar.wxml v7.1）
 **涵盖模块（v6.3 新6模块）**：
 1. **聪明钱动向**（三梯队扁平化，按 T1>T2>策略师 排序，全部直接展示，不折叠）
 2. **聪明钱持仓** ⭐v6.3新增（巴菲特BRK + 段永平H&H 的13F头部持仓及占比，默认折叠，点击展开）
@@ -791,10 +791,5 @@
 ---
 
 > v5.0 — 2026-04-08 | **Harness v9.0**：清理 Refresh 模式相关引用——sourceType 枚举去掉 `refresh_update`、refreshCount 标注废弃、refreshInterval 固定为"每日更新"。
-> v4.6 — 2026-04-08 | **持仓字段硬约束升级（回归门禁 R1-R8 配套）**：①`topHoldings` 从"🔸可选2-4条"升级为"⚠️必填≥3条"（伯克希尔+段永平+ARK旗舰缺一不可）；②`smartMoneyHoldings` 从"🔸可选"升级为"⚠️必填"（伯克希尔+段永平必须存在）；③`positions` 从"推荐Top10"升级为"≥Top10硬约束"；④新增 `holdings-cache.json` 引用规则（非13F窗口期直接引用缓存，禁止凭记忆修改权重）
-> v4.5 — 2026-04-07 | `coreEvent.chain[]` 新增 `source_count` 可选字段（多源交叉验证标记）：①`refreshInterval` 新增 Refresh 模式说明（"每4小时更新"）；②`_meta` 新增 `refreshCount` 可选字段（当天第几次 Refresh，调试追溯用）；③版本号 v4.2→v4.4 对齐 Refresh 模式变更。
-> v4.3 — 2026-04-06 17:59 | **新增语音播报字段**：briefing.json 新增 `audioUrl`/`audioFile`/`voiceText` 三个可选字段，支持前端时间状态栏🔊播放按钮。由 `generate_audio.py`（MiniMax TTS）+ `upload_to_cloud.py` v1.2 自动生成和上传。
-> v4.2 — 2026-04-06 14:06 | **标的页质量基线门禁固化+枚举修复**：①新增「标的页质量基线门禁 W1-W9」——9项覆盖板块完整性/字段完整性/analysis质量/reason论据/tags精准/metrics一致性/summary有数据/sparkline-price一致/risks独立具体；②§5.3 `sectors[].id` 枚举从旧7板块修正为新5板块；③新增「简报页质量基线门禁 B1-B12」（v4.1已固化）。
-> v4.1 — 2026-04-06 14:05 | **简报页质量基线门禁 B1-B12 固化**：12项逐条自查清单覆盖 takeaway~整体价投风格；以 2026-04-06 版 briefing.json 为黄金样本基准。
-> v4.0 — 2026-04-06 13:59 | **市场页 v4.4 优化 + 质量基线门禁固化**：Insight 升级为决策信号式；sparkline-price 一致性校验；新增 Q1-Q8 市场页门禁。
-> v3.9 及更早 | 详见 git 历史。
+> v4.6 — 2026-04-08 | **持仓字段硬约束升级（回归门禁 R1-R8 配套）**：topHoldings 升级为必填≥3条；smartMoneyHoldings 升级为必填；positions 升级为≥Top10硬约束；新增 holdings-cache.json 引用规则。
+> v4.5 及更早版本 | 详见 git log 或 CHANGELOG.md。

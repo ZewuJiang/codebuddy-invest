@@ -311,7 +311,7 @@ web_search: "{公司名} {TICKER} latest earnings analysis 2026"
 | **个股 PE(TTM)** | **StockAnalysis.com / web_search** | "—"（不阻断） | — |
 | **历史走势（sparkline）** | **AkShare 新浪源+东方财富 fallback 真实历史序列** | **回采后重试** | **阻断发布（禁止估算）** |
 | 基金&大资金 | SEC EDGAR | WhaleWisdom | web_search |
-| **ARK 每日交易（v1.6新增）** | **`web_fetch: ark-invest.com/trade-notifications`** | **web_search "ARK daily trade"** | — |
+| **ARK 每日交易（v1.6新增）** | **`web_fetch: cathiesark.com/ark-funds-combined/trades`** | **web_search "ARK daily trade"** | — |
 | **段永平/H&H 持仓（v1.6新增）** | **SEC EDGAR 13F (H&H International)** | **HedgeFollow/WhaleWisdom** | **雪球(@大道无形我有型)** |
 
 ---
@@ -770,5 +770,6 @@ NVDA 英伟达 | $134.50 | -2.37% | 5D:[136.2,135.8,137.1,135.5,136.0,134.9,134.
 
 ---
 
-> v3.0 — 2026-04-20 | **v11.0 架构升级**：①新增§0.8 并行采集分组规范（P1-P4 四组并行+S1串行+同步屏障+失败处理）②新增§0.9 Context 压缩最小字段集提取规范（11个批次精确字段表+绝对禁止事项+Context预算分配）③采集批次总览新增「并行组」列标注。
-> v2.1 — 2026-04-09 | 新增§0.5 price与sparkline同源规则 + §0.6 sparkline禁止零值填充规则（Harness v10.4 教训）+ §0.7 质量门禁与重试机制。
+> v3.0 — 2026-04-20 | **v11.0 架构升级**：新增§0.8 并行采集分组规范（P1-P4 四组并行+S1串行+同步屏障+失败处理）+ §0.9 Context 压缩最小字段集提取规范（11个批次精确字段表+绝对禁止事项+Context预算分配）。
+> v2.1 — 2026-04-09 | 新增§0.5 price与sparkline同源规则 + §0.6 sparkline禁止零值填充规则 + §0.7 质量门禁与重试机制。
+> v2.0 及更早版本 | 详见 git log 或 CHANGELOG.md。

@@ -4,6 +4,66 @@
 
 ---
 
+## v11.3（2026-04-21 21:40）— 全面细节审查（13处精准修复）
+
+**优化内容**：
+
+1. **P0 数据/事实不一致修复（4处）**：
+   - SKILL.md 头部"三批分层 L1/L2/L3"→"四批分层 L1/L2/L3/L4"（与正文一致）
+   - SKILL.md 引用索引 known-pitfalls 描述"65条 v5.4"→"64条活跃+6条归档 v5.5"
+   - README.md known-pitfalls 版本"v5.4（65条活跃）"→"v5.5（64条活跃+6条归档）"
+   - README.md SKILL.md 描述版本号 v11.1→v11.2
+
+2. **P1 版本滞后+数据源错误修复（5处）**：
+   - README.md 架构描述/标题版本号 v11.1→v11.2
+   - json-schema.md radar 前端版本注释 v7.0→v7.1
+   - radar.wxml 注释版本 v7.0→v7.1
+   - data-collection-sop.md ARK URL 从已404的 `ark-invest.com/trade-notifications` 修正为 `cathiesark.com/ark-funds-combined/trades`
+
+3. **P2 描述精度+代码清洁+减噪（4处）**：
+   - inline-verifier-rules.md 引用 validate.py v5.6→v5.7
+   - color.js getTrendInfo fallback 默认值"中性"→"观望"（与 hold 映射一致）
+   - briefing.js dataTime 移除无意义的 `split('/')`（dataTime 格式不含斜杠）
+   - SKILL.md v9.0 简化说明去除 Heavy/Refresh 历史引用（减少新读者困惑）
+
+**涉及文件（8个）**：SKILL.md, README.md, CHANGELOG.md, json-schema.md, inline-verifier-rules.md, data-collection-sop.md, radar.wxml, color.js, briefing.js
+
+---
+
+## v11.2（2026-04-21 20:30）— 规范体系 Harness 深度清理
+
+**优化内容**：
+
+1. **Phase 0 废弃物清理**：
+   - 删除 `refresh-mode.md`（v9.0 已废弃 Refresh 模式，该 392 行文件为纯噪音，AI 可能误读激活废弃逻辑）
+
+2. **Phase 1 全量版本对齐**：
+   - README.md 版本 v11.0→v11.1；脚本版本号全面对齐（run_daily.sh v6.2, validate.py v5.7, data-collection-sop v3.1, known-pitfalls v5.5）
+   - SKILL.md 引用索引 known-pitfalls 描述从"60条"更新为"65条 v5.4"
+   - CHANGELOG.md v11.0 条目补全标题行（原文缺少版本号标题）
+
+3. **Phase 2 减噪瘦身**：
+   - SKILL.md v11.0 Changelog 从 ~8 行精简为 2 行摘要（节省 ~400 token）
+   - json-schema.md 底部版本日志从 8 条裁剪为 3 条（节省 ~500 token）
+   - fund-universe.md 底部版本日志从 5 条裁剪为 3 条（节省 ~800 token）
+   - data-collection-sop.md 底部版本日志裁剪
+   - known-pitfalls.md 底部版本日志从 14 条裁剪为 4 条（节省 ~600 token）
+   - known-pitfalls.md #64（P0路径Bug）已被 v6.1 永久修复，移入归档区
+
+4. **Phase 3 质量信号优化**：
+   - SKILL.md 规范健康度快照新增 `known-pitfalls.md` 版本行
+   - 堵点计数更精确：64条活跃 + 6条归档
+
+**版本号变更**：known-pitfalls.md v5.4→v5.5
+
+**总体效果**：
+- 清除 ~2300 token 噪音（refresh-mode 392行 + Changelog/版本日志裁剪）
+- 消除 1 个 P0 级误导风险（废弃的 Refresh 模式规范文件）
+- 修复 ~15 处版本/描述不对齐
+- 提升 AI 的"有效注意力比"——references 每一个文件都是活跃的、每一行都是有用的
+
+---
+
 ## v11.1（2026-04-21 12:30）— 数据链路 P0 Bug 修复 + 前端 asOf 显示修正
 
 **根因**：2026-04-21 排查发现小程序前端数据不更新，追溯到两处系统性缺陷。
@@ -36,7 +96,7 @@
 
 ---
 
-
+## v11.0（2026-04-20 20:00）— Phase 1 并行采集 + Context 压缩 + References 分层加载 + Generator-Verifier 内联自校验
 
 **原则**：Phase 1 采集效率倍增 + AI 上下文负担大幅减轻 + Phase 2 前置拦截 FATAL 错误。工具链零改动。
 

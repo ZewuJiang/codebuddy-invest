@@ -297,7 +297,7 @@ Page({
       topHoldings: d.topHoldings || [],
       riskPoints: riskPoints,
       riskNote: d.riskNote || '',
-      dataTime: (d.dataTime || '').split('/')[0].trim(),
+      dataTime: (d.dataTime || '').trim(),
       dataFreshness: dataFreshness || '',
       dataMeta: d._meta || null,
       audioUrl: d.audioUrl || '',
