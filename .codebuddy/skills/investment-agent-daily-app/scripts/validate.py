@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
 """
-投研鸭小程序数据质量自动化校验脚本 v5.6
+投研鸭小程序数据质量自动化校验脚本 v5.7
 ============================================================
 核心理念（Harness Engineering）:
   把"AI 记住规则"转变为"环境自动约束 AI"。
   本脚本在 run_daily.sh 中的 auto_compute.py 之后、sparkline 补全之前执行。
+
+v5.7 Harness v9.2 盲点补丁（2026-04-21 涨跌符号事故修复）：
+  - 新增 V38b [WARN] 美股三大指数方向合理性检测
+    弥补 V38 的结构性盲点：当 AI 同时把 change 和 sparkline 都写反时，
+    V38 会误判为"一致"而放行。V38b 通过检测 usInsight 文字与 change 方向矛盾来拦截。
+  - 校验项 54 → 55 项
 
 v5.6 Harness v10.6 全面收紧 FATAL 门禁（目标：每次全部通过）：
   - V35  WARN→FATAL 升级：audioUrl 为空 = 语音播报失效（核心功能）
@@ -1400,6 +1406,70 @@ def validate_sparkline_trend_vs_change(files, vr):
            "; ".join(direction_conflicts[:8]) if direction_conflicts else "全部一致 ✓")
 
 
+def validate_us_index_direction_plausibility(files, vr):
+    """V38b [WARN]: 美股三大指数涨跌方向合理性检测
+    
+    工具链盲点补丁（2026-04-21 事故教训）：
+    V38 只能检测 change 与 sparkline 的内部一致性。
+    当 AI 同时把 change 和 sparkline 都写反时（如 SPX -0.24% 写成 +0.24%，sparkline也写成上升），
+    V38 会误判为"一致"而放行。本项通过检查三大指数是否同向来发现这类错误。
+    
+    检查逻辑：
+    若三大指数（SPX/NDX/DJI）的 change 全为正且值接近相似（如都是+0.24/0.26/0.01），
+    则为正常。但若三大指数 change 全为正 且 usInsight 文本中含有明显的"跌/下跌/收跌"字样，
+    则发出 WARN（文字与数据矛盾）。
+    """
+    markets = files.get("markets")
+    if not markets:
+        vr.add("V38b", "美股三大指数方向合理性", None, "数据缺失")
+        return
+
+    us = markets.get("usMarkets", [])
+    if len(us) < 3:
+        vr.add("V38b", "美股三大指数方向合理性", None, "usMarkets 数据不足3项")
+        return
+
+    # 取三大指数（前3项：SPX/NDX/DJI）
+    indices = us[:3]
+    changes = [x.get("change") for x in indices if isinstance(x.get("change"), (int, float))]
+    
+    if len(changes) < 3:
+        vr.add("V38b", "美股三大指数方向合理性", None, "change 数值不足")
+        return
+
+    # 检查1：insight 文字与 change 方向矛盾
+    us_insight = markets.get("usInsight", "")
+    insight_bearish = any(kw in us_insight for kw in ["收跌", "下跌", "跌幅", "跌势", "微跌", "大跌"])
+    insight_bullish = any(kw in us_insight for kw in ["收涨", "上涨", "涨幅", "涨势", "大涨", "创新高"])
+    
+    all_positive = all(c > 0 for c in changes)
+    all_negative = all(c < 0 for c in changes)
+    
+    warnings = []
+    
+    # insight 说跌，但 change 全为正
+    if insight_bearish and all_positive:
+        warnings.append(
+            f"usInsight 含跌势描述但三大指数 change 全为正值 "
+            f"({', '.join(f'{c:+.2f}%' for c in changes)}) — 疑似涨跌符号写反，请核查"
+        )
+    
+    # insight 说涨，但 change 全为负
+    if insight_bullish and all_negative:
+        warnings.append(
+            f"usInsight 含涨势描述但三大指数 change 全为负值 "
+            f"({', '.join(f'{c:+.2f}%' for c in changes)}) — 疑似涨跌符号写反，请核查"
+        )
+
+    if warnings:
+        vr.add("V38b", "美股三大指数方向合理性（Insight文字 vs change 矛盾）", False,
+               "; ".join(warnings))
+    else:
+        names = [x.get("name", "") for x in indices[:3]]
+        vr.add("V38b", "美股三大指数方向合理性", True,
+               f"{names[0]}{changes[0]:+.2f}% / {names[1]}{changes[1]:+.2f}% / {names[2]}{changes[2]:+.2f}% — Insight方向一致 ✓")
+
+
 def validate_holdings_13f_compliance(files, vr):
     """V39 [FATAL]: 聪明钱持仓 13F 数据合规性校验 — 拦截 AI 编造的期权/虚构标的
     
@@ -1969,10 +2039,11 @@ def main():
     validate_source_type_consistency(files, vr)
     validate_audio_url(files, vr)
 
-    # === V36-V38: 数据安全防护层 (v10.1 Harness Engineering 新增) ===
+    # === V36-V38b: 数据安全防护层 (v10.1 Harness Engineering 新增) ===
     validate_cross_json_consistency(files, vr)
     validate_value_reasonableness(files, vr)
     validate_sparkline_trend_vs_change(files, vr)
+    validate_us_index_direction_plausibility(files, vr)  # V38b: 2026-04-21 补丁，弥补V38盲点
 
     # === V39 [FATAL]: 聪明钱持仓 13F 合规性 (v10.2 新增) ===
     validate_holdings_13f_compliance(files, vr)

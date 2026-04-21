@@ -1,6 +1,6 @@
-# 已知堵点与应对策略 — App版（v5.3）
+# 已知堵点与应对策略 — App版（v5.4）
 
-> **用途**：投研鸭小程序数据生产过程中的已知堵点与应对方案（共64条活跃）。
+> **用途**：投研鸭小程序数据生产过程中的已知堵点与应对方案（共65条活跃）。
 > **核心原则**：先保真，再发布。核心行情缺失时宁可阻断，也不能用估算值顶上。
 
 ---
@@ -108,6 +108,7 @@
 | 62 | **🔴 重大事故 — 自媒体标题陷阱（GPT-6 虚假信息）**：web_search 返回中文自媒体"GPT-6正式发布"标题，AI 未去 OpenAI.com 核实就写入10+处，造成**重大信息失误**。已固化为 RULE ZERO-C 和 data-collection-sop.md §0.4。**防治铁律**：①重大事件必须 web_fetch 官方源核实 ②无法核实宁删不写 ③自媒体标题不可直接采信 | web_fetch 官方源（OpenAI.com/Anthropic.com/Bloomberg）核实，无法核实则删除该条 | **高危，必须防范** |
 | 63 | **ARK 持仓 asOf 日期陈旧**：ARK 每日公开披露但 holdings-cache.json 的 asOf 停留在旧日期（如4/5），导致页面展示两周前的陈旧快照。**防治**：ARK 是每日披露特殊情况，不适用"非窗口期直接引用缓存"规则，每次执行时必须更新 asOf 为当日日期并注明最新交易 | 每次 Batch 4 采集后同步更新 ARK 的 asOf 日期为 YYYY-MM-DD 并在 footnote 标注最新交易 | 高频 |
 | 64 | **🔴 P0 路径不一致 — AI 写日期子目录，工具链读根目录，小程序前端全程用旧数据**：AI（v11.0）将 JSON 写入 `miniapp_sync/YYYY-MM-DD/`，但 run_daily.sh 的 `SYNC_DIR` 指向 `miniapp_sync/`（无日期后缀），upload_to_cloud.py / sync_to_edgeone.sh 全链路都读根目录旧文件，导致微信云数据库和 GitHub Pages 始终用前一次的数据，小程序前端数据永远不更新。**根本修复**：run_daily.sh v6.1 新增「第-1步」：执行任何步骤之前先把日期子目录内容 `cp` 到根目录，确保工具链读到的永远是当日数据 | run_daily.sh v6.1 第-1步自动处理；也可手动：`for f in briefing markets watchlist radar; do cp miniapp_sync/DATE/$f.json miniapp_sync/$f.json; done` | **已修复（v6.1）** |
+| 65 | **🔴 涨跌符号全错 + 数据版本分裂 — AI 首版JSON涨跌幅±符号错误，手工修正了api/latest但忘记重新上传云数据库**：AI 在第一次写 JSON 时（06:55）将三大指数跌幅全部写成正值（如 SPX -0.24% 写成 +0.24%），M7 个股数据错位对应（NVDA 和 AAPL 数值互换）。手工修正后只更新了 `touyanduck-api/api/latest/` 但未重新运行 `upload_to_cloud.py`，导致微信云数据库仍是错误版本，前端显示全错。**防治铁律**：①凡手工修正 JSON 数据后，必须立即 `python3 upload_to_cloud.py "$SYNC_DIR" "YYYY-MM-DD"` 重新上传；②SKILL.md Checklist V2 强制核查：上传后确认云端涨跌幅符号与 JSON 一致；③validate V38 [FATAL] 应拦截 sparkline 趋势与 change 符号矛盾，若 V38 未拦截说明 sparkline 方向本身也同步写错了（符号一致但均错） | 手工修正后：`cp touyanduck-api/api/latest/markets.json miniapp_sync/markets.json && python3 upload_to_cloud.py "$SYNC_DIR" "YYYY-MM-DD"` | **高危，新增防范** |
 
 ## 小程序端兼容性堵点
 
@@ -147,6 +148,7 @@
 
 ---
 
+> v5.4 — 2026-04-21 | **涨跌符号错误 + 数据版本分裂**：新增堵点 #65（AI 首版 JSON 涨跌幅符号全错，validate V38 未能全量拦截，手工修正了 api/latest 但忘记重新上传云数据库，导致前端显示全错数据），活跃堵点数 64→65。
 > v5.3 — 2026-04-21 | **P0 路径Bug修复**：新增堵点 #64（AI写日期子目录 vs 工具链读根目录路径不一致），run_daily.sh 升级至 v6.1 新增第-1步自动同步，活跃堵点数 63→64。
 > v5.0 — 2026-04-20 | **v11.0 架构升级**：新增「并行采集与 Context 压缩堵点」章节（#57并行组数据竞争/#58 Context压缩丢字段/#59 串行组S1等待超时/#60 内联自校验橡皮图章），活跃堵点数 56→60。
 > v4.5 — 2026-04-13 | **Harness v10.6**：堵点 #45 更新（V35 升级为 FATAL），活跃堵点数不变 56条。

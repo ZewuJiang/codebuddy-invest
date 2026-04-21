@@ -1,9 +1,14 @@
 #!/bin/bash
 # ============================================================
-# 投研鸭小程序 — 每日数据更新串联脚本 v6.1（Harness v9.1）
-# 执行顺序：日期子目录同步 → JSON语法校验 → auto_compute.py公式计算 → validate.py自动化校验(35+项) → sparkline补全 → 上传 → 同步API
+# 投研鸭小程序 — 每日数据更新串联脚本 v6.2（Harness v9.2）
+# 执行顺序：日期子目录同步 → 【新】涨跌方向快速目视摘要 → JSON语法校验 → auto_compute.py公式计算 → validate.py自动化校验(54项) → sparkline补全 → 上传 → 同步API
 #
 # 用法：bash run_daily.sh [YYYY-MM-DD] [--skip-warn]
+#
+# 【v9.2 改动】（2026-04-21 涨跌符号事故修复）：
+#   - 新增第-0.5步：涨跌方向快速目视摘要
+#     打印所有主要标的的 change 值（含符号），让执行者在1秒内发现涨跌方向全错
+#     这是对"工具链无法发现 change 和 sparkline 同步写错"盲点的补充防护
 #
 # 【v9.1 改动】：
 #   - 新增第-1步：自动将 miniapp_sync/YYYY-MM-DD/ 同步到 miniapp_sync/ 根目录
@@ -70,6 +75,57 @@ else
     echo ""
 fi
 
+# ── 第-0.5步：涨跌方向快速目视摘要（v9.2 新增 — 弥补工具链盲点）────
+# 设计理念：工具链只校验内部一致性，无法发现 change 和 sparkline 同步写错的场景。
+# 本步骤在1秒内打印所有主要标的的涨跌幅，让执行者"目视"发现全线正值/全线负值的异常。
+# 注意：三大指数 SPX/NDX/DJI 在正常交易日不可能同时全涨或全跌超过 0.5%——如出现应立即核查。
+echo "👁️  第-0.5步：涨跌方向快速目视摘要（看到全线同号请立即核查数据源）..."
+echo ""
+
+python3 -c "
+import json, os
+
+sync_dir = '$SYNC_DIR'
+fpath = os.path.join(sync_dir, 'markets.json')
+if not os.path.exists(fpath):
+    print('  ⚠️  markets.json 不存在，跳过')
+    exit(0)
+
+try:
+    d = json.load(open(fpath))
+except:
+    print('  ⚠️  markets.json 语法错误，跳过')
+    exit(0)
+
+def fmt(c):
+    if not isinstance(c, (int, float)):
+        return '?'
+    s = '+' if c >= 0 else ''
+    return f'{s}{c:.2f}%'
+
+print('  === 美股指数 ===')
+for x in d.get('usMarkets', []):
+    arrow = '↑' if isinstance(x.get('change'), (int,float)) and x['change'] >= 0 else '↓'
+    print(f'  {arrow} {x[\"name\"]}: {fmt(x.get(\"change\"))}')
+
+print()
+print('  === M7 巨头（前4只）===')
+for x in d.get('m7', [])[:4]:
+    arrow = '↑' if isinstance(x.get('change'), (int,float)) and x['change'] >= 0 else '↓'
+    print(f'  {arrow} {x.get(\"name\",\"\").split()[0]}: {fmt(x.get(\"change\"))}')
+
+print()
+print('  === 大宗（黄金/原油）===')
+for x in d.get('commodities', [])[:2]:
+    arrow = '↑' if isinstance(x.get('change'), (int,float)) and x['change'] >= 0 else '↓'
+    print(f'  {arrow} {x[\"name\"].split()[0]}: {fmt(x.get(\"change\"))}')
+
+print()
+print('  💡 三大指数若全部同向±0.5%以上为正常，若方向与市场常识严重矛盾请停止并修复 JSON')
+"
+
+echo ""
+
 # ── 第0步：JSON 语法预校验 ────────────────────────────────────
 echo "🔍 第0步：JSON 语法校验（确保 AI 生成的 4 个文件合法）..."
 echo ""
@@ -116,7 +172,7 @@ if [ $COMPUTE_EXIT -ne 0 ]; then
 fi
 
 # ── 第0.5步：数据质量自动化校验（FATAL/WARN 双级） ──────────
-echo "🔍 第0.5步：数据质量自动化校验（validate.py v5.6 — 54项 FATAL/WARN 双级门禁）..."
+echo "🔍 第0.5步：数据质量自动化校验（validate.py v5.7 — 55项 FATAL/WARN 双级门禁）..."
 echo ""
 
 # 模式检测：根据星期几判断（v9.0 简化：只有 standard / weekend）
