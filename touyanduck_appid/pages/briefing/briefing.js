@@ -176,12 +176,20 @@ Page({
         // v1.3.1 兼容新旧格式
         result.references = item.references.map(function(ref) {
           if (typeof ref === 'string') {
-            return { name: ref, summary: '', url: '' }
+            return { name: ref, summary: '', url: '', domain: '' }
           }
+          var url = ref.url || ''
+          // 提取域名供前端显示（如 https://www.reuters.com/... → reuters.com）
+          var domain = ''
+          try {
+            var m = url.match(/^https?:\/\/(?:www\.)?([^/]+)/)
+            domain = m ? m[1] : url
+          } catch (e) { domain = url }
           return {
             name: ref.name || '',
             summary: ref.summary || '',
-            url: ref.url || ''
+            url: url,
+            domain: domain
           }
         })
         result.refCount = item.references.length

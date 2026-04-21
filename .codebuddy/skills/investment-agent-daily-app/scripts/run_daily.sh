@@ -1,9 +1,13 @@
 #!/bin/bash
 # ============================================================
-# 投研鸭小程序 — 每日数据更新串联脚本 v6.0（Harness v9.0）
-# 执行顺序：JSON语法校验 → auto_compute.py公式计算 → validate.py自动化校验(35+项) → sparkline补全 → 上传 → 同步API
+# 投研鸭小程序 — 每日数据更新串联脚本 v6.1（Harness v9.1）
+# 执行顺序：日期子目录同步 → JSON语法校验 → auto_compute.py公式计算 → validate.py自动化校验(35+项) → sparkline补全 → 上传 → 同步API
 #
 # 用法：bash run_daily.sh [YYYY-MM-DD] [--skip-warn]
+#
+# 【v9.1 改动】：
+#   - 新增第-1步：自动将 miniapp_sync/YYYY-MM-DD/ 同步到 miniapp_sync/ 根目录
+#     （修复 AI 写日期子目录 vs 工具链读根目录路径不一致导致小程序数据不更新的 Bug）
 #
 # 【v9.0 改动】：
 #   - 新增第0.3步：auto_compute.py 自动计算公式字段
@@ -11,7 +15,7 @@
 #   - validate.py v3.0：去掉 refresh 分支
 #
 # 【校验双级机制 v2.0】：
-#   FATAL 级（R2/R3/R9）：不可绕过，必须修复（--skip-warn 无效）
+#   FATAL 级（R2/R3/R9/V39-V46）：不可绕过，必须修复（--skip-warn 无效）
 #   WARN 级（其他）：可用 --skip-warn 紧急跳过
 #
 # 【依赖层级】：
@@ -47,6 +51,25 @@ echo "🦆 投研鸭小程序每日数据更新 — ${DATE}"
 echo "============================================================"
 echo ""
 
+# ── 第-1步：将日期子目录文件同步到根目录（修复 AI 写日期子目录 vs 工具链读根目录路径不一致）──
+DATE_SYNC_DIR="$SYNC_DIR/$DATE"
+if [ -d "$DATE_SYNC_DIR" ]; then
+    echo "📂 第-1步：将 miniapp_sync/$DATE/ 同步到 miniapp_sync/ 根目录..."
+    COPY_OK=1
+    for f in briefing.json markets.json watchlist.json radar.json; do
+        if [ -f "$DATE_SYNC_DIR/$f" ]; then
+            cp "$DATE_SYNC_DIR/$f" "$SYNC_DIR/$f"
+            echo "  ✅ 已复制: $DATE/$f → $f"
+        else
+            echo "  ⚠️  日期子目录中不存在: $DATE/$f（将使用根目录原有文件）"
+        fi
+    done
+    echo ""
+else
+    echo "⚠️  第-1步：日期子目录不存在（$DATE_SYNC_DIR），跳过同步，使用根目录现有文件"
+    echo ""
+fi
+
 # ── 第0步：JSON 语法预校验 ────────────────────────────────────
 echo "🔍 第0步：JSON 语法校验（确保 AI 生成的 4 个文件合法）..."
 echo ""
@@ -79,7 +102,7 @@ echo "✅ JSON 语法校验通过"
 echo ""
 
 # ── 第0.3步：公式字段自动计算（Harness v9.0 新增） ──────────────
-echo "🔧 第0.3步：公式字段自动计算（auto_compute.py v1.0）..."
+echo "🔧 第0.3步：公式字段自动计算（auto_compute.py v3.0）..."
 echo "   自动计算：trafficLights.status / riskScore / riskLevel / sentimentLabel / metrics联动"
 echo ""
 
@@ -93,7 +116,7 @@ if [ $COMPUTE_EXIT -ne 0 ]; then
 fi
 
 # ── 第0.5步：数据质量自动化校验（FATAL/WARN 双级） ──────────
-echo "🔍 第0.5步：数据质量自动化校验（validate.py v3.0 — 35+ 项 FATAL/WARN 双级门禁）..."
+echo "🔍 第0.5步：数据质量自动化校验（validate.py v5.6 — 54项 FATAL/WARN 双级门禁）..."
 echo ""
 
 # 模式检测：根据星期几判断（v9.0 简化：只有 standard / weekend）
@@ -111,7 +134,7 @@ if [ $VALIDATE_EXIT -eq 3 ]; then
     # FATAL 级错误 — 不可绕过
     echo ""
     echo "🚫 存在 FATAL 级错误！必须修复后才能继续（--skip-warn 无法绕过 FATAL）。"
-    echo "   FATAL 项（R2/R3/R9）涉及聪明钱持仓数据完整性，请检查 holdings-cache.json 并修复。"
+    echo "   FATAL 项（R2/R3/R9/V39-V46）涉及数据完整性与合规，请检查报告并修复。"
     exit 1
 elif [ $VALIDATE_EXIT -eq 1 ]; then
     # 仅 WARN 级错误

@@ -1,5 +1,5 @@
 <!--pages/briefing/briefing.wxml-->
-<!-- 简报页 v7.0：三段式精简架构 — 发生了什么 / 该怎么办 / 风险底线 -->
+<!-- 简报页 v7.1：三段式精简架构 — 发生了什么 / 该怎么办 / 风险底线 -->
 
 <!-- 骨架屏 -->
 <skeleton type="briefing" loading="{{loading}}" rows="{{4}}" />
@@ -172,8 +172,8 @@
     <view class="risk-text" wx:if="{{!riskPoints.length && riskNote}}">{{riskNote}}</view>
   </section-card>
 
-  <!-- ⑤ 核心判断（降权，默认折叠）-->
-  <section-card title="🎯 核心判断" collapsible="{{true}}" expanded="{{false}}">
+  <!-- ⑤ 核心判断（默认展开）-->
+  <section-card title="🎯 核心判断" collapsible="{{true}}" expanded="{{true}}">
     <view class="judgment-list">
       <view class="judgment-item stagger-item {{animateReady ? 'stagger-show' : ''}}"
             wx:for="{{coreJudgments}}" wx:key="index"
@@ -227,7 +227,7 @@
                       bindtap="onRefLinkTap"
                       data-url="{{ref.url}}"
                       data-name="{{ref.name}}">
-                  <text class="jx-ref-domain">{{ref.url}}</text>
+                  <text class="jx-ref-domain">{{ref.domain || ref.url}}</text>
                   <text class="jx-ref-link-icon">↗</text>
                 </view>
               </view>

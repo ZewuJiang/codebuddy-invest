@@ -46,7 +46,7 @@ function getTrendInfo(trend) {
   var map = {
     up:   { label: '看多', tagClass: 'tag-red' },
     down: { label: '看空', tagClass: 'tag-green' },
-    hold: { label: '中性', tagClass: 'tag-yellow' }
+    hold: { label: '观望', tagClass: 'tag-yellow' }
   }
   return map[trend] || { label: '中性', tagClass: 'tag-yellow' }
 }

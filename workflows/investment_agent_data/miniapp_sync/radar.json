@@ -1,133 +1,119 @@
 {
-  "date": "2026-04-20",
+  "date": "2026-04-21",
   "predictions": [
     {
-      "title": "2026年美联储降息0次",
-      "source": "Polymarket",
-      "probability": 41.5,
-      "trend": "up",
-      "change24h": 2.5
-    },
-    {
-      "title": "2026年美联储降息1次",
-      "source": "Polymarket",
-      "probability": 23.5,
-      "trend": "stable",
-      "change24h": 0.3
-    },
-    {
-      "title": "4月FOMC维持利率",
+      "title": "美联储6月降息?",
       "source": "CME FedWatch",
-      "probability": 98.9,
-      "trend": "stable",
-      "change24h": 0
+      "probability": 28,
+      "trend": "down",
+      "change24h": -4
     }
   ],
   "trafficLights": [
     {
       "name": "VIX波动率",
-      "value": "17.48",
-      "status": "green",
+      "value": "18.87",
+      "status": "yellow",
       "threshold": "<18绿 / 18-25黄 / >25红"
     },
     {
       "name": "10Y美债收益率",
-      "value": "4.25%",
+      "value": "4.25",
       "status": "yellow",
       "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
     },
     {
       "name": "布伦特原油",
-      "value": "$96.06",
+      "value": "98.50",
       "status": "yellow",
       "threshold": "<$90绿 / $90-110黄 / >$110红"
     },
     {
       "name": "美元指数DXY",
-      "value": "98.43",
+      "value": "98.19",
       "status": "green",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
     {
       "name": "HY信用利差",
-      "value": "3.8%",
+      "value": "3.85",
       "status": "green",
       "threshold": "<4%绿 / 4-5%黄 / >5%红"
     },
     {
       "name": "黄金XAU",
-      "value": "$4,832",
+      "value": "4795.86",
       "status": "red",
       "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "6.81",
+      "value": "6.8125",
       "status": "green",
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
-  "riskScore": 70,
+  "riskScore": 80,
   "riskLevel": "high",
-  "riskAdvice": "VIX降至17.48绿灯，市场情绪乐观。中东停火消除地缘溢价，原油回落至安全区间。黄金$4832仍处黄灯区间但已脱离极端高位。本周关注特斯拉财报（周三盘后）及全球PMI数据，若经济数据超预期强劲可能压制降息预期。",
+  "riskAdvice": "黄金$4,796亮红灯（避险情绪极端），布伦特逼近$100黄灯区间——若霍尔木兹局势升级油价突破$110，将固化通胀预期、挤压降息空间。VIX单日+8%至18.87，距红灯仅6点空间。",
+  "monitorTable": [],
   "riskAlerts": [],
   "events": [
     {
-      "date": "周一 4/20",
-      "title": "中国LPR利率决议，英特尔(INTC)财报发布（盘后）",
-      "impact": "high",
-      "source": "Trading Economics"
-    },
-    {
-      "date": "周二 4/21",
-      "title": "美国零售销售环比0.6%（低于预期1.1%），联合健康(UNH)、GE航空财报",
-      "impact": "high",
-      "source": "Trading Economics"
-    },
-    {
-      "date": "周三 4/22",
-      "title": "特斯拉(TSLA)财报发布（盘后），英国CPI同比3.0%",
-      "impact": "high",
-      "source": "Tesla IR"
-    },
-    {
-      "date": "周四 4/23",
-      "title": "全球PMI初值（欧元区51.6/美国52.3），美国初请失业金207K",
-      "impact": "high",
-      "source": "Trading Economics"
-    },
-    {
-      "date": "周五 4/24",
-      "title": "美国密歇根消费者信心终值53.3（超预期47.6）",
+      "date": "周三",
+      "title": "美国3月耐用品订单数据发布，关注制造业景气度",
       "impact": "medium",
-      "source": "University of Michigan"
+      "source": "Trading Economics",
+      "url": "https://tradingeconomics.com/united-states/durable-goods-orders"
+    },
+    {
+      "date": "周四",
+      "title": "美国一季度GDP初值，市场预期增速放缓",
+      "impact": "high",
+      "source": "Bureau of Economic Analysis",
+      "url": "https://www.bea.gov/"
+    },
+    {
+      "date": "周五",
+      "title": "美联储核心PCE物价指数，通胀核心指标",
+      "impact": "high",
+      "source": "Bureau of Economic Analysis",
+      "url": "https://www.bea.gov/"
     }
   ],
-  "alerts": [],
+  "alerts": [
+    {
+      "level": "warning",
+      "text": "VIX单日飙升8%至18.87，逼近黄灯上沿(25)，市场波动率预期抬升",
+      "time": "04:00",
+      "source": "Google Finance",
+      "url": "https://www.google.com/finance/quote/VIX:INDEXCBOE"
+    },
+    {
+      "level": "warning",
+      "text": "黄金$4,796创历史新高，年内涨幅43.7%，避险情绪极端",
+      "time": "04:00",
+      "source": "Trading Economics",
+      "url": "https://tradingeconomics.com/commodity/gold"
+    }
+  ],
   "smartMoneyDetail": [
     {
       "tier": "T1旗舰",
       "funds": [
         {
-          "name": "OpenAI",
-          "action": "完成$1100亿融资，Amazon领投$500亿+NVIDIA $300亿+软银$300亿，估值$8400亿创历史纪录，年化收入$250亿",
-          "signal": "bullish",
-          "source": "State of AI Newsletter",
-          "url": "https://press.airstreet.com/p/state-of-ai-april-2026-newsletter"
-        },
-        {
           "name": "伯克希尔",
-          "action": "现金储备维持$3733亿历史高位，等待估值回归机会，Greg Abel接班进程推进",
+          "action": "Greg Abel接班后重启回购，Q4增持雪佛龙(+6.6%)和Chubb(+9.3%)，减持苹果(-4.3%)和美国银行(-8.9%)，现金储备$3733亿创历史新高",
           "signal": "neutral",
-          "source": "SEC 13F",
-          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&type=13F"
+          "source": "MSN",
+          "url": "https://www.msn.com/en-us/news/other/berkshire-may-have-sold-15-billion-of-stocks-run-by-former-manager/ar-AA21cmcg"
         },
         {
-          "name": "段永平",
-          "action": "核心持仓稳定，4月正式建仓泡泡玛特称壁垒比想象中大，2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)",
+          "name": "段永平 H&H",
+          "action": "卖Put布局泡泡玛特，称\"保险公司正式开张\"，通过卖出看跌期权方式收集目标仓位。4/4亲赴Westfield门店调研，评价\"right business\"",
           "signal": "bullish",
-          "source": "SEC 13F",
-          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&type=13F"
+          "source": "新浪财经",
+          "url": "https://finance.sina.com.cn/jjxw/2026-04-14/doc-inhunicu4806726.shtml"
         }
       ]
     },
@@ -136,16 +122,10 @@
       "funds": [
         {
           "name": "ARK Invest",
-          "action": "TSLA维持第一重仓10.5%，近期持续买入CoreWeave(CRWV)和Kodiak AI(KDK)",
+          "action": "近一周累计买入TSLA约$28M、HOOD约$12.5M，卖出TER约$24M、AMD约$10.8M，持续加仓成长股",
           "signal": "bullish",
-          "source": "ARK Daily Trade",
+          "source": "Cathie's Ark",
           "url": "https://cathiesark.com/ark-funds-combined/trades"
-        },
-        {
-          "name": "桥水基金",
-          "action": "All Weather组合维持黄金超配，对中国资产配置谨慎乐观",
-          "signal": "neutral",
-          "source": "Bloomberg"
         }
       ]
     },
@@ -153,18 +133,12 @@
       "tier": "策略师观点",
       "funds": [
         {
-          "name": "高盛 David Kostin",
-          "action": "维持标普500年终目标价6200点，认为关税对企业盈利冲击有限，AI资本开支支撑科技股",
+          "name": "Morgan Stanley",
+          "action": "预计牛市延续至第四年，标普500目标7800点，但地缘风险可能打断反弹进程",
           "signal": "bullish",
-          "source": "Goldman Sachs Research",
-          "freshness": "上周"
-        },
-        {
-          "name": "大摩 Mike Wilson",
-          "action": "[4/10] 警告美股估值过高，建议降低仓位等待回调，认为盈利预期过于乐观",
-          "signal": "bearish",
-          "source": "Morgan Stanley Research",
-          "freshness": "上周"
+          "source": "Morgan Stanley",
+          "url": "https://www.morganstanley.com/insights/articles/2026-market-optimism-and-risks",
+          "freshness": "本周"
         }
       ]
     }
@@ -237,7 +211,7 @@
           "change": "持仓不变"
         }
       ],
-      "footnote": "持仓数42只，Top10占88.3%，现金储备$3,733亿（Greg Abel首次重启回购）"
+      "footnote": "持仓数42只，Top10占88.3%，现金储备$3,733亿（Greg Abel首次重启回购），Q4增持CVX(+6.6%)/CB(+9.3%)，减持AAPL(-4.3%)/BAC(-8.9%)"
     },
     {
       "manager": "段永平 · H&H",
@@ -306,13 +280,13 @@
           "change": "减持"
         }
       ],
-      "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA/MSFT/TSM，4月正式建仓泡泡玛特"
+      "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，新建仓CRWV/CRDO/TEM"
     },
     {
       "manager": "Cathie Wood · ARK旗舰",
       "fund": "ARK Innovation ETF (ARKK)",
       "aum": "$6.8B",
-      "asOf": "2026-04-05",
+      "asOf": "2026-04-21",
       "positions": [
         {
           "name": "特斯拉",
@@ -375,13 +349,13 @@
           "change": "持仓不变"
         }
       ],
-      "footnote": "ARK每日披露持仓变动，TSLA始终第一重仓，近期连续买入CRWV/KDK"
+      "footnote": "ARK每日披露持仓变动，TSLA始终第一重仓，近期连续买入CoreWeave(CRWV)和Kodiak AI(KDK)但尚未进入Top10"
     }
   ],
-  "dataTime": "2026-04-20 18:15 BJT",
+  "dataTime": "2026-04-21 14:12 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-20T18:15:54+08:00",
-    "skillVersion": "v10.6"
+    "generatedAt": "2026-04-21T14:12:45+08:00",
+    "skillVersion": "v11.1"
   }
 }

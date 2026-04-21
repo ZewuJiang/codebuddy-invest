@@ -1,8 +1,10 @@
-# 数据采集SOP — App版（v2.1）
+# 数据采集SOP — App版（v3.1）
 
 > **用途**：投研鸭小程序数据生产第一阶段数据采集的完整操作规范，含情绪与预测数据采集（Batch A）。
 > **核心原则**：数据完整性第一，精确到小数点后两位，严禁空位和模糊表述。
 > **与原 Skill 的差异**：额外需要采集 sparkline（7天历史）、chartData（30天历史）、metrics 指标、个股分析文本。
+> **v3.1 变更（2026-04-21）**：新增§0.10 JSON 字符串双引号防治规则（2026-04-21 血泪教训）。
+> **v3.0 变更（2026-04-20）**：①新增§0.8 并行采集分组规范（Phase 1 四组并行+同步屏障）②新增§0.9 Context 压缩——最小字段集提取规范（11个批次精确字段表）③各批次标注并行组归属。
 > **v2.1 变更（2026-04-09）**：新增第0.5节"price与sparkline同源规则"和第0.6节"sparkline禁止零值填充规则"（Harness v10.4 教训）。
 > **v2.0 变更**：删除第九章 Refresh 精简采集批次定义（v9.0 统一为 Standard 全量执行）。
 
@@ -45,6 +47,18 @@
 ```
 
 ### 0.4 各类数据对应的合法获取方式速查
+
+> **⚠️ v3.1 新增 — 自媒体标题陷阱（2026-04-20 试运行血泪教训）**
+>
+> **事故经过**：web_search 返回了大量 CSDN/搜狐/sohu 等自媒体文章，标题声称"GPT-6正式发布"。AI 未去 OpenAI 官网/Bloomberg/Reuters 交叉核实，直接将虚假信息写入 briefing.json 的 coreEvent、globalReaction、coreJudgments、marketSummaryPoints、voiceText 共 **10+ 处**，造成**重大信息失误**。
+>
+> **根因**：违反 RULE ZERO —— 数字（事件）未来自本次可追溯的权威搜索，却被当做事实写入。
+>
+> **防治铁律（强制执行）**：
+> 1. **模型/产品发布类重大事件**（如"GPT-6发布"/"Claude X.X发布"/"新iPhone"等），必须到**官方源**核实：OpenAI.com / Anthropic.com / Apple.com / NVIDIA.com / Bloomberg / Reuters，不得仅凭中文自媒体标题采信
+> 2. **公司财务数据**（如"Anthropic年化收入300亿"），必须有路透/彭博/公司官方公告，不得引用分析机构估算或自媒体报道作为确定事实
+> 3. **核实方法**：web_search 后发现重大事件时，**必须追加一次 web_fetch 到原始权威来源页面**，确认页面内容与标题一致，且发布时间在当日前后24小时内
+> 4. **无法核实时的处理**：宁可删除该条事件，不写"可能发布"类模糊表述，更不可作为已确认事实写入
 
 | 交易数据字段 | 合法获取方式 |
 |------------|------------|
@@ -160,23 +174,52 @@ python3 validate.py <sync_dir> --mode standard
 
 ---
 
+## 零.十、JSON 字符串双引号防治（v3.1 新增 — 2026-04-21 血泪教训）
+
+> ⚠️ **血泪教训**：2026-04-21 发现 `briefing.json` 和 `radar.json` 含未转义 ASCII 双引号（`"right business"` / `"保险公司正式开张"`），导致 JSON 语法错误，第0步校验本应拦截但因 #64 路径 Bug 读的是旧文件而漏过，最终前端无法加载数据。
+
+### 铁律
+
+| 场景 | 禁止 | 正确写法 |
+|------|------|---------|
+| 字符串内含英文引号 | `"称"right business""` | `"称\"right business\""` |
+| 字符串内含品名/术语 | `"称"保险公司正式开张""` | `"称\"保险公司正式开张\""` 或 `"称'保险公司正式开张'"` |
+| 字符串内引用说法 | `"他说"市场已见顶""` | `"他说\"市场已见顶\""` 或改用中文书名号《》 |
+
+### Phase 2 写 JSON 前自查
+
+```
+每次在 JSON 字符串值里出现英文双引号时，自问：
+① 这个 " 是字段值的结束符吗？→ 合法
+② 这个 " 是我想表达引号标记吗？→ 必须改为 \" 或 '' 或 ""
+③ 生成完整 JSON 后，用 python3 -m json.tool 脑内模拟校验一遍
+```
+
+### inline-verifier-rules 连动
+
+Phase 2 Generator-Verifier 内联校验新增 **JQ1 [FATAL]**：每个 JSON 生成后用 `python3 -m json.tool` 验证语法，失败则立即定位并修复未转义双引号，**不得上报 Phase 3 才发现**。
+
+---
+
 ## 一、采集批次总览
 
-| 批次 | 内容 | 搜索次数 | 数据源 | 适用日 |
-|------|------|---------|--------|--------|
-| 0 | 全球财经媒体头条扫描（参照`media-watchlist.md`一级必扫7家） | 2-3次 | web_search | 周一～周五 |
-| 0a | 深度媒体补充扫描（参照`media-watchlist.md`二级强化11家） | 1-2次 | web_search | 周一～周五 |
-| 0b | AI产业链重大动态专项扫描（参照`ai-supply-chain-universe.md`） | 1-2次 | web_search | 周一～周五 |
-| 1a | **M7个股 — 精确数据 + 7天历史** | **7次web_fetch** | Google Finance | 周一～周五 |
-| 1b | **美股指数+VIX — 精确数据 + 7天历史** | **3-4次web_fetch** | Google Finance | 周一～周五 |
-| 1c | **GICS 11板块ETF — 涨跌幅** | **11次web_fetch** | Google Finance | 周一～周五 |
-| 1d | **当日焦点个股 — 精确数据 + 7天历史** | **2-5次web_fetch** | Google Finance | 周一～周五 |
-| 2 | 亚太/港股数据 + 北向资金 + 7天历史 | 2-3次 | 东方财富/同花顺/web_search | 周一～周五 |
-| 3 | 大宗商品/汇率/加密/宏观 + 7天历史 | 2-3次 | web_search/金投网 | 周一～周五 |
-| 4 | 基金&大资金动向（参照`fund-universe.md`三梯队） | 8-12次+1次web_fetch | web_search + web_fetch + SEC EDGAR | 周一～周五 |
-| **5** | **watchlist 标的详情采集（metrics/PE/市值/营收增速/毛利率/ROE）** | **15-20次web_fetch** | Google Finance / StockAnalysis | 周一～周五 |
-| **6** | **本周事件日历 + 风险矩阵数据** | **1-2次** | web_search | 周一～周五 |
-| **A** | **情绪与预测数据采集（Polymarket / CME FedWatch）** | **1-3次web_fetch** | 详见第八章 | **周一～周五（可选批次，失败不阻断）** |
+> **v3.0 新增**：「并行组」列标注每个批次的并行分组归属，详见 [§0.8 并行采集分组规范](#〇八并行采集分组规范v30-新增phase-1-四组并行同步屏障)。
+
+| 批次 | 内容 | 搜索次数 | 数据源 | 适用日 | **并行组** |
+|------|------|---------|--------|--------|-----------|
+| 0 | 全球财经媒体头条扫描（参照`media-watchlist.md`一级必扫7家） | 2-3次 | web_search | 周一～周五 | **P1** |
+| 0a | 深度媒体补充扫描（参照`media-watchlist.md`二级强化11家） | 1-2次 | web_search | 周一～周五 | **P1** |
+| 0b | AI产业链重大动态专项扫描（参照`ai-supply-chain-universe.md`） | 1-2次 | web_search | 周一～周五 | **P1** |
+| 1a | **M7个股 — 精确数据 + 7天历史** | **7次web_fetch** | Google Finance | 周一～周五 | **P2** |
+| 1b | **美股指数+VIX — 精确数据 + 7天历史** | **3-4次web_fetch** | Google Finance | 周一～周五 | **P2** |
+| 1c | **GICS 11板块ETF — 涨跌幅** | **11次web_fetch** | Google Finance | 周一～周五 | **P2** |
+| 1d | **当日焦点个股 — 精确数据 + 7天历史** | **2-5次web_fetch** | Google Finance | 周一～周五 | **P2** |
+| 2 | 亚太/港股数据 + 北向资金 + 7天历史 | 2-3次 | 东方财富/同花顺/web_search | 周一～周五 | **P3** |
+| 3 | 大宗商品/汇率/加密/宏观 + 7天历史 | 2-3次 | web_search/金投网 | 周一～周五 | **P3** |
+| 4 | 基金&大资金动向（参照`fund-universe.md`三梯队） | 8-12次+1次web_fetch | web_search + web_fetch + SEC EDGAR | 周一～周五 | **P4** |
+| **5** | **watchlist 标的详情采集（metrics/PE/市值/营收增速/毛利率/ROE）** | **15-20次web_fetch** | Google Finance / StockAnalysis | 周一～周五 | **S1** |
+| **6** | **本周事件日历 + 风险矩阵数据** | **1-2次** | web_search | 周一～周五 | **S1** |
+| **A** | **情绪与预测数据采集（Polymarket / CME FedWatch）** | **1-3次web_fetch** | 详见第八章 | **周一～周五（可选批次，失败不阻断）** | **S1** |
 
 **周一额外批次**：
 - 批次7: 上周市场周度数据（2-3次）
@@ -529,11 +572,203 @@ web_search: "美联储6月降息概率 CME FedWatch"
 
 ---
 
-> v2.0 — 2026-04-08 | **Harness v9.0**：删除第九章 Refresh 精简采集批次定义（Refresh 模式已移除）；O3 sourceType 枚举清理。
-> v1.9 — 2026-04-07 | 新增第九章 Refresh 模式精简采集批次定义；R1 批次 M7 默认策略明确化（指数+VIX 必须 web_fetch，M7 分时段策略）。
-> v1.8 — 2026-04-06 | 清理废弃的 keyDeltas/fearGreed/旧 actions 引用。
-> v1.6 — 2026-04-05 | Batch 4 分层定向搜索升级（8-12次+web_fetch）。
-> v1.5 — 2026-04-03 | 方案A双轨分工固化（美股sparkline由脚本负责）。
-> v1.4 — 2026-04-03 | 数据分类隔离规则全面固化。
-> v1.3 — 2026-04-02 | 新增Batch A情绪数据采集SOP + Insight生成规范。
-> v1.0~v1.2 | 初始版本→方案C metrics升级→数据治理。详见 git 历史。
+## 〇.八、并行采集分组规范（v3.0 新增 — Phase 1 四组并行+同步屏障）
+
+> **核心原则**：按 **context-centric decomposition** 划分——每组的上下文需求独立，无数据依赖，可安全并行。
+> **目标**：Phase 1 采集时间减少 60-70%（从串行 ~50次 web_fetch/search 改为 4 组并发）。
+
+### 并行分组定义
+
+| 组号 | 批次 | 内容 | 搜索次数 | 上下文依赖 | 可并行原因 |
+|------|------|------|---------|-----------|-----------|
+| **P1** | 0 + 0a + 0b | 媒体头条 + AI产业链扫描 | 3-7次 web_search | media-watchlist.md + ai-supply-chain-universe.md | 纯搜索，不依赖行情数据 |
+| **P2** | 1a + 1b + 1c + 1d | 美股行情 + 指数 + GICS + 焦点 | 22-27次 web_fetch | Google Finance URL模板 | 纯行情抓取，不依赖其他组 |
+| **P3** | 2 + 3 | 亚太 + 大宗/汇率/加密 | 4-6次 web_search/fetch | 行情源URL | 独立市场，不依赖P1/P2 |
+| **P4** | 4 | 基金&大资金动向 | 8-12次 search + 1次 fetch | fund-universe.md | 独立知识域，不依赖行情组 |
+| **S1** | 5 + 6 + A | watchlist详情 + 事件 + 情绪 | 17-25次 | 依赖 P2(GICS结果) | 需 P1-P4 全部完成后串行 |
+
+### 执行时序
+
+```
+Phase 1 启动
+├── [同时发出] P1 (3-7次 web_search)
+├── [同时发出] P2 (22-27次 web_fetch)
+├── [同时发出] P3 (4-6次 web_search/fetch)
+└── [同时发出] P4 (8-12次 web_search + 1次 web_fetch)
+    │
+    ├──── 同步屏障 ────┤
+    │  （P1-P4 全部完成才可通过）
+    │
+    └── [串行] S1: Batch 5 → Batch 6 → Batch A
+        │
+        └── Phase 1.5 完整性门禁
+```
+
+### 并行实现方式（CodeBuddy 工具调用）
+
+在同一个 AI turn 中，发出 P1-P4 四组的全部工具调用（web_fetch / web_search），CodeBuddy 会自动并行执行同一 turn 内的多个工具调用。
+
+**P1 工具调用示例**（3-5 次 web_search 同时发出）：
+```
+web_search: "global financial news headlines today April 2026"
+web_search: "AI产业链 重大动态 today"
+web_search: "tech earnings AI capex latest"
+```
+
+**P2 工具调用示例**（22+ 次 web_fetch 同时发出）：
+```
+web_fetch: https://www.google.com/finance/quote/NVDA:NASDAQ
+web_fetch: https://www.google.com/finance/quote/AAPL:NASDAQ
+... (M7 全部 7 只 + 指数 4 项 + GICS 11 项)
+```
+
+**P3 工具调用示例**（4-6 次）：
+```
+web_search: "亚太市场 恒生 上证 日经 today"
+web_search: "gold oil DXY 10Y yield BTC ETH price today"
+```
+
+**P4 工具调用示例**（8-12 次）：
+```
+web_search: "Berkshire Hathaway Buffett latest"
+web_search: "段永平 雪球 大道无形我有型"
+web_fetch: https://cathiesark.com/ark-funds-combined/trades
+... (按 fund-universe.md 五层搜索)
+```
+
+### 同步屏障规则
+
+1. **P1-P4 全部完成后**，对所有工具调用结果执行"Context 压缩"（§0.9），提取最小字段集
+2. **压缩后**进入 S1 串行组：Batch 5（watchlist 详情，需参考 P2 的 GICS 结果选热点标的）→ Batch 6（事件日历）→ Batch A（情绪预测）
+3. **S1 完成后**进入 Phase 1.5 完整性门禁
+
+### 失败处理
+
+| 场景 | 处理 |
+|------|------|
+| P1 某次搜索超时 | P1 内重试 1 次；仍失败 → 跳过该搜索，不阻断其他组 |
+| P2 某只标的 web_fetch 403 | 按 data-source-priority.md 降级到备选源重试；仍失败 → 标注该标的"数据缺失"，不阻断 |
+| P3 全部失败 | 亚太+大宗为核心数据，重试 2 次；仍全失败 → 阻断（Phase 1.5 门禁会拦截） |
+| P4 全部失败 | 基金动向不阻断主流程，标注"聪明钱数据不完整"，Phase 1.5 门禁会降级处理 |
+| S1 Batch 5 依赖 P2 数据但 P2 不完整 | 用已有行情数据继续，缺失标的从备选池替补 |
+
+---
+
+## 〇.九、Context 压缩——最小字段集提取规范（v3.0 新增 — 铁律）
+
+> **核心铁律**：每次 `web_fetch` / `web_search` 返回结果后，**必须立即提取下方定义的最小字段集，然后丢弃原始 HTML/snippet**。
+> **目标**：Phase 1 上下文从约 76k token 压缩至约 35k token，腾出 40k+ 余量给 Phase 2 JSON 生成。
+> **原则**：压缩的是"HTML噪音"，不是"有用信息"。最小字段集必须覆盖 JSON 生成所需的全部原始数据。
+
+### 9.1 交易数据批次（P2 行情 / P3 亚太+大宗）
+
+**每次 web_fetch Google Finance 页面后，立即提取以下字段，丢弃原始 HTML：**
+
+| 字段 | 类型 | 示例 | 用途 |
+|------|------|------|------|
+| `name` | string | "英伟达" | markets/watchlist 的 name |
+| `symbol` | string | "NVDA" | 标的标识 |
+| `price` | string | "$134.50" | price 字段（含货币符号） |
+| `change` | number | -2.37 | change 字段（纯数字，负号表跌） |
+| `5D_close` | number[7] | [136.2, 135.8, 137.1, 135.5, 136.0, 134.9, 134.5] | AI 初始 sparkline（脚本第三阶段会用 AkShare 覆盖美股） |
+
+**提取格式示例**（一只标的约 80 token，对比原始 HTML ~3000 token）：
+```
+NVDA 英伟达 | $134.50 | -2.37% | 5D:[136.2,135.8,137.1,135.5,136.0,134.9,134.5]
+```
+
+**GICS 11板块（Batch 1c）只需 3 个字段：**
+
+| 字段 | 类型 | 示例 |
+|------|------|------|
+| `etf` | string | "XLK" |
+| `name` | string | "信息技术" |
+| `change` | number | 1.82 |
+
+### 9.2 媒体/新闻批次（P1 媒体扫描）
+
+**每次 web_search 返回后，每条结果只保留：**
+
+| 字段 | 类型 | 最大长度 | 用途 |
+|------|------|---------|------|
+| `title` | string | 60字 | coreEvent.chain[].title |
+| `source` | string | 20字 | source 字段 |
+| `url` | string | — | url 字段（付费墙除外） |
+| `date` | string | 10字 | 时效性判断 |
+| `summary` | string | **≤80字** | chain[].brief + 事件分析素材 |
+
+**提取格式示例**（一条新闻约 60 token，对比原始 snippet ~500 token）：
+```
+[Reuters 2026-04-20] 美联储会议纪要显示官员对降息节奏存分歧 | 多数官员支持维持利率不变至通胀进一步回落，但少数派认为就业数据恶化可能需要预防性降息 | https://reuters.com/...
+```
+
+### 9.3 基金动向批次（P4）
+
+**每条基金/策略师动态只保留：**
+
+| 字段 | 类型 | 最大长度 | 用途 |
+|------|------|---------|------|
+| `fund_name` | string | 30字 | smartMoneyDetail 的 name |
+| `person` | string | 15字 | 关联人物 |
+| `action` | string | **≤100字** | funds[].action 字段 |
+| `signal` | string | 枚举 | bullish/bearish/neutral |
+| `source` | string | 20字 | source |
+| `url` | string | — | url |
+| `date` | string | 10字 | 时效性 |
+
+### 9.4 watchlist 详情批次（S1 Batch 5）
+
+**每只标的只保留：**
+
+| 字段 | 类型 | 最大长度 | 用途 |
+|------|------|---------|------|
+| `symbol` | string | — | 标的标识 |
+| `PE_TTM` | string | 10字 | metrics[4] |
+| `analysis_summary` | string | **≤150字** | analysis 字段素材 |
+| `risks_summary` | string | **≤80字** | risks 信息 |
+
+### 9.5 事件日历批次（S1 Batch 6）
+
+| 字段 | 类型 | 最大长度 | 用途 |
+|------|------|---------|------|
+| `date` | string | 10字 | events[].date |
+| `title` | string | 30字 | events[].title |
+| `impact` | string | 枚举 | high/medium/low |
+| `source` | string | 20字 | source |
+| `url` | string | — | url |
+
+### 9.6 情绪预测批次（S1 Batch A）
+
+| 字段 | 类型 | 用途 |
+|------|------|------|
+| `title` | string | predictions[].title |
+| `source` | string(枚举) | Polymarket/Kalshi/CME FedWatch |
+| `probability` | number | 0-100 整数 |
+| `trend` | string(枚举) | up/down/stable |
+| `change24h` | number | ±N |
+
+### 9.7 绝对禁止事项
+
+1. **绝对禁止**在工具调用返回后保留原始 HTML 页面内容在上下文中
+2. **绝对禁止**保留 web_search 的完整 snippet 文本（只保留提取后的结构化字段）
+3. **绝对禁止**将一次 web_fetch 的完整响应跨批次携带（每次提取后立即丢弃）
+4. **绝对禁止**在 summary/action 字段中超过规定最大长度（超长 = 上下文浪费）
+5. **允许**在同一 turn 内的并行工具调用结果中保留结构化提取字段（这是正常的数据积累）
+
+### 9.8 Context 预算分配
+
+| 阶段 | 预算 | 来源 |
+|------|------|------|
+| Phase 0 | ~5k | SKILL.md(自动) + L1 refs |
+| Phase 1 (压缩后) | ~35k | P1-P4+S1 全部采集结果的提取字段 |
+| Phase 1.5 门禁 | ~2k | 门禁检查清单 |
+| Phase 1.8 L3 加载 | ~70k | json-schema.md(60k) + stock-universe(15k) + holdings-cache(5k) + inline-verifier(8k) |
+| Phase 2 JSON生成 | ~40k+ | 4个JSON的写入空间 |
+| **总计** | ~152k | 在 200k context 窗口内 |
+
+> ⚠️ **若不做 Context 压缩**：Phase 1 原始 HTML 约 76k + Phase 2 需要 ~110k = 186k，已接近 200k 极限，留给 JSON 生成的余量极少。压缩后 Phase 1 降至 ~35k，腾出 ~40k 关键余量。
+
+---
+
+> v3.0 — 2026-04-20 | **v11.0 架构升级**：①新增§0.8 并行采集分组规范（P1-P4 四组并行+S1串行+同步屏障+失败处理）②新增§0.9 Context 压缩最小字段集提取规范（11个批次精确字段表+绝对禁止事项+Context预算分配）③采集批次总览新增「并行组」列标注。
+> v2.1 — 2026-04-09 | 新增§0.5 price与sparkline同源规则 + §0.6 sparkline禁止零值填充规则（Harness v10.4 教训）+ §0.7 质量门禁与重试机制。

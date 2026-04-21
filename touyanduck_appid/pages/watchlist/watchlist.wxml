@@ -23,7 +23,7 @@
         <view class="tag {{currentSector.trendTagClass}}">{{currentSector.trendLabel}}</view>
       </view>
       <view class="sector-desc">{{currentSector.summary}}</view>
-      <view class="sector-count">共 {{stocks.length}} 只标的 · 点击卡片展开详情</view>
+      <view class="sector-count">{{stocks.length}} 只标的</view>
     </view>
 
     <!-- 股票列表（展开/收起态） -->

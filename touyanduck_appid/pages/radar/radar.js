@@ -1,5 +1,7 @@
 // pages/radar/radar.js
-// 雷达页 v7.0 — 聪明钱最优先：动向#1 + 持仓#2 + 风险判断#3
+// 雷达页 v7.1 — 聪明钱最优先：动向#1 + 持仓#2 + 风险判断#3
+// v7.1 变更：
+//   - asOf 括号清理正则加强，YYYY-MM-DD 格式输出
 // v7.0 变更：
 //   - 移除已废弃的 realtime 层（getRealtimeData / 双层合并逻辑）
 //   - predictions 现在完全由 radar.json 日报层提供，无需实时层合并
@@ -188,8 +190,11 @@ Page({
     var holdings = (data.smartMoneyHoldings || []).map(function(h) {
       // 紧凑化 manager：去掉过长的修饰词
       var shortManager = (h.manager || '').replace(/\s*·\s*/g, ' · ')
-      // 紧凑化 asOf：只保留核心日期信息
-      var shortAsOf = (h.asOf || '').replace(/（[^）]+）/g, '').replace(/\([^)]+\)/g, '').trim()
+      // 紧凑化 asOf：只保留 YYYY-MM-DD 或 YYYYQN·月份 格式，去掉括号内所有说明文字
+      var rawAsOf = (h.asOf || '')
+        .replace(/[（(][^）)]*[）)]/g, '')  // 去掉括号及括号内内容（中英文括号）
+        .trim()
+      var shortAsOf = rawAsOf
       return {
         manager: shortManager,
         fund: h.fund || '',
@@ -232,7 +237,7 @@ Page({
 
       alerts: alerts,
 
-      dataTime: (data.dataTime || '').split('/')[0].trim(),
+      dataTime: (data.dataTime || '').trim(),
       dataFreshness: dataFreshness || '',
       dataMeta: mergedMeta,
       loading: false

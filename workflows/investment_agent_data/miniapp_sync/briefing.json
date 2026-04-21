@@ -1,48 +1,48 @@
 {
-  "date": "2026-04-20",
+  "date": "2026-04-21",
   "timeStatus": {
-    "bjt": "06:00",
-    "est": "18:00",
+    "bjt": "14:00",
+    "est": "02:00",
     "marketStatus": "美股已收盘",
     "refreshInterval": "每日更新"
   },
-  "takeaway": "【中东停火】伊朗开放霍尔木兹海峡，原油暴跌12%，美股创历史新高。OpenAI完成【$1100亿融资】，GPT-6震撼发布，国产大模型GLM-5.1登顶开源第一。",
+  "takeaway": "美股三大指数微跌收官，【VIX飙升8%】至18.87逼近黄灯区间，【黄金$4795】创新高亮红灯——地缘风险定价正在重塑。伊朗【霍尔木兹海峡】紧张局势持续，油价逼近$100，若冲突升级将固化通胀预期、挤压降息空间。",
   "coreEvent": {
-    "title": "中东停火+霍尔木兹开放，原油暴跌美股创新高，OpenAI发布GPT-6完成千亿融资",
+    "title": "美股震荡收官遇油价暴涨——地缘风险与降息预期的博弈",
     "chain": [
       {
-        "title": "以色列-黎巴嫩达成停火，伊朗开放霍尔木兹海峡",
-        "brief": "停火协议10天生效，霍尔木兹完全开放，WTI暴跌12%创2020年来最大周跌幅，S&P首破7100点",
-        "source": "CNBC",
-        "url": "https://www.cnbc.com/2026/04/16/stock-market-today-live-updates.html",
+        "title": "伊朗收紧霍尔木兹海峡通行，油价逼近$100关口",
+        "brief": "伊朗与美国对峙升级，油轮受阻，市场定价供应中断风险",
+        "source": "AP News",
+        "url": "https://apnews.com/article/oil-prices-crude-iran-war-4de9058b58ed944a4113dfb2cf6369c8",
         "source_count": 4
       },
       {
-        "title": "OpenAI发布GPT-6，参数5-6万亿，上下文200万Token",
-        "brief": "参数量超GPT-5.4达40%，上下文窗口可读整本书，AI能力新标杆确立",
-        "source": "AI Product Hub",
-        "url": "https://aiproducthub.cn/wpnote/ai-breaking-news-april-2026/",
-        "source_count": 2
+        "title": "VIX单日飙升8%至18.87，市场波动率预期抬升",
+        "brief": "恐慌指数从17.48跳涨至18.87，逼近黄灯区间上沿",
+        "source": "Google Finance",
+        "url": "https://www.google.com/finance/quote/VIX:INDEXCBOE",
+        "source_count": 1
       },
       {
-        "title": "OpenAI完成$1100亿融资，估值$8400亿创历史记录",
-        "brief": "Amazon领投$500亿+NVIDIA $300亿+软银$300亿，年化收入$250亿，预测2030年达$2800亿",
-        "source": "State of AI Newsletter",
-        "url": "https://press.airstreet.com/p/state-of-ai-april-2026-newsletter",
-        "source_count": 2
+        "title": "段永平布局泡泡玛特，卖Put建仓策略引发关注",
+        "brief": "段永平称\"泡泡玛特保险公司正式开张\"，通过卖Put方式收集目标仓位",
+        "source": "新浪财经",
+        "url": "https://finance.sina.com.cn/jjxw/2026-04-14/doc-inhunicu4806726.shtml",
+        "source_count": 3
       },
       {
-        "title": "GLM-5.1登顶开源第一，DeepSeek V4与华为昇腾深度适配",
-        "brief": "国产大模型从追赶到领跑，性能超英伟达H20，成本仅GPT的1/10",
-        "source": "AI Product Hub",
-        "url": "https://aiproducthub.cn/wpnote/ai-breaking-news-april-2026/",
-        "source_count": 2
+        "title": "ARK持续加仓TSLA与HOOD，减持TER与AMD",
+        "brief": "近一周ARK累计买入TSLA约$28M，卖出TER约$24M",
+        "source": "Cathie's Ark",
+        "url": "https://cathiesark.com/ark-funds-combined/trades",
+        "source_count": 1
       },
       {
-        "title": "特朗普政府封杀Anthropic，确立AI供应商战略先例",
-        "brief": "因Pentagon合同条款冲突，白宫下令6个月淘汰，联邦法院暂时阻止",
-        "source": "State of AI Newsletter",
-        "url": "https://press.airstreet.com/p/state-of-ai-april-2026-newsletter",
+        "title": "达利欧押注AI四巨头，桥水持仓曝光",
+        "brief": "Ray Dalio最新13F显示增持多只AI相关股票",
+        "source": "24/7 Wall St",
+        "url": "https://247wallst.com/investing/2026/04/19/billionaire-ray-dalio-is-betting-big-on-these-4-ai-stocks/",
         "source_count": 2
       }
     ]
@@ -50,85 +50,116 @@
   "globalReaction": [
     {
       "name": "标普500",
-      "value": "7,126.06",
-      "direction": "up",
-      "note": "创历史新高+1.20%"
+      "value": "-0.24%",
+      "direction": "down",
+      "note": "科技股分化拖累"
     },
     {
       "name": "纳斯达克",
-      "value": "24,468.48",
-      "direction": "up",
-      "note": "连续13天上涨"
+      "value": "-0.26%",
+      "direction": "down",
+      "note": "M7涨跌互现"
     },
     {
-      "name": "WTI原油",
-      "value": "$83.85",
+      "name": "道琼斯",
+      "value": "-0.01%",
       "direction": "down",
-      "note": "暴跌12%停火溢价消退"
+      "note": "蓝筹股相对抗跌"
+    },
+    {
+      "name": "VIX恐慌指数",
+      "value": "+7.95%",
+      "direction": "up",
+      "note": "避险情绪升温"
     },
     {
       "name": "黄金",
-      "value": "$4,831.61",
-      "direction": "down",
-      "note": "-0.05%高位震荡"
+      "value": "$4,796",
+      "direction": "up",
+      "note": "年内+43.7%"
     },
     {
       "name": "比特币",
-      "value": "$74,455",
+      "value": "$75,793",
       "direction": "up",
-      "note": "+0.37%风险偏好回升"
-    },
-    {
-      "name": "离岸人民币",
-      "value": "6.81",
-      "direction": "down",
-      "note": "人民币升值-0.13%"
+      "note": "24h+2.17%"
     }
   ],
   "coreJudgments": [
     {
-      "title": "中东停火消除地缘溢价，原油回调释放消费端利好",
-      "confidence": 85,
-      "logic": "霍尔木兹开放 → 原油供应风险溢价消退 → WTI暴跌12% → 能源股重挫但消费/航空受益",
+      "title": "地缘风险溢价已定价但尚未充分反应",
+      "confidence": 78,
+      "logic": "伊朗封锁霍尔木兹 → 布伦特逼近$100 → 若突破$110将固化通胀预期 → 美联储降息空间进一步收窄",
+      "keyActor": "美联储 / 伊朗",
+      "references": [
+        {
+          "name": "AP News",
+          "summary": "伊朗与美国对峙阻止油轮通过霍尔木兹海峡，油价上涨",
+          "url": "https://apnews.com/article/oil-prices-crude-iran-war-4de9058b58ed944a4113dfb2cf6369c8"
+        }
+      ],
       "probability": "高可能性",
-      "trend": "下降",
-      "references": []
+      "trend": "上升"
     },
     {
-      "title": "GPT-6+千亿融资巩固OpenAI霸主地位",
-      "confidence": 90,
-      "logic": "GPT-6参数5-6万亿 → 能力标杆再次跃升 → $1100亿融资创纪录 → Amazon/NVIDIA/软银深度绑定",
-      "probability": "高可能性",
-      "trend": "上升",
-      "references": []
-    },
-    {
-      "title": "国产大模型实现弯道超车，DeepSeek V4成本优势显著",
-      "confidence": 75,
-      "logic": "GLM-5.1开源第一 → DeepSeek V4适配华为昇腾 → 性能超H20成本仅1/10 → 国产替代加速",
+      "title": "市场情绪从贪婪转向谨慎，VIX逼近黄灯上沿",
+      "confidence": 72,
+      "logic": "VIX单日+8%至18.87 → 距离红灯(>25)仅一步之遥 → 若突破25将触发系统性减仓 → 当前反弹基础脆弱",
+      "keyActor": "机构投资者",
+      "references": [
+        {
+          "name": "Google Finance",
+          "summary": "VIX从17.48跳涨至18.87，单日涨幅7.95%",
+          "url": "https://www.google.com/finance/quote/VIX:INDEXCBOE"
+        }
+      ],
       "probability": "中可能性",
-      "trend": "上升",
-      "references": []
+      "trend": "上升"
+    },
+    {
+      "title": "聪明钱动向分歧：段永平布局消费，ARK加仓TSLA",
+      "confidence": 65,
+      "logic": "段永平卖Put布局泡泡玛特 → ARK持续买入TSLA+HOOD → 成长股仍有拥趸 → 但板块分化加剧，个股选择比板块配置更关键",
+      "keyActor": "段永平 / Cathie Wood",
+      "references": [
+        {
+          "name": "新浪财经",
+          "summary": "段永平称泡泡玛特保险公司正式开张，通过卖Put方式建仓",
+          "url": "https://finance.sina.com.cn/jjxw/2026-04-14/doc-inhunicu4806726.shtml"
+        },
+        {
+          "name": "Cathie's Ark",
+          "summary": "ARK近一周持续买入TSLA，卖出TER/AMD",
+          "url": "https://cathiesark.com/ark-funds-combined/trades"
+        }
+      ],
+      "probability": "中可能性",
+      "trend": "稳定"
     }
   ],
   "actionHints": [],
-  "sentimentScore": 68,
-  "sentimentLabel": "偏贪婪",
+  "sentimentScore": 52,
+  "sentimentLabel": "中性",
   "marketSummaryPoints": [
-    "中东停火+霍尔木兹开放消除地缘溢价，WTI暴跌12%，S&P首破7100点创历史新高",
-    "纳指连续13天上涨创1992年来最长连涨，科技股领涨受益于AI叙事持续",
-    "OpenAI发布GPT-6完成$1100亿融资，估值$8400亿创私人融资纪录，Amazon/NVIDIA/软银深度绑定",
-    "本周关注特斯拉财报（周三盘后）、全球PMI初值、美国零售销售数据"
+    "美股三大指数微跌收官，SPX收于7,109点(-0.24%)，科技股分化明显",
+    "VIX单日飙升8%至18.87，避险情绪升温，距黄灯上沿仅一步之遥",
+    "黄金$4,796创历史新高，年内涨幅达43.7%，地缘风险溢价持续定价",
+    "伊朗霍尔木兹海峡紧张局势持续，布伦特逼近$100关口，通胀预期抬头"
   ],
   "smartMoney": [
     {
-      "source": "OpenAI融资",
-      "action": "完成$1100亿融资，Amazon领投$500亿+NVIDIA $300亿+软银$300亿，估值达$8400亿",
+      "source": "段永平",
+      "action": "卖Put布局泡泡玛特，称\"保险公司正式开张\"，通过卖出看跌期权方式收集目标仓位",
       "signal": "bullish"
     },
     {
       "source": "ARK Invest",
-      "action": "TSLA维持第一重仓10.5%，近期持续买入CoreWeave(CRWV)和Kodiak AI(KDK)",
+      "action": "近一周累计买入TSLA约$28M，卖出TER约$24M，加仓HOOD约$12.5M",
+      "signal": "bullish"
+    },
+    {
+      "source": "Ray Dalio 桥水",
+      "action": "最新13F显示增持多只AI相关股票，押注AI四巨头",
       "signal": "bullish"
     }
   ],
@@ -147,18 +178,18 @@
     }
   ],
   "riskPoints": [
-    "美国政府封杀Anthropic开创AI供应商行政干预先例，政策风险升级",
-    "伊朗无人机袭击AWS数据中心，首次针对商业云基础设施的军事攻击",
-    "油价暴跌12%后能源股承压，若OPEC+减产应对可能引发新一轮波动"
+    "黄金$4,796亮红灯（避险情绪极端），若持续高企将挤压风险资产估值",
+    "布伦特逼近$100关口，若突破$110将固化通胀预期、收窄降息空间",
+    "VIX单日+8%至18.87，距离红灯(>25)仅6点空间，波动率风险抬头"
   ],
-  "riskNote": "中东停火消除短期地缘风险，但AI政策监管风险升级。本周关注特斯拉财报及全球PMI数据，经济放缓信号可能压制风险偏好。VIX降至17.48显示市场情绪乐观，但需警惕过度定价后的回调风险。",
-  "dataTime": "2026-04-20 18:15 BJT",
-  "audioUrl": "cloud://cloud1-3g6wj06h84f38ea8.636c-cloud1-3g6wj06h84f38ea8-1418169528/audio/briefing-2026-04-20.mp3",
-  "audioFile": "briefing-2026-04-20.mp3",
-  "voiceText": "投研鸭每日简报，2026年4月20日。\n\n今天的市场充满戏剧性。中东停火消息传来，伊朗宣布开放霍尔木兹海峡，原油价格暴跌12%，创2020年以来最大周跌幅。与此同时，美股表现强劲，标普500首次突破7100点，创历史新高，纳斯达克更是连续13天上涨。\n\n科技圈更是重磅消息不断。OpenAI发布GPT-6，参数达到5-6万亿，上下文窗口突破200万Token。更令人瞩目的是，OpenAI完成1100亿美元融资，估值达到8400亿美元，创下私人融资历史纪录。亚马逊领投500亿，英伟达和软银各投300亿。\n\n国产大模型也在崛起。GLM-5.1登顶开源第一，DeepSeek V4与华为昇腾芯片深度适配，性能超过英伟达H20，成本仅为GPT的十分之一。\n\n本周重点关注：周三特斯拉财报，以及全球PMI数据。VIX降至17.48，市场情绪乐观，但需警惕过度定价后的回调风险。",
+  "riskNote": "地缘风险溢价正在定价，若霍尔木兹海峡局势升级，油价突破$110将触发通胀二次抬头担忧，美联储降息空间将进一步收窄。当前市场情绪从贪婪转向谨慎，VIX逼近黄灯上沿。",
+  "dataTime": "2026-04-21 14:12 BJT",
+  "audioUrl": "cloud://cloud1-3g6wj06h84f38ea8.636c-cloud1-3g6wj06h84f38ea8-1418169528/audio/briefing-2026-04-21.mp3",
+  "audioFile": "briefing-2026-04-21.mp3",
+  "voiceText": "今天是2026年4月21日，周二。美股三大指数微跌收官，标普500收于7109点，下跌0.24%。VIX恐慌指数单日飙升8%至18.87，逼近黄灯区间上沿，市场波动率预期抬升。黄金价格创历史新高，达到每盎司4796美元，年内涨幅超过43%。伊朗霍尔木兹海峡紧张局势持续，布伦特原油逼近100美元关口，若冲突升级将固化通胀预期。聪明钱动向方面，段永平通过卖出看跌期权方式布局泡泡玛特，ARK持续加仓特斯拉。请关注地缘风险演变和本周通胀数据。",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-20T18:15:54+08:00",
-    "skillVersion": "v10.6"
+    "generatedAt": "2026-04-21T14:12:45+08:00",
+    "skillVersion": "v11.1"
   }
 }

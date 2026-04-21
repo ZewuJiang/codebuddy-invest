@@ -4,6 +4,84 @@
 
 ---
 
+## v11.1（2026-04-21 12:30）— 数据链路 P0 Bug 修复 + 前端 asOf 显示修正
+
+**根因**：2026-04-21 排查发现小程序前端数据不更新，追溯到两处系统性缺陷。
+
+**修复内容**：
+
+1. **run_daily.sh v6.0→v6.1（P0 路径 Bug 修复）**
+   - 新增「第-1步」：在 JSON 语法校验前，自动将 `miniapp_sync/YYYY-MM-DD/*.json` 复制到 `miniapp_sync/*.json` 根目录
+   - 根因：AI（v11.0）将 JSON 写入日期子目录，工具链（upload/validate/sync）全链路读根目录旧文件，导致微信云数据库和 GitHub Pages 始终用旧数据，小程序前端永远不更新
+   - 堵点 #64 已固化到 known-pitfalls.md v5.3
+
+2. **radar.js asOf 括号清理加强（v7.0→v7.1）**
+   - 原正则两条独立替换（`/（[^）]+）/` + `/\([^)]+\)/`）遇到嵌套或中英混用括号时失效
+   - 新正则：`/[（(][^）)]*[）)]/g` 一次性处理中英文括号，输出纯净 `YYYY-MM-DD` 或 `YYYYQN·月份`
+
+3. **data-collection-sop.md v3.0→v3.1（JSON 双引号防治）**
+   - 新增 §0.10：JSON 字符串内禁止直接使用英文双引号，必须用 `\"` 转义或改用中文弯引号 `""`
+   - 根因：`"right business"` 和 `"保险公司正式开张"` 在 briefing.json/radar.json 中用了未转义 ASCII `"`，导致 JSON 语法错误，run_daily.sh 第0步本应拦截但读的是旧根目录文件（#64 Bug 导致）
+
+4. **ARK 持仓 asOf 每日更新规则强化**
+   - holdings-cache.json 注记：ARK 每日披露，不适用「非窗口期引用缓存」规则，每次必须更新 asOf 为当日日期
+   - 已在 known-pitfalls.md #63 堵点描述中强化
+
+**涉及文件**：
+- `scripts/run_daily.sh`：v6.0→v6.1
+- `touyanduck_appid/pages/radar/radar.js`：v7.0→v7.1
+- `references/data-collection-sop.md`：v3.0→v3.1
+- `references/known-pitfalls.md`：v5.2→v5.3（+#64）
+- `SKILL.md`：规范健康度快照更新
+
+---
+
+
+
+**原则**：Phase 1 采集效率倍增 + AI 上下文负担大幅减轻 + Phase 2 前置拦截 FATAL 错误。工具链零改动。
+
+**四大核心改造**：
+
+1. **Phase 1 并行采集**（data-collection-sop.md v2.1→v3.0）：
+   - 10个串行批次改为4组并行（P1媒体/P2行情/P3亚太大宗/P4基金）+ 1组串行（S1依赖P2）
+   - 新增§0.8 并行采集分组规范（分组定义+同步屏障+失败处理）
+   - 采集时间预期减少 60-70%
+
+2. **Context 压缩铁律**（data-collection-sop.md §0.9）：
+   - 为11个采集批次定义精确的最小字段集提取规范
+   - web_fetch/web_search 后必须立即提取结构化字段，丢弃原始 HTML/snippet
+   - Phase 1 上下文从 ~76k 压缩至 ~35k，腾出 ~40k 余量
+
+3. **References 分层加载**（SKILL.md 新增章节）：
+   - L1 Phase 0：schema-compact + formulas + golden-baseline
+   - L2 Phase 1 前：data-collection-sop + data-source-priority + 各组知识库
+   - L3 Phase 2 前：json-schema + stock-universe + holdings-cache + inline-verifier-rules
+   - L4 Phase 4：templates + known-pitfalls
+
+4. **Generator-Verifier 内联自校验**（新建 inline-verifier-rules.md v1.0）：
+   - Phase 2 每个JSON写完后立即执行内联校验
+   - 从validate.py 17项FATAL提取14项可内联检测+关键WARN
+   - 最多2次修复重试，避免Phase 3 FATAL后整体重来
+   - 3项不可内联（R9/V35/V_TL）由Phase 3脚本终裁
+
+**涉及文件**：
+- SKILL.md：v10.6→v11.0（重写工作流+新增3大机制章节+引用索引分层化）
+- references/data-collection-sop.md：v2.1→v3.0（+§0.8并行分组+§0.9最小字段集）
+- references/inline-verifier-rules.md：**新建** v1.0（内联自校验规则）
+- references/known-pitfalls.md：v4.5→v5.0（+#57-#60并行堵点，活跃56→60）
+- CHANGELOG.md：新增v11.0变更记录
+- README.md：v9.0→v11.0
+
+**向后兼容声明**：
+- 工具链零改动（validate.py/auto_compute.py/run_daily.sh/upload_to_cloud.py等全部不变）
+- JSON Schema零改动（json-schema.md/golden-baseline.json/templates/不变）
+- 知识库零改动（stock-universe/fund-universe/ai-supply-chain-universe/media-watchlist/holdings-cache不变）
+- 九大铁律（RULE ZERO ~ RULE EIGHT）全部保持
+- 54项校验/17项FATAL全部保持
+- 4个JSON产出物格式完全兼容
+
+---
+
 ## v10.6（2026-04-13 11:05）— Harness v10.6 FATAL 项全面升级
 
 **原则**：目标每次全部通过，零 WARN。前端渲染安全与核心功能完整性纳入 FATAL 门禁。
