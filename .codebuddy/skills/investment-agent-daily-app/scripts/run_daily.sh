@@ -1,7 +1,7 @@
 #!/bin/bash
 # ============================================================
 # 投研鸭小程序 — 每日数据更新串联脚本 v6.2（Harness v9.2）
-# 执行顺序：日期子目录同步 → 【新】涨跌方向快速目视摘要 → JSON语法校验 → auto_compute.py公式计算 → validate.py自动化校验(54项) → sparkline补全 → 上传 → 同步API
+# 执行顺序：日期子目录同步 → 【新】涨跌方向快速目视摘要 → JSON语法校验 → auto_compute.py公式计算 → validate.py自动化校验(55项) → sparkline补全 → 上传 → 同步API
 #
 # 用法：bash run_daily.sh [YYYY-MM-DD] [--skip-warn]
 #

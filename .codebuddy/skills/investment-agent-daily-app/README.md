@@ -97,7 +97,7 @@ Skill 将自动执行完整的工作流：日期检测+模式路由 → **Phase 
 | `references/stock-universe.md` | 5板块标的池 v2.1 |
 | `references/data-source-priority.md` | 数据源优先级 v1.6 + 降级路径 |
 | `references/formulas.md` | 所有公式唯一权威源 v1.0 |
-| `references/golden-baseline.json` | 结构化基线定义 v1.1 |
+| `references/golden-baseline.json` | 结构化基线定义 v1.2 |
 | `references/templates.md` | 交付模板集合 v1.1 |
 | `references/known-pitfalls.md` | 已知堵点 v5.5（64条活跃+6条归档） |
 | `references/weekend-mode.md` | Weekend 模式规范 v4.1 |

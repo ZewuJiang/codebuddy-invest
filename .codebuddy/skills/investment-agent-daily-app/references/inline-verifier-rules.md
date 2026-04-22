@@ -26,10 +26,10 @@
 | **R2** | 每家 positions ≥ Top10 | ✅ 可内联 | 只需 radar.smartMoneyHoldings |
 | **R3** | 无"待更新"占位符 | ✅ 可内联 | 只需当前 JSON 字符串搜索 |
 | **R9** | 与 holdings-cache.json 一致 | ❌ 不可内联 | 需读取外部 `references/holdings-cache.json` 文件 |
-| **V35** | audioUrl 非空 | ❌ 不可内联 | 需 Phase 3.5 TTS 生成+上传后才有值 |
+| **V35** | audioUrl 非空 | ⏸️ 暂停 | 语音播报已暂停，V35 降为 WARN，跳过不影响上传 |
 | **V_TL** | 红绿灯 value↔status 阈值一致 | ❌ 不可内联 | 需 `golden-baseline.json` 阈值配置 + auto_compute 执行后 |
 
-**统计**：14 项可内联 / 3 项不可内联
+**统计**：14 项可内联 / 2 项不可内联 / 1 项暂停
 
 ---
 
@@ -182,7 +182,7 @@ Generator-Verifier 循环 SOP：
 | Code | 原因 | 由谁执行 |
 |------|------|----------|
 | **R9** | 需读取外部 `references/holdings-cache.json` 进行逐字段比对 | validate.py |
-| **V35** | `audioUrl` 需 Phase 3.5 执行 `generate_audio.py` + `upload_to_cloud.py` 后才有值 | validate.py（第二轮，upload 后） |
+| **V35** | `audioUrl` — 语音播报已暂停，V35 降为 WARN，跳过不影响上传 | validate.py（WARN级） |
 | **V_TL** | 红绿灯 `value↔status` 的阈值判定由 `auto_compute.py` 按 `golden-baseline.json` 配置自动计算，validate 在其之后校验 | auto_compute.py + validate.py |
 
 > ⚠️ **V_TL 特殊说明**：虽然 AI 在 Phase 2 填写了 `trafficLights[].value` 和 `threshold`，但 `status` 字段由 `auto_compute.py` 在 Phase 3 自动覆盖。因此 Phase 2 无需（也不应该）检测 value↔status 一致性——不一致是正常的（AI 填的 status 会被脚本覆盖）。

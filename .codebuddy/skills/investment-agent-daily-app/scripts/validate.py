@@ -105,8 +105,8 @@ FATAL_CODES = {
     "V24",   # Markdown 残留 → 前端乱码
     "V41",   # globalReaction value 超长/含括号 → 布局溢出
     "V42",   # generatedAt 为空 → 前端时间显示异常
-    # v5.6 新升级：核心功能完整性
-    "V35",   # audioUrl 为空 → 语音播报功能失效
+    # v5.6→v5.8：V35 降回 WARN（语音播报暂停，不阻断上传）
+    # "V35",   # audioUrl 为空 → 语音播报功能失效（已暂停）
     "V38",   # sparkline趋势 vs change 方向矛盾 → 数据错误
     "R1",    # topHoldings < 3 → 聪明钱持仓核心展示不完整
     "V_TL",  # 红绿灯 value↔status 阈值不一致 → 前端颜色错误

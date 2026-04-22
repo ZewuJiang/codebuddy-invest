@@ -150,13 +150,12 @@ python3 validate.py <sync_dir> --mode standard
 #   🟡 WARN: ≤3（超过3条建议修复后再发布）
 ```
 
-### 当前 FATAL 级校验项清单（17项，全部不可绕过）：
+### 当前 FATAL 级校验项清单（16项，全部不可绕过；V35 已暂停为 WARN）：
 
 | 校验项 | 规则 | 阈值 |
 |--------|------|------|
 | V6 | sparkline[-1] vs price 偏差 | ≤5% |
 | V24 | Markdown 残留 | 零容忍 |
-| V35 | audioUrl 为空 | 零容忍 |
 | V38 | sparkline趋势 vs change 方向矛盾 | 零容忍 |
 | V39 | 13F 持仓合规（无期权/伪造） | 零容忍 |
 | V40 | metrics 无空值 | 零容忍 |
