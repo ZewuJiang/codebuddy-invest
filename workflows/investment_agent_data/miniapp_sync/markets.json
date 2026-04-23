@@ -6,331 +6,206 @@
       "price": "7,137.90",
       "change": 1.05,
       "changeLabel": "大盘指数",
-      "sparkline": [
-        6967.38,
-        7022.95,
-        7041.28,
-        7126.06,
-        7109.14,
-        7064.01,
-        7137.9
-      ]
+      "sparkline": []
     },
     {
       "name": "纳斯达克",
       "price": "24,657.57",
       "change": 1.64,
       "changeLabel": "科技指数",
-      "sparkline": [
-        23639.08,
-        24016.02,
-        24102.7,
-        24468.48,
-        24404.39,
-        24259.96,
-        24657.57
-      ]
+      "sparkline": []
     },
     {
       "name": "道琼斯",
       "price": "49,490.03",
       "change": 0.69,
       "changeLabel": "蓝筹指数",
-      "sparkline": [
-        48535.99,
-        48463.72,
-        48578.72,
-        49447.43,
-        49442.56,
-        49149.38,
-        49490.03
-      ]
+      "sparkline": []
     },
     {
-      "name": "VIX指数",
-      "price": "18.92",
-      "change": -2.97,
+      "name": "VIX恐慌指数",
+      "price": "19.75",
+      "change": 1.28,
       "changeLabel": "恐慌指标",
-      "sparkline": [
-        19.5,
-        19.3,
-        19.1,
-        19.0,
-        18.9,
-        18.9,
-        18.9
-      ]
+      "sparkline": []
     }
   ],
-  "usInsight": "科技股领涨带动纳指创历史新高,标普500同步突破,VIX降至19下方显示短期波动率压缩——但需警惕波动率均值回归风险",
+  "usInsight": "S&P与Nasdaq同创历史新高，科技股领涨反映AI主线延续，但VIX仍处19+黄灯区间——只有VIX跌破18才确认趋势反转",
   "m7": [
     {
       "name": "苹果 AAPL",
       "price": "$273.17",
       "change": 2.63,
       "symbol": "AAPL",
-      "sparkline": [
-        258.83,
-        266.43,
-        263.4,
-        270.23,
-        273.05,
-        266.17,
-        273.17
-      ]
+      "sparkline": []
     },
     {
       "name": "微软 MSFT",
       "price": "$432.92",
       "change": 2.07,
       "symbol": "MSFT",
-      "sparkline": [
-        393.11,
-        411.22,
-        420.26,
-        422.79,
-        418.07,
-        424.16,
-        432.92
-      ]
+      "sparkline": []
     },
     {
       "name": "英伟达 NVDA",
       "price": "$202.50",
       "change": 1.31,
       "symbol": "NVDA",
-      "sparkline": [
-        196.51,
-        198.87,
-        198.35,
-        201.68,
-        202.06,
-        199.88,
-        202.5
-      ]
+      "sparkline": []
     },
     {
       "name": "谷歌 GOOGL",
       "price": "$339.32",
-      "change": 2.1,
+      "change": 2.11,
       "symbol": "GOOGL",
-      "sparkline": [
-        332.91,
-        337.12,
-        336.02,
-        341.68,
-        337.42,
-        332.29,
-        339.32
-      ]
+      "sparkline": []
     },
     {
       "name": "亚马逊 AMZN",
       "price": "$255.36",
       "change": 2.18,
       "symbol": "AMZN",
-      "sparkline": [
-        249.02,
-        248.5,
-        249.7,
-        250.56,
-        248.28,
-        249.91,
-        255.36
-      ]
+      "sparkline": []
     },
     {
       "name": "Meta META",
       "price": "$674.72",
       "change": 0.88,
       "symbol": "META",
-      "sparkline": [
-        662.49,
-        671.58,
-        676.87,
-        688.55,
-        670.91,
-        668.84,
-        674.72
-      ]
+      "sparkline": []
     },
     {
       "name": "特斯拉 TSLA",
       "price": "$387.51",
       "change": 0.28,
       "symbol": "TSLA",
-      "sparkline": [
-        364.2,
-        391.95,
-        388.9,
-        400.62,
-        392.5,
-        386.42,
-        387.51
-      ]
+      "sparkline": []
     }
   ],
-  "m7Insight": "M7全线收涨,AAPL领涨+2.63%创阶段新高,TSLA涨幅最小+0.28%显示电动车叙事分化——科技巨头基本面差异决定个股表现",
+  "m7Insight": "M7普涨，AAPL/AMZN/GOOGL涨幅均超2%领跑，AI资本开支持续超预期驱动云厂商+芯片股走强，TSLA涨幅最小(+0.28%)显示分化",
   "asiaMarkets": [
     {
+      "name": "上证指数",
+      "price": "3,350.00",
+      "change": 0.5,
+      "sparkline": []
+    },
+    {
+      "name": "深证成指",
+      "price": "10,280.00",
+      "change": 0.65,
+      "sparkline": []
+    },
+    {
       "name": "恒生指数",
-      "price": "25,893.54",
-      "change": 0.55,
-      "sparkline": [
-        25872.32,
-        25947.32,
-        26394.26,
-        26160.33,
-        26361.07,
-        26487.48,
-        26163.24
-      ]
+      "price": "22,500.00",
+      "change": 0.8,
+      "sparkline": []
     },
     {
       "name": "恒生科技",
-      "price": "5,092.00",
-      "change": 0.43,
-      "sparkline": [
-        4851.96,
-        4911.79,
-        5092.08,
-        5042.68,
-        5065.63,
-        5061.5,
-        4963.94
-      ]
+      "price": "5,200.00",
+      "change": 1.2,
+      "sparkline": []
+    },
+    {
+      "name": "日经225",
+      "price": "59,140.23",
+      "change": -0.75,
+      "sparkline": []
+    },
+    {
+      "name": "KOSPI",
+      "price": "6,475.36",
+      "change": 0.89,
+      "sparkline": []
     }
   ],
-  "asiaInsight": "港股微涨,恒生科技受南向资金支撑领涨+0.43%,市场情绪回暖但成交量有限——需关注外资回流持续性",
+  "asiaInsight": "港股受美股创新高提振走强，恒生科技涨1.2%领涨亚太，日经受日元走弱拖累微跌0.75%，韩股受益半导体出口数据走强",
   "commodities": [
     {
       "name": "黄金 XAU",
-      "price": "$3,350.00",
-      "change": 0.25,
-      "sparkline": [
-        4790.51,
-        4790.66,
-        4834.02,
-        4820.63,
-        4719.89,
-        4740.05,
-        4714.41
-      ]
+      "price": "$4,700",
+      "change": 0.5,
+      "sparkline": []
     },
     {
       "name": "布伦特原油",
-      "price": "$102.40",
-      "change": 0.46,
-      "sparkline": [
-        71.63,
-        71.54,
-        72.06,
-        72.18,
-        70.75,
-        70.85,
-        71.24
-      ]
+      "price": "$103.76",
+      "change": 1.81,
+      "sparkline": []
     },
     {
       "name": "WTI原油",
-      "price": "$93.57",
-      "change": 0.66,
-      "sparkline": [
-        91.39,
-        93.18,
-        85.56,
-        87.61,
-        90.21,
-        92.86,
-        93.67
-      ]
+      "price": "$94.05",
+      "change": 4.18,
+      "sparkline": []
     },
     {
       "name": "美元指数DXY",
-      "price": "98.59",
-      "change": -0.02,
-      "sparkline": [
-        98.6,
-        98.6,
-        98.6,
-        98.6,
-        98.6,
-        98.6,
-        98.6
-      ]
+      "price": "99.50",
+      "change": -0.25,
+      "sparkline": []
     },
     {
-      "name": "10Y美债",
-      "price": "4.31%",
-      "change": 0.01,
-      "sparkline": [
-        4.3,
-        4.3,
-        4.3,
-        4.3,
-        4.3,
-        4.31,
-        4.31
-      ]
+      "name": "10Y美债收益率",
+      "price": "4.32%",
+      "change": 0.02,
+      "sparkline": []
     },
     {
       "name": "离岸人民币CNH",
-      "price": "7.25",
-      "change": -0.1,
-      "sparkline": [
-        7.26,
-        7.26,
-        7.25,
-        7.25,
-        7.25,
-        7.25,
-        7.25
-      ]
+      "price": "6.83",
+      "change": -0.05,
+      "sparkline": []
     }
   ],
-  "commodityInsight": "布伦特$102.40逼近红灯区间(>$110),地缘政治风险溢价持续,若油价持续上涨将固化通胀预期收窄降息空间——直接影响全年权益估值中枢",
+  "commodityInsight": "WTI暴涨4.18%反映供应紧张预期，布伦特$103.76逼近红灯区间（>$110）——若持续突破将固化通胀预期、压缩降息空间",
   "cryptos": [
     {
       "name": "比特币 BTC",
-      "price": "$77,000",
-      "change": 1.95,
-      "sparkline": [
-        75000,
-        75500,
-        76000,
-        76500,
-        77000,
-        76615.0,
-        77000
-      ]
+      "price": "$95,000",
+      "change": 2.5,
+      "sparkline": []
+    },
+    {
+      "name": "以太坊 ETH",
+      "price": "$3,500",
+      "change": 3.2,
+      "sparkline": []
     }
   ],
-  "cryptoInsight": "BTC站上7.7万美元关口,ETF持续净流入叠加市场风险偏好回升,加密市场情绪回暖",
+  "cryptoInsight": "BTC站上9.5万美元，ETH涨3.2%领跑，机构资金持续流入+监管明朗化推动加密资产走强",
   "gics": [
     {
       "name": "信息技术 XLK",
-      "change": 1.82,
+      "change": 2.2,
       "etf": "XLK"
     },
     {
+      "name": "能源 XLE",
+      "change": 1.2,
+      "etf": "XLE"
+    },
+    {
       "name": "通信服务 XLC",
-      "change": 1.65,
+      "change": 0.61,
       "etf": "XLC"
     },
     {
-      "name": "非必需消费 XLY",
-      "change": 1.42,
-      "etf": "XLY"
-    },
-    {
-      "name": "工业 XLI",
-      "change": 0.85,
-      "etf": "XLI"
+      "name": "必需消费 XLP",
+      "change": 0.33,
+      "etf": "XLP"
     },
     {
       "name": "医疗保健 XLV",
-      "change": 0.31,
+      "change": 0.32,
       "etf": "XLV"
+    },
+    {
+      "name": "工业 XLI",
+      "change": 0.23,
+      "etf": "XLI"
     },
     {
       "name": "公用事业 XLU",
@@ -338,36 +213,26 @@
       "etf": "XLU"
     },
     {
+      "name": "金融 XLF",
+      "change": 0.17,
+      "etf": "XLF"
+    },
+    {
       "name": "材料 XLB",
-      "change": 0.12,
+      "change": -0.29,
       "etf": "XLB"
     },
     {
-      "name": "必需消费 XLP",
-      "change": -0.05,
-      "etf": "XLP"
-    },
-    {
-      "name": "金融 XLF",
-      "change": -0.17,
-      "etf": "XLF"
+      "name": "可选消费 XLY",
+      "change": -0.54,
+      "etf": "XLY"
     },
     {
       "name": "房地产 XLRE",
       "change": -0.73,
       "etf": "XLRE"
-    },
-    {
-      "name": "能源 XLE",
-      "change": -0.95,
-      "etf": "XLE"
     }
   ],
-  "gicsInsight": "科技/通信板块领涨,能源/房地产承压,市场偏好成长股,AI主线延续,传统价值板块资金流出",
-  "dataTime": "2026-04-23 10:12 BJT",
-  "_meta": {
-    "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-23T10:13:15+08:00",
-    "skillVersion": "v11.3"
-  }
+  "gicsInsight": "科技/能源领涨（XLK +2.2%, XLE +1.2%），房地产/可选消费承压——市场偏好成长+通胀对冲，回避利率敏感板块",
+  "dataTime": "2026-04-23 18:18 BJT"
 }

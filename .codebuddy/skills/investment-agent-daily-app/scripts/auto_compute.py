@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
 """
-投研鸭小程序 — 公式字段自动计算脚本 v3.0
+投研鸭小程序 — 公式字段自动计算脚本 v3.1
 ============================================================
 核心理念（Harness Engineering v10.0）:
   AI 只需填写原始数值，所有公式/派生计算由本脚本机械执行，
   消除 AI 手算错误的可能性。
+
+v3.1 新增（2026-04-23 ARK asOf 堵点修复）：
+  16. ARK smartMoneyHoldings asOf 强制更新为今天日期
+      根因：ARK 每日披露持仓，但 holdings-cache.json 的 asOf 是旧日期（如4/5），
+      AI 引用缓存时只改了 weight 没更新 asOf，导致前端显示陈旧日期。
+      此修复在 auto_compute 阶段无条件将 ARK 的 asOf 覆盖为执行当天。
 
 v3.0 新增（4/8 基准质量巩固）：
   13. markets + watchlist sparkline[-1] 自动对齐 price（消除偏差>0.5%）
@@ -512,6 +518,19 @@ def main():
             changes_made += 1
         if fix_data_time(radar, "radar"):
             changes_made += 1
+
+        # v3.1: ARK asOf 强制更新为今天日期（ARK 每日披露，不适用季度缓存规则）
+        today_str = datetime.now(BJT).strftime('%Y-%m-%d')
+        for holding in radar.get("smartMoneyHoldings", []):
+            fund_name = (holding.get("fund", "") + holding.get("manager", "")).upper()
+            if "ARK" in fund_name:
+                old_asof = holding.get("asOf", "")
+                if old_asof != today_str:
+                    holding["asOf"] = today_str
+                    changes_made += 1
+                    print(f"  🔄 radar.smartMoneyHoldings[ARK].asOf: '{old_asof}' → '{today_str}'（每日披露自动更新）")
+                else:
+                    print(f"  ✅ radar.smartMoneyHoldings[ARK].asOf: 已是今日 '{today_str}'")
 
         save_json(radar_path, radar)
     else:

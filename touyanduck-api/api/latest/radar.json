@@ -1,5 +1,14 @@
 {
   "date": "2026-04-23",
+  "predictions": [
+    {
+      "title": "美联储6月降息?",
+      "source": "CME FedWatch",
+      "probability": 28,
+      "trend": "down",
+      "change24h": -4
+    }
+  ],
   "trafficLights": [
     {
       "name": "VIX波动率",
@@ -9,87 +18,88 @@
     },
     {
       "name": "10Y美债收益率",
-      "value": "4.31%",
+      "value": "4.26%",
       "status": "yellow",
       "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
     },
     {
       "name": "布伦特原油",
-      "value": "$102.40",
+      "value": "$103.20",
       "status": "yellow",
       "threshold": "<$90绿 / $90-110黄 / >$110红"
     },
     {
       "name": "美元指数DXY",
-      "value": "98.59",
+      "value": "98.61",
       "status": "green",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
     {
       "name": "HY信用利差",
-      "value": "3.8%",
+      "value": "3.85%",
       "status": "green",
       "threshold": "<4%绿 / 4-5%黄 / >5%红"
     },
     {
       "name": "黄金XAU",
-      "value": "$3,350",
-      "status": "yellow",
+      "value": "$4,758",
+      "status": "red",
       "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "7.25",
-      "status": "yellow",
+      "value": "6.865",
+      "status": "green",
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
   "riskScore": 80,
   "riskLevel": "high",
-  "riskAdvice": "布伦特$102.40逼近红灯区间(>$110),若持续将固化通胀预期收窄降息空间。10Y美债4.31%处于黄灯区间,需关注本周经济数据对利率预期的影响。",
+  "riskAdvice": "黄金$4758亮红灯（避险情绪极端），布伦特$103逼近红灯区间——若美伊局势持续升级油价突破$110，当前反弹基础将被抽空。VIX 18.92处黄灯区间，波动率未完全回归安全区域。",
+  "monitorTable": [],
   "riskAlerts": [],
-  "alerts": [],
   "events": [
     {
-      "date": "周三",
-      "title": "美国一季度GDP初值发布,市场关注经济增速与通胀数据",
+      "date": "周四",
+      "title": "美股三大指数集体收涨，纳指创历史新高24657点",
       "impact": "high",
-      "source": "美国商务部",
-      "url": "https://www.bea.gov/"
+      "source": "Trading Economics",
+      "url": "https://tradingeconomics.com/united-states/stock-market"
     },
     {
       "date": "周四",
-      "title": "美联储FOMC会议纪要发布,聚焦降息路径讨论",
+      "title": "布伦特原油涨至$103，美伊紧张局势推升战争溢价",
       "impact": "high",
-      "source": "Federal Reserve",
-      "url": "https://www.federalreserve.gov/"
+      "source": "OilPrice.com",
+      "url": "https://oilprice.com/commodity-price-charts/"
     },
     {
-      "date": "周五",
-      "title": "美国3月PCE物价指数发布,核心通胀数据影响降息预期",
-      "impact": "high",
-      "source": "美国商务部",
-      "url": "https://www.bea.gov/"
+      "date": "周日",
+      "title": "高盛上调标普500年底目标至7600，称AI投资贡献EPS增长40%",
+      "impact": "medium",
+      "source": "Edgen Tech",
+      "url": "https://www.edgen.tech/news/post/goldman-sachs-lifts-sp-500-target-to-7600-on-ai-driven-earnings-surge"
     }
   ],
+  "alerts": [],
   "smartMoneyDetail": [
     {
       "tier": "T1旗舰",
       "funds": [
         {
-          "name": "伯克希尔",
-          "action": "现金储备$3733亿创历史新高,Greg Abel首次重启股票回购,减持AAPL(-4.3%)/BAC(-8.9%),增持CVX(+6.6%)/CB(+9.3%)",
+          "name": "伯克希尔·Greg Abel",
+          "action": "重塑投资组合，重启股票回购，收紧投资监管，管理48只股票$3200亿组合，现金储备$3733亿创历史新高",
           "signal": "neutral",
-          "source": "SEC 13F",
-          "url": "https://sec.gov/",
+          "source": "Seeking Alpha",
+          "url": "https://seekingalpha.com/news/4576349-greg-abel-puts-his-stamp-on-berkshire-hathaway-as-buffett-era-fades",
           "freshness": "本周"
         },
         {
-          "name": "段永平",
-          "action": "近期在雪球平台密集发声,重点关注泡泡玛特商业逻辑与竞争壁垒,3/30收回'不投资'说法,4/4亲赴Westfield门店调研,评价'right business'",
+          "name": "桥水基金·达利欧",
+          "action": "13F持仓市值$274亿，增持阿里/黄金/Booking/CRM，All Weather组合配置调整",
           "signal": "bullish",
-          "source": "雪球",
-          "url": "https://xueqiu.com/",
+          "source": "Insider Edges",
+          "url": "https://www.insideredges.com/blog/ray-dalio-portfolio-april-2026",
           "freshness": "本周"
         }
       ]
@@ -98,11 +108,19 @@
       "tier": "T2成长",
       "funds": [
         {
-          "name": "ARK基金",
-          "action": "减持Coreweave(CRWV)约$2.6M,增持Netflix(NFLX)约$2.5M,连续卖出CRWV显示对GPU算力租赁短期谨慎",
+          "name": "ARK Invest·Cathie Wood",
+          "action": "卖出CRWV $2.6M、TWST $4.0M、BFLY $1.8M，买入NFLX $2.5M，TSLA维持第一重仓10.5%",
           "signal": "neutral",
-          "source": "ARK官网",
-          "url": "https://cathiesark.com/",
+          "source": "Cathie's Ark",
+          "url": "https://cathiesark.com/ark-funds-combined/trades",
+          "freshness": "本周"
+        },
+        {
+          "name": "段永平·H&H",
+          "action": "关注泡泡玛特，4/4亲赴Westfield门店调研评价right business，雪球平台持续分享投资思考",
+          "signal": "bullish",
+          "source": "新浪财经",
+          "url": "https://finance.sina.com.cn/stock/zqgd/2026-04-14/doc-inhuniea4102478.shtml",
           "freshness": "本周"
         }
       ]
@@ -111,11 +129,12 @@
       "tier": "策略师观点",
       "funds": [
         {
-          "name": "高盛David Kostin",
-          "action": "维持2026年标普500目标价5200点,认为企业盈利增长将支撑市场,但估值扩张空间有限",
-          "signal": "neutral",
-          "source": "Goldman Sachs",
-          "freshness": "上周"
+          "name": "高盛·Ben Snider",
+          "action": "上调标普500年底目标至7600点，AI投资将贡献EPS增长40%，2026年预期EPS增长12%",
+          "signal": "bullish",
+          "source": "Edgen Tech",
+          "url": "https://www.edgen.tech/news/post/goldman-sachs-lifts-sp-500-target-to-7600-on-ai-driven-earnings-surge",
+          "freshness": "本周"
         }
       ]
     }
@@ -188,7 +207,7 @@
           "change": "持仓不变"
         }
       ],
-      "footnote": "持仓数42只,Top10占88.3%,现金储备$3,733亿(Greg Abel首次重启回购),Q4增持CVX(+6.6%)/CB(+9.3%),减持AAPL(-4.3%)/BAC(-8.9%)"
+      "footnote": "持仓数42只，Top10占88.3%，现金储备$3,733亿（Greg Abel首次重启回购），Q4增持CVX(+6.6%)/CB(+9.3%)，减持AAPL(-4.3%)/BAC(-8.9%)"
     },
     {
       "manager": "段永平 · H&H",
@@ -257,13 +276,13 @@
           "change": "减持"
         }
       ],
-      "footnote": "持仓数14只,核心持仓极度集中(AAPL+BRK.B占71%),2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%),新建仓CRWV/CRDO/TEM"
+      "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，新建仓CRWV/CRDO/TEM"
     },
     {
       "manager": "Cathie Wood · ARK旗舰",
       "fund": "ARK Innovation ETF (ARKK)",
       "aum": "$6.8B",
-      "asOf": "2026-04-05(ARK每日持仓披露)",
+      "asOf": "2026-04-17",
       "positions": [
         {
           "name": "特斯拉",
@@ -326,13 +345,13 @@
           "change": "持仓不变"
         }
       ],
-      "footnote": "ARK每日披露持仓变动,TSLA始终第一重仓,近期连续买入CoreWeave(CRWV)和Kodiak AI(KDK)但尚未进入Top10"
+      "footnote": "ARK每日披露持仓变动，TSLA始终第一重仓，近期连续买入CoreWeave(CRWV)和Kodiak AI(KDK)但尚未进入Top10"
     }
   ],
-  "dataTime": "2026-04-23 10:12 BJT",
+  "dataTime": "2026-04-23 14:12 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-23T10:13:15+08:00",
+    "generatedAt": "2026-04-23T14:13:37+08:00",
     "skillVersion": "v11.3"
   }
 }
