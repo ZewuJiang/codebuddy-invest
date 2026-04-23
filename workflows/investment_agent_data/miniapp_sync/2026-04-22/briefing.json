@@ -1,126 +1,173 @@
 {
   "date": "2026-04-22",
-  "takeaway": "特朗普威胁轰炸伊朗引发【避险情绪升温】，美股两连跌但【芯片指数连涨15日】创新高，苹果因【库克将卸任】跌超2%——本周伊朗局势是核心变量",
+  "timeStatus": {
+    "bjt": "18:00",
+    "est": "06:00",
+    "marketStatus": "美股休市",
+    "refreshInterval": "每日更新"
+  },
+  "takeaway": "美股三大指数延续反弹均涨约【0.6%】，但【VIX 19】仍处黄灯区，【苹果CEO更替】引发端侧AI战略不确定性——关注周三中东停火谈判能否续期。",
   "coreEvent": {
-    "title": "美伊谈判前景黯淡+苹果换帅——地缘与科技双线承压",
+    "title": "苹果CEO更替遇上中东停火到期——AI终端龙头换帅与地缘风险共振",
     "chain": [
       {
-        "title": "特朗普威胁轰炸伊朗，战火重燃风险加剧",
-        "brief": "市场担心美伊谈判无望，霍尔木兹海峡通行再度趋紧，油价盘中转涨，避险资产黄金承压回落",
-        "source": "华尔街见闻",
-        "url": "https://wallstreetcn.com/articles/3770544"
+        "title": "苹果换帅：Ternus接任CEO，Cook转任执行董事长",
+        "brief": "硬件工程资深副总裁John Ternus接替Tim Cook，强化AI时代硬件与算法整合能力",
+        "source": "钛媒体",
+        "url": "https://www.tmtpost.com/7960688.html",
+        "source_count": 3
       },
       {
-        "title": "苹果CEO库克将卸任，股价跌超2.5%",
-        "brief": "苹果宣布库克将卸任CEO，市场对继任者及产品路线图存疑，但一季度业绩优于预期",
-        "source": "华尔街见闻",
-        "url": "https://wallstreetcn.com/articles/3770544"
+        "title": "伊朗停火22日到期，霍尔木兹海峡局势再升温",
+        "brief": "美伊临时停火协议到期，特朗普称新一轮谈判定于21日，伊朗尚未确认参会",
+        "source": "21经济网",
+        "url": "https://www.21jingji.com/article/20260421/herald/9bb4ff986e0d7592f5e5169156b4d216.html",
+        "source_count": 4
       },
       {
-        "title": "芯片指数连涨15日创十余年最长连涨",
-        "brief": "AMD涨近3.5%，ASM涨超3%，英伟达回落超1%但产业链情绪依然高涨",
-        "source": "华尔街见闻",
-        "url": "https://wallstreetcn.com/articles/3770544"
+        "title": "日经225创历史新高59,585点，日元走弱提振出口股",
+        "brief": "日本基准指数连续三日创新高，科技权重股领涨，DXY弱势至98.3",
+        "source": "新华网",
+        "url": "https://english.news.cn/asiapacific/20260422/ee41684c33ee40bd92e9c71073fa8848/c.html",
+        "source_count": 3
       },
       {
-        "title": "工信部针对存储器涨价将增强供给",
-        "brief": "胜宏科技港股首秀暴涨50%，IPO募资200亿港元为今年港股之首，中投、挪威主权基金入局",
-        "source": "华尔街见闻",
-        "url": "https://wallstreetcn.com/articles/3770544"
+        "title": "Big Tech AI Capex 2026年逼近$700B，四大云厂商军备竞赛",
+        "brief": "Alphabet/Amazon/Meta/Microsoft合计资本开支接近7000亿美元，AI基础设施投资创纪录",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/02/06/google-microsoft-meta-amazon-ai-cash.html",
+        "source_count": 2
+      },
+      {
+        "title": "段永平卖Put布局泡泡玛特，称「保险公司正式开张」",
+        "brief": "通过卖出看跌期权收取权利金建仓，称泡泡玛特财报激起好奇心，已连续数日研究",
+        "source": "新浪财经",
+        "url": "https://finance.sina.com.cn/jjxw/2026-04-14/doc-inhunicu4806726.shtml",
+        "source_count": 3
       }
     ]
   },
   "globalReaction": [
     {
       "name": "标普500",
-      "value": "-0.63%",
-      "direction": "down",
-      "note": "两连跌，VIX升3.3%"
+      "value": "+0.63%",
+      "direction": "up",
+      "note": "延续反弹"
     },
     {
-      "name": "纳斯达克",
-      "value": "-0.59%",
-      "direction": "down",
-      "note": "终结13连涨"
+      "name": "纳指",
+      "value": "+0.59%",
+      "direction": "up",
+      "note": "科技股领涨"
     },
     {
-      "name": "苹果",
-      "value": "-2.52%",
+      "name": "日经225",
+      "value": "59,586点",
+      "direction": "up",
+      "note": "历史新高"
+    },
+    {
+      "name": "恒生科技",
+      "value": "-1.93%",
       "direction": "down",
-      "note": "库克将卸任"
+      "note": "科网股普跌"
     },
     {
       "name": "黄金",
-      "value": "$4,768",
+      "value": "$4,738",
       "direction": "up",
-      "note": "避险需求支撑"
+      "note": "避险需求强劲"
     },
     {
-      "name": "布伦特原油",
-      "value": "$97.71",
-      "direction": "down",
-      "note": "前日暴涨后回调"
-    },
-    {
-      "name": "VIX恐慌指数",
-      "value": "19.50",
+      "name": "VIX",
+      "value": "19.01",
       "direction": "up",
-      "note": "地缘风险升温"
+      "note": "黄灯区波动"
     }
   ],
   "coreJudgments": [
     {
-      "title": "美伊冲突短期难解，油价中枢上移",
+      "title": "苹果换帅强化端侧AI整合，短期股价承压但长期逻辑不变",
       "confidence": 78,
-      "logic": "特朗普威胁轰炸 → 霍尔木兹通行风险溢价重定价 → 布伦特或测试$100关口",
+      "logic": "Ternus硬件背景深厚 → 端侧AI整合能力提升 → 20亿设备入口护城河加固，但Q2财报前震荡难免",
+      "keyActor": "John Ternus",
+      "references": [
+        {
+          "name": "钛媒体",
+          "summary": "苹果宣布硬件工程资深副总裁约翰·特纳斯接替蒂姆·库克出任CEO，库克转任执行董事长",
+          "url": "https://www.tmtpost.com/7960688.html"
+        }
+      ],
       "probability": "高可能性",
+      "trend": "稳定"
+    },
+    {
+      "title": "中东停火若无法续期，油价中枢将系统性上移",
+      "confidence": 72,
+      "logic": "霍尔木兹海峡风险溢价重定价 → 布伦特$99逼近红灯 → CPI通胀预期抬头，联储降息空间收窄",
+      "keyActor": "特朗普/伊朗",
+      "references": [
+        {
+          "name": "21经济网",
+          "summary": "美伊临时停火将于4月22日到期，特朗普称新一轮谈判定于21日",
+          "url": "https://www.21jingji.com/article/20260421/herald/9bb4ff986e0d7592f5e5169156b4d216.html"
+        }
+      ],
+      "probability": "中可能性",
       "trend": "上升"
     },
     {
-      "title": "苹果换帅带来不确定性，短期承压",
-      "confidence": 72,
-      "logic": "库克卸任消息冲击 → 继任者未明+产品路线存疑 → 股价短期波动加剧",
+      "title": "Big Tech AI Capex军备竞赛延续，NVDA产业链受益确定性强",
+      "confidence": 85,
+      "logic": "四大云厂商$700B资本开支 → GPU需求只增不减 → NVDA/TSM/光模块链业绩兑现度高",
+      "keyActor": "Jensen Huang/Satya Nadella",
+      "references": [
+        {
+          "name": "CNBC",
+          "summary": "四大云厂商2026年AI资本开支合计接近$700B，创历史纪录",
+          "url": "https://www.cnbc.com/2026/02/06/google-microsoft-meta-amazon-ai-cash.html"
+        }
+      ],
       "probability": "高可能性",
-      "trend": "下降"
-    },
-    {
-      "title": "芯片股独立行情延续，资金抱团AI",
-      "confidence": 68,
-      "logic": "芯片指数15连涨 → AI资本开支预期支撑 → 但获利盘累积需警惕回调",
-      "probability": "中可能性",
-      "trend": "稳定"
+      "trend": "上升"
     }
   ],
-  "actionHints": [],
-  "sentimentScore": 52,
+  "actionHints": [
+    {
+      "type": "watch",
+      "content": "段永平通过卖Put布局泡泡玛特，称「right business」——IP消费品全球化逻辑值得关注，但需等13F确认持仓",
+      "reason": "段永平投资决策链经典前兆：看不懂→深度研究→实地调研→right business评价"
+    }
+  ],
+  "sentimentScore": 58,
   "sentimentLabel": "中性",
   "marketSummaryPoints": [
-    "美股两连跌，芯片指数逆势15连涨创十余年纪录，资金抱团AI主线明确",
-    "特朗普威胁轰炸伊朗，地缘风险升温推升VIX至19.50，原油盘中转涨",
-    "苹果因库克将卸任跌超2.5%，为当日跌幅最大M7成分股，市场关注继任者人选",
-    "港股恒指震荡收涨0.5%，A股午后拉升翻红，亚太相对抗跌"
+    "美股延续反弹，三大指数均涨约0.6%，科技股领涨，但VIX仍处19黄灯区显示市场情绪未完全修复",
+    "日经225创历史新高59,586点，日元走弱叠加科技股领涨推动，DXY弱势至98.3",
+    "港股恒生科技跌1.93%，科网股普跌，南向资金支撑有限，港股均跌超1%",
+    "黄金维持$4,738高位，避险需求强劲，布伦特$99.34逼近红灯阈值（>$110）"
   ],
   "smartMoney": [
     {
-      "source": "ARK基金",
-      "action": "卖CRWV $2.6M，买NFLX $2.5M，持续调仓成长股",
-      "signal": "neutral"
-    },
-    {
       "source": "段永平",
-      "action": "泡泡玛特保险公司正式开张（卖put策略），连续研究后称right business",
+      "action": "卖Put布局泡泡玛特，称「保险公司正式开张」，连续数日研究后评价「right business」",
       "signal": "bullish"
     },
     {
-      "source": "达利欧",
-      "action": "推出Digital Ray AI系统，称AI将成为投资决策伙伴",
+      "source": "ARK Invest",
+      "action": "4月17日买入NFLX约$2.5M，卖出CRWV/BLSH/CRCL等AI算力标的",
       "signal": "neutral"
+    },
+    {
+      "source": "Ray Dalio",
+      "action": "推出「Digital Ray」AI twin系统，基于桥水投资原则构建算法决策伙伴",
+      "signal": "bullish"
     }
   ],
   "topHoldings": [
     {
       "name": "伯克希尔",
-      "holdings": "AAPL 22.6% | AXP 20.5% | BAC 10.4% | KO 10.2% | CVX 7.2% · 现金$3,733亿"
+      "holdings": "AAPL 22.6% | AXP 20.5% | BAC 10.4% | KO 10.2% | CVX 7.2% · 现金$3733亿"
     },
     {
       "name": "段永平",
@@ -132,15 +179,18 @@
     }
   ],
   "riskPoints": [
-    "美伊冲突若升级为全面战争，霍尔木兹封锁将推升油价至$120+，通胀二次抬头",
-    "苹果换帅不确定性可能引发科技股连锁反应，关注后续管理层表态",
-    "芯片指数15连涨后获利盘累积，需警惕短期回调风险"
+    "布伦特原油$99.34逼近红灯阈值（>$110），若中东停火无法续期，油价中枢将系统性上移",
+    "VIX 19.01仍处黄灯区（18-25），市场情绪未完全修复，反弹基础脆弱",
+    "苹果CEO更替引发端侧AI战略不确定性，Q2财报前股价震荡难免"
   ],
-  "riskNote": "地缘风险与科技股不确定性叠加，VIX升至19.50但仍未破20，市场整体处于谨慎观望状态，本周伊朗局势演变是核心变量。",
-  "dataTime": "2026-04-22 14:00 BJT",
+  "riskNote": "油价逼近红灯叠加VIX黄灯，地缘风险与市场情绪共振，关注周三中东停火谈判结果——若续期失败将直接冲击通胀预期。",
+  "dataTime": "2026-04-22 18:00 BJT",
+  "audioUrl": "",
+  "audioFile": "",
+  "voiceText": "",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-22T14:00:00+08:00",
+    "generatedAt": "2026-04-22T18:00:00+08:00",
     "skillVersion": "v11.3"
   }
 }

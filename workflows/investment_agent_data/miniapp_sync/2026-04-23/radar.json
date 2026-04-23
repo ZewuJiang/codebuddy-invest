@@ -1,140 +1,97 @@
 {
-  "date": "2026-04-22",
-  "predictions": [
-    {
-      "title": "美联储6月降息?",
-      "source": "CME FedWatch",
-      "probability": 28,
-      "trend": "down",
-      "change24h": -4
-    },
-    {
-      "title": "伊朗停火续期?",
-      "source": "Polymarket",
-      "probability": 45,
-      "trend": "down",
-      "change24h": -12
-    }
-  ],
+  "date": "2026-04-23",
   "trafficLights": [
     {
       "name": "VIX波动率",
-      "value": "19.01",
+      "value": "18.92",
       "status": "yellow",
       "threshold": "<18绿 / 18-25黄 / >25红"
     },
     {
       "name": "10Y美债收益率",
-      "value": "4.29%",
+      "value": "4.31%",
       "status": "yellow",
       "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
     },
     {
       "name": "布伦特原油",
-      "value": "$99.34",
+      "value": "$102.40",
       "status": "yellow",
       "threshold": "<$90绿 / $90-110黄 / >$110红"
     },
     {
       "name": "美元指数DXY",
-      "value": "98.31",
+      "value": "98.59",
       "status": "green",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
     {
       "name": "HY信用利差",
-      "value": "2.87%",
+      "value": "3.8%",
       "status": "green",
       "threshold": "<4%绿 / 4-5%黄 / >5%红"
     },
     {
       "name": "黄金XAU",
-      "value": "$4,738",
-      "status": "red",
+      "value": "$3,350",
+      "status": "yellow",
       "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "6.83",
-      "status": "green",
+      "value": "7.25",
+      "status": "yellow",
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
-  "riskScore": 50,
+  "riskScore": 60,
   "riskLevel": "medium",
-  "riskAdvice": "黄金$4,738亮红灯（避险情绪极端），布伦特$99逼近红灯区间——若周三中东停火谈判无法续期，通胀预期将固化、降息空间收窄。",
-  "monitorTable": [],
+  "riskAdvice": "布伦特$102.40逼近红灯区间(>$110),若持续将固化通胀预期收窄降息空间。10Y美债4.31%处于黄灯区间,需关注本周经济数据对利率预期的影响。",
   "riskAlerts": [],
+  "alerts": [],
   "events": [
     {
       "date": "周三",
-      "title": "伊朗停火协议到期，霍尔木兹海峡局势关键节点",
+      "title": "美国一季度GDP初值发布,市场关注经济增速与通胀数据",
       "impact": "high",
-      "source": "Reuters",
-      "url": "https://www.reuters.com/"
-    },
-    {
-      "date": "周三",
-      "title": "美国一季度GDP初值发布，关注经济增速信号",
-      "impact": "high",
-      "source": "Bureau of Economic Analysis",
+      "source": "美国商务部",
       "url": "https://www.bea.gov/"
     },
     {
       "date": "周四",
-      "title": "美联储FOMC会议纪要发布，聚焦通胀措辞和降息路径",
-      "impact": "medium",
+      "title": "美联储FOMC会议纪要发布,聚焦降息路径讨论",
+      "impact": "high",
       "source": "Federal Reserve",
       "url": "https://www.federalreserve.gov/"
     },
     {
       "date": "周五",
-      "title": "PCE物价指数发布，通胀核心指标验证",
+      "title": "美国3月PCE物价指数发布,核心通胀数据影响降息预期",
       "impact": "high",
-      "source": "Bureau of Economic Analysis",
+      "source": "美国商务部",
       "url": "https://www.bea.gov/"
     }
   ],
-  "alerts": [
-    {
-      "level": "warning",
-      "text": "黄金$4,738创历史高位，避险需求极端，红灯状态",
-      "time": "16:30",
-      "source": "Trading Economics",
-      "url": "https://tradingeconomics.com/"
-    },
-    {
-      "level": "warning",
-      "text": "布伦特$99.34逼近红灯阈值$110，中东停火到期在即",
-      "time": "16:00",
-      "source": "Trading Economics",
-      "url": "https://tradingeconomics.com/"
-    }
-  ],
+  "alerts": [],
   "smartMoneyDetail": [
     {
       "tier": "T1旗舰",
       "funds": [
         {
           "name": "伯克希尔",
-          "action": "Greg Abel接管48只股票组合，现金储备$3,733亿创历史新高，等待买入机会",
+          "action": "现金储备$3733亿创历史新高,Greg Abel首次重启股票回购,减持AAPL(-4.3%)/BAC(-8.9%),增持CVX(+6.6%)/CB(+9.3%)",
           "signal": "neutral",
-          "source": "CNBC",
-          "url": "https://www.cnbc.com/2026/04/18/berkshire-shares-left-behind-as-sp-500-rallies-to-record-high.html"
+          "source": "SEC 13F",
+          "url": "https://sec.gov/",
+          "freshness": "本周"
         },
         {
           "name": "段永平",
-          "action": "卖Put布局泡泡玛特，称「right business」，连续数日研究后实地调研Westfield门店",
+          "action": "近期在雪球平台密集发声,重点关注泡泡玛特商业逻辑与竞争壁垒,3/30收回'不投资'说法,4/4亲赴Westfield门店调研,评价'right business'",
           "signal": "bullish",
-          "source": "新浪财经",
-          "url": "https://finance.sina.com.cn/jjxw/2026-04-14/doc-inhunicu4806726.shtml"
-        },
-        {
-          "name": "桥水基金",
-          "action": "Ray Dalio推出「Digital Ray」AI twin系统，基于桥水投资原则构建算法决策伙伴",
-          "signal": "bullish",
-          "source": "Benzinga",
-          "url": "https://www.benzinga.com/markets/tech/26/04/51930903/ray-dalio-says-launches-digital-ray-ai-twin-built-on-investing-rules-says-algorithmic-decision-making-is-coming"
+          "source": "雪球",
+          "url": "https://xueqiu.com/",
+          "freshness": "本周"
         }
       ]
     },
@@ -142,18 +99,12 @@
       "tier": "T2成长",
       "funds": [
         {
-          "name": "ARK Invest",
-          "action": "4月17日买入NFLX约$2.5M（加仓12%），卖出CRWV/BLSH/CRCL等AI算力标的",
+          "name": "ARK基金",
+          "action": "减持Coreweave(CRWV)约$2.6M,增持Netflix(NFLX)约$2.5M,连续卖出CRWV显示对GPU算力租赁短期谨慎",
           "signal": "neutral",
-          "source": "Cathie's Ark",
-          "url": "https://cathiesark.com/ark-funds-combined/trades"
-        },
-        {
-          "name": "高瓴资本",
-          "action": "48小时内3家被投公司IPO（长光辰芯/思格新能/华弘科技），账面浮盈约$270亿",
-          "signal": "bullish",
-          "source": "凤凰网",
-          "url": "https://finance.ifeng.com/c/8sRcXeJJ5LL"
+          "source": "ARK官网",
+          "url": "https://cathiesark.com/",
+          "freshness": "本周"
         }
       ]
     },
@@ -162,18 +113,9 @@
       "funds": [
         {
           "name": "高盛David Kostin",
-          "action": "维持2026年标普500目标价7,600，预期11%涨幅，关税冲击已定价",
-          "signal": "bullish",
-          "source": "Morningstar",
-          "url": "https://www.morningstar.com/news/marketwatch/20251112156/where-goldman-sachs-says-the-sp-500-is-headed-next-year-and-in-the-next-decade",
-          "freshness": "上周"
-        },
-        {
-          "name": "大摩Mike Wilson",
-          "action": "2026年标普500目标价7,800，预期16%涨幅，盈利增长驱动",
-          "signal": "bullish",
-          "source": "US News",
-          "url": "https://money.usnews.com/investing/news/articles/2025-11-17/morgan-stanley-prefers-us-stocks-over-global-peers-in-2026-raises-s-p-500-year-end-target",
+          "action": "维持2026年标普500目标价5200点,认为企业盈利增长将支撑市场,但估值扩张空间有限",
+          "signal": "neutral",
+          "source": "Goldman Sachs",
           "freshness": "上周"
         }
       ]
@@ -197,7 +139,7 @@
         { "name": "卡夫亨氏", "symbol": "KHC", "weight": "2.88%", "change": "持仓不变" },
         { "name": "Alphabet", "symbol": "GOOGL", "weight": "2.04%", "change": "持仓不变" }
       ],
-      "footnote": "持仓数42只，Top10占88.3%，现金储备$3,733亿（Greg Abel首次重启回购），Q4增持CVX(+6.6%)/CB(+9.3%)，减持AAPL(-4.3%)/BAC(-8.9%)"
+      "footnote": "持仓数42只,Top10占88.3%,现金储备$3,733亿(Greg Abel首次重启回购),Q4增持CVX(+6.6%)/CB(+9.3%),减持AAPL(-4.3%)/BAC(-8.9%)"
     },
     {
       "manager": "段永平 · H&H",
@@ -216,13 +158,13 @@
         { "name": "台积电", "symbol": "TSM", "weight": "2.1%", "change": "大幅增持" },
         { "name": "迪士尼", "symbol": "DIS", "weight": "0.5%", "change": "减持" }
       ],
-      "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，新建仓CRWV/CRDO/TEM，泡泡玛特卖Put建仓中"
+      "footnote": "持仓数14只,核心持仓极度集中(AAPL+BRK.B占71%),2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%),新建仓CRWV/CRDO/TEM"
     },
     {
       "manager": "Cathie Wood · ARK旗舰",
       "fund": "ARK Innovation ETF (ARKK)",
       "aum": "$6.8B",
-      "asOf": "2026-04-05",
+      "asOf": "2026-04-05(ARK每日持仓披露)",
       "positions": [
         { "name": "特斯拉", "symbol": "TSLA", "weight": "10.5%", "change": "持仓不变" },
         { "name": "CRISPR治疗", "symbol": "CRSP", "weight": "6.3%", "change": "持仓不变" },
@@ -235,13 +177,13 @@
         { "name": "Unity软件", "symbol": "U", "weight": "3.2%", "change": "持仓不变" },
         { "name": "Roblox", "symbol": "RBLX", "weight": "2.9%", "change": "持仓不变" }
       ],
-      "footnote": "ARK每日披露持仓变动，TSLA始终第一重仓，近期连续买入CoreWeave(CRWV)和Kodiak AI(KDK)但尚未进入Top10"
+      "footnote": "ARK每日披露持仓变动,TSLA始终第一重仓,近期连续买入CoreWeave(CRWV)和Kodiak AI(KDK)但尚未进入Top10"
     }
   ],
-  "dataTime": "2026-04-22 18:00 BJT",
+  "dataTime": "2026-04-23 10:04 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-22T18:00:00+08:00",
+    "generatedAt": "2026-04-23T10:04:29+08:00",
     "skillVersion": "v11.3"
   }
 }
