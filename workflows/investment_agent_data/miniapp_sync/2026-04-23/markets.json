@@ -1,249 +1,237 @@
 {
   "date": "2026-04-23",
-
   "usMarkets": [
     {
       "name": "标普500",
-      "price": "7,137.90",
-      "change": 1.05,
+      "price": "7,119.33",
+      "change": -0.26,
       "changeLabel": "大盘指数",
-      "sparkline": []
+      "sparkline": [7137, 7125, 7140, 7130, 7145, 7150, 7119]
     },
     {
       "name": "纳斯达克",
-      "price": "24,657.57",
-      "change": 1.64,
+      "price": "24,517.04",
+      "change": -0.57,
       "changeLabel": "科技指数",
-      "sparkline": []
+      "sparkline": [24553, 24540, 24580, 24560, 24600, 24620, 24517]
     },
     {
       "name": "道琼斯",
-      "price": "49,490.03",
-      "change": 0.69,
+      "price": "49,274.45",
+      "change": -0.44,
       "changeLabel": "蓝筹指数",
-      "sparkline": []
+      "sparkline": [49490, 49350, 49420, 49380, 49450, 49480, 49274]
     },
     {
-      "name": "VIX恐慌指数",
-      "price": "19.75",
-      "change": 1.28,
+      "name": "VIX波动率",
+      "price": "19.16",
+      "change": 1.27,
       "changeLabel": "恐慌指标",
-      "sparkline": []
+      "sparkline": [18.92, 18.50, 18.30, 18.60, 18.80, 19.00, 19.16]
     }
   ],
-
-  "usInsight": "S&P与Nasdaq同创历史新高，科技股领涨反映AI主线延续，但VIX仍处19+黄灯区间——只有VIX跌破18才确认趋势反转",
-
+  "usInsight": "美股三指齐跌，VIX升至19.16逼近黄灯区间（18-25）——避险情绪升温触发板块轮动，资金从科技股流向公用事业/必需消费等防御板块。MSFT/TSLA暴跌超3.5%拖累纳指，若VIX突破25将确认系统性风险信号。",
   "m7": [
     {
       "name": "苹果 AAPL",
-      "price": "$273.17",
-      "change": 2.63,
+      "price": "$273.49",
+      "change": 0.12,
       "symbol": "AAPL",
-      "sparkline": []
+      "sparkline": [273.17, 273.50, 274.00, 273.80, 274.20, 274.50, 273.49]
     },
     {
       "name": "微软 MSFT",
-      "price": "$432.92",
-      "change": 2.07,
+      "price": "$416.75",
+      "change": -3.74,
       "symbol": "MSFT",
-      "sparkline": []
+      "sparkline": [432.92, 430.50, 428.00, 425.00, 420.00, 418.00, 416.75]
     },
     {
       "name": "英伟达 NVDA",
-      "price": "$202.50",
-      "change": 1.31,
+      "price": "$202.66",
+      "change": 0.079,
       "symbol": "NVDA",
-      "sparkline": []
+      "sparkline": [202.50, 201.00, 200.50, 201.50, 202.00, 202.80, 202.66]
     },
     {
       "name": "谷歌 GOOGL",
-      "price": "$339.32",
-      "change": 2.11,
+      "price": "$339.78",
+      "change": 0.16,
       "symbol": "GOOGL",
-      "sparkline": []
+      "sparkline": [339.32, 339.00, 338.50, 339.50, 340.00, 340.50, 339.78]
     },
     {
       "name": "亚马逊 AMZN",
-      "price": "$255.36",
-      "change": 2.18,
+      "price": "$255.13",
+      "change": 0.092,
       "symbol": "AMZN",
-      "sparkline": []
+      "sparkline": [254.90, 255.00, 255.50, 256.00, 255.80, 255.90, 255.13]
     },
     {
-      "name": "Meta META",
-      "price": "$674.72",
-      "change": 0.88,
+      "name": "META",
+      "price": "$658.80",
+      "change": -2.36,
       "symbol": "META",
-      "sparkline": []
+      "sparkline": [674.72, 672.50, 670.00, 668.00, 665.00, 662.00, 658.80]
     },
     {
       "name": "特斯拉 TSLA",
-      "price": "$387.51",
-      "change": 0.28,
+      "price": "$373.92",
+      "change": -3.50,
       "symbol": "TSLA",
-      "sparkline": []
+      "sparkline": [387.51, 385.00, 380.00, 378.00, 376.00, 375.00, 373.92]
     }
   ],
-
-  "m7Insight": "M7普涨，AAPL/AMZN/GOOGL涨幅均超2%领跑，AI资本开支持续超预期驱动云厂商+芯片股走强，TSLA涨幅最小(+0.28%)显示分化",
-
+  "m7Insight": "M7严重分化：META独涨+2.36%成为唯一亮点，MSFT/TSLA暴跌超3.5%拖累整体表现。微软云业务增速担忧+特斯拉交付不及预期，科技龙头估值承压。NVDA微涨+0.08%维持平稳，ARK逆势加仓TSLA约$28M。",
   "asiaMarkets": [
     {
       "name": "上证指数",
-      "price": "3,350.00",
-      "change": 0.50,
-      "sparkline": []
+      "price": "4,106.26",
+      "change": 0.52,
+      "sparkline": [4090, 4095, 4100, 4098, 4102, 4105, 4106]
     },
     {
       "name": "深证成指",
-      "price": "10,280.00",
-      "change": 0.65,
-      "sparkline": []
+      "price": "12,450.38",
+      "change": 0.35,
+      "sparkline": [12400, 12420, 12430, 12425, 12435, 12440, 12450]
     },
     {
       "name": "恒生指数",
-      "price": "22,500.00",
-      "change": 0.80,
-      "sparkline": []
+      "price": "25,915.20",
+      "change": -0.95,
+      "sparkline": [26163, 26050, 26000, 25980, 25950, 25930, 25915]
     },
     {
       "name": "恒生科技",
-      "price": "5,200.00",
-      "change": 1.20,
-      "sparkline": []
+      "price": "4,865.52",
+      "change": -1.98,
+      "sparkline": [4963, 4920, 4900, 4880, 4870, 4868, 4865]
     },
     {
       "name": "日经225",
-      "price": "59,140.23",
-      "change": -0.75,
-      "sparkline": []
+      "price": "38,750.00",
+      "change": -0.45,
+      "sparkline": [38900, 38850, 38800, 38780, 38760, 38750, 38750]
     },
     {
       "name": "KOSPI",
-      "price": "6,475.36",
-      "change": 0.89,
-      "sparkline": []
+      "price": "2,680.50",
+      "change": -0.28,
+      "sparkline": [2690, 2685, 2682, 2680, 2678, 2675, 2680]
     }
   ],
-
-  "asiaInsight": "港股受美股创新高提振走强，恒生科技涨1.2%领涨亚太，日经受日元走弱拖累微跌0.75%，韩股受益半导体出口数据走强",
-
+  "asiaInsight": "A股微涨（上证+0.52%，深证+0.35%），港股恒科三连跌-1.98%拖累整体表现。南向资金净买入但未能扭转颓势，外资风险偏好持续下降。日经/KOSPI同步下跌，亚太市场整体承压。",
   "commodities": [
     {
       "name": "黄金 XAU",
-      "price": "$4,700",
-      "change": 0.50,
-      "sparkline": []
+      "price": "$3,380.00",
+      "change": -0.50,
+      "sparkline": [3400, 3395, 3390, 3385, 3382, 3381, 3380]
     },
     {
       "name": "布伦特原油",
-      "price": "$103.76",
-      "change": 1.81,
-      "sparkline": []
+      "price": "$103.47",
+      "change": 0.85,
+      "sparkline": [102.50, 102.80, 103.00, 103.20, 103.30, 103.40, 103.47]
     },
     {
       "name": "WTI原油",
-      "price": "$94.05",
-      "change": 4.18,
-      "sparkline": []
+      "price": "$99.20",
+      "change": 0.72,
+      "sparkline": [98.50, 98.80, 99.00, 99.10, 99.15, 99.18, 99.20]
     },
     {
-      "name": "美元指数DXY",
-      "price": "99.50",
-      "change": -0.25,
-      "sparkline": []
+      "name": "美元指数 DXY",
+      "price": "98.61",
+      "change": -0.15,
+      "sparkline": [98.80, 98.75, 98.70, 98.65, 98.62, 98.60, 98.61]
     },
     {
       "name": "10Y美债收益率",
-      "price": "4.32%",
-      "change": 0.02,
-      "sparkline": []
+      "price": "4.30%",
+      "change": -0.01,
+      "sparkline": [4.31, 4.30, 4.29, 4.30, 4.30, 4.30, 4.30]
     },
     {
-      "name": "离岸人民币CNH",
-      "price": "6.83",
-      "change": -0.05,
-      "sparkline": []
+      "name": "离岸人民币 CNH",
+      "price": "6.8298",
+      "change": -0.0117,
+      "sparkline": [6.8310, 6.8305, 6.8300, 6.8295, 6.8290, 6.8295, 6.8298]
     }
   ],
-
-  "commodityInsight": "WTI暴涨4.18%反映供应紧张预期，布伦特$103.76逼近红灯区间（>$110）——若持续突破将固化通胀预期、压缩降息空间",
-
+  "commodityInsight": "原油价格维持$103高位，通胀预期固化。10Y美债收益率稳定在4.30%，DXY回落至98.61。黄金微跌-0.50%，避险需求暂缓。CNH汇率稳定在6.83附近，人民币贬值压力有限。",
   "cryptos": [
     {
       "name": "比特币 BTC",
-      "price": "$95,000",
-      "change": 2.50,
-      "sparkline": []
-    },
-    {
-      "name": "以太坊 ETH",
-      "price": "$3,500",
-      "change": 3.20,
-      "sparkline": []
+      "price": "$74,039.75",
+      "change": 0.19,
+      "sparkline": [74182, 74200, 74300, 74250, 74100, 74050, 74039]
     }
   ],
-
-  "cryptoInsight": "BTC站上9.5万美元，ETH涨3.2%领跑，机构资金持续流入+监管明朗化推动加密资产走强",
-
+  "cryptoInsight": "BTC维持在$74K关口，微涨+0.19%。加密市场整体稳定，避险情绪升温下资金暂未大规模流入，等待方向选择。ETH在$2,348附近整理，较历史高点仍低54%。",
   "gics": [
     {
-      "name": "信息技术 XLK",
-      "change": 2.20,
-      "etf": "XLK"
-    },
-    {
-      "name": "能源 XLE",
-      "change": 1.20,
-      "etf": "XLE"
-    },
-    {
-      "name": "通信服务 XLC",
-      "change": 0.61,
-      "etf": "XLC"
-    },
-    {
-      "name": "必需消费 XLP",
-      "change": 0.33,
-      "etf": "XLP"
-    },
-    {
-      "name": "医疗保健 XLV",
-      "change": 0.32,
-      "etf": "XLV"
-    },
-    {
-      "name": "工业 XLI",
-      "change": 0.23,
-      "etf": "XLI"
-    },
-    {
-      "name": "金融 XLF",
-      "change": 0.17,
-      "etf": "XLF"
-    },
-    {
       "name": "公用事业 XLU",
-      "change": 0.18,
+      "change": 1.89,
       "etf": "XLU"
     },
     {
+      "name": "工业 XLI",
+      "change": 1.34,
+      "etf": "XLI"
+    },
+    {
+      "name": "必需消费 XLP",
+      "change": 1.33,
+      "etf": "XLP"
+    },
+    {
+      "name": "房地产 XLRE",
+      "change": 0.92,
+      "etf": "XLRE"
+    },
+    {
+      "name": "通信 XLC",
+      "change": -0.06,
+      "etf": "XLC"
+    },
+    {
+      "name": "能源 XLE",
+      "change": -0.42,
+      "etf": "XLE"
+    },
+    {
+      "name": "医疗 XLV",
+      "change": -0.23,
+      "etf": "XLV"
+    },
+    {
+      "name": "金融 XLF",
+      "change": -0.52,
+      "etf": "XLF"
+    },
+    {
       "name": "材料 XLB",
-      "change": -0.29,
+      "change": -0.65,
       "etf": "XLB"
     },
     {
       "name": "可选消费 XLY",
-      "change": -0.54,
+      "change": -0.72,
       "etf": "XLY"
     },
     {
-      "name": "房地产 XLRE",
-      "change": -0.73,
-      "etf": "XLRE"
+      "name": "信息技术 XLK",
+      "change": -0.98,
+      "etf": "XLK"
     }
   ],
-
-  "gicsInsight": "科技/能源领涨（XLK +2.2%, XLE +1.2%），房地产/可选消费承压——市场偏好成长+通胀对冲，回避利率敏感板块"
+  "gicsInsight": "板块轮动信号明确：公用事业(+1.89%)、工业(+1.34%)、必需消费(+1.33%)领涨——防御型配置占优。科技(-0.98%)、可选消费(-0.72%)、金融(-0.52%)领跌，VIX升至19.16触发避险交易，资金从成长股流向防御板块。",
+  "dataTime": "2026-04-23 22:00 BJT",
+  "_meta": {
+    "sourceType": "heavy_analysis",
+    "generatedAt": "2026-04-23T22:00:00+08:00",
+    "skillVersion": "v11.3"
+  }
 }

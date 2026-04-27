@@ -1,28 +1,29 @@
 {
-  "date": "2026-04-23",
+  "date": "2026-04-24",
+  "predictions": [],
   "trafficLights": [
     {
       "name": "VIX波动率",
-      "value": "19.16",
+      "value": "19.23",
       "status": "yellow",
       "threshold": "<18绿 / 18-25黄 / >25红"
     },
     {
       "name": "10Y美债收益率",
-      "value": "4.30%",
+      "value": "4.32%",
       "status": "yellow",
       "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
     },
     {
       "name": "布伦特原油",
-      "value": "$103.47",
+      "value": "$107.10",
       "status": "yellow",
       "threshold": "<$90绿 / $90-110黄 / >$110红"
     },
     {
       "name": "美元指数DXY",
-      "value": "98.61",
-      "status": "green",
+      "value": "103.50",
+      "status": "yellow",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
     {
@@ -33,78 +34,71 @@
     },
     {
       "name": "黄金XAU",
-      "value": "$3,380",
-      "status": "yellow",
+      "value": "$4,699.90",
+      "status": "red",
       "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "6.8298",
-      "status": "green",
+      "value": "7.28",
+      "status": "yellow",
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
   "riskScore": 50,
   "riskLevel": "medium",
-  "riskAdvice": "VIX升至19.16逼近黄灯区间，布伦特$103维持高位——若VIX突破25将确认系统性风险信号，布伦特突破$110将固化通胀预期收窄降息空间。重点关注本周科技股财报及VIX走势。",
+  "riskAdvice": "黄金$4700亮红灯（避险情绪极端），布伦特$107逼近红灯区间——若油价持续突破$110将固化通胀预期，压缩降息空间。",
+  "monitorTable": [],
+  "riskAlerts": [],
   "events": [
     {
-      "date": "周四",
-      "title": "美股财报季密集期，MSFT/TSLA等科技龙头暴跌超3.5%",
+      "date": "周五",
+      "title": "PCE通胀数据发布，关注核心PCE环比变化",
       "impact": "high",
-      "source": "Google Finance",
-      "url": "https://www.google.com/finance/quote/MSFT:NASDAQ"
+      "source": "Bureau of Economic Analysis",
+      "url": "https://www.bea.gov/"
     },
     {
-      "date": "周四",
-      "title": "港股恒科三连跌-1.98%，外资风险偏好持续下降",
-      "impact": "medium",
-      "source": "腾讯新闻",
-      "url": "https://news.qq.com/rain/a/20260423A06CCZ00"
+      "date": "下周三",
+      "title": "FOMC会议纪要发布，聚焦降息路径讨论",
+      "impact": "high",
+      "source": "Federal Reserve",
+      "url": "https://www.federalreserve.gov/"
     },
     {
-      "date": "持续",
-      "title": "段永平卖put布局泡泡玛特，4/4实地调研称\"right business\"",
+      "date": "下周四",
+      "title": "美国初请失业金人数，关注就业市场边际变化",
       "impact": "medium",
-      "source": "新浪财经",
-      "url": "https://finance.sina.com.cn/jjxw/2026-04-14/doc-inhunicu4806726.shtml"
+      "source": "Department of Labor",
+      "url": "https://www.dol.gov/"
+    },
+    {
+      "date": "下周",
+      "title": "NVDA财报季，AI算力需求验证",
+      "impact": "high",
+      "source": "NVIDIA Investor Relations",
+      "url": "https://investor.nvidia.com/"
     }
   ],
-  "alerts": [
-    {
-      "level": "warning",
-      "text": "VIX升至19.16逼近黄灯区间（18-25），避险情绪升温",
-      "time": "22:00",
-      "source": "Google Finance",
-      "url": "https://www.google.com/finance/quote/VIX:INDEXCBOE"
-    },
-    {
-      "level": "warning",
-      "text": "MSFT/TSLA单日暴跌超3.5%，科技龙头估值承压",
-      "time": "16:00",
-      "source": "Google Finance",
-      "url": "https://www.google.com/finance/quote/MSFT:NASDAQ"
-    }
-  ],
+  "alerts": [],
   "smartMoneyDetail": [
     {
       "tier": "T1旗舰",
       "funds": [
         {
-          "name": "伯克希尔",
-          "action": "持仓组合极度集中（AAPL 22.6%+AXP 20.5%+BAC 10.4%），现金储备$3733亿创历史新高，Greg Abel接班后首次重启回购",
-          "signal": "neutral",
-          "source": "SEC 13F",
-          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&type=13F",
+          "name": "桥水基金",
+          "action": "买入NVDA约$2.53亿，押注AI基建超级周期，从宏观对冲转向AI成长",
+          "signal": "bullish",
+          "source": "HedgeCo",
+          "url": "https://hedgeco.net/news/04/2026/bridgewaters-massive-253m-nvidia-bet-signals-a-structural-pivot-toward-the-ai-infrastructure-supercycle.html",
           "freshness": "本周"
         },
         {
-          "name": "段永平",
-          "action": "卖put布局泡泡玛特，4/4亲赴Westfield门店调研称\"right business\"，持仓极度集中（AAPL 50.3%+BRK.B 20.6%），Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)",
-          "signal": "bullish",
-          "source": "雪球/新浪财经",
-          "url": "https://finance.sina.com.cn/jjxw/2026-04-14/doc-inhunicu4806726.shtml",
-          "freshness": "本周"
+          "name": "伯克希尔",
+          "action": "现金储备$3733亿创历史新高，等待估值回归机会，维持AAPL+AXP+BAC核心持仓",
+          "signal": "neutral",
+          "source": "SEC EDGAR",
+          "url": "https://sec.gov/"
         }
       ]
     },
@@ -113,9 +107,9 @@
       "funds": [
         {
           "name": "ARK Invest",
-          "action": "近期大举买入TSLA约$28M、PLTR约$11M，卖出TER约$22.7M、AMD约$10.8M，TSLA始终第一重仓（10.5%）",
+          "action": "卖出AMD $10.5M，买入Palantir $11.1M，调仓从硬件转向AI软件",
           "signal": "bullish",
-          "source": "Cathie's ARK",
+          "source": "Cathie's Ark",
           "url": "https://cathiesark.com/ark-funds-combined/trades",
           "freshness": "本周"
         }
@@ -125,12 +119,20 @@
       "tier": "策略师观点",
       "funds": [
         {
-          "name": "BlackRock Larry Fink",
-          "action": "Q1财报超预期，ETF资金流强劲，年度信强调长期投资与退休规划，老龄化驱动资产配置需求",
+          "name": "Goldman Sachs (Kostin)",
+          "action": "维持标普500年底目标6900，AI相关股票占市值45%创纪录，估值风险需关注",
           "signal": "neutral",
-          "source": "BlackRock",
-          "url": "https://www.blackrock.com/corporate/investor-relations/larry-fink-annual-chairmans-letter",
-          "freshness": "本周"
+          "source": "Goldman Sachs",
+          "url": "https://www.goldmansachs.com/",
+          "freshness": "上周"
+        },
+        {
+          "name": "Morgan Stanley (Wilson)",
+          "action": "短期市场可能回调，但中期看涨2026，建议逢低布局成长股",
+          "signal": "bullish",
+          "source": "Morgan Stanley",
+          "url": "https://www.morganstanley.com/",
+          "freshness": "上周"
         }
       ]
     }
@@ -178,7 +180,7 @@
       "manager": "Cathie Wood · ARK旗舰",
       "fund": "ARK Innovation ETF (ARKK)",
       "aum": "$6.8B",
-      "asOf": "2026-04-23",
+      "asOf": "2026-04-24",
       "positions": [
         { "name": "特斯拉", "symbol": "TSLA", "weight": "10.5%", "change": "持仓不变" },
         { "name": "CRISPR治疗", "symbol": "CRSP", "weight": "6.3%", "change": "持仓不变" },
@@ -194,10 +196,10 @@
       "footnote": "ARK每日披露持仓变动，TSLA始终第一重仓，近期连续买入CoreWeave(CRWV)和Kodiak AI(KDK)但尚未进入Top10"
     }
   ],
-  "dataTime": "2026-04-23 22:00 BJT",
+  "dataTime": "2026-04-24 18:00 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-23T22:00:00+08:00",
+    "generatedAt": "2026-04-24T18:00:00+08:00",
     "skillVersion": "v11.3"
   }
 }

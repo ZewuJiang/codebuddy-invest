@@ -1,25 +1,10 @@
 {
-  "date": "2026-04-23",
-  "predictions": [
-    {
-      "title": "美联储6月降息?",
-      "source": "CME FedWatch",
-      "probability": 65,
-      "trend": "down",
-      "change24h": -8
-    },
-    {
-      "title": "油价突破$110?",
-      "source": "Polymarket",
-      "probability": 35,
-      "trend": "up",
-      "change24h": 12
-    }
-  ],
+  "date": "2026-04-24",
+  "predictions": [],
   "trafficLights": [
     {
       "name": "VIX波动率",
-      "value": "19.75",
+      "value": "19.23",
       "status": "yellow",
       "threshold": "<18绿 / 18-25黄 / >25红"
     },
@@ -31,14 +16,14 @@
     },
     {
       "name": "布伦特原油",
-      "value": "$103.76",
+      "value": "$107.10",
       "status": "yellow",
       "threshold": "<$90绿 / $90-110黄 / >$110红"
     },
     {
       "name": "美元指数DXY",
-      "value": "99.50",
-      "status": "green",
+      "value": "103.50",
+      "status": "yellow",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
     {
@@ -49,87 +34,71 @@
     },
     {
       "name": "黄金XAU",
-      "value": "$4,700",
+      "value": "$4,699.90",
       "status": "red",
       "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "6.83",
-      "status": "green",
+      "value": "7.28",
+      "status": "yellow",
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
-  "riskScore": 80,
+  "riskScore": 100,
   "riskLevel": "high",
-  "riskAdvice": "黄金$4,700亮红灯（避险情绪极端），布伦特$103.76逼近红灯区间——若油价突破$110将固化通胀预期、抽空反弹基础。",
+  "riskAdvice": "黄金$4700亮红灯（避险情绪极端），布伦特$107逼近红灯区间——若油价持续突破$110将固化通胀预期，压缩降息空间。",
   "monitorTable": [],
   "riskAlerts": [],
   "events": [
     {
-      "date": "周三",
-      "title": "美国3月CPI数据发布，市场预期同比3.5%，若超预期将强化通胀担忧",
+      "date": "周五",
+      "title": "PCE通胀数据发布，关注核心PCE环比变化",
       "impact": "high",
-      "source": "Bureau of Labor Statistics",
-      "url": "https://www.bls.gov/cpi/"
+      "source": "Bureau of Economic Analysis",
+      "url": "https://www.bea.gov/"
     },
     {
-      "date": "周四",
-      "title": "美联储FOMC会议纪要发布，关注通胀措辞和降息路径讨论",
+      "date": "下周三",
+      "title": "FOMC会议纪要发布，聚焦降息路径讨论",
       "impact": "high",
       "source": "Federal Reserve",
-      "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+      "url": "https://www.federalreserve.gov/"
     },
     {
-      "date": "周五",
-      "title": "美股期权到期日（三巫日），可能加剧市场波动",
+      "date": "下周四",
+      "title": "美国初请失业金人数，关注就业市场边际变化",
       "impact": "medium",
-      "source": "CBOE",
-      "url": "https://www.cboe.com/"
+      "source": "Department of Labor",
+      "url": "https://www.dol.gov/"
     },
     {
-      "date": "持续",
-      "title": "中东地缘局势，停火协议延长后需观察执行情况",
+      "date": "下周",
+      "title": "NVDA财报季，AI算力需求验证",
       "impact": "high",
-      "source": "Reuters",
-      "url": "https://www.reuters.com/world/middle-east/"
+      "source": "NVIDIA Investor Relations",
+      "url": "https://investor.nvidia.com/"
     }
   ],
-  "alerts": [
-    {
-      "level": "warning",
-      "text": "黄金$4,700亮红灯，避险情绪极端，与美股创新高形成背离——央行购金+滞胀担忧双重定价",
-      "time": "16:30",
-      "source": "Bloomberg",
-      "url": "https://www.bloomberg.com/markets/commodities"
-    },
-    {
-      "level": "warning",
-      "text": "WTI原油暴涨4.18%至$94.05，布伦特$103.76逼近红灯区间，供应紧张预期升温",
-      "time": "15:00",
-      "source": "OilPrice.com",
-      "url": "https://oilprice.com/"
-    }
-  ],
+  "alerts": [],
   "smartMoneyDetail": [
     {
       "tier": "T1旗舰",
       "funds": [
         {
           "name": "桥水基金",
-          "action": "重仓AI产业链（NVDA/LRCX/CRM/GOOGL），全天候组合增配科技股，Dalio表态「AI革命远未结束」",
+          "action": "买入NVDA约$2.53亿，押注AI基建超级周期，从宏观对冲转向AI成长",
           "signal": "bullish",
-          "source": "Bloomberg",
-          "url": "https://www.bloomberg.com/",
+          "source": "HedgeCo",
+          "url": "https://hedgeco.net/news/04/2026/bridgewaters-massive-253m-nvidia-bet-signals-a-structural-pivot-toward-the-ai-infrastructure-supercycle.html",
           "freshness": "本周"
         },
         {
           "name": "伯克希尔",
-          "action": "Greg Abel接任CEO后维持高现金策略，$3,733亿现金储备创新高，Q4小幅增持CVX/CB，减持AAPL/BAC",
+          "action": "现金储备$3733亿创历史新高，等待估值回归机会，维持AAPL+AXP+BAC核心持仓",
           "signal": "neutral",
           "source": "SEC EDGAR",
-          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&company=berkshire",
-          "freshness": "本周"
+          "url": "https://sec.gov/"
         }
       ]
     },
@@ -137,19 +106,11 @@
       "tier": "T2成长",
       "funds": [
         {
-          "name": "段永平·H&H",
-          "action": "通过卖put布局泡泡玛特，4/4亲赴Westfield门店调研称「right business」——信号极强，Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)",
+          "name": "ARK Invest",
+          "action": "卖出AMD $10.5M，买入Palantir $11.1M，调仓从硬件转向AI软件",
           "signal": "bullish",
-          "source": "雪球",
-          "url": "https://xueqiu.com/",
-          "freshness": "本周"
-        },
-        {
-          "name": "ARK旗舰",
-          "action": "近期卖出SRTA/AMD/TER/ROKU，买入TSLA/PLTR/HOOD/WGS，调仓至AI+加密赛道，TSLA始终第一重仓(10.5%)",
-          "signal": "bullish",
-          "source": "ARK Invest",
-          "url": "https://ark-funds.com/",
+          "source": "Cathie's Ark",
+          "url": "https://cathiesark.com/ark-funds-combined/trades",
           "freshness": "本周"
         }
       ]
@@ -158,20 +119,20 @@
       "tier": "策略师观点",
       "funds": [
         {
-          "name": "Goldman Sachs",
-          "action": "维持NVDA「买入」评级，目标价$220，布伦特Q2中枢预测上调至$102",
-          "signal": "bullish",
-          "source": "Goldman Sachs Research",
+          "name": "Goldman Sachs (Kostin)",
+          "action": "维持标普500年底目标6900，AI相关股票占市值45%创纪录，估值风险需关注",
+          "signal": "neutral",
+          "source": "Goldman Sachs",
           "url": "https://www.goldmansachs.com/",
-          "freshness": "本周"
+          "freshness": "上周"
         },
         {
-          "name": "Morgan Stanley",
-          "action": "2026年AI资本开支增速预计达35%+，NVDA数据中心收入CAGR 40%至2028年",
+          "name": "Morgan Stanley (Wilson)",
+          "action": "短期市场可能回调，但中期看涨2026，建议逢低布局成长股",
           "signal": "bullish",
-          "source": "Morgan Stanley Research",
+          "source": "Morgan Stanley",
           "url": "https://www.morganstanley.com/",
-          "freshness": "本周"
+          "freshness": "上周"
         }
       ]
     }
@@ -313,13 +274,13 @@
           "change": "减持"
         }
       ],
-      "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，新建仓CRWV/CRDO/TEM，泡泡玛特观察中"
+      "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，新建仓CRWV/CRDO/TEM"
     },
     {
       "manager": "Cathie Wood · ARK旗舰",
       "fund": "ARK Innovation ETF (ARKK)",
       "aum": "$6.8B",
-      "asOf": "2026-04-23",
+      "asOf": "2026-04-24",
       "positions": [
         {
           "name": "特斯拉",
@@ -385,10 +346,10 @@
       "footnote": "ARK每日披露持仓变动，TSLA始终第一重仓，近期连续买入CoreWeave(CRWV)和Kodiak AI(KDK)但尚未进入Top10"
     }
   ],
-  "dataTime": "2026-04-23 18:18 BJT",
+  "dataTime": "2026-04-24 18:08 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-23T18:18:06+08:00",
-    "skillVersion": "v5.0"
+    "generatedAt": "2026-04-24T18:09:29+08:00",
+    "skillVersion": "v11.3"
   }
 }
