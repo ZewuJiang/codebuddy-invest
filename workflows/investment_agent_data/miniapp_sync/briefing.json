@@ -1,130 +1,128 @@
 {
-  "date": "2026-04-28",
+  "date": "2026-04-29",
   "timeStatus": {
-    "bjt": "18:00",
-    "est": "06:00",
+    "bjt": "14:01",
+    "est": "02:01",
     "marketStatus": "美股已收盘",
     "refreshInterval": "每日更新"
   },
-  "takeaway": "美股【双指创新高】但分化加剧，【NVDA独涨4%】创历史新高，而【OpenAI微软分手】重塑AI格局——谷歌$400亿押注Anthropic成最大变量",
+  "takeaway": "科技股回调拖累纳指跌【0.9%】，但【VIX降至17.8】表明恐慌情绪未升温。本周焦点：【苹果Q2财报】+【美联储FOMC】将定调短期方向，Google【400亿押注Anthropic】确认AI投资潮延续。",
   "coreEvent": {
-    "title": "美股创新高遇上AI格局巨变——OpenAI微软分手、谷歌豪掷$400亿",
+    "title": "科技股回调遇FOMC会议——苹果财报与谷歌AI投资主导本周风向",
     "chain": [
       {
-        "title": "OpenAI微软结束独家合作，多云时代开启",
-        "brief": "微软放弃独家云权利，收益分成降至8%，OpenAI可部署至亚马逊/谷歌云，AI基础设施竞争格局重塑",
-        "source": "TechCrunch",
-        "url": "https://techcrunch.com/2026/04/27/openai-ends-microsoft-legal-peril-over-its-50b-amazon-deal/",
+        "title": "Google押注Anthropic至多400亿美元，AI投资潮延续",
+        "brief": "Google宣布向Anthropic投资总额达400亿美元，扩展双方长期合作，AI基础设施竞赛持续升温",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/04/24/google-to-invest-up-to-40-billion-in-anthropic-as-search-giant-spreads-its-ai-bets.html",
         "source_count": 4
       },
       {
-        "title": "谷歌$400亿投资Anthropic，AI双寡头格局成型",
-        "brief": "谷歌以现金+算力方式投资Anthropic，创AI领域最大单笔投资，Claude与GPT双寡头竞争格局确立",
-        "source": "CNBC",
-        "url": "https://www.cnbc.com/2026/04/24/google-to-invest-up-to-40-billion-in-anthropic-as-search-giant-spreads-its-ai-bets.html",
+        "title": "苹果Q2财报明日发布，市场预期营收千亿美元",
+        "brief": "分析师预计EPS 1.94美元、营收约1097亿美元，iPhone 17与AI战略成焦点",
+        "source": "S&P Global",
+        "url": "https://www.spglobal.com/market-intelligence/en/news-insights/research/2026/04/apple-earnings-preview-q2-2026",
         "source_count": 5
       },
       {
-        "title": "NVDA创历史新高，市值突破$5.26万亿",
-        "brief": "英伟达收于$216.61(+4.00%)，52周新高$216.83，AI资本开支超预期持续验证产业链逻辑",
-        "source": "StockAnalysis",
-        "url": "https://stockanalysis.com/stocks/nvda/",
+        "title": "美联储FOMC会议今晚召开，预期维持利率不变",
+        "brief": "市场定价100%概率维持利率，关注Powell对未来政策路径的措辞",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/04/28/fed-meeting-preview-april-2026.html",
         "source_count": 3
       },
       {
-        "title": "日经225首次突破60000点，亚洲股市分化",
-        "brief": "日经昨日收盘60537点(+1.38%)创历史新高，今日回调0.85%；港股恒指跌0.95%，恒科跌2.28%",
-        "source": "Reuters",
-        "url": "https://en.sedaily.com/international/2026/04/27/japans-nikkei-closes-above-60000-for-first-time-at-record",
-        "source_count": 3
-      },
-      {
-        "title": "布伦特原油突破$111，地缘溢价持续",
-        "brief": "布伦特收于$111.50(+3.05%)，WTI $99.66(+3.41%)，霍尔木兹海峡风险溢价重定价",
-        "source": "OilPrice.com",
-        "url": "https://oilprice.com/commodity-price-charts/",
+        "title": "伯克希尔年度股东大会5月2日召开，Greg Abel首次主持",
+        "brief": "市场关注Abel接班后的首秀及现金储备运用策略",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/04/27/cnbc-to-exclusively-host-virtual-livestream-of-2026-berkshire-hathaway-annual-shareholders-meeting-on-may-2.html",
         "source_count": 2
+      },
+      {
+        "title": "黄金下跌2%至4584美元，避险情绪有所缓解",
+        "brief": "金价从历史高位回落，市场风险偏好边际改善",
+        "source": "USA Today",
+        "url": "https://www.usatoday.com/story/money/personalfinance/2026/04/28/gold-price-on-april-28-2026/89833547007/",
+        "source_count": 3
       }
     ]
   },
   "globalReaction": [
     {
       "name": "标普500",
-      "value": "7,173.91",
-      "direction": "up",
-      "note": "收盘创新高"
+      "value": "-0.49%",
+      "direction": "down",
+      "note": "科技股拖累"
     },
     {
       "name": "纳斯达克",
-      "value": "24,887.10",
-      "direction": "up",
-      "note": "收盘创新高"
-    },
-    {
-      "name": "NVDA",
-      "value": "$216.61",
-      "direction": "up",
-      "note": "创历史新高+4%"
+      "value": "-0.90%",
+      "direction": "down",
+      "note": "M7多数下跌"
     },
     {
       "name": "黄金",
-      "value": "$4,674",
-      "direction": "up",
-      "note": "避险情绪支撑"
+      "value": "$4,584",
+      "direction": "down",
+      "note": "跌2%高位回落"
     },
     {
       "name": "布伦特原油",
       "value": "$111.50",
       "direction": "up",
-      "note": "地缘溢价+3%"
+      "note": "地缘溢价支撑"
     },
     {
-      "name": "恒生科技",
-      "value": "4,827",
+      "name": "VIX",
+      "value": "17.83",
       "direction": "down",
-      "note": "宁德时代拖累-2.3%"
+      "note": "恐慌情绪未升温"
+    },
+    {
+      "name": "10Y美债",
+      "value": "4.33%",
+      "direction": "up",
+      "note": "通胀预期支撑"
     }
   ],
   "coreJudgments": [
     {
-      "title": "AI格局重构，多云竞争利好算力基础设施",
-      "confidence": 85,
-      "logic": "OpenAI解除微软独家 → 多云部署加速 → 算力需求分散化 → NVDA/云厂商议价能力提升",
-      "keyActor": "Sam Altman / Satya Nadella / Sundar Pichai",
+      "title": "科技股短期回调但AI主线未变",
+      "confidence": 82,
+      "logic": "M7单日回调 → NVDA仍受Blackwell出货支撑 → Q2财报季将验证AI资本开支持续性",
+      "keyActor": "Jensen Huang / Tim Cook",
       "references": [
         {
-          "name": "TechCrunch",
-          "summary": "OpenAI可部署至任何云平台，微软收益分成降至8%",
-          "url": "https://techcrunch.com/2026/04/27/openai-ends-microsoft-legal-peril-over-its-50b-amazon-deal/"
-        }
-      ],
-      "probability": "高可能性",
-      "trend": "上升"
-    },
-    {
-      "title": "谷歌Anthropic投资确立AI双寡头格局",
-      "confidence": 90,
-      "logic": "谷歌$400亿押注Anthropic → Claude与GPT双寡头成型 → AI竞争从模型层转向生态层 → 应用层受益",
-      "keyActor": "Sundar Pichai / Dario Amodei",
-      "references": [
-        {
-          "name": "CNBC",
-          "summary": "谷歌以现金+TPU算力方式投资，创AI领域最大单笔投资",
-          "url": "https://www.cnbc.com/2026/04/24/google-to-invest-up-to-40-billion-in-anthropic-as-search-giant-spreads-its-ai-bets.html"
+          "name": "SemiAnalysis",
+          "summary": "ISSCC 2026展示NVDA与Broadcom CPO技术进展，HBM4与先进封装持续推进"
         }
       ],
       "probability": "高可能性",
       "trend": "稳定"
     },
     {
-      "title": "油价$111逼近红灯区，通胀预期抬头",
-      "confidence": 75,
-      "logic": "布伦特突破$111 → 逼近$110红灯阈值 → 若持续将固化通胀预期 → 联储降息空间收窄",
-      "keyActor": "OPEC+ / 美国能源部",
+      "title": "美联储维持利率，关注通胀措辞",
+      "confidence": 88,
+      "logic": "市场定价100%维持 → 关注Powell对通胀与就业的措辞 → 若释放鸽派信号将提振风险资产",
+      "keyActor": "Jerome Powell",
       "references": [
         {
-          "name": "OilPrice.com",
-          "summary": "布伦特$111.50(+3.05%)，WTI$99.66(+3.41%)，地缘风险溢价持续"
+          "name": "CNBC",
+          "summary": "FOMC会议预期维持利率不变，关注未来政策路径指引"
+        }
+      ],
+      "probability": "高可能性",
+      "trend": "稳定"
+    },
+    {
+      "title": "聪明钱持续加仓AI基建",
+      "confidence": 75,
+      "logic": "桥水Q1增持NVDA $2.53亿 → ARK连续买入CRWV/NTLA/GOOG → 机构对AI算力长期信心明确",
+      "keyActor": "Ray Dalio / Cathie Wood",
+      "references": [
+        {
+          "name": "HedgeCo",
+          "summary": "桥水Q1大幅增持NVDA约135万股，同时新建MU/ORCL仓位"
         }
       ],
       "probability": "中可能性",
@@ -132,28 +130,28 @@
     }
   ],
   "actionHints": [],
-  "sentimentScore": 58,
+  "sentimentScore": 55,
   "sentimentLabel": "中性",
   "marketSummaryPoints": [
-    "美股双指创新高但道指收跌，M7分化明显——NVDA独涨4%创新高，MSFT跌0.56%",
-    "AI格局巨变：OpenAI与微软结束独家合作，谷歌$400亿投资Anthropic确立双寡头格局",
-    "油价突破$111逼近红灯区，若持续将固化通胀预期，联储降息空间收窄",
-    "日经225首次突破60000点后回调，港股恒科跌2.28%，亚洲市场分化"
+    "美股三大指数分化，纳指领跌0.9%，科技股承压但VIX降至17.8显示恐慌未升温",
+    "M7个股多数回调，仅AAPL(+1.15%)和MSFT(+1.04%)收涨，财报前资金避险情绪升温",
+    "黄金高位回落2%，布伦特原油站上$111，大宗商品分化反映市场对通胀预期的分歧",
+    "本周核心变量：苹果Q2财报(4/30)+美联储FOMC会议，将定调短期市场方向"
   ],
   "smartMoney": [
     {
-      "source": "ARK Invest",
-      "action": "4/27买入NTLA约$3.57M，卖出IRDM/RKLB约$4.52M，净卖出约$0.95M",
-      "signal": "neutral"
-    },
-    {
-      "source": "Goldman Sachs",
-      "action": "上调2026年标普500目标价至7600点，预测全年回报率12%，EPS增长12%",
+      "source": "桥水基金",
+      "action": "Q1增持NVDA约$2.53亿(135万股)，新建MU/ORCL仓位",
       "signal": "bullish"
     },
     {
-      "source": "Morgan Stanley",
-      "action": "Mike Wilson维持看多立场，认为美股反弹动能可持续，商业周期驱动而非政策议程",
+      "source": "ARK Invest",
+      "action": "4/27买入NTLA约$8M、CRWV约$17M、GOOG约$14M，卖出ROKU/ICE",
+      "signal": "bullish"
+    },
+    {
+      "source": "段永平",
+      "action": "雪球互动持续分享对茅台、苹果的深度思考，称库克是非常好的CEO",
       "signal": "bullish"
     }
   ],
@@ -164,7 +162,7 @@
     },
     {
       "name": "段永平",
-      "holdings": "AAPL 50.3% | BRK.B 20.6% | NVDA 7.7% | PDD 7.5% | GOOG 3.3% · 大幅增持NVDA/MSFT/TSM"
+      "holdings": "AAPL 50.3% | BRK.B 20.6% | NVDA 7.7% | PDD 7.5% | GOOG 3.3% · 泡泡玛特观察中"
     },
     {
       "name": "ARK旗舰",
@@ -172,15 +170,14 @@
     }
   ],
   "riskPoints": [
-    "布伦特$111.50逼近$110红灯阈值，若霍尔木兹海峡持续受限可能突破$115，固化通胀预期",
-    "OpenAI微软分手后多云竞争加剧，短期内AI基础设施投资可能分散化，影响单一云厂商增长确定性",
-    "港股恒科跌2.28%，宁德时代配股拖累市场情绪，需关注中概股后续资金流向"
+    "布伦特原油站上$111逼近红灯阈值(>$110)，若持续将固化通胀预期、收窄降息空间",
+    "黄金高位回落2%但仍处历史高位，若地缘风险升级可能再现避险买盘"
   ],
-  "riskNote": "油价逼近红灯区叠加AI格局巨变，市场短期波动可能加剧，建议关注本周财报季AI资本开支指引",
-  "dataTime": "2026-04-28 18:09 BJT",
+  "riskNote": "当前VIX降至17.8处于绿灯区，但油价逼近红灯区间需持续关注。本周苹果财报与FOMC会议是关键变量。",
+  "dataTime": "2026-04-29 14:11 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-28T18:10:43+08:00",
+    "generatedAt": "2026-04-29T14:12:19+08:00",
     "skillVersion": "v11.3"
   }
 }

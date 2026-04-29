@@ -225,25 +225,25 @@ const makeShadow = () => ({
     holeSize: 55,
   });
 
-  // 右侧：业务明细列表
+  // 右侧:业务明细列表
   const platforms = [
     {
-      icon: "▲", name: "HPC（高性能计算）", pct: "61%", qoq: "+20%",
+      icon: "▲", name: "HPC（高性能计算）", pct: "61%", qoq: "+20%", yoy: "+46.0%",
       desc: "AI加速器、数据中心GPU/CPU，首次突破60%",
       est: "约 $21.9B", color: C.teal, up: true
     },
     {
-      icon: "▼", name: "智能手机", pct: "26%", qoq: "-11%",
+      icon: "▼", name: "智能手机", pct: "26%", qoq: "-11%", yoy: "+31.0%",
       desc: "季节性回落，苹果A19系列3nm在产",
       est: "约 $9.3B", color: "6366F1", up: false
     },
     {
-      icon: "▲", name: "IoT（物联网）", pct: "6%", qoq: "+12%",
+      icon: "▲", name: "IoT（物联网）", pct: "6%", qoq: "+12%", yoy: "+69.2%",
       desc: "物联网终端需求持续恢复",
       est: "约 $2.2B", color: C.amber, up: true
     },
     {
-      icon: "▼", name: "汽车", pct: "4%", qoq: "-7%",
+      icon: "▼", name: "汽车", pct: "4%", qoq: "-7%", yoy: "+7.7%",
       desc: "客户仍处于去库存阶段",
       est: "约 $1.4B", color: "EF4444", up: false
     },
@@ -270,8 +270,12 @@ const makeShadow = () => ({
       fontSize: 22, color: p.color, bold: true, fontFace: "Arial", align: "center", margin: 0
     });
     sl.addText("环比 " + p.qoq, {
-      x: 8.35, y: y + 0.1, w: 1.3, h: 0.28,
-      fontSize: 11, color: p.up ? C.green : C.red, bold: true, fontFace: "Arial", margin: 0
+      x: 8.35, y: y + 0.02, w: 1.3, h: 0.28,
+      fontSize: 10, color: p.up ? C.green : C.red, bold: true, fontFace: "Arial", margin: 0
+    });
+    sl.addText("同比 " + p.yoy, {
+      x: 8.35, y: y + 0.32, w: 1.3, h: 0.28,
+      fontSize: 10, color: C.gray2, bold: false, fontFace: "Arial", margin: 0
     });
     sl.addText(p.desc + "  " + p.est, {
       x: 5.0, y: y + 0.55, w: 4.6, h: 0.3,
@@ -302,8 +306,8 @@ const makeShadow = () => ({
   // 左侧条形图（制程占比）
   sl.addChart(pres.charts.BAR, [{
     name: "占比 %",
-    labels: ["3nm (N3)", "5nm (N5/N4)", "7nm及以下其他", "成熟制程 (>7nm)"],
-    values: [25, 36, 0, 39]
+    labels: ["3nm (N3)", "5nm (N5/N4)", "7nm", "成熟制程 (>7nm)"],
+    values: [25, 36, 13, 26]
   }], {
     x: 0.3, y: 1.0, w: 5.5, h: 4.3,
     barDir: "col",
@@ -336,8 +340,14 @@ const makeShadow = () => ({
       color: C.teal
     },
     {
+      node: "7nm",
+      pct: "13%",
+      note: "部分HPC及汽车芯片",
+      color: "94A3B8"
+    },
+    {
       node: "先进制程合计（≤7nm）",
-      pct: "61%",
+      pct: "74%",
       note: "创历史新高，持续提升",
       color: "6366F1"
     },
@@ -398,7 +408,7 @@ const makeShadow = () => ({
   sl.addChart(pres.charts.BAR, [{
     name: "年度营收（$B）",
     labels: ["2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"],
-    values: [29.4, 30.4, 34.1, 35.7, 47.4, 56.8, 75.9, 70.4, 88.3, 122.3]
+    values: [29.22, 32.96, 33.75, 35.57, 47.71, 57.39, 73.86, 70.45, 88.34, 121.91]
   }], {
     x: 0.3, y: 1.05, w: 7.5, h: 4.2,
     barDir: "col",
@@ -417,9 +427,9 @@ const makeShadow = () => ({
 
   // 右侧关键增速标注
   const annots = [
-    { year: "2025", val: "$122.3B", chg: "+38.5%", note: "AI驱动历史新高" },
-    { year: "2024", val: "$88.3B",  chg: "+25.4%", note: "AI基础设施需求" },
-    { year: "26Q1", val: "$35.9B",  chg: "+40.6%", note: "连续四季创历史高" },
+    { year: "2025", val: "$121.91B", chg: "+37.99%", note: "AI驱动突破千亿" },
+    { year: "2024", val: "$88.34B",  chg: "+25.40%", note: "AI基础设施需求" },
+    { year: "26Q1", val: "$35.9B",  chg: "+40.6%", note: "连续四季创新高" },
   ];
 
   annots.forEach((a, i) => {

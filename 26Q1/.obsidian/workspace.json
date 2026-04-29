@@ -1,0 +1,195 @@
+{
+  "main": {
+    "id": "07a52a714ab8945b",
+    "type": "split",
+    "children": [
+      {
+        "id": "958871186bc03d37",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a2bd91bcfa2cae96",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "AVGO-博通-26Q1财报.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "AVGO-博通-26Q1财报"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "1291e80023075bf6",
+    "type": "split",
+    "children": [
+      {
+        "id": "e902b23206b42906",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "40a99952e35d91f4",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "41e94161636773dc",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "ad25c6218685d83d",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "79b01d625f40682b",
+    "type": "split",
+    "children": [
+      {
+        "id": "85d8faf45d00268d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "32edb49a17f046ce",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "AVGO-博通-26Q1财报.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "AVGO-博通-26Q1财报 的反向链接列表"
+            }
+          },
+          {
+            "id": "8b89c671038e9445",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "AVGO-博通-26Q1财报.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "AVGO-博通-26Q1财报 的出链列表"
+            }
+          },
+          {
+            "id": "849742387f1c75d7",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "6dd2a3a2085d39b5",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "添加笔记属性"
+            }
+          },
+          {
+            "id": "6b61d05c6c8102e3",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "AVGO-博通-26Q1财报.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "AVGO-博通-26Q1财报 的大纲"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false
+    }
+  },
+  "active": "a2bd91bcfa2cae96",
+  "lastOpenFiles": [
+    "TSM-台积电-26Q1财报.md",
+    "AVGO-博通-26Q1财报.md",
+    "AVGO-历年营收官方验证报告.md",
+    "AVGO-数据验证清单.md",
+    "~$TSM-台积电-26Q1财报.pptx",
+    "25Q3财报.pdf"
+  ]
+}
