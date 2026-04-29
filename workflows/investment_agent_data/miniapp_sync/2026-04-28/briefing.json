@@ -48,42 +48,12 @@
     ]
   },
   "globalReaction": [
-    {
-      "name": "标普500",
-      "value": "7,173.91",
-      "direction": "up",
-      "note": "收盘创新高"
-    },
-    {
-      "name": "纳斯达克",
-      "value": "24,887.10",
-      "direction": "up",
-      "note": "收盘创新高"
-    },
-    {
-      "name": "NVDA",
-      "value": "$216.61",
-      "direction": "up",
-      "note": "创历史新高+4%"
-    },
-    {
-      "name": "黄金",
-      "value": "$4,674",
-      "direction": "up",
-      "note": "避险情绪支撑"
-    },
-    {
-      "name": "布伦特原油",
-      "value": "$111.50",
-      "direction": "up",
-      "note": "地缘溢价+3%"
-    },
-    {
-      "name": "恒生科技",
-      "value": "4,827",
-      "direction": "down",
-      "note": "宁德时代拖累-2.3%"
-    }
+    { "name": "标普500", "value": "7,173.91", "direction": "up", "note": "收盘创新高" },
+    { "name": "纳斯达克", "value": "24,887.10", "direction": "up", "note": "收盘创新高" },
+    { "name": "NVDA", "value": "$216.61", "direction": "up", "note": "创历史新高+4%" },
+    { "name": "黄金", "value": "$4,674", "direction": "up", "note": "避险情绪支撑" },
+    { "name": "布伦特原油", "value": "$111.50", "direction": "up", "note": "地缘溢价+3%" },
+    { "name": "恒生科技", "value": "4,827", "direction": "down", "note": "宁德时代拖累-2.3%" }
   ],
   "coreJudgments": [
     {
@@ -92,11 +62,7 @@
       "logic": "OpenAI解除微软独家 → 多云部署加速 → 算力需求分散化 → NVDA/云厂商议价能力提升",
       "keyActor": "Sam Altman / Satya Nadella / Sundar Pichai",
       "references": [
-        {
-          "name": "TechCrunch",
-          "summary": "OpenAI可部署至任何云平台，微软收益分成降至8%",
-          "url": "https://techcrunch.com/2026/04/27/openai-ends-microsoft-legal-peril-over-its-50b-amazon-deal/"
-        }
+        { "name": "TechCrunch", "summary": "OpenAI可部署至任何云平台，微软收益分成降至8%", "url": "https://techcrunch.com/2026/04/27/openai-ends-microsoft-legal-peril-over-its-50b-amazon-deal/" }
       ],
       "probability": "高可能性",
       "trend": "上升"
@@ -107,11 +73,7 @@
       "logic": "谷歌$400亿押注Anthropic → Claude与GPT双寡头成型 → AI竞争从模型层转向生态层 → 应用层受益",
       "keyActor": "Sundar Pichai / Dario Amodei",
       "references": [
-        {
-          "name": "CNBC",
-          "summary": "谷歌以现金+TPU算力方式投资，创AI领域最大单笔投资",
-          "url": "https://www.cnbc.com/2026/04/24/google-to-invest-up-to-40-billion-in-anthropic-as-search-giant-spreads-its-ai-bets.html"
-        }
+        { "name": "CNBC", "summary": "谷歌以现金+TPU算力方式投资，创AI领域最大单笔投资", "url": "https://www.cnbc.com/2026/04/24/google-to-invest-up-to-40-billion-in-anthropic-as-search-giant-spreads-its-ai-bets.html" }
       ],
       "probability": "高可能性",
       "trend": "稳定"
@@ -122,10 +84,7 @@
       "logic": "布伦特突破$111 → 逼近$110红灯阈值 → 若持续将固化通胀预期 → 联储降息空间收窄",
       "keyActor": "OPEC+ / 美国能源部",
       "references": [
-        {
-          "name": "OilPrice.com",
-          "summary": "布伦特$111.50(+3.05%)，WTI$99.66(+3.41%)，地缘风险溢价持续"
-        }
+        { "name": "OilPrice.com", "summary": "布伦特$111.50(+3.05%)，WTI$99.66(+3.41%)，地缘风险溢价持续" }
       ],
       "probability": "中可能性",
       "trend": "上升"
@@ -141,35 +100,14 @@
     "日经225首次突破60000点后回调，港股恒科跌2.28%，亚洲市场分化"
   ],
   "smartMoney": [
-    {
-      "source": "ARK Invest",
-      "action": "4/27买入NTLA约$3.57M，卖出IRDM/RKLB约$4.52M，净卖出约$0.95M",
-      "signal": "neutral"
-    },
-    {
-      "source": "Goldman Sachs",
-      "action": "上调2026年标普500目标价至7600点，预测全年回报率12%，EPS增长12%",
-      "signal": "bullish"
-    },
-    {
-      "source": "Morgan Stanley",
-      "action": "Mike Wilson维持看多立场，认为美股反弹动能可持续，商业周期驱动而非政策议程",
-      "signal": "bullish"
-    }
+    { "source": "ARK Invest", "action": "4/27买入NTLA约$3.57M，卖出IRDM/RKLB约$4.52M，净卖出约$0.95M", "signal": "neutral" },
+    { "source": "Goldman Sachs", "action": "上调2026年标普500目标价至7600点，预测全年回报率12%，EPS增长12%", "signal": "bullish" },
+    { "source": "Morgan Stanley", "action": "Mike Wilson维持看多立场，认为美股反弹动能可持续，商业周期驱动而非政策议程", "signal": "bullish" }
   ],
   "topHoldings": [
-    {
-      "name": "伯克希尔",
-      "holdings": "AAPL 22.6% | AXP 20.5% | BAC 10.4% | KO 10.2% | CVX 7.2% · 现金$3733亿"
-    },
-    {
-      "name": "段永平",
-      "holdings": "AAPL 50.3% | BRK.B 20.6% | NVDA 7.7% | PDD 7.5% | GOOG 3.3% · 大幅增持NVDA/MSFT/TSM"
-    },
-    {
-      "name": "ARK旗舰",
-      "holdings": "TSLA 10.5% | CRSP 6.3% | TEM 5.0% | SHOP 4.7% | COIN 4.3%"
-    }
+    { "name": "伯克希尔", "holdings": "AAPL 22.6% | AXP 20.5% | BAC 10.4% | KO 10.2% | CVX 7.2% · 现金$3733亿" },
+    { "name": "段永平", "holdings": "AAPL 50.3% | BRK.B 20.6% | NVDA 7.7% | PDD 7.5% | GOOG 3.3% · 大幅增持NVDA/MSFT/TSM" },
+    { "name": "ARK旗舰", "holdings": "TSLA 10.5% | CRSP 6.3% | TEM 5.0% | SHOP 4.7% | COIN 4.3%" }
   ],
   "riskPoints": [
     "布伦特$111.50逼近$110红灯阈值，若霍尔木兹海峡持续受限可能突破$115，固化通胀预期",
@@ -177,10 +115,10 @@
     "港股恒科跌2.28%，宁德时代配股拖累市场情绪，需关注中概股后续资金流向"
   ],
   "riskNote": "油价逼近红灯区叠加AI格局巨变，市场短期波动可能加剧，建议关注本周财报季AI资本开支指引",
-  "dataTime": "2026-04-28 18:09 BJT",
+  "dataTime": "2026-04-28 18:00 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-28T18:10:43+08:00",
+    "generatedAt": "2026-04-28T18:00:00+08:00",
     "skillVersion": "v11.3"
   }
 }

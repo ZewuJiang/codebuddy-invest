@@ -1,0 +1,190 @@
+{
+  "date": "2026-04-27",
+  "timeStatus": {
+    "bjt": "22:00",
+    "est": "10:00",
+    "marketStatus": "美股交易中",
+    "refreshInterval": "每日更新"
+  },
+  "takeaway": "【亚太创新高】日经225、KOSPI同步创历史新高，但【油价突破$106】通胀担忧重燃——本周【联储议息】与【非农数据】将决定反弹真伪",
+  "coreEvent": {
+    "title": "亚太股市狂欢遇上油价暴涨——通胀二次抬头风险压制降息预期",
+    "chain": [
+      {
+        "title": "日经225、KOSPI同创新高，芯片股领涨",
+        "brief": "AI资本开支超预期推动半导体板块，日经盘中突破60388点，KOSPI涨幅近2%",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/04/27/asia-pacific-markets-nikkei-225-kospi-hang-seng-index.html",
+        "source_count": 3
+      },
+      {
+        "title": "布伦特原油突破$106，地缘溢价持续",
+        "brief": "美伊谈判停滞推高战争溢价，油价月内累计涨超15%，通胀预期抬头",
+        "source": "Trading Economics",
+        "url": "https://tradingeconomics.com/commodity/brent-crude-oil",
+        "source_count": 2
+      },
+      {
+        "title": "VIX升至19.12，市场波动率抬头",
+        "brief": "恐慌指数单日涨2.19%，反映投资者对地缘与通胀双重风险的警惕",
+        "source": "Google Finance",
+        "url": "https://www.google.com/finance/quote/VIX:INDEXCBOE",
+        "source_count": 1
+      },
+      {
+        "title": "段永平布局泡泡玛特，开保险公司策略",
+        "brief": "卖出看跌期权收取权利金，称很久没有这种兴奋感，信号极强",
+        "source": "新浪财经",
+        "url": "https://finance.sina.com.cn/jjxw/2026-04-14/doc-inhunicu4806726.shtml",
+        "source_count": 2
+      },
+      {
+        "title": "桥水基金$2.53亿押注英伟达",
+        "brief": "达利欧基金大举建仓AI算力龙头，结构性转向AI基建超级周期",
+        "source": "HedgeCo",
+        "url": "https://www.hedgeco.net/news/04/2026/bridgewaters-massive-253m-nvidia-bet-signals-a-structural-pivot-toward-the-ai-infrastructure-supercycle.html",
+        "source_count": 1
+      }
+    ]
+  },
+  "globalReaction": [
+    {
+      "name": "标普500",
+      "value": "7,165",
+      "direction": "flat",
+      "note": "高位盘整"
+    },
+    {
+      "name": "纳斯达克",
+      "value": "-0.17%",
+      "direction": "down",
+      "note": "科技股分化"
+    },
+    {
+      "name": "日经225",
+      "value": "+1.1%",
+      "direction": "up",
+      "note": "创历史新高"
+    },
+    {
+      "name": "黄金",
+      "value": "$4,693",
+      "direction": "down",
+      "note": "避险需求降温"
+    },
+    {
+      "name": "布伦特原油",
+      "value": "$107",
+      "direction": "up",
+      "note": "地缘溢价推升"
+    },
+    {
+      "name": "VIX恐慌指数",
+      "value": "19.12",
+      "direction": "up",
+      "note": "波动率抬头"
+    }
+  ],
+  "coreJudgments": [
+    {
+      "title": "亚太创新高≠全球同步，美股分化加剧",
+      "confidence": 85,
+      "logic": "日韩芯片股领涨 → 美股科技分化（NVDA+1% vs MSFT-1%）→ 资金偏好转向AI硬科技",
+      "keyActor": "Jensen Huang",
+      "references": [
+        {
+          "name": "Nikkei Asia",
+          "summary": "半导体板块推动日经创新高，AI资本开支超预期是核心驱动力",
+          "url": "https://www.ndtvprofit.com/markets/asian-stocks-markets-today-april-27-nikkei-kospi-hit-record-high-as-asian-markets-shrug-off-stalled-us-iran-talks-11413368"
+        }
+      ],
+      "probability": "高可能性",
+      "trend": "上升"
+    },
+    {
+      "title": "油价破$106将固化通胀预期，降息空间收窄",
+      "confidence": 78,
+      "logic": "地缘冲突推高油价 → 通胀二次抬头 → 美联储降息概率进一步下降",
+      "keyActor": "Jerome Powell",
+      "references": [
+        {
+          "name": "Trading Economics",
+          "summary": "布伦特原油年内涨65%，地缘风险溢价持续",
+          "url": "https://tradingeconomics.com/commodity/brent-crude-oil"
+        }
+      ],
+      "probability": "中可能性",
+      "trend": "上升"
+    },
+    {
+      "title": "段永平关注泡泡玛特，投资逻辑待验证",
+      "confidence": 70,
+      "logic": "卖出PUT建仓 → 实地调研确认 → right business评价 → 13F披露前高度关注",
+      "keyActor": "段永平",
+      "references": [
+        {
+          "name": "21世纪经济报道",
+          "summary": "段永平雪球发文称泡泡玛特保险公司正式开张，信号极强",
+          "url": "https://www.21jingji.com/article/20260414/herald/a68fec5c55bb4b0f29a5bbe8d93c1313.html"
+        }
+      ],
+      "probability": "中可能性",
+      "trend": "稳定"
+    }
+  ],
+  "actionHints": [],
+  "sentimentScore": 58,
+  "sentimentLabel": "中性",
+  "marketSummaryPoints": [
+    "亚太股市强劲创新高，日经225、KOSPI同步刷新历史记录，芯片股领涨反映AI资本开支持续超预期",
+    "美股三大指数涨跌互现，科技股分化明显，NVDA/AAPL领涨而MSFT承压，市场在高位等待新的催化",
+    "布伦特原油突破$106创年内新高，地缘冲突推高战争溢价，通胀预期二次抬头压制降息预期",
+    "VIX单日涨2.19%至19.12，市场波动率抬头，投资者对地缘与通胀双重风险保持警惕"
+  ],
+  "smartMoney": [
+    {
+      "source": "段永平",
+      "action": "卖出泡泡玛特看跌期权建仓，称很久没有这种兴奋感，4/4亲赴Westfield门店调研",
+      "signal": "bullish"
+    },
+    {
+      "source": "桥水基金",
+      "action": "大举建仓英伟达$2.53亿，结构性转向AI基建超级周期",
+      "signal": "bullish"
+    },
+    {
+      "source": "Cathie Wood",
+      "action": "连续卖出AMD逾14%仓位，买入亚马逊建仓",
+      "signal": "neutral"
+    }
+  ],
+  "topHoldings": [
+    {
+      "name": "伯克希尔",
+      "holdings": "AAPL 22.6% | AXP 20.5% | BAC 10.4% | KO 10.2% | CVX 7.2% · 现金$3733亿"
+    },
+    {
+      "name": "段永平",
+      "holdings": "AAPL 50.3% | BRK.B 20.6% | NVDA 7.7% | PDD 7.5% | GOOG 3.3% · 泡泡玛特观察中"
+    },
+    {
+      "name": "ARK旗舰",
+      "holdings": "TSLA 10.5% | CRSP 6.3% | TEM 5.0% | SHOP 4.7% | COIN 4.3%"
+    }
+  ],
+  "riskPoints": [
+    "油价突破$106逼近红灯区间，若地缘冲突持续升级布伦特可能测试$115",
+    "VIX升至19.12逼近黄灯区间，市场波动率抬头反映投资者警惕情绪升温",
+    "10Y美债收益率4.32%，若油价持续高位可能推高通胀预期至联储降息门槛以上"
+  ],
+  "riskNote": "地缘冲突推高油价，通胀预期二次抬头，叠加美股高位盘整，短期波动率可能放大",
+  "dataTime": "2026-04-27 22:00 BJT",
+  "audioUrl": "",
+  "audioFile": "",
+  "voiceText": "",
+  "_meta": {
+    "sourceType": "heavy_analysis",
+    "generatedAt": "2026-04-27T22:00:00+08:00",
+    "skillVersion": "v11.3"
+  }
+}
