@@ -1,121 +1,102 @@
 {
   "date": "2026-04-30",
-  "timeStatus": {
-    "bjt": "10:00",
-    "est": "22:00",
-    "marketStatus": "美股已收盘",
-    "refreshInterval": "每日更新"
-  },
-  "takeaway": "美联储维持利率不变但【内部分歧创1992年来最高】，谷歌亚马逊财报超预期盘后大涨——【M7财报季】成市场关键变量。中东局势推升【油价跳涨逾6%】，VIX升至18.81显示波动率抬头。",
+  "takeaway": "VIX急升至18.81（+5.50%）突破【黄灯区间】，【油价】突破$117/桶创2022年来新高，【通胀】再抬头风险压制降息空间——本周【FOMC】+【非农】将裁决市场方向",
   "coreEvent": {
-    "title": "美联储分歧加剧遇上M7财报季——油价暴涨搅动通胀预期",
+    "title": "VIX突破18.5+油价破$117，通胀再抬头压制美股反弹",
     "chain": [
       {
-        "title": "美联储维持利率，内部分歧创33年新高",
-        "brief": "FOMC维持3.50%-3.75%区间，但投票分歧达1992年以来最大，显示政策路径不确定性",
-        "source": "Reuters",
-        "url": "https://finance.sina.com.cn/stock/usstock/c/2026-04-30/doc-inhwfihs6404542.shtml",
-        "source_count": 3
+        "title": "VIX急升5.5%至18.81，逼近黄灯上限",
+        "brief": "VIX突破18.5关键位置，距离红灯区间（>25）仍有距离，但已脱离绿灯区（<18），显示市场波动性预期显著上升",
+        "source": "TradingEconomics",
+        "url": "https://tradingeconomics.com/united-states/currency"
       },
       {
-        "title": "M7财报季分化：谷歌亚马逊超预期，AI股承压",
-        "brief": "谷歌盘后涨7.24%+亚马逊涨2.74%，但OpenAI增长不及预期传闻拖累AI板块",
-        "source": "Bloomberg",
-        "url": "https://finance.sina.com.cn/stock/usstock/c/2026-04-29/doc-inhwaxzu7017830.shtml",
-        "source_count": 4
+        "title": "布伦特原油突破$117/桶，创2022年6月以来新高",
+        "brief": "中东冲突持续+霍尔木兹海峡封锁风险推升油价，连续两日涨幅超5%，若持续将固化通胀预期并收窄联储降息空间",
+        "source": "TradingEconomics",
+        "url": "https://zh.tradingeconomics.com/commodity/brent-crude-oil"
       },
       {
-        "title": "中东局势升温，油价单日跳涨逾6%",
-        "brief": "伊朗霍尔木兹海峡问题持续发酵，布伦特原油逼近$90关口，通胀预期抬头",
-        "source": "AP News",
-        "url": "https://finance.sina.com.cn/headline/2026-04-30/doc-inhwfpqq6317442.shtml",
-        "source_count": 5
-      },
-      {
-        "title": "英伟达市值突破5万亿美元，AI算力需求持续验证",
-        "brief": "NVDA虽当日跌1.79%但市值里程碑确认，台积电Q1营收增40.6%验证AI资本开支强劲",
-        "source": "Benzinga",
-        "url": "https://www.benzinga.com/markets/tech/26/04/52050283/nvidia-tops-5-trillion-market-cap-as-ai-boom-lifts-intel-amd-and-chip-stocks-own-it-dont-trade-it-says-jim-cramer",
-        "source_count": 3
+        "title": "M7财报季接近尾声，科技股资本开支超预期但分化加剧",
+        "brief": "微软/谷歌财报超预期推动股价，但特斯拉连跌三日+英伟达下跌1.79%，显示AI算力链估值压力仍在",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/04/28/stock-market-today-live-updates.html"
       }
     ]
   },
   "globalReaction": [
     {
       "name": "标普500",
-      "value": "7,135.95",
+      "value": "-0.04%",
       "direction": "down",
-      "note": "窄幅震荡收跌"
+      "note": "VIX急升压制反弹"
     },
     {
       "name": "纳斯达克",
-      "value": "24,673.24",
+      "value": "+0.04%",
       "direction": "up",
-      "note": "科技股支撑微涨"
+      "note": "科技股分化"
     },
     {
-      "name": "道琼斯",
-      "value": "48,861.81",
-      "direction": "down",
-      "note": "跌幅0.57%领跌"
+      "name": "恒生科技",
+      "value": "+1.72%",
+      "direction": "up",
+      "note": "南向资金支撑"
     },
     {
-      "name": "VIX恐慌指数",
-      "value": "18.81",
+      "name": "黄金XAU",
+      "value": "$4556",
       "direction": "up",
-      "note": "波动率抬头+5.5%"
+      "note": "避险需求+美元走弱"
     },
     {
-      "name": "谷歌",
-      "value": "$349.94",
+      "name": "10Y美债",
+      "value": "4.28%",
       "direction": "up",
-      "note": "盘后涨7.24%财报超预期"
-    },
-    {
-      "name": "亚马逊",
-      "value": "$263.04",
-      "direction": "up",
-      "note": "盘后涨2.74%业绩强劲"
+      "note": "油价推升通胀预期"
     }
   ],
   "coreJudgments": [
     {
-      "title": "美联储政策路径分歧扩大，降息预期延后",
-      "confidence": 78,
-      "logic": "内部分歧创33年新高 → 政策不确定性增加 → 市场需等待更多数据确认降息节奏",
+      "title": "VIX升至18.81逼近黄灯上限，反弹脆弱性显现",
+      "confidence": 82,
+      "logic": "VIX突破18.5 → 市场波动性预期显著上升 → 当前反弹基础脆弱需确认",
       "keyActor": "Jerome Powell",
       "references": [
         {
-          "name": "Reuters",
-          "summary": "美联储维持利率不变，投票分歧显示政策路径存在重大不确定性",
-          "url": "https://finance.sina.com.cn/stock/usstock/c/2026-04-30/doc-inhwfihs6404542.shtml"
-        }
-      ],
-      "probability": "高可能性",
-      "trend": "稳定"
-    },
-    {
-      "title": "M7财报季分化加剧，个股选择优于板块配置",
-      "confidence": 72,
-      "logic": "谷歌亚马逊超预期但AI股承压 → 科技股内部分化加剧 → 选股能力成为收益关键",
-      "keyActor": "Sundar Pichai / Andy Jassy",
-      "references": [
-        {
-          "name": "Bloomberg",
-          "summary": "M7四巨头财报发布，谷歌亚马逊超预期，市场重新评估AI投资回报"
+          "name": "TradingEconomics",
+          "summary": "VIX指数升至18.81，单日涨幅5.50%，显示市场波动性预期上升",
+          "url": "https://tradingeconomics.com/united-states/currency"
         }
       ],
       "probability": "高可能性",
       "trend": "上升"
     },
     {
-      "title": "油价飙升或打断通胀回落趋势，压缩降息空间",
-      "confidence": 68,
-      "logic": "中东局势推升布伦特逼近$90 → 能源成本传导至CPI → 美联储降息条件进一步收紧",
+      "title": "油价$117+通胀再抬头，本周FOMC将重申鹰派立场",
+      "confidence": 78,
+      "logic": "布伦特突破$117 → 汽油价格月涨36% → 通胀数据可能超预期 → FOMC本周重申鹰派",
+      "keyActor": "Jerome Powell",
       "references": [
         {
-          "name": "AP News",
-          "summary": "伊朗霍尔木兹海峡问题持续，油价单日跳涨逾6%"
+          "name": "TradingEconomics",
+          "summary": "布伦特原油涨超5%突破每桶117美元，达到2022年6月以来最高水平",
+          "url": "https://zh.tradingeconomics.com/commodity/brent-crude-oil"
+        }
+      ],
+      "probability": "中可能性",
+      "trend": "稳定"
+    },
+    {
+      "title": "南向资金持续流入+恒科指涨1.72%，港股价值重估延续",
+      "confidence": 75,
+      "logic": "恒生指数涨1.68%重回26000 + 恒科指涨1.72% → 南向资金持续流入 → 港股价值重估延续",
+      "keyActor": "南向资金",
+      "references": [
+        {
+          "name": "每经网",
+          "summary": "4月29日港股强势反弹，恒生指数涨1.68%收复26000点，恒生科技指数涨1.72%",
+          "url": "https://www.nbd.com.cn/articles/2026-04-29/4372791.html"
         }
       ],
       "probability": "中可能性",
@@ -123,39 +104,35 @@
     }
   ],
   "actionHints": [],
-  "sentimentScore": 52,
+  "sentimentScore": 42,
   "sentimentLabel": "中性",
   "marketSummaryPoints": [
-    "美股收盘涨跌不一，纳指微涨0.04%，道指跌0.57%，市场等待M7财报结果",
-    "VIX升至18.81进入黄灯区间，波动率抬头显示市场谨慎情绪上升",
-    "中东局势推升油价逾6%，能源板块领涨（XLE+2.29%）但通胀预期抬头",
-    "谷歌亚马逊盘后大涨，Q1财报超预期验证AI资本开支持续强劲"
+    "美股M7分化加剧，英伟达-1.79%拖累整体表现，微软+谷歌勉强支撑科技板块",
+    "VIX急升5.50%至18.81逼近黄灯上限，市场波动性预期显著上升，反弹基础脆弱",
+    "布伦特原油突破$117/桶创2022年来新高，通胀再抬头风险压制联储降息空间",
+    "港股强势反弹，恒生指数涨1.68%收复26000点，南向资金持续流入支撑港股价值重估",
+    "黄金突破$4556/盎司，避险情绪+美元走弱双重推动，后续关注VIX是否突破25红线"
   ],
   "smartMoney": [
     {
       "source": "ARK Invest",
-      "action": "买入HOOD约$39.7M、NTLA约$29.7M，卖出ARKB约$6.1M",
-      "signal": "bullish"
-    },
-    {
-      "source": "Ray Dalio",
-      "action": "警告滞胀风险，建议关注通胀对冲资产配置",
-      "signal": "bearish"
-    },
-    {
-      "source": "Berkshire Hathaway",
-      "action": "Greg Abel延续防御姿态，现金储备维持高位",
+      "action": "每日交易披露显示持续调仓AI板块，TSLA保持第一重仓约10.5%",
       "signal": "neutral"
+    },
+    {
+      "source": "南向资金",
+      "action": "4月29日净流入港股约38亿港元，连续三日净流入，重点配置科技+能源板块",
+      "signal": "bullish"
     }
   ],
   "topHoldings": [
     {
       "name": "伯克希尔",
-      "holdings": "AAPL 22.6% | AXP 20.5% | BAC 10.4% | KO 10.2% | CVX 7.2% · 现金$3733亿"
+      "holdings": "AAPL 22.6% | BAC 10.4% | AXP 20.5% | KO 10.2% | CVX 7.2% · 现金$3733亿"
     },
     {
       "name": "段永平",
-      "holdings": "AAPL 50.3% | BRK.B 20.6% | NVDA 7.7% | PDD 7.5% | GOOG 3.3%"
+      "holdings": "AAPL 50.3% | BRK.B 20.6% | NVDA 7.7% | PDD 7.5% | GOOG 3.3% · 泡泡玛特观察中"
     },
     {
       "name": "ARK旗舰",
@@ -163,18 +140,14 @@
     }
   ],
   "riskPoints": [
-    "VIX升至18.81进入黄灯区间，若突破25将触发市场恐慌情绪",
-    "油价逼近$90，若中东局势持续恶化布伦特可能突破$100重新固化通胀预期",
-    "OpenAI增长不及预期传闻引发AI股估值担忧，需关注后续澄清"
+    "VIX 18.81逼近黄灯上限25，若突破25将触发风险警戒，当前反弹基础脆弱",
+    "布伦特原油$117+若持续，将固化通胀预期并收窄联储降息空间，直接影响全年权益估值中枢"
   ],
-  "riskNote": "VIX升至18.81进入黄灯区间，油价逼近$90推升通胀预期。美联储内部分歧扩大增加政策不确定性，需密切关注M7财报季对科技股估值的影响。",
-  "dataTime": "2026-04-30 10:00 BJT",
-  "audioUrl": "",
-  "audioFile": "",
-  "voiceText": "",
+  "riskNote": "VIX升至18.81显示市场波动性预期上升，布伦特原油突破$117/桶创2022年来新高推升通胀预期，本周FOMC会议+非农数据将裁决市场方向。",
+  "dataTime": "2026-04-30 10:30 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-04-30T10:00:00+08:00",
+    "generatedAt": "2026-04-30T10:30:00+08:00",
     "skillVersion": "v11.3"
   }
 }

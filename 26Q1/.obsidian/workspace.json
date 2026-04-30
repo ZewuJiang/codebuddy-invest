@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "NVDA-英伟达-26Q1财报.md",
+                "file": "AAPL-苹果-26Q1财报.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "NVDA-英伟达-26Q1财报"
+              "title": "AAPL-苹果-26Q1财报"
             }
           }
         ]
@@ -185,12 +185,23 @@
   },
   "active": "a2bd91bcfa2cae96",
   "lastOpenFiles": [
+    "GOOGL-谷歌-26Q1财报.md",
+    "AAPL-苹果-26Q1财报.md",
     "MSFT-微软-26Q1财报.md",
+    "image/MSFT-微软-26Q1财报/1777532078845.png",
+    "image/MSFT-微软-26Q1财报/1777532063443.png",
+    "image/MSFT-微软-26Q1财报/1777532054099.png",
+    "image/MSFT-微软-26Q1财报/1777531400317.png",
+    "image/MSFT-微软-26Q1财报/1777531376630.png",
+    "image/MSFT-微软-26Q1财报/1777531364213.png",
+    "image/MSFT-微软-26Q1财报",
+    "image",
+    "NVDA-英伟达-26Q1财报.md",
     "300308-中际旭创-26Q1财报.md",
     "AVGO-博通-26Q1财报.md",
     "TSM-台积电-26Q1财报.md",
-    "AVGO-历年营收官方验证报告.md",
     "AVGO-数据验证清单.md",
+    "AVGO-历年营收官方验证报告.md",
     "~$TSM-台积电-26Q1财报.pptx",
     "25Q3财报.pdf"
   ]
