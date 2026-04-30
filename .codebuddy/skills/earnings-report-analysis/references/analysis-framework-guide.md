@@ -853,6 +853,11 @@ target_price = target_equity_value / shares_outstanding
 
 ---
 
-**指南版本**: v1.0.0  
-**最后更新**: 2026年4月29日  
-**适用Skill**: earnings-report-analysis
+**指南版本**: v1.1.0  
+**最后更新**: 2026年4月29日 17:50  
+**维护者**: AI Coding Assistant  
+**适用Skill**: earnings-report-analysis v1.2.0
+
+**v1.1.0更新内容**:
+- ✅ 统一专业术语使用(P/E、YoY、QoQ、CAGR)
+- ✅ 优化输出模板,删除重复性数据来源标注
