@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "MSFT-微软-26Q1财报.md",
+                "file": "AAPL-苹果-26Q2财报.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "MSFT-微软-26Q1财报"
+              "title": "AAPL-苹果-26Q2财报"
             }
           }
         ]
@@ -78,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "79b01d625f40682b",
@@ -185,12 +186,14 @@
   },
   "active": "a2bd91bcfa2cae96",
   "lastOpenFiles": [
+    "AAPL-苹果-26Q1财报.md",
+    "AAPL-苹果-26Q2财报.md",
+    "AAPL-苹果-26Q1财报-v2.md",
+    "MSFT-微软-26Q1财报.md",
     "NVDA-英伟达-26Q1财报.md",
     "300308-中际旭创-26Q1财报.md",
     "TSM-台积电-26Q1财报.md",
-    "AAPL-苹果-26Q1财报.md",
     "GOOGL-谷歌-26Q1财报.md",
-    "MSFT-微软-26Q1财报.md",
     "image/MSFT-微软-26Q1财报/1777532078845.png",
     "image/MSFT-微软-26Q1财报/1777532063443.png",
     "image/MSFT-微软-26Q1财报/1777532054099.png",
