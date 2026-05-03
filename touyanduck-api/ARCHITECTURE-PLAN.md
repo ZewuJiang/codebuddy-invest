@@ -9,7 +9,7 @@
 ### 1.1 数据流全景
 
 ```
-数据生产层（daily-app Skill v7.5）
+数据生产层（touyanduck-daily Skill v7.5）
   │
   │ 产出 4 个 JSON（briefing/markets/watchlist/radar）
   ▼
@@ -284,7 +284,7 @@ Cloudflare Pages（静态文件）     Cloudflare Workers（动态 API）
 | `sectors/ai-chips.md` | AI 算力链历史分析 | 累积每日简报 |
 | `events/tariff-timeline.md` | 关税事件时间线 | 累积核心事件链 |
 
-**建设方式**：每次 daily-app 产出时，自动追加当天的聪明钱数据到对应机构的 .md 文件。
+**建设方式**：每次 touyanduck-daily 产出时，自动追加当天的聪明钱数据到对应机构的 .md 文件。
 
 ---
 

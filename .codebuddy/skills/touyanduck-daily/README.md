@@ -1,4 +1,4 @@
-# investment-agent-daily-app — 投研鸭小程序数据生产 Skill
+# touyanduck-daily — 投研鸭小程序数据生产 Skill
 
 > **版本**: v11.3 | **类型**: CodeBuddy 自定义 Skill
 
@@ -13,19 +13,19 @@
 4. **Generator-Verifier 内联自校验**：Phase 2 每个 JSON 写完即检（14/17 项 FATAL 前置拦截）
 5. **v11.1 新增**：Checklist J3 机器可执行化 + 前端代码修复 + 废弃文件清理
 
-**与 `investment-agent-daily` 的关系**：完全独立。`daily` 输出给人读的 MD/PDF 报告，本 Skill 输出给机器读的 JSON 数据。两者可独立触发，互不影响。
+**与 `investment-agent-daily` 的关系**：完全独立。`daily` 输出给人读的 MD/PDF 报告，本 Skill（`touyanduck-daily`）输出给机器读的 JSON 数据。两者可独立触发，互不影响。
 
 ## 快速安装
 
 ### 1. 放置 Skill
 
-将整个 `investment-agent-daily-app/` 文件夹复制到项目的 `.codebuddy/skills/` 目录下：
+将整个 `touyanduck-daily/` 文件夹复制到项目的 `.codebuddy/skills/` 目录下：
 
 ```
 your-project/
 └── .codebuddy/
     └── skills/
-        └── investment-agent-daily-app/   ← 放这里
+        └── touyanduck-daily/   ← 放这里
             ├── SKILL.md
             ├── README.md
             ├── references/
@@ -36,7 +36,7 @@ your-project/
 ### 2. 安装 Python 依赖
 
 ```bash
-cd .codebuddy/skills/investment-agent-daily-app/scripts
+cd .codebuddy/skills/touyanduck-daily/scripts
 pip3 install -r requirements.txt
 ```
 

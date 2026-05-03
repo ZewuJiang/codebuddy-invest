@@ -12,11 +12,11 @@
 
 | 子系统 | 定位 | 消费者 | 运行状态 |
 |--------|------|--------|----------|
-| **App Skill** (`investment-agent-daily-app`) | 数据生产引擎 | 微信小程序 + 公开 API | 手动触发，调试中 |
+| **App Skill** (`touyanduck-daily`) | 数据生产引擎 | 微信小程序 + 公开 API | 手动触发，调试中 |
 | **微信小程序** (`touyanduck_appid`) | 终端展示层 | 大老板（手机端） | 开发者工具预览，未提审 |
 | **公开 API** (`touyanduck-api/github-pages`) | 数据分发层 | ClawHub Skill / 公网 | 已上线，稳定运行 |
 
-> **重要说明**：`investment-agent-daily`（MD/PDF 人读报告）是另一个独立 Skill，与本项目无关联、不联动、不共享流程。两者数据同源但各自独立执行。
+> **重要说明**：`investment-agent-daily`（MD/PDF 人读报告）是另一个独立 Skill，与本项目无关联、不联动、不共享流程。两者数据同源但各自独立执行。`touyanduck-daily` 是小程序数据生产的唯一入口。
 
 ---
 
@@ -75,7 +75,7 @@
 
 ## 三、子系统 A — App Skill 数据生产引擎
 
-**位置**：`.codebuddy/skills/investment-agent-daily-app/`
+**位置**：`.codebuddy/skills/touyanduck-daily/`
 **版本**：v10.0（2026-04-08）
 **触发方式**：手动对话触发（关键词：投资App / 小程序数据 / 投研鸭数据 / app数据更新）
 
@@ -289,7 +289,7 @@ bash run_daily.sh 2026-04-08 [--skip-warn]
 ```
 codebuddy-invest/
 │
-├── .codebuddy/skills/investment-agent-daily-app/   ← App Skill 数据生产引擎
+├── .codebuddy/skills/touyanduck-daily/   ← App Skill 数据生产引擎
 │   ├── SKILL.md                    ← 主控文档 v10.0（~276行）
 │   ├── README.md                   ← 快速入门
 │   ├── CHANGELOG.md                ← 完整版本历史

@@ -59,6 +59,7 @@ provider:
 
 本规则适用于所有已创建的 Skill，包括但不限于：
 - `investment-agent-daily`（投资Agent每日策略简报）
+- `touyanduck-daily`（投研鸭小程序数据生产）
 - `value-invest-agent`（股票深度分析）
 - 未来新创建的任何投资分析类 Skill
 

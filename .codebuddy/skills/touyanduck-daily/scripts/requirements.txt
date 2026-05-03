@@ -1,4 +1,4 @@
-# investment-agent-daily-app 脚本依赖
+# touyanduck-daily 脚本依赖
 # 使用方法: pip3 install -r requirements.txt
 
 # 云数据库上传 + MiniMax TTS 音频生成

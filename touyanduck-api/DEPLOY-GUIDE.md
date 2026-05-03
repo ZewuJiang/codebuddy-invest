@@ -93,7 +93,7 @@ curl -s "$DOMAIN/api/predictions"
 export TOUYANDUCK_API_URL="https://touyanduck-api-xxx.edgeone.run"
 
 # 执行同步脚本
-python3 /Users/zewujiang/Desktop/AICo/codebuddy-invest/.codebuddy/skills/investment-agent-daily-app/scripts/sync_to_edgeone_kv.py \
+python3 /Users/zewujiang/Desktop/AICo/codebuddy-invest/.codebuddy/skills/touyanduck-daily/scripts/sync_to_edgeone_kv.py \
   "/Users/zewujiang/Desktop/AICo/codebuddy-invest/workflows/investment_agent_data/miniapp_sync/" \
   "2026-04-08"
 ```

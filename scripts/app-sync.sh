@@ -1,7 +1,7 @@
 #!/bin/bash
 # ============================================================
 # 投研鸭小程序 - 每4小时自动数据更新
-# 只触发 investment-agent-daily-app（小程序JSON数据）
+# 只触发 touyanduck-daily（小程序JSON数据）
 # 不触发 investment-agent-daily（PDF日报）
 #
 # 运行环境：macOS launchd（不加载 .zshrc/.bash_profile）
@@ -74,7 +74,7 @@ echo "✅ codebuddy 路径: $CODEBUDDY_BIN" >> "$LOG_FILE"
 # v10.0 全量模式（Standard）实测需要 ~15-25分钟，网络慢时可能更长
 # 超时设为7200秒（2小时），留足余量避免误杀
 "$CODEBUDDY_BIN" -p \
-  "投研鸭小程序 app 内容和数据更新，日期为${TODAY}，执行 investment-agent-daily-app Skill 全流程" \
+  "投研鸭小程序 app 内容和数据更新，日期为${TODAY}，执行 touyanduck-daily Skill 全流程" \
   -y \
   --output-format json \
   >> "$LOG_FILE" 2>&1 &

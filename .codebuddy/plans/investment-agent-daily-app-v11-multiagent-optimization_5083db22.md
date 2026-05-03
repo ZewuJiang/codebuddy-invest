@@ -1,6 +1,6 @@
 ---
-name: investment-agent-daily-app-v11-multiagent-optimization
-overview: 将 investment-agent-daily-app Skill 从单 Agent 串行架构改造为"局部并行 + 单 Agent 主控 + Context 压缩 + Generator-Verifier 内联自校验"架构（v11.0），实现 Phase 1 采集批次 4 组并发、References 分三批按需加载、web_fetch 后立即提取最小字段集、Phase 2 写完即检内联自校验，同时 100% 保持现有质量标准（54 项校验 / 17 项 FATAL / 56 条堵点全覆盖）。
+name: touyanduck-daily-v11-multiagent-optimization
+overview: 将 touyanduck-daily Skill 从单 Agent 串行架构改造为"局部并行 + 单 Agent 主控 + Context 压缩 + Generator-Verifier 内联自校验"架构（v11.0），实现 Phase 1 采集批次 4 组并发、References 分三批按需加载、web_fetch 后立即提取最小字段集、Phase 2 写完即检内联自校验，同时 100% 保持现有质量标准（54 项校验 / 17 项 FATAL / 56 条堵点全覆盖）。
 todos:
   - id: create-inline-verifier
     content: 新建 references/inline-verifier-rules.md v1.0：使用 [subagent:code-explorer] 精确提取 validate.py 17项FATAL检测逻辑，定义4个JSON各自的内联校验清单（11项可内联FATAL+关键WARN）、跨JSON一致性检规则、修复SOP、不可内联项声明
@@ -22,7 +22,7 @@ todos:
 ---
 ## 用户需求
 
-对 `.codebuddy/skills/investment-agent-daily-app/` Skill 进行架构改造，从 v10.6 升级到 v11.0，引入"局部并行 + 单 Agent 主控 + 脚本分离"方案。
+对 `.codebuddy/skills/touyanduck-daily/` Skill 进行架构改造，从 v10.6 升级到 v11.0，引入"局部并行 + 单 Agent 主控 + 脚本分离"方案。
 
 ## 产出概述
 
@@ -189,7 +189,7 @@ graph TD
 ## 目录结构
 
 ```
-.codebuddy/skills/investment-agent-daily-app/
+.codebuddy/skills/touyanduck-daily/
 ├── SKILL.md                              # [MODIFY] v10.6→v11.0 主控文档。重写工作流章节（引入并行采集4组分组+同步门禁）；新增「Context压缩铁律」章节（最小字段集提取规范引用）；新增「References分层加载」章节（三批L1/L2/L3时序表）；新增「Generator-Verifier内联自校验」章节（引用inline-verifier-rules.md）；更新引用文件索引表格（每个ref标注加载批次L1/L2/L3）；更新规范健康度快照；更新Changelog为v11.0
 ├── README.md                             # [MODIFY] v9.0→v11.0 使用说明。更新版本号、架构描述（新增并行采集+Context压缩+内联自校验三大特性）、文件结构表格（新增inline-verifier-rules.md）
 ├── CHANGELOG.md                          # [MODIFY] 新增v11.0完整变更记录（Phase1并行+Context压缩+分层加载+Generator-Verifier四大改造条目、涉及文件清单、向后兼容声明）
@@ -219,6 +219,6 @@ graph TD
 
 ### Skill
 
-- **investment-agent-daily-app**
+- **touyanduck-daily**
 - 用途：本 Skill 是改造对象，改造过程中需要反复参照 Skill 的完整规范体系（SKILL.md + 16个references），确保改造后的规范与现有工具链100%兼容
 - 预期产出：改造后的 v11.0 Skill 规范文档集，通过现有 validate.py 54项校验零退化
