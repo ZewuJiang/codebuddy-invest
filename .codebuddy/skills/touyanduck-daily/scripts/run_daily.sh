@@ -1,9 +1,14 @@
 #!/bin/bash
 # ============================================================
-# 投研鸭小程序 — 每日数据更新串联脚本 v6.2（Harness v9.2）
-# 执行顺序：日期子目录同步 → 【新】涨跌方向快速目视摘要 → JSON语法校验 → auto_compute.py公式计算 → validate.py自动化校验(55项) → sparkline补全 → 上传 → 同步API
+# 投研鸭小程序 — 每日数据更新串联脚本 v6.3（Harness v9.2）
+# 执行顺序：日期子目录同步 → 【新】涨跌方向快速目视摘要 → JSON语法校验 → auto_compute.py公式计算 → validate.py自动化校验(55项) → sparkline补全 → 上传微信云数据库
 #
 # 用法：bash run_daily.sh [YYYY-MM-DD] [--skip-warn]
+#
+# 【v6.3 改动】（移除公开API同步模块）：
+#   - 删除第3步：同步公开API（GitHub Pages/EdgeOne）
+#   - 删除总结中公开API相关输出
+#   - 数据链路简化为：数据生产 → 微信云数据库 → 小程序前端（唯一分发通道）
 #
 # 【v9.2 改动】（2026-04-21 涨跌符号事故修复）：
 #   - 新增第-0.5步：涨跌方向快速目视摘要
@@ -28,8 +33,7 @@
 #   第0.3步（auto_compute.py）：硬依赖（公式自动计算）
 #   第0.5步（validate.py）：硬依赖（FATAL 不可跳过 / WARN 可用 --skip-warn 跳过）
 #   第1步（sparkline补全）：软依赖，失败不阻断
-#   第2步（上传云数据库）：硬依赖
-#   第3步（同步公开API）：软依赖
+#   第2步（上传云数据库）：硬依赖 ← 终点
 # ============================================================
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -304,15 +308,6 @@ fi
 
 echo ""
 
-# ── 第3步：同步到公开 API（本地渲染 + 准备 GitHub Pages 推送） ──
-echo "🌐 第3步：同步 JSON 到公开 API（GitHub Pages）..."
-echo ""
-
-bash "$SCRIPT_DIR/sync_to_edgeone.sh" "$DATE"
-SYNC_EXIT=$?
-
-echo ""
-
 # ── 总结 ─────────────────────────────────────────────────────
 echo "============================================================"
 if [ $API_CORRECTED -eq 1 ]; then
@@ -326,12 +321,5 @@ else
     echo "   数据来源：AI 采集（全量）| sparkline/chartData 为 AI 估算值（非真实历史序列）"
     echo "   公式计算：auto_compute.py（riskScore/riskLevel/sentimentLabel/trafficLights.status）"
     echo "   建议：网络恢复后可手动补跑 refresh_verified_snapshot.py 提升 sparkline 精度"
-fi
-if [ $SYNC_EXIT -eq 0 ]; then
-    echo "   🌐 公开 API 本地数据已同步"
-    echo "   📌 GitHub Pages 推送由 daily-app Skill 第4.3阶段自动完成"
-    echo "   📌 手动验证: curl -s https://api.touyanduck.com/briefing.md | head -3"
-else
-    echo "   ⚠️  公开 API 同步失败，不影响小程序数据（可手动重跑 sync_to_edgeone.sh）"
 fi
 echo "============================================================"

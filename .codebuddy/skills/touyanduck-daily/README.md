@@ -1,12 +1,17 @@
 # touyanduck-daily — 投研鸭小程序数据生产 Skill
 
-> **版本**: v11.3 | **类型**: CodeBuddy 自定义 Skill
+> **版本**: v11.4 | **类型**: CodeBuddy 自定义 Skill
 
 ## 简介
 
 独立采集全球市场数据，生成原生结构化 JSON，上传到微信云数据库，驱动投研鸭小程序实时展示。
 
-**v11.2 四大架构升级 + Harness 深度体检 + 规范清理**：
+**v11.4 彻底移除公开API同步模块**：
+- 数据链路简化为：AI 采集 → 生成4个JSON → 上传微信云数据库 → 小程序前端（唯一分发通道）
+- 删除 sync_to_edgeone.sh / render_briefing.py / generate_summary.py / generate_meta.py 脚本
+- 删除 touyanduck-api/ 目录（GitHub Pages / EdgeOne / ClawHub Skill）
+
+**v11.2~v11.3 四大架构升级 + Harness 深度体检 + 规范清理**：
 1. **Phase 1 并行采集**：4 组并发（媒体/行情/亚太大宗/基金），采集时间减少 60-70%
 2. **Context 压缩铁律**：web_fetch 后立即提取最小字段集丢弃 HTML，上下文 ~76k→~35k
 3. **References 分层加载**：四批按需加载（L1/L2/L3/L4），不再一次性全部加载
@@ -68,7 +73,7 @@ export WX_CLOUD_ENV="你的云环境ID"
 - `app数据更新`
 - `miniapp sync`
 
-Skill 将自动执行完整的工作流：日期检测+模式路由 → **Phase 1 并行采集（4组并发+Context压缩）** → 完整性门禁 → **Phase 2 JSON生成+内联自校验（Generator-Verifier）** → 每日操作Checklist → 公式自动计算(auto_compute.py) → 终审(validate.py v5.7 + 55项校验 + B1-B12/Q1-Q8/W1-W9质量门禁) → sparkline补全+上传 → 执行复盘。
+Skill 将自动执行完整的工作流：日期检测+模式路由 → **Phase 1 并行采集（4组并发+Context压缩）** → 完整性门禁 → **Phase 2 JSON生成+内联自校验（Generator-Verifier）** → 每日操作Checklist → 公式自动计算(auto_compute.py) → 终审(validate.py v5.7 + 55项校验 + B1-B12/Q1-Q8/W1-W9质量门禁) → sparkline补全 → 上传微信云数据库 → 执行复盘。
 
 ## 二档内容引擎
 
@@ -77,19 +82,19 @@ Skill 将自动执行完整的工作流：日期检测+模式路由 → **Phase 
 | 周一~周五（每次执行） | **Standard** | 全量采集+分析+建议（每次都是高质量全量产出） |
 | 周末/休市日 | **Weekend** | 媒体深度扫描+周度总结+前瞻 |
 
-> v11.2 架构升级：Phase 1 并行采集（4组并发）+ Context 压缩（~76k→~35k）+ References 分层加载（L1/L2/L3/L4）+ Generator-Verifier 内联自校验（14/17项FATAL前置拦截）+ 每日操作Checklist + 前端代码修复 + 规范体系深度清理。validate.py v5.7（55项校验）。
+> v11.4：彻底移除公开API同步模块，数据链路简化。v11.2 架构升级：Phase 1 并行采集（4组并发）+ Context 压缩（~76k→~35k）+ References 分层加载（L1/L2/L3/L4）+ Generator-Verifier 内联自校验（14/17项FATAL前置拦截）+ 每日操作Checklist + 前端代码修复 + 规范体系深度清理。validate.py v5.7（55项校验）。
 
 ## 文件结构
 
 | 目录/文件 | 说明 |
 |-----------|------|
-| `SKILL.md` | 主控文档 v11.2（工作流+九大铁律+致命错误清单+并行采集+Context压缩+分层加载+Generator-Verifier+每日Checklist） |
-| `scripts/run_daily.sh` | 一键串联脚本 v6.2（第-0.5步涨跌方向目视摘要+第-1步日期子目录同步+JSON校验→auto_compute→validate→sparkline→上传） |
+| `SKILL.md` | 主控文档 v11.4（工作流+九大铁律+致命错误清单+并行采集+Context压缩+分层加载+Generator-Verifier+每日Checklist） |
+| `scripts/run_daily.sh` | 一键串联脚本 v6.3（第-0.5步涨跌方向目视摘要+第-1步日期子目录同步+JSON校验→auto_compute→validate→sparkline→上传，第2步后即终点） |
 | `scripts/auto_compute.py` | 公式自动计算 v3.0（riskScore/riskLevel/sentimentLabel/trafficLights.status/metrics联动/15类字段） |
 | `scripts/validate.py` | 数据质量校验 v5.7（55项 FATAL/WARN 双级，17项FATAL，含V38b方向合理性） |
 | `scripts/refresh_verified_snapshot.py` | sparkline/chartData 历史序列补全 v3.0 |
 | `scripts/upload_to_cloud.py` | 云数据库上传+回读校验 v1.2 |
-| `scripts/generate_audio.py` | 语音播报生成器 v3.0（MiniMax TTS） |
+| `scripts/generate_audio.py` | 语音播报生成器 v3.0（MiniMax TTS，暂停中） |
 | `scripts/requirements.txt` | Python 依赖 |
 | `references/json-schema.md` | **核心文件** — 4个JSON完整字段规范 v5.0（含B1-B12/Q1-Q8/W1-W9质量门禁） |
 | `references/inline-verifier-rules.md` | **v11.0 新增** — Generator-Verifier 内联自校验规则 v1.0（14项可内联FATAL+修复SOP） |
