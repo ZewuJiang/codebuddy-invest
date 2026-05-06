@@ -1,0 +1,61 @@
+{
+  "date": "2026-05-06",
+  "usMarkets": [
+    {"name": "标普500", "price": "7,259.22", "change": 0.81, "changeLabel": "大盘指数", "sparkline": [7150, 7120, 7080, 7100, 7180, 7200, 7259]},
+    {"name": "纳斯达克", "price": "25,326.13", "change": 1.03, "changeLabel": "科技指数", "sparkline": [24800, 24650, 24500, 24700, 25000, 25070, 25326]},
+    {"name": "道琼斯", "price": "49,298.25", "change": 0.73, "changeLabel": "蓝筹指数", "sparkline": [48800, 48600, 48400, 48500, 48900, 48940, 49298]},
+    {"name": "VIX恐慌", "price": "19.49", "change": -0.60, "changeLabel": "恐慌指标", "sparkline": [22.5, 23.8, 25.1, 22.0, 20.5, 19.6, 19.49]}
+  ],
+  "m7": [
+    {"name": "苹果 AAPL", "price": "$284.18", "change": 2.65, "symbol": "AAPL", "sparkline": [268, 270, 272, 275, 277, 277, 284]},
+    {"name": "微软 MSFT", "price": "$548.20", "change": -0.35, "symbol": "MSFT", "sparkline": [545, 542, 538, 540, 546, 550, 548]},
+    {"name": "英伟达 NVDA", "price": "$196.50", "change": -1.00, "symbol": "NVDA", "sparkline": [192, 190, 188, 193, 198, 198, 197]},
+    {"name": "谷歌 GOOGL", "price": "$388.43", "change": 1.35, "symbol": "GOOGL", "sparkline": [370, 372, 375, 378, 380, 383, 388]},
+    {"name": "亚马逊 AMZN", "price": "$273.55", "change": 0.55, "symbol": "AMZN", "sparkline": [265, 263, 261, 264, 268, 272, 274]},
+    {"name": "Meta META", "price": "$604.96", "change": -0.89, "symbol": "META", "sparkline": [620, 615, 608, 605, 610, 610, 605]},
+    {"name": "特斯拉 TSLA", "price": "$389.37", "change": -0.82, "symbol": "TSLA", "sparkline": [380, 375, 370, 378, 385, 393, 389]}
+  ],
+  "asiaMarkets": [
+    {"name": "上证综指", "price": "4,285.60", "change": 1.45, "sparkline": [4200, 4210, 4220, 4230, 4240, 4250, 4286]},
+    {"name": "深证成指", "price": "14,680.30", "change": 1.62, "sparkline": [14350, 14380, 14400, 14420, 14500, 14550, 14680]},
+    {"name": "恒生指数", "price": "25,820.50", "change": 0.62, "sparkline": [25400, 25300, 25200, 25350, 25500, 25650, 25820]},
+    {"name": "恒生科技", "price": "6,280.40", "change": 1.05, "sparkline": [6100, 6080, 6050, 6100, 6150, 6215, 6280]},
+    {"name": "韩国Kospi", "price": "7,125.80", "change": 6.68, "sparkline": [6200, 6250, 6300, 6400, 6500, 6680, 7126]}
+  ],
+  "commodities": [
+    {"name": "黄金 XAU", "price": "$4,546.92", "change": 0.52, "sparkline": [4650, 4620, 4580, 4530, 4510, 4523, 4547]},
+    {"name": "布伦特原油", "price": "$108.00", "change": -1.70, "sparkline": [118, 120, 122, 115, 112, 110, 108]},
+    {"name": "WTI原油", "price": "$100.45", "change": -1.78, "sparkline": [110, 112, 115, 108, 105, 102, 100]},
+    {"name": "美元指数DXY", "price": "99.85", "change": -0.15, "sparkline": [100.5, 100.8, 101.0, 100.2, 100.0, 99.9, 99.9]},
+    {"name": "10Y美债", "price": "4.43%", "change": 0.02, "sparkline": [4.38, 4.40, 4.42, 4.45, 4.44, 4.41, 4.43]},
+    {"name": "离岸人民币CNH", "price": "7.18", "change": -0.08, "sparkline": [7.22, 7.23, 7.24, 7.21, 7.20, 7.19, 7.18]}
+  ],
+  "cryptos": [
+    {"name": "比特币 BTC", "price": "$81,000", "change": 1.50, "sparkline": [75000, 74500, 75500, 76700, 78000, 79500, 81000]},
+    {"name": "以太坊 ETH", "price": "$2,380", "change": 1.00, "sparkline": [2280, 2260, 2290, 2310, 2330, 2355, 2380]}
+  ],
+  "gics": [
+    {"name": "信息技术 XLK", "change": 1.52, "etf": "XLK"},
+    {"name": "通信服务 XLC", "change": 1.20, "etf": "XLC"},
+    {"name": "非必需消费 XLY", "change": 0.95, "etf": "XLY"},
+    {"name": "金融 XLF", "change": 0.85, "etf": "XLF"},
+    {"name": "工业 XLI", "change": 0.72, "etf": "XLI"},
+    {"name": "医疗保健 XLV", "change": 0.65, "etf": "XLV"},
+    {"name": "材料 XLB", "change": 0.48, "etf": "XLB"},
+    {"name": "房地产 XLRE", "change": 0.35, "etf": "XLRE"},
+    {"name": "必需消费 XLP", "change": 0.28, "etf": "XLP"},
+    {"name": "公用事业 XLU", "change": 0.15, "etf": "XLU"},
+    {"name": "能源 XLE", "change": -1.20, "etf": "XLE"}
+  ],
+  "usInsight": "标普纳指同步创历史新高，科技板块XLK领涨+1.52%，中东降温叠加ISM数据温和驱动风险偏好全面回升。",
+  "m7Insight": "苹果涨2.65%领跑M7，GOOGL续涨+1.35%延续Q1财报利好，而NVDA和META小幅回调消化前期涨幅——分化格局加剧。",
+  "asiaInsight": "韩国Kospi暴涨6.68%创历史，三星电子市值破万亿美元，A股五一假后补涨CSI 300+1.62%，日本因假日休市。",
+  "commodityInsight": "中东降温令油价大幅回落（布伦特-1.70%至$108），黄金在$4547企稳反弹+0.52%，DXY跌破100关口至99.85。",
+  "cryptoInsight": "比特币突破$81000创近一个月新高，ETF单日净流入$5.32亿驱动，市场恐惧贪婪指数回升至50（中性区）。",
+  "gicsInsight": "科技XLK领涨、能源XLE独跌——典型的'油价跌+科技涨'跷跷板格局，中东缓和直接利空能源、利好成长板块。",
+  "dataTime": "2026-05-06 12:50 BJT",
+  "_meta": {
+    "sourceType": "heavy_analysis",
+    "generatedAt": "2026-05-06T12:50:00+08:00"
+  }
+}

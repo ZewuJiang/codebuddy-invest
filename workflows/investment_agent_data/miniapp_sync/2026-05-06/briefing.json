@@ -1,0 +1,76 @@
+{
+  "date": "2026-05-06",
+  "takeaway": "【标普纳指齐创新高】美股科技股领涨三大指数收阳，【中东降温】霍尔木兹海峡紧张缓解油价回落，【韩国三星破万亿】Kospi单日暴涨6.68%创历史",
+  "coreEvent": {
+    "title": "美股三大指数齐创历史新高，中东局势降温驱动全球风险偏好回升",
+    "chain": [
+      {"title": "特朗普暂停霍尔木兹海峡护航", "brief": "美国暂停引导船只通过霍尔木兹海峡的自由项目以等待协议达成", "source": "CNBC"},
+      {"title": "油价大幅回落", "brief": "WTI跌1.78%至$100.45 布伦特跌1.70%至$108", "source": "CNBC"},
+      {"title": "标普纳指创历史收盘新高", "brief": "S&P 500收7259.22(+0.81%) 纳斯达克25326.13(+1.03%)", "source": "MarketWatch"},
+      {"title": "韩国Kospi暴涨6.68%", "brief": "三星电子涨超15%市值破1万亿美元 SK海力士涨超10%", "source": "CNBC"},
+      {"title": "IBM Think大会发布AI操作模型蓝图", "brief": "企业AI和混合云管理迎来最全面扩展", "source": "IBM Newsroom"}
+    ]
+  },
+  "globalReaction": [
+    {"name": "标普500", "value": "7,259.22", "direction": "up", "note": "历史收盘新高"},
+    {"name": "纳斯达克", "value": "25,326.13", "direction": "up", "note": "历史收盘新高"},
+    {"name": "道琼斯", "value": "49,298.25", "direction": "up", "note": "+0.73%"},
+    {"name": "WTI原油", "value": "$100.45", "direction": "down", "note": "中东降温回落"},
+    {"name": "韩国Kospi", "value": "+6.68%", "direction": "up", "note": "三星破万亿"},
+    {"name": "比特币", "value": "$81,000", "direction": "up", "note": "ETF流入$5.3亿"}
+  ],
+  "coreJudgments": [
+    {
+      "title": "美股科技领涨格局延续至Q2中段",
+      "confidence": 78,
+      "logic": "中东降温→油价回落→通胀预期缓解→科技成长股估值重新扩张→标普纳指齐创新高",
+      "probability": "高可能性",
+      "trend": "上升"
+    },
+    {
+      "title": "韩国半导体超级周期确认",
+      "confidence": 82,
+      "logic": "AI算力需求爆发→三星HBM4量产+SK海力士订单满→Kospi单日+6.68%→半导体板块全球共振",
+      "probability": "高可能性",
+      "trend": "上升"
+    },
+    {
+      "title": "油价高位回落但下行空间有限",
+      "confidence": 65,
+      "logic": "霍尔木兹海峡暂时降温→短线利空释放→但OPEC+产量纪律+地缘溢价仍在→WTI$95-105区间震荡",
+      "probability": "中可能性",
+      "trend": "稳定"
+    }
+  ],
+  "actionHints": [],
+  "sentimentScore": 68,
+  "sentimentLabel": "偏贪婪",
+  "marketSummaryPoints": [
+    "标普500与纳斯达克同时收于历史新高 科技板块领涨+1.5%",
+    "中东局势降温 布伦特原油跌至$108 WTI回到$100附近",
+    "韩国Kospi暴涨6.68% 三星市值突破万亿美元创历史",
+    "比特币突破$81000 ETF单日净流入$5.32亿",
+    "VIX小幅回落至19.49 市场恐慌情绪继续消退"
+  ],
+  "smartMoney": [
+    {"source": "ARK Invest", "action": "5/5大幅买入Shopify $20.7M 卖出AMD $10.2M和CRWV $10.8M", "signal": "bullish"},
+    {"source": "比特币ETF", "action": "单日净流入$5.32亿 连续3日净流入", "signal": "bullish"},
+    {"source": "Cathie Wood", "action": "5月持续减仓AMD/CRWV 转向电商和生物科技(SHOP/NTLA/WGS)", "signal": "neutral"}
+  ],
+  "topHoldings": [
+    {"name": "伯克希尔", "holdings": "AAPL 22.6% | AXP 20.5% | BAC 10.4% | KO 10.2% | CVX 7.2% · 现金$3733亿"},
+    {"name": "段永平", "holdings": "AAPL 50.3% | BRK.B 20.6% | NVDA 7.7% | PDD 7.5% | GOOG 3.3% · Q4大幅增持NVDA"},
+    {"name": "ARK旗舰", "holdings": "TSLA 10.5% | CRSP 6.3% | TEM 5.0% | SHOP 4.7% | COIN 4.3% · 5月连续买入SHOP"}
+  ],
+  "riskPoints": [
+    "布伦特$108仍处黄灯区间 若中东协议破裂油价可能快速回到$120+",
+    "VIX 19.49处于18-25黄灯区 市场虽反弹但尚未完全脱离警戒",
+    "10年美债4.43%处黄灯 本周五非农若超预期可能推高至4.5%触发红灯"
+  ],
+  "riskNote": "中东降温带来短线风险偏好回升，但布伦特仍在$108高位、VIX未回到18以下绿灯区——本周五非农数据是决定利率预期和风险定价的关键节点。",
+  "dataTime": "2026-05-06 12:50 BJT",
+  "_meta": {
+    "sourceType": "heavy_analysis",
+    "generatedAt": "2026-05-06T12:50:00+08:00"
+  }
+}
