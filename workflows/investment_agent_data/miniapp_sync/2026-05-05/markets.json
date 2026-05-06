@@ -1,0 +1,212 @@
+{
+  "date": "2026-05-05",
+
+  "usMarkets": [
+    {
+      "name": "标普500",
+      "price": "7,250.42",
+      "change": 0.69,
+      "changeLabel": "大盘指数",
+      "sparkline": []
+    },
+    {
+      "name": "纳斯达克",
+      "price": "25,287.47",
+      "change": 0.88,
+      "changeLabel": "科技指数",
+      "sparkline": []
+    },
+    {
+      "name": "道琼斯",
+      "price": "49,165.10",
+      "change": 0.46,
+      "changeLabel": "蓝筹指数",
+      "sparkline": []
+    },
+    {
+      "name": "VIX波动率",
+      "price": "17.42",
+      "change": -4.76,
+      "changeLabel": "恐慌指标",
+      "sparkline": []
+    }
+  ],
+
+  "usInsight": "标普500+纳斯达克创五周连涨纪录，科技股动能延续但因VIX低于18显示波动率压缩，本周CPI数据将验证反弹质量",
+
+  "m7": [
+    {
+      "name": "英伟达 NVDA",
+      "price": "$198.66",
+      "change": 0.06,
+      "symbol": "NVDA",
+      "sparkline": []
+    },
+    {
+      "name": "苹果 AAPL",
+      "price": "$279.97",
+      "change": 1.13,
+      "symbol": "AAPL",
+      "sparkline": []
+    },
+    {
+      "name": "微软 MSFT",
+      "price": "$410.72",
+      "change": -0.70,
+      "symbol": "MSFT",
+      "sparkline": []
+    },
+    {
+      "name": "谷歌 GOOGL",
+      "price": "$388.16",
+      "change": 1.28,
+      "symbol": "GOOGL",
+      "sparkline": []
+    },
+    {
+      "name": "Meta META",
+      "price": "$606.08",
+      "change": -0.72,
+      "symbol": "META",
+      "sparkline": []
+    },
+    {
+      "name": "亚马逊 AMZN",
+      "price": "$276.28",
+      "change": 1.55,
+      "symbol": "AMZN",
+      "sparkline": []
+    },
+    {
+      "name": "特斯拉 TSLA",
+      "price": "$399.56",
+      "change": 1.79,
+      "symbol": "TSLA",
+      "sparkline": []
+    }
+  ],
+
+  "m7Insight": "M7分化加剧：TSLA独涨1.79%领跑，AMZN+AAPL跟涨；META-0.72%和MSFT-0.70%拖累，NVDA微涨0.06%观望Blackwell出货节奏",
+
+  "asiaMarkets": [
+    {
+      "name": "恒生指数",
+      "price": "25,898.61",
+      "change": -0.76,
+      "sparkline": []
+    },
+    {
+      "name": "恒生科技",
+      "price": "数据待核实",
+      "change": -0.94,
+      "sparkline": []
+    },
+    {
+      "name": "上证指数",
+      "price": "4,112.16",
+      "change": 0.11,
+      "sparkline": []
+    },
+    {
+      "name": "深证成指",
+      "price": "15,107.55",
+      "change": -0.09,
+      "sparkline": []
+    },
+    {
+      "name": "日经225",
+      "price": "59,513.12",
+      "change": 0.38,
+      "sparkline": []
+    },
+    {
+      "name": "KOSPI",
+      "price": "6,936.99",
+      "change": 5.12,
+      "sparkline": []
+    }
+  ],
+
+  "asiaInsight": "KOSPI单日暴涨5.12%创历史新高，三星+SK海力士AI存储需求爆发；恒生指数-0.76%受地缘避险情绪拖累，A股涨跌分化成交量萎缩",
+
+  "commodities": [
+    {
+      "name": "黄金XAU",
+      "price": "$4,565",
+      "change": 0.02,
+      "sparkline": []
+    },
+    {
+      "name": "布伦特原油",
+      "price": "$111.10",
+      "change": -2.88,
+      "sparkline": []
+    },
+    {
+      "name": "WTI原油",
+      "price": "$102.20",
+      "change": -3.96,
+      "sparkline": []
+    },
+    {
+      "name": "美元指数DXY",
+      "price": "98.44",
+      "change": 0.07,
+      "sparkline": []
+    },
+    {
+      "name": "10Y美债收益率",
+      "price": "4.43%",
+      "change": -0.01,
+      "sparkline": []
+    },
+    {
+      "name": "离岸人民币CNH",
+      "price": "6.8278",
+      "change": -0.0585,
+      "sparkline": []
+    }
+  ],
+
+  "commodityInsight": "黄金突破$4565避险需求强劲，布伦特$111逼近红绿灯黄灯上沿($110)，若站稳3周将固化通胀预期并收窄降息窗口；DXY98.44低位利好大宗和非美资产",
+
+  "cryptos": [
+    {
+      "name": "比特币BTC",
+      "price": "$81,436",
+      "change": 2.02,
+      "sparkline": []
+    },
+    {
+      "name": "以太坊ETH",
+      "price": "$2,386",
+      "change": 1.69,
+      "sparkline": []
+    }
+  ],
+
+  "cryptoInsight": "BTC突破$81,000关口动能强劲，ETF持续净流入叠加企业配置需求上升；ETH跟涨1.69%，AI+区块链应用落地预期推升板块情绪",
+
+  "gics": [
+    { "name": "信息技术 XLK", "change": 1.59, "etf": "XLk" },
+    { "name": "原材料 XLB", "change": 1.22, "etf": "XLB" },
+    { "name": "非必需消费 XLY", "change": 1.08, "etf": "XLY" },
+    { "name": "工业 XLI", "change": 0.91, "etf": "XLI" },
+    { "name": "公用事业 XLU", "change": 0.47, "etf": "XLU" },
+    { "name": "医疗保健 XLV", "change": 0.11, "etf": "XLV" },
+    { "name": "必需消费 XLP", "change": 0.10, "etf": "XLP" },
+    { "name": "房地产 XLRE", "change": -0.14, "etf": "XLRE" },
+    { "name": "通信服务 XLC", "change": -0.42, "etf": "XLC" },
+    { "name": "能源 XLE", "change": -0.17, "etf": "XLE" },
+    { "name": "金融 XLF", "change": -0.10, "etf": "XLF" }
+  ],
+
+  "gicsInsight": "科技板块+1.59%领涨反映AI主线延续，原材料受AI基建需求推动；能源-0.17%和房地产-0.14%承压显示避险情绪和结构分化，资金继续向科技/成长集中",
+
+  "dataTime": "2026-05-05 22:30 BJT",
+  "_meta": {
+    "sourceType": "heavy_analysis",
+    "generatedAt": "2026-05-05T22:30:00+08:00",
+    "skillVersion": "v11.4"
+  }
+}
