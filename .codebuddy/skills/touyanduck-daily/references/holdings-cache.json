@@ -6,66 +6,213 @@
   "_nextUpdateWindow": "2026-05-15（2026Q1 13F 披露窗口）",
   "_updateRule": "13F窗口期（2/5/8/11月中旬）必须搜索最新13F数据并更新本缓存；非窗口期直接引用，禁止凭记忆修改数字；有重大变动新闻时可微调footnote但不改权重",
   "_v1.1_changelog": "2026-04-08 修正：①伯克希尔权重按13Radar精确数据修正(OXY 5.8→3.97%, MCO 5.1→4.60%, CB 3.5→3.90%, DVA出局→GOOGL 2.04%入围, AUM 294.3B→274.2B, 持仓数36→42只, Top10占比92.5→88.3%); ②段永平去掉AI编造的AAPL PUT/META/AMZN/TSLA，替换为13F真实持仓OXY/BABA/TSM/DIS; ③change字段按Q3→Q4差异修正(AAPL减持/BRK.B增持/PDD增持等)",
-
   "berkshire": {
     "manager": "巴菲特 · 伯克希尔",
     "fund": "Berkshire Hathaway",
     "aum": "$274.2B",
     "asOf": "2025Q4 · 2月披露",
-    "topHoldingsOneLiner": "AAPL 22.6% | AXP 20.5% | BAC 10.4% | KO 10.2% | CVX 7.2% · 现金$3733亿",
+    "topHoldingsOneLiner": "苹果 22.60% | 美国运通 20.46% | 美国银行 10.38% | 可口可乐 10.20% | 雪佛龙 7.24% · ...",
     "positions": [
-      { "name": "苹果", "symbol": "AAPL", "weight": "22.60%", "change": "减持" },
-      { "name": "美国运通", "symbol": "AXP", "weight": "20.46%", "change": "持仓不变" },
-      { "name": "美国银行", "symbol": "BAC", "weight": "10.38%", "change": "减持" },
-      { "name": "可口可乐", "symbol": "KO", "weight": "10.20%", "change": "持仓不变" },
-      { "name": "雪佛龙", "symbol": "CVX", "weight": "7.24%", "change": "增持" },
-      { "name": "穆迪", "symbol": "MCO", "weight": "4.60%", "change": "持仓不变" },
-      { "name": "西方石油", "symbol": "OXY", "weight": "3.97%", "change": "持仓不变" },
-      { "name": "Chubb", "symbol": "CB", "weight": "3.90%", "change": "增持" },
-      { "name": "卡夫亨氏", "symbol": "KHC", "weight": "2.88%", "change": "持仓不变" },
-      { "name": "Alphabet", "symbol": "GOOGL", "weight": "2.04%", "change": "持仓不变" }
+      {
+        "name": "苹果",
+        "symbol": "AAPL",
+        "weight": "22.60%",
+        "change": "减持"
+      },
+      {
+        "name": "美国运通",
+        "symbol": "AXP",
+        "weight": "20.46%",
+        "change": "持仓不变"
+      },
+      {
+        "name": "美国银行",
+        "symbol": "BAC",
+        "weight": "10.38%",
+        "change": "减持"
+      },
+      {
+        "name": "可口可乐",
+        "symbol": "KO",
+        "weight": "10.20%",
+        "change": "持仓不变"
+      },
+      {
+        "name": "雪佛龙",
+        "symbol": "CVX",
+        "weight": "7.24%",
+        "change": "增持"
+      },
+      {
+        "name": "穆迪",
+        "symbol": "MCO",
+        "weight": "4.60%",
+        "change": "持仓不变"
+      },
+      {
+        "name": "西方石油",
+        "symbol": "OXY",
+        "weight": "3.97%",
+        "change": "持仓不变"
+      },
+      {
+        "name": "Chubb",
+        "symbol": "CB",
+        "weight": "3.90%",
+        "change": "增持"
+      },
+      {
+        "name": "卡夫亨氏",
+        "symbol": "KHC",
+        "weight": "2.88%",
+        "change": "持仓不变"
+      },
+      {
+        "name": "Alphabet",
+        "symbol": "GOOGL",
+        "weight": "2.04%",
+        "change": "持仓不变"
+      }
     ],
     "footnote": "持仓数42只，Top10占88.3%，现金储备$3,733亿（Greg Abel首次重启回购），Q4增持CVX(+6.6%)/CB(+9.3%)，减持AAPL(-4.3%)/BAC(-8.9%)"
   },
-
   "duanyongping": {
     "manager": "段永平 · H&H",
     "fund": "H&H International Investment",
     "aum": "$18B",
     "asOf": "2025Q4 · 2月披露",
-    "topHoldingsOneLiner": "AAPL 50.3% | BRK.B 20.6% | NVDA 7.7% | PDD 7.5% | GOOG 3.3% · 泡泡玛特观察中",
+    "topHoldingsOneLiner": "苹果 50.30% | 伯克希尔B 20.60% | 英伟达 7.70% | 拼多多 7.50% | 谷歌 3.30% · ...",
     "positions": [
-      { "name": "苹果", "symbol": "AAPL", "weight": "50.3%", "change": "减持" },
-      { "name": "伯克希尔B", "symbol": "BRK.B", "weight": "20.6%", "change": "增持" },
-      { "name": "英伟达", "symbol": "NVDA", "weight": "7.7%", "change": "大幅增持" },
-      { "name": "拼多多", "symbol": "PDD", "weight": "7.5%", "change": "增持" },
-      { "name": "谷歌", "symbol": "GOOG", "weight": "3.3%", "change": "小幅增持" },
-      { "name": "西方石油", "symbol": "OXY", "weight": "3.1%", "change": "减持" },
-      { "name": "微软", "symbol": "MSFT", "weight": "2.4%", "change": "大幅增持" },
-      { "name": "阿里巴巴", "symbol": "BABA", "weight": "2.1%", "change": "减持" },
-      { "name": "台积电", "symbol": "TSM", "weight": "2.1%", "change": "大幅增持" },
-      { "name": "迪士尼", "symbol": "DIS", "weight": "0.5%", "change": "减持" }
+      {
+        "name": "苹果",
+        "symbol": "AAPL",
+        "weight": "50.30%",
+        "change": "减持"
+      },
+      {
+        "name": "伯克希尔B",
+        "symbol": "BRK.B",
+        "weight": "20.60%",
+        "change": "增持"
+      },
+      {
+        "name": "英伟达",
+        "symbol": "NVDA",
+        "weight": "7.70%",
+        "change": "大幅增持"
+      },
+      {
+        "name": "拼多多",
+        "symbol": "PDD",
+        "weight": "7.50%",
+        "change": "增持"
+      },
+      {
+        "name": "谷歌",
+        "symbol": "GOOG",
+        "weight": "3.30%",
+        "change": "小幅增持"
+      },
+      {
+        "name": "西方石油",
+        "symbol": "OXY",
+        "weight": "3.10%",
+        "change": "减持"
+      },
+      {
+        "name": "微软",
+        "symbol": "MSFT",
+        "weight": "2.40%",
+        "change": "大幅增持"
+      },
+      {
+        "name": "阿里巴巴",
+        "symbol": "BABA",
+        "weight": "2.10%",
+        "change": "减持"
+      },
+      {
+        "name": "台积电",
+        "symbol": "TSM",
+        "weight": "2.10%",
+        "change": "大幅增持"
+      },
+      {
+        "name": "迪士尼",
+        "symbol": "DIS",
+        "weight": "0.50%",
+        "change": "减持"
+      }
     ],
     "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，新建仓CRWV/CRDO/TEM"
   },
-
   "arkFlagship": {
     "manager": "Cathie Wood · ARK旗舰",
     "fund": "ARK Innovation ETF (ARKK)",
     "aum": "$6.8B",
     "asOf": "2026-04-05（ARK每日持仓披露）",
-    "topHoldingsOneLiner": "TSLA 10.5% | CRSP 6.3% | TEM 5.0% | SHOP 4.7% | COIN 4.3%",
+    "topHoldingsOneLiner": "特斯拉 10.50% | CRISPR治疗 6.30% | Tempus AI 5.00% | Shopify 4.70% | Coinbase 4.30% · ...",
     "positions": [
-      { "name": "特斯拉", "symbol": "TSLA", "weight": "10.5%", "change": "持仓不变" },
-      { "name": "CRISPR治疗", "symbol": "CRSP", "weight": "6.3%", "change": "持仓不变" },
-      { "name": "Tempus AI", "symbol": "TEM", "weight": "5.0%", "change": "加仓" },
-      { "name": "Shopify", "symbol": "SHOP", "weight": "4.7%", "change": "持仓不变" },
-      { "name": "Coinbase", "symbol": "COIN", "weight": "4.3%", "change": "持仓不变" },
-      { "name": "Roku", "symbol": "ROKU", "weight": "4.2%", "change": "持仓不变" },
-      { "name": "Palantir", "symbol": "PLTR", "weight": "3.8%", "change": "持仓不变" },
-      { "name": "Block", "symbol": "SQ", "weight": "3.5%", "change": "持仓不变" },
-      { "name": "Unity软件", "symbol": "U", "weight": "3.2%", "change": "持仓不变" },
-      { "name": "Roblox", "symbol": "RBLX", "weight": "2.9%", "change": "持仓不变" }
+      {
+        "name": "特斯拉",
+        "symbol": "TSLA",
+        "weight": "10.50%",
+        "change": "持仓不变"
+      },
+      {
+        "name": "CRISPR治疗",
+        "symbol": "CRSP",
+        "weight": "6.30%",
+        "change": "持仓不变"
+      },
+      {
+        "name": "Tempus AI",
+        "symbol": "TEM",
+        "weight": "5.00%",
+        "change": "加仓"
+      },
+      {
+        "name": "Shopify",
+        "symbol": "SHOP",
+        "weight": "4.70%",
+        "change": "持仓不变"
+      },
+      {
+        "name": "Coinbase",
+        "symbol": "COIN",
+        "weight": "4.30%",
+        "change": "持仓不变"
+      },
+      {
+        "name": "Roku",
+        "symbol": "ROKU",
+        "weight": "4.20%",
+        "change": "持仓不变"
+      },
+      {
+        "name": "Palantir",
+        "symbol": "PLTR",
+        "weight": "3.80%",
+        "change": "持仓不变"
+      },
+      {
+        "name": "Block",
+        "symbol": "SQ",
+        "weight": "3.50%",
+        "change": "持仓不变"
+      },
+      {
+        "name": "Unity软件",
+        "symbol": "U",
+        "weight": "3.20%",
+        "change": "持仓不变"
+      },
+      {
+        "name": "Roblox",
+        "symbol": "RBLX",
+        "weight": "2.90%",
+        "change": "持仓不变"
+      }
     ],
     "footnote": "ARK每日披露持仓变动，TSLA始终第一重仓，近期连续买入CoreWeave(CRWV)和Kodiak AI(KDK)但尚未进入Top10"
   }

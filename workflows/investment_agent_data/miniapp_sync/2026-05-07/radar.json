@@ -278,7 +278,7 @@
       "manager": "Cathie Wood · ARK",
       "fund": "ARK Innovation ETF (ARKK)",
       "aum": "$6.8B",
-      "asOf": "2026-05-07",
+      "asOf": "2026-05-06（ARK每日持仓披露）",
       "positions": [
         {
           "name": "特斯拉",
@@ -344,10 +344,10 @@
       "footnote": "ARK每日披露持仓变动，TSLA始终第一重仓，近期连续买入TEM/SHOP、减仓AMD；CRWV/CRDO未进入Top10"
     }
   ],
-  "dataTime": "2026-05-07 18:26 BJT",
+  "dataTime": "2026-05-07 22:00 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-05-07T18:26:49+08:00",
+    "generatedAt": "2026-05-07T22:00:00+08:00",
     "skillVersion": "v11.5"
   }
 }

@@ -3,9 +3,9 @@ name: investment-agent-daily
 description: 当用户提到「投资Agent」「每日分析」「投资分析」「每日报告」「investment agent」「晨报」「morning report」或类似关键词时，自动执行投资Agent每日策略简报全流程。
 ---
 
-# 投资Agent每日策略简报 — 标准工作流 v19.3
+# 投资Agent每日策略简报 — 标准工作流 v19.4
 
-> **版本**: v19.3 (2026-04-01) | **质量补完**：补齐 v19.2 未完全落地项（源杰科技正文Ticker、行动建议动作化占位、周一模板月涨跌占位、数据采集SOP标题版本），并重新校准正文 / 模板 / Changelog 一致性；本 Skill 职责仍聚焦于日报产出（MD+PDF+大老板消息）
+> **版本**: v19.4 (2026-05-07) | **跨期事件去重**：新增 RULE SEVEN 跨期事件去重铁律——同一事件在连续两期日报中必须差异化处理（首次完整展开/第二日侧重市场定价反应），采集前必读前一期日报；六大铁律升级为七大铁律；致命错误21→23条；核心规则30→32条；数据采集SOP新增§九前一期日报预读流程
 > **主控文档**：本文件为精炼主控，详细规则/知识库/模板/SOP通过引用按需加载。
 
 ---
@@ -20,7 +20,7 @@ description: 当用户提到「投资Agent」「每日分析」「投资分析�
 
 ---
 
-## 六大铁律（最高优先级）
+## 七大铁律（最高优先级）
 
 | 铁律 | 核心要求 | 详细规则 |
 |------|---------|---------|
@@ -31,6 +31,7 @@ description: 当用户提到「投资Agent」「每日分析」「投资分析�
 | **RULE FOUR** | 基金&大资金覆盖完整性。三梯队26家（一级核心8家/二级追踪10家/三级雷达8家），策略师观点追踪 | → [core-rules.md](references/core-rules.md) |
 | **RULE FIVE** | **成稿终审铁律（v17.8）**。数据缺失宁迟勿糊（至少3个数据源穷尽搜索）；成稿后逐表格逐单元格扫描（收盘价必须$XXX.XX/涨跌幅必须±X.XX%）；三轮终审复核（数据轮→逻辑轮→格式轮）全通过后一次性输出最终版。**严禁"收涨""上涨""+正"等模糊描述出现在数值列** | → [core-rules.md](references/core-rules.md) + [data-collection-sop.md](references/data-collection-sop.md) §七/§八 |
 | **RULE SIX** | **自主进化铁律（v18.0）**。每次日报交付后强制执行反思引擎（六维反思），进化提案必须通过质量铁栅栏三项检验（准确性/完整性/实时性不降级），三级分级执行（🟢低风险自动/🟡中风险默认生效/🔴高风险需确认），所有变更精确Diff记录可回滚。**质量只升不降，宁可不进化也不退化** | → [evolution-rules.md](references/evolution-rules.md) + [evolution-log.md](references/evolution-log.md) |
+| **RULE SEVEN** | **跨期事件去重铁律（v19.4）**。同一事件在连续两期日报中必须差异化处理：首次报道日完整展开（事件+数据+分析+含义）；第二日仅引用价格变动数据，侧重"市场如何消化/定价"而非重复事件本身。**采集前必读前一期日报§1和§3**，识别已分析事件，禁止复述 | → [core-rules.md](references/core-rules.md) |
 
 ---
 
@@ -96,6 +97,8 @@ REPORT_START_TIME=$(date "+%H%M")
 **新增（v18.0）**：检查 `evolution-log.md` 中是否有状态为"🔄 默认生效中"的中风险提案。若有且用户未反对，在本次执行开始前自动固化到对应文件，并更新日志状态为"✅ 已固化"。
 
 ### 第一阶段：实时数据采集
+
+**前置步骤（v19.4 RULE SEVEN）**：采集开始前，**必须先读取前一期日报的§1和§3**，提取已详细展开的核心事件清单。此清单用于后续撰写阶段的跨期去重判断。详见 → [data-collection-sop.md](references/data-collection-sop.md) §九
 
 **详细的采集批次SOP、Google Finance批量采集模板、数据源优先级表** → [data-collection-sop.md](references/data-collection-sop.md)
 
@@ -204,7 +207,7 @@ python3 md_to_pdf.py "{MD文件路径}" "{PDF输出路径}"
 
 ---
 
-## 核心规则速查（30条）
+## 核心规则速查（32条）
 
 > **完整规则详见** → [core-rules.md](references/core-rules.md)
 
@@ -215,13 +218,14 @@ python3 md_to_pdf.py "{MD文件路径}" "{PDF输出路径}"
 | AI产业链覆盖 | 2条 | 深度扫描 + 供应链知识库联动 |
 | 基金&大资金覆盖 | 2条 | 基金知识库联动 + 策略师观点追踪 |
 | 媒体追踪覆盖 | 2条 | 媒体知识库联动 + 终审媒体交叉校验 |
+| **跨期事件去重** | **2条** | **前一期日报预读 + 事件生命周期差异化处理（v19.4）** |
 | **成稿终审铁律** | **3条** | **逐单元格数据扫描 + 数据缺失宁迟勿糊 + 三轮终审复核（v17.8）** |
 | 流程规则 | 6条 | 交易日检测 + PDF双输出 + 文件命名 + 端到端零堵点 + 禁用词零容忍 + 大老板消息文本（v17.9） |
 | **自主进化规则** | **2条** | **反思引擎强制执行 + 质量铁栅栏（v18.0）** |
 
 ---
 
-## 致命错误清单（21条 — 零容忍）
+## 致命错误清单（23条 — 零容忍）
 
 | # | 错误类型 | 来源 |
 |---|----------|------|
@@ -246,6 +250,8 @@ python3 md_to_pdf.py "{MD文件路径}" "{PDF输出路径}"
 | **19** | **高风险进化变更未经用户确认即执行** | **v18.0** |
 | **20** | **进化变更未通过质量铁栅栏即执行（绕过准确性/完整性/实时性三项检验）** | **v18.0** |
 | **21** | **进化变更无精确Diff记录（导致无法回滚）** | **v18.0** |
+| **22** | **跨期事件完整复述（前一期已详细展开的事件，本期§1/§3再次作为核心新闻完整重述事件内容）** | **v19.4** |
+| **23** | **采集前未预读前一期日报（跳过前一期日报§1§3预读步骤，导致重复叙事无法识别）** | **v19.4** |
 
 ---
 
@@ -297,8 +303,9 @@ python3 md_to_pdf.py "{MD文件路径}" "{PDF输出路径}"
 
 | 版本 | 日期 | 核心变更 |
 |------|------|---------|
-| **v19.3** | 2026-04-01 | **质量补完**：①补齐 `ai-supply-chain-universe.md` 中源杰科技正文 Ticker 为 `688498.SH`，并加入同表 Ticker 去重校验提醒；②将 `daily-standard.md`、`monday-special.md`、`report-format-guide.md` 的“关注要点”占位升级为“明确动作或触发条件”；③去除 `monday-special.md` 月涨跌列中的“—”占位，统一要求精确月度数值；④`data-collection-sop.md` 标题版本与维护记录同步；⑤按“正文 > 模板 > Changelog”重新回扫一致性 |
-| **v19.2** | 2026-04-01 | **质量一致性修复**：①`core-rules.md` 总条数修正为30条，规则25文件命名统一为`YYYYMMDD`；②`daily-standard.md` 同步布伦特主指标、GICS“日涨跌%”列名与红绿灯阈值；③`monday-special.md` 去除“晨报”旧称并继承最新标准口径；④`ai-supply-chain-universe.md` 修正源杰科技/景旺电子错误Ticker；⑤`data-collection-sop.md` 原油数据源顺序调整为布伦特优先；⑥`README.md`/`report-format-guide.md` 同步版本说明 |
+| **v19.4** | 2026-05-07 | **RULE SEVEN跨期事件去重铁律**：①新增第七大铁律"跨期事件去重"——同一事件连续两期必须差异化（首次完整展开/第二日侧重市场定价反应，禁止复述）；②致命错误21→23条（+#22跨期事件完整复述/+#23采集前未预读前一期日报）；③核心规则30→32条（+#31前一期日报预读/+#32事件生命周期处理）；④data-collection-sop新增§九前一期日报预读流程；⑤终审清单22→24项（+RULE SEVEN预读确认/+跨期去重确认）；⑥第一阶段新增前置预读步骤 |
+| **v19.3** | 2026-04-01 | **质量补完**：①补齐 `ai-supply-chain-universe.md` 中源杰科技正文 Ticker 为 `688498.SH`，并加入同表 Ticker 去重校验提醒；②将 `daily-standard.md`、`monday-special.md`、`report-format-guide.md` 的"关注要点"占位升级为"明确动作或触发条件"；③去除 `monday-special.md` 月涨跌列中的"—"占位，统一要求精确月度数值；④`data-collection-sop.md` 标题版本与维护记录同步；⑤按"正文 > 模板 > Changelog"重新回扫一致性 |
+| **v19.2** | 2026-04-01 | **质量一致性修复**：①`core-rules.md` 总条数修正为30条，规则25文件命名统一为`YYYYMMDD`；②`daily-standard.md` 同步布伦特主指标、GICS"日涨跌%"列名与红绿灯阈值；③`monday-special.md` 去除"晨报"旧称并继承最新标准口径；④`ai-supply-chain-universe.md` 修正源杰科技/景旺电子错误Ticker；⑤`data-collection-sop.md` 原油数据源顺序调整为布伦特优先；⑥`README.md`/`report-format-guide.md` 同步版本说明 |
 | **v19.1** | 2026-04-01 | **架构精简**：①删除第3.5阶段"数据同步到投研鸭小程序"（已迁移至独立 Skill `touyanduck-daily`，本 Skill 不再承担任何数据提取/上传职责）；②删除 `scripts/extract_data.py` 和 `scripts/upload_to_cloud.py`；③`requirements.txt` 移除 requests 依赖；④工作流标题明确"精简版共5个阶段"；⑤第四阶段加§九强制重读提醒，防止大老板消息格式事故 |
 | **v19.0** | 2026-03-31 | **投研鸭小程序数据同步**（已迁移至独立 Skill `touyanduck-daily`）：①新增第3.5阶段"数据同步到投研鸭小程序"（可选旁路，失败不阻塞日报）；②新增 `scripts/extract_data.py`（从MD提取结构化JSON）；③新增 `scripts/upload_to_cloud.py`（通过微信HTTP API上传云数据库）；④`scripts/requirements.txt` 新增 requests 依赖 |
 | **v18.5** | 2026-03-27 | **迁移兼容性修复**（纯增量，不改变任何现有逻辑）：①第三阶段脚本路径增加通用路径注释（原绝对路径保留）；②输出路径区增加通用配置说明（原OrbitOS路径保留）；③requirements.txt补充weasyprint系统级依赖说明（macOS/Ubuntu）；④notes/目录添加.gitkeep；⑤新增README.md安装指南 |
