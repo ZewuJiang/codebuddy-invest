@@ -1,36 +1,94 @@
 # 投研鸭小程序数据生产 — 完整版本历史
 
-> **用途**：归档 SKILL.md 的完整变更历史。SKILL.md 主控只保留最近版本的 Changelog，历史版本在此查阅。
+> **用途**：归档 SKILL.md 的完整变更历史。SKILL.md 主控只保留当前版本号，历史版本在此查阅。
+
+---
+
+## v13.0（2026-05-07）— 语音功能永久移除 + 规范瘦身
+
+**变更内容**：
+
+1. **语音功能永久移除**：
+   - 物理删除 `scripts/generate_audio.py`（MiniMax TTS 语音生成器）
+   - `scripts/upload_to_cloud.py` v1.2→v1.3：删除 `upload_audio_to_cloud()` / `get_audio_temp_url()` / 音频检测逻辑（约150行）
+   - `scripts/validate.py` v6.0→v6.1：删除 `validate_audio_url()` 函数及主流程调用（V35），FATAL 项 20→19，校验项 58→57
+   - `scripts/requirements.txt`：注释更新，移除 MiniMax TTS 说明
+   - 前端 `briefing.js` v7.1→v7.2：删除 `audioUrl/isPlaying/audioLoading` 三个 data 字段、`_audioCtx` 实例变量、`onVoiceTap/_playAudio/_destroyAudio` 三个方法（约80行）
+   - 前端 `briefing.wxml` v7.1→v7.2：删除语音播报按钮整块（ts-voice-btn）
+   - 前端 `briefing.wxss`：删除语音播报按钮 CSS（约60行）
+
+2. **规范瘦身（SKILL.md 503行→~280行）**：
+   - v11.0-v12.2 全部 Changelog 迁至 CHANGELOG.md，SKILL.md 只保留版本号标题
+   - Checklist（J1-J10/P1-P5/V1-V4/故障排查）迁至 `references/daily-checklist.md`
+   - Phase 3.5（语音播报）整节删除
+   - Generator-Verifier 中 V35 引用注释清除
+
+3. **冗余清理**：
+   - `🚨🚨🚨` 三重强调 → 单 `🚨`
+   - "每次执行都是全量高质量产出，确保数据一致性" → 删除
+   - References 分层加载警告措辞精简
+   - 版本历史尾部冗余说明删除
+
+**涉及文件（12个）**：SKILL.md, README.md, CHANGELOG.md, validate.py, upload_to_cloud.py, requirements.txt, daily-checklist.md(新建), briefing.js, briefing.wxml, briefing.wxss，generate_audio.py(删除)
+
+---
+
+## v12.2（2026-05-07）— Phase B1.5 锚点鲁棒性补强 + 上传一致性门禁
+
+**anchor_fetcher.py v1.1**（实测 3/6 → 目标 6/6）
+- CNH 备源补充：Frankfurter API + open.er-api.com 三级降级链
+- DXY 备源补充：FRED DTWEXBGS，标记 `skip_v48=True` 避免量级误比对
+- VIX 备源升级：CBOE 官方 JSON 提升为主源，yfinance 降为备源
+- yfinance 重试机制：429 错误 sleep 3s 重试 1 次
+- fetched_at 时效字段：anchors.json `_meta.fetched_at` 供 V48 时效性校验（超 12h 整体 SKIP）
+
+**validate.py v6.0**（58项，20 FATAL）
+- V48 增强：读取 `fetched_at` 做时效性校验；跳过 `skip_v48=True` 条目
+- 新增 V49 [FATAL]：本地文件 hash vs `.last_upload_hash.json` 一致性校验（堵死堵点 #65）
+
+**run_daily.sh v6.5**
+- 第2步上传成功后新增第2.5步：写入 `.last_upload_hash.json`（4文件 sha256 + uploaded_at 时间戳）
+
+---
+
+## v12.1（2026-05-07）— 真值锚点防线 Phase B1
+
+- **⚓ 新增 `anchor_fetcher.py` v1.0**：独立真值锚点拉取器，覆盖 AkShare 缺口 6 字段（10Y美债/CNH/DXY/VIX/BTC/ETH），三级降级，输出 `miniapp_sync/anchors.json`
+- **🛡️ validate.py v5.9 — V48 [FATAL]**：AI 抓取值 vs 锚点容差校验（CNH:1.5% / DXY:1.5% / 10Y债:3% / VIX:15% / BTC/ETH:10%）
+- **🔧 run_daily.sh v6.4**：新增第0.4步（anchor_fetcher.py）
+- **📋 requirements.txt**：新增 `yfinance>=0.2.40`
+- **5/7 事故验证**：CNH=7.22 vs 6.81 偏差 6.0% >> 1.5% → FATAL 阻断永不上传
+
+---
+
+## v12.0（2026-05-07）— 紧急止血 P0 门禁加固
+
+- **🚑 5/7 数据修复**：radar.json 三个红绿灯值（CNH 7.22→6.81、10Y 3.97%→4.35%、DXY 97.83→98.02）修复并重新上传
+- **V36 WARN→FATAL**：跨JSON一致性矛盾不可被 `--skip-warn` 绕过
+- **cross_check_map 2处名称失配Bug修复**：VIX/黄金两项长期静默跳过，现已对齐真实生效
+- **app-sync.sh v2.1**：移除盲跳 `--skip-warn` 逻辑，WARN 失败改为写入 `.needs-attention` 标记
+
+---
+
+## v11.5（2026-05-06）— Phase 3 自我守卫约束
+
+- **根因**：5/4-5/5 连续 6 次 AI 被 token 截断，从未执行 Phase 3，数据未上传
+- Phase 3 新增自我守卫强制约束块
+- `app-sync.sh` 重写为 v2 双阶段守卫架构
+- 删除 app-sync.sh 中"只刷 generatedAt"的虚假兜底
+- 健康日志改为 4 种真实状态（SUCCESS_FULL / FAIL_AI_INCOMPLETE / FAIL_VALIDATE / FAIL_SCRIPT_MISSING）
+
+---
+
+## v11.4（2026-05-03）— 彻底移除公开API同步模块
+
+- run_daily.sh v6.3：删除第3步（sync_to_edgeone.sh），微信云数据库为唯一终点
+- 物理删除脚本：sync_to_edgeone.sh / render_briefing.py / generate_summary.py / generate_meta.py
+- touyanduck-api/ 目录整体删除
 
 ---
 
 ## v11.3（2026-04-21 21:40）— 全面细节审查（13处精准修复）
-
-**优化内容**：
-
-1. **P0 数据/事实不一致修复（4处）**：
-   - SKILL.md 头部"三批分层 L1/L2/L3"→"四批分层 L1/L2/L3/L4"（与正文一致）
-   - SKILL.md 引用索引 known-pitfalls 描述"65条 v5.4"→"64条活跃+6条归档 v5.5"
-   - README.md known-pitfalls 版本"v5.4（65条活跃）"→"v5.5（64条活跃+6条归档）"
-   - README.md SKILL.md 描述版本号 v11.1→v11.2
-
-2. **P1 版本滞后+数据源错误修复（5处）**：
-   - README.md 架构描述/标题版本号 v11.1→v11.2
-   - json-schema.md radar 前端版本注释 v7.0→v7.1
-   - radar.wxml 注释版本 v7.0→v7.1
-   - data-collection-sop.md ARK URL 从已404的 `ark-invest.com/trade-notifications` 修正为 `cathiesark.com/ark-funds-combined/trades`
-
-3. **P2 描述精度+代码清洁+减噪（4处）**：
-   - inline-verifier-rules.md 引用 validate.py v5.6→v5.7
-   - color.js getTrendInfo fallback 默认值"中性"→"观望"（与 hold 映射一致）
-   - briefing.js dataTime 移除无意义的 `split('/')`（dataTime 格式不含斜杠）
-   - SKILL.md v9.0 简化说明去除 Heavy/Refresh 历史引用（减少新读者困惑）
-
-**涉及文件（8个）**：SKILL.md, README.md, CHANGELOG.md, json-schema.md, inline-verifier-rules.md, data-collection-sop.md, radar.wxml, color.js, briefing.js
-
----
-
-## v11.2（2026-04-21 20:30）— 规范体系 Harness 深度清理
 
 **优化内容**：
 

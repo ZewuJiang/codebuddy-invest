@@ -1,5 +1,5 @@
 // pages/briefing/briefing.js
-// 简报页 v7.1 — 三段式精简架构：①今日结论+重点事件 ②全球资产反应 ③聪明钱动向(+可选操作提示) ④风险情绪 ⑤核心判断(折叠)
+// 简报页 v7.2 — 三段式精简架构：①今日结论+重点事件 ②全球资产反应 ③聪明钱动向(+可选操作提示) ④风险情绪 ⑤核心判断(折叠)
 
 var api = require('../../services/api')
 var formatUtil = require('../../utils/format')
@@ -46,15 +46,10 @@ Page({
     // v1.3.1 参考源展开状态（key=判断index）
     expandedRefs: {},
     // 动画控制
-    animateReady: false,
-    // v1.4 语音播报
-    audioUrl: '',
-    isPlaying: false,
-    audioLoading: false
+    animateReady: false
   },
 
   _animTimer: null,
-  _audioCtx: null,
 
   onLoad: function() {
     this.setData({
@@ -79,7 +74,6 @@ Page({
 
   onUnload: function() {
     if (this._animTimer) clearInterval(this._animTimer)
-    this._destroyAudio()
   },
 
   onPullDownRefresh: function() {
@@ -300,7 +294,6 @@ Page({
       dataTime: (d.dataTime || '').trim(),
       dataFreshness: dataFreshness || '',
       dataMeta: d._meta || null,
-      audioUrl: d.audioUrl || '',
       loading: false
     })
 
@@ -391,86 +384,5 @@ Page({
         wx.showToast({ title: '无法打开链接，请稍后重试', icon: 'none', duration: 2500 })
       }
     })
-  },
-
-  // v1.4 语音播报：点击播放/停止
-  onVoiceTap: function() {
-    var that = this
-
-    // 如果正在播放，停止
-    if (this.data.isPlaying) {
-      this._destroyAudio()
-      this.setData({ isPlaying: false, audioLoading: false })
-      return
-    }
-
-    var audioUrl = this.data.audioUrl
-    if (!audioUrl) {
-      wx.showToast({ title: '暂无语音播报', icon: 'none', duration: 1500 })
-      return
-    }
-
-    that.setData({ audioLoading: true })
-
-    // cloud:// 格式需要先获取临时链接
-    if (/^cloud:\/\//.test(audioUrl)) {
-      wx.cloud.getTempFileURL({
-        fileList: [audioUrl],
-        success: function(res) {
-          var fileList = res.fileList || []
-          if (fileList.length > 0 && fileList[0].tempFileURL) {
-            that._playAudio(fileList[0].tempFileURL)
-          } else {
-            that.setData({ audioLoading: false })
-            wx.showToast({ title: '音频加载失败', icon: 'none', duration: 1500 })
-          }
-        },
-        fail: function() {
-          that.setData({ audioLoading: false })
-          wx.showToast({ title: '音频加载失败', icon: 'none', duration: 1500 })
-        }
-      })
-    } else {
-      // 已经是 https 链接，直接播放
-      that._playAudio(audioUrl)
-    }
-  },
-
-  // 播放音频
-  _playAudio: function(url) {
-    var that = this
-    this._destroyAudio()
-
-    var ctx = wx.createInnerAudioContext()
-    ctx.src = url
-    ctx.onPlay(function() {
-      that.setData({ isPlaying: true, audioLoading: false })
-    })
-    ctx.onEnded(function() {
-      that.setData({ isPlaying: false })
-    })
-    ctx.onError(function(err) {
-      console.error('[Briefing] 音频播放错误:', err)
-      that.setData({ isPlaying: false, audioLoading: false })
-      wx.showToast({ title: '播放失败', icon: 'none', duration: 1500 })
-    })
-    ctx.onStop(function() {
-      that.setData({ isPlaying: false })
-    })
-    this._audioCtx = ctx
-    ctx.play()
-  },
-
-  // 销毁音频上下文
-  _destroyAudio: function() {
-    if (this._audioCtx) {
-      try {
-        this._audioCtx.stop()
-        this._audioCtx.destroy()
-      } catch (e) {
-        // ignore
-      }
-      this._audioCtx = null
-    }
   }
 })

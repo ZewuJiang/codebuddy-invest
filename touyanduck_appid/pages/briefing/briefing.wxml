@@ -1,5 +1,5 @@
 <!--pages/briefing/briefing.wxml-->
-<!-- 简报页 v7.1：三段式精简架构 — 发生了什么 / 该怎么办 / 风险底线 -->
+<!-- 简报页 v7.2：三段式精简架构 — 发生了什么 / 该怎么办 / 风险底线 -->
 
 <!-- 骨架屏 -->
 <skeleton type="briefing" loading="{{loading}}" rows="{{4}}" />
@@ -25,20 +25,6 @@
     <view class="ts-item">
       <view class="ts-time">{{dataFreshness || '--'}}</view>
       <view class="ts-label">数据更新</view>
-    </view>
-    <!-- v1.4 语音播报按钮 -->
-    <view class="ts-divider" wx:if="{{audioUrl}}"></view>
-    <view class="ts-voice-btn {{isPlaying ? 'ts-voice-playing' : ''}}" wx:if="{{audioUrl}}" bindtap="onVoiceTap">
-      <view class="ts-voice-icon" wx:if="{{!audioLoading}}">
-        <text wx:if="{{!isPlaying}}">🔊</text>
-        <text wx:else>⏹</text>
-      </view>
-      <view class="ts-voice-loading" wx:if="{{audioLoading}}">
-        <view class="ts-voice-dot ts-dot-1"></view>
-        <view class="ts-voice-dot ts-dot-2"></view>
-        <view class="ts-voice-dot ts-dot-3"></view>
-      </view>
-      <view class="ts-voice-label">{{isPlaying ? '停止' : '播报'}}</view>
     </view>
   </view>
 

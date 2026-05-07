@@ -3,12 +3,11 @@ name: touyanduck-daily
 description: 当用户提到「投资App」「小程序数据」「投研鸭数据」「app数据更新」「miniapp sync」或类似关键词时，自动执行投研鸭小程序数据生产全流程，输出4个原生结构化JSON并上传微信云数据库。
 ---
 
-# 投研鸭小程序数据生产 — 标准工作流 v12.2
+# 投研鸭小程序数据生产 — 标准工作流 v13.0
 
-> **版本**: v12.2 (2026-05-07) — Phase B1.5 锚点鲁棒性补强 + 上传一致性门禁
-> **上一版本**: v12.1 (2026-05-07) — Phase B1 真值锚点防线（anchor_fetcher.py + V48 FATAL）
+> **版本**: v13.0 (2026-05-07) — 语音功能永久移除 + 规范瘦身 + 冗余清理
 > **主控文档**：本文件为精炼主控，详细规则通过引用按需加载（四批分层：L1/L2/L3/L4）。
-> **核心改造**：①Phase 1 采集 4 组并行（时间减少 60-70%）②web_fetch 后立即提取最小字段集丢弃 HTML（context ~76k→~35k）③References 四批按需加载（L1/L2/L3/L4） ④Phase 2 写完即检 Generator-Verifier 内联自校验（14/17 项 FATAL 前置拦截）
+> **完整版本历史** → [CHANGELOG.md](CHANGELOG.md)
 
 ### 规范健康度快照
 
@@ -19,9 +18,9 @@ description: 当用户提到「投资App」「小程序数据」「投研鸭数�
 | trafficLights 阈值版本 | v4.8 | 2026-04-05 |
 | 上次月度审计 | 未执行 | — |
 | 连续零事故天数 | 0 | 2026-04-21 |
-| 回归门禁条数 | 9 (R1-R9) + **20项FATAL** | 2026-05-07 |
+| 回归门禁条数 | 9 (R1-R9) + **19项FATAL** | 2026-05-07 |
 | 持仓缓存版本 | v1.1 (2025Q4 13F 已修正) | 2026-04-08 |
-| **validate.py 版本** | **v6.0 (58项 含V48+V49 FATAL，20 FATAL)** | **2026-05-07** |
+| **validate.py 版本** | **v6.1 (57项 含V48+V49 FATAL，19 FATAL，已移除V35)** | **2026-05-07** |
 | **auto_compute.py 版本** | **v3.1 (16类字段自动计算，含ARK asOf自动更新)** | **2026-04-23** |
 | **run_daily.sh 版本** | **v6.5（Phase B1.5 新增第2.5步写入upload_hash）** | **2026-05-07** |
 | **anchor_fetcher.py 版本** | **v1.1（CNH/DXY/VIX全备源补强，yfinance重试，fetched_at时效）** | **2026-05-07** |
@@ -30,99 +29,6 @@ description: 当用户提到「投资App」「小程序数据」「投研鸭数�
 | **inline-verifier-rules.md** | **v1.0 (14项可内联FATAL前置校验)** | **2026-04-20** |
 | **known-pitfalls.md** | **v5.6 (65条活跃 + 6条归档)** | **2026-05-07** |
 | **质量基准** | **4/9 22:27 版 (53/54 PASS, 0 FATAL)** | **2026-04-09** |
-
-### v12.2-B1.5 Changelog（2026-05-07 — 锚点鲁棒性补强 + 上传一致性门禁）
-
-#### anchor_fetcher.py v1.1（实测 3/6 → 目标 6/6）
-- **CNH 备源补充**：Frankfurter API（免费无Key，CNY≈CNH 汇差<0.3%在容差内）+ open.er-api.com 三级降级链
-- **DXY 备源补充**：FRED DTWEXBGS（贸易加权美元指数），量级与 DXY 不同，标记 `skip_v48=True` 避免误比对
-- **VIX 备源升级**：CBOE 官方 JSON 提升为主源（最权威，绕过 yfinance 限流）→ yfinance 降为备源
-- **yfinance 重试机制**：429 错误时 sleep 3s 重试 1 次（常可恢复）
-- **fetched_at 时效字段**：anchors.json `_meta.fetched_at` 供 V48 校验（超 12h 整体 SKIP）
-
-#### validate.py v6.0（58项，20 FATAL）
-- **V48 增强**：读取 `fetched_at` 做时效性校验（超 12h → 整体 SKIP 防误判）；跳过 `skip_v48=True` 条目
-- **新增 V49 [FATAL]**：本地文件 hash vs `.last_upload_hash.json` 一致性校验
-  - 不一致 → FATAL（提示"已修改未上传"，必须重新运行 upload_to_cloud.py）
-  - `.last_upload_hash.json` 不存在 → SKIP（兼容旧环境）
-  - **彻底堵死堵点 #65**：手工修正 JSON 后忘记重新上传
-
-#### run_daily.sh v6.5
-- 第2步上传成功后新增**第2.5步**：写入 `.last_upload_hash.json`（4文件 sha256 + uploaded_at 时间戳）
-- V49 从下次运行 validate 起自动生效
-
-### v12.1-B1 Changelog（2026-05-07 — 真值锚点防线 Phase B1）
-- **⚓ 新增 `anchor_fetcher.py` v1.0**：独立真值锚点拉取器，覆盖 AkShare 缺口 6 字段
-  - 10Y美债 → FRED DGS10（美联储官方免费API，无需Key）
-  - CNH → exchangerate.host（开源免费，无限额）
-  - DXY → yfinance（DX-Y.NYB）
-  - VIX → yfinance（^VIX）
-  - BTC/ETH → CoinGecko 免费API（30次/分钟足够）
-  - 三级降级：主源失败 → 备源 → SKIP（全部失败不阻断主流程）
-  - 输出：`miniapp_sync/anchors.json`
-- **🛡️ validate.py v5.9 — V48 [FATAL] 真值锚点容差校验**：
-  - 读取 anchors.json，与 AI 写入 markets.json 的对应值比对
-  - 容差：CNH:1.5% / DXY:1.5% / 10Y债:3% / VIX:15% / BTC/ETH:10%
-  - 5/7 事故验证：CNH 偏差 6.0% >> 1.5% → FATAL 阻断（永不上传）
-  - anchors.json 不存在时自动 SKIP（软依赖，零风险引入）
-- **🔧 run_daily.sh v6.4**：新增第0.4步（anchor_fetcher.py，位于 auto_compute 之后 / validate 之前）
-- **📋 requirements.txt**：新增 `yfinance>=0.2.40`
-- **📚 known-pitfalls.md v5.6**：新增堵点 #66（5/7 数据矛盾事故 + 三道防线说明）
-- **架构原则确认**：AkShare 职责不扩大，继续仅用于 sparkline/chartData 历史序列；
-  实时 price/change 主产线维持 AI + Google Finance web_fetch（已验证最稳方案）
-
-### v12.0-P0 Changelog（2026-05-07 — 紧急止血 + P0 门禁加固）
-- **🚑 5/7 数据修复**：radar.json 三个红绿灯值（CNH 7.22→6.81、10Y 3.97%→4.35%、DXY 97.83→98.02）已修复并重新上传微信云数据库
-- **🛡️ validate.py v5.8 — P0 门禁加固**：
-  - **V36 WARN→FATAL**：跨JSON一致性（radar↔markets↔watchlist）矛盾不可被 `--skip-warn` 绕过上传
-  - **cross_check_map 2处名称失配Bug修复**：`VIX波动率/黄金XAU` 在 markets 侧名称不一致，导致这两项长期静默跳过（恒 SKIP）——现已对齐，V36 对这两项真实生效
-- **🛡️ app-sync.sh v2.1 — 移除盲跳 `--skip-warn` 逻辑**：
-  - 修复前：validate 返回 exit 1（仅WARN）时，Shell 自动加 `--skip-warn` 重试，质量门禁形同虚设
-  - 修复后：WARN 失败时写入 `.needs-attention` 标记文件，**不再自动重试跳过**，质量门禁真实生效
-  - 新增 `.needs-attention` 静默标记机制（零打扰，用户有空时自行查看 `logs/.needs-attention`）
-- **根因已解除**：5/6 被 `--skip-warn` 绕过上传的可能性从架构上消除；5/7 的数据矛盾从此会被 V36 FATAL 拦截
-
-### v11.5 Changelog（2026-05-06）
-- **🛡️ v11.5 — Phase 3 自我守卫约束（修复6天无更新致命Bug）**：
-  - **根因**：5/4-5/5 连续 6 次自动执行中，AI 在 Phase 1-2 消耗完上下文窗口（最高 387 万 tokens / 289 轮），被模型截断而从未执行 Phase 3（run_daily.sh），导致数据未上传到云数据库
-  - **修复1**：Phase 3 新增「自我守卫」强制约束块——明确：run_daily.sh 是整个流程的终极交付物，不可因 token 接近上限而省略
-  - **修复2**：外层 `app-sync.sh` 重写为 v2 双阶段守卫架构——即使 AI 被截断，Shell 层检测到 4 个 JSON 后会强制调用 run_daily.sh
-  - **修复3**：删除 app-sync.sh 中"只刷 generatedAt"的虚假兜底（这是"假成功"的根因）
-  - **修复4**：健康日志改为 4 种真实状态（SUCCESS_FULL / FAIL_AI_INCOMPLETE / FAIL_VALIDATE / FAIL_SCRIPT_MISSING）
-
-### v11.4 Changelog（2026-05-03）
-- **🗑️ v11.4 — 彻底移除公开API同步模块**：
-  - run_daily.sh v6.3：删除第3步（sync_to_edgeone.sh），第2步上传微信云数据库后即为终点
-  - SKILL.md Phase 3/4：删除所有 GitHub Pages/公开API/ClawHub/sync_to_edgeone 相关引用
-  - SKILL.md Checklist V3：删除 GitHub Pages 同步检查项
-  - README.md：删除公开API相关描述及脚本条目
-  - 物理删除脚本：sync_to_edgeone.sh、sync_to_edgeone_kv.py、render_briefing.py、generate_summary.py、generate_meta.py
-  - touyanduck-api/ 目录整体删除
-  - 数据链路简化为：数据生产 → 微信云数据库（唯一分发通道）→ 小程序前端
-
-### v11.3 Changelog（2026-04-21 21:40）
-- **🔍 v11.3 — 全面细节审查（13处精准修复）**：
-  - SKILL.md 头部"三批分层"→"四批分层"（与正文 L1-L4 对齐）；引用索引 known-pitfalls 描述对齐 v5.5（64条+6归档）
-  - README.md 版本全量对齐至 v11.2（SKILL.md/known-pitfalls/架构描述）
-  - json-schema.md radar 前端版本注释 v7.0→v7.1；radar.wxml 注释同步 v7.1
-  - data-collection-sop.md ARK URL 从已404旧地址修正为 cathiesark.com
-  - inline-verifier-rules.md 引用 validate.py v5.6→v5.7
-  - 前端：color.js getTrendInfo fallback"中性"→"观望"；briefing.js 移除 dataTime 无意义 split('/')
-  - SKILL.md v9.0 简化说明去除 Heavy/Refresh 历史引用减噪
-
-### v11.2 Changelog（2026-04-21 20:30）
-- **🧹 v11.2 — 规范体系 Harness 深度清理**：
-  - 删除废弃文件 `refresh-mode.md`（392行噪音，v9.0 已废弃 Refresh 模式）
-  - README.md 版本全量对齐至 v11.1（run_daily.sh v6.2、validate.py v5.7、data-collection-sop v3.1、known-pitfalls v5.5）
-  - SKILL.md/json-schema.md/fund-universe.md/data-collection-sop.md/known-pitfalls.md 底部版本日志统一裁剪（清除 ~2300 token 噪音）
-  - known-pitfalls.md #64（P0路径Bug）移入归档区（v6.1 已永久修复），活跃堵点 65→64
-  - 规范健康度快照新增 known-pitfalls.md 版本行
-
-### v11.1 Changelog（2026-04-21 13:00）
-- **🔧 v11.1 — Harness 深度体检全量修复**：Checklist J3 升级为机器可执行命令；前端 radar.js/briefing.wxml v7.1；核心判断默认展开；color.js hold 标签"中性"→"观望"。详见 [CHANGELOG.md](CHANGELOG.md)。
-
-### v11.0 Changelog（2026-04-20 20:00）
-- **🏗️ v11.0 — 四大架构升级**：Phase 1 并行采集（4组并发）+ Context 压缩（~76k→~35k）+ References 分层加载（L1-L4）+ Generator-Verifier 内联自校验（14/17项FATAL前置拦截）。工具链零改动。详见 [CHANGELOG.md](CHANGELOG.md)。
 
 ---
 
@@ -208,8 +114,6 @@ description: 当用户提到「投资App」「小程序数据」「投研鸭数�
   → 周六/周日/休市日 → Weekend
   → 周一~周五 → Standard（全量采集+分析+产出）
 ```
-
-> 每次执行都是全量高质量产出，确保数据一致性。
 
 ---
 
@@ -314,7 +218,7 @@ description: 当用户提到「投资App」「小程序数据」「投研鸭数�
 
 ### Phase 3：自动计算 + sparkline补全 + 自动化校验 + 上传（一键执行）
 
-> **🚨🚨🚨 自我守卫约束（v11.5 — 最高优先级）🚨🚨🚨**
+> **🚨 自我守卫约束（最高优先级）**
 >
 > **本 Phase 是整个 Skill 的终极交付物。没有执行 run_daily.sh = 任务完全失败。**
 >
@@ -337,12 +241,7 @@ bash /Users/zewujiang/Desktop/AICo/codebuddy-invest/.codebuddy/skills/touyanduck
 > 4. 第1步：sparkline/chartData 补全（软依赖）
 > 5. 第2步：上传云数据库（**P0 — 唯一分发通道，小程序直接读取**）← 终点
 
-> ⚠️ **数据分发通道**：微信云数据库（第2步）= 唯一分发通道，小程序前端直接读取。公开API已移除。
-
-### Phase 3.5：语音播报生成（⏸️ 暂停中，完全跳过）
-> **当前状态**：暂停（节省 token）。V35 已从 FATAL 降为 WARN，audioUrl 为空不阻断上传。前端已兼容：无 audioUrl 时播报按钮自动隐藏。
-> **AI 执行指令**：跳过本阶段。不写 voiceText，不调用 generate_audio.py。briefing.json 的 voiceText 和 audioUrl 留空即可。
-> **恢复方式**：需要时将 V35 重新加入 validate.py FATAL_CODES，并取消下方步骤的删除线。
+> ⚠️ **数据分发通道**：微信云数据库（第2步）= 唯一分发通道，小程序前端直接读取。
 
 ### Phase 4：完成交付 + 输出确认
 **L4 加载**：[templates.md](references/templates.md) + [known-pitfalls.md](references/known-pitfalls.md)
@@ -374,7 +273,7 @@ bash /Users/zewujiang/Desktop/AICo/codebuddy-invest/.codebuddy/skills/touyanduck
 | **L3** | Phase 2 前 | json-schema.md + stock-universe.md + holdings-cache.json + inline-verifier-rules.md | JSON 生成+自校验 |
 | **L4** | Phase 4 | templates.md + known-pitfalls.md | 交付+复盘 |
 
-> ⚠️ 禁止在 Phase 0 一次性加载全部 16 个 references。按阶段需求加载，控制上下文负担。
+> 按阶段需求加载，控制上下文负担。禁止 Phase 0 一次性加载全部 references。
 
 ---
 
@@ -388,65 +287,19 @@ V6, V24, V38, V39, V40, V41, V42, V43, V44, V45, V46, R1, R2, R3
 
 **2 项 FATAL 不可内联**（必须等 Phase 3 脚本执行）：
 R9（需 holdings-cache.json）、V_TL（需 auto_compute 执行后）
-> ⚠️ V35（audioUrl）已暂停为 WARN，不再阻断上传
 
 ---
 
-## 每日操作 Checklist（v1.0 — 2026-04-21 血泪固化）
+## 每日操作 Checklist
 
-> **用途**：每次执行前后强制过一遍，防止路径/数据/格式/上传任何环节出纰漏。
-> **级别**：🔴=阻断，🟡=建议修复，✅=已确认
+> 完整 Checklist（J1-J10 / P1-P5 / V1-V4）→ [daily-checklist.md](references/daily-checklist.md)
 
-### Phase 2 结束后（写完 JSON 立即检查）
-
-| # | 检查项 | 命令/方法 | 级别 |
-|---|--------|---------|------|
-| J1 | 4个 JSON 语法合法 | `for f in briefing markets watchlist radar; do python3 -m json.tool $SYNC_DIR/$DATE/$f.json > /dev/null && echo "✅ $f" \|\| echo "❌ $f"; done` | 🔴 |
-| J2 | 4个 JSON 的 `date` 字段 = 今日 | `python3 -c "import json; [print(f,json.load(open(f)).get('date')) for f in [...]]"` | 🔴 |
-| J3 | JSON 内不含未转义 ASCII 双引号 | `python3 -c "import json; [json.load(open(f)) for f in ['$SYNC_DIR/$DATE/briefing.json','$SYNC_DIR/$DATE/markets.json','$SYNC_DIR/$DATE/watchlist.json','$SYNC_DIR/$DATE/radar.json']]; print('✅ 双引号校验通过')"` | 🔴 |
-| J4 | ARK `asOf` = 今日 `YYYY-MM-DD`，不含括号 | 目视检查 radar.json smartMoneyHoldings ARK条目 | 🟡 |
-| J5 | `globalReaction[].value` 无括号且≤15字 | 目视检查每条 value | 🔴 |
-| J6 | `trafficLights` 共7条，value↔status 自洽 | 对照 formulas.md 阈值表 | 🔴 |
-| J7 | `sentimentScore` 与 `sentimentLabel` 枚举匹配 | 40-60=中性/60-75=偏贪婪/等 | 🔴 |
-| J8 | `riskScore`/`riskLevel` 自洽（<40低/40-70中/≥70高） | 目视 | 🟡 |
-| J9 | `alerts` 非空（VIX>20当日） | 若 VIX>20 但 `alerts=[]` → WARN，检查异动信号填充 | 🟡 |
-| J10 | `riskAlerts` 非空（有持续性高风险事件时） | 若当日有 high impact 持续事件但 `riskAlerts=[]` → WARN，补充风险提示 | 🟡 |
-
-### Phase 3 执行（run_daily.sh）
-
+**执行命令**：
 ```bash
-# 唯一正确执行方式（内含第-1步自动同步日期子目录→根目录）
 bash /Users/zewujiang/Desktop/AICo/codebuddy-invest/.codebuddy/skills/touyanduck-daily/scripts/run_daily.sh YYYY-MM-DD
 ```
 
-| # | 检查项 | 预期输出 | 级别 |
-|---|--------|---------|------|
-| P1 | 第-1步日期子目录同步 | `✅ 已复制: YYYY-MM-DD/*.json → *.json` (4条) | 🔴 |
-| P2 | 第0步 JSON 语法 | `✅ JSON 语法校验通过` | 🔴 |
-| P3 | validate.py | `FATAL: 0` | 🔴 |
-| P4 | 上传微信云数据库 | `4 成功 / 0 失败` | 🔴 |
-| P5 | 上传 date = **今日** | 确认上传日志里的日期参数 | 🔴 |
-| P6 | 音频上传 | `✅ 音频上传成功` | ⏸️ 暂停 |
-
-### Phase 3 完成后验证
-
-| # | 检查项 | 命令 | 级别 |
-|---|--------|------|------|
-| V1 | 云数据库中今日数据存在 | 上传日志 `发现已有数据，执行更新` 或 `新增成功` | 🔴 |
-| V2 | 根目录 4 个 JSON 的 date = 今日 | `python3 -c "import json; d=json.load(open('miniapp_sync/markets.json')); print(d['date'])"` | 🔴 |
-| V2b | **云端涨跌幅符号与JSON一致（凡手工修正数据必须重新上传）** | 手工修改任何 JSON 后立即：`python3 upload_to_cloud.py "$SYNC_DIR" "YYYY-MM-DD"` | 🔴 |
-| V4 | 小程序下拉刷新后显示今日数据 | 手机打开小程序下拉 | ✅ |
-
-### 常见故障快速排查
-
-| 症状 | 根因 | 修复命令 |
-|------|------|---------|
-| 小程序数据不更新 | 云数据库上传了旧日期数据 | `python3 upload_to_cloud.py "$SYNC_DIR" "YYYY-MM-DD"` (注意日期参数!) |
-| run_daily.sh 第0步报 JSON 错误 | JSON 含未转义双引号或语法问题 | `python3 -m json.tool xxx.json` 定位错误行 |
-| validate.py 报 FATAL | 数据质量问题 | 看报告修复对应字段后重跑 |
-| ARK asOf 显示带括号 | 数据写了 `"2026-04-21（ARK每日...）"` | 直接写 `"2026-04-21"`，前端已处理括号但数据侧也要干净 |
-| 小程序显示昨日数据 | app.js 取今日日期查询，但云库只有昨日 | 确认上传命令日期参数是今日 |
-| **小程序涨跌方向全错（+/-符号反）** | **AI 首版 JSON change 符号错误** | `python3 upload_to_cloud.py "$SYNC_DIR" "YYYY-MM-DD"` |
+**Phase 3 核心预期**：P1 子目录同步 ✅ → P2 JSON语法 ✅ → P3 validate FATAL:0 ✅ → P4 上传 4/0 ✅
 
 ---
 
@@ -473,7 +326,7 @@ bash /Users/zewujiang/Desktop/AICo/codebuddy-invest/.codebuddy/skills/touyanduck
 
 ---
 
-## 引用文件索引（v11.0 分层加载）
+## 引用文件索引（分层加载）
 
 | 文件 | 内容 | 加载批次 |
 |------|------|---------|
@@ -488,9 +341,10 @@ bash /Users/zewujiang/Desktop/AICo/codebuddy-invest/.codebuddy/skills/touyanduck
 | **[json-schema.md](references/json-schema.md)** | 4个JSON完整字段规范+门禁 | **L3** Phase 2 前 |
 | [stock-universe.md](references/stock-universe.md) | 5板块标的池+选股规则 | **L3** Phase 2 前 |
 | [holdings-cache.json](references/holdings-cache.json) | 持仓数据缓存（伯克希尔+段永平+ARK各Top10） | **L3** Phase 2 前 |
-| **[inline-verifier-rules.md](references/inline-verifier-rules.md)** | **v11.0 新增**：Generator-Verifier 内联自校验规则（14项FATAL可内联） | **L3** Phase 2 前 |
+| **[inline-verifier-rules.md](references/inline-verifier-rules.md)** | Generator-Verifier 内联自校验规则（14项FATAL可内联） | **L3** Phase 2 前 |
 | [templates.md](references/templates.md) | 交付模板集合 | **L4** Phase 4 |
-| [known-pitfalls.md](references/known-pitfalls.md) | 已知堵点64条活跃+6条归档（v5.5） | **L4** Phase 4/5 |
+| [known-pitfalls.md](references/known-pitfalls.md) | 已知堵点65条活跃+6条归档（v5.6） | **L4** Phase 4/5 |
+| [daily-checklist.md](references/daily-checklist.md) | 完整每日操作Checklist（J1-J10/P1-P5/V1-V4/故障排查） | **L4** Phase 2后 |
 | [weekend-mode.md](references/weekend-mode.md) | Weekend 模式完整规范 | 周末触发时 |
 | [briefing-golden-sample.json](references/briefing-golden-sample.json) | 黄金样本（2026-04-06版） | 质量基线参考 |
 | [CHANGELOG.md](CHANGELOG.md) | 完整版本历史归档 | 历史查阅 |
@@ -499,4 +353,4 @@ bash /Users/zewujiang/Desktop/AICo/codebuddy-invest/.codebuddy/skills/touyanduck
 
 ## 版本历史
 
-> 详细 Changelog 见本文件顶部。完整历史见 [CHANGELOG.md](CHANGELOG.md)。
+> 完整历史见 [CHANGELOG.md](CHANGELOG.md)。

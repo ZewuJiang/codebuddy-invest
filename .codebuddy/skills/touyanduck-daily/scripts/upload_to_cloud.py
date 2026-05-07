@@ -1,12 +1,9 @@
 #!/usr/bin/env python3
 """
-upload_to_cloud.py — 投研鸭云数据库上传器 v1.2
+upload_to_cloud.py — 投研鸭云数据库上传器 v1.3
 
-v1.2 变更（2026-04-06）：
-- 新增音频文件上传到微信云存储功能 upload_audio_to_cloud()
-  - 两步式上传：①获取上传链接 ②multipart/form-data 上传文件
-  - 上传后自动将 cloud:// fileID 写入 briefing.json 的 audioUrl 字段
-  - 支持 batchDownloadFile 获取 https 临时链接（备用）
+v1.3 变更（2026-05-07）：
+- 移除音频上传相关功能（upload_audio_to_cloud / get_audio_temp_url / audioUrl 写入）
 
 v1.1 变更（2026-04-01）：
 - 新增上传后回读校验模块 verify_upload()
@@ -517,9 +514,9 @@ def get_audio_temp_url(file_id):
 
 def main():
     if len(sys.argv) < 3:
-        print("=" * 60)
-        print("投研鸭 — 云数据库上传器 v1.2")
-        print("=" * 60)
+    print("=" * 60)
+    print(f"投研鸭 — 云数据库上传器 v1.3")
+    print("=" * 60)
         print()
         print("用法: python3 upload_to_cloud.py <JSON目录> <日期>")
         print()
@@ -605,46 +602,7 @@ def main():
             print(f"   ❌ 未知错误: {e}")
             fail_count += 1
 
-    # ─── v1.2 新增：音频文件上传到云存储 ────────────────────────────
-    audio_file = os.path.join(data_dir, f'briefing-{date}.mp3')
-    if os.path.exists(audio_file):
-        print(f"\n{'─' * 60}")
-        print(f"🎵 检测到音频文件，上传到云存储...")
-        print(f"{'─' * 60}")
-
-        cloud_audio_path = f"audio/briefing-{date}.mp3"
-        file_id = upload_audio_to_cloud(audio_file, cloud_audio_path)
-
-        if file_id:
-            # 将 fileID 写入 briefing.json 的 audioUrl 字段
-            briefing_path = os.path.join(data_dir, 'briefing.json')
-            try:
-                with open(briefing_path, 'r', encoding='utf-8') as f:
-                    briefing_data = json.load(f)
-
-                briefing_data['audioUrl'] = file_id
-
-                with open(briefing_path, 'w', encoding='utf-8') as f:
-                    json.dump(briefing_data, f, ensure_ascii=False, indent=2)
-
-                print(f"   ✅ audioUrl 已写入 briefing.json")
-
-                # 重新上传 briefing（携带 audioUrl 字段）
-                print(f"   📤 重新上传 briefing（含 audioUrl）...")
-                if upsert_data('briefing', date, briefing_data):
-                    print(f"   ✅ briefing 重新上传成功（含音频链接）")
-                    uploaded_data['briefing'] = briefing_data
-                else:
-                    print(f"   ⚠️ briefing 重新上传失败，音频链接可能不会在小程序中生效")
-
-            except Exception as e:
-                print(f"   ⚠️ 更新 briefing.json 失败: {e}")
-        else:
-            print(f"   ⚠️ 音频上传失败，跳过 audioUrl 写入")
-    else:
-        print(f"\n   ℹ️ 未检测到音频文件（{audio_file}），跳过音频上传")
-
-    # ─── v1.1 新增：上传后回读校验阶段 ────────────────────────────
+    # ─── 上传后回读校验 ──────────────────────────────────────────
     if uploaded_data:
         print(f"\n{'─' * 60}")
         print(f"🔍 上传后回读校验（共 {len(uploaded_data)} 个集合）...")

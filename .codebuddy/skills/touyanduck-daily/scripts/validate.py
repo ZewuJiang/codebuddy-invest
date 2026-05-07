@@ -1,102 +1,16 @@
 #!/usr/bin/env python3
 """
-投研鸭小程序数据质量自动化校验脚本 v6.0
+投研鸭小程序数据质量自动化校验脚本 v6.1
 ============================================================
 核心理念（Harness Engineering）:
   把"AI 记住规则"转变为"环境自动约束 AI"。
   本脚本在 run_daily.sh 中的 auto_compute.py 之后、sparkline 补全之前执行。
 
-v6.0 Phase B1.5 新增（2026-05-07 — 锚点时效+上传一致性门禁）：
-  - V48 增强：anchors.json fetched_at 时效性校验
-    超过 12 小时的锚点文件自动 SKIP（防止基于过期数据误判/漏报）
-    anchors.json 中标记 skip_v48=True 的条目（如 DTWEXBGS 备源）自动跳过
-  - 新增 V49 [FATAL]: 本地文件与上次上传版本一致性校验
-    读取 miniapp_sync/.last_upload_hash.json（由 upload_to_cloud.py 写入）
-    若当前文件 hash ≠ 上次上传记录的 hash → FATAL（提示"已修改但未重新上传"）
-    堵死堵点 #65：手工修正 JSON 后忘记重新跑 upload_to_cloud.py
-  - FATAL_CODES 新增 V49（共 20 项）
-  - 校验项 57 → 58 项
-
-v5.9 Phase B1 新增（2026-05-07 — 真值锚点容差校验）：
-  - 新增 V48 [FATAL]: AI 抓取值 vs 免费API真值锚点 容差校验
-    读取 anchor_fetcher.py 生成的 anchors.json，与 AI 写入 markets.json
-    的对应数值比对，偏差超过容差（CNH:1.5% / DXY:1.5% / 10Y债:3% /
-    VIX:15% / BTC/ETH:10%）→ FATAL 阻断上传。
-    5/7 事故 CNH=7.22 vs 6.81（偏差 6.0%）将被此项拦截。
-  - FATAL_CODES 新增 V48（共 19 项）
-  - 校验项 56 → 57 项
-
-v5.8 P0 门禁加固（2026-05-07 5/7数据矛盾事故修复）：
-  - V36 WARN→FATAL 升级：跨JSON一致性（radar↔markets↔watchlist）矛盾不可上传
-    修复前：CNH=7.22 vs 6.81 这种 6% 偏差因 V36 是 WARN 被 --skip-warn 绕过上传
-  - cross_check_map 修复2处名称失配Bug（长期静默跳过）：
-    "VIX波动率"→"VIX恐慌指数"（名称不一致，V36 VIX项恒为 SKIP）
-    "黄金XAU"→"黄金 XAU"（多余空格，V36 黄金项恒为 SKIP）
-  - 校验项 55 项（count不变，V36 状态升级）
-
-v5.7 Harness v9.2 盲点补丁（2026-04-21 涨跌符号事故修复）：
-  - 新增 V38b [WARN] 美股三大指数方向合理性检测
-    弥补 V38 的结构性盲点：当 AI 同时把 change 和 sparkline 都写反时，
-    V38 会误判为"一致"而放行。V38b 通过检测 usInsight 文字与 change 方向矛盾来拦截。
-  - 校验项 54 → 55 项
-
-v5.6 Harness v10.6 全面收紧 FATAL 门禁（目标：每次全部通过）：
-  - V35  WARN→FATAL 升级：audioUrl 为空 = 语音播报失效（核心功能）
-  - V38  WARN→FATAL 升级：sparkline 趋势与 change 方向矛盾 = 数据错误
-  - V41  WARN→FATAL 升级：globalReaction value 超长/含括号 = 前端布局溢出
-  - V42  WARN→FATAL 升级：generatedAt 为空 = 前端时间显示异常
-  - V24  WARN→FATAL 升级：Markdown 残留 = 前端直接渲染乱码
-  - R1   WARN→FATAL 升级：topHoldings < 3 = 聪明钱核心展示严重不完整
-  - V_TL WARN→FATAL 升级：红绿灯 value↔status 不一致 = 前端颜色错误
-  - FATAL_CODES 从 10 → 17 项
-  - 校验项数量不变（54项）
-
-v5.5 Harness v10.5 门槛全面收紧（数据准确性 > 执行速度）：
-  - V6  WARN→FATAL 升级：sparkline[-1] vs price 偏差 ≤5%（形成 V6/V45 双层防护）
-  - V40 WARN→FATAL 升级：metrics 空值 = 前端空白 = 阻断发布
-  - V44 阈值收紧：从 >50% 零值 → 任何零值(>=1个)即 FATAL
-  - V45 阈值收紧：price vs sparkline[-1] 差距从 50%→30%
-  - 新增 V46 [FATAL] chartData 禁止零值（与 V44 平行，覆盖30日数据）
-  - 新增 V47 [WARN] sparkline/chartData 禁止全平线（拦截估算填充）
-  - FATAL_CODES 新增 V6/V40/V46（从5→10个FATAL项）
-  - 校验项 52→54 项
-
-v5.4 Harness v10.4 结构性数据防护（2026-04-09 事故修复）：
-  - 新增 V44 [FATAL] sparkline 禁止零值
-  - 新增 V45 [FATAL] price 与 sparkline 数量级一致性
-  - 校验项从50→52项
-
-v5.3 Harness v10.3 4/8基准质量巩固：
-  - 新增 V43 [FATAL] price 禁止占位符（拦截 "--"/"N/A"/空值）
-  - 校验项从49→50项
-
-v5.1 Harness v10.2 聪明钱持仓 13F 合规性校验：
-  - 新增 V39 [FATAL] 聪明钱持仓 13F 数据合规性校验（拦截 AI 编造的期权/虚构标的）
-    - symbol 黑名单（PUT/CALL/OPTION/WARRANT）
-    - name 黑名单（看跌期权/看涨期权/认购/认沽/期权/权证）
-    - 权重合计 ≤ 105%（防止编造持仓导致溢出）
-  - V39 标记为 FATAL 级，不可被 --skip-warn 绕过
-  - 校验项从44→45项
-
-v5.0 Harness v10.1 数据安全防护升级：
-  - 新增 V36 跨JSON数据交叉验证（radar↔markets↔watchlist同一数据点一致性）
-  - 新增 V37 数值合理性检测（防训练数据污染，如CNH=7.27而非6.82）
-  - 新增 V38 sparkline趋势 vs change方向一致性（拦截涨跌符号反转）
-  - 校验项从41→44项
-
-v4.0 Harness v10.0 升级：
-  - 新增 V30-V34 内容质量检测层（套话/模板/空洞/数字矛盾/tags时效）
-  - Insight 长度上限从80→100字（决策信号式洞察需要更多空间）
-  - V7 比对精度修复（abs值比对）
-  - 废弃字段清理（riskAlerts 不再必填）
-
-v3.0 Harness v9.0 升级：
-  - 删除 Refresh 模式分支：--mode 只接受 standard 和 weekend
-  - heavy 作为别名映射到 standard（向后兼容）
-  - 回归门禁统一执行（standard + weekend 均执行，不再有 refresh 豁免）
-
-v2.0 升级：FATAL / WARN 双级机制
-v1.1 新增：V27(Insight长度) + V28(metrics数量) + V29(logic箭头格式)
+v6.1 变更（2026-05-07 — 移除语音相关校验）：
+  - 移除 V35（audioUrl/voiceText 语音播报）校验函数及主流程调用
+  - 语音功能已永久移除，FATAL 项保持 19 项（V48/V49/V36/V38/V41/V42/V24/R1/V_TL/
+    V6/V43/V44/V45/V46/V39/V40/R2/R3/R9）
+  - 校验项 58 → 57 项
 
 用法:
   python3 validate.py <sync_dir> [--mode standard|weekend]
@@ -177,11 +91,12 @@ ANCHOR_TO_MARKETS_MAP = {
 }
 
 # FATAL 级校验项（不可被 --skip-warn 绕过）
+# v6.1 移除：V35（语音播报永久移除）
 # v6.0 新增：V49（本地 vs 上传 hash 一致性门禁）
 # v5.9 新增：V48（真值锚点容差校验）
 # v5.8 变更：V36 从 WARN 升级为 FATAL（跨JSON数据矛盾必须在上传前修复）
-# v5.6 新增：V24/V35/V38/V41/V42/R1/V_TL（FATAL 项 10→17）
-# v6.0 合计：FATAL 项 20 个
+# v5.6 新增：V24/V38/V41/V42/R1/V_TL（FATAL 项升级）
+# v6.1 合计：FATAL 项 19 个
 FATAL_CODES = {
     # 数据准确性（原有）
     "V6", "V43", "V44", "V45", "V46",
@@ -191,8 +106,6 @@ FATAL_CODES = {
     "V24",   # Markdown 残留 → 前端乱码
     "V41",   # globalReaction value 超长/含括号 → 布局溢出
     "V42",   # generatedAt 为空 → 前端时间显示异常
-    # v5.6→v5.8：V35 降回 WARN（语音播报暂停，不阻断上传）
-    # "V35",   # audioUrl 为空 → 语音播报功能失效（已暂停）
     "V36",   # 跨JSON一致性（radar↔markets↔watchlist）→ 数据矛盾不可上传（v5.8升级FATAL）
     "V38",   # sparkline趋势 vs change 方向矛盾 → 数据错误
     "R1",    # topHoldings < 3 → 聪明钱持仓核心展示不完整
@@ -237,7 +150,7 @@ class ValidationResult:
 
     def print_report(self):
         print("\n" + "=" * 70)
-        print("📋 投研鸭数据质量自动化校验报告 (v6.0 Harness v12 Phase B1.5)")
+        print("📋 投研鸭数据质量自动化校验报告 (v6.1 Harness v12 Phase B1.5)")
         print("=" * 70)
 
         for r in self.results:
@@ -1206,26 +1119,6 @@ def validate_source_type_consistency(files, vr):
         details = [f"{k}='{v}'" for k, v in types_found.items()]
         vr.add("V34", "4个JSON sourceType 一致性", False,
                f"不一致: {'; '.join(details)}")
-
-
-def validate_audio_url(files, vr):
-    """V35: briefing.audioUrl 非空检测（语音播报功能保障）"""
-    briefing = files.get("briefing")
-    if not briefing:
-        vr.add("V35", "briefing.audioUrl 语音播报", None, "briefing 数据缺失")
-        return
-
-    audio_url = briefing.get("audioUrl", "")
-    voice_text = briefing.get("voiceText", "")
-
-    if audio_url:
-        vr.add("V35", "briefing.audioUrl 语音播报", True, f"audioUrl 已填充 ✓")
-    elif voice_text:
-        vr.add("V35", "briefing.audioUrl 语音播报", False,
-               "voiceText 已有但 audioUrl 为空——需执行 TTS 生成+上传步骤")
-    else:
-        vr.add("V35", "briefing.audioUrl 语音播报", False,
-               "audioUrl 和 voiceText 均为空——第3.5阶段（语音播报）被跳过")
 
 
 # ============================================================
@@ -2353,7 +2246,6 @@ def main():
     validate_analysis_depth(files, baseline, vr)
     validate_action_hints_quality(files, vr)
     validate_source_type_consistency(files, vr)
-    validate_audio_url(files, vr)
 
     # === V36-V38b: 数据安全防护层 (v10.1 Harness Engineering 新增) ===
     validate_cross_json_consistency(files, vr)

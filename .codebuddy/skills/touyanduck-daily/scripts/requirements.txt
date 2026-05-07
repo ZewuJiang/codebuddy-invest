@@ -1,7 +1,7 @@
 # touyanduck-daily 脚本依赖
 # 使用方法: pip3 install -r requirements.txt
 
-# 云数据库上传 + MiniMax TTS 音频生成 + anchor_fetcher.py HTTP 请求
+# 云数据库上传 + 真值锚点 HTTP 请求（anchor_fetcher.py）
 requests>=2.28
 
 # sparkline/chartData 历史序列补全（AkShare v3.0）
