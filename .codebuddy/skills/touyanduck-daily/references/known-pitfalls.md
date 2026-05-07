@@ -1,6 +1,6 @@
-# 已知堵点与应对策略 — App版（v5.5）
+# 已知堵点与应对策略 — App版（v5.7）
 
-> **用途**：投研鸭小程序数据生产过程中的已知堵点与应对方案（共64条活跃，6条归档）。
+> **用途**：投研鸭小程序数据生产过程中的已知堵点与应对方案（共65条活跃，6条归档）。
 > **核心原则**：先保真，再发布。核心行情缺失时宁可阻断，也不能用估算值顶上。
 
 ---
@@ -58,6 +58,7 @@
 | 1 | access_token 获取失败 | 检查 WX_APPID/WX_APPSECRET |
 | 2 | 云数据库写入失败 | JSON 保留本地，可手动重传 |
 | 3 | 特殊字符导致 query 解析失败 | upload_to_cloud.py 已内置清洗 |
+| 65 | **手工修正 JSON 后忘记重新上传** | **V49 [FATAL] 自动拦截**：validate 时 hash 不一致 → FATAL，提示重新上传。首次运行 run_daily.sh 后自动生成 `.last_upload_hash.json` 基准文件。 |
 | 4 | 部分集合上传成功/失败 | 成功生效，失败保持旧数据 |
 | 5 | 上传后字段缺失/dataTime 不一致 | v1.1 `verify_upload()` 回读校验 |
 
@@ -109,6 +110,7 @@
 | 63 | **ARK 持仓 asOf 日期陈旧**：ARK 每日公开披露但 holdings-cache.json 的 asOf 停留在旧日期（如4/5），导致页面展示两周前的陈旧快照。**防治**：ARK 是每日披露特殊情况，不适用"非窗口期直接引用缓存"规则，每次执行时必须更新 asOf 为当日日期并注明最新交易 | 每次 Batch 4 采集后同步更新 ARK 的 asOf 日期为 YYYY-MM-DD 并在 footnote 标注最新交易 | 高频 |
 | 64 | ~~🔴 P0 路径不一致~~ — **已归档（v6.1 永久修复，见归档区）** | — | **已修复** |
 | 65 | **🔴 涨跌符号全错 + 数据版本分裂 — AI 首版JSON涨跌幅±符号错误，手工修正了api/latest但忘记重新上传云数据库**：AI 在第一次写 JSON 时（06:55）将三大指数跌幅全部写成正值（如 SPX -0.24% 写成 +0.24%），M7 个股数据错位对应（NVDA 和 AAPL 数值互换）。手工修正后只更新了 `touyanduck-api/api/latest/` 但未重新运行 `upload_to_cloud.py`，导致微信云数据库仍是错误版本，前端显示全错。**防治铁律**：①凡手工修正 JSON 数据后，必须立即 `python3 upload_to_cloud.py "$SYNC_DIR" "YYYY-MM-DD"` 重新上传；②SKILL.md Checklist V2 强制核查：上传后确认云端涨跌幅符号与 JSON 一致；③validate V38 [FATAL] 应拦截 sparkline 趋势与 change 符号矛盾，若 V38 未拦截说明 sparkline 方向本身也同步写错了（符号一致但均错） | 手工修正后：`cp touyanduck-api/api/latest/markets.json miniapp_sync/markets.json && python3 upload_to_cloud.py "$SYNC_DIR" "YYYY-MM-DD"` | **高危，新增防范** |
+| 66 | **🔴 跨文件数据严重矛盾被门禁绕过（5/7 CNH/10Y/DXY 数据异常事故）**：AI 抓取 CNH=7.22（实际 6.81，偏差 6.0%）、10Y=3.97%（实际 4.35%，偏差 9.6%）、DXY=105.3（实际 99.2，偏差 6.1%），均超出正常日内波动范围，但因 V36 是 WARN 级且 app-sync.sh 盲跳 --skip-warn，错误数据上传至云数据库。**三道防线（v12 Phase B1）**：①V36 WARN→FATAL（v5.8）②V48 [FATAL] 真值锚点校验：`anchor_fetcher.py` 从 FRED/yfinance/CoinGecko 独立拉取 6 项参考值，AI 抓取偏差超容差（CNH:1.5% / DXY:1.5% / 10Y债:3% / VIX:15% / BTC/ETH:10%）直接 FATAL 阻断③`app-sync.sh` 禁止盲跳 --skip-warn | 以 5/7 事故为例：CNH 偏差 6.0% >> 容差 1.5% → V48 FATAL 阻断，永不上传 | **致命，新增防范** |
 
 ## 小程序端兼容性堵点
 

@@ -1,0 +1,33 @@
+{
+  "_meta": {
+    "version": "v1.0",
+    "generated_at": "2026-05-07T22:28:49+08:00",
+    "success_count": 3,
+    "total": 6,
+    "skipped": [
+      "CNH",
+      "DXY",
+      "VIX"
+    ]
+  },
+  "anchors": {
+    "10Y美债": {
+      "value": 4.43,
+      "unit": "%",
+      "source": "FRED_DGS10",
+      "fetched_at": "2026-05-07T22:28:26+08:00"
+    },
+    "BTC": {
+      "value": 80456.0,
+      "unit": "USD",
+      "source": "coingecko",
+      "fetched_at": "2026-05-07T22:28:49+08:00"
+    },
+    "ETH": {
+      "value": 2311.1,
+      "unit": "USD",
+      "source": "coingecko",
+      "fetched_at": "2026-05-07T22:28:49+08:00"
+    }
+  }
+}

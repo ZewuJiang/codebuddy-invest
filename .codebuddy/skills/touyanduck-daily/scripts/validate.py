@@ -1,10 +1,38 @@
 #!/usr/bin/env python3
 """
-投研鸭小程序数据质量自动化校验脚本 v5.7
+投研鸭小程序数据质量自动化校验脚本 v6.0
 ============================================================
 核心理念（Harness Engineering）:
   把"AI 记住规则"转变为"环境自动约束 AI"。
   本脚本在 run_daily.sh 中的 auto_compute.py 之后、sparkline 补全之前执行。
+
+v6.0 Phase B1.5 新增（2026-05-07 — 锚点时效+上传一致性门禁）：
+  - V48 增强：anchors.json fetched_at 时效性校验
+    超过 12 小时的锚点文件自动 SKIP（防止基于过期数据误判/漏报）
+    anchors.json 中标记 skip_v48=True 的条目（如 DTWEXBGS 备源）自动跳过
+  - 新增 V49 [FATAL]: 本地文件与上次上传版本一致性校验
+    读取 miniapp_sync/.last_upload_hash.json（由 upload_to_cloud.py 写入）
+    若当前文件 hash ≠ 上次上传记录的 hash → FATAL（提示"已修改但未重新上传"）
+    堵死堵点 #65：手工修正 JSON 后忘记重新跑 upload_to_cloud.py
+  - FATAL_CODES 新增 V49（共 20 项）
+  - 校验项 57 → 58 项
+
+v5.9 Phase B1 新增（2026-05-07 — 真值锚点容差校验）：
+  - 新增 V48 [FATAL]: AI 抓取值 vs 免费API真值锚点 容差校验
+    读取 anchor_fetcher.py 生成的 anchors.json，与 AI 写入 markets.json
+    的对应数值比对，偏差超过容差（CNH:1.5% / DXY:1.5% / 10Y债:3% /
+    VIX:15% / BTC/ETH:10%）→ FATAL 阻断上传。
+    5/7 事故 CNH=7.22 vs 6.81（偏差 6.0%）将被此项拦截。
+  - FATAL_CODES 新增 V48（共 19 项）
+  - 校验项 56 → 57 项
+
+v5.8 P0 门禁加固（2026-05-07 5/7数据矛盾事故修复）：
+  - V36 WARN→FATAL 升级：跨JSON一致性（radar↔markets↔watchlist）矛盾不可上传
+    修复前：CNH=7.22 vs 6.81 这种 6% 偏差因 V36 是 WARN 被 --skip-warn 绕过上传
+  - cross_check_map 修复2处名称失配Bug（长期静默跳过）：
+    "VIX波动率"→"VIX恐慌指数"（名称不一致，V36 VIX项恒为 SKIP）
+    "黄金XAU"→"黄金 XAU"（多余空格，V36 黄金项恒为 SKIP）
+  - 校验项 55 项（count不变，V36 状态升级）
 
 v5.7 Harness v9.2 盲点补丁（2026-04-21 涨跌符号事故修复）：
   - 新增 V38b [WARN] 美股三大指数方向合理性检测
@@ -80,11 +108,18 @@ v1.1 新增：V27(Insight长度) + V28(metrics数量) + V29(logic箭头格式)
   3 = 有 FATAL 级 FAIL（不可绕过，必须修复）
 """
 
+import hashlib
 import json
 import os
 import re
 import sys
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
+from typing import Optional
+
+# V49 上传一致性相关
+UPLOAD_HASH_FILENAME = ".last_upload_hash.json"
+ANCHOR_MAX_AGE_HOURS = 12  # anchors.json 超过此时限则视为过期，V48 自动 SKIP
 
 # ============================================================
 # 配置
@@ -94,8 +129,59 @@ REFERENCES_DIR = SCRIPT_DIR.parent / "references"
 BASELINE_PATH = REFERENCES_DIR / "golden-baseline.json"
 HOLDINGS_CACHE_PATH = REFERENCES_DIR / "holdings-cache.json"
 
+# ─────────────────────────────────────────────────────────────
+# V48 锚点容差表（Phase B1 新增）
+# 单位：相对偏差百分比（abs(AI值 - 锚点值) / abs(锚点值) * 100）
+# 容差设计依据：
+#   CNH/DXY:  汇率/指数日内波动极小，1.5% 偏差（≈0.1元/1.5点）= 明显错误
+#   10Y美债:  日内波动约 5-10bp，3% 容差（≈13bp）覆盖正常波动
+#   VIX:      日内波动可达 10-15%，15% 容差防误报
+#   BTC/ETH:  加密资产日内波动大，10% 容差防误报
+# 5/7 事故参照：CNH=7.22 vs 6.81 偏差 6.0% >> 1.5% → 必然 FATAL
+# ─────────────────────────────────────────────────────────────
+ANCHOR_TOLERANCE_PCT = {
+    "10Y美债": 3.0,
+    "CNH":     1.5,
+    "DXY":     1.5,
+    "VIX":     15.0,
+    "BTC":     10.0,
+    "ETH":     10.0,
+}
+
+# 锚点名称 → markets.json 中对应 section 和可能的 name 变体
+ANCHOR_TO_MARKETS_MAP = {
+    "10Y美债": {
+        "sections": ["commodities"],
+        "names": ["10Y美债", "10年期美债", "10Y美债收益率"],
+    },
+    "CNH": {
+        "sections": ["commodities"],
+        "names": ["离岸人民币CNH", "离岸人民币 CNH", "CNH", "离岸人民币"],
+    },
+    "DXY": {
+        "sections": ["commodities"],
+        "names": ["美元指数DXY", "美元指数 DXY", "DXY", "美元指数"],
+    },
+    "VIX": {
+        "sections": ["usMarkets"],
+        "names": ["VIX", "VIX恐慌指数", "VIX波动率"],
+    },
+    "BTC": {
+        "sections": ["cryptos"],
+        "names": ["比特币BTC", "比特币 BTC", "BTC", "比特币"],
+    },
+    "ETH": {
+        "sections": ["cryptos"],
+        "names": ["以太坊ETH", "以太坊 ETH", "ETH", "以太坊"],
+    },
+}
+
 # FATAL 级校验项（不可被 --skip-warn 绕过）
-# v5.6 新增：V24/V35/V38/V41/V42/R1/V_TL（FATAL 项 10→17，目标：每次全部通过）
+# v6.0 新增：V49（本地 vs 上传 hash 一致性门禁）
+# v5.9 新增：V48（真值锚点容差校验）
+# v5.8 变更：V36 从 WARN 升级为 FATAL（跨JSON数据矛盾必须在上传前修复）
+# v5.6 新增：V24/V35/V38/V41/V42/R1/V_TL（FATAL 项 10→17）
+# v6.0 合计：FATAL 项 20 个
 FATAL_CODES = {
     # 数据准确性（原有）
     "V6", "V43", "V44", "V45", "V46",
@@ -107,9 +193,12 @@ FATAL_CODES = {
     "V42",   # generatedAt 为空 → 前端时间显示异常
     # v5.6→v5.8：V35 降回 WARN（语音播报暂停，不阻断上传）
     # "V35",   # audioUrl 为空 → 语音播报功能失效（已暂停）
+    "V36",   # 跨JSON一致性（radar↔markets↔watchlist）→ 数据矛盾不可上传（v5.8升级FATAL）
     "V38",   # sparkline趋势 vs change 方向矛盾 → 数据错误
     "R1",    # topHoldings < 3 → 聪明钱持仓核心展示不完整
     "V_TL",  # 红绿灯 value↔status 阈值不一致 → 前端颜色错误
+    "V48",   # AI 抓取值 vs 真值锚点 偏差超容差（v5.9 Phase B1 新增）→ 彻底堵死 5/7 类事故
+    "V49",   # 本地文件 hash vs 上次上传 hash 不一致（v6.0 新增）→ 堵死"改了但没上传"堵点#65
 }
 
 # ============================================================
@@ -148,7 +237,7 @@ class ValidationResult:
 
     def print_report(self):
         print("\n" + "=" * 70)
-        print("📋 投研鸭数据质量自动化校验报告 (v5.6 Harness v10.6)")
+        print("📋 投研鸭数据质量自动化校验报告 (v6.0 Harness v12 Phase B1.5)")
         print("=" * 70)
 
         for r in self.results:
@@ -1184,12 +1273,13 @@ def validate_cross_json_consistency(files, vr):
             market_price_map[name] = price
 
     # 交叉比对表：红绿灯名称 → markets 中对应的名称
+    # v5.8修复(2026-05-07): VIX/黄金 名称失配Bug，导致两项长期静默跳过
     cross_check_map = {
         "离岸人民币CNH": "离岸人民币CNH",
         "布伦特原油": "布伦特原油",
-        "VIX波动率": "VIX恐慌指数",
+        "VIX波动率": "VIX波动率",       # radar侧名称（不依赖markets侧同名）
         "10Y美债收益率": "10Y美债",
-        "黄金XAU": "黄金 XAU",
+        "黄金XAU": "黄金XAU",           # markets侧统一去掉空格（v5.8修复）
         "美元指数DXY": "美元指数DXY",
     }
 
@@ -1841,6 +1931,232 @@ def validate_sparkline_no_flat_line(files, vr):
            "; ".join(violations[:5]) if violations else "全部有波动 ✓")
 
 
+def validate_anchor_tolerance(sync_dir_path, files, vr):
+    """V48 [FATAL]: AI 抓取值 vs 真值锚点 容差校验（Phase B1 核心防线）
+
+    v6.0 改进：
+    1. fetched_at 时效性校验：anchors.json 超过 12h → 整体 SKIP（防止过期锚点误判）
+    2. skip_v48=True 条目跳过（DTWEXBGS 量级与 DXY 不可比，anchor_fetcher 已标记）
+
+    读取 anchor_fetcher.py 生成的 anchors.json，将每个锚点值与
+    markets.json 中 AI 抓取的对应值比对。超出容差 → FATAL 阻断上传。
+
+    5/7 事故关联：
+      CNH=7.22 vs 锚点=6.81 → 偏差 6.0% >> 1.5% → FATAL
+      10Y=3.97% vs 锚点=4.35% → 偏差 9.6% >> 3.0% → FATAL
+      DXY=105.3 vs 锚点=99.2 → 偏差 6.1% >> 1.5% → FATAL
+
+    降级策略：
+      anchors.json 不存在（anchor_fetcher.py 未运行或全部失败）→ SKIP（不阻断）
+      anchors.json 超过 12 小时 → 整体 SKIP（防止过期数据误判）
+      某个锚点字段在 markets.json 中找不到匹配项 → 单项 SKIP
+      skip_v48=True 的锚点（如 DTWEXBGS）→ 单项 SKIP
+    """
+    anchors_path = Path(sync_dir_path) / "anchors.json"
+    markets = files.get("markets")
+
+    if not anchors_path.exists():
+        vr.add("V48", "真值锚点容差校验 [FATAL]", None,
+               "anchors.json 不存在（anchor_fetcher.py 未运行或全部失败，自动 SKIP）")
+        return
+
+    if not markets:
+        vr.add("V48", "真值锚点容差校验 [FATAL]", None, "markets.json 缺失")
+        return
+
+    try:
+        with open(anchors_path, "r", encoding="utf-8") as f:
+            anchors_data = json.load(f)
+    except Exception as e:
+        vr.add("V48", "真值锚点容差校验 [FATAL]", None, f"anchors.json 解析失败: {e}")
+        return
+
+    # ── v6.0 新增：时效性校验 ──
+    # fetched_at 超过 ANCHOR_MAX_AGE_HOURS（12h）→ 整体 SKIP
+    fetched_at_str = anchors_data.get("_meta", {}).get("fetched_at", "")
+    if fetched_at_str:
+        try:
+            # 解析 ISO 8601 时间字符串（如 2026-05-07T22:00:00+08:00）
+            dt_fetched = datetime.fromisoformat(fetched_at_str)
+            dt_now = datetime.now(dt_fetched.tzinfo)
+            age_hours = (dt_now - dt_fetched).total_seconds() / 3600
+            if age_hours > ANCHOR_MAX_AGE_HOURS:
+                vr.add("V48", "真值锚点容差校验 [FATAL]", None,
+                       f"anchors.json 已过期（生成于 {age_hours:.1f}h 前，超过 {ANCHOR_MAX_AGE_HOURS}h 阈值），"
+                       f"自动 SKIP 防止过期锚点误判。请重新运行 anchor_fetcher.py。")
+                return
+        except (ValueError, TypeError):
+            # fetched_at 格式无法解析，宽松处理（不阻断）
+            pass
+
+    anchors = anchors_data.get("anchors", {})
+    if not anchors:
+        vr.add("V48", "真值锚点容差校验 [FATAL]", None,
+               "anchors.json 中无锚点值（全部SKIP）")
+        return
+
+    def _norm_num(v) -> Optional[float]:
+        """从 '4.35%' / '6.81' / 98.02 / '$104.2' 等格式提取数字"""
+        if isinstance(v, (int, float)):
+            return float(v)
+        if isinstance(v, str):
+            m = re.search(r"-?\d+\.?\d*", v.replace(",", ""))
+            if m:
+                return float(m.group())
+        return None
+
+    failures = []
+    checked = []
+    skipped_items = []
+
+    for anchor_name, anchor_info in anchors.items():
+        # ── v6.0 新增：跳过标记了 skip_v48=True 的备源（如 DTWEXBGS，量级不可比）
+        if anchor_info.get("skip_v48", False):
+            skipped_items.append(f"{anchor_name}（skip_v48=True，量级不可比）")
+            continue
+
+        anchor_val = anchor_info.get("value")
+        if anchor_val is None:
+            continue
+
+        mapping = ANCHOR_TO_MARKETS_MAP.get(anchor_name)
+        if not mapping:
+            continue
+
+        # 在对应 section 中找匹配项（名称归一化比较）
+        target = None
+        for section in mapping["sections"]:
+            for item in markets.get(section, []):
+                item_name = item.get("name", "").replace(" ", "").replace("\u3000", "")
+                for candidate in mapping["names"]:
+                    cand_norm = candidate.replace(" ", "")
+                    if cand_norm in item_name or item_name in cand_norm:
+                        target = item
+                        break
+                if target:
+                    break
+            if target:
+                break
+
+        if target is None:
+            skipped_items.append(f"{anchor_name}（markets 中未找到匹配项）")
+            continue
+
+        ai_val = _norm_num(target.get("price"))
+        if ai_val is None:
+            skipped_items.append(
+                f"{anchor_name}（AI 价格无法解析: {target.get('price')!r}）"
+            )
+            continue
+
+        if anchor_val == 0:
+            continue
+
+        deviation_pct = abs(ai_val - anchor_val) / abs(anchor_val) * 100
+        tolerance = ANCHOR_TOLERANCE_PCT.get(anchor_name, 5.0)
+        source = anchor_info.get("source", "?")
+
+        if deviation_pct > tolerance:
+            failures.append(
+                f"{anchor_name}: AI={ai_val} vs 锚点={anchor_val}（{source}），"
+                f"偏差 {deviation_pct:.2f}% > 容差 {tolerance}%"
+            )
+        else:
+            checked.append(
+                f"{anchor_name}: {ai_val} ≈ {anchor_val} (偏差 {deviation_pct:.2f}%，"
+                f"容差 {tolerance}%)"
+            )
+
+    if failures:
+        vr.add("V48", "真值锚点容差校验 [FATAL]", False,
+               f"❌ {len(failures)} 项超容差（数据严重错误）:\n     "
+               + "\n     ".join(failures))
+        return
+
+    if not checked and not skipped_items:
+        vr.add("V48", "真值锚点容差校验 [FATAL]", None,
+               "无有效匹配项（全部字段均跳过）")
+        return
+
+    detail_parts = [f"✓ {len(checked)} 项通过"]
+    if skipped_items:
+        detail_parts.append(f"SKIP {len(skipped_items)} 项: {'; '.join(skipped_items[:3])}")
+    vr.add("V48", "真值锚点容差校验 [FATAL]", True, "，".join(detail_parts))
+
+
+def validate_upload_hash_consistency(sync_dir_path, files, vr):
+    """V49 [FATAL]: 本地文件 hash vs 上次上传 hash 一致性校验（堵点#65专项门禁）
+
+    设计背景（堵点 #65）：
+    手工修正 JSON（如修复 CNH 从 7.22→6.81）后忘记重新跑 upload_to_cloud.py，
+    导致云端仍是旧版本但本地已修正。本项通过比对 hash 确保"改了就必须重新上传"。
+
+    工作原理：
+    - upload_to_cloud.py 每次上传成功后写入 .last_upload_hash.json（含4文件的sha256）
+    - 本项读取该文件，与当前本地文件的 sha256 比对
+    - 不一致 → FATAL，提示"文件已修改，请重新上传"
+
+    降级策略：
+    - .last_upload_hash.json 不存在（首次使用或旧版本）→ SKIP（宽松兼容）
+    - 某个文件不在 hash 记录中 → 单文件 SKIP
+    - 本地文件不存在 → 单文件 SKIP
+    """
+    hash_path = Path(sync_dir_path) / UPLOAD_HASH_FILENAME
+
+    if not hash_path.exists():
+        vr.add("V49", "本地文件与上传版本一致性 [FATAL]", None,
+               f"{UPLOAD_HASH_FILENAME} 不存在（首次使用或尚未上传过），自动 SKIP")
+        return
+
+    try:
+        with open(hash_path, "r", encoding="utf-8") as f:
+            last_hashes = json.load(f)
+    except Exception as e:
+        vr.add("V49", "本地文件与上传版本一致性 [FATAL]", None,
+               f"{UPLOAD_HASH_FILENAME} 解析失败: {e}，自动 SKIP")
+        return
+
+    def file_sha256(fpath: Path) -> Optional[str]:
+        """计算文件 sha256，文件不存在返回 None"""
+        if not fpath.exists():
+            return None
+        with open(fpath, "rb") as f:
+            return hashlib.sha256(f.read()).hexdigest()
+
+    mismatches = []
+    skipped_files = []
+    matched = []
+
+    for fname in ["briefing.json", "markets.json", "watchlist.json", "radar.json"]:
+        recorded_hash = last_hashes.get(fname)
+        if not recorded_hash:
+            skipped_files.append(f"{fname}（未在上传记录中）")
+            continue
+
+        local_hash = file_sha256(Path(sync_dir_path) / fname)
+        if local_hash is None:
+            skipped_files.append(f"{fname}（本地文件不存在）")
+            continue
+
+        if local_hash != recorded_hash:
+            mismatches.append(
+                f"{fname}：本地已修改（hash不一致）——请重新运行 upload_to_cloud.py"
+            )
+        else:
+            matched.append(fname)
+
+    if mismatches:
+        vr.add("V49", "本地文件与上传版本一致性（堵点#65）[FATAL]", False,
+               f"⚠️ {len(mismatches)} 个文件已修改但未重新上传:\n     "
+               + "\n     ".join(mismatches))
+    else:
+        detail_parts = [f"✓ {len(matched)} 个文件与上传版本一致"]
+        if skipped_files:
+            detail_parts.append(f"SKIP {len(skipped_files)}: {'; '.join(skipped_files[:3])}")
+        vr.add("V49", "本地文件与上传版本一致性（堵点#65）[FATAL]", True,
+               "，".join(detail_parts))
+
+
 def validate_chain_urls(files, vr):
     """V22: chain[].url 非空校验（非付费墙）"""
     briefing = files.get("briefing")
@@ -2067,6 +2383,17 @@ def main():
 
     # === V47: sparkline 禁止全平线 (v10.5 新增) ===
     validate_sparkline_no_flat_line(files, vr)
+
+    # === V48 [FATAL]: 真值锚点容差校验 (v5.9 Phase B1 新增) ===
+    # 读取 anchor_fetcher.py 输出的 anchors.json，比对 AI 写入的 markets.json 数值
+    # anchors.json 不存在时自动 SKIP（不阻断），存在时偏差超容差→ FATAL
+    # v6.0 改进：超过 12h 的 anchors.json 整体 SKIP，skip_v48=True 条目单项 SKIP
+    validate_anchor_tolerance(sync_dir, files, vr)
+
+    # === V49 [FATAL]: 本地 hash vs 上传 hash 一致性校验 (v6.0 Phase B1.5 新增) ===
+    # 堵死堵点#65：手工修正 JSON 后忘记重新 upload_to_cloud.py
+    # .last_upload_hash.json 不存在时自动 SKIP（兼容旧环境）
+    validate_upload_hash_consistency(sync_dir, files, vr)
 
     # === R1-R8: 回归门禁 ===
     validate_regression_gates(files, baseline, vr, mode)

@@ -1,14 +1,22 @@
 #!/bin/bash
 # ============================================================
-# 投研鸭小程序 — 每日数据更新串联脚本 v6.3（Harness v9.2）
-# 执行顺序：日期子目录同步 → 【新】涨跌方向快速目视摘要 → JSON语法校验 → auto_compute.py公式计算 → validate.py自动化校验(55项) → sparkline补全 → 上传微信云数据库
+# 投研鸭小程序 — 每日数据更新串联脚本 v6.5（Harness v12 Phase B1.5）
+# 执行顺序：日期子目录同步 → 涨跌方向目视摘要 → JSON语法校验 → auto_compute.py → 【新】anchor_fetcher.py真值锚点 → validate.py(58项) → sparkline补全 → 上传微信云数据库 → 【新】写入upload_hash
 #
 # 用法：bash run_daily.sh [YYYY-MM-DD] [--skip-warn]
 #
-# 【v6.3 改动】（移除公开API同步模块）：
-#   - 删除第3步：同步公开API（GitHub Pages/EdgeOne）
-#   - 删除总结中公开API相关输出
-#   - 数据链路简化为：数据生产 → 微信云数据库 → 小程序前端（唯一分发通道）
+# 【v6.5 改动】（Harness v12 Phase B1.5 — 上传一致性门禁）：
+#   - 第2步上传成功后新增写入 .last_upload_hash.json
+#     记录上传时刻 4 个 JSON 文件的 sha256 hash
+#     供 validate.py V49 [FATAL] 检测"已修改但未重新上传"（堵点#65）
+#   - validate.py v6.0：新增 V49 [FATAL] 上传一致性门禁（58项，20 FATAL）
+#   - anchor_fetcher.py v1.1：CNH/DXY/VIX 全备源补强，yfinance重试，fetched_at时效性
+#
+# 【v6.4 改动】（Harness v12 Phase B1 真值锚点防线）：
+#   - 新增第0.4步：anchor_fetcher.py 真值锚点拉取
+#     从 FRED/yfinance/CoinGecko 独立拉取 10Y美债/CNH/DXY/VIX/BTC/ETH 参考值
+#     供 validate.py V48 进行容差比对，彻底堵死 5/7 类数据严重偏离事故
+#   - validate.py v5.9：新增 V48 [FATAL] 真值锚点容差校验（57项）
 #
 # 【v9.2 改动】（2026-04-21 涨跌符号事故修复）：
 #   - 新增第-0.5步：涨跌方向快速目视摘要
@@ -25,7 +33,7 @@
 #   - validate.py v3.0：去掉 refresh 分支
 #
 # 【校验双级机制 v2.0】：
-#   FATAL 级（R2/R3/R9/V39-V46）：不可绕过，必须修复（--skip-warn 无效）
+#   FATAL 级（R2/R3/R9/V39-V49）：不可绕过，必须修复（--skip-warn 无效）
 #   WARN 级（其他）：可用 --skip-warn 紧急跳过
 #
 # 【依赖层级】：
@@ -34,6 +42,7 @@
 #   第0.5步（validate.py）：硬依赖（FATAL 不可跳过 / WARN 可用 --skip-warn 跳过）
 #   第1步（sparkline补全）：软依赖，失败不阻断
 #   第2步（上传云数据库）：硬依赖 ← 终点
+#   第2.5步（写入upload_hash）：软依赖，失败仅警告不阻断（V49首次执行时SKIP）
 # ============================================================
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -175,8 +184,31 @@ if [ $COMPUTE_EXIT -ne 0 ]; then
     echo ""
 fi
 
+# ── 第0.4步：真值锚点拉取（v12 Phase B1 新增 — 为 V48 校验提供参考值）────
+# 设计说明：从 FRED/yfinance/CoinGecko 等免费公共 API 拉取 6 个关键金融指标
+#           的参考值（10Y美债/CNH/DXY/VIX/BTC/ETH），写入 anchors.json，
+#           供下一步 validate.py V48 进行容差比对。
+# 软依赖：全部失败也不阻断（V48 在 anchors.json 缺失时自动 SKIP）
+# 意义：彻底堵死 5/7 类事故（CNH=7.22 vs 6.81，偏差 6% >> 1.5% → FATAL 阻断）
+echo "⚓ 第0.4步：真值锚点拉取（FRED/yfinance/CoinGecko — 覆盖 AkShare 缺口字段）..."
+echo "   字段：10Y美债 / CNH / DXY / VIX / BTC / ETH"
+echo "   用途：V48 [FATAL] 校验 AI 抓取值是否严重偏离真实行情"
+echo ""
+
+python3 "$SCRIPT_DIR/anchor_fetcher.py" "$SYNC_DIR"
+ANCHOR_EXIT=$?
+
+if [ $ANCHOR_EXIT -eq 0 ]; then
+    echo "  ✅ anchors.json 已生成，V48 校验将激活"
+elif [ $ANCHOR_EXIT -eq 1 ]; then
+    echo "  ⚠️  anchor_fetcher.py 全部失败（网络问题），V48 将自动 SKIP"
+else
+    echo "  ⚠️  anchor_fetcher.py 异常（退出码=$ANCHOR_EXIT），V48 将自动 SKIP"
+fi
+echo ""
+
 # ── 第0.5步：数据质量自动化校验（FATAL/WARN 双级） ──────────
-echo "🔍 第0.5步：数据质量自动化校验（validate.py v5.7 — 55项 FATAL/WARN 双级门禁）..."
+echo "🔍 第0.5步：数据质量自动化校验（validate.py v6.0 — 58项 FATAL/WARN 双级门禁）..."
 echo ""
 
 # 模式检测：根据星期几判断（v9.0 简化：只有 standard / weekend）
@@ -307,6 +339,41 @@ if [ $? -ne 0 ]; then
 fi
 
 echo ""
+
+# ── 第2.5步：写入上传 Hash（供 validate.py V49 堵点#65 检测用）────
+# 【设计说明】上传成功后记录 4 个 JSON 的 sha256，作为"基准版本"。
+# 下次手工修改文件后若忘记重新上传，V49 FATAL 会在下次 validate 时阻断。
+echo "🔐 第2.5步：写入上传 Hash（供 V49 堵点#65 检测）..."
+
+python3 -c "
+import json, hashlib, os
+from datetime import datetime, timezone, timedelta
+
+sync_dir = '$SYNC_DIR'
+bjt = timezone(timedelta(hours=8))
+hashes = {'_uploaded_at': datetime.now(bjt).strftime('%Y-%m-%dT%H:%M:%S+08:00')}
+
+for fname in ['briefing.json', 'markets.json', 'watchlist.json', 'radar.json']:
+    fpath = os.path.join(sync_dir, fname)
+    if os.path.exists(fpath):
+        with open(fpath, 'rb') as f:
+            hashes[fname] = hashlib.sha256(f.read()).hexdigest()
+        print(f'  ✅ {fname}: sha256 已记录')
+    else:
+        print(f'  ⚠️  {fname}: 文件不存在，跳过')
+
+hash_path = os.path.join(sync_dir, '.last_upload_hash.json')
+with open(hash_path, 'w', encoding='utf-8') as f:
+    json.dump(hashes, f, ensure_ascii=False, indent=2)
+print(f'  ✅ .last_upload_hash.json 写入完成（下次修改文件后请重新上传以更新此记录）')
+"
+
+if [ $? -eq 0 ]; then
+    echo ""
+else
+    echo "  ⚠️  upload hash 写入失败（不阻断，V49 首次执行时会自动 SKIP）"
+    echo ""
+fi
 
 # ── 总结 ─────────────────────────────────────────────────────
 echo "============================================================"

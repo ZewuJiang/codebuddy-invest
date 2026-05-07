@@ -9,8 +9,8 @@
     },
     {
       "name": "10Y美债收益率",
-      "value": "3.97%",
-      "status": "green",
+      "value": "4.35%",
+      "status": "yellow",
       "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
     },
     {
@@ -21,7 +21,7 @@
     },
     {
       "name": "美元指数DXY",
-      "value": "97.83",
+      "value": "98.02",
       "status": "green",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
@@ -39,8 +39,8 @@
     },
     {
       "name": "离岸人民币CNH",
-      "value": "7.22",
-      "status": "yellow",
+      "value": "6.81",
+      "status": "green",
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
@@ -344,10 +344,10 @@
       "footnote": "ARK每日披露持仓变动，TSLA始终第一重仓，近期连续买入TEM/SHOP、减仓AMD；CRWV/CRDO未进入Top10"
     }
   ],
-  "dataTime": "2026-05-07 18:26 BJT",
+  "dataTime": "2026-05-07 22:13 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-05-07T18:26:49+08:00",
+    "generatedAt": "2026-05-07T22:13:46+08:00",
     "skillVersion": "v11.5"
   }
 }

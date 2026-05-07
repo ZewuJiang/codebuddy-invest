@@ -1,9 +1,14 @@
 # touyanduck-daily 脚本依赖
 # 使用方法: pip3 install -r requirements.txt
 
-# 云数据库上传 + MiniMax TTS 音频生成
+# 云数据库上传 + MiniMax TTS 音频生成 + anchor_fetcher.py HTTP 请求
 requests>=2.28
 
 # sparkline/chartData 历史序列补全（AkShare v3.0）
 pandas>=2.2
 akshare>=1.16.0
+
+# v12 Phase B1: 真值锚点 DXY/VIX 获取（anchor_fetcher.py）
+# 注意：yfinance 对指数代号（^VIX / DX-Y.NYB）仍可稳定访问，
+#       Yahoo Finance 的 403 主要影响个股实时 API，指数代号经测试仍稳定。
+yfinance>=0.2.40

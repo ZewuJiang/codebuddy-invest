@@ -3,10 +3,10 @@ name: touyanduck-daily
 description: 当用户提到「投资App」「小程序数据」「投研鸭数据」「app数据更新」「miniapp sync」或类似关键词时，自动执行投研鸭小程序数据生产全流程，输出4个原生结构化JSON并上传微信云数据库。
 ---
 
-# 投研鸭小程序数据生产 — 标准工作流 v11.5
+# 投研鸭小程序数据生产 — 标准工作流 v12.2
 
-> **版本**: v11.5 (2026-05-06) — Phase 3 自我守卫约束（修复AI被token截断导致run_daily.sh未调用的致命Bug）
-> **上一版本**: v11.4 (2026-05-03) — 彻底移除公开API同步模块（GitHub Pages/EdgeOne/ClawHub），数据链路简化为微信云数据库唯一分发通道
+> **版本**: v12.2 (2026-05-07) — Phase B1.5 锚点鲁棒性补强 + 上传一致性门禁
+> **上一版本**: v12.1 (2026-05-07) — Phase B1 真值锚点防线（anchor_fetcher.py + V48 FATAL）
 > **主控文档**：本文件为精炼主控，详细规则通过引用按需加载（四批分层：L1/L2/L3/L4）。
 > **核心改造**：①Phase 1 采集 4 组并行（时间减少 60-70%）②web_fetch 后立即提取最小字段集丢弃 HTML（context ~76k→~35k）③References 四批按需加载（L1/L2/L3/L4） ④Phase 2 写完即检 Generator-Verifier 内联自校验（14/17 项 FATAL 前置拦截）
 
@@ -15,20 +15,72 @@ description: 当用户提到「投资App」「小程序数据」「投研鸭数�
 | 指标 | 值 | 上次更新 |
 |------|------|---------|
 | 致命错误条数 | 29 | 2026-04-13 |
-| 已知堵点条数 | 64（活跃），6条归档 | 2026-04-21 |
+| 已知堵点条数 | 65（活跃），6条归档 | 2026-05-07 |
 | trafficLights 阈值版本 | v4.8 | 2026-04-05 |
 | 上次月度审计 | 未执行 | — |
 | 连续零事故天数 | 0 | 2026-04-21 |
-| 回归门禁条数 | 9 (R1-R9) + **17项FATAL** | 2026-04-13 |
+| 回归门禁条数 | 9 (R1-R9) + **20项FATAL** | 2026-05-07 |
 | 持仓缓存版本 | v1.1 (2025Q4 13F 已修正) | 2026-04-08 |
-| **validate.py 版本** | **v5.7 (55项 含V38b方向合理性)** | **2026-04-21** |
+| **validate.py 版本** | **v6.0 (58项 含V48+V49 FATAL，20 FATAL)** | **2026-05-07** |
 | **auto_compute.py 版本** | **v3.1 (16类字段自动计算，含ARK asOf自动更新)** | **2026-04-23** |
-| **run_daily.sh 版本** | **v6.3（移除公开API同步模块，第2步上传后即终点）** | **2026-05-03** |
+| **run_daily.sh 版本** | **v6.5（Phase B1.5 新增第2.5步写入upload_hash）** | **2026-05-07** |
+| **anchor_fetcher.py 版本** | **v1.1（CNH/DXY/VIX全备源补强，yfinance重试，fetched_at时效）** | **2026-05-07** |
 | **radar.js asOf 处理** | **v7.1（括号清理正则加强，YYYY-MM-DD输出）** | **2026-04-21** |
 | **data-collection-sop.md** | **v3.1 (含§0.4自媒体陷阱 +§0.10 JSON双引号)** | **2026-04-21** |
 | **inline-verifier-rules.md** | **v1.0 (14项可内联FATAL前置校验)** | **2026-04-20** |
-| **known-pitfalls.md** | **v5.5 (64条活跃 + 6条归档)** | **2026-04-21** |
+| **known-pitfalls.md** | **v5.6 (65条活跃 + 6条归档)** | **2026-05-07** |
 | **质量基准** | **4/9 22:27 版 (53/54 PASS, 0 FATAL)** | **2026-04-09** |
+
+### v12.2-B1.5 Changelog（2026-05-07 — 锚点鲁棒性补强 + 上传一致性门禁）
+
+#### anchor_fetcher.py v1.1（实测 3/6 → 目标 6/6）
+- **CNH 备源补充**：Frankfurter API（免费无Key，CNY≈CNH 汇差<0.3%在容差内）+ open.er-api.com 三级降级链
+- **DXY 备源补充**：FRED DTWEXBGS（贸易加权美元指数），量级与 DXY 不同，标记 `skip_v48=True` 避免误比对
+- **VIX 备源升级**：CBOE 官方 JSON 提升为主源（最权威，绕过 yfinance 限流）→ yfinance 降为备源
+- **yfinance 重试机制**：429 错误时 sleep 3s 重试 1 次（常可恢复）
+- **fetched_at 时效字段**：anchors.json `_meta.fetched_at` 供 V48 校验（超 12h 整体 SKIP）
+
+#### validate.py v6.0（58项，20 FATAL）
+- **V48 增强**：读取 `fetched_at` 做时效性校验（超 12h → 整体 SKIP 防误判）；跳过 `skip_v48=True` 条目
+- **新增 V49 [FATAL]**：本地文件 hash vs `.last_upload_hash.json` 一致性校验
+  - 不一致 → FATAL（提示"已修改未上传"，必须重新运行 upload_to_cloud.py）
+  - `.last_upload_hash.json` 不存在 → SKIP（兼容旧环境）
+  - **彻底堵死堵点 #65**：手工修正 JSON 后忘记重新上传
+
+#### run_daily.sh v6.5
+- 第2步上传成功后新增**第2.5步**：写入 `.last_upload_hash.json`（4文件 sha256 + uploaded_at 时间戳）
+- V49 从下次运行 validate 起自动生效
+
+### v12.1-B1 Changelog（2026-05-07 — 真值锚点防线 Phase B1）
+- **⚓ 新增 `anchor_fetcher.py` v1.0**：独立真值锚点拉取器，覆盖 AkShare 缺口 6 字段
+  - 10Y美债 → FRED DGS10（美联储官方免费API，无需Key）
+  - CNH → exchangerate.host（开源免费，无限额）
+  - DXY → yfinance（DX-Y.NYB）
+  - VIX → yfinance（^VIX）
+  - BTC/ETH → CoinGecko 免费API（30次/分钟足够）
+  - 三级降级：主源失败 → 备源 → SKIP（全部失败不阻断主流程）
+  - 输出：`miniapp_sync/anchors.json`
+- **🛡️ validate.py v5.9 — V48 [FATAL] 真值锚点容差校验**：
+  - 读取 anchors.json，与 AI 写入 markets.json 的对应值比对
+  - 容差：CNH:1.5% / DXY:1.5% / 10Y债:3% / VIX:15% / BTC/ETH:10%
+  - 5/7 事故验证：CNH 偏差 6.0% >> 1.5% → FATAL 阻断（永不上传）
+  - anchors.json 不存在时自动 SKIP（软依赖，零风险引入）
+- **🔧 run_daily.sh v6.4**：新增第0.4步（anchor_fetcher.py，位于 auto_compute 之后 / validate 之前）
+- **📋 requirements.txt**：新增 `yfinance>=0.2.40`
+- **📚 known-pitfalls.md v5.6**：新增堵点 #66（5/7 数据矛盾事故 + 三道防线说明）
+- **架构原则确认**：AkShare 职责不扩大，继续仅用于 sparkline/chartData 历史序列；
+  实时 price/change 主产线维持 AI + Google Finance web_fetch（已验证最稳方案）
+
+### v12.0-P0 Changelog（2026-05-07 — 紧急止血 + P0 门禁加固）
+- **🚑 5/7 数据修复**：radar.json 三个红绿灯值（CNH 7.22→6.81、10Y 3.97%→4.35%、DXY 97.83→98.02）已修复并重新上传微信云数据库
+- **🛡️ validate.py v5.8 — P0 门禁加固**：
+  - **V36 WARN→FATAL**：跨JSON一致性（radar↔markets↔watchlist）矛盾不可被 `--skip-warn` 绕过上传
+  - **cross_check_map 2处名称失配Bug修复**：`VIX波动率/黄金XAU` 在 markets 侧名称不一致，导致这两项长期静默跳过（恒 SKIP）——现已对齐，V36 对这两项真实生效
+- **🛡️ app-sync.sh v2.1 — 移除盲跳 `--skip-warn` 逻辑**：
+  - 修复前：validate 返回 exit 1（仅WARN）时，Shell 自动加 `--skip-warn` 重试，质量门禁形同虚设
+  - 修复后：WARN 失败时写入 `.needs-attention` 标记文件，**不再自动重试跳过**，质量门禁真实生效
+  - 新增 `.needs-attention` 静默标记机制（零打扰，用户有空时自行查看 `logs/.needs-attention`）
+- **根因已解除**：5/6 被 `--skip-warn` 绕过上传的可能性从架构上消除；5/7 的数据矛盾从此会被 V36 FATAL 拦截
 
 ### v11.5 Changelog（2026-05-06）
 - **🛡️ v11.5 — Phase 3 自我守卫约束（修复6天无更新致命Bug）**：
