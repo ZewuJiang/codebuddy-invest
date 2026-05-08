@@ -3,9 +3,9 @@ name: touyanduck-daily
 description: 当用户提到「投资App」「小程序数据」「投研鸭数据」「app数据更新」「miniapp sync」或类似关键词时，自动执行投研鸭小程序数据生产全流程，输出4个原生结构化JSON并上传微信云数据库。
 ---
 
-# 投研鸭小程序数据生产 — 标准工作流 v13.0
+# 投研鸭小程序数据生产 — 标准工作流 v13.1
 
-> **版本**: v13.0 (2026-05-07) — 语音功能永久移除 + 规范瘦身 + 冗余清理
+> **版本**: v13.1 (2026-05-08) — 全链路稳定性修复（validate v6.2 + upload修复 + app-sync WARN策略）
 > **主控文档**：本文件为精炼主控，详细规则通过引用按需加载（四批分层：L1/L2/L3/L4）。
 > **完整版本历史** → [CHANGELOG.md](CHANGELOG.md)
 
@@ -18,15 +18,15 @@ description: 当用户提到「投资App」「小程序数据」「投研鸭数�
 | trafficLights 阈值版本 | v4.8 | 2026-04-05 |
 | 上次月度审计 | 未执行 | — |
 | 连续零事故天数 | 0 | 2026-04-21 |
-| 回归门禁条数 | 9 (R1-R9) + **19项FATAL** | 2026-05-07 |
+| 回归门禁条数 | 9 (R1-R9) + **20项FATAL** | 2026-05-08 |
 | 持仓缓存版本 | v1.1 (2025Q4 13F 已修正) | 2026-04-08 |
-| **validate.py 版本** | **v6.1 (57项 含V48+V49 FATAL，19 FATAL，已移除V35)** | **2026-05-07** |
+| **validate.py 版本** | **v6.2 (57项 含V48+V49 FATAL，20 FATAL，V5升级FATAL+R7正则修复)** | **2026-05-08** |
 | **auto_compute.py 版本** | **v3.1 (16类字段自动计算，含ARK asOf自动更新)** | **2026-04-23** |
 | **run_daily.sh 版本** | **v6.5（Phase B1.5 新增第2.5步写入upload_hash）** | **2026-05-07** |
 | **anchor_fetcher.py 版本** | **v1.1（CNH/DXY/VIX全备源补强，yfinance重试，fetched_at时效）** | **2026-05-07** |
 | **radar.js asOf 处理** | **v7.1（括号清理正则加强，YYYY-MM-DD输出）** | **2026-04-21** |
 | **data-collection-sop.md** | **v3.1 (含§0.4自媒体陷阱 +§0.10 JSON双引号)** | **2026-04-21** |
-| **inline-verifier-rules.md** | **v1.0 (14项可内联FATAL前置校验)** | **2026-04-20** |
+| **inline-verifier-rules.md** | **v1.3 (16项可内联FATAL前置校验/4项不可内联)** | **2026-05-08** |
 | **known-pitfalls.md** | **v5.6 (65条活跃 + 6条归档)** | **2026-05-07** |
 | **质量基准** | **4/9 22:27 版 (53/54 PASS, 0 FATAL)** | **2026-04-09** |
 
@@ -42,7 +42,7 @@ description: 当用户提到「投资App」「小程序数据」「投研鸭数�
 | **内容严谨** | 结论+论据清晰对应，禁止模糊表述（"市场表现不一"等废话） |
 | **精选不凑数** | 大老板看"决策信号"不看"信息堆砌"。5条精选 > 15条罗列 |
 | **简单明了** | 每句话有信息增量，不冗余不啰嗦，观点+论据一句话说完 |
-| **质量基线** | validate.py 54项校验, **0 FATAL**（17项FATAL全通过）方可上传。**目标：0 WARN**（WARN ≤1 可接受） |
+| **质量基线** | validate.py 57项校验, **0 FATAL**（20项FATAL全通过）方可上传。**目标：0 WARN**（WARN ≤1 可接受） |
 | **重试机制** | 搜索失败 → 4级降级重试（Google Finance→StockAnalysis→web_search→东方财富）。多花几分钟没关系 |
 
 ---
@@ -163,7 +163,9 @@ description: 当用户提到「投资App」「小程序数据」「投研鸭数�
 **🔴 Context 压缩铁律**：每次 web_fetch/web_search 返回后，**必须立即提取最小字段集，丢弃原始 HTML/snippet**。详见 [data-collection-sop.md §0.9](references/data-collection-sop.md)。
 
 ### Phase 1.5：数据完整性门禁（强制）
-三大指数+M7+VIX / GICS 11板块 / 亚太4-6指数 / 大宗6项 / watchlist 5板块 / radar 7项红绿灯 / coreEvent+coreJudgments×3 / globalReaction 6项 / smartMoney 2-4条 / events 3-4条
+三大指数+M7+VIX / GICS 11板块 / 亚太4-6指数 / **大宗6项（🔴黄金/布伦特/WTI/DXY/10Y美债/CNH，缺一不可，V5 FATAL）** / watchlist 5板块 / radar 7项红绿灯 / coreEvent+coreJudgments×3 / globalReaction 6项 / smartMoney 2-4条 / events 3-4条
+
+> ⚠️ **commodities 漏写是高频事故（5/8事故）**：`黄金XAU / 布伦特原油 / WTI原油 / 美元指数DXY / 10Y美债 / 离岸人民币CNH` 必须全部填写，缺任何一项将触发 V5 FATAL 阻断上传。
 
 ### Phase 1.8：L3 加载（Phase 2 前补读）
 读取：[json-schema.md](references/json-schema.md) + [stock-universe.md](references/stock-universe.md) + [holdings-cache.json](references/holdings-cache.json) + [inline-verifier-rules.md](references/inline-verifier-rules.md)
@@ -232,14 +234,17 @@ description: 当用户提到「投资App」「小程序数据」「投研鸭数�
 bash /Users/zewujiang/Desktop/AICo/codebuddy-invest/.codebuddy/skills/touyanduck-daily/scripts/run_daily.sh {YYYY-MM-DD}
 ```
 
-> **run_daily.sh v6.3 执行流程**：
-> -0.5. **【新】涨跌方向快速目视摘要**（v6.2新增，打印三大指数/M7/大宗的涨跌符号，1秒内目视发现全线方向异常）
-> 0. **第-1步：日期子目录→根目录同步**（v6.1新增，自动cp `miniapp_sync/YYYY-MM-DD/*.json` → `miniapp_sync/*.json`，确保工具链读到今日数据）
+> **run_daily.sh v6.5 执行流程**：
+> 0. **第-1步：日期子目录→根目录同步**（自动cp `miniapp_sync/YYYY-MM-DD/*.json` → `miniapp_sync/*.json`，确保工具链读到今日数据）
+> -0.5. **涨跌方向快速目视摘要**（打印三大指数/M7/大宗的涨跌符号，1秒内目视发现全线方向异常）
 > 1. 第0步：JSON 语法校验（硬依赖）
 > 2. **第0.3步：auto_compute.py 自动计算公式字段**
-> 3. **第0.5步：validate.py v5.7 自动化校验（55项，FATAL级不可绕过，含V38b方向合理性）**
-> 4. 第1步：sparkline/chartData 补全（软依赖）
-> 5. 第2步：上传云数据库（**P0 — 唯一分发通道，小程序直接读取**）← 终点
+> 3. **第0.4步：anchor_fetcher.py v1.1 真值锚点拉取**（FRED/yfinance/CoinGecko，覆盖6字段，供 V48 比对）
+> 4. **第0.5步：validate.py v6.2 自动化校验（57项，20项FATAL不可绕过，含V5关键数组+V48/V49真值锚点+上传一致性门禁）**
+> 5. 第1步：sparkline/chartData 补全（软依赖）
+> 6. 第1.5步：强制刷新 `_meta.generatedAt` 为当前时间
+> 7. 第2步：上传云数据库（**P0 — 唯一分发通道，小程序直接读取**）← 终点
+> 8. **第2.5步：写入上传 Hash**（记录4文件 sha256，供 V49 检测"改了但未重新上传"堵点#65）
 
 > ⚠️ **数据分发通道**：微信云数据库（第2步）= 唯一分发通道，小程序前端直接读取。
 
@@ -282,11 +287,11 @@ bash /Users/zewujiang/Desktop/AICo/codebuddy-invest/.codebuddy/skills/touyanduck
 > **定位**：Phase 2 前置过滤，validate.py 仍是终极门禁。两层防护，不是替代。
 > **完整规则** → [inline-verifier-rules.md](references/inline-verifier-rules.md)
 
-**14/16 项 FATAL 可在 Phase 2 内联检测**（写完即检，避免 Phase 3 整体重来）：
-V6, V24, V38, V39, V40, V41, V42, V43, V44, V45, V46, R1, R2, R3
+**16/20 项 FATAL 可在 Phase 2 内联检测**（写完即检，避免 Phase 3 整体重来）：
+V5, V6, V24, V36, V38, V39, V40, V41, V42, V43, V44, V45, V46, R1, R2, R3
 
-**2 项 FATAL 不可内联**（必须等 Phase 3 脚本执行）：
-R9（需 holdings-cache.json）、V_TL（需 auto_compute 执行后）
+**4 项 FATAL 不可内联**（必须等 Phase 3 脚本执行）：
+R9（需 holdings-cache.json）、V_TL（需 auto_compute 执行后）、V48（需 anchor_fetcher.py 生成 anchors.json）、V49（需上传后写入 .last_upload_hash.json）
 
 ---
 
@@ -341,7 +346,7 @@ bash /Users/zewujiang/Desktop/AICo/codebuddy-invest/.codebuddy/skills/touyanduck
 | **[json-schema.md](references/json-schema.md)** | 4个JSON完整字段规范+门禁 | **L3** Phase 2 前 |
 | [stock-universe.md](references/stock-universe.md) | 5板块标的池+选股规则 | **L3** Phase 2 前 |
 | [holdings-cache.json](references/holdings-cache.json) | 持仓数据缓存（伯克希尔+段永平+ARK各Top10） | **L3** Phase 2 前 |
-| **[inline-verifier-rules.md](references/inline-verifier-rules.md)** | Generator-Verifier 内联自校验规则（14项FATAL可内联） | **L3** Phase 2 前 |
+| **[inline-verifier-rules.md](references/inline-verifier-rules.md)** | Generator-Verifier 内联自校验规则（v1.3 — 16项FATAL可内联/4项不可内联） | **L3** Phase 2 前 |
 | [templates.md](references/templates.md) | 交付模板集合 | **L4** Phase 4 |
 | [known-pitfalls.md](references/known-pitfalls.md) | 已知堵点65条活跃+6条归档（v5.6） | **L4** Phase 4/5 |
 | [daily-checklist.md](references/daily-checklist.md) | 完整每日操作Checklist（J1-J10/P1-P5/V1-V4/故障排查） | **L4** Phase 2后 |

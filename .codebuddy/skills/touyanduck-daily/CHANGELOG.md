@@ -4,6 +4,44 @@
 
 ---
 
+## v13.1（2026-05-08）— 全链路稳定性修复
+
+**背景**：5/6-5/8 连续多日 WARN 阻断上传，小程序数据停更，触发全面排查。
+
+**变更内容**：
+
+1. **`validate.py` v6.1→v6.2**：
+   - V5 升级为 FATAL：markets.commodities/usMarkets/m7/gics 为空数组时不可绕过
+   - 防止 AI 漏写大宗商品后被 --skip-warn 跳过直接上传空数据
+
+2. **`golden-baseline.json`**：
+   - 修复 R7_dyp_weight_pattern：`\d+\.\d%` → `\d+\.\d+%`（支持多位小数，如50.30%）
+   - 旧正则永远匹配不到实际格式，导致 R7 每次都误报 WARN
+
+3. **`upload_to_cloud.py` v1.3 多处修复**：
+   - 修复 `main()` IndentationError（516-519行缩进错误，导致上传必崩）
+   - VERIFY_FIELDS["radar"] 移除 `alerts`（空数组 `[]` 被误判为"字段缺失"）
+   - 删除残留音频函数 `upload_audio_to_cloud` + `get_audio_temp_url`（v13.0 应清理）
+
+4. **`~/.local/bin/app-sync.sh` v2.1**：
+   - WARN 处理策略改为：FATAL=0 时自动 --skip-warn 重试上传（旧策略：直接 FAIL，小程序拿不到数据）
+   - 新增状态 `SUCCESS_SKIP_WARN`（有WARN但已上传）
+
+5. **`~/Library/LaunchAgents/com.codebuddy.appsync.plist`**：
+   - 清理残留 MINIMAX_API_KEY 环境变量（语音功能已永久移除）
+
+6. **`SKILL.md` v13.1**：
+   - Phase 1.5 数据完整性门禁强化 commodities 6项说明（5/8事故教训）
+   - Phase 3 validate.py 描述更新为 v6.2
+   - inline-verifier-rules.md 描述更新为 v1.2
+
+7. **`references/inline-verifier-rules.md` v1.2**：
+   - 移除 V35，新增 V36/V48/V49，统计更新（15可内联/4不可内联）
+
+**涉及文件**：validate.py, golden-baseline.json, upload_to_cloud.py, app-sync.sh(~/.local), com.codebuddy.appsync.plist, SKILL.md, inline-verifier-rules.md, README.md
+
+---
+
 ## v13.0（2026-05-07）— 语音功能永久移除 + 规范瘦身
 
 **变更内容**：

@@ -13,7 +13,7 @@
     "R4_ark_name_patterns": ["ARK", "Cathie", "ARKK"],
     "R5_cross_consistency": true,
     "R6_smartMoney_min": 2,
-    "R7_dyp_weight_pattern": "\\d+\\.\\d%",
+    "R7_dyp_weight_pattern": "\\d+\\.\\d+%",
     "R7_dyp_weight_min_count": 3,
     "R8_smartMoneyDetail_tiers": ["T1旗舰", "T2成长", "策略师观点"],
     "R8_min_funds_per_tier": 1

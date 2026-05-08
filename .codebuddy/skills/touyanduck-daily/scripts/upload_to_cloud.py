@@ -77,7 +77,7 @@ VERIFY_FIELDS = {
     "watchlist": ["date", "sectors", "stocks", "dataTime"],
     "radar":     [
         "date", "trafficLights", "riskScore", "riskLevel",
-        "riskAdvice", "events", "alerts",
+        "riskAdvice", "events",
         "smartMoneyDetail", "dataTime",
     ],
 }
@@ -382,130 +382,6 @@ def verify_upload(collection: str, date: str, local_data: dict) -> dict:
     }
 
 
-# ═══════════════════════════════════════════════════════════════
-# v1.2 新增：音频文件上传到微信云存储
-# ═══════════════════════════════════════════════════════════════
-
-def upload_audio_to_cloud(audio_path, cloud_path):
-    """
-    将音频文件上传到微信云存储（两步式上传）。
-
-    步骤：
-    1. 调用 uploadfile 接口获取上传链接 + token + authorization
-    2. 使用 multipart/form-data POST 上传文件到 COS
-
-    参数：
-        audio_path: 本地音频文件路径
-        cloud_path: 云存储路径（如 "audio/briefing-2026-04-06.mp3"）
-
-    返回：
-        成功: file_id（cloud://xxx 格式）
-        失败: None
-    """
-    token = get_access_token()
-    if not token:
-        return None
-
-    env = CONFIG['CLOUD_ENV']
-
-    # 步骤1：获取上传链接
-    print(f"   📤 获取云存储上传链接...")
-    upload_url_api = f"https://api.weixin.qq.com/tcb/uploadfile?access_token={token}"
-
-    body = {
-        "env": env,
-        "path": cloud_path
-    }
-
-    try:
-        resp = requests.post(upload_url_api, json=body, timeout=15)
-        result = resp.json()
-
-        if result.get('errcode', 0) != 0:
-            print(f"   ❌ 获取上传链接失败: {result}")
-            return None
-
-        upload_url = result['url']
-        cos_token = result['token']
-        authorization = result['authorization']
-        file_id = result['file_id']
-        cos_file_id = result['cos_file_id']
-
-        print(f"   ✅ 上传链接获取成功，file_id: {file_id}")
-
-    except Exception as e:
-        print(f"   ❌ 获取上传链接异常: {e}")
-        return None
-
-    # 步骤2：上传文件到 COS
-    print(f"   📤 上传音频文件到云存储...")
-    try:
-        with open(audio_path, 'rb') as f:
-            file_data = f.read()
-
-        # multipart/form-data 格式上传
-        files = {
-            'file': (os.path.basename(audio_path), file_data, 'audio/mpeg')
-        }
-        form_data = {
-            'key': cloud_path,
-            'Signature': authorization,
-            'x-cos-security-token': cos_token,
-            'x-cos-meta-fileid': cos_file_id
-        }
-
-        resp = requests.post(upload_url, data=form_data, files=files, timeout=60)
-
-        if resp.status_code in (200, 204):
-            file_size_kb = len(file_data) / 1024
-            print(f"   ✅ 音频上传成功！({file_size_kb:.1f} KB)")
-            print(f"   📎 file_id: {file_id}")
-            return file_id
-        else:
-            print(f"   ❌ 文件上传失败，状态码: {resp.status_code}")
-            print(f"   响应: {resp.text[:300]}")
-            return None
-
-    except Exception as e:
-        print(f"   ❌ 文件上传异常: {e}")
-        return None
-
-
-def get_audio_temp_url(file_id):
-    """
-    将 cloud:// fileID 转换为 https 临时下载链接（有效期2小时）。
-    备用方案：前端也可通过 wx.cloud.getTempFileURL 自行获取。
-    """
-    token = get_access_token()
-    if not token:
-        return None
-
-    env = CONFIG['CLOUD_ENV']
-    url = f"https://api.weixin.qq.com/tcb/batchdownloadfile?access_token={token}"
-
-    body = {
-        "env": env,
-        "file_list": [
-            {"fileid": file_id, "max_age": 7200}
-        ]
-    }
-
-    try:
-        resp = requests.post(url, json=body, timeout=15)
-        result = resp.json()
-
-        if result.get('errcode', 0) == 0:
-            file_list = result.get('file_list', [])
-            if file_list and file_list[0].get('status') == 0:
-                download_url = file_list[0].get('download_url', '')
-                if download_url:
-                    print(f"   🔗 临时下载链接: {download_url[:80]}...")
-                    return download_url
-        print(f"   ⚠️ 获取临时链接失败: {result}")
-        return None
-    except Exception as e:
-        print(f"   ⚠️ 获取临时链接异常: {e}")
-        return None
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -514,9 +390,9 @@ def get_audio_temp_url(file_id):
 
 def main():
     if len(sys.argv) < 3:
-    print("=" * 60)
-    print(f"投研鸭 — 云数据库上传器 v1.3")
-    print("=" * 60)
+        print("=" * 60)
+        print(f"投研鸭 — 云数据库上传器 v1.3")
+        print("=" * 60)
         print()
         print("用法: python3 upload_to_cloud.py <JSON目录> <日期>")
         print()

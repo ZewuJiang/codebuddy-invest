@@ -1,7 +1,7 @@
 #!/bin/bash
 # ============================================================
 # 投研鸭小程序 — 每日数据更新串联脚本 v6.5（Harness v12 Phase B1.5）
-# 执行顺序：日期子目录同步 → 涨跌方向目视摘要 → JSON语法校验 → auto_compute.py → 【新】anchor_fetcher.py真值锚点 → validate.py(58项) → sparkline补全 → 上传微信云数据库 → 【新】写入upload_hash
+# 执行顺序：日期子目录同步 → 涨跌方向目视摘要 → JSON语法校验 → auto_compute.py → 【新】anchor_fetcher.py真值锚点 → validate.py(57项) → sparkline补全 → 上传微信云数据库 → 【新】写入upload_hash
 #
 # 用法：bash run_daily.sh [YYYY-MM-DD] [--skip-warn]
 #
@@ -9,7 +9,7 @@
 #   - 第2步上传成功后新增写入 .last_upload_hash.json
 #     记录上传时刻 4 个 JSON 文件的 sha256 hash
 #     供 validate.py V49 [FATAL] 检测"已修改但未重新上传"（堵点#65）
-#   - validate.py v6.0：新增 V49 [FATAL] 上传一致性门禁（58项，20 FATAL）
+#   - validate.py v6.2：移除 V35 语音播报校验，新增 V49 [FATAL] 上传一致性门禁（57项，20 FATAL）
 #   - anchor_fetcher.py v1.1：CNH/DXY/VIX 全备源补强，yfinance重试，fetched_at时效性
 #
 # 【v6.4 改动】（Harness v12 Phase B1 真值锚点防线）：
@@ -208,7 +208,7 @@ fi
 echo ""
 
 # ── 第0.5步：数据质量自动化校验（FATAL/WARN 双级） ──────────
-echo "🔍 第0.5步：数据质量自动化校验（validate.py v6.0 — 58项 FATAL/WARN 双级门禁）..."
+echo "🔍 第0.5步：数据质量自动化校验（validate.py v6.2 — 57项 FATAL/WARN 双级门禁）..."
 echo ""
 
 # 模式检测：根据星期几判断（v9.0 简化：只有 standard / weekend）
@@ -226,7 +226,7 @@ if [ $VALIDATE_EXIT -eq 3 ]; then
     # FATAL 级错误 — 不可绕过
     echo ""
     echo "🚫 存在 FATAL 级错误！必须修复后才能继续（--skip-warn 无法绕过 FATAL）。"
-    echo "   FATAL 项（R2/R3/R9/V39-V46）涉及数据完整性与合规，请检查报告并修复。"
+    echo "   FATAL 项（V6/V24/V36/V38/V39/V40/V41/V42/V43/V44/V45/V46/V48/V49/R1/R2/R3/R9/V_TL）涉及数据完整性与合规，请检查报告并修复。"
     exit 1
 elif [ $VALIDATE_EXIT -eq 1 ]; then
     # 仅 WARN 级错误

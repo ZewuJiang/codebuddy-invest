@@ -1,10 +1,15 @@
 # touyanduck-daily — 投研鸭小程序数据生产 Skill
 
-> **版本**: v13.0 | **类型**: CodeBuddy 自定义 Skill
+> **版本**: v13.1 | **类型**: CodeBuddy 自定义 Skill
 
 ## 简介
 
 独立采集全球市场数据，生成原生结构化 JSON，上传到微信云数据库，驱动投研鸭小程序实时展示。
+
+**v13.1 全链路稳定性修复**：
+- validate.py v6.2：新增 V48/V49 FATAL，V5 升级 FATAL，R7 正则修复，FATAL 项 19→20，校验项 57
+- upload_to_cloud.py：移除音频上传，修复上传回读校验
+- app-sync WARN 策略优化
 
 **v13.0 语音功能永久移除 + 规范瘦身**：
 - 删除 `generate_audio.py`（MiniMax TTS），语音功能完全移除
@@ -16,7 +21,7 @@
 1. **Phase 1 并行采集**：4 组并发（媒体/行情/亚太大宗/基金），采集时间减少 60-70%
 2. **Context 压缩铁律**：web_fetch 后立即提取最小字段集丢弃 HTML，上下文 ~76k→~35k
 3. **References 分层加载**：四批按需加载（L1/L2/L3/L4），不再一次性全部加载
-4. **Generator-Verifier 内联自校验**：Phase 2 每个 JSON 写完即检（14/16 项 FATAL 前置拦截）
+4. **Generator-Verifier 内联自校验**：Phase 2 每个 JSON 写完即检（16/20 项 FATAL 前置拦截）
 
 **与 `investment-agent-daily` 的关系**：完全独立。`daily` 输出给人读的 MD/PDF 报告，本 Skill（`touyanduck-daily`）输出给机器读的 JSON 数据。两者可独立触发，互不影响。
 
@@ -73,7 +78,7 @@ export WX_CLOUD_ENV="你的云环境ID"
 - `app数据更新`
 - `miniapp sync`
 
-Skill 将自动执行完整的工作流：日期检测+模式路由 → **Phase 1 并行采集（4组并发+Context压缩）** → 完整性门禁 → **Phase 2 JSON生成+内联自校验（Generator-Verifier）** → 每日操作Checklist → 公式自动计算(auto_compute.py) → 终审(validate.py v6.1 + 57项校验 + 19项FATAL门禁) → sparkline补全 → 上传微信云数据库 → 执行复盘。
+Skill 将自动执行完整的工作流：日期检测+模式路由 → **Phase 1 并行采集（4组并发+Context压缩）** → 完整性门禁 → **Phase 2 JSON生成+内联自校验（Generator-Verifier）** → 每日操作Checklist → 公式自动计算(auto_compute.py) → 终审(validate.py v6.2 + 57项校验 + 20项FATAL门禁) → sparkline补全 → 上传微信云数据库 → 执行复盘。
 
 ## 二档内容引擎
 
@@ -82,22 +87,22 @@ Skill 将自动执行完整的工作流：日期检测+模式路由 → **Phase 
 | 周一~周五（每次执行） | **Standard** | 全量采集+分析+建议（每次都是高质量全量产出） |
 | 周末/休市日 | **Weekend** | 媒体深度扫描+周度总结+前瞻 |
 
-> v11.4：彻底移除公开API同步模块，数据链路简化。v11.2 架构升级：Phase 1 并行采集（4组并发）+ Context 压缩（~76k→~35k）+ References 分层加载（L1/L2/L3/L4）+ Generator-Verifier 内联自校验（14/17项FATAL前置拦截）+ 每日操作Checklist + 前端代码修复 + 规范体系深度清理。validate.py v5.7（55项校验）。
+> v11.4：彻底移除公开API同步模块，数据链路简化。v11.2 架构升级：Phase 1 并行采集（4组并发）+ Context 压缩（~76k→~35k）+ References 分层加载（L1/L2/L3/L4）+ Generator-Verifier 内联自校验（16/20项FATAL前置拦截）+ 每日操作Checklist + 前端代码修复 + 规范体系深度清理。validate.py v6.2（57项校验，20项FATAL）。
 
 ## 文件结构
 
 | 目录/文件 | 说明 |
 |-----------|------|
-| `SKILL.md` | 主控文档 v13.0（工作流+九大铁律+致命错误清单+并行采集+Context压缩+分层加载+Generator-Verifier） |
+| `SKILL.md` | 主控文档 v13.1（工作流+九大铁律+致命错误清单+并行采集+Context压缩+分层加载+Generator-Verifier） |
 | `scripts/run_daily.sh` | 一键串联脚本 v6.5（子目录同步+JSON校验→auto_compute→anchor_fetcher→validate→sparkline→上传，第2步后即终点） |
 | `scripts/auto_compute.py` | 公式自动计算 v3.1（riskScore/riskLevel/sentimentLabel/trafficLights.status/metrics联动/16类字段） |
-| `scripts/validate.py` | 数据质量校验 v6.1（57项 FATAL/WARN 双级，19项FATAL，移除V35语音校验） |
+| `scripts/validate.py` | 数据质量校验 v6.2（57项 FATAL/WARN 双级，20项FATAL，新增V48/V49真值锚点+上传一致性门禁，V5升级FATAL） |
 | `scripts/anchor_fetcher.py` | 真值锚点拉取 v1.1（FRED/yfinance/CoinGecko，CNH/DXY/VIX全备源补强） |
 | `scripts/refresh_verified_snapshot.py` | sparkline/chartData 历史序列补全 v3.0 |
 | `scripts/upload_to_cloud.py` | 云数据库上传+回读校验 v1.3（移除音频上传） |
 | `scripts/requirements.txt` | Python 依赖 |
 | `references/json-schema.md` | **核心文件** — 4个JSON完整字段规范 v5.0（含B1-B12/Q1-Q8/W1-W9质量门禁） |
-| `references/inline-verifier-rules.md` | **v11.0 新增** — Generator-Verifier 内联自校验规则 v1.0（14项可内联FATAL+修复SOP） |
+| `references/inline-verifier-rules.md` | **v11.0 新增** — Generator-Verifier 内联自校验规则 v1.1（16项可内联FATAL+修复SOP） |
 | `references/data-collection-sop.md` | 数据采集SOP v3.1（含§0.4自媒体陷阱+§0.8并行分组+§0.9最小字段集+§0.10 JSON双引号防治） |
 | `references/stock-universe.md` | 5板块标的池 v2.1 |
 | `references/data-source-priority.md` | 数据源优先级 v1.6 + 降级路径 |

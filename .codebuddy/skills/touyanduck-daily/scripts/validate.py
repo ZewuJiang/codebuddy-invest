@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
 """
-投研鸭小程序数据质量自动化校验脚本 v6.1
+投研鸭小程序数据质量自动化校验脚本 v6.2
 ============================================================
 核心理念（Harness Engineering）:
   把"AI 记住规则"转变为"环境自动约束 AI"。
   本脚本在 run_daily.sh 中的 auto_compute.py 之后、sparkline 补全之前执行。
+
+v6.2 变更（2026-05-08 — 关键数组空值升级 FATAL + R7正则修复）：
+  - V5 升级为 FATAL：markets.commodities/usMarkets/m7/gics 为空数组时不可绕过
+    （防止 AI 漏写大宗商品等关键板块后被 --skip-warn 跳过上传）
+  - golden-baseline.json R7_dyp_weight_pattern 已同步修复（d+.d% → d+.d+%，支持多位小数）
+  - FATAL 项从 19 → 20 项
 
 v6.1 变更（2026-05-07 — 移除语音相关校验）：
   - 移除 V35（audioUrl/voiceText 语音播报）校验函数及主流程调用
@@ -91,14 +97,16 @@ ANCHOR_TO_MARKETS_MAP = {
 }
 
 # FATAL 级校验项（不可被 --skip-warn 绕过）
+# v6.2 新增：V5（关键数组空值，防止 commodities/usMarkets/m7/gics 漏写被跳过）
 # v6.1 移除：V35（语音播报永久移除）
 # v6.0 新增：V49（本地 vs 上传 hash 一致性门禁）
 # v5.9 新增：V48（真值锚点容差校验）
 # v5.8 变更：V36 从 WARN 升级为 FATAL（跨JSON数据矛盾必须在上传前修复）
 # v5.6 新增：V24/V38/V41/V42/R1/V_TL（FATAL 项升级）
-# v6.1 合计：FATAL 项 19 个
+# v6.2 合计：FATAL 项 20 个
 FATAL_CODES = {
     # 数据准确性（原有）
+    "V5",    # 关键数组长度（commodities/usMarkets/m7/gics为空不可上传，v6.2升级FATAL）
     "V6", "V43", "V44", "V45", "V46",
     # 持仓合规（原有）
     "V39", "V40", "R2", "R3", "R9",
@@ -150,7 +158,7 @@ class ValidationResult:
 
     def print_report(self):
         print("\n" + "=" * 70)
-        print("📋 投研鸭数据质量自动化校验报告 (v6.1 Harness v12 Phase B1.5)")
+        print("📋 投研鸭数据质量自动化校验报告 (v6.2 Harness v12 Phase B1.5)")
         print("=" * 70)
 
         for r in self.results:

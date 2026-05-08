@@ -28,42 +28,12 @@
     ]
   },
   "globalReaction": [
-    {
-      "name": "标普500",
-      "value": "+0.51%",
-      "direction": "up",
-      "note": "科技股领涨反弹"
-    },
-    {
-      "name": "纳斯达克",
-      "value": "+0.83%",
-      "direction": "up",
-      "note": "M7分化中TSLA独涨"
-    },
-    {
-      "name": "道琼斯",
-      "value": "+0.30%",
-      "direction": "up",
-      "note": "工业股持平"
-    },
-    {
-      "name": "恒生指数",
-      "value": "-0.90%",
-      "direction": "down",
-      "note": "亚太承压"
-    },
-    {
-      "name": "黄金XAU",
-      "value": "$4720",
-      "direction": "up",
-      "note": "连续5日新高"
-    },
-    {
-      "name": "BTC",
-      "value": "$79791",
-      "direction": "down",
-      "note": "风险偏好回落"
-    }
+    {"name": "标普500", "value": "+0.51%", "direction": "up", "note": "科技股领涨反弹"},
+    {"name": "纳斯达克", "value": "+0.83%", "direction": "up", "note": "M7分化中TSLA独涨"},
+    {"name": "道琼斯", "value": "+0.30%", "direction": "up", "note": "工业股持平"},
+    {"name": "恒生指数", "value": "-0.90%", "direction": "down", "note": "亚太承压"},
+    {"name": "黄金XAU", "value": "$4720", "direction": "up", "note": "连续5日新高"},
+    {"name": "BTC", "value": "$79791", "direction": "down", "note": "风险偏好回落"}
   ],
   "coreJudgments": [
     {
@@ -72,11 +42,7 @@
       "logic": "央行购金+中东避险+美元走弱三重驱动 → 金价中枢系统性上移 → $4500以下难再现",
       "keyActor": "全球央行",
       "references": [
-        {
-          "name": "CoinCentral",
-          "summary": "央行购金+中东避险推动黄金突破$4700",
-          "url": "https://coincentral.com/gold-price-above-4700-as-central-banks-buy-and-middle-east-ceasefire-holds/"
-        }
+        {"name": "CoinCentral", "summary": "央行购金+中东避险推动黄金突破$4700", "url": "https://coincentral.com/gold-price-above-4700-as-central-banks-buy-and-middle-east-ceasefire-holds/"}
       ],
       "probability": "高可能性",
       "trend": "上升"
@@ -87,11 +53,7 @@
       "logic": "从神华（能源）全部切换至泡泡玛特（全球消费品） → 段永平用仓位表达「中国消费品牌全球化」判断 → 值得纳入观察池",
       "keyActor": "段永平",
       "references": [
-        {
-          "name": "新浪财经",
-          "summary": "段永平表示已将神华全部换成泡泡玛特，称泡泡玛特是right business",
-          "url": "https://finance.sina.com.cn/wm/2026-05-08/doc-inhxcyzm2319776.shtml"
-        }
+        {"name": "新浪财经", "summary": "段永平表示已将神华全部换成泡泡玛特，称泡泡玛特是right business", "url": "https://finance.sina.com.cn/wm/2026-05-08/doc-inhxcyzm2319776.shtml"}
       ],
       "probability": "中可能性",
       "trend": "稳定"
@@ -102,11 +64,7 @@
       "logic": "布伦特$102+黄金$4720已推升通胀预期 → CPI若再超预期 → 联储无法在6月动手 → 全年降息空间收窄至1-2次",
       "keyActor": "Jerome Powell",
       "references": [
-        {
-          "name": "TradingEconomics",
-          "summary": "10Y美债收益率4.36%，反映通胀预期仍在高位",
-          "url": "https://tradingeconomics.com/united-states/government-bond-yield"
-        }
+        {"name": "TradingEconomics", "summary": "10Y美债收益率4.36%，反映通胀预期仍在高位", "url": "https://tradingeconomics.com/united-states/government-bond-yield"}
       ],
       "probability": "高可能性",
       "trend": "上升"
@@ -123,35 +81,14 @@
     "VIX收于17.13仍低于阈值，市场短期波动率压缩，但地缘风险未消解"
   ],
   "smartMoney": [
-    {
-      "source": "桥水基金",
-      "action": "Dalio警告美国进入「大变革期」，建议配置5-15%黄金对冲法币贬值",
-      "signal": "bearish"
-    },
-    {
-      "source": "段永平",
-      "action": "清仓神华全力加仓泡泡玛特，称「right business」——消费品牌全球化赛道",
-      "signal": "bullish"
-    },
-    {
-      "source": "ARK",
-      "action": "本周买入META和GOOGL，卖出AMD（5/5财报前减持）",
-      "signal": "bullish"
-    }
+    {"source": "桥水基金", "action": "Dalio警告美国进入「大变革期」，建议配置5-15%黄金对冲法币贬值", "signal": "bearish"},
+    {"source": "段永平", "action": "清仓神华全力加仓泡泡玛特，称「right business」——消费品牌全球化赛道", "signal": "bullish"},
+    {"source": "ARK", "action": "本周买入META和GOOGL，卖出AMD（5/5财报前减持）", "signal": "bullish"}
   ],
   "topHoldings": [
-    {
-      "name": "伯克希尔",
-      "holdings": "AAPL 22.60% | BAC 10.38% | KO 10.20% | CVX 7.24% · 现金$3733亿"
-    },
-    {
-      "name": "段永平",
-      "holdings": "AAPL 50.30% | BRK.B 20.60% | NVDA 7.70% | PDD 7.50% · 泡泡玛特观察中"
-    },
-    {
-      "name": "ARK旗舰",
-      "holdings": "TSLA 10.50% | CRSP 6.30% | TEM 5.00% | SHOP 4.70% · 持续买入META/GOOGL"
-    }
+    {"name": "伯克希尔", "holdings": "AAPL 22.60% | BAC 10.38% | KO 10.20% | CVX 7.24% · 现金$3733亿"},
+    {"name": "段永平", "holdings": "AAPL 50.30% | BRK.B 20.60% | NVDA 7.70% | PDD 7.50% · 泡泡玛特观察中"},
+    {"name": "ARK旗舰", "holdings": "TSLA 10.50% | CRSP 6.30% | TEM 5.00% | SHOP 4.70% · 持续买入META/GOOGL"}
   ],
   "riskPoints": [
     "黄金$4720已亮黄灯（仅差$280触红灯），若霍尔木兹实质封锁可能快速突破$5000",
@@ -159,10 +96,10 @@
     "段永平重仓泡泡玛特为单一标的决策，需关注港股流动性风险（市值2162亿港元）"
   ],
   "riskNote": "黄金创新高+油价高位构成通胀粘性组合，本周CPI为核心催化剂；段永平仓位调整释放消费品全球化信号，但单一标的集中度风险需关注",
-  "dataTime": "2026-05-08 22:21 BJT",
+  "dataTime": "2026-05-08 22:00 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-05-08T22:21:49+08:00",
+    "generatedAt": "2026-05-08T22:00:00+08:00",
     "skillVersion": "v13.0"
   }
 }

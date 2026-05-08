@@ -1,18 +1,21 @@
-# Generator-Verifier 内联自校验规则（v1.0）
+# Generator-Verifier 内联自校验规则（v1.3）
 
-> **用途**：Phase 2 每生成一个 JSON 后立即执行的内联校验清单。从 validate.py v5.7 的 17 项 FATAL + 关键 WARN 中提取"可在写入时即时检测"的子集。
+> **用途**：Phase 2 每生成一个 JSON 后立即执行的内联校验清单。从 validate.py v6.2 的 20 项 FATAL 中提取"可在写入时即时检测"的子集。
 > **设计原则**：Generator-Verifier 是**前置过滤**，validate.py 仍是**终极门禁**。两层防护，不是替代关系。
 > **核心价值**：在 Phase 2 就拦截明显错误，避免进入 Phase 3 run_daily.sh 后触发 FATAL 导致整体重来。
 > **加载时机**：L3 批次（Phase 2 前加载）
 
 ---
 
-## 一、内联性分类总表（17 项 FATAL）
+## 一、内联性分类总表（20 项 FATAL — v6.2）
 
 | Code | 校验项 | 可内联? | 理由 |
 |------|--------|---------|------|
+| **V5** | commodities=6项（含 usMarkets=4/m7=7/gics=11）| ✅ 可内联 | 写完 markets.json 即可检查关键数组长度 |
 | **V6** | sparkline[-1] vs price ≤5% | ✅ 可内联 | 只需同一对象的 sparkline 和 price |
 | **V24** | Markdown 残留（`**`） | ✅ 可内联 | 只需当前 JSON 文本正则扫描 |
+| **V36** | 跨JSON数据交叉验证（radar↔markets↔watchlist）| ✅ 可内联 | 2E 跨JSON终检时可执行，无需外部依赖 |
+| **V38** | sparkline 趋势 vs change 方向一致 | ✅ 可内联 | 只需同一对象的 sparkline[-1,-2] 和 change |
 | **V39** | 13F 持仓合规（无期权/权重≤105%） | ✅ 可内联 | 只需 radar.smartMoneyHoldings |
 | **V40** | metrics 无空值 | ✅ 可内联 | 只需 watchlist.metrics[].value |
 | **V41** | globalReaction value ≤15字符/无括号 | ✅ 可内联 | 只需 briefing.globalReaction |
@@ -21,15 +24,15 @@
 | **V44** | sparkline 禁止任何零值 | ✅ 可内联 | 只需遍历 sparkline 数组 |
 | **V45** | price vs sparkline[-1] 数量级 <30% | ✅ 可内联 | 只需同一对象的 price 和 sparkline[-1] |
 | **V46** | chartData 禁止任何零值 | ✅ 可内联 | 只需遍历 chartData 数组 |
-| **V38** | sparkline 趋势 vs change 方向一致 | ✅ 可内联 | 只需同一对象的 sparkline[-1,-2] 和 change |
 | **R1** | topHoldings ≥ 3 条 | ✅ 可内联 | 只需 briefing.topHoldings 长度 |
 | **R2** | 每家 positions ≥ Top10 | ✅ 可内联 | 只需 radar.smartMoneyHoldings |
 | **R3** | 无"待更新"占位符 | ✅ 可内联 | 只需当前 JSON 字符串搜索 |
 | **R9** | 与 holdings-cache.json 一致 | ❌ 不可内联 | 需读取外部 `references/holdings-cache.json` 文件 |
-| **V35** | audioUrl 非空 | ⏸️ 暂停 | 语音播报已暂停，V35 降为 WARN，跳过不影响上传 |
 | **V_TL** | 红绿灯 value↔status 阈值一致 | ❌ 不可内联 | 需 `golden-baseline.json` 阈值配置 + auto_compute 执行后 |
+| **V48** | AI 抓取值 vs 真值锚点容差校验 | ❌ 不可内联 | 需 anchor_fetcher.py 先拉取 anchors.json（Phase 3 第0.4步）|
+| **V49** | 本地文件 vs 上传版本 hash 一致性 | ❌ 不可内联 | 需上传完成后 run_daily.sh 第2.5步写入 .last_upload_hash.json |
 
-**统计**：14 项可内联 / 2 项不可内联 / 1 项暂停
+**统计**：16 项可内联 / 4 项不可内联
 
 ---
 
@@ -49,14 +52,16 @@
 
 | # | Code | 规则 | 检测方法 |
 |---|------|------|----------|
-| B6 | V5 | `coreJudgments` 精确 3 条 | `len(coreJudgments) == 3` |
-| B7 | V5 | `globalReaction` ≥ 5 项 | `len(globalReaction) >= 5` |
-| B8 | V5 | `riskPoints` ≥ 2 条 | `len(riskPoints) >= 2` |
-| B9 | V5 | `smartMoney` ≥ 2 条 | `len(smartMoney) >= 2` |
+| B6 | V5(briefing) | `coreJudgments` 精确 3 条 | `len(coreJudgments) == 3` |
+| B7 | V5(briefing) | `globalReaction` ≥ 5 项 | `len(globalReaction) >= 5` |
+| B8 | V5(briefing) | `riskPoints` ≥ 2 条 | `len(riskPoints) >= 2` |
+| B9 | V5(briefing) | `smartMoney` ≥ 2 条 | `len(smartMoney) >= 2` |
 | B10 | V29 | `coreJudgments[].logic` 含 → 箭头 | 每条 logic 中存在 `→` 字符 |
 | B11 | V20 | `takeaway` 含 3-5 个【】标红 | 正则 `【[^】]+】` 匹配数 ∈ [3, 5] |
 | B12 | V3 | `sentimentScore` 是 number | `isinstance(sentimentScore, (int, float))` |
 | B13 | R3 | 全文无 "待更新" | 字符串搜索 |
+
+> ⚠️ **V5 说明**：V5 在 validate.py v6.2 中已升级为 FATAL，但其覆盖范围仅限 **markets.json** 关键数组（commodities=6/usMarkets=4/m7=7/gics=11）。briefing 的 B6-B9 仍属 WARN（briefing 字段数量缺少不触发 V5 FATAL）。
 
 ---
 
@@ -73,13 +78,13 @@
 | M5 | **V6** | sparkline[-1] vs price ≤5% | 每项 `|sparkline[-1] - price_num| / price_num ≤ 0.05` |
 | M6 | **V38** | sparkline 趋势 vs change 方向一致 | `sparkline[-1] > sparkline[-2]` 应与 `change > 0` 方向一致（容差 0.5%） |
 | M7 | **V42** | `_meta.generatedAt` 非空 | 同 B3 |
+| M8 | **V5** | commodities=6项 / usMarkets=4项 / m7=7项 / gics=11项 / asiaMarkets≥4 | 数组长度精确检查。commodities 缺项是高频事故（黄金/布伦特/WTI/DXY/10Y美债/CNH 必须全部填写） |
 
 ### WARN 级
 
 | # | Code | 规则 | 检测方法 |
 |---|------|------|----------|
-| M8 | V3 | 所有 `change` 是 number | `isinstance(change, (int, float))` |
-| M9 | V5 | usMarkets=4项、m7=7项、gics=11项、asiaMarkets≥4、commodities=6 | 数组长度检查 |
+| M9 | V3 | 所有 `change` 是 number | `isinstance(change, (int, float))` |
 | M10 | V27 | 6 个 Insight 长度 30-100 字 | `30 ≤ len(xxxInsight) ≤ 100` |
 | M11 | V25 | 无模糊前缀（~≈约左右） | 价格字段搜索 |
 
@@ -175,15 +180,16 @@ Generator-Verifier 循环 SOP：
 
 ---
 
-## 八、不可内联检测项声明（3 项 — 必须等 Phase 3 脚本执行）
+## 八、不可内联检测项声明（4 项 — 必须等 Phase 3 脚本执行）
 
 以下 FATAL 项**无法在 Phase 2 内联检测**，必须依赖 Phase 3 的工具链：
 
 | Code | 原因 | 由谁执行 |
 |------|------|----------|
 | **R9** | 需读取外部 `references/holdings-cache.json` 进行逐字段比对 | validate.py |
-| **V35** | `audioUrl` — 语音播报已暂停，V35 降为 WARN，跳过不影响上传 | validate.py（WARN级） |
 | **V_TL** | 红绿灯 `value↔status` 的阈值判定由 `auto_compute.py` 按 `golden-baseline.json` 配置自动计算，validate 在其之后校验 | auto_compute.py + validate.py |
+| **V48** | 需 `anchor_fetcher.py` 先拉取外部行情数据，写入 `anchors.json`（Phase 3 第0.4步），validate 读取后比对 | anchor_fetcher.py + validate.py |
+| **V49** | 需上传完成后 run_daily.sh 第2.5步写入 `.last_upload_hash.json`，validate 下次执行时才能比对 | run_daily.sh + validate.py |
 
 > ⚠️ **V_TL 特殊说明**：虽然 AI 在 Phase 2 填写了 `trafficLights[].value` 和 `threshold`，但 `status` 字段由 `auto_compute.py` 在 Phase 3 自动覆盖。因此 Phase 2 无需（也不应该）检测 value↔status 一致性——不一致是正常的（AI 填的 status 会被脚本覆盖）。
 
@@ -232,3 +238,5 @@ Generator-Verifier 循环 SOP：
 
 > v1.0 — 2026-04-20 | 初始版本。从 validate.py v5.6（17项FATAL）精确提取可内联检测的 14 项 + 关键 WARN，定义 4 个 JSON 各自的校验清单 + 跨 JSON 一致性终检 + 修复 SOP + 不可内联项声明 + auto_compute 覆盖字段清单。
 > v1.1 — 2026-04-20 | 新增§十 validate.py WARN 误报识别规则（v11.0 试运行实测发现）。
+> v1.2 — 2026-05-08 | 同步 validate.py v6.1（19项FATAL）：移除 V35（语音永久删除），新增 V36/V48/V49，可内联 14→15，不可内联 2→4，统计及§八全部更新。
+> v1.3 — 2026-05-08 | 同步 validate.py v6.2（20项FATAL）：V5 升级 FATAL（commodities/usMarkets/m7/gics 数组长度），可内联 15→16；§一总表补充 V5 行；§二 B6-B9 补充注释（briefing V5 仍属 WARN）；§三 markets M9 升级为 FATAL M8，WARN 重新编号；README/SKILL.md 版本同步 v13.1。
