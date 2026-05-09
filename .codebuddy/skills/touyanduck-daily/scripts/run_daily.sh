@@ -1,7 +1,7 @@
 #!/bin/bash
 # ============================================================
 # 投研鸭小程序 — 每日数据更新串联脚本 v6.5（Harness v12 Phase B1.5）
-# 执行顺序：日期子目录同步 → 涨跌方向目视摘要 → JSON语法校验 → auto_compute.py → 【新】anchor_fetcher.py真值锚点 → validate.py(57项) → sparkline补全 → 上传微信云数据库 → 【新】写入upload_hash
+# 执行顺序：日期子目录同步 → 涨跌方向目视摘要 → JSON语法校验 → auto_compute.py → 【新】anchor_fetcher.py真值锚点 → validate.py(57项,--skip-v49) → sparkline补全 → 上传微信云数据库 → 【新】写入upload_hash
 #
 # 用法：bash run_daily.sh [YYYY-MM-DD] [--skip-warn]
 #
@@ -11,6 +11,8 @@
 #     供 validate.py V49 [FATAL] 检测"已修改但未重新上传"（堵点#65）
 #   - validate.py v6.2：移除 V35 语音播报校验，新增 V49 [FATAL] 上传一致性门禁（57项，20 FATAL）
 #   - anchor_fetcher.py v1.1：CNH/DXY/VIX 全备源补强，yfinance重试，fetched_at时效性
+#   - validate 调用新增 --skip-v49：run_daily.sh 内置上传，同次运行 V49 无意义
+#     （V49 仅对"手工修改后忘记上传"场景有效，由下次运行检测）
 #
 # 【v6.4 改动】（Harness v12 Phase B1 真值锚点防线）：
 #   - 新增第0.4步：anchor_fetcher.py 真值锚点拉取
@@ -208,7 +210,8 @@ fi
 echo ""
 
 # ── 第0.5步：数据质量自动化校验（FATAL/WARN 双级） ──────────
-echo "🔍 第0.5步：数据质量自动化校验（validate.py v6.2 — 57项 FATAL/WARN 双级门禁）..."
+echo "🔍 第0.5步：数据质量自动化校验（validate.py v6.3 — 57项 FATAL/WARN 双级门禁）..."
+echo "   注：V49 在本次运行中跳过（run_daily.sh 本身会完成上传，不存在'改了没上传'问题）"
 echo ""
 
 # 模式检测：根据星期几判断（v9.0 简化：只有 standard / weekend）
@@ -219,7 +222,9 @@ else
     VALIDATE_MODE="standard"
 fi
 
-python3 "$SCRIPT_DIR/validate.py" "$SYNC_DIR" --mode "$VALIDATE_MODE"
+# --skip-v49：因 run_daily.sh 在第2步必定完成上传，V49（改了没上传检测）在此无意义
+# V49 仅对"手工修改JSON后忘记跑upload"场景有效，由下次 run_daily.sh 执行时检测
+python3 "$SCRIPT_DIR/validate.py" "$SYNC_DIR" --mode "$VALIDATE_MODE" --skip-v49
 VALIDATE_EXIT=$?
 
 if [ $VALIDATE_EXIT -eq 3 ]; then

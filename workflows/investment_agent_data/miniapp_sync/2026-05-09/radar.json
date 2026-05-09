@@ -282,7 +282,7 @@
       "manager": "Cathie Wood · ARK",
       "fund": "ARK Innovation ETF (ARKK)",
       "aum": "$6.8B",
-      "asOf": "2026-05-09",
+      "asOf": "2026-05-08",
       "positions": [
         {
           "name": "特斯拉",
@@ -370,10 +370,10 @@
       "change24h": 8
     }
   ],
-  "dataTime": "2026-05-09 10:50 BJT",
+  "dataTime": "2026-05-09 22:00 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-05-09T10:50:25+08:00",
+    "generatedAt": "2026-05-09T22:00:00+08:00",
     "skillVersion": "v13.0"
   },
   "alerts": []

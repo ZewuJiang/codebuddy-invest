@@ -2161,10 +2161,13 @@ def main():
 
     sync_dir = sys.argv[1]
     mode = "standard"  # 默认
+    skip_v49 = False   # v6.3: run_daily.sh 内调用时跳过 V49（同次运行必定上传，不存在"改了没上传"问题）
 
     for i, arg in enumerate(sys.argv):
         if arg == "--mode" and i + 1 < len(sys.argv):
             mode = sys.argv[i + 1].lower()
+        if arg == "--skip-v49":
+            skip_v49 = True
 
     # v9.0: heavy 映射到 standard（向后兼容）
     if mode == "heavy":
@@ -2184,7 +2187,7 @@ def main():
         print(f"⚠️  基线文件加载失败: {BASELINE_PATH}，使用默认值")
         baseline = {}
 
-    print(f"\n🔍 开始校验 | 目录: {sync_dir} | 模式: {mode}")
+    print(f"\n🔍 开始校验 | 目录: {sync_dir} | 模式: {mode}" + (" | V49跳过(run_daily内置上传)" if skip_v49 else ""))
 
     vr = ValidationResult()
 
@@ -2293,7 +2296,12 @@ def main():
     # === V49 [FATAL]: 本地 hash vs 上传 hash 一致性校验 (v6.0 Phase B1.5 新增) ===
     # 堵死堵点#65：手工修正 JSON 后忘记重新 upload_to_cloud.py
     # .last_upload_hash.json 不存在时自动 SKIP（兼容旧环境）
-    validate_upload_hash_consistency(sync_dir, files, vr)
+    # --skip-v49：run_daily.sh 内调用时跳过（同次运行必定完成上传，不存在"改了没上传"问题）
+    if skip_v49:
+        vr.add("V49", "本地文件与上传版本一致性（堵点#65）[FATAL]", None,
+               "run_daily.sh 内置上传，本次跳过（--skip-v49）")
+    else:
+        validate_upload_hash_consistency(sync_dir, files, vr)
 
     # === R1-R8: 回归门禁 ===
     validate_regression_gates(files, baseline, vr, mode)
