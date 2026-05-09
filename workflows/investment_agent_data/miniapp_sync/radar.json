@@ -370,10 +370,10 @@
       "change24h": 8
     }
   ],
-  "dataTime": "2026-05-09 10:50 BJT",
+  "dataTime": "2026-05-09 11:12 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-05-09T10:50:25+08:00",
+    "generatedAt": "2026-05-09T11:12:59+08:00",
     "skillVersion": "v13.0"
   },
   "alerts": []
