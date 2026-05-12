@@ -35,42 +35,12 @@
     ]
   },
   "globalReaction": [
-    {
-      "name": "标普500",
-      "value": "+0.84%",
-      "direction": "up",
-      "note": "科技股反弹"
-    },
-    {
-      "name": "纳斯达克",
-      "value": "+1.71%",
-      "direction": "up",
-      "note": "M7分化TSLA领涨"
-    },
-    {
-      "name": "道琼斯",
-      "value": "+0.02%",
-      "direction": "up",
-      "note": "工业股走平"
-    },
-    {
-      "name": "恒生指数",
-      "value": "-0.90%",
-      "direction": "down",
-      "note": "港股承压"
-    },
-    {
-      "name": "黄金XAU",
-      "value": "$4720",
-      "direction": "up",
-      "note": "历史新高"
-    },
-    {
-      "name": "BTC",
-      "value": "$79948",
-      "direction": "up",
-      "note": "ETF净流入"
-    }
+    {"name": "标普500", "value": "+0.84%", "direction": "up", "note": "科技股反弹"},
+    {"name": "纳斯达克", "value": "+1.71%", "direction": "up", "note": "M7分化TSLA领涨"},
+    {"name": "道琼斯", "value": "+0.02%", "direction": "up", "note": "工业股走平"},
+    {"name": "恒生指数", "value": "-0.90%", "direction": "down", "note": "港股承压"},
+    {"name": "黄金XAU", "value": "$4720", "direction": "up", "note": "历史新高"},
+    {"name": "BTC", "value": "$79948", "direction": "up", "note": "ETF净流入"}
   ],
   "coreJudgments": [
     {
@@ -79,16 +49,8 @@
       "logic": "AI商业化收入增速<资本开支增速3倍 → 折旧压力将侵蚀未来3年利润 → 纳指估值中枢下移但短期叙事无法被数据反驳",
       "keyActor": "Jensen Huang / Sundar Pichai / Satya Nadella",
       "references": [
-        {
-          "name": "Fortune",
-          "summary": "四大云厂2026年AI资本开支$725B，同比+77%",
-          "url": "https://fortune.com/2026/04/29/microsoft-meta-google-ai-capex-spending-billions/"
-        },
-        {
-          "name": "Tom's Hardware",
-          "summary": "谷歌+亚马逊+微软+Meta合计将支出$7250亿",
-          "url": "https://www.tomshardware.com/tech-industry/big-tech/big-techs-ai-spending-plans-reach-725-billion"
-        }
+        {"name": "Fortune", "summary": "四大云厂2026年AI资本开支$725B，同比+77%", "url": "https://fortune.com/2026/04/29/microsoft-meta-google-ai-capex-spending-billions/"},
+        {"name": "Tom's Hardware", "summary": "谷歌+亚马逊+微软+Meta合计将支出$7250亿", "url": "https://www.tomshardware.com/tech-industry/big-tech/big-techs-ai-spending-plans-reach-725-billion"}
       ],
       "probability": "高可能性",
       "trend": "上升"
@@ -99,11 +61,7 @@
       "logic": "得州工厂试点获批+监管开口 → Robotaxi 2026Q4商业运营概率提升 → TSLA估值从'梦想'向'现实'切换的催化剂",
       "keyActor": "Elon Musk",
       "references": [
-        {
-          "name": "Reuters",
-          "summary": "特斯拉Robotaxi获德州试点许可",
-          "url": "https://reuters.com/technology/tesla-robotaxi-texas-2026-05-08/"
-        }
+        {"name": "Reuters", "summary": "特斯拉Robotaxi获德州试点许可", "url": "https://reuters.com/technology/tesla-robotaxi-texas-2026-05-08/"}
       ],
       "probability": "中可能性",
       "trend": "上升"
@@ -114,11 +72,7 @@
       "logic": "布伦特$101+AI资本开支通胀效应叠加 → CPI二次抬头概率增加 → 市场已定价6月不降息，全年<2次",
       "keyActor": "Jerome Powell",
       "references": [
-        {
-          "name": "TradingEconomics",
-          "summary": "10Y美债收益率4.36%，反映降息预期收窄",
-          "url": "https://tradingeconomics.com/united-states/government-bond-yield"
-        }
+        {"name": "TradingEconomics", "summary": "10Y美债收益率4.36%，反映降息预期收窄", "url": "https://tradingeconomics.com/united-states/government-bond-yield"}
       ],
       "probability": "高可能性",
       "trend": "上升"
@@ -135,35 +89,14 @@
     "Polymarket显示58%概率全年零降息，CPI周三发布为关键催化"
   ],
   "smartMoney": [
-    {
-      "source": "ARK",
-      "action": "5/8卖出AMD约$20M（连续减持），买入CoreWeave(CRWV)$10.4M+Cloudflare(NET)$2.8M——AI基础设施重于芯片制造",
-      "signal": "bullish"
-    },
-    {
-      "source": "桥水基金",
-      "action": "Dalio警告美国进入'大变革期'，建议配置5-15%黄金对冲法币贬值风险",
-      "signal": "bearish"
-    },
-    {
-      "source": "段永平",
-      "action": "5/7清仓神华全力加仓泡泡玛特，HK$161.2/股，泡泡玛特总市值HK$2162亿",
-      "signal": "bullish"
-    }
+    {"source": "ARK", "action": "5/8卖出AMD约$20M（连续减持），买入CoreWeave(CRWV)$10.4M+Cloudflare(NET)$2.8M——AI基础设施重于芯片制造", "signal": "bullish"},
+    {"source": "桥水基金", "action": "Dalio警告美国进入'大变革期'，建议配置5-15%黄金对冲法币贬值风险", "signal": "bearish"},
+    {"source": "段永平", "action": "5/7清仓神华全力加仓泡泡玛特，HK$161.2/股，泡泡玛特总市值HK$2162亿", "signal": "bullish"}
   ],
   "topHoldings": [
-    {
-      "name": "伯克希尔",
-      "holdings": "AAPL 22.60% | BAC 10.38% | KO 10.20% | CVX 7.24% · 现金$3733亿"
-    },
-    {
-      "name": "段永平",
-      "holdings": "AAPL 50.30% | BRK.B 20.60% | NVDA 7.70% | PDD 7.50% · 泡泡玛特观察中"
-    },
-    {
-      "name": "ARK旗舰",
-      "holdings": "TSLA 10.50% | CRSP 6.30% | TEM 5.00% | SHOP 4.70% · 持续买入CoreWeave"
-    }
+    {"name": "伯克希尔", "holdings": "AAPL 22.60% | BAC 10.38% | KO 10.20% | CVX 7.24% · 现金$3733亿"},
+    {"name": "段永平", "holdings": "AAPL 50.30% | BRK.B 20.60% | NVDA 7.70% | PDD 7.50% · 泡泡玛特观察中"},
+    {"name": "ARK旗舰", "holdings": "TSLA 10.50% | CRSP 6.30% | TEM 5.00% | SHOP 4.70% · 持续买入CoreWeave"}
   ],
   "riskPoints": [
     "Big Tech $725B AI资本开支回报周期3-5年，若商业化兑现不及预期将引发估值杀",
@@ -171,10 +104,10 @@
     "段永平单一标的集中持仓泡泡玛特（HK$2162亿市值），港股流动性风险需关注"
   ],
   "riskNote": "AI资本开支狂潮推动科技股情绪但基本面支撑存疑；本周CPI为核心变量，若超3.8%将压缩降息空间并冲击估值；黄金新高+油价高位显示通胀粘性风险",
-  "dataTime": "2026-05-11 11:27 BJT",
+  "dataTime": "2026-05-11 11:00 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-05-11T11:28:38+08:00",
+    "generatedAt": "2026-05-11T11:00:00+08:00",
     "skillVersion": "v13.1"
   }
 }
