@@ -44,8 +44,8 @@
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
-  "riskScore": 80,
-  "riskLevel": "high",
+  "riskScore": 40,
+  "riskLevel": "medium",
   "riskAdvice": "黄金$4730已破$3500红灯阈值，避险情绪极端化需警惕；布伦特$105.16逼近红灯区间（>$110），中东局势若升级可能触发油价突破——当前riskScore 40（黄灯为主），VIX方向值得密切关注",
   "events": [
     {
@@ -301,7 +301,7 @@
       "manager": "Cathie Wood · ARK旗舰",
       "fund": "ARK Innovation ETF (ARKK)",
       "aum": "$6.8B",
-      "asOf": "2026-05-12",
+      "asOf": "2026-04-05（ARK每日持仓披露）",
       "positions": [
         {
           "name": "特斯拉",
@@ -383,10 +383,10 @@
       "change24h": 8
     }
   ],
-  "dataTime": "2026-05-12 12:04 BJT",
+  "dataTime": "2026-05-12 22:30 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-05-12T12:05:26+08:00",
+    "generatedAt": "2026-05-12T22:30:00+08:00",
     "skillVersion": "v13.1"
   }
 }
