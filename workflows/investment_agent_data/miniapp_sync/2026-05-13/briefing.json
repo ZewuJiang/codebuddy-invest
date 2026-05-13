@@ -84,24 +84,21 @@
       "confidence": 78,
       "logic": "油价暴涨→通胀预期升温→本周CPI公布在即→若CPI>3.8%联储降息预期将进一步收窄→当前估值承压",
       "probability": "高可能性",
-      "trend": "上升",
-      "references": []
+      "trend": "上升"
     },
     {
       "title": "VIX降至18下方但油价暴涨，暗示市场对地缘风险定价不充分",
       "confidence": 72,
       "logic": "VIX正常应随油价暴涨同步攀升→实际VIX降至18说明市场尚未完全定价→本周CPI或成为补定价催化剂",
       "probability": "高可能性",
-      "trend": "上升",
-      "references": []
+      "trend": "上升"
     },
     {
       "title": "A股站上4200点标志中国资产信心恢复，外资持续流入",
       "confidence": 80,
       "logic": "沪指11年来首次重回4200→成交量维持高位+外资流入→中国资产信心底已探明→但估值修复进入深水区",
       "probability": "中可能性",
-      "trend": "稳定",
-      "references": []
+      "trend": "稳定"
     }
   ],
   "actionHints": [],
@@ -150,10 +147,10 @@
     "A股4200点以上估值进入深水区，外资若兑现收益短期可能引发获利回吐"
   ],
   "riskNote": "油价暴涨正在重新定价全球通胀路径，本周CPI数据是验证通胀是否真正回落的关键。若CPI超预期，市场的软着陆预期将被证伪。",
-  "dataTime": "2026-05-13 11:26 BJT",
+  "dataTime": "2026-05-13 11:00 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-05-13T11:27:17+08:00",
+    "generatedAt": "2026-05-13T11:00:00+08:00",
     "skillVersion": "v13.1"
   }
 }
