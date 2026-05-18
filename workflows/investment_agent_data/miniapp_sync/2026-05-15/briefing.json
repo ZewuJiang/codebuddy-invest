@@ -75,10 +75,7 @@
       "logic": "10Y美债4.52%+油价$107 → 成长股PE承压 → 纳指反弹但动力不足",
       "keyActor": "美联储",
       "references": [
-        {
-          "name": "Bloomberg",
-          "summary": "通胀预期重新定价，降息路径推迟至下半年"
-        }
+        {"name": "Bloomberg", "summary": "通胀预期重新定价，降息路径推迟至下半年"}
       ],
       "probability": "高可能性",
       "trend": "下降"
@@ -89,10 +86,7 @@
       "logic": "段永平卖出神华 → 买入泡泡玛特'right business' → 消费出海逻辑获认可",
       "keyActor": "段永平",
       "references": [
-        {
-          "name": "新浪财经",
-          "summary": "段永平5月7日雪球表示把神华换为泡泡玛特"
-        }
+        {"name": "新浪财经", "summary": "段永平5月7日雪球表示把神华换为泡泡玛特"}
       ],
       "probability": "高可能性",
       "trend": "上升"
@@ -103,10 +97,7 @@
       "logic": "ARK连续多日减持AMD → 算力竞争加剧认知 → 半导体板块内资金切换",
       "keyActor": "Cathie Wood",
       "references": [
-        {
-          "name": "CathiesArk",
-          "summary": "ARK 5月连续减持AMD超$50M，新建仓GOOG/META"
-        }
+        {"name": "CathiesArk", "summary": "ARK 5月连续减持AMD超$50M，新建仓GOOG/META"}
       ],
       "probability": "高可能性",
       "trend": "稳定"
@@ -158,10 +149,10 @@
     "VIX低位（17.26）暗藏反向风险——极端平静往往孕育波动率爆发"
   ],
   "riskNote": "类滞胀环境确认：油价+债券收益率双红压制估值。本周CPI是验证反弹真伪的关键变量——若CPI>3.8%，当前反弹基础将被抽空。",
-  "dataTime": "2026-05-15 11:31 BJT",
+  "dataTime": "2026-05-15 11:30 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-05-15T11:32:04+08:00",
+    "generatedAt": "2026-05-15T11:30:00+08:00",
     "skillVersion": "v13.1"
   }
 }

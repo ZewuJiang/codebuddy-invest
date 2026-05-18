@@ -1,0 +1,159 @@
+{
+  "date": "2026-05-14",
+  "takeaway": "【美股再创新高】SPX收7444(+0.58%)纳指涨1.2%领跑，谷歌I/O+腾讯财报AI资本开支超预期撑场，但【30年美债标售得标利率破5%】警报响亮——若本周CPI再超预期，反弹基础将被抽空。",
+  "coreEvent": {
+    "title": "科技撑盘但长债收益率破警戒线——美股新高背后的隐忧",
+    "chain": [
+      {
+        "title": "谷歌I/O大会召开，Gemini 4.0即将发布",
+        "brief": "Alphabet在年度开发者大会上预告下一代AI模型Gemini 4.0，叠加Google+三星AI PC合作，GOOGL单日涨3.94%领跑M7",
+        "source": "Reuters",
+        "url": "https://www.reuters.com/technology/google-showcases-ai-advances-annual-developer-event-2026-05-14/"
+      },
+      {
+        "title": "腾讯Q1财报超预期，混元3.0 Token调用量激增10倍",
+        "brief": "腾讯Q1营收同比增9%达1960亿，净利润大增21%至502亿，混元大模型商业化加速，370亿资本开支超预期",
+        "source": "Bloomberg",
+        "url": "https://www.bloomberg.com/news/articles/2026-05-14/tencent-q1-earnings-beat-ai-investment-accelerates"
+      },
+      {
+        "title": "30年美债标售得标利率自2007年来首次突破5.0%",
+        "brief": "长债抛售压力加剧，30年期美债收益率飙升反映通胀预期固化，若本周CPI高于预期将进一步施压权益估值",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/05/14/30-year-treasury-yield-hits-5-percent-first-since-2007/"
+      }
+    ]
+  },
+  "globalReaction": [
+    {
+      "name": "标普500",
+      "value": "+0.58%",
+      "direction": "up",
+      "note": "科技股撑盘创历史新高"
+    },
+    {
+      "name": "纳斯达克",
+      "value": "+1.20%",
+      "direction": "up",
+      "note": "AI资本开支超预期催化"
+    },
+    {
+      "name": "道琼斯",
+      "value": "-0.14%",
+      "direction": "down",
+      "note": "金融板块拖累"
+    },
+    {
+      "name": "VIX",
+      "value": "17.87",
+      "direction": "down",
+      "note": "恐慌指数回落至安全区间"
+    },
+    {
+      "name": "恒生科技",
+      "value": "+3.20%",
+      "direction": "up",
+      "note": "阿里百度大涨7%带动"
+    },
+    {
+      "name": "布伦特原油",
+      "value": "+0.40%",
+      "direction": "up",
+      "note": "库存创纪录下降支撑百元高位"
+    }
+  ],
+  "coreJudgments": [
+    {
+      "title": "美股反弹结构脆弱——CPI是决胜变量",
+      "confidence": 75,
+      "logic": "SPX创新高但VIX仅17.87 → 市场波动率压缩暗示多头并不坚定 → 若周四CPI同比>3.8%，反弹将面临考验",
+      "keyActor": "沃什，美联储新任主席",
+      "references": [
+        {
+          "name": "CNBC",
+          "summary": "4月CPI同比3.8%创近三年新高，PPI飙升至2022年来最高，能源成本单月暴涨7.8%",
+          "url": "https://www.cnbc.com/2026/05/14/april-inflation-data-cpi-ppi/"
+        }
+      ],
+      "probability": "高可能性",
+      "trend": "上升"
+    },
+    {
+      "title": "AI资本开支超级周期持续——但估值已price in一半",
+      "confidence": 80,
+      "logic": "腾讯370亿+谷歌AI PC+思科AI订单大幅上调 → 算力链景气度延续 → 但NVDA PE 50x已充分定价，上涨空间压缩",
+      "keyActor": "皮查伊/纳德拉",
+      "references": [
+        {
+          "name": "华尔街见闻",
+          "summary": "思科本季和全年指引全面超预期、AI订单大幅上调，拟聚焦AI重组，盘后两位数高涨",
+          "url": "https://www.163.com/dy/media/T1378370383356.html"
+        }
+      ],
+      "probability": "高可能性",
+      "trend": "稳定"
+    },
+    {
+      "title": "30年美债5%红线是今年最大尾部风险",
+      "confidence": 70,
+      "logic": "30年美债标售得标利率首次破5% → 债券市场定价通胀持久化 → 若10Y跟随突破4.5%，科技股估值承压",
+      "keyActor": "沃什/鲍威尔",
+      "references": [
+        {
+          "name": "Reuters",
+          "summary": "30年期美债标售惨淡，得标利率自2007年来首次突破5.0%关键门槛",
+          "url": "https://www.reuters.com/markets/us/treasury-sale-30-year-yield-hits-5-percent-2026-05-14/"
+        }
+      ],
+      "probability": "中可能性",
+      "trend": "上升"
+    }
+  ],
+  "actionHints": [],
+  "sentimentScore": 68,
+  "sentimentLabel": "偏贪婪",
+  "marketSummaryPoints": [
+    "SPX收7444创历史新高，纳指+1.2%领跑，谷歌涨3.94%成M7最大赢家",
+    "腾讯Q1财报超预期+混元3.0爆发，港股恒科指大涨3.2%，阿里百度涨7%",
+    "30年美债标售利率破5%警示长债压力，通胀预期固化压制降息预期",
+    "VIX回落至17.87（绿区）反映短期恐慌缓解，但美债收益率曲线陡峭化值得警惕"
+  ],
+  "smartMoney": [
+    {
+      "source": "桥水基金",
+      "action": "全天候组合本周增配黄金ETF（GLD）约4.2亿美元，Dalio表态滞胀交易远未结束",
+      "signal": "bearish"
+    },
+    {
+      "source": "ARK Invest",
+      "action": "今日净卖出211.6万美元，买入NTLA/NTRA，卖出TWST（减持CareDx+Twist Bioscience）",
+      "signal": "neutral"
+    }
+  ],
+  "topHoldings": [
+    {
+      "name": "伯克希尔",
+      "holdings": "苹果 22.60% | 美国运通 20.46% | 美国银行 10.38% | 可口可乐 10.20% | 雪佛龙 7.24% · 现金$3733亿"
+    },
+    {
+      "name": "段永平",
+      "holdings": "苹果 50.30% | 伯克希尔B 20.60% | 英伟达 7.70% | 拼多多 7.50% | 谷歌 3.30% · Q4大幅增持NVDA/MSFT/TSM"
+    },
+    {
+      "name": "ARK旗舰",
+      "holdings": "特斯拉 10.50% | CRISPR治疗 6.30% | Tempus AI 5.00% | Shopify 4.70% | Coinbase 4.30% · ARKK日交易披露"
+    }
+  ],
+  "riskPoints": [
+    "30年美债5%收益率若持续，美股科技板块估值面临系统性压缩（红线$4.5%10Y对应NVDA合理PE下移15%）",
+    "4月CPI同比3.8%叠加PPI暴涨7.8%，通胀二次抬头风险升温，Fed降息预期再度延后",
+    "Cerebras IPO定价490亿美元逼近，AI泡沫化担忧升温——估值与基本面背离加大回调风险"
+  ],
+  "riskNote": "美债收益率曲线陡峭化为今年最大尾部风险。30年美债5%红线一旦突破4.5%常态化，将对科技成长股估值产生系统性压制。当前市场反弹依赖AI资本开支叙事，一旦CPI超预期或AI订单下调，多头将快速撤退。建议控制科技股敞口，增配防御性资产。",
+  "dataTime": "2026-05-14 11:01 BJT",
+  "_meta": {
+    "sourceType": "heavy_analysis",
+    "generatedAt": "2026-05-14T11:01:00+08:00",
+    "skillVersion": "v13.1"
+  }
+}

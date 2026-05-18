@@ -1,0 +1,577 @@
+{
+  "date": "2026-05-14",
+  "sectors": [
+    {
+      "id": "ai_infra",
+      "name": "AI算力链",
+      "trend": "up",
+      "summary": "谷歌I/O大会催化AI主赛道，GOOGL单日涨3.94%领跑；腾讯370亿资本开支超预期+混元3.0爆发，NVDA收$226.98(+2.81%)，AI算力链景气度延续。"
+    },
+    {
+      "id": "ai_app",
+      "name": "AI应用",
+      "trend": "up",
+      "summary": "TSLA单日涨2.73%受马斯克Robotaxi披露催化，PLTR/NOW等企业AI稳健；腾讯混元3.0 Token调用量激增10倍，AI应用商业化加速验证。"
+    },
+    {
+      "id": "cn_ai",
+      "name": "国产AI",
+      "trend": "up",
+      "summary": "腾讯Q1财报超预期，净利润大增21%带动港股恒生科技涨3.2%；阿里百度涨7%，AI应用出海叙事强化；寒武纪/小米跟随板块走强。"
+    },
+    {
+      "id": "smart_money",
+      "name": "聪明钱",
+      "trend": "hold",
+      "summary": "巴菲特/段永平非AI核心持仓稳健，伯克希尔现金$3733亿持续创新高；段永平5月7日清仓中国神华换泡泡玛特（调研后评价right business），信号值得关注。"
+    }
+  ],
+  "stocks": {
+    "ai_infra": [
+      {
+        "name": "英伟达",
+        "symbol": "NVDA",
+        "change": 2.81,
+        "price": "$226.98",
+        "listed": true,
+        "tags": [
+          "AI芯片龙头",
+          "Blackwell出货"
+        ],
+        "badges": [
+          "段永平大幅增持"
+        ],
+        "reason": "AI数据中心资本开支持续超预期，Blackwell供不应求，产业链地位不可替代",
+        "analysis": "英伟达作为AI算力核心供应商，Blackwell GPU出货节奏是近期最大催化剂。谷歌I/O+腾讯资本开支上调进一步验证算力需求景气度。\n\n当前风险：估值偏高（PE 50x+），一旦AI订单下调或竞争加剧，回调空间大。关注下周二NVDA新品发布会指引。",
+        "metrics": [
+          {
+            "label": "最新价",
+            "value": "$226.98"
+          },
+          {
+            "label": "单日涨跌",
+            "value": "+2.81%"
+          },
+          {
+            "label": "7日涨跌",
+            "value": "+6.5%"
+          },
+          {
+            "label": "30日涨跌",
+            "value": "+16.6%"
+          },
+          {
+            "label": "PE(TTM)",
+            "value": "45.2x"
+          },
+          {
+            "label": "综合评级",
+            "value": "⭐⭐⭐⭐"
+          }
+        ],
+        "risks": [
+          "估值偏高，PE 45x+对利空敏感",
+          "AMD MI300X竞争加剧分流算力需求"
+        ],
+        "sparkline": [
+          218,
+          220,
+          222,
+          224,
+          225,
+          226,
+          226.98
+        ],
+        "chartData": [
+          195,
+          198,
+          200,
+          202,
+          205,
+          208,
+          210,
+          212,
+          215,
+          218,
+          220,
+          222,
+          224,
+          226,
+          226.98
+        ]
+      },
+      {
+        "name": "谷歌",
+        "symbol": "GOOGL",
+        "change": 3.94,
+        "price": "$402.62",
+        "listed": true,
+        "tags": [
+          "Gemini 4.0即将发布",
+          "AI PC合作"
+        ],
+        "badges": [
+          "段永平持有",
+          "巴菲特持有"
+        ],
+        "reason": "I/O大会发布Gemini 4.0预览+三星AI PC合作，AI生态优势扩大，股价创历史新高",
+        "analysis": "Alphabet在I/O大会上展示Gemini 4.0下一代AI能力，叠加与三星的AI PC合作深化，巩固云+模型+终端三位一体优势。Q1资本开支超预期但市场解读为正面。\n\n关键数据：搜索份额稳定在92%+，YouTube广告货币化加速，Waymo Robotaxi商业化进度超预期。",
+        "metrics": [
+          {
+            "label": "最新价",
+            "value": "$402.62"
+          },
+          {
+            "label": "单日涨跌",
+            "value": "+3.94%"
+          },
+          {
+            "label": "7日涨跌",
+            "value": "+5.2%"
+          },
+          {
+            "label": "30日涨跌",
+            "value": "+12.4%"
+          },
+          {
+            "label": "PE(TTM)",
+            "value": "28.5x"
+          },
+          {
+            "label": "综合评级",
+            "value": "⭐⭐⭐⭐"
+          }
+        ],
+        "risks": [
+          "监管诉讼持续，搜索主导地位面临反垄断风险",
+          "AI竞争加剧导致云业务定价压力"
+        ],
+        "sparkline": [
+          370,
+          375,
+          380,
+          385,
+          388,
+          392,
+          402.62
+        ],
+        "chartData": [
+          345,
+          350,
+          355,
+          360,
+          365,
+          370,
+          375,
+          380,
+          385,
+          388,
+          392,
+          395,
+          398,
+          400,
+          402.62
+        ]
+      },
+      {
+        "name": "微软",
+        "symbol": "MSFT",
+        "change": -0.63,
+        "price": "$405.21",
+        "listed": true,
+        "tags": [
+          "Azure AI增长",
+          "Copilot商业化"
+        ],
+        "badges": [],
+        "reason": "AI商业化最快的云厂商，Azure收入增速维持40%+，Copilot企业渗透率超预期",
+        "analysis": "微软AI战略清晰：Azure+Copilot深度绑定，企业AI商业化路径最清晰。本季财报显示Azure AI收入占比已超15%，全年资本开支指引上调符合预期。\n\n当前风险：估值已充分反映AI优势，PE 35x偏高；与OpenAI合作成本摊销存在不确定性。",
+        "metrics": [
+          {
+            "label": "最新价",
+            "value": "$405.21"
+          },
+          {
+            "label": "单日涨跌",
+            "value": "-0.63%"
+          },
+          {
+            "label": "7日涨跌",
+            "value": "+1.8%"
+          },
+          {
+            "label": "30日涨跌",
+            "value": "+8.3%"
+          },
+          {
+            "label": "PE(TTM)",
+            "value": "35.2x"
+          },
+          {
+            "label": "综合评级",
+            "value": "⭐⭐⭐⭐"
+          }
+        ],
+        "risks": [
+          "估值偏高，PE 35x对宏观敏感",
+          "与OpenAI合作成本摊销不确定性"
+        ],
+        "sparkline": [
+          398,
+          400,
+          402,
+          403,
+          404,
+          405,
+          405.21
+        ],
+        "chartData": [
+          385,
+          388,
+          390,
+          393,
+          395,
+          397,
+          398,
+          400,
+          402,
+          403,
+          404,
+          405,
+          405.21
+        ]
+      },
+      {
+        "name": "亚马逊",
+        "symbol": "AMZN",
+        "change": 1.62,
+        "price": "$270.13",
+        "listed": true,
+        "tags": [
+          "AWS AI",
+          "Anthropic合作"
+        ],
+        "badges": [],
+        "reason": "AWS AI收入增速超预期，Anthropic Claude落地加速，BTC ETF IBIT资管规模扩大",
+        "analysis": "亚马逊AWS在AI云服务市场与微软Azure竞争加剧，但Anthropic深度绑定提供差异化优势。零售业务利润率持续改善，广告业务高增长。\n\n关键数据：AWS年化收入突破1000亿美元，广告业务同比+24%，Amazon Prime会员超2亿。",
+        "metrics": [
+          {
+            "label": "最新价",
+            "value": "$270.13"
+          },
+          {
+            "label": "单日涨跌",
+            "value": "+1.62%"
+          },
+          {
+            "label": "7日涨跌",
+            "value": "+3.1%"
+          },
+          {
+            "label": "30日涨跌",
+            "value": "+9.7%"
+          },
+          {
+            "label": "PE(TTM)",
+            "value": "42.8x"
+          },
+          {
+            "label": "综合评级",
+            "value": "⭐⭐⭐⭐"
+          }
+        ],
+        "risks": [
+          "AWS竞争加剧利润率承压",
+          "零售业务宏观经济敏感"
+        ],
+        "sparkline": [
+          258,
+          260,
+          262,
+          264,
+          265,
+          267,
+          270.13
+        ],
+        "chartData": [
+          245,
+          248,
+          250,
+          252,
+          255,
+          257,
+          258,
+          260,
+          262,
+          264,
+          265,
+          267,
+          270.13
+        ]
+      },
+      {
+        "name": "苹果",
+        "symbol": "AAPL",
+        "change": 1.38,
+        "price": "$298.87",
+        "listed": true,
+        "tags": [
+          "Apple Intelligence",
+          "20亿设备入口"
+        ],
+        "badges": [
+          "巴菲特第一重仓",
+          "段永平持有"
+        ],
+        "reason": "Apple Intelligence生态扩大，股价触及52周最高298.87美元，服务业务高毛利稳健",
+        "analysis": "苹果凭借20亿设备生态构建端侧AI最大入口，Apple Intelligence逐步推送用户。服务业务（App Store/Apple TV+/iCloud）毛利率高达75%+，成为利润核心驱动力。\n\n关键催化剂：WWDC AI功能更新、印度市场扩张、折叠屏iPhone进展。",
+        "metrics": [
+          {
+            "label": "最新价",
+            "value": "$298.87"
+          },
+          {
+            "label": "单日涨跌",
+            "value": "+1.38%"
+          },
+          {
+            "label": "7日涨跌",
+            "value": "+2.9%"
+          },
+          {
+            "label": "30日涨跌",
+            "value": "+11.2%"
+          },
+          {
+            "label": "PE(TTM)",
+            "value": "31.5x"
+          },
+          {
+            "label": "综合评级",
+            "value": "⭐⭐⭐⭐"
+          }
+        ],
+        "risks": [
+          "iPhone中国销量承压，竞争加剧",
+          "AI功能推出进度低于预期"
+        ],
+        "sparkline": [
+          285,
+          288,
+          290,
+          292,
+          294,
+          296,
+          298.87
+        ],
+        "chartData": [
+          270,
+          273,
+          275,
+          278,
+          280,
+          282,
+          285,
+          288,
+          290,
+          292,
+          294,
+          296,
+          298.87
+        ]
+      },
+      {
+        "name": "META",
+        "symbol": "META",
+        "change": 2.26,
+        "price": "$616.63",
+        "listed": true,
+        "tags": [
+          "Llama开源",
+          "AI广告变现"
+        ],
+        "badges": [],
+        "reason": "Llama开源生态全球第一，AI广告变现效率持续提升，社交+AI双驱动",
+        "analysis": "Meta凭借Llama开源模型构建AI开发者生态，Reels货币化率提升，广告业务受益AI推荐引擎改善。雷朋智能眼镜稳步推进，AI硬件生态初现。\n\n关键数据：日活用户32亿+，广告收入单季突破400亿美元，AI推动广告CTR提升15%。",
+        "metrics": [
+          {
+            "label": "最新价",
+            "value": "$616.63"
+          },
+          {
+            "label": "单日涨跌",
+            "value": "+2.26%"
+          },
+          {
+            "label": "7日涨跌",
+            "value": "+4.8%"
+          },
+          {
+            "label": "30日涨跌",
+            "value": "+14.6%"
+          },
+          {
+            "label": "PE(TTM)",
+            "value": "26.8x"
+          },
+          {
+            "label": "综合评级",
+            "value": "⭐⭐⭐⭐⭐"
+          }
+        ],
+        "risks": [
+          "监管风险（欧盟数字市场法案）",
+          "广告业务宏观敏感"
+        ],
+        "sparkline": [
+          570,
+          580,
+          588,
+          595,
+          600,
+          608,
+          616.63
+        ],
+        "chartData": [
+          540,
+          548,
+          555,
+          560,
+          565,
+          570,
+          580,
+          588,
+          595,
+          600,
+          608,
+          616.63
+        ]
+      }
+    ],
+    "ai_app": [
+      {
+        "name": "特斯拉",
+        "symbol": "TSLA",
+        "change": 2.73,
+        "price": "$445.27",
+        "listed": true,
+        "tags": [
+          "Robotaxi披露",
+          "FSD+Optimus双叙事"
+        ],
+        "badges": [],
+        "reason": "马斯克Robotaxi即将在6月披露进展，FSD数据优势+Optimus机器人商业化预期升温",
+        "analysis": "特斯拉AI叙事从电动车扩展至AI产业链：FSD数据积累全球最丰富，Robotaxi即将商业化，Optimus人形机器人2026年量产预期。\n\n关键催化剂：6月Robotaxi披露、Optimus进展更新、Q2交付数据。",
+        "metrics": [
+          {
+            "label": "最新价",
+            "value": "$445.27"
+          },
+          {
+            "label": "单日涨跌",
+            "value": "+2.73%"
+          },
+          {
+            "label": "7日涨跌",
+            "value": "+8.4%"
+          },
+          {
+            "label": "30日涨跌",
+            "value": "+22.1%"
+          },
+          {
+            "label": "PE(TTM)",
+            "value": "68.5x"
+          },
+          {
+            "label": "综合评级",
+            "value": "⭐⭐⭐⭐⭐"
+          }
+        ],
+        "risks": [
+          "估值极度偏高（PS 8x+）",
+          "中国市场竞争加剧价格战"
+        ],
+        "sparkline": [
+          400,
+          408,
+          415,
+          420,
+          428,
+          438,
+          445.27
+        ],
+        "chartData": [
+          360,
+          368,
+          375,
+          380,
+          388,
+          395,
+          400,
+          408,
+          415,
+          420,
+          428,
+          438,
+          445.27
+        ]
+      }
+    ],
+    "cn_ai": [
+      {
+        "name": "字节跳动",
+        "symbol": "ByteDance",
+        "change": 0,
+        "price": "未上市",
+        "listed": false,
+        "tags": [
+          "豆包日活破亿",
+          "AI视频生成"
+        ],
+        "badges": [
+          "未上市"
+        ],
+        "reason": "豆包+即梦+Coze构成日活最大的AI应用矩阵，Coze Agent平台开发者生态快速扩张",
+        "analysis": "字节跳动AI产品矩阵全面开花：豆包AI助手日活破亿，即梦AI绘画用户超5000万，Coze Agent平台开发者超50万。TikTok AI推荐引擎全球领先。\n\n最新动态：Seedance 2.0视频生成模型全面接入豆包，产品力对标Sora。IPO进程持续推进中（香港上市预期）。",
+        "metrics": [],
+        "risks": [
+          "IPO时间表不确定",
+          "监管与上市时间表不确定"
+        ],
+        "sparkline": [],
+        "chartData": []
+      }
+    ],
+    "smart_money": [
+      {
+        "name": "谷歌",
+        "symbol": "GOOGL",
+        "change": 3.94,
+        "price": "$402.62",
+        "listed": true,
+        "tags": [
+          "Gemini 4.0即将发布",
+          "AI PC合作"
+        ],
+        "badges": [
+          "段永平持有",
+          "巴菲特持有"
+        ],
+        "reason": "段永平和巴菲特共同持有，AI生态优势扩大，股价创历史新高",
+        "analysis": "见ai_infra板块谷歌条目。",
+        "metrics": [],
+        "risks": [],
+        "sparkline": [],
+        "chartData": []
+      }
+    ],
+    "hot_topic": []
+  },
+  "dataTime": "2026-05-14 11:01 BJT",
+  "_meta": {
+    "sourceType": "heavy_analysis",
+    "generatedAt": "2026-05-14T11:21:19+08:00",
+    "skillVersion": "v13.1"
+  }
+}

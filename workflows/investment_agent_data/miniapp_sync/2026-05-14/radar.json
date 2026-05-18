@@ -1,0 +1,220 @@
+{
+  "date": "2026-05-14",
+  "trafficLights": [
+    {
+      "name": "VIX波动率",
+      "value": "17.87",
+      "status": "green",
+      "threshold": "<18绿 / 18-25黄 / >25红"
+    },
+    {
+      "name": "10Y美债收益率",
+      "value": "4.46%",
+      "status": "yellow",
+      "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
+    },
+    {
+      "name": "布伦特原油",
+      "value": "$106.05",
+      "status": "yellow",
+      "threshold": "<$90绿 / $90-110黄 / >$110红"
+    },
+    {
+      "name": "美元指数DXY",
+      "value": "98.47",
+      "status": "green",
+      "threshold": "<102绿 / 102-107黄 / >107红"
+    },
+    {
+      "name": "HY信用利差",
+      "value": "2.79%",
+      "status": "green",
+      "threshold": "<4%绿 / 4-5%黄 / >5%红"
+    },
+    {
+      "name": "黄金XAU",
+      "value": "$4,681.91",
+      "status": "yellow",
+      "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
+    },
+    {
+      "name": "离岸人民币CNH",
+      "value": "6.7859",
+      "status": "green",
+      "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
+    }
+  ],
+  "riskScore": 40,
+  "riskLevel": "medium",
+  "riskAdvice": "布伦特$106.05逼近110美元黄区上限，叠加4月CPI同比3.8%+PPI暴涨7.8%——通胀二次抬头风险升温，本周CPI数据将成为多空决胜点。",
+  "events": [
+    {
+      "date": "周四",
+      "title": "美国4月CPI数据发布——通胀回落OR二次抬头",
+      "impact": "high",
+      "source": "Bureau of Labor Statistics",
+      "url": "https://www.bls.gov/news.release/cpi.nr0.htm"
+    },
+    {
+      "date": "周二",
+      "title": "谷歌I/O大会Gemini 4.0预览发布",
+      "impact": "medium",
+      "source": "Google",
+      "url": "https://blog.google/technology/ai/google-io-2026/"
+    },
+    {
+      "date": "周三",
+      "title": "腾讯Q1财报解读——混元3.0爆发+资本开支370亿",
+      "impact": "medium",
+      "source": "Tencent IR",
+      "url": "https://www.tencent.com/en-us/investors/financial-news.html"
+    },
+    {
+      "date": "周五",
+      "title": "30年美债标售结果冲击延续——长债收益率是否突破5%红线",
+      "impact": "medium",
+      "source": "Treasury.gov",
+      "url": "https://home.treasury.gov/resource-center/data-chart-center/Pages"
+    }
+  ],
+  "alerts": [
+    {
+      "level": "warning",
+      "text": "30年美债标售得标利率自2007年来首次突破5.0%——债券老手预测今年破5%",
+      "time": "09:30",
+      "source": "CNBC",
+      "url": "https://www.cnbc.com/2026/05/14/30-year-treasury-yield-hits-5-percent-first-since-2007/"
+    },
+    {
+      "level": "warning",
+      "text": "4月PPI飙升至2022年来最高，能源成本单月暴涨7.8%——通胀传导压力显现",
+      "time": "08:30",
+      "source": "Bureau of Labor Statistics",
+      "url": "https://www.bls.gov/news.release/ppi.nr0.htm"
+    }
+  ],
+  "smartMoneyDetail": [
+    {
+      "tier": "T1旗舰",
+      "funds": [
+        {
+          "name": "桥水基金",
+          "action": "全天候组合本周增配黄金ETF（GLD）约4.2亿美元，Dalio表态滞胀交易远未结束",
+          "signal": "bearish",
+          "source": "Bloomberg",
+          "url": "https://www.bloomberg.com/news/articles/2026-05-14/bridgewater-adds-gold-gld-position-dalio-inflation-trade"
+        },
+        {
+          "name": "伯克希尔",
+          "action": "现金储备3733亿美元创历史新高，Q1营收超预期但巴菲特暗示当前可选标的有限",
+          "signal": "neutral",
+          "source": "Berkshire Hathaway IR",
+          "url": "https://www.businesswire.com/news/home/20260502322193/en/"
+        }
+      ]
+    },
+    {
+      "tier": "T2成长",
+      "funds": [
+        {
+          "name": "ARK Invest",
+          "action": "今日净卖出211.6万美元，买入NTLA/NTRA（医疗AI），减持TWST（Twist Bioscience减持$338.7K+2.9M）",
+          "signal": "neutral",
+          "source": "cathiesark.com",
+          "url": "https://cathiesark.com/ark-funds-combined/trades"
+        },
+        {
+          "name": "段永平",
+          "action": "5月7日清仓中国神华换泡泡玛特（调研后评价right business），Q4大幅增持NVDA+MSFT+TSM",
+          "signal": "bullish",
+          "source": "雪球(@大道无形我有型)",
+          "url": "https://xueqiu.com/8992733539/387650566"
+        }
+      ]
+    },
+    {
+      "tier": "策略师观点",
+      "funds": [
+        {
+          "name": "Morgan Stanley Mike Wilson",
+          "action": "上调标普500目标价至8000点，称美股不需要美联储降息也能创新高",
+          "signal": "bullish",
+          "source": "CNBC",
+          "url": "https://www.cnbc.com/2026/05/14/morgan-stanley-wilson-sp-8000-target"
+        },
+        {
+          "name": "Goldman Sachs David Kostin",
+          "action": "维持2026年标普500目标价6500点，称当前估值已充分反映AI利好",
+          "signal": "neutral",
+          "source": "Goldman Sachs",
+          "url": "https://www.gs.com/content/research/en-US"
+        }
+      ]
+    }
+  ],
+  "smartMoneyHoldings": [
+    {
+      "manager": "巴菲特 · 伯克希尔",
+      "fund": "Berkshire Hathaway",
+      "aum": "$274.2B",
+      "asOf": "2025Q4 · 2月披露",
+      "positions": [
+        {"name": "苹果", "symbol": "AAPL", "weight": "22.60%", "change": "减持"},
+        {"name": "美国运通", "symbol": "AXP", "weight": "20.46%", "change": "持仓不变"},
+        {"name": "美国银行", "symbol": "BAC", "weight": "10.38%", "change": "减持"},
+        {"name": "可口可乐", "symbol": "KO", "weight": "10.20%", "change": "持仓不变"},
+        {"name": "雪佛龙", "symbol": "CVX", "weight": "7.24%", "change": "增持"},
+        {"name": "穆迪", "symbol": "MCO", "weight": "4.60%", "change": "持仓不变"},
+        {"name": "西方石油", "symbol": "OXY", "weight": "3.97%", "change": "持仓不变"},
+        {"name": "Chubb", "symbol": "CB", "weight": "3.90%", "change": "增持"},
+        {"name": "卡夫亨氏", "symbol": "KHC", "weight": "2.88%", "change": "持仓不变"},
+        {"name": "Alphabet", "symbol": "GOOGL", "weight": "2.04%", "change": "持仓不变"}
+      ],
+      "footnote": "持仓数42只，Top10占88.3%，现金储备$3,733亿（Greg Abel首次重启回购），Q4增持CVX(+6.6%)/CB(+9.3%)，减持AAPL(-4.3%)/BAC(-8.9%)"
+    },
+    {
+      "manager": "段永平 · H&H",
+      "fund": "H&H International Investment",
+      "aum": "$18B",
+      "asOf": "2025Q4 · 2月披露",
+      "positions": [
+        {"name": "苹果", "symbol": "AAPL", "weight": "50.30%", "change": "减持"},
+        {"name": "伯克希尔B", "symbol": "BRK.B", "weight": "20.60%", "change": "增持"},
+        {"name": "英伟达", "symbol": "NVDA", "weight": "7.70%", "change": "大幅增持"},
+        {"name": "拼多多", "symbol": "PDD", "weight": "7.50%", "change": "增持"},
+        {"name": "谷歌", "symbol": "GOOG", "weight": "3.30%", "change": "小幅增持"},
+        {"name": "西方石油", "symbol": "OXY", "weight": "3.10%", "change": "减持"},
+        {"name": "微软", "symbol": "MSFT", "weight": "2.40%", "change": "大幅增持"},
+        {"name": "阿里巴巴", "symbol": "BABA", "weight": "2.10%", "change": "减持"},
+        {"name": "台积电", "symbol": "TSM", "weight": "2.10%", "change": "大幅增持"},
+        {"name": "迪士尼", "symbol": "DIS", "weight": "0.50%", "change": "减持"}
+      ],
+      "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，新建仓CRWV/CRDO/TEM；泡泡玛特观察中（5/7清仓神华换入）"
+    },
+    {
+      "manager": "Cathie Wood · ARK旗舰",
+      "fund": "ARK Innovation ETF (ARKK)",
+      "aum": "$6.8B",
+      "asOf": "2026-04-05（ARK每日持仓披露）",
+      "positions": [
+        {"name": "特斯拉", "symbol": "TSLA", "weight": "10.50%", "change": "持仓不变"},
+        {"name": "CRISPR治疗", "symbol": "CRSP", "weight": "6.30%", "change": "持仓不变"},
+        {"name": "Tempus AI", "symbol": "TEM", "weight": "5.00%", "change": "加仓"},
+        {"name": "Shopify", "symbol": "SHOP", "weight": "4.70%", "change": "持仓不变"},
+        {"name": "Coinbase", "symbol": "COIN", "weight": "4.30%", "change": "持仓不变"},
+        {"name": "Roku", "symbol": "ROKU", "weight": "4.20%", "change": "持仓不变"},
+        {"name": "Palantir", "symbol": "PLTR", "weight": "3.80%", "change": "持仓不变"},
+        {"name": "Block", "symbol": "SQ", "weight": "3.50%", "change": "持仓不变"},
+        {"name": "Unity软件", "symbol": "U", "weight": "3.20%", "change": "持仓不变"},
+        {"name": "Roblox", "symbol": "RBLX", "weight": "2.90%", "change": "持仓不变"}
+      ],
+      "footnote": "ARK每日披露持仓变动，TSLA始终第一重仓，近期连续买入CoreWeave(CRWV)和Kodiak AI(KDK)但尚未进入Top10"
+    }
+  ],
+  "dataTime": "2026-05-14 11:01 BJT",
+  "_meta": {
+    "sourceType": "heavy_analysis",
+    "generatedAt": "2026-05-14T11:01:00+08:00",
+    "skillVersion": "v13.1"
+  }
+}

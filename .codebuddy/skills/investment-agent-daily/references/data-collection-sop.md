@@ -138,7 +138,7 @@ web_fetch: https://www.google.com/finance/quote/XLRE:NYSEARCA  (房地产)
 |------|---------|
 | Google Finance 403/超时 | → web_search → 东方财富/StockAnalysis |
 | MarketWatch 401/反爬 | → web_search → 中文金融网站 |
-| 大宗期货Google不支持 | → OilPrice.com → 金投网 |
+| 大宗期货Google不支持 | → OilPrice.com → 金投网 → Investrade.com Market Review（一站获取指数+大宗+债券+外汇精确收盘，investrade.com/market-review/） |
 | CoinGecko异常 | → Google Finance `BTC-USD` |
 | 港股数据获取困难 | → 东方财富/同花顺 → 智通财经 |
 | 13F数据过季/缺失 | → WhaleWisdom → web_search |
