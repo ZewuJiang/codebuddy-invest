@@ -75,8 +75,7 @@
       "logic": "能源价格+服务通胀 → CPI预期3.8-4.0% → 美联储维持鹰派立场 → 降息预期从2次降至1次",
       "keyActor": "Jerome Powell",
       "probability": "高可能性",
-      "trend": "上升",
-      "references": []
+      "trend": "上升"
     },
     {
       "title": "科技股盈利增速下修压力显现，AI资本开支超级周期或已Price-in",
@@ -84,16 +83,14 @@
       "logic": "NVDA/AMZN财报后市场下修预期 → 估值回归均值 → 科技股短期进一步承压",
       "keyActor": "Jensen Huang",
       "probability": "中可能性",
-      "trend": "下降",
-      "references": []
+      "trend": "下降"
     },
     {
       "title": "VIX突破20将触发程序化抛压，形成负反馈循环",
       "confidence": 65,
       "logic": "VIX>20→机构风险平价减仓→触发CTA做空信号→指数加速下跌→VIX继续上行",
       "probability": "中可能性",
-      "trend": "上升",
-      "references": []
+      "trend": "上升"
     }
   ],
   "actionHints": [],
@@ -142,10 +139,10 @@
     "科技股估值仍处历史高位，盈利增速下修将引发第二轮杀估值行情"
   ],
   "riskNote": "市场风险情绪升温，VIX波动率急剧上升。科技股领跌，能源板块相对抗跌。本周CPI数据将成为多空决战场地，若通胀超预期可能打破当前脆弱平衡。",
-  "dataTime": "2026-05-18 11:24 BJT",
+  "dataTime": "2026-05-18 11:00 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-05-18T11:24:51+08:00",
+    "generatedAt": "2026-05-18T11:00:00+08:00",
     "skillVersion": "v13.1"
   }
 }
