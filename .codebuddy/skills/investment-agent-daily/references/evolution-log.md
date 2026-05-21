@@ -10,18 +10,51 @@
 
 | 指标 | 数值 |
 |------|------|
-| 总反思次数 | 26 |
-| 总提案数 | 3 |
+| 总反思次数 | 28 |
+| 总提案数 | 4 |
 | 已固化 | 3 |
-| 默认生效中 | 0 |
+| 默认生效中 | 1 |
 | 待确认 | 0 |
 | 已拒绝 | 0 |
 | 已回滚 | 0 |
-| 仅记录 | 21 |
+| 仅记录 | 23 |
 
-**质量趋势**：📊 基线稳定——霍尔木兹封锁令周一特殊模板，factnewsindia.com（CNBC援引）一站获取亚太+期货+油价8+数据点；4/14标准模板：oilcrudeprice.com确认布伦特$101.81，MarketBeat一站获取GS完整Q1财报，三轮终审有效捕获ORCL收盘价缺失问题；4/15标准模板：NVDA Ising量子AI+PPI超预期双催化，ORCL数据源差异交叉验证，三轮终审一次通过；4/16标准模板：标普7000历史突破+TSLA FSD欧洲获批，Cannon Trading盘前简报一站获取银行财报全量数据，三轮终审修正INTC/ASML空位+CNH/北向资金格式问题；4/17标准模板：TSMC Q1 +58%净利+布伦特$99+Netflix-9%盘后三重博弈，三轮终审修正WTI"—"空位+BTC"~"符号+MS目标价"~"符号，BTC采集规范🟢低风险提案已固化；4/27周一特殊模板：英特尔+23.64%历史暴涨+Google $400亿投Anthropic+美伊扣船+超级财报周五重叠，7批次数据顺利采集，pricegold.net/TE/ahasignals.com/MacroMicro多源交叉确认，三轮终审一次通过，PDF 594KB；4/29标准模板：OpenAI增长失速×FOMC Powell告别×GOOGL/META/MSFT超级财报日三重叠加，布伦特$111.26触发🔴危险阈值，防御/科技分化明显，WTI缺失按规则删行，三轮终审一次通过，PDF 517KB；5/8标准模板：美伊军事冲突升级×Trump中国峰会CEO邀请（NVDA/AAPL/Qualcomm）双主线，RULE SEVEN跨期去重（AMD财报/NVDA-Corning/美伊框架三件前期已展开事件差异化处理），三轮终审修正布伦特涨跌幅格式，PDF 539KB；5/18周一特殊模板：周五利率风暴（10Y 4.59%突破/布伦特+4%/黄金-3%）×NVDA 5/20财报倒计时×Warsh接任美联储首日三重主线，AMAT Q2创纪录财报完整展开，oilcrudeprice.com确认布伦特$106.29，Macrotrends确认BTC$79,026，三轮终审一次通过，PDF 632KB；5/19标准模板：马斯克诉OpenAI全面败诉（OpenAI IPO路障清除/MSFT受益）×NVDA $222财报倒计时×Trump推迟伊朗打击油价松动×存储链集体崩跌四重框架，MetaTrading Club首次使用（GICS板块+板块焦点），RULE SEVEN跨期去重（Warsh/利率风暴/AMAT三件前期事件零复述），三轮终审一次通过，PDF 578KB
+**质量趋势**：📊 基线稳定——霍尔木兹封锁令周一特殊模板，factnewsindia.com（CNBC援引）一站获取亚太+期货+油价8+数据点；4/14标准模板：oilcrudeprice.com确认布伦特$101.81，MarketBeat一站获取GS完整Q1财报，三轮终审有效捕获ORCL收盘价缺失问题；4/15标准模板：NVDA Ising量子AI+PPI超预期双催化，ORCL数据源差异交叉验证，三轮终审一次通过；4/16标准模板：标普7000历史突破+TSLA FSD欧洲获批，Cannon Trading盘前简报一站获取银行财报全量数据，三轮终审修正INTC/ASML空位+CNH/北向资金格式问题；4/17标准模板：TSMC Q1 +58%净利+布伦特$99+Netflix-9%盘后三重博弈，三轮终审修正WTI"—"空位+BTC"~"符号+MS目标价"~"符号，BTC采集规范🟢低风险提案已固化；4/27周一特殊模板：英特尔+23.64%历史暴涨+Google $400亿投Anthropic+美伊扣船+超级财报周五重叠，7批次数据顺利采集，pricegold.net/TE/ahasignals.com/MacroMicro多源交叉确认，三轮终审一次通过，PDF 594KB；4/29标准模板：OpenAI增长失速×FOMC Powell告别×GOOGL/META/MSFT超级财报日三重叠加，布伦特$111.26触发🔴危险阈值，防御/科技分化明显，WTI缺失按规则删行，三轮终审一次通过，PDF 517KB；5/8标准模板：美伊军事冲突升级×Trump中国峰会CEO邀请（NVDA/AAPL/Qualcomm）双主线，RULE SEVEN跨期去重（AMD财报/NVDA-Corning/美伊框架三件前期已展开事件差异化处理），三轮终审修正布伦特涨跌幅格式，PDF 539KB；5/18周一特殊模板：周五利率风暴（10Y 4.59%突破/布伦特+4%/黄金-3%）×NVDA 5/20财报倒计时×Warsh接任美联储首日三重主线，AMAT Q2创纪录财报完整展开，oilcrudeprice.com确认布伦特$106.29，Macrotrends确认BTC$79,026，三轮终审一次通过，PDF 632KB；5/19标准模板：马斯克诉OpenAI全面败诉（OpenAI IPO路障清除/MSFT受益）×NVDA $222财报倒计时×Trump推迟伊朗打击油价松动×存储链集体崩跌四重框架，MetaTrading Club首次使用（GICS板块+板块焦点），RULE SEVEN跨期去重（Warsh/利率风暴/AMAT三件前期事件零复述），三轮终审一次通过，PDF 578KB；5/20标准模板：NVDA财报前日+1.30%至$223.47，StockAnalysis.com连续第2次批量采集M7稳定性高；5/21标准模板：NVDA财报$81.6B大超预期×霍尔木兹"解封"布伦特-5.63%×FOMC鹰派降息出局×SpaceX S-1正式提交四重框架，CNBC live updates一站获取三大指数精确收盘+驱动+油价，RULE SEVEN跨期去重（债市投降/Google I/O/Meta裁员零复述），5个GICS ETF数据源混淆（GF年份）依规删行，三轮终审一次通过，PDF 522KB；🟡 #20260521-01 CNBC live updates纳入批次0一级必扫提案默认生效中
 
 ---
+
+### [2026-05-21] #20260521-01 | 第二十八次反思引擎执行（🟡 中风险提案1条）
+
+- **来源**：投资Agent-每日策略简报-20260521（周四标准模板，基于美东5/20收盘）
+- **维度**：全六维反思
+- **发现**：
+  - 数据源效率：✅ CNBC 5/20 live updates一站获取三大指数精确收盘（SPX 7,432.97/纳指26,270.36/道指50,009.35）+布伦特-5.63%驱动因素+FOMC纪要内容，是本次最高效单一数据源；StockAnalysis.com连续第2次稳定采集NVDA精确数据；StockQ.org一站获取亚太9大指数5/21早盘（KOSPI+7.24%/日经+3.38%/台湾+3.40%高效确认）
+  - 新闻源发现：✅ 247wallst.com首次深度使用（NVDA中国H200解禁+SpaceX IPO背景丰富）；abmedia.io首次使用提供FOMC 8:4分裂投票完整分析；brentwatch.com首次使用（布伦特$104.98）与CNBC $105.02高度一致（误差0.04）
+  - 分析框架：✅ "NVDA财报验证×霍尔木兹解封×FOMC鹰派×SpaceX IPO"四重框架；RULE SEVEN跨期去重完整执行（债市投降/Google I/O/Meta裁员三件前期事件均侧重市场定价反应，无复述违规）
+  - 覆盖盲区：⚠️ ①XLV/XLY/XLP/XLU/XLRE五个ETF因GF返回2025年数据（年份混淆），穷尽3+来源（GF/StockAnalysis/countryetftracker）无法获取2026年精确值，依规删行处理（5/11板块覆盖不完整）；②黄金COMEX精确收盘未从单一源确认，使用前收推算（已标注"估算"）；③WMT 5/21今日才发布财报（非5/20），计划正确识别并在行动建议中前瞻处理
+  - 流程效率：✅ RULE SEVEN预读步骤有效执行；三轮终审发现并修正：黄金估算标注/5个ETF占位行删除/AMAT-ADI描述混淆三处问题，终审机制价值验证
+  - 格式呈现：✅ MD约290行（符合200-300行），PDF 522KB单页长图，大老板消息文本严格遵循§九格式逐字段对照输出
+- **进化提案**：1条 🟡 中风险（CNBC live updates纳入批次0一级必扫）
+  - **Diff**：`data-collection-sop.md`批次0媒体列表新增：`CNBC Stock Market Today Live Updates（格式：cnbc.com/YYYY/MM/DD/stock-market-today-live-updates.html）`纳入一级必扫7家媒体清单（替代或补充现有CNBC条目）
+  - **铁栅栏**：✅ 准确性不降 / ✅ 完整性不降 / ✅ 实时性不降
+- **分级**：🟡 中风险（修改数据源优先级）
+- **质量影响**：准确性↑（直接获取精确收盘数据）/ 完整性→ / 实时性↑
+
+### [2026-05-20] #20260520-01 | 第二十七次反思引擎执行（无进化提案）
+
+- **来源**：投资Agent-每日策略简报-20260520（周三标准模板，基于美东5/19收盘）
+- **维度**：全六维反思
+- **发现**：
+  - 数据源效率：✅ Alainguillot一站获取主要指数+债收益率+大宗精确收盘；StockAnalysis.com首次批量采集M7×7+GICS×11全量精确收盘（高效替代逐个GF页面）；Nikkei官网OHLC精确60,550.59；百家号汇总一站获取A股+港股+日韩亚太全景（上证4,169.54/HSI 25,797.85确认）；kotakneo.com提供KOSPI 5/20精确前收价7,516.04（反推5/19收盘）
+  - 新闻源发现：✅ StockAnalysis.com首次在标准模板中作为M7+GICS批量主力数据源，信息质量高；CNBC 5/19盘后报道提供债市+板块+BofA调查一站式；businesstoday.in/opentools.ai提供Meta裁员完整数据；CNBC Google I/O专题报道Gemini 3.5/Spark/Omni三大产品详情清晰
+  - 分析框架：✅ "30Y 5.198%债市投降 × Google I/O卖事实 × Meta AI裁员 × KOSPI-3.25% × NVDA财报终局"五重框架精准捕捉5/19核心矛盾；RULE SEVEN跨期去重有效执行（马斯克诉讼/NVDA前瞻/百度/存储链/Trump缓和均侧重市场定价反应，零复述违规）；债市"投降式"抛售与防御板块轮入的逻辑链清晰
+  - 覆盖盲区：⚠️ ①KOSPI 5/19精确收盘未直接确认（通过5/20前收7,516.04反推）；②北向资金净流入额仅从东方财富页面截片，未精确核实；③CNH 6.79未从ExchangeRate.guru直接确认（推断值）；④WMT 5/21财报数据尚未公布
+  - 流程效率：✅ 全流程一次性完成；StockAnalysis.com批量采集大幅减少fetch次数；RULE SEVEN前置预读步骤有效执行；三轮终审发现CNH描述方向问题并修正（DXY走强但CNH走强=人民币升值，描述"承压"有误，已改为"资本流入支撑"）
+  - 格式呈现：✅ MD约220行（符合200-300行），PDF 588KB单页长图，三轮终审通过，大老板消息文本严格遵循§九格式逐字段对照输出
+- **观察（不升级为提案）**：StockAnalysis.com首次在标准模板中批量采集M7+GICS×11，效率和可靠性均高——需再1次稳定性验证后考虑正式纳入data-collection-sop.md
+- **进化提案**：无。本次执行顺利，StockAnalysis.com待第2次验证后考虑提案
+- **分级**：N/A（无提案）
+- **质量影响**：基线维持
 
 ### [2026-05-19] #20260519-01 | 第二十六次反思引擎执行（无进化提案）
 

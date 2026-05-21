@@ -1,0 +1,232 @@
+{
+  "date": "2026-05-20",
+  "trafficLights": [
+    {
+      "name": "VIX波动率",
+      "value": "18.06",
+      "status": "yellow",
+      "threshold": "<18绿 / 18-25黄 / >25红"
+    },
+    {
+      "name": "10Y美债收益率",
+      "value": "4.67%",
+      "status": "red",
+      "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
+    },
+    {
+      "name": "布伦特原油",
+      "value": "$111.24",
+      "status": "red",
+      "threshold": "<$90绿 / $90-110黄 / >$110红"
+    },
+    {
+      "name": "美元指数DXY",
+      "value": "99.31",
+      "status": "green",
+      "threshold": "<102绿 / 102-107黄 / >107红"
+    },
+    {
+      "name": "HY信用利差",
+      "value": "4.2%",
+      "status": "yellow",
+      "threshold": "<4%绿 / 4-5%黄 / >5%红"
+    },
+    {
+      "name": "黄金XAU",
+      "value": "$4,483",
+      "status": "yellow",
+      "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
+    },
+    {
+      "name": "离岸人民币CNH",
+      "value": "6.8061",
+      "status": "green",
+      "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
+    }
+  ],
+  "riskScore": 60,
+  "riskLevel": "medium",
+  "riskAdvice": "10Y美债4.67%+布伦特$111+CNH 7.25三线共振——本周三CPI是核心变量，若高于3.8%则风险资产面临进一步回调压力；地缘若缓和则能源+黄金可能回调8-10%",
+  "events": [
+    {
+      "date": "周三",
+      "title": "美国4月CPI数据发布——通胀路径关键验证",
+      "impact": "high",
+      "source": "Bureau of Labor Statistics",
+      "url": "https://www.bls.gov/schedule/2026/cpi.htm"
+    },
+    {
+      "date": "周四",
+      "title": "谷歌I/O开发者大会后续Gemini 3.2深度集成发布",
+      "impact": "medium",
+      "source": "Google",
+      "url": "https://io.google/2026"
+    },
+    {
+      "date": "周五",
+      "title": "美国5月密歇根消费者信心指数初值",
+      "impact": "medium",
+      "source": "University of Michigan",
+      "url": "https://data.sca.isr.umich.edu"
+    },
+    {
+      "date": "周三",
+      "title": "华为开发者大会HDC 2026——鸿蒙OS全面升级",
+      "impact": "medium",
+      "source": "华为",
+      "url": "https://developer.huawei.com"
+    }
+  ],
+  "alerts": [
+    {
+      "level": "warning",
+      "text": "布伦特$111.24逼近红线$110，若伊朗谈判破裂可能突破$115，通胀预期将系统性上移",
+      "time": "08:00",
+      "source": "OilPrice",
+      "url": "https://oilprice.net/oil"
+    },
+    {
+      "level": "warning",
+      "text": "黄金$4,483逼近$4,500历史高位，避险情绪极端，若美股持续下跌可能触发黄金获利了结",
+      "time": "09:30",
+      "source": "GoldPrice.org"
+    },
+    {
+      "level": "info",
+      "text": "ARK 5月15日卖出AMD($5.8M)+TSM($18.5M)+TER($12.6M)，新建仓Cerebras(CBRS)——AI硬件调仓信号值得关注",
+      "time": "10:00",
+      "source": "CathiesArk",
+      "url": "https://cathiesark.com/ark-funds-combined/trades"
+    }
+  ],
+  "smartMoneyDetail": [
+    {
+      "tier": "T1旗舰",
+      "funds": [
+        {
+          "name": "桥水基金",
+          "action": "Ray Dalio警告：伊朗战争测试美国世界秩序，「朝贡体系」正在亚洲兴起；15%黄金配置论点重回宏观交易核心",
+          "signal": "bearish",
+          "source": "Fortune",
+          "url": "https://fortune.com/2026/05/16/ray-dalio-bridgewater-china-ascent-global-powers-trump-xi-summit-tribute-system/",
+          "freshness": "本周"
+        },
+        {
+          "name": "伯克希尔",
+          "action": "Q1 13F：增持Alphabet成新入仓、减持Chevron、退出AMZN/DPZ/UNH，现金$3,733亿创历史最高——Buffett仍不急于抄底，等待确定性机会",
+          "signal": "neutral",
+          "source": "Seeking Alpha",
+          "url": "https://seekingalpha.com/article/4905557-tracking-berkshire-hathaway-portfolio-q1-2026-update",
+          "freshness": "本周"
+        }
+      ]
+    },
+    {
+      "tier": "T2成长",
+      "funds": [
+        {
+          "name": "ARK Invest",
+          "action": "5月15日卖出AMD($5.8M)、TSM($18.5M)、TER($12.6M)，新建仓Cerebras(CBRS)——显示当前优先获利AI硬件，布局新型AI芯片公司",
+          "signal": "neutral",
+          "source": "Benzinga",
+          "url": "https://www.benzinga.com/etfs/broad-u-s-equity-etfs/26/05/52653442/cathie-wood-sells-amd-tsmc-buys-nvidia-tesla-flying-taxis",
+          "freshness": "本周"
+        },
+        {
+          "name": "段永平",
+          "action": "雪球最新互动：坚守苹果+伯克希尔核心仓位，强调「需要持股信心都是投机者」，对泡泡玛特「观察中」——未确认建仓前不轻易表态",
+          "signal": "bullish",
+          "source": "雪球",
+          "url": "https://xueqiu.com/5275808625/389584471",
+          "freshness": "本周"
+        }
+      ]
+    },
+    {
+      "tier": "策略师观点",
+      "funds": [
+        {
+          "name": "高盛策略师",
+          "action": "[5/15] 看好「由巨头向更广泛板块扩散」行情，建议增配小盘、医疗和国际股票——AI资本开支外溢推动估值扩散",
+          "signal": "bullish",
+          "source": "雪球",
+          "url": "https://xueqiu.com/1796754563/363886921",
+          "freshness": "上周"
+        },
+        {
+          "name": "摩根士丹利策略师",
+          "action": "[4月] 2026投资主题：AI和能源转型、地缘政治、人口结构变化——AI基础设施主题全年有效",
+          "signal": "bullish",
+          "source": "Morgan Stanley",
+          "url": "https://www.morganstanley.com/insights/articles/investment-outlook-shaping-markets-2026",
+          "freshness": "本月"
+        }
+      ]
+    }
+  ],
+  "smartMoneyHoldings": [
+    {
+      "manager": "巴菲特 · 伯克希尔",
+      "fund": "Berkshire Hathaway",
+      "aum": "$274.2B",
+      "asOf": "2025Q4 · 2月披露",
+      "positions": [
+        { "name": "苹果", "symbol": "AAPL", "weight": "22.60%", "change": "减持" },
+        { "name": "美国运通", "symbol": "AXP", "weight": "20.46%", "change": "持仓不变" },
+        { "name": "美国银行", "symbol": "BAC", "weight": "10.38%", "change": "减持" },
+        { "name": "可口可乐", "symbol": "KO", "weight": "10.20%", "change": "持仓不变" },
+        { "name": "雪佛龙", "symbol": "CVX", "weight": "7.24%", "change": "增持" },
+        { "name": "穆迪", "symbol": "MCO", "weight": "4.60%", "change": "持仓不变" },
+        { "name": "西方石油", "symbol": "OXY", "weight": "3.97%", "change": "持仓不变" },
+        { "name": "Chubb", "symbol": "CB", "weight": "3.90%", "change": "增持" },
+        { "name": "卡夫亨氏", "symbol": "KHC", "weight": "2.88%", "change": "持仓不变" },
+        { "name": "Alphabet", "symbol": "GOOGL", "weight": "2.04%", "change": "持仓不变" }
+      ],
+      "footnote": "持仓数42只，Top10占88.3%，现金储备$3,733亿（Greg Abel首次重启回购），Q4增持CVX(+6.6%)/CB(+9.3%)，减持AAPL(-4.3%)/BAC(-8.9%)"
+    },
+    {
+      "manager": "段永平 · H&H",
+      "fund": "H&H International Investment",
+      "aum": "$18B",
+      "asOf": "2025Q4 · 2月披露",
+      "positions": [
+        { "name": "苹果", "symbol": "AAPL", "weight": "50.30%", "change": "减持" },
+        { "name": "伯克希尔B", "symbol": "BRK.B", "weight": "20.60%", "change": "增持" },
+        { "name": "英伟达", "symbol": "NVDA", "weight": "7.70%", "change": "大幅增持" },
+        { "name": "拼多多", "symbol": "PDD", "weight": "7.50%", "change": "增持" },
+        { "name": "谷歌", "symbol": "GOOG", "weight": "3.30%", "change": "小幅增持" },
+        { "name": "西方石油", "symbol": "OXY", "weight": "3.10%", "change": "减持" },
+        { "name": "微软", "symbol": "MSFT", "weight": "2.40%", "change": "大幅增持" },
+        { "name": "阿里巴巴", "symbol": "BABA", "weight": "2.10%", "change": "减持" },
+        { "name": "台积电", "symbol": "TSM", "weight": "2.10%", "change": "大幅增持" },
+        { "name": "迪士尼", "symbol": "DIS", "weight": "0.50%", "change": "减持" }
+      ],
+      "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，新建仓CRWV/CRDO/TEM"
+    },
+    {
+      "manager": "Cathie Wood · ARK旗舰",
+      "fund": "ARK Innovation ETF (ARKK)",
+      "aum": "$6.8B",
+      "asOf": "2026-04-05（ARK每日持仓披露）",
+      "positions": [
+        { "name": "特斯拉", "symbol": "TSLA", "weight": "10.50%", "change": "持仓不变" },
+        { "name": "CRISPR治疗", "symbol": "CRSP", "weight": "6.30%", "change": "持仓不变" },
+        { "name": "Tempus AI", "symbol": "TEM", "weight": "5.00%", "change": "加仓" },
+        { "name": "Shopify", "symbol": "SHOP", "weight": "4.70%", "change": "持仓不变" },
+        { "name": "Coinbase", "symbol": "COIN", "weight": "4.30%", "change": "持仓不变" },
+        { "name": "Roku", "symbol": "ROKU", "weight": "4.20%", "change": "持仓不变" },
+        { "name": "Palantir", "symbol": "PLTR", "weight": "3.80%", "change": "持仓不变" },
+        { "name": "Block", "symbol": "SQ", "weight": "3.50%", "change": "持仓不变" },
+        { "name": "Unity软件", "symbol": "U", "weight": "3.20%", "change": "持仓不变" },
+        { "name": "Roblox", "symbol": "RBLX", "weight": "2.90%", "change": "持仓不变" }
+      ],
+      "footnote": "ARK每日披露持仓变动，TSLA始终第一重仓，近期连续买入CoreWeave(CRWV)和Kodiak AI(KDK)但尚未进入Top10；5月15日新建仓Cerebras(CBRS)"
+    }
+  ],
+  "dataTime": "2026-05-20 11:00 BJT",
+  "_meta": {
+    "sourceType": "heavy_analysis",
+    "generatedAt": "2026-05-20T11:00:00+08:00",
+    "skillVersion": "v13.1"
+  }
+}

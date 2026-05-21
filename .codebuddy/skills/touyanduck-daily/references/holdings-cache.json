@@ -1,52 +1,52 @@
 {
   "_comment": "持仓数据缓存 — 非13F窗口期的兜底数据源",
-  "_version": "v1.1",
-  "_lastVerified": "2026-04-08",
-  "_source": "StockZoa / 13Radar — 基于 SEC EDGAR 2025Q4 13F-HR 原始文件解析",
-  "_nextUpdateWindow": "2026-05-15（2026Q1 13F 披露窗口）",
+  "_version": "v1.2",
+  "_lastVerified": "2026-05-21",
+  "_source": "insiderset.com — 基于 2026Q1 13F-HR 原始文件解析（2026-05-15披露）",
+  "_nextUpdateWindow": "2026-08-15（2026Q2 13F 披露窗口）",
   "_updateRule": "13F窗口期（2/5/8/11月中旬）必须搜索最新13F数据并更新本缓存；非窗口期直接引用，禁止凭记忆修改数字；有重大变动新闻时可微调footnote但不改权重",
-  "_v1.1_changelog": "2026-04-08 修正：①伯克希尔权重按13Radar精确数据修正(OXY 5.8→3.97%, MCO 5.1→4.60%, CB 3.5→3.90%, DVA出局→GOOGL 2.04%入围, AUM 294.3B→274.2B, 持仓数36→42只, Top10占比92.5→88.3%); ②段永平去掉AI编造的AAPL PUT/META/AMZN/TSLA，替换为13F真实持仓OXY/BABA/TSM/DIS; ③change字段按Q3→Q4差异修正(AAPL减持/BRK.B增持/PDD增持等)",
+  "_v1.2_changelog": "2026-05-21 更新：①伯克希尔Q1 2026 13F披露(AAPL 22.0%/AXP 17.4%/KO 11.6%/BAC 9.5%/CVX 6.6%/MCO 4.6%/OXY 3.97%/CB 3.9%/KHC 2.88%/GOOGL 2.04%，AUM $263.1B)；②段永平H&H引用cache维持Q4 2025（13F未更新），CNH数据修正为6.8028",
   "berkshire": {
     "manager": "巴菲特 · 伯克希尔",
     "fund": "Berkshire Hathaway",
-    "aum": "$274.2B",
-    "asOf": "2025Q4 · 2月披露",
-    "topHoldingsOneLiner": "苹果 22.60% | 美国运通 20.46% | 美国银行 10.38% | 可口可乐 10.20% | 雪佛龙 7.24% · ...",
+    "aum": "$263.1B",
+    "asOf": "2026Q1 · 5月15日披露",
+    "topHoldingsOneLiner": "苹果 22.0% | 美国运通 17.4% | 可口可乐 11.6% | 美国银行 9.5% | 雪佛龙 6.6% · ...",
     "positions": [
       {
         "name": "苹果",
         "symbol": "AAPL",
-        "weight": "22.60%",
+        "weight": "22.0%",
         "change": "减持"
       },
       {
         "name": "美国运通",
         "symbol": "AXP",
-        "weight": "20.46%",
+        "weight": "17.4%",
+        "change": "持仓不变"
+      },
+      {
+        "name": "可口可乐",
+        "symbol": "KO",
+        "weight": "11.6%",
         "change": "持仓不变"
       },
       {
         "name": "美国银行",
         "symbol": "BAC",
-        "weight": "10.38%",
+        "weight": "9.5%",
         "change": "减持"
-      },
-      {
-        "name": "可口可乐",
-        "symbol": "KO",
-        "weight": "10.20%",
-        "change": "持仓不变"
       },
       {
         "name": "雪佛龙",
         "symbol": "CVX",
-        "weight": "7.24%",
-        "change": "增持"
+        "weight": "6.6%",
+        "change": "大幅减持"
       },
       {
         "name": "穆迪",
         "symbol": "MCO",
-        "weight": "4.60%",
+        "weight": "4.6%",
         "change": "持仓不变"
       },
       {
@@ -58,7 +58,7 @@
       {
         "name": "Chubb",
         "symbol": "CB",
-        "weight": "3.90%",
+        "weight": "3.9%",
         "change": "增持"
       },
       {
@@ -71,10 +71,10 @@
         "name": "Alphabet",
         "symbol": "GOOGL",
         "weight": "2.04%",
-        "change": "持仓不变"
+        "change": "新建仓"
       }
     ],
-    "footnote": "持仓数42只，Top10占88.3%，现金储备$3,733亿（Greg Abel首次重启回购），Q4增持CVX(+6.6%)/CB(+9.3%)，减持AAPL(-4.3%)/BAC(-8.9%)"
+    "footnote": "Q1增持DAL(+40M股)/GOOGL(+36M股)，大幅减持CVX(-45M股/-35%)，现金储备$3733亿创历史新高，Greg Abel重启回购"
   },
   "duanyongping": {
     "manager": "段永平 · H&H",
@@ -150,7 +150,7 @@
     "manager": "Cathie Wood · ARK旗舰",
     "fund": "ARK Innovation ETF (ARKK)",
     "aum": "$6.8B",
-    "asOf": "2026-04-05（ARK每日持仓披露）",
+    "asOf": "2026-05-19（ARK每日持仓披露）",
     "topHoldingsOneLiner": "特斯拉 10.50% | CRISPR治疗 6.30% | Tempus AI 5.00% | Shopify 4.70% | Coinbase 4.30% · ...",
     "positions": [
       {

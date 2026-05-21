@@ -1,0 +1,230 @@
+{
+  "date": "2026-05-19",
+  "trafficLights": [
+    {
+      "name": "VIX波动率",
+      "value": "17.82",
+      "status": "green",
+      "threshold": "<18绿 / 18-25黄 / >25红"
+    },
+    {
+      "name": "10Y美债收益率",
+      "value": "4.61%",
+      "status": "red",
+      "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
+    },
+    {
+      "name": "布伦特原油",
+      "value": "$110.33",
+      "status": "yellow",
+      "threshold": "<$90绿 / $90-110黄 / >$110红"
+    },
+    {
+      "name": "美元指数DXY",
+      "value": "99.90",
+      "status": "green",
+      "threshold": "<102绿 / 102-107黄 / >107红"
+    },
+    {
+      "name": "HY信用利差",
+      "value": "4.20%",
+      "status": "yellow",
+      "threshold": "<4%绿 / 4-5%黄 / >5%红"
+    },
+    {
+      "name": "黄金XAU",
+      "value": "$4,549",
+      "status": "red",
+      "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
+    },
+    {
+      "name": "离岸人民币CNH",
+      "value": "7.2530",
+      "status": "red",
+      "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
+    }
+  ],
+  "riskScore": 50,
+  "riskLevel": "medium",
+  "riskAdvice": "黄金$4549亮红灯（超>$3500红线），10Y美债4.61%同样红色，两者同时亮红灯反映极度避险情绪——若周三CPI超预期确认通胀二次抬头，当前反弹基础将被抽空；离岸人民币7.2530处黄红边界，中美利差压力持续",
+  "events": [
+    {
+      "date": "周三",
+      "title": "Nvidia Q1 FY2027财报公布（预期EPS $1.77，收入$791亿）",
+      "impact": "high",
+      "source": "Google Finance",
+      "url": "https://www.google.com/finance/quote/NVDA:NASDAQ"
+    },
+    {
+      "date": "周四",
+      "title": "美国4月CPI数据发布（市场预期核心CPI同比3.5%）",
+      "impact": "high",
+      "source": "Bureau of Labor Statistics",
+      "url": "https://www.bls.gov/news-release/cpi.htm"
+    },
+    {
+      "date": "周三",
+      "title": "美联储FOMC会议纪要发布（聚焦通胀措辞和降息路径讨论）",
+      "impact": "medium",
+      "source": "Federal Reserve",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+    }
+  ],
+  "alerts": [
+    {
+      "level": "warning",
+      "text": "BTC暴跌至$76K（-5%），$814M强平潮触发多杀多，123K交易者被清算",
+      "time": "05:30",
+      "source": "CryptoTimes",
+      "url": "https://www.cryptotimes.io/2026/05/19/crypto-market-today-btc-slides-to-76k-eth-to-2-1k-and-xrp-to-1-37/"
+    },
+    {
+      "level": "warning",
+      "text": "港股恒生科技-1.95%，内资连续净流出压制估值",
+      "time": "10:30",
+      "source": "新浪财经",
+      "url": "https://finance.sina.cn/2026-05-19/detail-inhyknrs3475139.d.html"
+    }
+  ],
+  "smartMoneyDetail": [
+    {
+      "tier": "T1旗舰",
+      "funds": [
+        {
+          "name": "桥水基金",
+          "action": "全天候组合本周维持黄金配置，Dalio近期表态\"滞胀交易远未结束\"——反映对当前宏观环境的判断：通胀粘性+增长放缓+实际利率上行",
+          "signal": "neutral",
+          "source": "Bridgewater Daily Observations",
+          "url": "https://www.bridgewater.com/"
+        },
+        {
+          "name": "伯克希尔",
+          "action": "退出美国航空、梅西百货、联合健康三大持仓（持仓6年后首次清仓），同时加仓能源板块（CVX）；反映对消费和医疗保健板块的重新评估，现金储备$3733亿创历史记录",
+          "signal": "bearish",
+          "source": "CNBC",
+          "url": "https://www.cnbc.com/2026/05/18/berkshire-portfolio-revamp-delta-airlines-macys-unitedhealth.html"
+        },
+        {
+          "name": "ARK Invest",
+          "action": "5月15日全部为卖出：减持台积电($24.3M)、AMD($5.8M)、Teradyne($12.6M)，新建仓Cerebras Systems（AI芯片新方向）；显示短期对AI硬件的谨慎",
+          "signal": "bearish",
+          "source": "Cathiesark.com",
+          "url": "https://cathiesark.com/ark-funds-combined/trades"
+        }
+      ]
+    },
+    {
+      "tier": "T2成长",
+      "funds": [
+        {
+          "name": "段永平",
+          "action": "卖出中国神华，用所得港币直接买入泡泡玛特；表示\"神华可以长期持有，但卖出的钱可以买更喜欢的\"——这是典型的价值投资调仓信号，泡泡玛特评价\"right business\"",
+          "signal": "bullish",
+          "source": "雪球@大道无形我有型",
+          "url": "http://stock.hexun.com/2026-05-16/224166729.html"
+        },
+        {
+          "name": "高瓴资本",
+          "action": "持续关注中国科技/消费/医疗方向，中概股配置以港股为主；暂无重大调仓信号",
+          "signal": "neutral",
+          "source": "SEC 13F",
+          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&type=13F"
+        }
+      ]
+    },
+    {
+      "tier": "策略师观点",
+      "funds": [
+        {
+          "name": "David Kostin（高盛首席策略师）",
+          "action": "高盛维持标普500年末目标6500点，理由是企业盈利增长抵消估值压缩；但提示AI资本开支超级周期可能带来波动率上升风险",
+          "signal": "neutral",
+          "source": "Goldman Sachs",
+          "url": "https://www.goldmansachs.com/",
+          "freshness": "本周"
+        },
+        {
+          "name": "Mike Wilson（摩根士丹利首席策略师）",
+          "action": "维持谨慎观点，认为当前AI泡沫与2000年科网泡沫类似，盈利增长不足以支撑估值扩张；标普500目标5800点",
+          "signal": "bearish",
+          "source": "Morgan Stanley",
+          "url": "https://www.morganstanley.com/",
+          "freshness": "本周"
+        },
+        {
+          "name": "Tom Lee（Fundstrat）",
+          "action": "看多BTC和科技股，认为$7250亿AI资本开支超级周期将推动科技股继续上涨；BTC目标价年底$120K",
+          "signal": "bullish",
+          "source": "Fundstrat",
+          "url": "https://fundstrat.com/",
+          "freshness": "本周"
+        }
+      ]
+    }
+  ],
+  "smartMoneyHoldings": [
+    {
+      "manager": "巴菲特 · 伯克希尔",
+      "fund": "Berkshire Hathaway",
+      "aum": "$274.2B",
+      "asOf": "2025Q4 · 2月披露",
+      "positions": [
+        {"name": "苹果", "symbol": "AAPL", "weight": "22.60%", "change": "减持"},
+        {"name": "美国运通", "symbol": "AXP", "weight": "20.46%", "change": "持仓不变"},
+        {"name": "美国银行", "symbol": "BAC", "weight": "10.38%", "change": "减持"},
+        {"name": "可口可乐", "symbol": "KO", "weight": "10.20%", "change": "持仓不变"},
+        {"name": "雪佛龙", "symbol": "CVX", "weight": "7.24%", "change": "增持"},
+        {"name": "穆迪", "symbol": "MCO", "weight": "4.60%", "change": "持仓不变"},
+        {"name": "西方石油", "symbol": "OXY", "weight": "3.97%", "change": "持仓不变"},
+        {"name": "Chubb", "symbol": "CB", "weight": "3.90%", "change": "增持"},
+        {"name": "卡夫亨氏", "symbol": "KHC", "weight": "2.88%", "change": "持仓不变"},
+        {"name": "Alphabet", "symbol": "GOOGL", "weight": "2.04%", "change": "持仓不变"}
+      ],
+      "footnote": "持仓数42只，Top10占88.3%，现金储备$3,733亿（Greg Abel首次重启回购），Q4增持CVX(+6.6%)/CB(+9.3%)，减持AAPL(-4.3%)/BAC(-8.9%)；近期清仓航空/百货/医疗持仓"
+    },
+    {
+      "manager": "段永平 · H&H",
+      "fund": "H&H International Investment",
+      "aum": "$18B",
+      "asOf": "2025Q4 · 2月披露",
+      "positions": [
+        {"name": "苹果", "symbol": "AAPL", "weight": "50.30%", "change": "减持"},
+        {"name": "伯克希尔B", "symbol": "BRK.B", "weight": "20.60%", "change": "增持"},
+        {"name": "英伟达", "symbol": "NVDA", "weight": "7.70%", "change": "大幅增持"},
+        {"name": "拼多多", "symbol": "PDD", "weight": "7.50%", "change": "增持"},
+        {"name": "谷歌", "symbol": "GOOG", "weight": "3.30%", "change": "小幅增持"},
+        {"name": "西方石油", "symbol": "OXY", "weight": "3.10%", "change": "减持"},
+        {"name": "微软", "symbol": "MSFT", "weight": "2.40%", "change": "大幅增持"},
+        {"name": "阿里巴巴", "symbol": "BABA", "weight": "2.10%", "change": "减持"},
+        {"name": "台积电", "symbol": "TSM", "weight": "2.10%", "change": "大幅增持"},
+        {"name": "迪士尼", "symbol": "DIS", "weight": "0.50%", "change": "减持"}
+      ],
+      "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，新建仓CRWV/CRDO/TEM；5月16日卖出神华买入泡泡玛特，评价\"right business\""
+    },
+    {
+      "manager": "Cathie Wood · ARK旗舰",
+      "fund": "ARK Innovation ETF (ARKK)",
+      "aum": "$6.8B",
+      "asOf": "2026-05-15（每日持仓披露）",
+      "positions": [
+        {"name": "特斯拉", "symbol": "TSLA", "weight": "10.50%", "change": "持仓不变"},
+        {"name": "CRISPR治疗", "symbol": "CRSP", "weight": "6.30%", "change": "持仓不变"},
+        {"name": "Tempus AI", "symbol": "TEM", "weight": "5.00%", "change": "加仓"},
+        {"name": "Shopify", "symbol": "SHOP", "weight": "4.70%", "change": "持仓不变"},
+        {"name": "Coinbase", "symbol": "COIN", "weight": "4.30%", "change": "持仓不变"},
+        {"name": "Roku", "symbol": "ROKU", "weight": "4.20%", "change": "持仓不变"},
+        {"name": "Palantir", "symbol": "PLTR", "weight": "3.80%", "change": "持仓不变"},
+        {"name": "Block", "symbol": "SQ", "weight": "3.50%", "change": "持仓不变"},
+        {"name": "Unity软件", "symbol": "U", "weight": "3.20%", "change": "持仓不变"},
+        {"name": "Roblox", "symbol": "RBLX", "weight": "2.90%", "change": "持仓不变"}
+      ],
+      "footnote": "ARK每日披露持仓变动，5月15日全部为卖出操作：减持台积电(ARKK占10.85%)/AMD(ARKW占2.75%)/Teradyne(ARKK占5.76%)，新建仓Cerebras Systems（AI芯片）；TSLA始终第一重仓"
+    }
+  ],
+  "dataTime": "2026-05-19 11:01 BJT",
+  "_meta": {
+    "sourceType": "heavy_analysis",
+    "generatedAt": "2026-05-19T11:01:00+08:00",
+    "skillVersion": "v13.1"
+  }
+}
