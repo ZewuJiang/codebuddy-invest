@@ -144,6 +144,7 @@ web_fetch: https://www.google.com/finance/quote/XLRE:NYSEARCA  (房地产)
 | 13F数据过季/缺失 | → WhaleWisdom → web_search |
 | Yahoo Finance被屏蔽 | → Google Finance → StockAnalysis |
 | **DXY直接获取困难** | → web_search "DXY dollar index close {date}" Trading Economics snippet → 金投网 DXY → Macrotrends.net DXY daily chart → Finlore.io → 使用前日值+趋势估算（**必须标注"估算"**） |
+| **布伦特历史K线5日内精确值** | → oilcrudeprice.com → **centralcharts.com/en/6567-brent-crude-oil/quotes**（提供完整OHLCV历史K线，已验证2026年数据质量高） → 金投网 |
 | PDF flag emoji乱码 | → 用文字替代（"A股"代替"🇨🇳 A股"） |
 | PDF中文乱码 | → 检查font-family，STHeiti必须排首位 |
 

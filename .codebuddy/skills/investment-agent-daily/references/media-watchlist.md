@@ -17,6 +17,7 @@
 | 1 | **Bloomberg** | 全球全资产 | 华尔街标准终端，突发新闻最快 | `Bloomberg markets today` |
 | 2 | **Reuters** | 全球全资产 | 路透实时，地缘/宏观尤强 | `Reuters markets breaking news` |
 | 3 | **WSJ（华尔街日报）** | 美股+政策 | 深度报道+独家消息源 | `WSJ markets today` |
+| 3b | **CNBC Stock Market Today Live Updates** | 美股收盘精确数据+驱动 | 直接获取三大指数精确收盘+板块+宏观，URL格式：`cnbc.com/YYYY/MM/DD/stock-market-today-live-updates.html` | `CNBC stock market today live updates site:cnbc.com` |
 
 ### 中文头部（中国/港股/中概视角）
 
