@@ -55,12 +55,9 @@
 
 | # | 堵点 | 解决方案 |
 |---|------|---------|
-| 1 | access_token 获取失败 | 检查 WX_APPID/WX_APPSECRET |
-| 2 | 云数据库写入失败 | JSON 保留本地，可手动重传 |
-| 3 | 特殊字符导致 query 解析失败 | upload_to_cloud.py 已内置清洗 |
+| 1 | SCP 上传失败（网络/权限） | 检查 SSH 密钥配置，JSON 保留本地可手动重传：`bash upload_to_server.sh "$SYNC_DIR" "YYYY-MM-DD"` |
+| 2 | 部分文件上传成功/失败 | 成功生效，失败保持服务器旧数据；手动重传失败文件 |
 | 65 | **手工修正 JSON 后忘记重新上传** | **V49 [FATAL] 自动拦截**：validate 时 hash 不一致 → FATAL，提示重新上传。首次运行 run_daily.sh 后自动生成 `.last_upload_hash.json` 基准文件。 |
-| 4 | 部分集合上传成功/失败 | 成功生效，失败保持旧数据 |
-| 5 | 上传后字段缺失/dataTime 不一致 | v1.1 `verify_upload()` 回读校验 |
 
 ## 质量退化堵点
 
@@ -75,7 +72,7 @@
 
 | # | 堵点 | 降级路径 | 频率 |
 |---|------|---------|------|
-| 41 | validate.py 被绕过(直接调 upload) | → **禁止**直接调 upload_to_cloud.py，必须通过 run_daily.sh；--skip-warn 仅跳过 WARN 级 | 系统性 |
+| 41 | validate.py 被绕过(直接调 upload) | → **禁止**直接调 upload_to_server.sh，必须通过 run_daily.sh；--skip-warn 仅跳过 WARN 级 | 系统性 |
 | 42 | Heavy 产出 smartMoneyHoldings 不引用 holdings-cache.json，凭记忆写不完整数据（只有5条+"待更新"） | → **R9 [FATAL]** validate.py 自动比对 holdings-cache.json，不一致则阻断上传（不可绕过）；同时 R2(≥Top10) + R3(禁止"待更新") 也标记为 FATAL | 高频 |
 | 43 | --skip-validate 成为万能逃生口，一旦有任何 FAIL 就整体跳过，连带放过致命错误 | → v2.0 FATAL/WARN 双级机制：--skip-validate 已废弃→--skip-warn；FATAL 级(R2/R3/R9)永远执行不可跳过 | 系统性 |
 | 44 | smartMoneyHoldings manager/asOf 文字过长，小程序一行放不下 | → v10.0：前端 radar.js 自动去括号紧凑化 + CSS 溢出截断。**数据侧规则**：manager≤10中文字、asOf≤12中文字，括号内补充信息不影响渲染 | 高 |

@@ -4,6 +4,35 @@
 
 ---
 
+## v14.0（2026-05-23）— 数据分发通道迁移：微信云开发 → 自建服务器
+
+**背景**：微信云开发环境 `cloud1-3g6wj06h84f38ea8` 到期，小程序数据全部无法显示，迁移至自建腾讯云轻量服务器。
+
+**变更内容**：
+
+1. **`run_daily.sh` v6.5→v6.6**：
+   - 第2步由 `python3 upload_to_cloud.py` 改为 `bash upload_to_server.sh`
+   - 原 `upload_to_cloud.py` 保留文件但不再调用
+
+2. **新增 `upload_to_server.sh` v1.0**：
+   - 通过 scp 将 4 个 JSON 上传到腾讯云轻量服务器
+   - 服务器：`root@119.91.74.175:/www/wwwroot/miniapp.touyanduck.com/api/`
+   - 上传后自动通过 HTTPS 验证 4 个接口返回 HTTP 200
+   - SSH 密钥：`~/.ssh/touyanduck_server`
+
+3. **小程序代码 v5.0→v6.0**（`touyanduck_appid/`）：
+   - `app.js`：移除 `wx.cloud.init`，新增 `apiBaseUrl: https://miniapp.touyanduck.com/api`
+   - `services/api.js` v7.0→v8.0：`wx.cloud.database()` 全面替换为 `wx.request()` HTTP 请求
+   - `app.json`：移除 `"cloud": true`
+
+4. **服务器配置**（腾讯云轻量 `lhins-1x1cx0o1`）：
+   - 域名：`miniapp.touyanduck.com`（DNS A记录 → 119.91.74.175）
+   - Nginx 静态托管，数据目录：`/www/wwwroot/miniapp.touyanduck.com/api/`
+   - Let's Encrypt SSL 证书（到期 2026-08-21，自动续签）
+   - 微信公众平台 request 合法域名：`https://miniapp.touyanduck.com`
+
+---
+
 ## v13.1（2026-05-08）— 全链路稳定性修复
 
 **背景**：5/6-5/8 连续多日 WARN 阻断上传，小程序数据停更，触发全面排查。

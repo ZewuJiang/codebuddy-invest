@@ -1,21 +1,10 @@
 # touyanduck-daily — 投研鸭小程序数据生产 Skill
 
-> **版本**: v13.1 | **类型**: CodeBuddy 自定义 Skill
+> **版本**: v14.0 | **类型**: CodeBuddy 自定义 Skill
 
 ## 简介
 
-独立采集全球市场数据，生成原生结构化 JSON，上传到微信云数据库，驱动投研鸭小程序实时展示。
-
-**v13.1 全链路稳定性修复**：
-- validate.py v6.2：新增 V48/V49 FATAL，V5 升级 FATAL，R7 正则修复，FATAL 项 19→20，校验项 57
-- upload_to_cloud.py：移除音频上传，修复上传回读校验
-- app-sync WARN 策略优化
-
-**v13.0 语音功能永久移除 + 规范瘦身**：
-- 删除 `generate_audio.py`（MiniMax TTS），语音功能完全移除
-- validate.py：移除 V35（audioUrl），FATAL 项 20→19，校验项 58→57
-- 前端 briefing 页：移除语音按钮（data/wxml/wxss/js 全部清理）
-- SKILL.md：Changelog 全部迁至 CHANGELOG.md，Checklist 迁至 references/daily-checklist.md
+独立采集全球市场数据，生成原生结构化 JSON，通过 HTTP 上传到自建服务器（miniapp.touyanduck.com），驱动投研鸭小程序实时展示。
 
 **v11.4+ 核心架构**：
 1. **Phase 1 并行采集**：4 组并发（媒体/行情/亚太大宗/基金），采集时间减少 60-70%
@@ -50,24 +39,6 @@ cd .codebuddy/skills/touyanduck-daily/scripts
 pip3 install -r requirements.txt
 ```
 
-### 3. 配置微信云数据库
-
-设置环境变量：
-
-```bash
-export WX_APPID="你的AppID"
-export WX_APPSECRET="你的AppSecret"
-export WX_CLOUD_ENV="你的云环境ID"
-```
-
-### 4. 确保云数据库集合已创建
-
-在微信开发者工具的云开发控制台中，确保已创建以下 4 个集合：
-- `briefing`
-- `markets`
-- `watchlist`
-- `radar`
-
 ## 使用方法
 
 在对话中输入以下任一关键词即可自动触发：
@@ -78,7 +49,7 @@ export WX_CLOUD_ENV="你的云环境ID"
 - `app数据更新`
 - `miniapp sync`
 
-Skill 将自动执行完整的工作流：日期检测+模式路由 → **Phase 1 并行采集（4组并发+Context压缩）** → 完整性门禁 → **Phase 2 JSON生成+内联自校验（Generator-Verifier）** → 每日操作Checklist → 公式自动计算(auto_compute.py) → 终审(validate.py v6.2 + 57项校验 + 20项FATAL门禁) → sparkline补全 → 上传微信云数据库 → 执行复盘。
+Skill 将自动执行完整的工作流：日期检测+模式路由 → **Phase 1 并行采集（4组并发+Context压缩）** → 完整性门禁 → **Phase 2 JSON生成+内联自校验（Generator-Verifier）** → 每日操作Checklist → 公式自动计算(auto_compute.py) → 终审(validate.py v6.2 + 57项校验 + 20项FATAL门禁) → sparkline补全 → 上传自建服务器 → 执行复盘。
 
 ## 二档内容引擎
 
@@ -87,35 +58,33 @@ Skill 将自动执行完整的工作流：日期检测+模式路由 → **Phase 
 | 周一~周五（每次执行） | **Standard** | 全量采集+分析+建议（每次都是高质量全量产出） |
 | 周末/休市日 | **Weekend** | 媒体深度扫描+周度总结+前瞻 |
 
-> v11.4：彻底移除公开API同步模块，数据链路简化。v11.2 架构升级：Phase 1 并行采集（4组并发）+ Context 压缩（~76k→~35k）+ References 分层加载（L1/L2/L3/L4）+ Generator-Verifier 内联自校验（16/20项FATAL前置拦截）+ 每日操作Checklist + 前端代码修复 + 规范体系深度清理。validate.py v6.2（57项校验，20项FATAL）。
-
 ## 文件结构
 
 | 目录/文件 | 说明 |
 |-----------|------|
-| `SKILL.md` | 主控文档 v13.1（工作流+九大铁律+致命错误清单+并行采集+Context压缩+分层加载+Generator-Verifier） |
-| `scripts/run_daily.sh` | 一键串联脚本 v6.5（子目录同步+JSON校验→auto_compute→anchor_fetcher→validate→sparkline→上传，第2步后即终点） |
-| `scripts/auto_compute.py` | 公式自动计算 v3.1（riskScore/riskLevel/sentimentLabel/trafficLights.status/metrics联动/16类字段） |
-| `scripts/validate.py` | 数据质量校验 v6.2（57项 FATAL/WARN 双级，20项FATAL，新增V48/V49真值锚点+上传一致性门禁，V5升级FATAL） |
-| `scripts/anchor_fetcher.py` | 真值锚点拉取 v1.1（FRED/yfinance/CoinGecko，CNH/DXY/VIX全备源补强） |
-| `scripts/refresh_verified_snapshot.py` | sparkline/chartData 历史序列补全 v3.0 |
-| `scripts/upload_to_cloud.py` | 云数据库上传+回读校验 v1.3（移除音频上传） |
+| `SKILL.md` | 主控文档（工作流+九大铁律+致命错误清单+并行采集+Context压缩+分层加载+Generator-Verifier） |
+| `scripts/run_daily.sh` | 一键串联脚本（子目录同步+JSON校验→auto_compute→anchor_fetcher→validate→sparkline→上传） |
+| `scripts/upload_to_server.sh` | HTTP 上传到自建服务器（SCP → miniapp.touyanduck.com） |
+| `scripts/auto_compute.py` | 公式自动计算（riskScore/riskLevel/sentimentLabel/trafficLights.status/metrics联动/16类字段） |
+| `scripts/validate.py` | 数据质量校验（57项 FATAL/WARN 双级，20项FATAL，V48/V49真值锚点+上传一致性门禁） |
+| `scripts/anchor_fetcher.py` | 真值锚点拉取（FRED/yfinance/CoinGecko，CNH/DXY/VIX全备源补强） |
+| `scripts/refresh_verified_snapshot.py` | sparkline/chartData 历史序列补全 |
 | `scripts/requirements.txt` | Python 依赖 |
-| `references/json-schema.md` | **核心文件** — 4个JSON完整字段规范 v5.0（含B1-B12/Q1-Q8/W1-W9质量门禁） |
-| `references/inline-verifier-rules.md` | **v11.0 新增** — Generator-Verifier 内联自校验规则 v1.1（16项可内联FATAL+修复SOP） |
-| `references/data-collection-sop.md` | 数据采集SOP v3.1（含§0.4自媒体陷阱+§0.8并行分组+§0.9最小字段集+§0.10 JSON双引号防治） |
-| `references/stock-universe.md` | 5板块标的池 v2.1 |
-| `references/data-source-priority.md` | 数据源优先级 v1.6 + 降级路径 |
-| `references/formulas.md` | 所有公式唯一权威源 v1.0 |
-| `references/golden-baseline.json` | 结构化基线定义 v1.2 |
-| `references/templates.md` | 交付模板集合 v1.1 |
-| `references/known-pitfalls.md` | 已知堵点 v5.6（65条活跃+6条归档） |
+| `references/json-schema.md` | **核心文件** — 4个JSON完整字段规范（含B1-B12/Q1-Q8/W1-W9质量门禁） |
+| `references/inline-verifier-rules.md` | Generator-Verifier 内联自校验规则（16项可内联FATAL+修复SOP） |
+| `references/data-collection-sop.md` | 数据采集SOP（含§0.4自媒体陷阱+§0.8并行分组+§0.9最小字段集+§0.10 JSON双引号防治） |
+| `references/stock-universe.md` | 5板块标的池 |
+| `references/data-source-priority.md` | 数据源优先级 + 降级路径 |
+| `references/formulas.md` | 所有公式唯一权威源 |
+| `references/golden-baseline.json` | 结构化基线定义 |
+| `references/templates.md` | 交付模板集合 |
+| `references/known-pitfalls.md` | 已知堵点（65条活跃+6条归档） |
 | `references/daily-checklist.md` | 完整每日操作Checklist（J1-J10/P1-P5/V1-V4/故障排查） |
-| `references/weekend-mode.md` | Weekend 模式规范 v4.1 |
+| `references/weekend-mode.md` | Weekend 模式规范 |
 | `references/holdings-cache.json` | 持仓数据缓存（3家×Top10） |
 | `references/briefing-golden-sample.json` | 黄金样本（2026-04-06版） |
-| `templates/daily-standard.json` | 标准日JSON模板 v5.7 |
-| `templates/monday-special.json` | 周一特别版JSON模板 v5.7 |
+| `templates/daily-standard.json` | 标准日JSON模板 |
+| `templates/monday-special.json` | 周一特别版JSON模板 |
 
 ## 产出物
 
@@ -132,6 +101,5 @@ Skill 将自动执行完整的工作流：日期检测+模式路由 → **Phase 
 
 - 需要联网环境（实时搜索采集数据）
 - 支持 Weekend 模式（周末/休市日产出周度深度分析）
-- 需要配置微信云数据库凭证才能上传
 - JSON 文件始终保留在本地（即使上传失败）
 - 公式字段由 `auto_compute.py` 自动计算，AI 无需手算

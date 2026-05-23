@@ -1,11 +1,11 @@
 ---
 name: touyanduck-daily
-description: 当用户提到「投资App」「小程序数据」「投研鸭数据」「app数据更新」「miniapp sync」或类似关键词时，自动执行投研鸭小程序数据生产全流程，输出4个原生结构化JSON并上传微信云数据库。
+description: 当用户提到「投资App」「小程序数据」「投研鸭数据」「app数据更新」「miniapp sync」或类似关键词时，自动执行投研鸭小程序数据生产全流程，输出4个原生结构化JSON并上传自建服务器（miniapp.touyanduck.com）。
 ---
 
-# 投研鸭小程序数据生产 — 标准工作流 v13.1
+# 投研鸭小程序数据生产 — 标准工作流 v14.0
 
-> **版本**: v13.1 (2026-05-08) — 全链路稳定性修复（validate v6.2 + upload修复 + app-sync WARN策略）
+> **版本**: v14.0 (2026-05-23) — 数据分发通道迁移：微信云开发 → 自建腾讯云服务器
 > **主控文档**：本文件为精炼主控，详细规则通过引用按需加载（四批分层：L1/L2/L3/L4）。
 > **完整版本历史** → [CHANGELOG.md](CHANGELOG.md)
 
@@ -22,7 +22,7 @@ description: 当用户提到「投资App」「小程序数据」「投研鸭数�
 | 持仓缓存版本 | v1.1 (2025Q4 13F 已修正) | 2026-04-08 |
 | **validate.py 版本** | **v6.2 (57项 含V48+V49 FATAL，20 FATAL，V5升级FATAL+R7正则修复)** | **2026-05-08** |
 | **auto_compute.py 版本** | **v3.1 (16类字段自动计算，含ARK asOf自动更新)** | **2026-04-23** |
-| **run_daily.sh 版本** | **v6.5（Phase B1.5 新增第2.5步写入upload_hash）** | **2026-05-07** |
+| **run_daily.sh 版本** | **v6.6（2026-05-23 迁移自建服务器，第2步改用 upload_to_server.sh）** | **2026-05-23** |
 | **anchor_fetcher.py 版本** | **v1.1（CNH/DXY/VIX全备源补强，yfinance重试，fetched_at时效）** | **2026-05-07** |
 | **radar.js asOf 处理** | **v7.1（括号清理正则加强，YYYY-MM-DD输出）** | **2026-04-21** |
 | **data-collection-sop.md** | **v3.1 (含§0.4自媒体陷阱 +§0.10 JSON双引号)** | **2026-04-21** |
@@ -243,10 +243,10 @@ bash /Users/zewujiang/Desktop/AICo/codebuddy-invest/.codebuddy/skills/touyanduck
 > 4. **第0.5步：validate.py v6.2 自动化校验（57项，20项FATAL不可绕过，含V5关键数组+V48/V49真值锚点+上传一致性门禁）**
 > 5. 第1步：sparkline/chartData 补全（软依赖）
 > 6. 第1.5步：强制刷新 `_meta.generatedAt` 为当前时间
-> 7. 第2步：上传云数据库（**P0 — 唯一分发通道，小程序直接读取**）← 终点
+> 7. 第2步：上传自建服务器（**P0 — 唯一分发通道，小程序直接读取**）← 终点
 > 8. **第2.5步：写入上传 Hash**（记录4文件 sha256，供 V49 检测"改了但未重新上传"堵点#65）
 
-> ⚠️ **数据分发通道**：微信云数据库（第2步）= 唯一分发通道，小程序前端直接读取。
+> ⚠️ **数据分发通道**：自建服务器 `https://miniapp.touyanduck.com/api/`（第2步）= 唯一分发通道，小程序前端直接 HTTP 读取。
 
 ### Phase 4：完成交付 + 输出确认
 **L4 加载**：[templates.md](references/templates.md) + [known-pitfalls.md](references/known-pitfalls.md)

@@ -35,7 +35,7 @@
 
 🔧 公式自动计算：auto_compute.py 已执行（riskScore/riskLevel/sentimentLabel/trafficLights.status/metrics联动）
 🔍 自动化校验：validate.py 全部通过（{N}项 PASS / 0 FAIL）
-☁️ 云数据库上传：{成功/失败数}
+🚀 自建服务器上传：{4 成功 / 0 失败}（HTTP 200 验证）
 📊 数据完整度：{百分比}
 ```
 

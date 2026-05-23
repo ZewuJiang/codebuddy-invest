@@ -32,7 +32,7 @@ bash /Users/zewujiang/Desktop/AICo/codebuddy-invest/.codebuddy/skills/touyanduck
 | P1 | 第-1步日期子目录同步 | `✅ 已复制: YYYY-MM-DD/*.json → *.json` (4条) | 🔴 |
 | P2 | 第0步 JSON 语法 | `✅ JSON 语法校验通过` | 🔴 |
 | P3 | validate.py | `FATAL: 0` | 🔴 |
-| P4 | 上传微信云数据库 | `4 成功 / 0 失败` | 🔴 |
+| P4 | 上传自建服务器（HTTP 200） | `4 成功 / 0 失败` | 🔴 |
 | P5 | 上传 date = **今日** | 确认上传日志里的日期参数 | 🔴 |
 
 ---
@@ -41,9 +41,9 @@ bash /Users/zewujiang/Desktop/AICo/codebuddy-invest/.codebuddy/skills/touyanduck
 
 | # | 检查项 | 命令 | 级别 |
 |---|--------|------|------|
-| V1 | 云数据库中今日数据存在 | 上传日志 `发现已有数据，执行更新` 或 `新增成功` | 🔴 |
+| V1 | 服务器已有今日数据 | `curl https://miniapp.touyanduck.com/api/briefing.json \| python3 -c "import sys,json; d=json.load(sys.stdin); print(d['date'])"` 确认返回今日日期 | 🔴 |
 | V2 | 根目录 4 个 JSON 的 date = 今日 | `python3 -c "import json; d=json.load(open('miniapp_sync/markets.json')); print(d['date'])"` | 🔴 |
-| V2b | 手工修正数据后必须重新上传 | `python3 upload_to_cloud.py "$SYNC_DIR" "YYYY-MM-DD"` | 🔴 |
+| V2b | 手工修正数据后必须重新上传 | `bash upload_to_server.sh "$SYNC_DIR" "YYYY-MM-DD"` | 🔴 |
 | V4 | 小程序下拉刷新后显示今日数据 | 手机打开小程序下拉 | ✅ |
 
 ---
@@ -52,7 +52,7 @@ bash /Users/zewujiang/Desktop/AICo/codebuddy-invest/.codebuddy/skills/touyanduck
 
 | 症状 | 根因 | 修复 |
 |------|------|------|
-| 小程序数据不更新 | 上传了旧日期数据 | `python3 upload_to_cloud.py "$SYNC_DIR" "YYYY-MM-DD"` |
+| 小程序数据不更新 | 上传了旧日期数据 | `bash upload_to_server.sh "$SYNC_DIR" "YYYY-MM-DD"` |
 | JSON 语法错误 | 含未转义双引号或语法问题 | `python3 -m json.tool xxx.json` 定位错误行 |
 | validate.py 报 FATAL | 数据质量问题 | 看报告修复对应字段后重跑 |
 | ARK asOf 显示带括号 | 数据写了 `"2026-04-21（ARK每日...）"` | 直接写 `"2026-04-21"` |

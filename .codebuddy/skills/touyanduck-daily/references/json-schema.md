@@ -185,12 +185,6 @@
   "riskNote": "string",                     // 🔸 旧版兼容字段——30-100字风险提示散文，纯文本。新版产出时仍保留此字段作为 fallback，但前端优先渲染 riskPoints 数组
   // ⚠️ v3.7：riskNote 同样禁止包含操作建议（与 riskPoints 保持一致），只描述风险本身
   "dataTime": "2026-04-01 09:00 BJT",       // ⚠️ string — 格式固定为 "YYYY-MM-DD HH:MM BJT"，四个JSON保持完全一致，与简报页顶部时间同步
-
-  // ===== v1.4 新增：语音播报 =====
-  "audioUrl": "cloud://cloud1-xxx/audio/briefing-2026-04-01.mp3",  // 🔸 string — 音频文件的云存储 fileID（cloud:// 格式）或 https URL，由 generate_audio.py + upload_to_cloud.py 自动生成和填充
-  "audioFile": "briefing-2026-04-01.mp3",    // 🔸 string — 音频文件名（本地标记，上传后自动替换为 audioUrl）
-  "voiceText": "string",                     // 🔸 string — 播报文稿原文（调试用，前端不直接使用）
-
   // ===== v1.3 新增：元数据 =====
   "_meta": {                                // 🔸 object — 元数据（可选，无则前端不显示来源标签）
     "sourceType": "heavy_analysis",         // 🔸 string — 枚举：heavy_analysis / realtime_quote / breaking_news / weekend_insight（v4.0新增）

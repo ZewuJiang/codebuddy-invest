@@ -1,7 +1,11 @@
 #!/bin/bash
 # ============================================================
-# 投研鸭小程序 — 每日数据更新串联脚本 v6.5（Harness v12 Phase B1.5）
-# 执行顺序：日期子目录同步 → 涨跌方向目视摘要 → JSON语法校验 → auto_compute.py → 【新】anchor_fetcher.py真值锚点 → validate.py(57项,--skip-v49) → sparkline补全 → 上传微信云数据库 → 【新】写入upload_hash
+# 投研鸭小程序 — 每日数据更新串联脚本 v6.6（自建服务器 HTTP API）
+# 执行顺序：日期子目录同步 → 涨跌方向目视摘要 → JSON语法校验 → auto_compute.py → anchor_fetcher.py真值锚点 → validate.py(57项,--skip-v49) → sparkline补全 → 上传自建服务器 → 写入upload_hash
+#
+# 【v6.6 改动】（2026-05-23 — 微信云开发到期，迁移至自建服务器）：
+#   - 第2步改为调用 upload_to_server.sh（SCP上传到腾讯云轻量服务器）
+#   - 服务器：119.91.74.175 / miniapp.touyanduck.com / /www/wwwroot/miniapp.touyanduck.com/api/
 #
 # 用法：bash run_daily.sh [YYYY-MM-DD] [--skip-warn]
 #
@@ -330,16 +334,16 @@ else
 fi
 echo ""
 
-# ── 第2步：上传到微信云数据库 ──────────────────────────────────
-echo "☁️  第2步：上传校正后的 JSON 到微信云数据库..."
+# ── 第2步：上传到自建服务器（v6.6 — 替代微信云数据库）─────────
+echo "🚀 第2步：上传校正后的 JSON 到自建服务器（miniapp.touyanduck.com）..."
 echo ""
 
-python3 upload_to_cloud.py "$SYNC_DIR" "$DATE"
+bash "$SCRIPT_DIR/upload_to_server.sh" "$SYNC_DIR" "$DATE"
 
 if [ $? -ne 0 ]; then
     echo ""
     echo "❌ 上传失败！JSON 文件已保留在本地，可手动重传："
-    echo "   python3 upload_to_cloud.py \"$SYNC_DIR\" \"$DATE\""
+    echo "   bash \"$SCRIPT_DIR/upload_to_server.sh\" \"$SYNC_DIR\" \"$DATE\""
     exit 1
 fi
 
@@ -387,11 +391,13 @@ if [ $API_CORRECTED -eq 1 ]; then
     echo "   日期：${DATE}"
     echo "   数据来源：AI 采集（price/change/metrics/trafficLights/文字）+ AkShare（sparkline/chartData）"
     echo "   公式计算：auto_compute.py（riskScore/riskLevel/sentimentLabel/trafficLights.status）"
+    echo "   数据通道：自建服务器 https://miniapp.touyanduck.com/api/"
 else
     echo "🎉 全流程完成（sparkline补全已跳过）！大老板刷新小程序即可看到最新数据"
     echo "   日期：${DATE}"
     echo "   数据来源：AI 采集（全量）| sparkline/chartData 为 AI 估算值（非真实历史序列）"
     echo "   公式计算：auto_compute.py（riskScore/riskLevel/sentimentLabel/trafficLights.status）"
+    echo "   数据通道：自建服务器 https://miniapp.touyanduck.com/api/"
     echo "   建议：网络恢复后可手动补跑 refresh_verified_snapshot.py 提升 sparkline 精度"
 fi
 echo "============================================================"
