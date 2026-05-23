@@ -1,46 +1,48 @@
 {
   "_meta": {
     "version": "v1.1",
-    "generated_at": "2026-05-21T11:14:33+08:00",
-    "fetched_at": "2026-05-21T11:14:33+08:00",
-    "success_count": 5,
+    "generated_at": "2026-05-22T11:21:25+08:00",
+    "fetched_at": "2026-05-22T11:21:25+08:00",
+    "success_count": 6,
     "total": 6,
-    "skipped": [
-      "VIX"
-    ]
+    "skipped": []
   },
   "anchors": {
     "10Y美债": {
-      "value": 4.67,
+      "value": 4.57,
       "unit": "%",
       "source": "FRED_DGS10",
-      "fetched_at": "2026-05-21T11:14:33+08:00"
+      "fetched_at": "2026-05-22T11:21:25+08:00"
     },
     "CNH": {
-      "value": 6.8028,
+      "value": 6.8022,
       "unit": "USD/CNH",
       "source": "exchangerate_or_frankfurter",
-      "fetched_at": "2026-05-21T11:14:33+08:00"
+      "fetched_at": "2026-05-22T11:21:25+08:00"
     },
     "DXY": {
-      "value": 119.28,
+      "value": 99.27,
       "unit": "",
-      "source": "FRED_DTWEXBGS",
-      "note": "DTWEXBGS量级与DXY不同(~135 vs ~104)，V48将自动SKIP此备源",
-      "fetched_at": "2026-05-21T11:14:33+08:00",
-      "skip_v48": true
+      "source": "yfinance_DX-Y.NYB",
+      "fetched_at": "2026-05-22T11:21:25+08:00"
+    },
+    "VIX": {
+      "value": 16.76,
+      "unit": "",
+      "source": "CBOE_or_yfinance",
+      "fetched_at": "2026-05-22T11:21:25+08:00"
     },
     "BTC": {
-      "value": 77892.0,
+      "value": 77624.0,
       "unit": "USD",
       "source": "coingecko",
-      "fetched_at": "2026-05-21T11:14:33+08:00"
+      "fetched_at": "2026-05-22T11:21:25+08:00"
     },
     "ETH": {
-      "value": 2140.78,
+      "value": 2133.8,
       "unit": "USD",
       "source": "coingecko",
-      "fetched_at": "2026-05-21T11:14:33+08:00"
+      "fetched_at": "2026-05-22T11:21:25+08:00"
     }
   }
 }
