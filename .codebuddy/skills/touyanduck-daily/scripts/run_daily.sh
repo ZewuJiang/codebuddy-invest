@@ -290,7 +290,7 @@ else
     echo "⚠️  sparkline/chartData 补全失败（已重试2次），跳过补全步骤，使用 AI 生成数据上传"
     echo "   常见原因：网络超时 / AkShare 新浪源+东方财富源均限流"
     echo "   影响范围：sparkline/chartData 为 AI 估算值；price/change/metrics 由 AI 采集，准确性独立保障"
-    echo "   可事后手动补跑：python3 refresh_verified_snapshot.py && python3 upload_to_cloud.py \"$SYNC_DIR\" \"$DATE\""
+    echo "   可事后手动补跑：python3 refresh_verified_snapshot.py && bash upload_to_server.sh"
 fi
 echo ""
 

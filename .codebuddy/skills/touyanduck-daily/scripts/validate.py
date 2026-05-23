@@ -1989,11 +1989,11 @@ def validate_upload_hash_consistency(sync_dir_path, files, vr):
     """V49 [FATAL]: 本地文件 hash vs 上次上传 hash 一致性校验（堵点#65专项门禁）
 
     设计背景（堵点 #65）：
-    手工修正 JSON（如修复 CNH 从 7.22→6.81）后忘记重新跑 upload_to_cloud.py，
+    手工修正 JSON（如修复 CNH 从 7.22→6.81）后忘记重新跑 upload_to_server.sh，
     导致云端仍是旧版本但本地已修正。本项通过比对 hash 确保"改了就必须重新上传"。
 
     工作原理：
-    - upload_to_cloud.py 每次上传成功后写入 .last_upload_hash.json（含4文件的sha256）
+    - upload_to_server.sh 每次上传成功后写入 .last_upload_hash.json（含4文件的sha256）
     - 本项读取该文件，与当前本地文件的 sha256 比对
     - 不一致 → FATAL，提示"文件已修改，请重新上传"
 
@@ -2041,7 +2041,7 @@ def validate_upload_hash_consistency(sync_dir_path, files, vr):
 
         if local_hash != recorded_hash:
             mismatches.append(
-                f"{fname}：本地已修改（hash不一致）——请重新运行 upload_to_cloud.py"
+                f"{fname}：本地已修改（hash不一致）——请重新运行 upload_to_server.sh"
             )
         else:
             matched.append(fname)
