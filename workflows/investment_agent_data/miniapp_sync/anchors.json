@@ -1,8 +1,8 @@
 {
   "_meta": {
     "version": "v1.1",
-    "generated_at": "2026-05-22T11:21:25+08:00",
-    "fetched_at": "2026-05-22T11:21:25+08:00",
+    "generated_at": "2026-05-25T11:17:00+08:00",
+    "fetched_at": "2026-05-25T11:17:00+08:00",
     "success_count": 6,
     "total": 6,
     "skipped": []
@@ -12,37 +12,37 @@
       "value": 4.57,
       "unit": "%",
       "source": "FRED_DGS10",
-      "fetched_at": "2026-05-22T11:21:25+08:00"
+      "fetched_at": "2026-05-25T11:17:00+08:00"
     },
     "CNH": {
-      "value": 6.8022,
+      "value": 6.7953,
       "unit": "USD/CNH",
       "source": "exchangerate_or_frankfurter",
-      "fetched_at": "2026-05-22T11:21:25+08:00"
+      "fetched_at": "2026-05-25T11:17:00+08:00"
     },
     "DXY": {
-      "value": 99.27,
+      "value": 99.03,
       "unit": "",
       "source": "yfinance_DX-Y.NYB",
-      "fetched_at": "2026-05-22T11:21:25+08:00"
+      "fetched_at": "2026-05-25T11:17:00+08:00"
     },
     "VIX": {
-      "value": 16.76,
+      "value": 16.7,
       "unit": "",
       "source": "CBOE_or_yfinance",
-      "fetched_at": "2026-05-22T11:21:25+08:00"
+      "fetched_at": "2026-05-25T11:17:00+08:00"
     },
     "BTC": {
-      "value": 77624.0,
+      "value": 76995.0,
       "unit": "USD",
       "source": "coingecko",
-      "fetched_at": "2026-05-22T11:21:25+08:00"
+      "fetched_at": "2026-05-25T11:17:00+08:00"
     },
     "ETH": {
-      "value": 2133.8,
+      "value": 2092.73,
       "unit": "USD",
       "source": "coingecko",
-      "fetched_at": "2026-05-22T11:21:25+08:00"
+      "fetched_at": "2026-05-25T11:17:00+08:00"
     }
   }
 }
