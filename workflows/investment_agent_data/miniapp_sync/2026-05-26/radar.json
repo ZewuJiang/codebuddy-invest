@@ -26,13 +26,13 @@
     {
       "name": "10Y美债收益率",
       "value": "4.508%",
-      "status": "red",
+      "status": "yellow",
       "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
     },
     {
       "name": "布伦特原油",
       "value": "$90.33",
-      "status": "yellow",
+      "status": "green",
       "threshold": "<$90绿 / $90-110黄 / >$110红"
     },
     {
@@ -60,7 +60,7 @@
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
-  "riskScore": 90,
+  "riskScore": 70,
   "riskLevel": "high",
   "riskAdvice": "黄金$4567亮红灯（避险情绪极端+央行购金支撑），10Y美债4.508%处黄灯边缘——若周四美国CPI高于预期，股债双杀风险升温。本周关注美联储官员讲话与CPI数据。",
   "monitorTable": [],
@@ -304,7 +304,7 @@
       "manager": "Cathie Wood · ARK旗舰",
       "fund": "ARK Innovation ETF (ARKK)",
       "aum": "$6.8B",
-      "asOf": "2026-05-26",
+      "asOf": "2026-05-19（ARK每日持仓披露）",
       "positions": [
         {
           "name": "特斯拉",
@@ -370,10 +370,10 @@
       "footnote": "ARK每日披露持仓变动，TSLA始终第一重仓，近期连续买入CoreWeave(CRWV)和Kodiak AI(KDK)但尚未进入Top10"
     }
   ],
-  "dataTime": "2026-05-26 11:10 BJT",
+  "dataTime": "2026-05-26 09:00 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-05-26T11:11:31+08:00",
+    "generatedAt": "2026-05-26T11:00:00+08:00",
     "skillVersion": "v14.0"
   }
 }
