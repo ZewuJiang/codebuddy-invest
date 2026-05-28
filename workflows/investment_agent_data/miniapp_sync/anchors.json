@@ -1,48 +1,46 @@
 {
   "_meta": {
     "version": "v1.1",
-    "generated_at": "2026-05-26T11:10:51+08:00",
-    "fetched_at": "2026-05-26T11:10:51+08:00",
-    "success_count": 6,
+    "generated_at": "2026-05-27T11:11:24+08:00",
+    "fetched_at": "2026-05-27T11:11:24+08:00",
+    "success_count": 5,
     "total": 6,
-    "skipped": []
+    "skipped": [
+      "VIX"
+    ]
   },
   "anchors": {
     "10Y美债": {
-      "value": 4.57,
+      "value": 4.56,
       "unit": "%",
       "source": "FRED_DGS10",
-      "fetched_at": "2026-05-26T11:10:51+08:00"
+      "fetched_at": "2026-05-27T11:11:24+08:00"
     },
     "CNH": {
-      "value": 6.7843,
+      "value": 6.7852,
       "unit": "USD/CNH",
       "source": "exchangerate_or_frankfurter",
-      "fetched_at": "2026-05-26T11:10:51+08:00"
+      "fetched_at": "2026-05-27T11:11:24+08:00"
     },
     "DXY": {
-      "value": 99.24,
+      "value": 119.29,
       "unit": "",
-      "source": "yfinance_DX-Y.NYB",
-      "fetched_at": "2026-05-26T11:10:51+08:00"
-    },
-    "VIX": {
-      "value": 16.59,
-      "unit": "",
-      "source": "CBOE_or_yfinance",
-      "fetched_at": "2026-05-26T11:10:51+08:00"
+      "source": "FRED_DTWEXBGS",
+      "note": "DTWEXBGS量级与DXY不同(~135 vs ~104)，V48将自动SKIP此备源",
+      "fetched_at": "2026-05-27T11:11:24+08:00",
+      "skip_v48": true
     },
     "BTC": {
-      "value": 76535.0,
+      "value": 75815.0,
       "unit": "USD",
       "source": "coingecko",
-      "fetched_at": "2026-05-26T11:10:51+08:00"
+      "fetched_at": "2026-05-27T11:11:24+08:00"
     },
     "ETH": {
-      "value": 2086.24,
+      "value": 2075.24,
       "unit": "USD",
       "source": "coingecko",
-      "fetched_at": "2026-05-26T11:10:51+08:00"
+      "fetched_at": "2026-05-27T11:11:24+08:00"
     }
   }
 }
