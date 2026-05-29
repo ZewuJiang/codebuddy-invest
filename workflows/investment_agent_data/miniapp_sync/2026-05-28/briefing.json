@@ -68,10 +68,7 @@
       "confidence": 85,
       "logic": "美伊谈判取得进展 → 霍尔木兹海峡封锁担忧缓解 → WTI/布伦特原油大幅回落（能源股承压）+ 市场风险偏好提升 → 科技股估值扩张，纳指再创新高",
       "keyActor": "美国、伊朗",
-      "references": [
-        "新浪财经5月27日要闻",
-        "oilprice.com原油数据"
-      ],
+      "references": ["新浪财经5月27日要闻", "oilprice.com原油数据"],
       "probability": "高可能性",
       "trend": "上升"
     },
@@ -80,10 +77,7 @@
       "confidence": 70,
       "logic": "VIX降至16.29（接近13.38的52周低点） → 投资者对市场波动性预期处于极端低位 → 持仓贪婪信号 → 但极端低VIX通常先于市场调整，后续若催化剂出现（CPI/关税）可能快速反弹",
       "keyActor": "CBOE VIX",
-      "references": [
-        "Google Finance VIX数据",
-        "MacroMicro 10Y美债数据"
-      ],
+      "references": ["Google Finance VIX数据", "MacroMicro 10Y美债数据"],
       "probability": "中可能性",
       "trend": "下降"
     },
@@ -92,10 +86,7 @@
       "confidence": 90,
       "logic": "段永平5月15日雪球发文重申\"买股票就是买公司\"理念，称茅台\"不必被市场报价左右\"，并强调拼多多的投资吸引力 → 价值投资长期主义信号；伯克希尔Q1大幅减持AAPL(-92%)/AXP(-67%)/KO(-90%)，现金储备创$3733亿历史新高 → 巴菲特对当前估值谨慎",
       "keyActor": "段永平、巴菲特",
-      "references": [
-        "新浪财经段永平5月15日发言",
-        "alert-invest伯克希尔Q1 13F"
-      ],
+      "references": ["新浪财经段永平5月15日发言", "alert-invest伯克希尔Q1 13F"],
       "probability": "高可能性",
       "trend": "稳定"
     }
@@ -145,10 +136,10 @@
     "A股/港股持续流出（恒生-1.06%、上证-1.25%），内资利用外资流动性派发，短期A股反弹基础不牢"
   ],
   "riskNote": "VIX接近历史低位是双刃剑——低波率环境利好科技估值扩张，但极端低VIX常先于市场调整。伯克希尔现金储备创历史新高叠加Q1大幅减持三大核心持仓，或反映对当前估值水位的高度谨慎。",
-  "dataTime": "2026-05-28 11:08 BJT",
+  "dataTime": "2026-05-28 11:00 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-05-28T11:09:20+08:00",
+    "generatedAt": "2026-05-28T11:00:00+08:00",
     "skillVersion": "v14.0"
   }
 }
