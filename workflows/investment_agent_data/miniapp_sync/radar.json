@@ -3,105 +3,151 @@
   "trafficLights": [
     {
       "name": "VIX波动率",
-      "value": "16.29",
+      "value": "15.74",
       "status": "green",
       "threshold": "<18绿 / 18-25黄 / >25红"
     },
     {
       "name": "10Y美债收益率",
-      "value": "4.48%",
-      "status": "yellow",
+      "value": "4.57%",
+      "status": "red",
       "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
     },
     {
       "name": "布伦特原油",
-      "value": "$96.39",
+      "value": "$92.15",
       "status": "yellow",
       "threshold": "<$90绿 / $90-110黄 / >$110红"
     },
     {
       "name": "美元指数DXY",
-      "value": "98.67",
+      "value": "99.30",
       "status": "green",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
     {
       "name": "HY信用利差",
-      "value": "3.92%",
+      "value": "3.85%",
       "status": "green",
       "threshold": "<4%绿 / 4-5%黄 / >5%红"
     },
     {
       "name": "黄金XAU",
-      "value": "$4439.10",
+      "value": "$4,479.90",
       "status": "red",
       "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "6.7823",
+      "value": "6.7734",
       "status": "green",
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
-  "riskScore": 70,
+  "riskScore": 80,
   "riskLevel": "high",
-  "riskAdvice": "黄金$4439.10亮红灯（避险资金撤出），10Y美债4.48%+CNH 6.7823双黄灯警示——美伊和谈缓解地缘风险后，避险资产（黄金/美债）遭抛售，但美元走弱+人民币企稳显示风险偏好升温；本周关注美联储官员讲话和CPI数据指引方向。",
+  "riskAdvice": "黄金$4,480亮红灯（避险情绪极端），VIX降至15.74（极度贪婪）——VIX<16通常预示短线反弹尾声，等沃什首场FOMC（6月18日）落地后再评估方向是更理性的选择。",
   "events": [
     {
       "date": "周三",
-      "title": "美联储官员讲话密集（威廉姆斯/鲍曼等）",
+      "title": "美国一季度GDP第二次修正值发布（20:30）",
       "impact": "high",
-      "source": "CME FedWatch",
-      "url": "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html"
+      "source": "Bureau of Economic Analysis",
+      "url": "https://www.bea.gov/news/schedule"
     },
     {
       "date": "周四",
-      "title": "美国Q1 GDP修正值发布（预期2.4%）",
+      "title": "美国4月PCE核心通胀数据发布（20:30）",
       "impact": "high",
-      "source": "美国经济分析局",
-      "url": ""
+      "source": "Bureau of Economic Analysis",
+      "url": "https://www.bea.gov/news/schedule"
+    },
+    {
+      "date": "6月18日",
+      "title": "美联储FOMC第17任主席沃什首场会议+新闻发布会",
+      "impact": "high",
+      "source": "Federal Reserve",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
     },
     {
       "date": "周五",
-      "title": "PCE物价指数（美联储首选通胀指标）",
-      "impact": "high",
-      "source": "美国经济分析局",
-      "url": ""
-    },
-    {
-      "date": "周一",
-      "title": "Cognition AI以$25B估值融资$1B，AI编程独角兽爆发",
+      "title": "美国5月ISM制造业PMI发布",
       "impact": "medium",
-      "source": "TechCrunch",
-      "url": "https://techcrunch.com/2026/05/27/ai-coding-startup-cognition-raises-1b-at-25b-pre-money-valuation/"
+      "source": "ISM",
+      "url": "https://www.ismworld.org/supply-management-news/economics/"
     }
   ],
-  "alerts": [],
+  "alerts": [
+    {
+      "level": "danger",
+      "text": "VIX跌至15.74（极度贪婪区间）——历史上VIX<16通常预示短线反弹接近尾声，当前追涨风险收益比极差",
+      "time": "16:00",
+      "source": "CBOE",
+      "url": "https://www.google.com/finance/quote/VIX:INDEXCBOE"
+    },
+    {
+      "level": "warning",
+      "text": "黄金$4,480突破历史新高（红灯），避险需求叠加央行购金支撑——与VIX极度贪婪形成矛盾信号",
+      "time": "16:00",
+      "source": "USA Today",
+      "url": "https://www.usatoday.com/story/money/personalfinance/2026/05/28/gold-price-on-may-28-2026/90291876007/"
+    }
+  ],
   "smartMoneyDetail": [
     {
-      "name": "巴菲特 · 伯克希尔",
-      "action": "Q1大幅减持苹果(-92%)、美国运通(-67%)、可口可乐(-90%)，持仓不变OXY/CB/KHC，新建仓Alphabet(DAL)，现金储备$3733亿创历史新高",
-      "signal": "bearish",
-      "source": "SEC 13F-HR",
-      "url": "https://alert-invest.com/top-investors/warren-buffett-portfolio-13f/",
-      "freshness": "本周"
+      "tier": "T1旗舰",
+      "funds": [
+        {
+          "name": "伯克希尔·哈撒韦",
+          "action": "Q1 13F披露：增持DAL(+40M股)+GOOGL(+36M股)，大幅减持CVX(-45M股/-35%)，现金储备$3733亿创历史新高",
+          "signal": "neutral",
+          "source": "insiderset.com",
+          "url": "https://www.insiderset.com/investor/warren-buffett-berkshire-hathaway",
+          "freshness": "本周"
+        },
+        {
+          "name": "段永平·H&H",
+          "action": "确认建仓泡泡玛特（卖出看跌期权），称'我的泡泡玛特保险公司正式开张了'——继4月调研后正式确认投资",
+          "signal": "bullish",
+          "source": "百度",
+          "url": "https://baijiahao.baidu.com/s?id=1866231151611340197",
+          "freshness": "本周"
+        }
+      ]
     },
     {
-      "name": "段永平 · H&H",
-      "action": "5月15日雪球发文称\"买股票就是买公司\"，称茅台\"不必被市场报价左右\"，强调拼多多电商出海吸引力；4月13日称\"黄金生意难以理解\"，对当前黄金估值谨慎",
-      "signal": "bullish",
-      "source": "雪球@大道无形我有型",
-      "url": "https://xueqiu.com/4316576467/374893518",
-      "freshness": "本周"
+      "tier": "T2成长",
+      "funds": [
+        {
+          "name": "ARK Investment",
+          "action": "新建仓AMZN($650万)+持续买入TEM($120万)；清仓DraftKings/Airbnb/The Trade Desk；TSM/AMD持续减仓",
+          "signal": "bullish",
+          "source": "cathiesark.com",
+          "url": "https://cathiesark.com/ark-funds-combined/trades",
+          "freshness": "本周"
+        }
+      ]
     },
     {
-      "name": "Cathie Wood · ARK",
-      "action": "5月20日：卖出AMD($11M)/TER($5.5M)/ROKU($11.7M)，买入BLSH($2.1M)/CBRS($25.7M)；TSLA维持第一大持仓(10.5%)，持续买入CoreWeave(CRWV)但未进Top10",
-      "signal": "neutral",
-      "source": "cathiesark.com",
-      "url": "https://cathiesark.com/arkk/trades",
-      "freshness": "上周"
+      "tier": "策略师观点",
+      "funds": [
+        {
+          "name": "摩根士丹利 Howard Kao",
+          "action": "发布NVDA Vera Rubin定价报告——VR200机架ODM采购价约$780万，较GB300<$400万几乎翻倍，AI基础设施CAPEX超级周期确认",
+          "signal": "bullish",
+          "source": "华尔街见闻",
+          "url": "https://m.jrj.com.cn/madapter/finance/2026/05/22104157171536.shtml",
+          "freshness": "本周"
+        },
+        {
+          "name": "高盛策略团队",
+          "action": "6月FOMC前市场进入观望模式——沃什已确认'通胀是一种选择'（偏鹰派），利率预期重新定价，成长股估值承压",
+          "signal": "bearish",
+          "source": "雪球",
+          "url": "https://xueqiu.com/5437551961/390942272",
+          "freshness": "本周"
+        }
+      ]
     }
   ],
   "smartMoneyHoldings": [
@@ -241,13 +287,13 @@
           "change": "减持"
         }
       ],
-      "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，新建仓CRWV/CRDO/TEM"
+      "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，新建仓CRWV/CRDO/TEM；泡泡玛特已于2026年5月确认布局（卖出看跌期权）"
     },
     {
       "manager": "Cathie Wood · ARK旗舰",
       "fund": "ARK Innovation ETF (ARKK)",
       "aum": "$6.8B",
-      "asOf": "2026-05-28",
+      "asOf": "2026-05-29",
       "positions": [
         {
           "name": "特斯拉",
@@ -310,13 +356,13 @@
           "change": "持仓不变"
         }
       ],
-      "footnote": "ARK每日披露持仓变动，TSLA始终第一重仓，近期连续买入CoreWeave(CRWV)和Kodiak AI(KDK)但尚未进入Top10"
+      "footnote": "ARK每日披露持仓变动，TSLA始终第一重仓；近期新建AMZN仓位($650万)，持续买入CoreWeave(CRWV)和Kodiak AI(KDK)但尚未进入Top10；清仓DraftKings/Airbnb/The Trade Desk"
     }
   ],
-  "dataTime": "2026-05-28 11:08 BJT",
+  "dataTime": "2026-05-29 11:06 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-05-28T11:09:20+08:00",
+    "generatedAt": "2026-05-29T11:07:16+08:00",
     "skillVersion": "v14.0"
   }
 }
