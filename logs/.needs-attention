@@ -58,3 +58,9 @@
 [2026-05-29 11:08] ❌ FAIL_AI_INCOMPLETE(json=0)
   详情日志: /Users/zewujiang/Desktop/AICo/codebuddy-invest/logs/app-sync-20260529-1100.log
 
+[2026-06-01 11:07] ❌ FAIL_VALIDATE_WARN(code=1)
+  详情日志: /Users/zewujiang/Desktop/AICo/codebuddy-invest/logs/app-sync-20260601-1100.log
+
+[2026-06-02 11:12] ❌ FAIL_VALIDATE_WARN(code=1)
+  详情日志: /Users/zewujiang/Desktop/AICo/codebuddy-invest/logs/app-sync-20260602-1100.log
+

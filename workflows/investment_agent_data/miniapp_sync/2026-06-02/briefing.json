@@ -80,29 +80,21 @@
       "confidence": 92,
       "logic": "黄仁勋定义RTX Spark为\"智能手机级别计算机重发明\"→Grace+Blackwell异构集成开启AI Native PC→OEM厂商(戴尔/惠普)全力支持→x86阵营(Intel/AMD)面临史上最大压力，2026年PC换机潮或加速",
       "keyActor": "Nvidia/微软/戴尔/惠普",
-      "references": [
-        "IT之家 Computex 2026",
-        "CNBC June 1 market report"
-      ]
+      "references": ["IT之家 Computex 2026", "CNBC June 1 market report"]
     },
     {
       "title": "伯克希尔Abel时代首笔收购标志新阶段",
       "confidence": 95,
       "logic": "Abel接任后首笔超50亿收购→选择房地产链(Taylor Morrison)而非科技→延续Buffett消费/金融核心逻辑→$68亿全现金溢价24%→说明Berkshire现金储备充裕且愿意在估值合理时出手",
       "keyActor": "Greg Abel/Berkshire Hathaway",
-      "references": [
-        "Fortune May 31",
-        "CNBC June 1"
-      ]
+      "references": ["Fortune May 31", "CNBC June 1"]
     },
     {
       "title": "M7分化加剧短期难改",
       "confidence": 88,
       "logic": "NVDA+6.26%受益AI芯片发布→META-5.07%单日重挫→TSLA-4.57%持续低迷→AMZN-3.47%→科技股内部估值差异拉大→AI应用/基础设施vs广告/电商的资金切换加速",
       "keyActor": "Nvidia/Meta/Tesla/Amazon",
-      "references": [
-        "Google Finance June 1 closes"
-      ]
+      "references": ["Google Finance June 1 closes"]
     }
   ],
   "actionHints": [],
@@ -152,10 +144,10 @@
     "VIX从低位回升至16.05，短期地缘风险叠加AI估值压力，市场波动率可能放大"
   ],
   "riskNote": "当前市场整体强势但内部分化加剧：AI基础设施强势vs广告/电商走弱。VIX仍处低位但趋势向上，需警惕突发地缘事件带来的杠杆效应。",
-  "dataTime": "2026-06-02 11:11 BJT",
+  "dataTime": "2026-06-02 11:00 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-06-02T11:11:47+08:00",
+    "generatedAt": "2026-06-02T11:00:00+08:00",
     "skillVersion": "v14.0"
   }
 }

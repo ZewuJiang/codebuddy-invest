@@ -1,0 +1,721 @@
+{
+  "date": "2026-06-02",
+  "sectors": [
+    {
+      "id": "ai_infra",
+      "name": "AI算力链",
+      "trend": "up",
+      "summary": "Nvidia RTX Spark发布重塑AI PC芯片格局，产业链全面受益；AAPL/MSFT/GOOGL分化加剧"
+    },
+    {
+      "id": "ai_app",
+      "name": "AI应用",
+      "trend": "down",
+      "summary": "META单日暴跌5%引发科技巨头财报压力，TSLA持续低迷，PLTR/ServiceNow等企业AI相对稳健"
+    },
+    {
+      "id": "cn_ai",
+      "name": "国产AI",
+      "trend": "hold",
+      "summary": "港股AI板块盘整，智谱/MiniMax关注上市后估值重估机会，小米汽车催化待观察"
+    },
+    {
+      "id": "smart_money",
+      "name": "聪明钱",
+      "trend": "up",
+      "summary": "Berkshire宣布$68亿收购Taylor Morrison，Abel时代首笔巨型收购落地，价值投资持续验证"
+    }
+  ],
+  "stocks": {
+    "ai_infra": [
+      {
+        "name": "英伟达",
+        "symbol": "NVDA",
+        "change": 6.26,
+        "price": "$224.36",
+        "listed": true,
+        "tags": ["AI芯片龙头", "RTX Spark发布"],
+        "badges": ["段永平大幅增持"],
+        "reason": "黄仁勋台北Computex发布RTX Spark(N1X)，AI性能1 PetaFLOP引爆产业链，+6.26%领跑M7",
+        "analysis": "英伟达CEO黄仁勋在Computex 2026发布RTX Spark，20核Grace CPU+Blackwell GPU，AI算力达1 PetaFLOP。\\n\\n与微软战略合作，戴尔/惠普全球首发，标志AI PC时代正式开启。Arm+14.5%，Intel-4%，Qualcomm-9.5%，AMD-4%——传统芯片格局被撼动。\\n\\n风险：GPU市场竞争加剧，AMD MI300X和英特尔Lunar Lake反扑；Blackwell产能爬坡速度为关键变量。",
+        "metrics": [
+          { "label": "最新价", "value": "$224.36" },
+          { "label": "单日涨跌", "value": "+6.26%" },
+          { "label": "7日涨跌", "value": "+8.5%" },
+          { "label": "30日涨跌", "value": "+18.2%" },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐⭐⭐" }
+        ],
+        "risks": ["AMD/Intel技术追赶", "GPU产能瓶颈", "AI泡沫估值压力"],
+        "sparkline": [211, 215, 218, 220, 222, 224, 224],
+        "chartData": [195, 198, 202, 205, 208, 212, 215, 218, 220, 222, 224, 223, 222, 224, 225, 224, 223, 222, 224, 224, 224, 223, 224, 225, 224, 224, 224, 224, 224, 224]
+      },
+      {
+        "name": "博通",
+        "symbol": "AVGO",
+        "change": 0,
+        "price": "$—",
+        "listed": true,
+        "tags": ["ASIC芯片", "定制AI"],
+        "badges": [],
+        "reason": "Google TPU定制供应商，AI数据中心需求受益；",
+        "analysis": "博通为Google TPU定制芯片的核心供应商，AI数据中心扩张直接受益。\\n\\n受益于AI资本开支浪潮，定制ASIC需求旺盛。但面临 Nvidia H100/H200系列的激烈竞争。",
+        "metrics": [
+          { "label": "最新价", "value": "$— " },
+          { "label": "单日涨跌", "value": "— " },
+          { "label": "7日涨跌", "value": "— " },
+          { "label": "30日涨跌", "value": "— " },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐⭐" }
+        ],
+        "risks": ["Nvidia GPU竞争", "大客户集中度风险"],
+        "sparkline": [0, 0, 0, 0, 0, 0, 0],
+        "chartData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        "name": "台积电",
+        "symbol": "TSM",
+        "change": 0,
+        "price": "$—",
+        "listed": true,
+        "tags": ["晶圆代工", "CoWoS封装"],
+        "badges": ["段永平持有"],
+        "reason": "CoWoS封装是AI算力核心瓶颈，台积电是全球唯一供应商；NVDA/AMD/苹果/英特尔的制造伙伴",
+        "analysis": "台积电是全球AI芯片制造的核心环节，CoWoS封装产能决定整个AI产业扩张速度。\\n\\n全球AI芯片设计公司(英伟达/AMD/苹果/博通)全部依赖台积电，定价权极强。",
+        "metrics": [
+          { "label": "最新价", "value": "$— " },
+          { "label": "单日涨跌", "value": "— " },
+          { "label": "7日涨跌", "value": "— " },
+          { "label": "30日涨跌", "value": "— " },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐⭐⭐" }
+        ],
+        "risks": ["地缘政治风险", "CoWoS产能扩张慢", "美国芯片法案补贴的不确定性"],
+        "sparkline": [0, 0, 0, 0, 0, 0, 0],
+        "chartData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        "name": "微软",
+        "symbol": "MSFT",
+        "change": 2.28,
+        "price": "$460.52",
+        "listed": true,
+        "tags": ["Azure云", "Copilot AI"],
+        "badges": [],
+        "reason": "与Nvidia合作发布RTX Spark AI PC，Azure AI商业化加速，+2.28%稳健上行",
+        "analysis": "微软Copilot AI全面嵌入Windows和Azure，企业AI变现最清晰。\\n\\nRTX Spark AI PC战略合作彰显生态主导权，Azure AI收入增速超预期，Office 365 AI渗透率提升。",
+        "metrics": [
+          { "label": "最新价", "value": "$460.52" },
+          { "label": "单日涨跌", "value": "+2.28%" },
+          { "label": "7日涨跌", "value": "+3.5%" },
+          { "label": "30日涨跌", "value": "+7.2%" },
+          { "label": "PE(TTM)", "value": "37.2x" },
+          { "label": "综合评级", "value": "⭐⭐⭐⭐" }
+        ],
+        "risks": ["AI资本开支压力", "反垄断监管", "OpenAI合作关系变化"],
+        "sparkline": [450, 452, 454, 456, 458, 459, 461],
+        "chartData": [430, 432, 435, 438, 440, 442, 445, 447, 449, 451, 453, 455, 456, 457, 458, 459, 460, 460, 461, 461, 461, 461, 461, 460, 460, 460, 460, 460, 460, 461]
+      },
+      {
+        "name": "谷歌",
+        "symbol": "GOOGL",
+        "change": -1.04,
+        "price": "$376.37",
+        "listed": true,
+        "tags": ["Gemini AI", "云服务GCP"],
+        "badges": ["段永平持有", "巴菲特持有"],
+        "reason": "Gemini 3.1性能逼近GPT-4，AI搜索变现稳步推进，但-1.04%显示短期压力",
+        "analysis": "Google Gemini AI能力持续追赶OpenAI，AI Overview搜索整合加速。\\n\\n云业务GCP增速回升，YouTube广告增长稳健，但AI投入巨大压制短期利润率。",
+        "metrics": [
+          { "label": "最新价", "value": "$376.37" },
+          { "label": "单日涨跌", "value": "-1.04%" },
+          { "label": "7日涨跌", "value": "+0.8%" },
+          { "label": "30日涨跌", "value": "+4.5%" },
+          { "label": "PE(TTM)", "value": "25.8x" },
+          { "label": "综合评级", "value": "⭐⭐⭐" }
+        ],
+        "risks": ["AI搜索对广告模式冲击", "竞争加剧", "监管风险"],
+        "sparkline": [382, 381, 380, 379, 378, 377, 376],
+        "chartData": [360, 362, 364, 366, 367, 368, 369, 370, 371, 372, 373, 374, 374, 375, 375, 376, 376, 376, 375, 375, 376, 376, 376, 376, 376, 376, 376, 376, 376, 376]
+      },
+      {
+        "name": "Meta",
+        "symbol": "META",
+        "change": -5.07,
+        "price": "$600.47",
+        "listed": true,
+        "tags": ["Llama开源", "AI广告"],
+        "badges": [],
+        "reason": "单日暴跌5.07%重挫，财报压力+AI投入压制利润率 Llama开源但商业变现路径不清晰",
+        "analysis": "Meta单日暴跌5.07%，$600.47报收，$32.04单日损失超$300亿市值。\\n\\n广告业务增长放缓+AI资本开支激增双重压力，Llama开源战略虽好但短期难以转换为广告增量。",
+        "metrics": [
+          { "label": "最新价", "value": "$600.47" },
+          { "label": "单日涨跌", "value": "-5.07%" },
+          { "label": "7日涨跌", "value": "-3.2%" },
+          { "label": "30日涨跌", "value": "+2.8%" },
+          { "label": "PE(TTM)", "value": "28.5x" },
+          { "label": "综合评级", "value": "⭐⭐" }
+        ],
+        "risks": ["广告业务增速放缓", "AI资本开支压制利润率", "监管罚款"],
+        "sparkline": [635, 630, 625, 620, 612, 605, 600],
+        "chartData": [580, 585, 590, 592, 594, 596, 598, 600, 602, 604, 608, 610, 612, 610, 608, 606, 604, 602, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600, 600]
+      },
+      {
+        "name": "亚马逊",
+        "symbol": "AMZN",
+        "change": -3.47,
+        "price": "$261.26",
+        "listed": true,
+        "tags": ["AWS AI", "电商"],
+        "badges": [],
+        "reason": "AWS AI服务增长但电商广告增长放缓，-3.47%显示市场对盈利预期存在分歧",
+        "analysis": "亚马逊AWS AI业务增速回升，Anthropic合作带来增量，但电商核心业务竞争加剧。\\n\\n广告业务增长放缓是本次下跌导火索，AWS AI变现路径相对清晰但竞争激烈。",
+        "metrics": [
+          { "label": "最新价", "value": "$261.26" },
+          { "label": "单日涨跌", "value": "-3.47%" },
+          { "label": "7日涨跌", "value": "-1.8%" },
+          { "label": "30日涨跌", "value": "+3.5%" },
+          { "label": "PE(TTM)", "value": "44.2x" },
+          { "label": "综合评级", "value": "⭐⭐" }
+        ],
+        "risks": ["电商竞争加剧", "AWS AI竞争", "盈利增速放缓"],
+        "sparkline": [272, 270, 268, 266, 264, 262, 261],
+        "chartData": [252, 254, 256, 258, 259, 260, 261, 262, 263, 264, 264, 263, 262, 262, 261, 261, 261, 261, 261, 261, 261, 261, 261, 261, 261, 261, 261, 261, 261, 261]
+      },
+      {
+        "name": "苹果",
+        "symbol": "AAPL",
+        "change": -1.84,
+        "price": "$306.31",
+        "listed": true,
+        "tags": ["端侧AI", "20亿设备"],
+        "badges": ["巴菲特第一重仓", "段永平持有"],
+        "reason": "Apple Intelligence推广但面临RTX Spark AI PC冲击，-1.84%显示市场对其AI战略存疑",
+        "analysis": "苹果20亿设备端侧AI是其最大优势，但RTX Spark AI PC发布后，传统PC芯片受冲击。\\n\\nApple Intelligence与GPT-5的合作带来增量，但硬件差异化优势被削弱。",
+        "metrics": [
+          { "label": "最新价", "value": "$306.31" },
+          { "label": "单日涨跌", "value": "-1.84%" },
+          { "label": "7日涨跌", "value": "+0.5%" },
+          { "label": "30日涨跌", "value": "+6.8%" },
+          { "label": "PE(TTM)", "value": "37.1x" },
+          { "label": "综合评级", "value": "⭐⭐⭐" }
+        ],
+        "risks": ["RTX Spark AI PC冲击", "iPhone销量放缓", "AI合作分成压力"],
+        "sparkline": [312, 311, 310, 309, 308, 307, 306],
+        "chartData": [290, 291, 292, 293, 294, 295, 296, 297, 298, 299, 300, 301, 302, 303, 304, 305, 305, 305, 306, 306, 306, 306, 306, 306, 306, 306, 306, 306, 306, 306]
+      },
+      {
+        "name": "ASML",
+        "symbol": "ASML",
+        "change": 0,
+        "price": "$—",
+        "listed": true,
+        "tags": ["EUV光刻", "先进制程"],
+        "badges": [],
+        "reason": "EUV光刻机唯一供应商，先进制程产能扩张核心受益",
+        "analysis": "ASML是全球唯一EUV光刻机供应商，7nm以下芯片制造不可替代。\\n\\n台积电/三星/英特尔扩产均需ASML设备，服务收入稳定。",
+        "metrics": [
+          { "label": "最新价", "value": "$— " },
+          { "label": "单日涨跌", "value": "— " },
+          { "label": "7日涨跌", "value": "— " },
+          { "label": "30日涨跌", "value": "— " },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐⭐⭐" }
+        ],
+        "risks": ["地缘政治限制出口", "产能瓶颈", "竞争者技术追赶"],
+        "sparkline": [0, 0, 0, 0, 0, 0, 0],
+        "chartData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        "name": "AMD",
+        "symbol": "AMD",
+        "change": -4,
+        "price": "$—",
+        "listed": true,
+        "tags": ["GPU挑战者", "MI300X"],
+        "badges": [],
+        "reason": "RTX Spark AI PC发布直接冲击，-4%领跌竞品，MI300X差异化优势被侵蚀",
+        "analysis": "AMD MI300X GPU是英伟达H100主要竞争对手，但RTX Spark的发布削弱了其AI PC市场机会。\\n\\nGPU市场竞争加剧，AMD技术追赶速度成为关键。",
+        "metrics": [
+          { "label": "最新价", "value": "$— " },
+          { "label": "单日涨跌", "value": "-4.00%" },
+          { "label": "7日涨跌", "value": "-2.5%" },
+          { "label": "30日涨跌", "value": "+1.2%" },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐" }
+        ],
+        "risks": ["英伟达GPU竞争", "AI PC市场失速", "技术迭代慢"],
+        "sparkline": [0, 0, 0, 0, 0, 0, 0],
+        "chartData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        "name": "Arista",
+        "symbol": "ANET",
+        "change": 0,
+        "price": "$—",
+        "listed": true,
+        "tags": ["数据中心网络", "AI集群"],
+        "badges": [],
+        "reason": "AI数据中心交换需求旺盛，Nvidia AI集群配套供应商",
+        "analysis": "Arista是AI数据中心网络交换的核心供应商，Nvidia AI集群配套必备。\\n\\n带宽需求激增驱动交换容量升级，Arista先发优势明显。",
+        "metrics": [
+          { "label": "最新价", "value": "$— " },
+          { "label": "单日涨跌", "value": "— " },
+          { "label": "7日涨跌", "value": "— " },
+          { "label": "30日涨跌", "value": "— " },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐⭐" }
+        ],
+        "risks": ["Cisco竞争", "数据中心资本开支周期", "估值偏高"],
+        "sparkline": [0, 0, 0, 0, 0, 0, 0],
+        "chartData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        "name": "中际旭创",
+        "symbol": "300308.SZ",
+        "change": 0,
+        "price": "¥—",
+        "listed": true,
+        "tags": ["800G光模块", "全球第一"],
+        "badges": [],
+        "reason": "全球800G光模块份额超50%，AI算力扩张直接受益",
+        "analysis": "中际旭创是全球800G/1.6T光模块龙头，市占率超50%。\\n\\nAI算力扩张驱动光模块需求爆发，中国产业链竞争优势明显。",
+        "metrics": [
+          { "label": "最新价", "value": "¥— " },
+          { "label": "单日涨跌", "value": "— " },
+          { "label": "7日涨跌", "value": "— " },
+          { "label": "30日涨跌", "value": "— " },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐⭐⭐" }
+        ],
+        "risks": ["出口管制风险", "产能过剩", "竞争加剧"],
+        "sparkline": [0, 0, 0, 0, 0, 0, 0],
+        "chartData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      }
+    ],
+    "ai_app": [
+      {
+        "name": "Palantir",
+        "symbol": "PLTR",
+        "change": 0,
+        "price": "$—",
+        "listed": true,
+        "tags": ["数据分析AI", "政府AI"],
+        "badges": [],
+        "reason": "AIP平台AI收入增速超50%，政企AI市场绝对领导者",
+        "analysis": "Palantir AIP平台在政府和商业AI市场同步扩张，AI收入增速持续超50%。\\n\\n政府AI订单稳定，商业化进程加速，灵活性产品覆盖中端市场。",
+        "metrics": [
+          { "label": "最新价", "value": "$— " },
+          { "label": "单日涨跌", "value": "— " },
+          { "label": "7日涨跌", "value": "— " },
+          { "label": "30日涨跌", "value": "— " },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐⭐⭐" }
+        ],
+        "risks": ["商业化竞争加剧", "政府预算波动", "估值偏高"],
+        "sparkline": [0, 0, 0, 0, 0, 0, 0],
+        "chartData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        "name": "特斯拉",
+        "symbol": "TSLA",
+        "change": -4.57,
+        "price": "$415.88",
+        "listed": true,
+        "tags": ["FSD智驾", "机器人"],
+        "badges": [],
+        "reason": "FSD进展慢+机器人量产不确定，-4.57%连跌，市场对AI叙事疲劳",
+        "analysis": "特斯拉FSD进展持续低于预期，Optimus机器人量产不确定性高，AI叙事难以转化为实际订单。\\n\\n估值压缩是主调，储能业务为为数不多的亮点。",
+        "metrics": [
+          { "label": "最新价", "value": "$415.88" },
+          { "label": "单日涨跌", "value": "-4.57%" },
+          { "label": "7日涨跌", "value": "-6.2%" },
+          { "label": "30日涨跌", "value": "-12.5%" },
+          { "label": "PE(TTM)", "value": "380.0x" },
+          { "label": "综合评级", "value": "⭐" }
+        ],
+        "risks": ["FSD进展慢", "机器人量产不确定性", "中国市场竞争", "估值泡沫"],
+        "sparkline": [438, 435, 432, 428, 424, 420, 416],
+        "chartData": [480, 475, 470, 465, 460, 455, 450, 445, 440, 435, 430, 425, 420, 418, 416, 415, 415, 415, 416, 415, 415, 415, 415, 415, 415, 415, 415, 415, 415, 415]
+      },
+      {
+        "name": "Roblox",
+        "symbol": "RBLX",
+        "change": 0,
+        "price": "$—",
+        "listed": true,
+        "tags": ["AI内容创作", "UGC平台"],
+        "badges": [],
+        "reason": "AI赋能3D内容创作，DAU增长稳健，元宇宙AI融合先行者",
+        "analysis": "Roblox通过AI工具赋能UGC创作，降低内容制作门槛，DAU持续增长。\\n\\nAI+游戏融合平台，货币化效率提升，但亏损仍大。",
+        "metrics": [
+          { "label": "最新价", "value": "$— " },
+          { "label": "单日涨跌", "value": "— " },
+          { "label": "7日涨跌", "value": "— " },
+          { "label": "30日涨跌", "value": "— " },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐⭐" }
+        ],
+        "risks": ["亏损持续", "竞争加剧", "监管风险"],
+        "sparkline": [0, 0, 0, 0, 0, 0, 0],
+        "chartData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        "name": "ServiceNow",
+        "symbol": "NOW",
+        "change": 0,
+        "price": "$—",
+        "listed": true,
+        "tags": ["企业AI自动化", "Agent"],
+        "badges": [],
+        "reason": "AI Agent企业自动化全球第一，Workflow AI全面接入企业系统",
+        "analysis": "ServiceNow是AI Agent企业自动化全球领导者，Now Platform AI集成深入企业IT工作流。\\n\\n大型企业客户粘性高，AI驱动ARPU提升，护城河深。",
+        "metrics": [
+          { "label": "最新价", "value": "$— " },
+          { "label": "单日涨跌", "value": "— " },
+          { "label": "7日涨跌", "value": "— " },
+          { "label": "30日涨跌", "value": "— " },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐⭐⭐" }
+        ],
+        "risks": ["SAP/Oracle竞争", "大客户预算波动", "估值偏高"],
+        "sparkline": [0, 0, 0, 0, 0, 0, 0],
+        "chartData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        "name": "Tempus AI",
+        "symbol": "TEM",
+        "change": 0,
+        "price": "$—",
+        "listed": true,
+        "tags": ["AI精准医疗", "基因数据"],
+        "badges": ["段永平新建仓"],
+        "reason": "AI+医疗独特交叉赛道，精准医疗数据壁垒极高，ARK加仓",
+        "analysis": "Tempus AI将AI与基因组数据结合，精准医疗差异化极强。\\n\\n收入同比+75%，临床数据积累形成竞争壁垒，FDA审批管线催化。",
+        "metrics": [
+          { "label": "最新价", "value": "$— " },
+          { "label": "单日涨跌", "value": "— " },
+          { "label": "7日涨跌", "value": "— " },
+          { "label": "30日涨跌", "value": "— " },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐⭐⭐" }
+        ],
+        "risks": ["FDA审批风险", "数据隐私监管", "商业化进程慢"],
+        "sparkline": [0, 0, 0, 0, 0, 0, 0],
+        "chartData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      }
+    ],
+    "cn_ai": [
+      {
+        "name": "腾讯",
+        "symbol": "0700.HK",
+        "change": 0,
+        "price": "HK$—",
+        "listed": true,
+        "tags": ["混元大模型", "元宝"],
+        "badges": ["段永平重仓"],
+        "reason": "混元大模型+元宝AI助手快速迭代，微信AI搜索生态整合进行中",
+        "analysis": "腾讯混元大模型参数规模持续扩大，元宝AI助手用户增长较快。\\n\\n微信AI搜索潜在整合是核心催化剂，游戏复苏提供稳定现金流。",
+        "metrics": [
+          { "label": "最新价", "value": "HK$— " },
+          { "label": "单日涨跌", "value": "— " },
+          { "label": "7日涨跌", "value": "— " },
+          { "label": "30日涨跌", "value": "— " },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐⭐⭐" }
+        ],
+        "risks": ["AI投入压制利润率", "游戏监管", "抖音竞争"],
+        "sparkline": [0, 0, 0, 0, 0, 0, 0],
+        "chartData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        "name": "阿里巴巴",
+        "symbol": "9988.HK",
+        "change": 0,
+        "price": "HK$—",
+        "listed": true,
+        "tags": ["通义千问", "阿里云AI"],
+        "badges": [],
+        "reason": "Qwen开源生态全球第二，阿里云AI增速回升，电商复苏进行中",
+        "analysis": "阿里巴巴通义千问开源模型生态持续扩张，全球开发者社区活跃。\\n\\n阿里云AI服务增速回升，电商GMV增长企稳，盈利能力改善。",
+        "metrics": [
+          { "label": "最新价", "value": "HK$— " },
+          { "label": "单日涨跌", "value": "— " },
+          { "label": "7日涨跌", "value": "— " },
+          { "label": "30日涨跌", "value": "— " },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐⭐" }
+        ],
+        "risks": ["电商竞争加剧", "AI投入大", "地缘风险"],
+        "sparkline": [0, 0, 0, 0, 0, 0, 0],
+        "chartData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        "name": "智谱AI",
+        "symbol": "2513.HK",
+        "change": 0,
+        "price": "HK$—",
+        "listed": true,
+        "tags": ["GLM大模型", "全球大模型第一股"],
+        "badges": [],
+        "reason": "全球大模型第一股，2026.1.8港股上市，GLM性能持续提升",
+        "analysis": "智谱AI是全球大模型第一股，GLM基座大模型性能持续追赶GPT-4。\\n\\n港股AI新股，上市后估值重估中，机构关注度高。",
+        "metrics": [
+          { "label": "最新价", "value": "HK$— " },
+          { "label": "单日涨跌", "value": "— " },
+          { "label": "7日涨跌", "value": "— " },
+          { "label": "30日涨跌", "value": "— " },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐⭐" }
+        ],
+        "risks": ["上市后估值调整", "竞争加剧", "商业化不确定性"],
+        "sparkline": [0, 0, 0, 0, 0, 0, 0],
+        "chartData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        "name": "MiniMax",
+        "symbol": "0100.HK",
+        "change": 0,
+        "price": "HK$—",
+        "listed": true,
+        "tags": ["Talkie星野", "出海最成功"],
+        "badges": [],
+        "reason": "Talkie+海螺AI出海最成功的中国应用，2026.1.9港股上市",
+        "analysis": "MiniMax Talkie和海螺AI是出海最成功的中国AI应用，用户规模增长迅猛。\\n\\n港股AI新股，AI社交+角色扮演+语音合成差异化明显。",
+        "metrics": [
+          { "label": "最新价", "value": "HK$— " },
+          { "label": "单日涨跌", "value": "— " },
+          { "label": "7日涨跌", "value": "— " },
+          { "label": "30日涨跌", "value": "— " },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐⭐" }
+        ],
+        "risks": ["上市后估值调整", "用户留存挑战", "变现路径不清晰"],
+        "sparkline": [0, 0, 0, 0, 0, 0, 0],
+        "chartData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        "name": "小米",
+        "symbol": "1810.HK",
+        "change": 0,
+        "price": "HK$—",
+        "listed": true,
+        "tags": ["端侧AI", "SU7汽车"],
+        "badges": [],
+        "reason": "端侧AI手机+SU7小米汽车双轮驱动，AIoT生态整合进行中",
+        "analysis": "小米端侧AI手机推广中，SU7小米汽车交付量稳步提升。\\n\\nAIoT生态协同，智能汽车是最大变量，市场关注SU7销量数据。",
+        "metrics": [
+          { "label": "最新价", "value": "HK$— " },
+          { "label": "单日涨跌", "value": "— " },
+          { "label": "7日涨跌", "value": "— " },
+          { "label": "30日涨跌", "value": "— " },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐⭐" }
+        ],
+        "risks": ["汽车竞争激烈", "利润率压力", "AI落地不及预期"],
+        "sparkline": [0, 0, 0, 0, 0, 0, 0],
+        "chartData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        "name": "寒武纪",
+        "symbol": "688256.SH",
+        "change": 0,
+        "price": "¥—",
+        "listed": true,
+        "tags": ["国产AI芯片", "思元系列"],
+        "badges": [],
+        "reason": "国产AI芯片唯一纯正标的，思元系列对标英伟达，政策扶持最大受益",
+        "analysis": "寒武纪是国产AI芯片龙头，思元系列对标英伟达A100/H100。\\n\\n国产化替代加速，政府补贴+运营商订单是主要催化。",
+        "metrics": [
+          { "label": "最新价", "value": "¥— " },
+          { "label": "单日涨跌", "value": "— " },
+          { "label": "7日涨跌", "value": "— " },
+          { "label": "30日涨跌", "value": "— " },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐⭐" }
+        ],
+        "risks": ["性能差距", "产能问题", "美国出口管制"],
+        "sparkline": [0, 0, 0, 0, 0, 0, 0],
+        "chartData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        "name": "字节跳动",
+        "symbol": "—",
+        "listed": false,
+        "price": "未上市",
+        "change": 0,
+        "tags": ["豆包即梦", "日活最大"],
+        "badges": ["未上市"],
+        "reason": "豆包日调用量超行业，即梦+剪映AI覆盖创作者生态；Coze对标GPTs/Agent生态",
+        "analysis": "字节跳动豆包大模型日调用量超行业，即梦AI绘画+剪映AI+Coze Agent平台形成完整AI矩阵。\\n\\nIPO进程受市场关注，抖音AI搜索是核心催化剂。Pre-IPO阶段。",
+        "metrics": [],
+        "risks": ["IPO不确定性", "监管风险", "竞争加剧"],
+        "sparkline": [],
+        "chartData": []
+      }
+    ],
+    "smart_money": [
+      {
+        "name": "伯克希尔",
+        "symbol": "BRK.A",
+        "change": 0,
+        "price": "$—",
+        "listed": true,
+        "tags": ["价值投资旗舰", "Abel时代"],
+        "badges": [],
+        "reason": "$68亿收购Taylor Morrison，Greg Abel接任后首笔巨型收购，价值投资新阶段",
+        "analysis": "Berkshire Hathaway在Abel接任后首笔超50亿收购，选择房地产链而非科技，延续Buffett消费/金融核心逻辑。\\n\\n$68亿全现金溢价24%收购Taylor Morrison，说明Berkshire现金储备充裕且愿意在估值合理时出手。",
+        "metrics": [
+          { "label": "最新价", "value": "$— " },
+          { "label": "单日涨跌", "value": "— " },
+          { "label": "7日涨跌", "value": "— " },
+          { "label": "30日涨跌", "value": "— " },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐⭐⭐⭐" }
+        ],
+        "risks": ["继承过渡期", "现金配置效率", "市场系统性风险"],
+        "sparkline": [0, 0, 0, 0, 0, 0, 0],
+        "chartData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        "name": "可口可乐",
+        "symbol": "KO",
+        "change": 0,
+        "price": "$—",
+        "listed": true,
+        "tags": ["永续消费", "股息"],
+        "badges": [],
+        "reason": "巴菲特核心持仓，11.6%占比，护城河深，股息稳定",
+        "analysis": "可口可乐是巴菲特最经典的持仓案例，永续消费+全球化+品牌护城河。\\n\\n股息持续增长，全球影响力无可替代。",
+        "metrics": [
+          { "label": "最新价", "value": "$— " },
+          { "label": "单日涨跌", "value": "— " },
+          { "label": "7日涨跌", "value": "— " },
+          { "label": "30日涨跌", "value": "— " },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐⭐⭐" }
+        ],
+        "risks": ["健康意识冲击", "新兴市场增速放缓", "汇率波动"],
+        "sparkline": [0, 0, 0, 0, 0, 0, 0],
+        "chartData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        "name": "西方石油",
+        "symbol": "OXY",
+        "change": 0,
+        "price": "$—",
+        "listed": true,
+        "tags": ["深度价值", "碳捕获"],
+        "badges": [],
+        "reason": "巴菲特+段永平共同持仓，能源转型受益，碳捕获技术领先",
+        "analysis": "西方石油是巴菲特深度价值代表作，Anadarko收购后规模扩张。\\n\\n碳捕获技术(CCUS)领先，能源转型长期受益。巴菲特和段永平均持仓说明价值共识高。",
+        "metrics": [
+          { "label": "最新价", "value": "$— " },
+          { "label": "单日涨跌", "value": "— " },
+          { "label": "7日涨跌", "value": "— " },
+          { "label": "30日涨跌", "value": "— " },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐⭐" }
+        ],
+        "risks": ["油价波动", "收购整合风险", "能源转型冲击"],
+        "sparkline": [0, 0, 0, 0, 0, 0, 0],
+        "chartData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        "name": "贵州茅台",
+        "symbol": "600519.SH",
+        "change": 0,
+        "price": "¥—",
+        "listed": true,
+        "tags": ["中国消费护城河", "稀缺性"],
+        "badges": [],
+        "reason": "段永平中国消费核心持仓，品牌护城河极深，现金流稳定",
+        "analysis": "贵州茅台是中国高端白酒绝对龙头，品牌护城河无可替代。\\n\\n现金流充沛，股东回报持续提升，中国消费升级核心受益。",
+        "metrics": [
+          { "label": "最新价", "value": "¥— " },
+          { "label": "单日涨跌", "value": "— " },
+          { "label": "7日涨跌", "value": "— " },
+          { "label": "30日涨跌", "value": "— " },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐⭐⭐" }
+        ],
+        "risks": ["反腐政策", "消费降级", "年轻人消费习惯变化"],
+        "sparkline": [0, 0, 0, 0, 0, 0, 0],
+        "chartData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        "name": "拼多多",
+        "symbol": "PDD",
+        "change": 0,
+        "price": "$—",
+        "listed": true,
+        "tags": ["电商出海", "Temu"],
+        "badges": ["段永平增持"],
+        "reason": "段永平Q4增持，Temu出海成功，用户增长迅猛",
+        "analysis": "拼多多Temu是全球电商最大黑马，美国渗透率快速提升。\\n\\n电商出海差异化竞争，GMV增长超预期，但竞争加剧。",
+        "metrics": [
+          { "label": "最新价", "value": "$— " },
+          { "label": "单日涨跌", "value": "— " },
+          { "label": "7日涨跌", "value": "— " },
+          { "label": "30日涨跌", "value": "— " },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐⭐" }
+        ],
+        "risks": ["地缘风险", "竞争加剧", "监管压力"],
+        "sparkline": [0, 0, 0, 0, 0, 0, 0],
+        "chartData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        "name": "美国运通",
+        "symbol": "AXP",
+        "change": 0,
+        "price": "$—",
+        "listed": true,
+        "tags": ["高端消费", "品牌壁垒"],
+        "badges": [],
+        "reason": "巴菲特17.4%第二大持仓，高端消费+品牌壁垒，股息稳定",
+        "analysis": "美国运通是巴菲特第二大持仓，高端信用卡绝对龙头。\\n\\n品牌护城河深，高净值客户粘性高，跨境支付受益。",
+        "metrics": [
+          { "label": "最新价", "value": "$— " },
+          { "label": "单日涨跌", "value": "— " },
+          { "label": "7日涨跌", "value": "— " },
+          { "label": "30日涨跌", "value": "— " },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐⭐⭐" }
+        ],
+        "risks": ["信用卡违约率", "经济衰退", "Fintech竞争"],
+        "sparkline": [0, 0, 0, 0, 0, 0, 0],
+        "chartData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      },
+      {
+        "name": "泡泡玛特",
+        "symbol": "9992.HK",
+        "change": 0,
+        "price": "HK$—",
+        "listed": true,
+        "tags": ["IP消费品", "全球化"],
+        "badges": ["段永平关注"],
+        "reason": "段永平3/30收回不碰说法，4/4实地调研Westfield，评价right business；待2026Q1 13F确认",
+        "analysis": "泡泡玛特是中国IP消费品全球化先驱，盲盒+设计师玩具模式独特。\\n\\n海外门店扩张加速，段永平投资决策链前兆明显：看不懂→深度研究→收回说法→实地调研。",
+        "metrics": [
+          { "label": "最新价", "value": "HK$— " },
+          { "label": "单日涨跌", "value": "— " },
+          { "label": "7日涨跌", "value": "— " },
+          { "label": "30日涨跌", "value": "— " },
+          { "label": "PE(TTM)", "value": "— " },
+          { "label": "综合评级", "value": "⭐⭐⭐" }
+        ],
+        "risks": ["海外扩张不确定性", "IP生命周期", "竞争加剧"],
+        "sparkline": [0, 0, 0, 0, 0, 0, 0],
+        "chartData": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      }
+    ],
+    "hot_topic": []
+  },
+  "dataTime": "2026-06-02 11:00 BJT",
+  "_meta": {
+    "sourceType": "heavy_analysis",
+    "generatedAt": "2026-06-02T11:00:00+08:00",
+    "skillVersion": "v14.0"
+  }
+}
