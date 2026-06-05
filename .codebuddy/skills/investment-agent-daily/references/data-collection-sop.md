@@ -146,6 +146,7 @@ web_fetch: https://www.google.com/finance/quote/XLRE:NYSEARCA  (房地产)
 | **DXY直接获取困难** | → web_search "DXY dollar index close {date}" Trading Economics snippet → 金投网 DXY → Macrotrends.net DXY daily chart → Finlore.io → 使用前日值+趋势估算（**必须标注"估算"**） |
 | **布伦特历史K线5日内精确值** | → oilcrudeprice.com → **centralcharts.com/en/6567-brent-crude-oil/quotes**（提供完整OHLCV历史K线，已验证2026年数据质量高） → 金投网 |
 | **亚太指数实时（日经/KOSPI/恒生）** | → **dhan.co/indices/asian-indices/**（一站获取日经/KOSPI/恒生实时精确报价，约15分钟延迟，已验证2026年数据质量高） → stockq.org → 各交易所官网 |
+| **财报密集日/季报季批次0/4补充** | → **cannontrading.com/tools/daily-updates/**（Cannon Trading盘前简报，一站覆盖机构目标价/JOLTS等宏观/大宗/债券/外汇/技术水平/风险提示，URL格式：briefing-{mmdd}{yyyy}-readers-web.html，已连续2次财报日验证高效：4/16银行财报日/6/3 AVGO+CRWD财报日）|
 | PDF flag emoji乱码 | → 用文字替代（"A股"代替"🇨🇳 A股"） |
 | PDF中文乱码 | → 检查font-family，STHeiti必须排首位 |
 

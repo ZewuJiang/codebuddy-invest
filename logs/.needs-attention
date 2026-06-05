@@ -67,3 +67,6 @@
 [2026-06-03 11:17] ⚠️ SUCCESS_SKIP_WARN
   详情日志: /Users/zewujiang/Desktop/AICo/codebuddy-invest/logs/app-sync-20260603-1100.log
 
+[2026-06-04 11:00] ❌ FAIL_AI_INCOMPLETE(json=0)
+  详情日志: /Users/zewujiang/Desktop/AICo/codebuddy-invest/logs/app-sync-20260604-1100.log
+
