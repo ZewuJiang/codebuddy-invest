@@ -78,9 +78,7 @@
       "confidence": 72,
       "logic": "VIX降至15.4（2026年最低）→ 波动率压缩+空头回补驱动 → 若周三CPI未超预期，标普或挑战前高7584",
       "keyActor": "VIX",
-      "references": [
-        "CBOE VIX"
-      ],
+      "references": ["CBOE VIX"],
       "probability": "高可能性",
       "trend": "上升"
     },
@@ -89,9 +87,7 @@
       "confidence": 68,
       "logic": "ARK卖出AMD+英伟达强调Agentic AI → AI投资重心偏移 → 谷歌/微软/亚马逊等应用层相对NVDA有更强变现路径",
       "keyActor": "ARK，木头姐",
-      "references": [
-        "Benzinga ARK日报"
-      ],
+      "references": ["Benzinga ARK日报"],
       "probability": "中可能性",
       "trend": "上升"
     },
@@ -100,9 +96,7 @@
       "confidence": 65,
       "logic": "Abel上任首年即完成$68亿收购 → 证明其独立决策力 → 现金储备$4000亿（历史高位）→ 下一次重大买入或引发市场跟注",
       "keyActor": "Greg Abel",
-      "references": [
-        "CNBC报道"
-      ],
+      "references": ["CNBC报道"],
       "probability": "中可能性",
       "trend": "上升"
     }
@@ -157,10 +151,10 @@
     "TSLA连续下跌-1.24%（连跌第3日），AI+自动驾驶叙事短期承压，或拖累纳指整体表现"
   ],
   "riskNote": "VIX 15.4处于低位（绿区），但10Y美债4.49%（黄区）+黄金$4,443（黄区）显示宏观风险未解除。中性情绪基于VIX短期信号，中期风险需观察CPI和财政赤字走向。",
-  "dataTime": "2026-06-05 11:11 BJT",
+  "dataTime": "2026-06-05 11:00 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-06-05T11:12:16+08:00",
+    "generatedAt": "2026-06-05T11:00:00+08:00",
     "skillVersion": "v14.0"
   }
 }
