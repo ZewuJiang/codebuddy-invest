@@ -1,44 +1,34 @@
 {
   "_meta": {
     "version": "v1.1",
-    "generated_at": "2026-06-05T11:11:23+08:00",
-    "fetched_at": "2026-06-05T11:11:23+08:00",
-    "success_count": 5,
+    "generated_at": "2026-06-10T11:25:57+08:00",
+    "fetched_at": "2026-06-10T11:25:57+08:00",
+    "success_count": 3,
     "total": 6,
     "skipped": [
-      "10Y美债"
+      "10Y美债",
+      "DXY",
+      "VIX"
     ]
   },
   "anchors": {
     "CNH": {
-      "value": 6.7739,
+      "value": 6.7715,
       "unit": "USD/CNH",
       "source": "exchangerate_or_frankfurter",
-      "fetched_at": "2026-06-05T11:11:23+08:00"
-    },
-    "DXY": {
-      "value": 99.42,
-      "unit": "",
-      "source": "yfinance_DX-Y.NYB",
-      "fetched_at": "2026-06-05T11:11:23+08:00"
-    },
-    "VIX": {
-      "value": 15.4,
-      "unit": "",
-      "source": "CBOE_or_yfinance",
-      "fetched_at": "2026-06-05T11:11:23+08:00"
+      "fetched_at": "2026-06-10T11:25:57+08:00"
     },
     "BTC": {
-      "value": 62327.0,
+      "value": 61353.0,
       "unit": "USD",
       "source": "coingecko",
-      "fetched_at": "2026-06-05T11:11:23+08:00"
+      "fetched_at": "2026-06-10T11:25:57+08:00"
     },
     "ETH": {
-      "value": 1723.19,
+      "value": 1627.37,
       "unit": "USD",
       "source": "coingecko",
-      "fetched_at": "2026-06-05T11:11:23+08:00"
+      "fetched_at": "2026-06-10T11:25:57+08:00"
     }
   }
 }
