@@ -1,0 +1,187 @@
+{
+  "date": "2026-06-12",
+  "trafficLights": [
+    {
+      "name": "VIX波动率",
+      "value": "19.44",
+      "status": "yellow",
+      "threshold": "<18绿 / 18-25黄 / >25红"
+    },
+    {
+      "name": "10Y美债收益率",
+      "value": "4.48%",
+      "status": "yellow",
+      "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
+    },
+    {
+      "name": "布伦特原油",
+      "value": "$88.54",
+      "status": "green",
+      "threshold": "<$90绿 / $90-110黄 / >$110红"
+    },
+    {
+      "name": "美元指数DXY",
+      "value": "100.15",
+      "status": "green",
+      "threshold": "<102绿 / 102-107黄 / >107红"
+    },
+    {
+      "name": "HY信用利差",
+      "value": "4.2%",
+      "status": "yellow",
+      "threshold": "<4%绿 / 4-5%黄 / >5%红"
+    },
+    {
+      "name": "黄金XAU",
+      "value": "$3,300",
+      "status": "yellow",
+      "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
+    },
+    {
+      "name": "离岸人民币CNH",
+      "value": "6.78",
+      "status": "yellow",
+      "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
+    }
+  ],
+  "riskScore": 50,
+  "riskLevel": "medium",
+  "riskAdvice": "VIX 19.44仍处黄灯区间（波动率压力未完全释放），10Y美债4.48%接近黄灯上沿——若本周CPI超预期可能双重承压，关注周四CPI数据落地",
+  "events": [
+    {
+      "date": "周四",
+      "title": "美国5月CPI数据发布，通胀走势关键验证",
+      "impact": "high",
+      "source": "美国劳工统计局",
+      "url": "https://bls.gov"
+    },
+    {
+      "date": "周五",
+      "title": "美国6月密歇根消费者信心指数初值",
+      "impact": "medium",
+      "source": "密歇根大学",
+      "url": "https://umich.edu"
+    },
+    {
+      "date": "持续",
+      "title": "特朗普关税政策不确定性持续扰动市场",
+      "impact": "high",
+      "source": "白宫",
+      "url": "https://whitehouse.gov"
+    }
+  ],
+  "alerts": [],
+  "smartMoneyDetail": [
+    {
+      "tier": "T1旗舰",
+      "funds": [
+        {
+          "name": "ARK Invest",
+          "action": "6月10日大幅清仓12只标的（HOOD/IRDM/VCYT等），仅买入KDK（ Kodiak AI），显示木头姐在市场反弹中选择获利了结观望",
+          "signal": "bearish",
+          "source": "Cathie's Ark",
+          "url": "https://cathiesark.com/ark-funds-combined/trades",
+          "freshness": "本周"
+        },
+        {
+          "name": "桥水基金",
+          "action": "全天候组合增配黄金ETF，Dalio表态「滞胀交易远未结束」，在地缘风险缓和背景下仍维持黄金配置",
+          "signal": "neutral",
+          "source": "Bloomberg",
+          "url": "https://bloomberg.com",
+          "freshness": "本周"
+        }
+      ]
+    },
+    {
+      "tier": "T2成长",
+      "funds": [
+        {
+          "name": "高瓴资本",
+          "action": "持续关注中国科技/消费/医疗，长期价值投资为主",
+          "signal": "neutral",
+          "source": "公开信息",
+          "freshness": "本月"
+        }
+      ]
+    },
+    {
+      "tier": "策略师观点",
+      "funds": [
+        {
+          "name": "大摩策略师",
+          "action": "英伟达确认锁定台积电产能支撑2027年增长，存储缺口难补（无尘室+光刻机产能受限）",
+          "signal": "bullish",
+          "source": "Morgan Stanley",
+          "url": "https://morganstanley.com",
+          "freshness": "上周"
+        }
+      ]
+    }
+  ],
+  "smartMoneyHoldings": [
+    {
+      "manager": "巴菲特 · 伯克希尔",
+      "fund": "Berkshire Hathaway",
+      "aum": "$263.1B",
+      "asOf": "2026Q1 · 5月15日披露",
+      "positions": [
+        { "name": "苹果", "symbol": "AAPL", "weight": "22.0%", "change": "减持" },
+        { "name": "美国运通", "symbol": "AXP", "weight": "17.4%", "change": "持仓不变" },
+        { "name": "可口可乐", "symbol": "KO", "weight": "11.6%", "change": "持仓不变" },
+        { "name": "美国银行", "symbol": "BAC", "weight": "9.5%", "change": "减持" },
+        { "name": "雪佛龙", "symbol": "CVX", "weight": "6.6%", "change": "大幅减持" },
+        { "name": "穆迪", "symbol": "MCO", "weight": "4.6%", "change": "持仓不变" },
+        { "name": "西方石油", "symbol": "OXY", "weight": "3.97%", "change": "持仓不变" },
+        { "name": "Chubb", "symbol": "CB", "weight": "3.9%", "change": "增持" },
+        { "name": "卡夫亨氏", "symbol": "KHC", "weight": "2.88%", "change": "持仓不变" },
+        { "name": "Alphabet", "symbol": "GOOGL", "weight": "2.04%", "change": "新建仓" }
+      ],
+      "footnote": "Q1增持DAL(+40M股)/GOOGL(+36M股)，大幅减持CVX(-45M股/-35%)，现金储备$3733亿创历史新高，Greg Abel重启回购"
+    },
+    {
+      "manager": "段永平 · H&H",
+      "fund": "H&H International Investment",
+      "aum": "$18B",
+      "asOf": "2025Q4 · 2月披露",
+      "positions": [
+        { "name": "苹果", "symbol": "AAPL", "weight": "50.30%", "change": "减持" },
+        { "name": "伯克希尔B", "symbol": "BRK.B", "weight": "20.60%", "change": "增持" },
+        { "name": "英伟达", "symbol": "NVDA", "weight": "7.70%", "change": "大幅增持" },
+        { "name": "拼多多", "symbol": "PDD", "weight": "7.50%", "change": "增持" },
+        { "name": "谷歌", "symbol": "GOOG", "weight": "3.30%", "change": "小幅增持" },
+        { "name": "西方石油", "symbol": "OXY", "weight": "3.10%", "change": "减持" },
+        { "name": "微软", "symbol": "MSFT", "weight": "2.40%", "change": "大幅增持" },
+        { "name": "阿里巴巴", "symbol": "BABA", "weight": "2.10%", "change": "减持" },
+        { "name": "台积电", "symbol": "TSM", "weight": "2.10%", "change": "大幅增持" },
+        { "name": "迪士尼", "symbol": "DIS", "weight": "0.50%", "change": "减持" }
+      ],
+      "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，新建仓CRWV/CRDO/TEM"
+    },
+    {
+      "manager": "Cathie Wood · ARK旗舰",
+      "fund": "ARK Innovation ETF (ARKK)",
+      "aum": "$6.8B",
+      "asOf": "2026-05-19（ARK每日持仓披露）",
+      "positions": [
+        { "name": "特斯拉", "symbol": "TSLA", "weight": "10.50%", "change": "持仓不变" },
+        { "name": "CRISPR治疗", "symbol": "CRSP", "weight": "6.30%", "change": "持仓不变" },
+        { "name": "Tempus AI", "symbol": "TEM", "weight": "5.00%", "change": "加仓" },
+        { "name": "Shopify", "symbol": "SHOP", "weight": "4.70%", "change": "持仓不变" },
+        { "name": "Coinbase", "symbol": "COIN", "weight": "4.30%", "change": "持仓不变" },
+        { "name": "Roku", "symbol": "ROKU", "weight": "4.20%", "change": "持仓不变" },
+        { "name": "Palantir", "symbol": "PLTR", "weight": "3.80%", "change": "持仓不变" },
+        { "name": "Block", "symbol": "SQ", "weight": "3.50%", "change": "持仓不变" },
+        { "name": "Unity软件", "symbol": "U", "weight": "3.20%", "change": "持仓不变" },
+        { "name": "Roblox", "symbol": "RBLX", "weight": "2.90%", "change": "持仓不变" }
+      ],
+      "footnote": "ARK每日披露持仓变动，TSLA始终第一重仓，近期连续买入CoreWeave(CRWV)和Kodiak AI(KDK)但尚未进入Top10"
+    }
+  ],
+  "dataTime": "2026-06-12 11:00 BJT",
+  "_meta": {
+    "sourceType": "heavy_analysis",
+    "generatedAt": "2026-06-12T11:00:00+08:00",
+    "skillVersion": "v14.0"
+  }
+}

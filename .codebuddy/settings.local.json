@@ -1,7 +1,3 @@
 {
-  "enabledPlugins": {
-    "agent-browser@codebuddy-plugins-official": true,
-    "agent-orchestration@codebuddy-plugins-official": true,
-    "all-skills@codebuddy-plugins-official": true
-  }
+  "enabledPlugins": {}
 }

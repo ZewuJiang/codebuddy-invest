@@ -1,0 +1,240 @@
+{
+  "date": "2026-06-15",
+  "trafficLights": [
+    {
+      "name": "VIX波动率",
+      "value": "17.68",
+      "status": "yellow",
+      "threshold": "<18绿 / 18-25黄 / >25红"
+    },
+    {
+      "name": "10Y美债收益率",
+      "value": "4.28%",
+      "status": "yellow",
+      "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
+    },
+    {
+      "name": "布伦特原油",
+      "value": "$85.50",
+      "status": "green",
+      "threshold": "<$90绿 / $90-110黄 / >$110红"
+    },
+    {
+      "name": "美元指数DXY",
+      "value": "99.56",
+      "status": "green",
+      "threshold": "<102绿 / 102-107黄 / >107红"
+    },
+    {
+      "name": "HY信用利差",
+      "value": "4.2%",
+      "status": "yellow",
+      "threshold": "<4%绿 / 4-5%黄 / >5%红"
+    },
+    {
+      "name": "黄金XAU",
+      "value": "$4,300",
+      "status": "red",
+      "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
+    },
+    {
+      "name": "离岸人民币CNH",
+      "value": "6.7623",
+      "status": "green",
+      "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
+    }
+  ],
+  "riskScore": 50,
+  "riskLevel": "medium",
+  "riskAdvice": "黄金$4,300破红线（避险极端）+VIX 17.68近一年低位（市场过于乐观）——两者方向矛盾，本周FOMC纪要和CPI若超预期，波动率可能急速回升至25+打破当前乐观预期。",
+  "events": [
+    {
+      "date": "周三",
+      "title": "FOMC 6月会议纪要发布，聚焦降息路径讨论",
+      "impact": "high",
+      "source": "Federal Reserve",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+    },
+    {
+      "date": "周四",
+      "title": "美国6月CPI数据发布，通胀拐点关键验证",
+      "impact": "high",
+      "source": "BLS",
+      "url": "https://www.bls.gov/cpi/"
+    },
+    {
+      "date": "周二~周四",
+      "title": "苹果WWDC 2026全球开发者大会，AI功能发布",
+      "impact": "high",
+      "source": "Apple",
+      "url": "https://developer.apple.com/news/"
+    },
+    {
+      "date": "6月中旬",
+      "title": "OpenAI IPO S-4文件审核进展（高盛/摩根士丹利参与）",
+      "impact": "medium",
+      "source": "SEC",
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar"
+    },
+    {
+      "date": "周五",
+      "title": "美国6月消费者信心指数初值",
+      "impact": "medium",
+      "source": "University of Michigan",
+      "url": "https://data.sca.isr.umich.edu/"
+    }
+  ],
+  "alerts": [
+    {
+      "level": "warning",
+      "text": "VIX单日暴跌9%至17.68创近一年低位，期权市场定价过于乐观——delta skew显示看跌期权需求极低",
+      "time": "09:00",
+      "source": "CBOE",
+      "url": "https://www.cboe.com/indices/vix/"
+    },
+    {
+      "level": "info",
+      "text": "KOSPI开盘涨5%触发熔断机制，韩国交易所程序交易暂停5分钟——今年最大单日涨幅",
+      "time": "06:30",
+      "source": "KRX",
+      "url": "https://www.krx.or.kr/"
+    },
+    {
+      "level": "info",
+      "text": "ARK连续9个交易日净卖出AMD约$4100万股，同时买入Nvidia和Cerebras——持仓集中化明显",
+      "time": "08:00",
+      "source": "Cathies Ark",
+      "url": "https://cathiesark.com/ark-funds-combined/trades"
+    }
+  ],
+  "smartMoneyDetail": [
+    {
+      "tier": "T1旗舰",
+      "funds": [
+        {
+          "name": "桥水基金",
+          "action": "达利欧警告AI泡沫将破裂——仅20%美国企业在实际使用AI，资本成本和伊朗冲突构成近期风险；市场可能低估了AI采纳率的真实难度",
+          "signal": "bearish",
+          "source": "Bloomberg",
+          "url": "https://www.bloomberg.com/news/articles/2026-06-04/dalio-warns-ai-bubble",
+          "freshness": "本周"
+        },
+        {
+          "name": "伯克希尔·格雷格·阿贝尔",
+          "action": "向Alphabet投资$100亿（Google $800亿股权融资的一部分），这是Greg Abel接任后首次AI领域重大投资，显示对AI核心资产的战略认可",
+          "signal": "bullish",
+          "source": "CNBC",
+          "url": "https://www.cnbc.com/2026/06/01/berkshire-hathaway-alphabet-investment.html",
+          "freshness": "本周"
+        }
+      ]
+    },
+    {
+      "tier": "T2成长",
+      "funds": [
+        {
+          "name": "ARK Invest",
+          "action": "本周连续净卖出AMD（累计约$4100万股），同时买入Nvidia和Cerebras；显示从CPU/GPU混合持仓转向更纯粹的AI芯片集中配置",
+          "signal": "bullish",
+          "source": "Cathies Ark",
+          "url": "https://cathiesark.com/ark-funds-combined/trades",
+          "freshness": "本周"
+        },
+        {
+          "name": "段永平",
+          "action": "泡泡玛特举牌完成，斥资14亿港币成为第二大股东；5月25日完成实物交割从期权仓转股票仓，完成经典三部曲建仓",
+          "signal": "bullish",
+          "source": "雪球",
+          "url": "https://xueqiu.com/6600079272/393353454",
+          "freshness": "本周"
+        }
+      ]
+    },
+    {
+      "tier": "策略师观点",
+      "funds": [
+        {
+          "name": "高盛David Kostin",
+          "action": "维持标普500目标价6900（未来12个月），认为投资者似乎在忽视潜在的短期经济和盈利疲弱",
+          "signal": "neutral",
+          "source": "Goldman Sachs",
+          "url": "https://www.goldmansachs.com/insights/articles/",
+          "freshness": "上周"
+        },
+        {
+          "name": "摩根士丹利Mike Wilson",
+          "action": "维持对美股2026年的增长乐观预期，认为经济将实现软着陆，企业盈利将超预期",
+          "signal": "bullish",
+          "source": "Morgan Stanley",
+          "url": "https://www.morganstanley.com/insights/podcasts/thoughts-on-the-market/",
+          "freshness": "上周"
+        }
+      ]
+    }
+  ],
+  "smartMoneyHoldings": [
+    {
+      "manager": "巴菲特 · 伯克希尔",
+      "fund": "Berkshire Hathaway",
+      "aum": "$263.1B",
+      "asOf": "2026Q1 · 5月15日披露",
+      "positions": [
+        { "name": "苹果", "symbol": "AAPL", "weight": "22.0%", "change": "减持" },
+        { "name": "美国运通", "symbol": "AXP", "weight": "17.4%", "change": "持仓不变" },
+        { "name": "可口可乐", "symbol": "KO", "weight": "11.6%", "change": "持仓不变" },
+        { "name": "美国银行", "symbol": "BAC", "weight": "9.5%", "change": "减持" },
+        { "name": "雪佛龙", "symbol": "CVX", "weight": "6.6%", "change": "大幅减持" },
+        { "name": "穆迪", "symbol": "MCO", "weight": "4.6%", "change": "持仓不变" },
+        { "name": "西方石油", "symbol": "OXY", "weight": "3.97%", "change": "持仓不变" },
+        { "name": "Chubb", "symbol": "CB", "weight": "3.9%", "change": "增持" },
+        { "name": "卡夫亨氏", "symbol": "KHC", "weight": "2.88%", "change": "持仓不变" },
+        { "name": "Alphabet", "symbol": "GOOGL", "weight": "2.04%", "change": "新建仓" }
+      ],
+      "footnote": "Q1增持DAL(+40M股)/GOOGL(+36M股)，大幅减持CVX(-45M股/-35%)，现金储备$3733亿创历史新高，Greg Abel重启回购"
+    },
+    {
+      "manager": "段永平 · H&H",
+      "fund": "H&H International Investment",
+      "aum": "$18B",
+      "asOf": "2025Q4 · 2月披露",
+      "positions": [
+        { "name": "苹果", "symbol": "AAPL", "weight": "50.30%", "change": "减持" },
+        { "name": "伯克希尔B", "symbol": "BRK.B", "weight": "20.60%", "change": "增持" },
+        { "name": "英伟达", "symbol": "NVDA", "weight": "7.70%", "change": "大幅增持" },
+        { "name": "拼多多", "symbol": "PDD", "weight": "7.50%", "change": "增持" },
+        { "name": "谷歌", "symbol": "GOOG", "weight": "3.30%", "change": "小幅增持" },
+        { "name": "西方石油", "symbol": "OXY", "weight": "3.10%", "change": "减持" },
+        { "name": "微软", "symbol": "MSFT", "weight": "2.40%", "change": "大幅增持" },
+        { "name": "阿里巴巴", "symbol": "BABA", "weight": "2.10%", "change": "减持" },
+        { "name": "台积电", "symbol": "TSM", "weight": "2.10%", "change": "大幅增持" },
+        { "name": "迪士尼", "symbol": "DIS", "weight": "0.50%", "change": "减持" }
+      ],
+      "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，新建仓CRWV/CRDO/TEM；2026年5月完成泡泡玛特举牌成第二大股东"
+    },
+    {
+      "manager": "Cathie Wood · ARK旗舰",
+      "fund": "ARK Innovation ETF (ARKK)",
+      "aum": "$6.8B",
+      "asOf": "2026-06-12（每日持仓披露）",
+      "positions": [
+        { "name": "特斯拉", "symbol": "TSLA", "weight": "10.50%", "change": "持仓不变" },
+        { "name": "CRISPR治疗", "symbol": "CRSP", "weight": "6.30%", "change": "持仓不变" },
+        { "name": "Tempus AI", "symbol": "TEM", "weight": "5.00%", "change": "加仓" },
+        { "name": "Shopify", "symbol": "SHOP", "weight": "4.70%", "change": "持仓不变" },
+        { "name": "Coinbase", "symbol": "COIN", "weight": "4.30%", "change": "持仓不变" },
+        { "name": "Roku", "symbol": "ROKU", "weight": "4.20%", "change": "清仓" },
+        { "name": "Palantir", "symbol": "PLTR", "weight": "3.80%", "change": "持仓不变" },
+        { "name": "Block", "symbol": "SQ", "weight": "3.50%", "change": "持仓不变" },
+        { "name": "Unity软件", "symbol": "U", "weight": "3.20%", "change": "持仓不变" },
+        { "name": "Roblox", "symbol": "RBLX", "weight": "2.90%", "change": "持仓不变" }
+      ],
+      "footnote": "ARK每日披露持仓变动，TSLA始终第一重仓；本周集中卖出AMD/BIDU/ACHR；新建仓XE、DASH、PONY、KDK、BEAM、CRCL"
+    }
+  ],
+  "dataTime": "2026-06-15 09:00 BJT",
+  "_meta": {
+    "sourceType": "heavy_analysis",
+    "generatedAt": "2026-06-15T09:00:00+08:00",
+    "skillVersion": "v14.0"
+  }
+}

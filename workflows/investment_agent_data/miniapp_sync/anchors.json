@@ -1,34 +1,36 @@
 {
   "_meta": {
     "version": "v1.1",
-    "generated_at": "2026-06-10T11:25:57+08:00",
-    "fetched_at": "2026-06-10T11:25:57+08:00",
+    "generated_at": "2026-06-18T11:23:34+08:00",
+    "fetched_at": "2026-06-18T11:23:34+08:00",
     "success_count": 3,
     "total": 6,
     "skipped": [
-      "10Y美债",
-      "DXY",
-      "VIX"
+      "VIX",
+      "BTC",
+      "ETH"
     ]
   },
   "anchors": {
+    "10Y美债": {
+      "value": 4.43,
+      "unit": "%",
+      "source": "FRED_DGS10",
+      "fetched_at": "2026-06-18T11:23:34+08:00"
+    },
     "CNH": {
-      "value": 6.7715,
+      "value": 6.7595,
       "unit": "USD/CNH",
       "source": "exchangerate_or_frankfurter",
-      "fetched_at": "2026-06-10T11:25:57+08:00"
+      "fetched_at": "2026-06-18T11:23:34+08:00"
     },
-    "BTC": {
-      "value": 61353.0,
-      "unit": "USD",
-      "source": "coingecko",
-      "fetched_at": "2026-06-10T11:25:57+08:00"
-    },
-    "ETH": {
-      "value": 1627.37,
-      "unit": "USD",
-      "source": "coingecko",
-      "fetched_at": "2026-06-10T11:25:57+08:00"
+    "DXY": {
+      "value": 119.51,
+      "unit": "",
+      "source": "FRED_DTWEXBGS",
+      "note": "DTWEXBGS量级与DXY不同(~135 vs ~104)，V48将自动SKIP此备源",
+      "fetched_at": "2026-06-18T11:23:34+08:00",
+      "skip_v48": true
     }
   }
 }

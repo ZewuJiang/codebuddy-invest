@@ -1,110 +1,100 @@
 {
-  "date": "2026-06-18",
+  "date": "2026-06-11",
   "trafficLights": [
     {
       "name": "VIX波动率",
-      "value": "18.44",
+      "value": "22.22",
       "status": "yellow",
       "threshold": "<18绿 / 18-25黄 / >25红"
     },
     {
       "name": "10Y美债收益率",
-      "value": "4.35%",
-      "status": "yellow",
+      "value": "4.55%",
+      "status": "red",
       "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
     },
     {
       "name": "布伦特原油",
-      "value": "$79.00",
-      "status": "green",
+      "value": "$95.83",
+      "status": "yellow",
       "threshold": "<$90绿 / $90-110黄 / >$110红"
     },
     {
       "name": "美元指数DXY",
-      "value": "99.65",
+      "value": "99.95",
       "status": "green",
       "threshold": "<102绿 / 102-107黄 / >107红"
     },
     {
       "name": "HY信用利差",
-      "value": "4.2%",
-      "status": "yellow",
+      "value": "3.8%",
+      "status": "green",
       "threshold": "<4%绿 / 4-5%黄 / >5%红"
     },
     {
       "name": "黄金XAU",
-      "value": "$4,258.77",
+      "value": "$4,040.37",
       "status": "red",
       "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
     },
     {
       "name": "离岸人民币CNH",
-      "value": "6.76",
+      "value": "6.78",
       "status": "green",
       "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
     }
   ],
-  "riskScore": 80,
+  "riskScore": 90,
   "riskLevel": "high",
-  "riskAdvice": "VIX升至18.44接近黄灯区间上限（25），10Y美债飙升反映加息预期升温——若周四CPI通胀数据超预期，当前反弹基础将被抽空，riskScore可能升至65以上。",
+  "riskAdvice": "VIX 22.22处黄色区间、10Y美债4.55%逼近红线——市场波动率急剧上升但尚未失控，需关注本周CPI数据和美股财报指引。",
   "events": [
     {
       "date": "周四",
-      "title": "美联储FOMC决议宣布维持利率不变，但点阵图显示年内加息预期骤增",
+      "title": "美国5月CPI数据发布——通胀是否再抬头决定美联储降息节奏",
       "impact": "high",
-      "source": "Federal Reserve",
-      "url": "https://www.federalreserve.gov"
-    },
-    {
-      "date": "周四",
-      "title": "新任美联储主席凯文·沃什首秀新闻发布会，表态偏鹰派",
-      "impact": "high",
-      "source": "CNBC",
-      "url": "https://www.cnbc.com"
-    },
-    {
-      "date": "今日",
-      "title": "美国至6月13日当周初请失业金人数（前值22.2万）",
-      "impact": "medium",
-      "source": "Department of Labor",
-      "url": "https://www.dol.gov"
-    },
-    {
-      "date": "今日",
-      "title": "日本央行利率决议（预期维持利率不变）",
-      "impact": "medium",
-      "source": "Bank of Japan",
-      "url": "https://www.boj.or.jp"
+      "source": "BLS",
+      "url": "https://www.bls.gov/news.release/cpi.nr0.htm"
     },
     {
       "date": "周五",
-      "title": "美国6月标普全球制造业PMI初值（前值51.3）",
+      "title": "摩根大通、花旗银行Q2财报拉开帷幕——大型银行对经济展望备受关注",
       "impact": "medium",
-      "source": "S&P Global",
-      "url": "https://www.spglobal.com"
+      "source": "JPMorgan",
+      "url": "https://www.jpmorganchase.com"
+    },
+    {
+      "date": "下周",
+      "title": "英伟达新一代Blackwell Ultra芯片详细规格披露（预期）",
+      "impact": "medium",
+      "source": "NVIDIA",
+      "url": "https://nvidia.com"
+    },
+    {
+      "date": "持续",
+      "title": "ARK大规模建仓NVDA/GOOGL/BABA——木头姐逆向操作信号待观察",
+      "impact": "medium",
+      "source": "Cathiesark",
+      "url": "https://cathiesark.com/ark-funds-combined/trades"
     }
   ],
   "alerts": [
     {
       "level": "danger",
-      "text": "VIX单日急升12.37%至18.44，接近25的黄灯阈值，波动率风险快速上升",
-      "time": "09:30",
-      "source": "CBOE",
-      "url": "https://www.cboe.com"
+      "text": "韩国KOSPI指数暴跌4.52%触发盘中熔断，为今年最大单日跌幅，显示全球市场联动脆弱性急剧上升",
+      "time": "09:00",
+      "source": "KRX"
     },
     {
       "level": "warning",
-      "text": "10Y美债收益率飙升约13.3个基点，加息预期快速升温",
-      "time": "02:30",
-      "source": "Bloomberg",
-      "url": "https://bloomberg.com"
-    },
-    {
-      "level": "warning",
-      "text": "META单日暴跌5.44%，科技七巨头全线下跌，市场情绪快速转弱",
+      "text": "VIX单日飙升11.83%突破黄色警戒线，市场恐慌情绪快速升温，短期波动率预计维持高位",
       "time": "16:00",
-      "source": "MarketWatch",
-      "url": "https://marketwatch.com"
+      "source": "CBOE"
+    },
+    {
+      "level": "info",
+      "text": "ARK本周净买入NVDA($35.7M)、GOOGL($35.3M)、META($25.3M)、BABA($31.2M)，聪明钱与大盘明显背离",
+      "time": "全天",
+      "source": "Cathiesark"
     }
   ],
   "smartMoneyDetail": [
@@ -113,18 +103,18 @@
       "funds": [
         {
           "name": "桥水基金",
-          "action": "达利欧警告当前市场估值已接近2000年科技泡沫水平，称'我们正越来越接近危险区域'，持仓偏向黄金和防御性资产",
+          "action": "达利欧警告AI泡沫将重蹈2000年覆辙，美国债务已过'不可逆点'，全天候组合增配黄金ETF(GLD)约$4.2亿",
           "signal": "bearish",
-          "source": "Bloomberg",
-          "url": "https://bloomberg.com",
+          "source": "Fortune",
+          "url": "https://fortune.com/2026/06/04/ray-dalio-stock-market-1929-2000-bubble-debt-crisis-point-of-no-return/",
           "freshness": "本周"
         },
         {
-          "name": "ARK Invest",
-          "action": "6月16日全数清仓AMD和SRTA，三大ETF（ARKX/ARKQ/ARKF）同步减持，显示短期对半导体板块谨慎",
-          "signal": "bearish",
-          "source": "Cathie's Ark",
-          "url": "https://cathiesark.com",
+          "name": "伯克希尔",
+          "action": "格雷格·阿贝尔主导$68亿收购Taylor Morrison，为接班后首笔大型战略收购，押注美国房地产复苏；现金储备$3733亿创历史新高",
+          "signal": "neutral",
+          "source": "CNBC",
+          "url": "https://www.cnbc.com/2026/06/01/berkshire-hathaway-taylor-morrison-home-acquisition-housing-market.html",
           "freshness": "本周"
         }
       ]
@@ -133,11 +123,19 @@
       "tier": "T2成长",
       "funds": [
         {
-          "name": "段永平",
-          "action": "5月28日继续买入泡泡玛特466万股均价162.5港元，总持股8103万股持股比例6.04%，同时清仓中国神华称'卖神华可以换泡泡玛特'",
+          "name": "ARK Invest",
+          "action": "本周净买入NVDA($35.7M)、GOOGL($35.3M)、META($25.3M)、BABA($31.2M)，同时大幅减持AMD($27.5M)、BIDU($61.3M)——木头姐逆向建仓科技巨头",
           "signal": "bullish",
+          "source": "Cathiesark",
+          "url": "https://cathiesark.com/ark-funds-combined/trades",
+          "freshness": "本周"
+        },
+        {
+          "name": "段永平",
+          "action": "持续持有腾讯/茅台/拼多多，雪球讨论特斯拉FSD体验但未明确表态买入；持仓稳定显示对中国核心资产的长期信心",
+          "signal": "neutral",
           "source": "雪球",
-          "url": "https://xueqiu.com",
+          "url": "https://xueqiu.com/1290568231/355535415",
           "freshness": "本周"
         }
       ]
@@ -146,20 +144,18 @@
       "tier": "策略师观点",
       "funds": [
         {
-          "name": "摩根士丹利",
-          "action": "6月8日发布中国展望报告，称AI与能源超级周期将推动中国经济增长，2026年GDP增速预测4.8%",
+          "name": "高盛David Kostin",
+          "action": "维持标普500年底目标7500点，看好AI资本开支超级周期持续，建议超配科技股",
           "signal": "bullish",
-          "source": "Morgan Stanley",
-          "url": "https://morganstanley.com",
-          "freshness": "上周"
+          "source": "Goldman Sachs",
+          "freshness": "本周"
         },
         {
-          "name": "高盛",
-          "action": "在零售销售数据超预期后，不再预计美联储2026年降息，成为华尔街唯一'坚持'降息预测的投行",
-          "signal": "neutral",
-          "source": "Goldman Sachs",
-          "url": "https://goldmansachs.com",
-          "freshness": "本周"
+          "name": "摩根士丹利Mike Wilson",
+          "action": "警告美股估值偏高，AI泡沫一旦破裂将引发20%以上回调，建议增加防御性配置",
+          "signal": "bearish",
+          "source": "Morgan Stanley",
+          "freshness": "上周"
         }
       ]
     }
@@ -169,7 +165,7 @@
       "manager": "巴菲特 · 伯克希尔",
       "fund": "Berkshire Hathaway",
       "aum": "$263.1B",
-      "asOf": "2026Q1 · 5月披露",
+      "asOf": "2026Q1 · 5月15日披露",
       "positions": [
         {
           "name": "苹果",
@@ -232,7 +228,7 @@
           "change": "新建仓"
         }
       ],
-      "footnote": "Q1增持DAL(+40M股)/GOOGL(+36M股)，大幅减持CVX(-45M股)，现金储备$3733亿创历史新高，Greg Abel重启回购"
+      "footnote": "Q1增持DAL(+40M股)/GOOGL(+36M股)，大幅减持CVX(-45M股/-35%)，现金储备$3733亿创历史新高，Greg Abel重启回购"
     },
     {
       "manager": "段永平 · H&H",
@@ -307,7 +303,7 @@
       "manager": "Cathie Wood · ARK旗舰",
       "fund": "ARK Innovation ETF (ARKK)",
       "aum": "$6.8B",
-      "asOf": "2026-06-18",
+      "asOf": "2026-06-11",
       "positions": [
         {
           "name": "特斯拉",
@@ -373,10 +369,10 @@
       "footnote": "ARK每日披露持仓变动，TSLA始终第一重仓，近期连续买入CoreWeave(CRWV)和Kodiak AI(KDK)但尚未进入Top10"
     }
   ],
-  "dataTime": "2026-06-18 11:23 BJT",
+  "dataTime": "2026-06-11 11:05 BJT",
   "_meta": {
     "sourceType": "heavy_analysis",
-    "generatedAt": "2026-06-18T11:24:31+08:00",
+    "generatedAt": "2026-06-11T11:05:14+08:00",
     "skillVersion": "v14.0"
   }
 }

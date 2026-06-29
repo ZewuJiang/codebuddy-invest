@@ -1,0 +1,142 @@
+{
+  "date": "2026-06-12",
+  "timeStatus": {
+    "bjt": "11:00",
+    "est": "23:00",
+    "marketStatus": "美股已收盘",
+    "refreshInterval": "每日更新"
+  },
+  "takeaway": "美股三大指数【全面反弹】，纳指+2.54%领涨科技股，但VIX仍处19.44（黄灯区间）暗示波动率压力未完全释放——本周【CPI数据】和【关税政策】将是验证反弹持续性的关键催化剂",
+  "coreEvent": {
+    "title": "美股强力反弹遇上VIX偏高，双重信号考验反弹成色",
+    "chain": [
+      {
+        "title": "特朗普叫停伊朗打击行动，地缘风险暂时缓和",
+        "brief": "据报道特朗普在最后关头叫停了对伊朗的军事打击，地缘风险溢价回落，能源板块领跌",
+        "source": "Reuters",
+        "source_count": 3
+      },
+      {
+        "title": "纳指+2.54%科技股全面反弹，NVDA涨2.22%领跑",
+        "brief": "科技股从上周的抛售中强势反弹，NVDA、TSLA涨幅居前，AI资本开支叙事重新强化",
+        "source": "Bloomberg",
+        "source_count": 4
+      },
+      {
+        "title": "VIX降至19.44（-12.51%），但仍在黄灯区间",
+        "brief": "VIX从高位回落12.5%，但19.44的水平仍高于18的绿灯阈值，暗示市场对后续波动仍有担忧",
+        "source": "CBOE",
+        "source_count": 2
+      }
+    ]
+  },
+  "globalReaction": [
+    {
+      "name": "标普500",
+      "value": "+1.75%",
+      "direction": "up",
+      "note": "科技股带动"
+    },
+    {
+      "name": "纳斯达克",
+      "value": "+2.54%",
+      "direction": "up",
+      "note": "科技股领涨"
+    },
+    {
+      "name": "道琼斯",
+      "value": "+1.86%",
+      "direction": "up",
+      "note": "全面反弹"
+    },
+    {
+      "name": "VIX",
+      "value": "19.44",
+      "direction": "down",
+      "note": "从高位回落"
+    },
+    {
+      "name": "黄金XAU",
+      "value": "$3,300+",
+      "direction": "up",
+      "note": "避险支撑"
+    }
+  ],
+  "coreJudgments": [
+    {
+      "title": "美股反弹信号确立，但需CPI数据确认",
+      "confidence": 75,
+      "logic": "地缘风险缓和 → 科技股估值修复 → 纳指+2.54% → 需CPI验证通胀走势",
+      "references": [
+        {
+          "name": "Bloomberg",
+          "summary": "科技股从抛售中反弹，NVDA涨2.22%",
+          "url": "https://bloomberg.com"
+        }
+      ]
+    },
+    {
+      "title": "VIX回落但未完全安全，波动率压力仍在",
+      "confidence": 70,
+      "logic": "VIX 19.44 → 高于18阈值 → 仍在黄灯区间 → 市场情绪未完全恢复",
+      "references": [
+        {
+          "name": "CBOE",
+          "summary": "VIX降至19.44，日内跌幅12.51%",
+          "url": "https://cboe.com"
+        }
+      ]
+    },
+    {
+      "title": "能源板块承压反映经济担忧，防御性板块相对抗跌",
+      "confidence": 65,
+      "logic": "XLE跌1.94% → 能源股下跌 → 反映经济放缓担忧 → 消费必需品XLP微跌0.26%"
+    }
+  ],
+  "actionHints": [],
+  "sentimentScore": 58,
+  "sentimentLabel": "中性",
+  "marketSummaryPoints": [
+    "美股三大指数全面反弹，纳指涨2.54%领跑，科技股从抛售中强势修复",
+    "地缘风险暂时缓和（伊朗打击行动被叫停），能源板块XLE跌1.94%领跌",
+    "VIX虽回落至19.44但仍在黄灯区间，市场波动率压力未完全释放，需保持关注"
+  ],
+  "smartMoney": [
+    {
+      "source": "ARK Invest",
+      "action": "6月10日大幅清仓12只标的，主要卖出HOOD、IRDM、VCYT等，仅买入KDK",
+      "signal": "bearish"
+    },
+    {
+      "source": "桥水基金",
+      "action": "全天候组合增配黄金ETF，持续看好黄金作为对冲工具",
+      "signal": "neutral"
+    }
+  ],
+  "topHoldings": [
+    {
+      "name": "伯克希尔",
+      "holdings": "苹果 22.0% | 美国运通 17.4% | 可口可乐 11.6% | 美国银行 9.5% | 雪佛龙 6.6% · 现金$3733亿"
+    },
+    {
+      "name": "段永平",
+      "holdings": "苹果 50.30% | 伯克希尔B 20.60% | 英伟达 7.70% | 拼多多 7.50% | 谷歌 3.30% · ..."
+    },
+    {
+      "name": "ARK旗舰",
+      "holdings": "特斯拉 10.50% | CRISPR治疗 6.30% | Tempus AI 5.00% | Shopify 4.70% | Coinbase 4.30% · ..."
+    }
+  ],
+  "riskPoints": [
+    "VIX 19.44仍在黄灯区间（>18），若CPI数据超预期可能触发新一轮波动率飙升",
+    "能源板块XLE跌1.94%反映经济放缓担忧，油价下跌可能进一步拖累能源股",
+    "地缘风险暂时缓和但并未消除，中东局势仍有不确定性"
+  ],
+  "riskNote": "VIX偏高但回落，能源板块承压，经济衰退担忧略有抬头。本周CPI数据将是市场关键验证点。",
+  "dataTime": "2026-06-12 11:00 BJT",
+  "_meta": {
+    "sourceType": "heavy_analysis",
+    "generatedAt": "2026-06-12T11:00:00+08:00",
+    "skillVersion": "v14.0"
+  }
+}

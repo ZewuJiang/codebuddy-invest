@@ -1,0 +1,154 @@
+{
+  "date": "2026-06-11",
+  "timeStatus": {
+    "bjt": "11:00",
+    "est": "23:00",
+    "marketStatus": "美股盘前交易",
+    "refreshInterval": "每日更新"
+  },
+  "takeaway": "美股科技股【全线大跌】，纳指-2%结束4连涨——NVDA-3.73%、TSLA-3.80%领跌，【VIX飙升11.83%】反映市场恐慌快速升温。但【ARK大规模建仓】NVDA($35.7M)、GOOGL($35.3M)，聪明钱与大盘走势明显背离——分歧加剧意味着方向抉择将近。",
+  "coreEvent": {
+    "title": "科技股抛售潮与聪明钱逆势加仓——市场分歧达到临界点",
+    "chain": [
+      {
+        "title": "科技股遭恐慌抛售，纳指创近两周最大跌幅",
+        "brief": "NVDA-3.73%、TSLA-3.80%、META-2.33%，AI产业链全线下跌，市场对估值过高的担忧集中释放。",
+        "source": "CNBC",
+        "source_count": 3
+      },
+      {
+        "title": "VIX单日飙升11.83%，市场恐慌情绪快速升温",
+        "brief": "VIX从20升至22.22，突破18黄色警戒线，市场波动率急剧放大。",
+        "source": "Google Finance",
+        "source_count": 2
+      },
+      {
+        "title": "达利欧警告AI泡沫，1929级市场顶信号再现",
+        "brief": "达利欧称美国债务已过'不可逆点'，AI市场泡沫将重蹈2000年泡沫覆辙，美元走弱和黄金需求上升印证其判断。",
+        "source": "Fortune",
+        "source_count": 4
+      },
+      {
+        "title": "ARK逆势大规模建仓NVDA、GOOGL、BABA、META",
+        "brief": "ARK本周净买入NVDA($35.7M)、GOOGL($35.3M)、META($25.3M)、BABA($31.2M)，聪明钱与恐慌市场逆向而行。",
+        "source": "Cathiesark",
+        "source_count": 2
+      },
+      {
+        "title": "伯克希尔$68亿收购Taylor Morrison",
+        "brief": "巴菲特接班人格雷格·阿贝尔主导首笔大型收购，$68亿押注美国房地产市场复苏。",
+        "source": "CNBC",
+        "source_count": 2
+      }
+    ]
+  },
+  "globalReaction": [
+    {
+      "name": "标普500",
+      "value": "-1.62%",
+      "direction": "down",
+      "note": "科技股领跌"
+    },
+    {
+      "name": "纳斯达克",
+      "value": "-1.98%",
+      "direction": "down",
+      "note": "创近两周最大跌幅"
+    },
+    {
+      "name": "道琼斯",
+      "value": "-1.87%",
+      "direction": "down",
+      "note": "蓝筹股普跌"
+    },
+    {
+      "name": "VIX",
+      "value": "+11.83%",
+      "direction": "up",
+      "note": "突破黄色警戒线"
+    },
+    {
+      "name": "恒生科技",
+      "value": "-0.94%",
+      "direction": "down",
+      "note": "港股跟跌"
+    },
+    {
+      "name": "日经225",
+      "value": "-1.89%",
+      "direction": "down",
+      "note": "韩国KOSPI暴跌4.52%"
+    }
+  ],
+  "coreJudgments": [
+    {
+      "title": "科技股短期调整尚未结束，但AI资本开支超级周期支撑硬核资产",
+      "confidence": 78,
+      "logic": "NVDA Q1营收816亿美元创历史新高+capex超预期 → 产业链基本面无系统性恶化 → 短期调整更多来自估值压力而非基本面",
+      "references": []
+    },
+    {
+      "title": "VIX突破18触发市场波动率预警，但尚未达到极度恐慌水平",
+      "confidence": 85,
+      "logic": "VIX 22.22处于18-25黄色区间 → 非红线恐慌 → sentimentScore 58分处中性偏谨慎",
+      "references": []
+    },
+    {
+      "title": "ARK逆势建仓信号需观察——木头姐与市场对赌，短期胜负未分",
+      "confidence": 65,
+      "logic": "ARK大规模建仓NVDA/GOOGL/BABA → 与大盘走势逆向 → 信号强度待验证，需观察后续机构跟进情况",
+      "references": []
+    }
+  ],
+  "actionHints": [],
+  "sentimentScore": 58,
+  "sentimentLabel": "中性",
+  "marketSummaryPoints": [
+    "美股三大指数全线大跌，纳指-2%领跌，NVDA-3.73%、TSLA-3.80%成最大拖累；VIX飙升11.83%突破黄色警戒线，市场恐慌情绪快速升温",
+    "达利欧警告AI泡沫将重蹈2000年覆辙，美国债务危机进入'不可逆'阶段；ARK却逆势建仓$35.7M NVDA、$35.3M GOOGL，聪明钱与大盘明显分歧",
+    "伯克希尔$68亿收购Taylor Morrison，Greg Abel主导首笔大型收购；段永平持续看好特斯拉FSD，腾讯/茅台/拼多多持仓稳定"
+  ],
+  "smartMoney": [
+    {
+      "source": "ARK Invest",
+      "action": "本周净买入NVDA($35.7M)、GOOGL($35.3M)、META($25.3M)、BABA($31.2M)，同时大幅减持AMD($27.5M)",
+      "signal": "bullish"
+    },
+    {
+      "source": "桥水基金",
+      "action": "达利欧警告AI泡沫将破裂，美元走弱背景下增配黄金ETF(GLD)约$4.2亿",
+      "signal": "bearish"
+    },
+    {
+      "source": "伯克希尔",
+      "action": "$68亿收购Taylor Morrison，Greg Abel主导首笔大型战略收购，押注美国房地产复苏",
+      "signal": "neutral"
+    }
+  ],
+  "topHoldings": [
+    {
+      "name": "伯克希尔",
+      "holdings": "苹果 22.0% | 美国运通 17.4% | 可口可乐 11.6% | 美国银行 9.5% | 雪佛龙 6.6% · 现金$3733亿"
+    },
+    {
+      "name": "段永平",
+      "holdings": "苹果 50.30% | 伯克希尔B 20.60% | 英伟达 7.70% | 拼多多 7.50% | 谷歌 3.30% · 极度集中"
+    },
+    {
+      "name": "ARK旗舰",
+      "holdings": "特斯拉 10.50% | CRISPR治疗 6.30% | Tempus AI 5.00% | Shopify 4.70% | Coinbase 4.30%"
+    }
+  ],
+  "riskPoints": [
+    "VIX 22.22已突破黄色警戒线，若持续上行至25以上将触发红线，系统性风险急剧上升",
+    "10Y美债收益率4.55%逼近红线区间（>$4.5%），高估值科技股承压，若CPI持续超预期可能触发收益率进一步飙升",
+    "KOSPI暴跌4.52%触发熔断，韩国股市异动显示全球市场联动脆弱性，非美市场风险传染概率上升"
+  ],
+  "riskNote": "VIX突破18黄色警戒线、10Y美债逼近4.5%红线、韩国KOSPI熔断三重风险共振，市场短期波动率预计维持高位。",
+  "dataTime": "2026-06-11 11:05 BJT",
+  "_meta": {
+    "sourceType": "heavy_analysis",
+    "generatedAt": "2026-06-11T11:05:14+08:00",
+    "skillVersion": "v14.0"
+  }
+}
