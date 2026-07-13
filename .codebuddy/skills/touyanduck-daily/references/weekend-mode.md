@@ -29,7 +29,7 @@
 ### 共同规则
 
 - `date` 字段写**周末当天日期**（如 "2026-04-05"）
-- `dataTime` 写 `"2026-04-05 周末更新 BJT"`，明确标注非交易日
+- `dataTime` 写 `"2026-04-05 周末更新 TPE"`，明确标注非交易日
 - `_meta.sourceType` = `"weekend_insight"`
 - `timeStatus.marketStatus` = `"美股休市"`
 

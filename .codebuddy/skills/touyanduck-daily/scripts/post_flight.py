@@ -16,7 +16,7 @@ import sys
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
-BJT = timezone(timedelta(hours=8))
+TPE = timezone(timedelta(hours=8))
 SCRIPT_DIR = Path(__file__).parent.resolve()
 REFERENCES_DIR = SCRIPT_DIR.parent / "references"
 BASELINE_PATH = REFERENCES_DIR / "golden-baseline.json"
@@ -53,7 +53,7 @@ def main():
         sys.exit(2)
 
     sync_dir = sys.argv[1]
-    now = datetime.now(BJT)
+    now = datetime.now(TPE)
     date_str = now.strftime("%Y-%m-%d")
 
     # 加载4个JSON

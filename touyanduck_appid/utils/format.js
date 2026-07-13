@@ -88,29 +88,29 @@ function formatTime(time) {
 
 /**
  * 获取多时区时间信息
- * @returns {object} { bjt: "22:30", est: "10:30", bjtLabel: "Beijing", estLabel: "New York" }
+ * @returns {object} { bjt: "22:30", est: "10:30", bjtLabel: "Taipei", estLabel: "New York" }
  */
 function getMultiTimezone() {
   var now = new Date()
-  // 北京时间 UTC+8
-  var bjtOffset = 8 * 60
-  var bjtMs = now.getTime() + (now.getTimezoneOffset() + bjtOffset) * 60000
-  var bjtDate = new Date(bjtMs)
-  var bjt = String(bjtDate.getHours()).padStart(2, '0') + ':' + String(bjtDate.getMinutes()).padStart(2, '0')
+  // 台北时间 UTC+8；返回字段名 bjt 保持兼容旧模板
+  var tpeOffset = 8 * 60
+  var tpeMs = now.getTime() + (now.getTimezoneOffset() + tpeOffset) * 60000
+  var tpeDate = new Date(tpeMs)
+  var tpe = String(tpeDate.getHours()).padStart(2, '0') + ':' + String(tpeDate.getMinutes()).padStart(2, '0')
 
   // 美东时间：判断夏令时（3月第二个周日～11月第一个周日）
-  // estOffset 为负数（EDT=-240, EST=-300），与 bjtOffset 保持同一符号方向
+  // estOffset 为负数（EDT=-240, EST=-300），与 tpeOffset 保持同一符号方向
   var estOffset = _isUSEasternDST(now) ? -4 * 60 : -5 * 60
   var estMs = now.getTime() + (now.getTimezoneOffset() + estOffset) * 60000
   var estDate = new Date(estMs)
   var est = String(estDate.getHours()).padStart(2, '0') + ':' + String(estDate.getMinutes()).padStart(2, '0')
 
   return {
-    bjt: bjt,
+    bjt: tpe,
     est: est,
-    bjtLabel: 'Beijing',
+    bjtLabel: 'Taipei',
     estLabel: 'New York',
-    bjtWeekday: getWeekDayCN(bjtDate),
+    bjtWeekday: getWeekDayCN(tpeDate),
     estWeekday: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][estDate.getDay()]
   }
 }
@@ -161,18 +161,18 @@ function getMarketStatus() {
 
 /**
  * 计算相对时间文本
- * @param {string} dateStr - 日期字符串（ISO 8601 或 "YYYY-MM-DD HH:MM BJT" 格式）
+ * @param {string} dateStr - 日期字符串（ISO 8601 或 "YYYY-MM-DD HH:MM TPE/SGT/BJT" 格式）
  * @returns {string} 如 "3分钟前"、"2小时前"、"昨天 09:00"
  */
 function getRelativeTime(dateStr) {
   if (!dateStr) return ''
-  var parts = null  // 提升到顶部，避免非BJT分支时引用未定义变量
+  var parts = null  // 提升到顶部，避免非 TPE/SGT/BJT 分支时引用未定义变量
   var target
   if (dateStr.includes('T')) {
     target = new Date(dateStr)
-  } else if (dateStr.includes('BJT')) {
-    // "2026-04-01 09:00 BJT" → 解析为北京时间
-    parts = dateStr.replace(' BJT', '').split(' ')
+  } else if (dateStr.includes('TPE') || dateStr.includes('SGT') || dateStr.includes('BJT')) {
+    // "2026-04-01 09:00 TPE" / legacy SGT/BJT → 按 UTC+8 本地展示口径解析
+    parts = dateStr.replace(/\s+(TPE|SGT|BJT)$/, '').split(' ')
     var dateParts = parts[0].split('-')
     var timeParts = (parts[1] || '00:00').split(':')
     target = new Date(dateParts[0], dateParts[1] - 1, dateParts[2], timeParts[0], timeParts[1] || 0)
@@ -196,7 +196,7 @@ function getRelativeTime(dateStr) {
   if (days === 1) return '昨天 ' + formatTime(target)
   if (days < 7) return days + '天前'
 
-  // parts 仅在 BJT 分支中有值；其他格式直接截取前10位
+  // parts 仅在 TPE/SGT/BJT 分支中有值；其他格式直接截取前10位
   return parts ? parts[0] : dateStr.slice(0, 10)
 }
 

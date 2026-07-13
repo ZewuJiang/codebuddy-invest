@@ -21,7 +21,7 @@
       "topHoldings[]": { "type": "object[]", "count": "≥3", "fields": ["name*", "holdings*(一行式概要)"], "note": "伯克希尔+段永平+ARK必须存在" },
       "riskPoints[]": { "type": "string[]", "count": "2-3", "len": "每条15-50字", "禁止": "操作建议" },
       "riskNote": "string 30-100字 (兼容字段)",
-      "dataTime": "string 'YYYY-MM-DD HH:MM BJT' (auto_compute自动填充)"
+      "dataTime": "string 'YYYY-MM-DD HH:MM TPE' (auto_compute自动填充)"
     }
   },
 

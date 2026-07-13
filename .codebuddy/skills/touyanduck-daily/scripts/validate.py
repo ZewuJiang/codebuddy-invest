@@ -1592,7 +1592,7 @@ def validate_generated_at_nonempty(files, vr):
     
     设计背景（2026-04-08 事故）：
     generatedAt 为空字符串时，前端 getRelativeTime() 无法解析，
-    降级显示原始 dataTime 字符串（如 "2026-04-08 22:15 BJT"），
+    降级显示原始 dataTime 字符串（如 "2026-04-08 22:15 TPE"），
     而非预期的 "xx分钟前" 格式。
     """
     violations = []

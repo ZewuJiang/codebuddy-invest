@@ -228,7 +228,7 @@ Page({
       var m = String(now.getMinutes()).padStart(2, '0')
       var mon = String(now.getMonth() + 1).padStart(2, '0')
       var d = String(now.getDate()).padStart(2, '0')
-      dataTime = now.getFullYear() + '-' + mon + '-' + d + ' ' + h + ':' + m + ' BJT'
+      dataTime = now.getFullYear() + '-' + mon + '-' + d + ' ' + h + ':' + m + ' TPE'
     }
 
     // 板块 Insight：优先使用独立 *Insight 字段，美股向后兼容旧 usMarkets[0].note

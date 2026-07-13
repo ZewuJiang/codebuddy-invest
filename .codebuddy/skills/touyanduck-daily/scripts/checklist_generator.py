@@ -23,7 +23,7 @@ import sys
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
-BJT = timezone(timedelta(hours=8))
+TPE = timezone(timedelta(hours=8))
 SCRIPT_DIR = Path(__file__).parent.resolve()
 SYNC_DIR_DEFAULT = SCRIPT_DIR.parent.parent.parent / "workflows" / "investment_agent_data" / "miniapp_sync"
 
@@ -116,7 +116,7 @@ def check_last_validation(sync_dir):
 
 
 def main():
-    now = datetime.now(BJT)
+    now = datetime.now(TPE)
     sync_dir = sys.argv[1] if len(sys.argv) > 1 else str(SYNC_DIR_DEFAULT)
 
     weekday_names = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]

@@ -66,11 +66,11 @@ from typing import Optional
 
 TIMEOUT_SEC = 8          # 单请求超时（避免拖慢 run_daily.sh）
 YFINANCE_RETRY_SLEEP = 3  # yfinance 429 重试等待秒数（v1.1 新增）
-BJT = timezone(timedelta(hours=8))
+TPE = timezone(timedelta(hours=8))
 
 
 def _now_iso() -> str:
-    return datetime.now(BJT).strftime('%Y-%m-%dT%H:%M:%S+08:00')
+    return datetime.now(TPE).strftime('%Y-%m-%dT%H:%M:%S+08:00')
 
 
 def _log(msg: str) -> None:

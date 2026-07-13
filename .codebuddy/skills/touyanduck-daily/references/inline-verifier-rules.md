@@ -211,7 +211,7 @@ Generator-Verifier 循环 SOP：
 | 8 | `watchlist.stocks[].metrics[3].value` | 从 chartData 计算 30 日涨跌 |
 | 9 | `watchlist.stocks[].metrics[5].value` | 综合评级（星星） |
 | 10 | `markets.gics[]` 排序 | 按 change 降序 |
-| 11 | 4个 JSON 的 `dataTime` | 当前北京时间 |
+| 11 | 4个 JSON 的 `dataTime` | 当前台北时间 |
 | 12 | 4个 JSON 的 `_meta.sourceType` | 修正废弃值 |
 | 13 | sparkline[-1] 对齐 price | 偏差>0.5%时修正 |
 | 14 | sparkline 尾部方向修复 | change 与 sparkline 尾部方向矛盾时调整 spark[-2] |

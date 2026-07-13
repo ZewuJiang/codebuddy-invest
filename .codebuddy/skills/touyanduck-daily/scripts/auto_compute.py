@@ -56,7 +56,7 @@ SCRIPT_DIR = Path(__file__).parent.resolve()
 REFERENCES_DIR = SCRIPT_DIR.parent / "references"
 BASELINE_PATH = REFERENCES_DIR / "golden-baseline.json"
 
-BJT = timezone(timedelta(hours=8))
+TPE = timezone(timedelta(hours=8))
 
 
 def load_json(filepath):
@@ -266,9 +266,9 @@ def sort_gics_by_change(markets):
 
 
 def fix_data_time(data, file_label):
-    """v2.0: 自动填充 dataTime 为当前北京时间"""
-    now = datetime.now(BJT)
-    new_dt = now.strftime("%Y-%m-%d %H:%M BJT")
+    """v2.0: 自动填充 dataTime 为当前台北时间"""
+    now = datetime.now(TPE)
+    new_dt = now.strftime("%Y-%m-%d %H:%M TPE")
     old_dt = data.get("dataTime", "")
     if old_dt != new_dt:
         data["dataTime"] = new_dt
@@ -282,9 +282,9 @@ def fix_generated_at(data, file_label):
     if not meta:
         return False
     from datetime import datetime, timezone, timedelta
-    bjt = timezone(timedelta(hours=8))
-    now_bjt = datetime.now(bjt)
-    new_val = now_bjt.strftime("%Y-%m-%dT%H:%M:%S+08:00")
+    tpe = timezone(timedelta(hours=8))
+    now_tpe = datetime.now(tpe)
+    new_val = now_tpe.strftime("%Y-%m-%dT%H:%M:%S+08:00")
     old_val = meta.get("generatedAt", "")
     meta["generatedAt"] = new_val
     if old_val != new_val:
@@ -304,7 +304,7 @@ def fix_source_type(data, file_label):
 
     if old_type in deprecated:
         # 根据星期判断应该是哪个
-        now = datetime.now(BJT)
+        now = datetime.now(TPE)
         weekday = now.weekday()  # 0=Mon, 6=Sun
         if weekday >= 5:
             meta["sourceType"] = "weekend_insight"
@@ -520,7 +520,7 @@ def main():
             changes_made += 1
 
         # v3.1: ARK asOf 强制更新为今天日期（ARK 每日披露，不适用季度缓存规则）
-        today_str = datetime.now(BJT).strftime('%Y-%m-%d')
+        today_str = datetime.now(TPE).strftime('%Y-%m-%d')
         for holding in radar.get("smartMoneyHoldings", []):
             fund_name = (holding.get("fund", "") + holding.get("manager", "")).upper()
             if "ARK" in fund_name:

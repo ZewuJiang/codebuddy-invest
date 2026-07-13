@@ -54,7 +54,7 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SYNC_DIR="$(cd "$SCRIPT_DIR/../../../.." && pwd)/workflows/investment_agent_data/miniapp_sync"
 
-# 日期参数（默认今天北京时间）
+# 日期参数（默认今天台北时间）
 DATE="${1:-$(date +%Y-%m-%d)}"
 
 # --skip-warn 仅跳过 WARN 级校验，FATAL 级永远执行

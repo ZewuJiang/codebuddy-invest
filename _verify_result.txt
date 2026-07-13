@@ -1,0 +1,1 @@
+MD缺失或过小: NONE | PDF缺失或过小: NONE | SKILL.md 缺标记: **25** | SKILL.md 缺标记: **26** | SKILL.md 缺标记: v19.6 | SKILL.md 缺标记: 持仓视角 | evolution-log.md 缺标记: 反思#40 | report-format-guide.md 缺标记: v19.6 | report-format-guide.md 缺标记: 持仓视角门禁 | known-pitfalls.md 缺标记: 报告定位与交付真实性 | known-pitfalls.md 缺标记: 假交付

@@ -20,18 +20,18 @@
 
   // ===== v1.3 新增：时间状态栏 =====
   "timeStatus": {                           // 🔸 object — 时间状态栏（可选，无则前端不渲染该模块）
-    "bjt": "22:30",                         // 🔸 string — 北京时间 HH:MM（前端也可自行计算，此字段为快照参考）
+    "bjt": "22:30",                         // 🔸 string — 台北时间 HH:MM（前端也可自行计算，此字段为快照参考）
     "est": "10:30",                         // 🔸 string — 美东时间 HH:MM
     // ⚠️ 注意：此字段由前端 format.js getMultiTimezone() 实时计算，JSON中的值仅为快照参考
     // ⚠️ 时区换算规则（手算验证用）：
-    //   夏令时 EDT（3月第2个周日 ~ 11月第1个周日）：纽约 = 北京时间 - 12小时
-    //   冬令时 EST（其余时段）                   ：纽约 = 北京时间 - 13小时
-    //   示例：北京 20:06 → 纽约夏令时 08:06 EDT ✅（错误写法：20:06-8=12:06 ❌，勿用UTC直接换算）
+    //   夏令时 EDT（3月第2个周日 ~ 11月第1个周日）：纽约 = 台北时间 - 12小时
+    //   冬令时 EST（其余时段）                   ：纽约 = 台北时间 - 13小时
+    //   示例：台北 20:06 → 纽约夏令时 08:06 EDT ✅（错误写法：20:06-8=12:06 ❌，勿用UTC直接换算）
     "marketStatus": "美股交易中",            // 🔸 string — 枚举：美股交易中 / 美股已收盘 / 盘前交易 / 盘后交易 / 美股休市
-    // ⚠️ 时区判断规则（北京时间 BJT = UTC+8，美东夏令时 EDT = UTC-4，冬令时 EST = UTC-5）：
-    // BJT 21:30 ~ 次日04:00 → 美股交易中（EDT 9:30~16:00）
-    // BJT 04:00 ~ 06:00    → 盘后交易（EDT 16:00~18:00）
-    // BJT 13:30 ~ 21:30    → 盘前交易（EDT 22:00~9:30 次日）
+    // ⚠️ 时区判断规则（台北时间 TPE = UTC+8，美东夏令时 EDT = UTC-4，冬令时 EST = UTC-5）：
+    // TPE 21:30 ~ 次日04:00 → 美股交易中（EDT 9:30~16:00）
+    // TPE 04:00 ~ 06:00    → 盘后交易（EDT 16:00~18:00）
+    // TPE 13:30 ~ 21:30    → 盘前交易（EDT 22:00~9:30 次日）
     // 其余时段             → 美股已收盘
     // 美国公共假日（如耶稣受难日、感恩节、国庆日、圣诞节等）→ 美股休市
     // 数据标注规则：globalReaction 中美股数据若非收盘值，必须在 dataTime 中注明「盘前」或「盘后」；休市日不需标注
@@ -184,7 +184,7 @@
   ],
   "riskNote": "string",                     // 🔸 旧版兼容字段——30-100字风险提示散文，纯文本。新版产出时仍保留此字段作为 fallback，但前端优先渲染 riskPoints 数组
   // ⚠️ v3.7：riskNote 同样禁止包含操作建议（与 riskPoints 保持一致），只描述风险本身
-  "dataTime": "2026-04-01 09:00 BJT",       // ⚠️ string — 格式固定为 "YYYY-MM-DD HH:MM BJT"，四个JSON保持完全一致，与简报页顶部时间同步
+  "dataTime": "2026-04-01 09:00 TPE",       // ⚠️ string — 格式固定为 "YYYY-MM-DD HH:MM TPE"，四个JSON保持完全一致，与简报页顶部时间同步
   // ===== v1.3 新增：元数据 =====
   "_meta": {                                // 🔸 object — 元数据（可选，无则前端不显示来源标签）
     "sourceType": "heavy_analysis",         // 🔸 string — 枚举：heavy_analysis / realtime_quote / breaking_news / weekend_insight（v4.0新增）
@@ -460,7 +460,7 @@
     "hot_topic": [...]                      // 🔸 0-4只（无事件时该key可省略或空数组）
   },
 
-  "dataTime": "2026-04-04 22:00 BJT"  // ⚠️ string — 格式固定为 "YYYY-MM-DD HH:MM BJT"，四个JSON保持完全一致
+  "dataTime": "2026-04-04 22:00 TPE"  // ⚠️ string — 格式固定为 "YYYY-MM-DD HH:MM TPE"，四个JSON保持完全一致
 }
 ```
 
@@ -691,7 +691,7 @@
     }
   ],
 
-  "dataTime": "2026-04-01 09:00 BJT",       // ⚠️ string
+  "dataTime": "2026-04-01 09:00 TPE",       // ⚠️ string
 
   "_meta": {                                // 🔸 object — 元数据（可选）
     "sourceType": "heavy_analysis",         // 🔸 string — 枚举：heavy_analysis / realtime_quote / breaking_news / weekend_insight
