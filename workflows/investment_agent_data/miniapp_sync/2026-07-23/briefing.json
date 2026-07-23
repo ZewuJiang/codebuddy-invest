@@ -1,0 +1,196 @@
+{
+  "date": "2026-07-23",
+  "timeStatus": {
+    "bjt": "10:30",
+    "est": "22:30",
+    "marketStatus": "美股已收盘",
+    "refreshInterval": "每日更新"
+  },
+  "takeaway": "首批M7财报落地兑现【AI要求回报】分水岭——Alphabet云暴涨【+82%】却因【$44.9B capex】拖累现金流盘后跌3.31%、Tesla EPS大miss盘后跌4.13%，但惩罚落在投入方，【NVDA创新高】与SMCI$60B订单显示算力供给端景气未减",
+  "coreEvent": {
+    "title": "首批M7财报大考落地——AI从奖励投入转向要求回报，惩罚投入方而非算力供给方",
+    "chain": [
+      {
+        "title": "Alphabet云暴涨82%却因capex惩罚盘后跌3.31%",
+        "brief": "Google Cloud营收$247.7亿(+82%)远超预期,但季度capex $44.9B拖累自由现金流转负-$5.9B、EPS微miss,市场惩罚高投入低回报",
+        "source": "Seeking Alpha",
+        "url": "https://seekingalpha.com/news/4616900-alphabet-delivers-q2-beat-with-cloud-revenue-surging-82-capex-disappoints",
+        "source_count": 4
+      },
+      {
+        "title": "Tesla营收创纪录但EPS大miss,盘后跌4.13%",
+        "brief": "Q2营收$28.2B创纪录(beat)但非GAAP EPS $0.33远低于预期$0.44、营业利润暴跌57%,成长股盈利落差被严厉定价",
+        "source": "Electrek",
+        "url": "https://electrek.co/2026/07/22/tesla-tsla-q2-2026-financial-results/",
+        "source_count": 4
+      },
+      {
+        "title": "超微SMCI $60B AI订单暴涨19.84%",
+        "brief": "公布$60B+ AI服务器新订单+毛利率改善+创纪录backlog,为AI基建资本开支实打实转化订单提供硬证据",
+        "source": "Econotimes",
+        "url": "https://www.econotimes.com/Super-Micro-Computer-Stock-Jumps-20-After-Record-AI-Orders-and-Margin-Surge-1747365",
+        "source_count": 3
+      },
+      {
+        "title": "三大指数财报前观望窄幅收跌终结三连涨",
+        "brief": "标普-0.14%/纳指-0.57%/道指-0.01%,资金财报前避险轮向公用事业(+2.25%)与顺周期,VIX续降至16.64",
+        "source": "Barron's",
+        "url": "https://www.barrons.com/livecoverage/stock-market-news-today-072226",
+        "source_count": 3
+      },
+      {
+        "title": "算力硬件逆势独强,NVDA创新高$212.06",
+        "brief": "NVDA +2.30%创新高、AVGO +2.67%、AMD +1.45%,Alphabet巨额capex反向背书算力/存储需求真实",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/2026/07/22/stocks-making-the-biggest-moves-after-hours-googl-tsla-ibm-lvs.html",
+        "source_count": 2
+      },
+      {
+        "title": "亚太7/23 KOSPI暴涨3.08%存储链狂欢延续",
+        "brief": "韩国KOSPI突破7000,SK海力士/三星存储链受HBM需求逻辑提振,港股企稳反弹恒生+0.86%,中美AI景气共振",
+        "source": "CNBC",
+        "url": "https://www.cnbc.com/quotes/.KS11",
+        "source_count": 2
+      }
+    ]
+  },
+  "globalReaction": [
+    {
+      "name": "标普500",
+      "value": "-0.14%",
+      "direction": "down",
+      "note": "财报前观望窄幅收跌"
+    },
+    {
+      "name": "纳斯达克",
+      "value": "-0.57%",
+      "direction": "down",
+      "note": "软件云回落拖累"
+    },
+    {
+      "name": "NVDA",
+      "value": "+2.30%",
+      "direction": "up",
+      "note": "逆势创新高$212"
+    },
+    {
+      "name": "VIX",
+      "value": "16.64",
+      "direction": "down",
+      "note": "续降至恐慌区下沿"
+    },
+    {
+      "name": "布伦特原油",
+      "value": "$91.38",
+      "direction": "up",
+      "note": "地缘溢价持稳$90上方"
+    },
+    {
+      "name": "10Y美债",
+      "value": "4.659%",
+      "direction": "up",
+      "note": "高悬4.5%危险区上方"
+    }
+  ],
+  "coreJudgments": [
+    {
+      "title": "AI定价从奖励投入转向要求回报,但惩罚落在投入方而非供给方",
+      "confidence": 75,
+      "logic": "Alphabet云+82%仍因capex盘后跌3.31%,Tesla EPS miss跌4.13% → 惩罚高投入低回报 → 但NVDA创新高/SMCI $60B订单,付钱方承压收钱方受益",
+      "keyActor": "Sundar Pichai",
+      "probability": "高可能性",
+      "trend": "上升",
+      "references": [
+        {
+          "name": "Seeking Alpha",
+          "summary": "Alphabet云+82%但capex令自由现金流转负,盘后承压",
+          "url": "https://seekingalpha.com/news/4616900-alphabet-delivers-q2-beat-with-cloud-revenue-surging-82-capex-disappoints"
+        }
+      ]
+    },
+    {
+      "title": "算力硬件景气未受财报扰动,Alphabet巨额capex反向背书算力需求",
+      "confidence": 72,
+      "logic": "GOOGL $44.9B capex+SMCI $60B AI订单+KOSPI存储链+3.08% → AI资本开支转化为订单 → 算力供给方是capex直接受益方,NVDA $185硬阈值仍是关键锚",
+      "probability": "高可能性",
+      "trend": "上升",
+      "references": [
+        {
+          "name": "Econotimes",
+          "summary": "SMCI获$60B AI服务器订单,毛利率改善,backlog创纪录",
+          "url": "https://www.econotimes.com/Super-Micro-Computer-Stock-Jumps-20-After-Record-AI-Orders-and-Margin-Surge-1747365"
+        }
+      ]
+    },
+    {
+      "title": "布伦特持稳$91地缘溢价延续,通胀-利率压力主要来自10Y高悬",
+      "confidence": 65,
+      "logic": "布伦特$91.38(+0.41%)持稳$90上方 → 10Y美债4.659%高悬4.5%上方 → 压制软件云/成长股估值修复,油价暂未破$110危险区",
+      "probability": "中可能性",
+      "trend": "稳定"
+    }
+  ],
+  "actionHints": [
+    {
+      "type": "hold",
+      "content": "NVDA $212.06创新高,Alphabet巨额capex+SMCI $60B订单反向验证算力需求真实加速,远高于$185硬阈值,持有不追高、财报股回落不影响算力景气逻辑",
+      "reason": "算力供给方是AI capex直接受益者"
+    },
+    {
+      "type": "hold",
+      "content": "GOOGL盘后跌3.31%至$330.76,云+82%基本盘稳固、AI需求真实,盘后回落属对高capex低FCF短期定价,持有不减持不恐慌抛售;次日跌幅扩大至5%以上再评估",
+      "reason": "云基本盘稳固,回落属短期定价"
+    }
+  ],
+  "sentimentScore": 54,
+  "sentimentLabel": "中性",
+  "marketSummaryPoints": [
+    "亚太7/23存储链狂欢延续,KOSPI暴涨突破7000,港股企稳反弹修复前日获利了结",
+    "首批M7财报确立AI要求回报分水岭,资本市场惩罚高capex低自由现金流",
+    "关键背离:财报投入方(GOOGL/TSLA)盘后重挫,而算力供给方(NVDA/SMCI)逆势创新高、景气未减",
+    "下周MSFT/META/AMZN财报接踵,是检验软件云能否消化capex惩罚的关键窗口"
+  ],
+  "smartMoney": [
+    {
+      "source": "Bank of America",
+      "action": "维持HBM内存需求逻辑(2030 TAM $246B),存储链景气经Alphabet $44.9B capex进一步验证",
+      "signal": "bullish"
+    },
+    {
+      "source": "Morgan Stanley",
+      "action": "财报前维持TSLA Equal-Weight目标价$417,EPS大miss后聚焦利润率恶化(营业利润-57%)",
+      "signal": "bearish"
+    },
+    {
+      "source": "南向资金",
+      "action": "港股7/23企稳反弹背景下内资对中国AI资产重估动能延续",
+      "signal": "bullish"
+    }
+  ],
+  "topHoldings": [
+    {
+      "name": "伯克希尔",
+      "holdings": "AAPL 22.6% | AXP 16.8% | BAC 11.2% | KO 9.4% | CVX 6.8% · 现金$3700亿+"
+    },
+    {
+      "name": "段永平",
+      "holdings": "AAPL 43.2% | PDD 18.6% | GOOGL 12.4% | BABA 8.2% | BRK.B 6.8%"
+    },
+    {
+      "name": "ARK旗舰",
+      "holdings": "TSLA 12.4% | COIN 9.8% | ROKU 7.2% | PLTR 6.5% | CRSP 5.1%"
+    }
+  ],
+  "riskPoints": [
+    "下周MSFT/META/AMZN财报若capex指引激进而AI回报滞后,或被同样惩罚拖累软件云与算力链需求预期",
+    "GOOGL盘后跌3.31%,若次日capex惩罚发酵、跌幅扩大至5%以上则冲击直接持仓",
+    "10Y美债4.659%高悬4.5%危险区,叠加布伦特$91.38地缘溢价,持续压制高估值成长股"
+  ],
+  "riskNote": "首批M7财报确立AI要求回报逻辑,高capex低自由现金流成新惩罚项;但惩罚落在投入方,算力供给方景气未减;10Y美债高悬与布伦特地缘溢价构成高估值持续压制。",
+  "dataTime": "2026-07-23 10:30 TPE",
+  "_meta": {
+    "sourceType": "heavy_analysis",
+    "generatedAt": "2026-07-23T10:30:00+08:00",
+    "skillVersion": "v2.5"
+  }
+}

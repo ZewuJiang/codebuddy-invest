@@ -145,8 +145,9 @@ web_fetch: https://www.google.com/finance/quote/XLRE:NYSEARCA  (房地产)
 | Yahoo Finance被屏蔽 | → Google Finance → StockAnalysis |
 | **DXY直接获取困难** | → web_search "DXY dollar index close {date}" Trading Economics snippet → 金投网 DXY → Macrotrends.net DXY daily chart → Finlore.io → 使用前日值+趋势估算（**必须标注"估算"**） |
 | **布伦特历史K线5日内精确值** | → oilcrudeprice.com → **centralcharts.com/en/6567-brent-crude-oil/quotes**（提供完整OHLCV历史K线，已验证2026年数据质量高） → 金投网 |
-| **亚太指数实时（日经/KOSPI/恒生）** | → **dhan.co/indices/asian-indices/**（一站获取日经/KOSPI/恒生实时精确报价，约15分钟延迟，已验证2026年数据质量高） → stockq.org → 各交易所官网 |
+| **亚太指数实时（日经/KOSPI/恒生/上证/深成/恒生科技）** | → **curl CNBC quote API**（`symbols=.HSI\|.N225\|.KS11\|.SSEC\|.SZI\|.HSTECH`，一站批量返回last/前收/涨跌幅/时间戳，20260721实战验证：一次获取恒生/日经/KOSPI/上证/深成/恒生科技6大指数，前收与前一日收盘完全自洽，是dhan 403时首选降级源） → **Google Finance 任一指数页面底部"相关指数"区**（一站显示日经/KOSPI/恒生/上证实时报价，dhan 403时的有效降级，20260720实战验证：NI225页面底部同时给出KOSPI 6,594.12/恒生24,562.24/上证3,825.24） → **dhan.co/indices/asian-indices/**（一站获取日经/KOSPI/恒生实时精确报价，约15分钟延迟，已验证2026年数据质量高，但间歇性403） → stockq.org → 各交易所官网 |
 | **财报密集日/季报季批次0/4补充** | → **cannontrading.com/tools/daily-updates/**（Cannon Trading盘前简报，一站覆盖机构目标价/JOLTS等宏观/大宗/债券/外汇/技术水平/风险提示，URL格式：briefing-{mmdd}{yyyy}-readers-web.html，已连续2次财报日验证高效：4/16银行财报日/6/3 AVGO+CRWD财报日）|
+| **内置web_fetch/web_search全不可用** | → **curl调用CNBC quote API**（`quote.cnbc.com/quote-html-webservice/restQuote/symbolType/symbol?symbols=A\|B\|C&output=json`，支持`\|`批量、返回last/previous_day_closing/change_pct/时间戳）**+ Google News RSS**（`news.google.com/rss/search?q=`，一站获取多主题头条）。已于7/16财报日验证高效（前收与前一期收盘完全自洽）|
 | PDF flag emoji乱码 | → 用文字替代（"A股"代替"🇨🇳 A股"） |
 | PDF中文乱码 | → 检查font-family，STHeiti必须排首位 |
 
@@ -164,6 +165,7 @@ web_fetch: https://www.google.com/finance/quote/XLRE:NYSEARCA  (房地产)
 | **空占位符遗留** | 撰写前执行完整性验证门禁 |
 | **模糊表述替代精确值** | 全部使用精确值 |
 | **Google Finance涨跌幅绝对值** | 通过前收和现价自行计算确认正负 |
+| **CNBC API VIX字段UNCH/prev=last异常** | CNBC quote API 对 `.VIX` 盘后可能返回 `change_pct=UNCH` 且 `previous_day_closing=last`（前收=现价），此为盘后快照特性。**VIX涨跌幅必须用前一期收盘手动公式复算 `(现价-前期收盘)/前期收盘×100%`，禁止直接采用API的UNCH/change_pct**（20260722实战：VIX从18.65→17.05实为-8.58%，API却返回UNCH，个股/其他指数无此问题） |
 
 ---
 

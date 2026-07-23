@@ -1,0 +1,389 @@
+{
+  "date": "2026-07-23",
+  "predictions": [
+    {
+      "title": "下周MSFT财报capex惩罚?",
+      "source": "Kalshi",
+      "probability": 55,
+      "trend": "up",
+      "change24h": 8
+    },
+    {
+      "title": "美联储9月降息?",
+      "source": "CME FedWatch",
+      "probability": 42,
+      "trend": "down",
+      "change24h": -6
+    }
+  ],
+  "trafficLights": [
+    {
+      "name": "VIX波动率",
+      "value": "16.64",
+      "status": "green",
+      "threshold": "<18绿 / 18-25黄 / >25红"
+    },
+    {
+      "name": "10Y美债收益率",
+      "value": "4.659%",
+      "status": "red",
+      "threshold": "<4.0%绿 / 4.0-4.5%黄 / >4.5%红"
+    },
+    {
+      "name": "布伦特原油",
+      "value": "$91.38",
+      "status": "yellow",
+      "threshold": "<$90绿 / $90-110黄 / >$110红"
+    },
+    {
+      "name": "美元指数DXY",
+      "value": "101.05",
+      "status": "green",
+      "threshold": "<102绿 / 102-107黄 / >107红"
+    },
+    {
+      "name": "HY信用利差",
+      "value": "2.69%",
+      "status": "green",
+      "threshold": "<4%绿 / 4-5%黄 / >5%红"
+    },
+    {
+      "name": "黄金XAU",
+      "value": "$4,116.40",
+      "status": "red",
+      "threshold": "<$2200绿 / $2200-3500黄 / >$3500红"
+    },
+    {
+      "name": "离岸人民币CNH",
+      "value": "6.7698",
+      "status": "green",
+      "threshold": "<7.15绿 / 7.15-7.30黄 / >7.30红"
+    }
+  ],
+  "riskScore": 80,
+  "riskLevel": "high",
+  "riskAdvice": "10Y美债4.659%亮红灯(高悬4.5%上方)与黄金$4,116结构性高位是风险评分的主要来源,但VIX 16.64与HY利差2.69%显示市场情绪实际偏平稳、信用无压力——真正的变量是下周MSFT/META/AMZN财报能否消化Alphabet确立的高capex低回报惩罚项。",
+  "monitorTable": [
+    {
+      "condition": "NVDA跌破$185",
+      "action": "AI霸权再定价冲击算力核心,减半导体持仓"
+    },
+    {
+      "condition": "VIX突破25",
+      "action": "减仓至高PE科技,仓位降至6成"
+    },
+    {
+      "condition": "10Y美债突破4.75%",
+      "action": "降息预期回撤,减半导体持仓"
+    },
+    {
+      "condition": "GOOGL次日跌幅扩大至5%以上",
+      "action": "GOOGL相关持仓评估减仓"
+    }
+  ],
+  "riskAlerts": [],
+  "events": [
+    {
+      "date": "周四",
+      "title": "英特尔Q2财报(7/23盘后),聚焦七季度来能否首次GAAP盈利+代工进展",
+      "impact": "medium",
+      "source": "Intel IR",
+      "url": "https://www.intc.com/"
+    },
+    {
+      "date": "下周",
+      "title": "微软/Meta/亚马逊Q2财报接踵,检验软件云能否消化AI capex惩罚",
+      "impact": "high",
+      "source": "CNBC",
+      "url": "https://www.cnbc.com/earnings/"
+    },
+    {
+      "date": "下周",
+      "title": "关注Alphabet capex指引发酵对算力链(NVDA/存储)需求预期的传导",
+      "impact": "medium",
+      "source": "Seeking Alpha",
+      "url": "https://seekingalpha.com/"
+    }
+  ],
+  "alerts": [
+    {
+      "level": "warning",
+      "text": "GOOGL盘后跌3.31%至$330.76,Alphabet云+82%却因$44.9B capex令自由现金流转负-$5.9B",
+      "time": "16:30",
+      "source": "CNBC",
+      "url": "https://www.cnbc.com/2026/07/22/stocks-making-the-biggest-moves-after-hours-googl-tsla-ibm-lvs.html"
+    },
+    {
+      "level": "warning",
+      "text": "TSLA盘后跌4.13%至$358.55,营收创纪录但非GAAP EPS $0.33大miss、营业利润-57%",
+      "time": "17:00",
+      "source": "Electrek",
+      "url": "https://electrek.co/2026/07/22/tesla-tsla-q2-2026-financial-results/"
+    },
+    {
+      "level": "info",
+      "text": "SMCI暴涨+19.84%报$30.56,公布$60B+ AI服务器新订单+创纪录backlog",
+      "time": "09:45",
+      "source": "Econotimes",
+      "url": "https://www.econotimes.com/Super-Micro-Computer-Stock-Jumps-20-After-Record-AI-Orders-and-Margin-Surge-1747365"
+    }
+  ],
+  "smartMoneyDetail": [
+    {
+      "tier": "T1旗舰",
+      "funds": [
+        {
+          "name": "伯克希尔·巴菲特",
+          "action": "非13F披露窗口,持仓保持稳定,苹果仍为第一重仓(22.6%),现金储备$3700亿+待配置",
+          "signal": "neutral",
+          "freshness": "本月"
+        },
+        {
+          "name": "ARK·木头姐",
+          "action": "旗舰ARKK重仓特斯拉(12.4%),TSLA财报EPS大miss盘后跌4.13%对净值形成压力",
+          "signal": "bearish"
+        }
+      ]
+    },
+    {
+      "tier": "T2成长",
+      "funds": [
+        {
+          "name": "段永平·H&H",
+          "action": "苹果第一重仓(43.2%)、GOOGL持仓12.4%,GOOGL盘后回落属短期capex定价、基本面未变,长期持有风格不变",
+          "signal": "neutral"
+        }
+      ]
+    },
+    {
+      "tier": "策略师观点",
+      "funds": [
+        {
+          "name": "Bank of America",
+          "action": "维持HBM内存需求逻辑(2030 TAM $246B),Alphabet $44.9B capex进一步验证存储链景气",
+          "signal": "bullish",
+          "freshness": "本周"
+        },
+        {
+          "name": "Morgan Stanley",
+          "action": "维持TSLA Equal-Weight目标价$417,EPS大miss后聚焦营业利润-57%的盈利能力恶化",
+          "signal": "bearish",
+          "freshness": "本周"
+        }
+      ]
+    }
+  ],
+  "smartMoneyHoldings": [
+    {
+      "manager": "巴菲特 · 伯克希尔",
+      "fund": "Berkshire Hathaway",
+      "aum": "$263.1B",
+      "asOf": "2026Q1 · 5月15日披露",
+      "positions": [
+        {
+          "name": "苹果",
+          "symbol": "AAPL",
+          "weight": "22.0%",
+          "change": "减持"
+        },
+        {
+          "name": "美国运通",
+          "symbol": "AXP",
+          "weight": "17.4%",
+          "change": "持仓不变"
+        },
+        {
+          "name": "可口可乐",
+          "symbol": "KO",
+          "weight": "11.6%",
+          "change": "持仓不变"
+        },
+        {
+          "name": "美国银行",
+          "symbol": "BAC",
+          "weight": "9.5%",
+          "change": "减持"
+        },
+        {
+          "name": "雪佛龙",
+          "symbol": "CVX",
+          "weight": "6.6%",
+          "change": "大幅减持"
+        },
+        {
+          "name": "穆迪",
+          "symbol": "MCO",
+          "weight": "4.6%",
+          "change": "持仓不变"
+        },
+        {
+          "name": "西方石油",
+          "symbol": "OXY",
+          "weight": "3.97%",
+          "change": "持仓不变"
+        },
+        {
+          "name": "Chubb",
+          "symbol": "CB",
+          "weight": "3.9%",
+          "change": "增持"
+        },
+        {
+          "name": "卡夫亨氏",
+          "symbol": "KHC",
+          "weight": "2.88%",
+          "change": "持仓不变"
+        },
+        {
+          "name": "Alphabet",
+          "symbol": "GOOGL",
+          "weight": "2.04%",
+          "change": "新建仓"
+        }
+      ],
+      "footnote": "Q1增持DAL(+40M股)/GOOGL(+36M股)，大幅减持CVX(-45M股/-35%)，现金储备$3733亿创历史新高，Greg Abel重启回购"
+    },
+    {
+      "manager": "段永平 · H&H",
+      "fund": "H&H International Investment",
+      "asOf": "2025Q4 · 2月披露",
+      "positions": [
+        {
+          "name": "苹果",
+          "symbol": "AAPL",
+          "weight": "50.30%",
+          "change": "减持"
+        },
+        {
+          "name": "伯克希尔B",
+          "symbol": "BRK.B",
+          "weight": "20.60%",
+          "change": "增持"
+        },
+        {
+          "name": "英伟达",
+          "symbol": "NVDA",
+          "weight": "7.70%",
+          "change": "大幅增持"
+        },
+        {
+          "name": "拼多多",
+          "symbol": "PDD",
+          "weight": "7.50%",
+          "change": "增持"
+        },
+        {
+          "name": "谷歌",
+          "symbol": "GOOG",
+          "weight": "3.30%",
+          "change": "小幅增持"
+        },
+        {
+          "name": "西方石油",
+          "symbol": "OXY",
+          "weight": "3.10%",
+          "change": "减持"
+        },
+        {
+          "name": "微软",
+          "symbol": "MSFT",
+          "weight": "2.40%",
+          "change": "大幅增持"
+        },
+        {
+          "name": "阿里巴巴",
+          "symbol": "BABA",
+          "weight": "2.10%",
+          "change": "减持"
+        },
+        {
+          "name": "台积电",
+          "symbol": "TSM",
+          "weight": "2.10%",
+          "change": "大幅增持"
+        },
+        {
+          "name": "迪士尼",
+          "symbol": "DIS",
+          "weight": "0.50%",
+          "change": "减持"
+        }
+      ],
+      "footnote": "持仓数14只，核心持仓极度集中（AAPL+BRK.B占71%），2025Q4大幅增持NVDA(+1110%)/MSFT(+207%)/TSM(+370%)，新建仓CRWV/CRDO/TEM"
+    },
+    {
+      "manager": "Cathie Wood · ARK旗舰",
+      "fund": "ARK Innovation ETF (ARKK)",
+      "asOf": "2026-05-19（ARK每日持仓披露）",
+      "positions": [
+        {
+          "name": "特斯拉",
+          "symbol": "TSLA",
+          "weight": "10.50%",
+          "change": "持仓不变"
+        },
+        {
+          "name": "CRISPR治疗",
+          "symbol": "CRSP",
+          "weight": "6.30%",
+          "change": "持仓不变"
+        },
+        {
+          "name": "Tempus AI",
+          "symbol": "TEM",
+          "weight": "5.00%",
+          "change": "加仓"
+        },
+        {
+          "name": "Shopify",
+          "symbol": "SHOP",
+          "weight": "4.70%",
+          "change": "持仓不变"
+        },
+        {
+          "name": "Coinbase",
+          "symbol": "COIN",
+          "weight": "4.30%",
+          "change": "持仓不变"
+        },
+        {
+          "name": "Roku",
+          "symbol": "ROKU",
+          "weight": "4.20%",
+          "change": "持仓不变"
+        },
+        {
+          "name": "Palantir",
+          "symbol": "PLTR",
+          "weight": "3.80%",
+          "change": "持仓不变"
+        },
+        {
+          "name": "Block",
+          "symbol": "SQ",
+          "weight": "3.50%",
+          "change": "持仓不变"
+        },
+        {
+          "name": "Unity软件",
+          "symbol": "U",
+          "weight": "3.20%",
+          "change": "持仓不变"
+        },
+        {
+          "name": "Roblox",
+          "symbol": "RBLX",
+          "weight": "2.90%",
+          "change": "持仓不变"
+        }
+      ],
+      "footnote": "ARK每日披露持仓变动，TSLA始终第一重仓，近期连续买入CoreWeave(CRWV)和Kodiak AI(KDK)但尚未进入Top10"
+    }
+  ],
+  "dataTime": "2026-07-23 10:30 TPE",
+  "_meta": {
+    "sourceType": "heavy_analysis",
+    "generatedAt": "2026-07-23T10:30:00+08:00",
+    "skillVersion": "v2.5"
+  }
+}
