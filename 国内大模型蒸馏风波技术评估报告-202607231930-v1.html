@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>国内大模型"蒸馏风波"技术评估报告 · v1</title>
+<style>
+  :root{
+    --navy:#0f2237;
+    --navy2:#1c3a5e;
+    --slate:#3a4a5c;
+    --ink:#1a2430;
+    --muted:#647587;
+    --line:#e2e8f0;
+    --bg:#f5f7fa;
+    --card:#ffffff;
+    --accent:#c8102e;
+    --accent2:#0a7d6b;
+    --amber:#b8860b;
+    --a-hi:#0a7d6b;
+    --a-mid:#b8860b;
+    --a-lo:#c8102e;
+    --serif:"Songti SC","Noto Serif SC",Georgia,"Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--sans);
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.85;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px;}
+
+  /* Cover */
+  .cover{
+    background:linear-gradient(140deg,#0f2237 0%,#1c3a5e 60%,#24507f 100%);
+    color:#eaf1f8;
+    padding:70px 0 54px;
+    position:relative;
+    overflow:hidden;
+  }
+  .cover::after{
+    content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;
+    background:radial-gradient(circle,rgba(200,16,46,.18),transparent 70%);
+  }
+  .cover .tag{
+    display:inline-block;font-size:12px;letter-spacing:2px;
+    border:1px solid rgba(255,255,255,.35);border-radius:2px;
+    padding:5px 12px;color:#bcd3ea;margin-bottom:22px;
+  }
+  .cover h1{
+    font-family:var(--serif);font-size:38px;line-height:1.35;font-weight:700;
+    letter-spacing:1px;margin-bottom:16px;
+  }
+  .cover .sub{font-size:16px;color:#a9c2dc;max-width:640px;line-height:1.7;}
+  .cover .meta{
+    margin-top:30px;display:flex;flex-wrap:wrap;gap:22px;font-size:13px;color:#8faac6;
+    border-top:1px solid rgba(255,255,255,.12);padding-top:20px;
+  }
+  .cover .meta b{color:#cfe0f0;font-weight:600;}
+
+  /* TOC */
+  .toc{
+    background:var(--card);border:1px solid var(--line);border-radius:8px;
+    padding:22px 28px;margin:34px 0;
+    box-shadow:0 1px 3px rgba(15,34,55,.04);
+  }
+  .toc h4{font-size:13px;letter-spacing:1px;color:var(--muted);margin-bottom:14px;font-weight:700;}
+  .toc ol{list-style:none;counter-reset:t;columns:2;column-gap:36px;}
+  .toc li{counter-increment:t;font-size:14.5px;padding:5px 0;break-inside:avoid;}
+  .toc li a{color:var(--navy2);text-decoration:none;}
+  .toc li a:hover{color:var(--accent);text-decoration:underline;}
+  .toc li::before{content:counter(t,decimal-leading-zero);color:var(--accent);font-weight:700;margin-right:10px;font-size:12px;}
+
+  /* Sections */
+  section{padding:26px 0;}
+  h2{
+    font-family:var(--serif);font-size:25px;color:var(--navy);font-weight:700;
+    margin:14px 0 18px;padding-bottom:12px;border-bottom:2px solid var(--navy);
+    display:flex;align-items:baseline;gap:12px;
+  }
+  h2 .n{font-size:15px;color:var(--accent);font-weight:700;font-family:var(--sans);}
+  h3{font-size:18px;color:var(--navy2);margin:26px 0 10px;font-weight:700;}
+  h4{font-size:15.5px;color:var(--slate);margin:18px 0 8px;font-weight:700;}
+  p{margin:10px 0;color:#2a3846;}
+  ul,ol{margin:10px 0 10px 4px;padding-left:22px;}
+  li{margin:6px 0;color:#2a3846;}
+  strong{color:var(--ink);font-weight:700;}
+  em{color:var(--navy2);font-style:normal;background:linear-gradient(transparent 60%,#ffe9a8 60%);padding:0 2px;}
+
+  a.cite{color:var(--accent);text-decoration:none;font-size:12px;vertical-align:super;font-weight:700;}
+  a.cite:hover{text-decoration:underline;}
+
+  /* Callouts */
+  .callout{
+    border-left:4px solid var(--navy2);background:#eef3f8;border-radius:0 6px 6px 0;
+    padding:16px 20px;margin:18px 0;font-size:15px;
+  }
+  .callout.key{border-left-color:var(--accent);background:#fdeef0;}
+  .callout.good{border-left-color:var(--accent2);background:#e9f6f3;}
+  .callout .lbl{font-size:12px;letter-spacing:1px;font-weight:700;color:var(--muted);display:block;margin-bottom:6px;}
+  .callout.key .lbl{color:var(--accent);}
+  .callout.good .lbl{color:var(--accent2);}
+
+  /* Tables */
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px;background:var(--card);
+    border:1px solid var(--line);border-radius:8px;overflow:hidden;}
+  thead th{background:var(--navy);color:#eaf1f8;font-weight:600;text-align:left;padding:11px 14px;font-size:13px;letter-spacing:.5px;}
+  tbody td{padding:11px 14px;border-top:1px solid var(--line);vertical-align:top;color:#2a3846;}
+  tbody tr:nth-child(even){background:#fafbfd;}
+
+  .badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;color:#fff;letter-spacing:.5px;white-space:nowrap;}
+  .b-hi{background:var(--a-hi);}
+  .b-mid{background:var(--a-mid);}
+  .b-lo{background:var(--a-lo);}
+
+  /* Bar chart */
+  .chart{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:22px 24px;margin:20px 0;}
+  .chart .ct{font-size:13px;color:var(--muted);font-weight:700;letter-spacing:.5px;margin-bottom:16px;}
+  .bar-row{display:flex;align-items:center;gap:14px;margin:11px 0;}
+  .bar-label{width:150px;font-size:13.5px;color:var(--slate);text-align:right;flex-shrink:0;}
+  .bar-track{flex:1;background:#eef2f6;border-radius:5px;height:26px;position:relative;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:5px;display:flex;align-items:center;justify-content:flex-end;padding-right:9px;color:#fff;font-size:12.5px;font-weight:700;transition:width .4s;}
+  .bf-navy{background:linear-gradient(90deg,#24507f,#1c3a5e);}
+  .bf-accent{background:linear-gradient(90deg,#d63652,#c8102e);}
+  .bf-teal{background:linear-gradient(90deg,#12a08a,#0a7d6b);}
+  .bf-grey{background:linear-gradient(90deg,#8a99a8,#647587);}
+  .legend{display:flex;gap:20px;font-size:12px;color:var(--muted);margin-top:12px;flex-wrap:wrap;}
+  .legend span{display:flex;align-items:center;gap:6px;}
+  .dot{width:11px;height:11px;border-radius:3px;display:inline-block;}
+
+  /* verdict cards */
+  .verdict-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0;}
+  .vcard{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px 20px;border-top:3px solid var(--navy2);}
+  .vcard.corr{border-top-color:var(--amber);}
+  .vcard.add{border-top-color:var(--accent2);}
+  .vcard h4{margin-top:0;font-size:14.5px;}
+  .vcard .st{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);}
+
+  .keyfig{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0;}
+  .kf{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px 14px;text-align:center;}
+  .kf .num{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--navy);line-height:1.1;}
+  .kf .num small{font-size:15px;color:var(--muted);}
+  .kf .cap{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5;}
+
+  /* sources */
+  .sources{background:#0f2237;color:#c4d5e6;border-radius:8px;padding:26px 30px;margin:24px 0;}
+  .sources h3{color:#eaf1f8;margin-top:0;}
+  .sources ol{padding-left:24px;}
+  .sources li{color:#a9c2dc;font-size:13px;margin:8px 0;word-break:break-all;}
+  .sources a{color:#7fb0e0;text-decoration:none;}
+
+  footer{text-align:center;color:var(--muted);font-size:12.5px;padding:34px 0 50px;line-height:1.9;}
+  .disc{background:#fff8e8;border:1px solid #f0dca8;border-radius:8px;padding:16px 20px;font-size:13px;color:#7a5b12;margin:20px 0;}
+
+  @media (max-width:720px){
+    .cover h1{font-size:27px;}
+    .toc ol{columns:1;}
+    .verdict-grid,.keyfig{grid-template-columns:1fr;}
+    .bar-label{width:96px;font-size:12px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <div class="wrap">
+    <span class="tag">TECHNICAL DUE DILIGENCE · 深度研究</span>
+    <h1>国内大模型"蒸馏风波"<br>技术评估与交叉验证报告</h1>
+    <p class="sub">从行业技术专家与深度研究员视角，对一份"圈内爆料长文"进行分层可信度核验、真实能力差距测算，并厘清"前沿模型技术鸿沟"的本质。附对既有初步结论的准确性自审与修正。</p>
+    <div class="meta">
+      <span><b>报告版本</b>　v1（2026-07-23）</span>
+      <span><b>核验节点</b>　约 15 项公开多源比对</span>
+      <span><b>结论基调</b>　事件为真 · 机制半真 · 归因夸张</span>
+      <span><b>适用视角</b>　技术研究，非财经/投资</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <nav class="toc">
+    <h4>目 录</h4>
+    <ol>
+      <li><a href="#s1">报告摘要（TL;DR）</a></li>
+      <li><a href="#s2">对既有回答的准确性自审与修正</a></li>
+      <li><a href="#s3">核验方法与命名对照</a></li>
+      <li><a href="#s4">信息可信度分级（三档）</a></li>
+      <li><a href="#s5">与前沿模型的真实差距</a></li>
+      <li><a href="#s6">"10 万亿参数"辨析</a></li>
+      <li><a href="#s7">前沿模型真正的护城河</a></li>
+      <li><a href="#s8">蒸馏的结构性天花板</a></li>
+      <li><a href="#s9">总研判</a></li>
+      <li><a href="#s10">资料来源</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1 摘要 -->
+  <section id="s1">
+    <h2><span class="n">01</span>报告摘要（TL;DR）</h2>
+    <div class="callout key">
+      <span class="lbl">一句话结论</span>
+      这份文档<strong>事件骨架为真、技术机制半真、因果归因与定性大幅夸张</strong>。国内头部模型与前沿的真实差距，<em>不在参数量</em>（该轴中国开源模型总参反而更大），而在"能力生产线"——强化学习环境、数据飞轮、以及<em>从零生成新推理链的能力</em>。蒸馏让国模在<strong>静态任务截面</strong>上贴近甚至局部反超前沿（但掺有刷榜水分）；却让走极端蒸馏路线者背上<strong>结构性天花板：滞后至少一代、无法超越教师</strong>。
+    </div>
+    <div class="keyfig">
+      <div class="kf"><div class="num">59.9<small> / 100</small></div><div class="cap">Claude Fable 5<br>AA 智能指数 #1</div></div>
+      <div class="kf"><div class="num">57<small> / 100</small></div><div class="cap">Kimi K3<br>AA 指数 · 全球第 4</div></div>
+      <div class="kf"><div class="num">2.8<small> 万亿</small></div><div class="cap">Kimi K3 总参<br>全球最大开源权重</div></div>
+      <div class="kf"><div class="num">~3<small> 分</small></div><div class="cap">综合指数与 #1 之差<br>（硬推理差距更大）</div></div>
+    </div>
+    <p>核心判断三条：</p>
+    <ul>
+      <li><strong>蒸馏真实存在，且有硬证据</strong>：Kimi K3 在对话中自称"我是 Claude"、独立研究者的交叉熵统计分析、Anthropic 2026 年 2 月的公开指控，三者互相印证。<a class="cite" href="#r3">③</a><a class="cite" href="#r4">④</a><a class="cite" href="#r1">①</a></li>
+      <li><strong>但"破解加密思维链 → 一切能力来源"是文档最脆弱的一环</strong>：加密本身（Fernet / AES-256-CBC+HMAC）确实无法硬破解，注入/重放路径技术上成立，但"由此系统性重建完整 CoT 并训练出旗舰模型"缺乏证据，属大幅外推。<a class="cite" href="#r6">⑥</a></li>
+      <li><strong>差距是"导数级"而非"数值级"</strong>：论今天能做的任务，差距已很小（AA 指数仅差约 3 分）；论"能不能自己把边界往前推"，差距是结构性代差。</li>
+    </ul>
+  </section>
+
+  <!-- 2 自审 -->
+  <section id="s2">
+    <h2><span class="n">02</span>对既有初步回答的准确性自审与修正</h2>
+    <p>针对"上述回答是否准确"，经二轮公开资料复核：<strong>主体结论准确且获多源佐证，一处需修正、两处需补强</strong>。逐项如下。</p>
+
+    <div class="verdict-grid">
+      <div class="vcard">
+        <span class="st">✓ 结论成立</span>
+        <h4>可信度三档分级</h4>
+        <p>"事件为真、机制半真、归因夸张"的框架经复核成立。自我认知污染、刷榜现象、Anthropic 指控均为 A 档事实。</p>
+      </div>
+      <div class="vcard">
+        <span class="st">✓ 结论成立</span>
+        <h4>护城河 = 训练范式而非尺寸</h4>
+        <p>DeepSeek-R1 论文（纯 RL + GRPO、无人工标注推理链）实证了中国具备真·自研 RL 能力，佐证"路线差异决定天花板"。<a class="cite" href="#r5">⑤</a></p>
+      </div>
+      <div class="vcard corr">
+        <span class="st">△ 需要修正</span>
+        <h4>关于"10 万亿参数几乎必然是错的"</h4>
+        <p>该判断基于 2024 年 Epoch 数据，<strong>已部分过时</strong>。2026 年有来源称最大模型<em>总参已越过 10 万亿</em>（稀疏 MoE 总参、非激活参数）。修正见第 06 节：10 万亿对"总参"可能成立，但仍非护城河。<a class="cite" href="#r7">⑦</a><a class="cite" href="#r8">⑧</a></p>
+      </div>
+      <div class="vcard add">
+        <span class="st">＋ 需要补强</span>
+        <h4>中立性：官方否认 + 差距量化</h4>
+        <p>补入月之暗面官方否认蒸馏（黄震昕）；并将"综合差距"精确到 AA 指数仅差约 3 分（原"半代~一代"措辞偏重），大差距在最难推理与原创能力上。<a class="cite" href="#r9">⑨</a><a class="cite" href="#r10">⑩</a></p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="lbl">净评价</span>
+      原回答<strong>方向与骨架准确</strong>，其价值在于把"可证事实"与"情绪化归因"分层剥离；本报告在<strong>参数量事实、差距量化、来源中立性</strong>三处做了收敛与补强，使结论更稳健。
+    </div>
+  </section>
+
+  <!-- 3 方法 -->
+  <section id="s3">
+    <h2><span class="n">03</span>核验方法与命名对照</h2>
+    <p>原文档自称"已匿名化处理"，但经比对，其代号大多可直接还原为真实主体——这本身说明它更接近"半公开圈内记录"而非严格匿名的举报材料。核验采用<strong>多源交叉法</strong>：对每一论断，寻找 2 个及以上相互独立的公开来源（外媒报道、官方发布、学术论文、评测榜单原始数据）加以印证或证伪。</p>
+    <table>
+      <thead><tr><th style="width:20%">文档代号</th><th style="width:44%">实际所指（已核实）</th><th>核验状态</th></tr></thead>
+      <tbody>
+        <tr><td><code>fable / Fable 5</code></td><td>Anthropic 旗舰 <strong>Claude Fable 5</strong>（媒体、榜单均以此名公开出现，基本非匿名）</td><td><span class="badge b-hi">已证实</span></td></tr>
+        <tr><td><code>GPT-5.6 Sol</code></td><td>OpenAI 当前旗舰（sol/luna/terra 为同系列共享密钥变体）</td><td><span class="badge b-hi">已证实</span></td></tr>
+        <tr><td><code>K3 / 月之暗面</code></td><td><strong>Kimi K3</strong>，2.8T MoE，2026-07-16 发布，KDA + 注意力残差</td><td><span class="badge b-hi">已证实</span></td></tr>
+        <tr><td><code>DS / GLM / HY</code></td><td>DeepSeek / 智谱 / 腾讯混元</td><td><span class="badge b-hi">已证实</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 4 可信度分级 -->
+  <section id="s4">
+    <h2><span class="n">04</span>信息可信度分级（三档）</h2>
+    <p>将文档核心论断按证据强度分为三档：<span class="badge b-hi">A 高可信</span>（公开多源可证）、<span class="badge b-mid">B 中可信</span>（技术成立/单源/合理推断）、<span class="badge b-lo">C 低可信</span>（不可证 + 情绪判断）。</p>
+    <table>
+      <thead><tr><th style="width:46%">文档论断</th><th style="width:14%">评级</th><th>核验依据</th></tr></thead>
+      <tbody>
+        <tr><td>Anthropic 于 2026-02 公开指控 DeepSeek / 月之暗面 / MiniMax 工业级蒸馏</td><td><span class="badge b-hi">A</span></td><td>Medianama、TechStartups、OpenDataScience 等多家外媒 + 国内报道 <a class="cite" href="#r1">①</a></td></tr>
+        <tr><td>Kimi K3 在对话中自称"我是 Anthropic 制造的 Claude"</td><td><span class="badge b-hi">A</span></td><td>Wccftech 等多家报道；Redwood Research 交叉熵统计分析 <a class="cite" href="#r3">③</a><a class="cite" href="#r4">④</a></td></tr>
+        <tr><td>"Arena 第一 ≠ 综合第一"（前端登顶但综合落后）</td><td><span class="badge b-hi">A</span></td><td>月之暗面官方即承认综合指数落后于 Fable 5 / GPT-5.6 Sol <a class="cite" href="#r2">②</a><a class="cite" href="#r10">⑩</a></td></tr>
+        <tr><td>K3 架构：2.8T MoE、KDA 混合线性注意力、注意力残差、1M 上下文、原生多模态</td><td><span class="badge b-hi">A</span></td><td>与官方发布信息逐条吻合 <a class="cite" href="#r2">②</a></td></tr>
+        <tr><td>OpenAI/Anthropic 推理 API 回传加密 CoT（signature/blob）机制存在</td><td><span class="badge b-hi">A</span></td><td>密码学界（Matthew Green 等）公开讨论确认 <a class="cite" href="#r6">⑥</a></td></tr>
+        <tr><td>"注入伪造 blob 诱导模型自我复述 CoT"路径技术可行</td><td><span class="badge b-mid">B</span></td><td>密码学逻辑自洽（硬破解不可行、唯 replay/injection 可行），但"规模化重建完整 CoT"未被证实</td></tr>
+        <tr><td>月之暗面裁撤 RL 组、K2.5/K3 走 SFT→SFT、"Kimi 难民"流向 Qwen</td><td><span class="badge b-mid">B</span></td><td>符合传闻语境，属未证实组织内幕</td></tr>
+        <tr><td>刷榜细节：测试集灌训练集、针对特定测评博主捞题、换题后中位分骤降</td><td><span class="badge b-mid">B</span></td><td>刷榜现象方向可信、业界普遍，但具体数字为单一信源</td></tr>
+        <tr><td>"GLM 率先破解加密 CoT 并主动共享全行业"</td><td><span class="badge b-lo">C</span></td><td>不可证江湖叙事，文档自身亦在讨论"传播偏差"</td></tr>
+        <tr><td>解密成本"几百万美元/洒水级别"、DS 匿名路由到 fable 的动机</td><td><span class="badge b-lo">C</span></td><td>数字与动机均无佐证，文档自承"最诡异"</td></tr>
+        <tr><td>对各家的定性（"拉完了""沙上城堡""上市圈钱跑路")</td><td><span class="badge b-lo">C</span></td><td>观点而非事实，带明显立场，应从证据链剥离</td></tr>
+        <tr><td>GPT-5 系列是"生产级 Looped Transformer"</td><td><span class="badge b-lo">C</span></td><td>文档自标"认识 OpenAI 的人士透露"，未证实推测</td></tr>
+      </tbody>
+    </table>
+    <div class="callout key">
+      <span class="lbl">要害</span>
+      文档把"蒸馏"这一 <strong>A 档真实现象</strong>，用一条 <strong>B/C 档的因果链（破解加密 CoT → 一切能力）</strong> 串接，再叠加大量 C 档情绪定性——从而把可信度从"新闻级事实"层层放大到"阴谋论叙事"。阅读时须做这一层"降噪"。
+    </div>
+  </section>
+
+  <!-- 5 真实差距 -->
+  <section id="s5">
+    <h2><span class="n">05</span>与前沿模型的真实差距</h2>
+    <p>文档的极端论断是"国模基本全是蒸馏，根本没掌握 Opus 4.8/4.6 级的推理思维链，只是勉强蒸出个效果"。作为研究者，此论断<strong>方向对了一半，作为结论是错的</strong>——用可查证的榜单数据即可拆解。差距必须<em>分轴</em>看。</p>
+
+    <div class="chart">
+      <div class="ct">图 1 · Artificial Analysis 综合智能指数（2026-07，越高越强）</div>
+      <div class="bar-row"><div class="bar-label">Claude Fable 5</div><div class="bar-track"><div class="bar-fill bf-teal" style="width:99.8%">59.9</div></div></div>
+      <div class="bar-row"><div class="bar-label">GPT-5.6 Sol</div><div class="bar-track"><div class="bar-fill bf-navy" style="width:98.2%">58.9</div></div></div>
+      <div class="bar-row"><div class="bar-label">Kimi K3（开源#1）</div><div class="bar-track"><div class="bar-fill bf-accent" style="width:95%">57</div></div></div>
+      <div class="legend"><span>数据源：Artificial Analysis / BenchLM 快照，K3 全球第 4、开源第一 <a class="cite" href="#r10">⑩</a></span></div>
+    </div>
+
+    <div class="chart">
+      <div class="ct">图 2 · Frontend Code Arena 前端代码竞技场（Elo，人类盲评）</div>
+      <div class="bar-row"><div class="bar-label">Kimi K3（#1）</div><div class="bar-track"><div class="bar-fill bf-accent" style="width:100%">1679</div></div></div>
+      <div class="bar-row"><div class="bar-label">Claude Fable 5</div><div class="bar-track"><div class="bar-fill bf-teal" style="width:97.1%">1631</div></div></div>
+      <div class="bar-row"><div class="bar-label">GPT-5.6 Sol</div><div class="bar-track"><div class="bar-fill bf-navy" style="width:96.4%">1618</div></div></div>
+      <div class="legend"><span>数据源：Arena.ai 前端代码竞技场，K3 在 7 个细分领域中 6 个居首 <a class="cite" href="#r2">②</a></span></div>
+    </div>
+
+    <table>
+      <thead><tr><th style="width:28%">能力轴</th><th style="width:34%">现状（含公开数据）</th><th>差距定性</th></tr></thead>
+      <tbody>
+        <tr><td>前端 / 交互式 coding（人类盲评）</td><td>K3 <strong>真的第一</strong>（1679 &gt; Fable 5 1631）</td><td><span class="badge b-hi">基本抹平/局部反超</span></td></tr>
+        <tr><td>综合智能（AA 指数）</td><td>K3 = 57，全球第 4；#1 = 59.9</td><td><span class="badge b-mid">仅差约 3 分</span></td></tr>
+        <tr><td>最难推理（HLE 等）</td><td>文档称 K3 ≈42 vs Fable 5 ≈68（方向性）</td><td><span class="badge b-lo">差距最大 · 硬短板</span></td></tr>
+        <tr><td>长上下文/长程工程、写作</td><td>国模多处不弱，个别领先</td><td><span class="badge b-hi">接近或持平</span></td></tr>
+        <tr><td>从零生成<strong>新</strong>推理能力</td><td>纯蒸馏无法习得</td><td><span class="badge b-lo">结构性代差</span></td></tr>
+      </tbody>
+    </table>
+
+    <h3>蒸馏能传什么，不能传什么</h3>
+    <ul>
+      <li><strong>能高效迁移</strong>：教师"已经会做"的题的解法分布、输出风格、工具调用轨迹、对齐格式。这正是蒸馏模型能在<em>已知任务类型</em>上快速逼近甚至超越榜分的原因——所以"啥都没学到"是夸大的。</li>
+      <li><strong>无法迁移</strong>：产生<em>新</em>能力的机器——RL 探索、可验证奖励、self-play，在没有教师答案的问题上自己"想出"解法。蒸馏本质是模仿已存在的答案分布，<strong>永远无法蒸出教师还不会的东西</strong>。</li>
+    </ul>
+
+    <div class="callout good">
+      <span class="lbl">正确表述</span>
+      真实差距 <strong>不是"今天做题分数"的代差</strong>（那个已很小、局部反超），<strong>而是"谁能把能力边界往前推"的 leader–follower 代差</strong>。文档"没掌握内功心法"的比喻，用在<em>原创前沿能力</em>上是对的，用在<em>当下任务表现</em>上是夸大的。
+    </div>
+    <p>需强调：把整个"国模"打包成"全是蒸馏"是以偏概全。<strong>DeepSeek 在 R1 路线上以纯 RL（GRPO、无人工标注推理链）实证了原创推理训练能力</strong> <a class="cite" href="#r5">⑤</a>，这与"月之暗面走极端蒸馏+刷榜"是两条不同的路——文档自身也承认"DS 相对最强、有真·自研内测版"。</p>
+
+    <h4>中立并列：官方立场</h4>
+    <p>月之暗面联合创始人黄震昕公开回应：<strong>"K3 性能跃升并非对现有任何模型蒸馏复刻"</strong>，并强调国产 AI 不该被"蒸馏"标签污名化；马斯克亦在相关评测下留言"Impressive"。<a class="cite" href="#r9">⑨</a> 官方否认与外部质疑并存——本报告立场：<em>自我认知污染是硬证据，但"全部能力皆来自蒸馏"同样缺乏充分证据</em>，真相大概率介于两者之间（自研架构/训练 + 相当规模的教师蒸馏并存）。</p>
+  </section>
+
+  <!-- 6 参数量 -->
+  <section id="s6">
+    <h2><span class="n">06</span>"10 万亿参数"辨析（含对原判断的修正）</h2>
+    <p>你听到的"Fable 5 约 10 万亿、中国模型才 1~3 万亿"，在<strong>参数量这一轴上其实几近相反</strong>。此处也是对既有回答唯一需要收敛的地方。</p>
+    <table>
+      <thead><tr><th style="width:34%">模型</th><th style="width:26%">参数量</th><th>口径 / 说明</th></tr></thead>
+      <tbody>
+        <tr><td>Kimi K3（开源）</td><td><strong>2.8 万亿（总参）</strong></td><td>稀疏 MoE，激活比例约 1.8%，激活参仅约数百亿 <a class="cite" href="#r2">②</a></td></tr>
+        <tr><td>DeepSeek-V4-Pro（开源）</td><td>1.6 万亿（总参）</td><td>K3 发布稿的对标参照 <a class="cite" href="#r2">②</a></td></tr>
+        <tr><td>GPT-4（历史峰值）</td><td>约 1.8 万亿</td><td>稠密时代峰值，后续一度回落 <a class="cite" href="#r8">⑧</a></td></tr>
+        <tr><td>2026 最大前沿模型</td><td>据称越过 10 万亿</td><td><strong>单一来源、且为总参（稀疏 MoE），非激活参</strong> <a class="cite" href="#r7">⑦</a></td></tr>
+      </tbody>
+    </table>
+    <div class="callout corr" style="border-left:4px solid var(--amber);background:#fff8e8;">
+      <span class="lbl" style="color:var(--amber)">修正说明</span>
+      既有回答曾称"10 万亿几乎必然是错的"——该判断源于 2024 年 Epoch 的"前沿模型在变小"研究。<strong>2026 年证据更精细</strong>：确有来源称最大模型<em>总参已越过 10 万亿</em>（伴随约 14 亿美元训练成本）。修正后的准确表述是：<strong>10 万亿对"总参数（稀疏 MoE）"可能成立，但那是总参不是激活参，且 Kimi K3 的 2.8T 已属同一量级</strong>。
+    </div>
+    <div class="callout key">
+      <span class="lbl">要害不变</span>
+      无论 10 万亿真假，<strong>参数量都不是那道鸿沟</strong>。若护城河靠堆参，中国厂商早以"全球最大总参"碾过去了——事实恰恰相反：<em>总参更大，综合与硬推理却仍落后</em>。这本身就证明胜负手不在尺寸。
+    </div>
+  </section>
+
+  <!-- 7 护城河 -->
+  <section id="s7">
+    <h2><span class="n">07</span>前沿模型真正的护城河</h2>
+    <p>Fable 5 / GPT-5.6 Sol 难追，护城河不在模型大小，而在"能力生产线"：</p>
+    <ol>
+      <li><strong>RL 基础设施与环境（最核心）</strong>：可验证奖励（数学/代码/工具执行）、大规模 agentic RL、self-play 与自动化环境构建——这是"从没有标准答案的问题里长出新能力"的引擎。若"月之暗面裁 RL 组、退回 SFT→SFT"属实，<em>这才是它注定当追随者的根因，与参数量无关</em>。</li>
+      <li><strong>数据飞轮</strong>：真实用户 + 真实 agent 轨迹的闭环。蒸馏者只能拿到教师的"输出快照"，拿不到"教师如何在真实反馈中迭代"。</li>
+      <li><strong>预训练数据质量与计算效率</strong>：优势越来越体现在<em>同等算力下的效率</em>，而非绝对规模（文档提到的"数据效率数倍/Looped Transformer"虽未证实，方向对）。</li>
+      <li><strong>原创推理链的生成能力</strong>：即"内功心法"。蒸馏能拿到教师<em>这一代</em>的 CoT 快照，拿不到<em>生成下一代 CoT 的方法</em>。</li>
+    </ol>
+  </section>
+
+  <!-- 8 天花板 -->
+  <section id="s8">
+    <h2><span class="n">08</span>蒸馏的结构性天花板</h2>
+    <div class="callout key">
+      <span class="lbl">最值得提炼的技术要义</span>
+      蒸馏是<strong>"导数"，不是"函数本身"</strong>。学生模型的能力上界 = 教师当前能力（现实中还因信息损耗略低于教师）。你<em>永远滞后至少一代</em>，且<em>结构上无法超越教师</em>。
+    </div>
+    <p>文档那句黑色幽默——"等 Anthropic 发 Fable 5.1，糊几个架构改进、发几篇论文拖时间，蒸蒸日上"——<strong>技术上是精准的</strong>：只要能力来源是别人的输出，你的天花板就被别人的发布节奏钉死。</p>
+    <p>所以"鸿沟到底多大"的最终答案分两个面：</p>
+    <ul>
+      <li><strong>在"今天能做的任务"截面上</strong>：鸿沟正快速缩小，个别领域已抹平/反超——但其中一部分是<em>刷榜与路由造出来的"分数"，不是"能力"</em>（文档此点说得对：刷的是 coding 分数，不是 coding 能力）。</li>
+      <li><strong>在"能不能自己往前走"的导数上</strong>：鸿沟是<em>结构性、代差级</em>的，且只要走纯蒸馏路线，它<em>不会因参数变大而缩小</em>。真正能缩小它的，只有 DeepSeek/Qwen 那种<strong>重建自研 RL 与数据飞轮</strong>的路线。</li>
+    </ul>
+  </section>
+
+  <!-- 9 总研判 -->
+  <section id="s9">
+    <h2><span class="n">09</span>总研判</h2>
+    <div class="callout good">
+      <span class="lbl">最终定论</span>
+      文档<strong>事件为真、机制半真、归因夸张</strong>。国模与前沿的真实差距，<em>不在参数量</em>（该轴中国开源反而更大），<em>而在能力生产线</em>——RL 环境、数据飞轮、原创推理链生成。蒸馏让国模在静态任务截面贴近前沿、局部反超（掺刷榜水分），却让极端蒸馏路线者背上<strong>结构性天花板：永远滞后一代、无法超越教师</strong>。"接近 Fable 5"这句话，在<em>跑分</em>上越来越真，在<em>能力本源</em>上仍隔着一道<strong>由训练范式（而非模型尺寸）决定的鸿沟</strong>。
+    </div>
+    <div class="disc">
+      <strong>方法与免责</strong>：本报告仅从技术研究视角评估，不含财经/投资判断。闭源模型参数、部分内幕细节为公开推测或单一信源，已在正文标注可信度等级；榜单数据为特定时点快照，随版本迭代会变化。文档原文自称"已匿名化"，但多数代号可还原，读者应据此判断其材料性质。
+    </div>
+  </section>
+
+  <!-- 10 来源 -->
+  <section id="s10" class="sources">
+    <h3>资料来源（交叉验证锚点）</h3>
+    <ol>
+      <li id="r1">Anthropic 指控三家中国 AI 公司蒸馏（2026-02）：Medianama / TechStartups / OpenDataScience 等多源报道。</li>
+      <li id="r2">Kimi K3 发布信息与 Frontend Code Arena 登顶（1679 分）、架构参数：腾讯新闻 / EET-China / MarkTechPost（2026-07-16/17）。</li>
+      <li id="r3">Kimi K3 自称 Claude：Wccftech《China's Kimi K3 Identifies Itself As Anthropic's Claude》等。</li>
+      <li id="r4">交叉熵统计分析（Ryan Greenblatt, Redwood Research）：Glitchwire 报道。</li>
+      <li id="r5">DeepSeek-R1 纯 RL / GRPO / 无人工标注推理链：arXiv 2501.12948（DeepSeek-R1 论文）。</li>
+      <li id="r6">加密推理 blob 机制与可行性讨论：blog.cryptographyengineering.com（Matthew Green, 2026-05-29）。</li>
+      <li id="r7">"2026 年最大模型总参越过 10 万亿、训练成本约 14 亿美元"：aitechmodel.com（2026-06-14，单一来源，总参口径）。</li>
+      <li id="r8">前沿模型参数趋势（GPT-4≈1.8T、后续回落）：Epoch AI《Frontier language models have become much smaller》。</li>
+      <li id="r9">月之暗面官方回应（黄震昕："并非蒸馏复刻"）+ 马斯克"Impressive"：腾讯新闻 / 每日经济新闻 / IT之家（2026-07-22/23）。</li>
+      <li id="r10">AA 智能指数快照（Fable 5 = 59.9 #1、GPT-5.6 Sol = 58.9、Kimi K3 = 57 全球第 4）：BenchLM / Artificial Analysis / kingy.ai（2026-07）。</li>
+    </ol>
+  </section>
+
+  <footer>
+    国内大模型"蒸馏风波"技术评估与交叉验证报告 · v1<br>
+    生成于 2026-07-23 ｜ 技术研究视角 ｜ 本文观点基于公开资料的独立分析，不构成任何投资建议<br>
+    可信度分级：<span class="badge b-hi" style="font-size:10px">A 高</span> <span class="badge b-mid" style="font-size:10px">B 中</span> <span class="badge b-lo" style="font-size:10px">C 低</span>
+  </footer>
+
+</div>
+</body>
+</html>
