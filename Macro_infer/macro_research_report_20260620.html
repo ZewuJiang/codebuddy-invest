@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宏观推演 · 2026年6月20日 | 投研鸭 Strategy Note</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Public+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Serif+SC:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0F2742;
+    --ink-soft: #1F3A5F;
+    --gold: #B89770;
+    --gold-deep: #8C6E47;
+    --paper: #F8F4ED;
+    --paper-warm: #F2EBD9;
+    --paper-edge: #E8DFC9;
+    --charcoal: #2A2A2A;
+    --muted: #6B6052;
+    --red: #A4242C;
+    --green: #2D6B3F;
+    --amber: #C68E17;
+    --rule: #C9B996;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--paper);
+    color: var(--charcoal);
+    font-family: 'Public Sans', 'Noto Sans SC', sans-serif;
+    font-weight: 400;
+    line-height: 1.65;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 56px;
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at top left, rgba(184, 151, 112, 0.04) 0%, transparent 60%),
+      radial-gradient(ellipse at bottom right, rgba(15, 39, 66, 0.025) 0%, transparent 60%);
+  }
+
+  .masthead {
+    border-bottom: 2px solid var(--ink);
+    padding: 48px 0 24px;
+    margin-bottom: 0;
+    position: relative;
+  }
+  .masthead::after {
+    content: ""; position: absolute; bottom: -7px; left: 0; right: 0; height: 1px; background: var(--ink);
+  }
+  .meta-row {
+    display: flex; justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 36px;
+  }
+  .meta-row .classification { color: var(--red); font-weight: 600; }
+  .pub-title {
+    font-family: 'Fraunces', 'Noto Serif SC', serif; font-weight: 300; font-size: 14px;
+    letter-spacing: 0.35em; color: var(--muted); text-transform: uppercase; margin-bottom: 8px;
+  }
+  .pub-title b { color: var(--gold-deep); font-weight: 600; }
+  .report-title {
+    font-family: 'Fraunces', 'Noto Serif SC', serif; font-weight: 400; font-size: 44px;
+    line-height: 1.15; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 18px;
+    font-feature-settings: 'ss01' on;
+  }
+  .report-title .accent { font-style: italic; color: var(--gold-deep); font-weight: 400; }
+  .report-subtitle {
+    font-family: 'Fraunces', serif; font-style: italic; font-weight: 300; font-size: 19px;
+    color: var(--muted); line-height: 1.5; max-width: 740px; margin-bottom: 24px;
+  }
+  .byline {
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--muted); display: flex; gap: 32px;
+    padding-top: 16px; border-top: 1px solid var(--rule);
+  }
+  .byline span b { color: var(--ink); font-weight: 600; }
+
+  .takeaway {
+    background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper-edge) 100%);
+    border-left: 4px solid var(--gold); padding: 32px 36px; margin: 40px 0; position: relative;
+  }
+  .takeaway::before {
+    content: "EXECUTIVE TAKE · 6/20 UPDATE"; position: absolute; top: -10px; left: 28px;
+    background: var(--paper); padding: 0 12px; font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.25em; color: var(--gold-deep); font-weight: 600;
+  }
+  .takeaway-lead {
+    font-family: 'Fraunces', 'Noto Serif SC', serif; font-weight: 400; font-size: 21px;
+    line-height: 1.5; color: var(--ink); margin-bottom: 16px;
+  }
+  .takeaway-lead em { font-style: italic; color: var(--gold-deep); }
+  .takeaway p { font-size: 14.5px; color: var(--charcoal); margin-bottom: 8px; }
+
+  .section {
+    margin: 56px 0 0; padding-top: 40px; border-top: 1px solid var(--rule);
+  }
+  .section:first-of-type { border-top: none; padding-top: 0; }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.3em;
+    color: var(--gold-deep); font-weight: 600; margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Fraunces', 'Noto Serif SC', serif; font-weight: 500; font-size: 32px;
+    line-height: 1.2; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em;
+  }
+  .section-dek {
+    font-family: 'Fraunces', serif; font-style: italic; font-weight: 300; font-size: 17px;
+    color: var(--muted); margin-bottom: 32px; line-height: 1.5;
+  }
+  .section h3 {
+    font-family: 'Fraunces', 'Noto Serif SC', serif; font-weight: 600; font-size: 19px;
+    color: var(--ink); margin: 32px 0 12px; letter-spacing: -0.005em;
+  }
+  .section h3 .num {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--gold-deep);
+    margin-right: 12px; font-weight: 500;
+  }
+  .section p { margin-bottom: 16px; color: var(--charcoal); }
+  .section p b { color: var(--ink); font-weight: 600; }
+  .drop-cap::first-letter {
+    font-family: 'Fraunces', serif; font-size: 64px; line-height: 0.85; font-weight: 400;
+    float: left; color: var(--ink); margin: 6px 10px 0 0; padding: 4px 6px 0 0;
+  }
+
+  .pullquote {
+    margin: 32px 0; padding: 24px 0; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); text-align: center;
+  }
+  .pullquote q {
+    font-family: 'Fraunces', 'Noto Serif SC', serif; font-weight: 400; font-style: italic;
+    font-size: 22px; line-height: 1.4; color: var(--ink); quotes: """ """ "'" "'";
+  }
+  .pullquote-attr {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--muted); margin-top: 12px; display: block;
+  }
+
+  table.data {
+    width: 100%; border-collapse: collapse; margin: 24px 0;
+    font-family: 'Public Sans', sans-serif; font-size: 13.5px;
+  }
+  table.data th {
+    text-align: left; font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); font-weight: 600;
+    padding: 10px 14px; border-bottom: 2px solid var(--ink); background: rgba(184, 151, 112, 0.06);
+  }
+  table.data td {
+    padding: 11px 14px; border-bottom: 1px solid var(--rule); color: var(--charcoal); vertical-align: top;
+  }
+  table.data tr:last-child td { border-bottom: 2px solid var(--ink); }
+  table.data .num {
+    font-family: 'JetBrains Mono', monospace; text-align: right; font-variant-numeric: tabular-nums;
+  }
+  table.data .pos { color: var(--green); font-weight: 500; }
+  table.data .neg { color: var(--red); font-weight: 500; }
+  table.data .warn { color: var(--amber); font-weight: 500; }
+
+  .timeline { margin: 36px 0; padding: 24px 0; }
+  .tl-svg { width: 100%; height: auto; display: block; }
+
+  .scenario-card {
+    background: var(--paper-warm); border: 1px solid var(--rule); padding: 24px 28px;
+    margin: 16px 0; border-left: 4px solid var(--ink);
+  }
+  .scenario-card.bull { border-left-color: var(--green); }
+  .scenario-card.bear { border-left-color: var(--red); }
+  .scenario-card.base { border-left-color: var(--gold); }
+  .scenario-head {
+    display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px;
+  }
+  .scenario-name { font-family: 'Fraunces', serif; font-weight: 600; font-size: 18px; color: var(--ink); }
+  .scenario-prob { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: var(--muted); }
+  .scenario-prob b { color: var(--ink); font-size: 16px; }
+  .scenario-prob .delta-up { color: var(--green); font-size: 11px; }
+  .scenario-prob .delta-down { color: var(--red); font-size: 11px; }
+  .scenario-target {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--charcoal);
+    margin: 8px 0; font-variant-numeric: tabular-nums;
+  }
+  .scenario-desc { font-size: 13.5px; color: var(--charcoal); line-height: 1.55; }
+
+  .ind-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 24px 0; }
+  .ind-card { border: 1px solid var(--rule); padding: 16px 20px; background: rgba(255, 255, 255, 0.4); }
+  .ind-card .ind-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--gold-deep); margin-bottom: 6px;
+  }
+  .ind-card .ind-title { font-family: 'Fraunces', serif; font-weight: 500; font-size: 16px; color: var(--ink); margin-bottom: 6px; }
+  .ind-card .ind-desc { font-size: 12.5px; color: var(--charcoal); line-height: 1.5; }
+  .ind-card .ind-trig {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--red);
+    margin-top: 6px; padding-top: 6px; border-top: 1px dotted var(--rule);
+  }
+
+  .alloc-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 12.5px; }
+  .alloc-table th {
+    background: var(--ink); color: var(--paper); font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; padding: 10px 8px; text-align: center; font-weight: 600;
+  }
+  .alloc-table th:first-child { text-align: left; }
+  .alloc-table td {
+    padding: 9px 8px; border-bottom: 1px solid var(--rule); text-align: center;
+    font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums;
+  }
+  .alloc-table td:first-child {
+    text-align: left; font-family: 'Public Sans', sans-serif; font-weight: 500; color: var(--ink);
+  }
+  .alloc-table .phase-row td {
+    background: var(--paper-warm); font-family: 'Fraunces', serif; font-style: italic;
+    text-align: left; color: var(--gold-deep); font-size: 11.5px; letter-spacing: 0.05em;
+    padding: 6px 8px; border-top: 2px solid var(--gold);
+  }
+
+  .risk-box {
+    background: linear-gradient(135deg, #2A1518 0%, #3F1F23 100%); color: #F8F4ED;
+    padding: 32px 36px; margin: 32px 0; position: relative;
+  }
+  .risk-box::before {
+    content: "▲"; position: absolute; top: 24px; right: 28px; font-size: 28px; color: var(--red); opacity: 0.6;
+  }
+  .risk-box h3 { font-family: 'Fraunces', serif; color: var(--paper); font-size: 22px; margin-bottom: 16px; font-weight: 500; }
+  .risk-box ol { margin: 0; padding-left: 20px; font-size: 13.5px; line-height: 1.7; }
+  .risk-box ol li { margin-bottom: 10px; color: rgba(248, 244, 237, 0.92); }
+  .risk-box b { color: var(--gold); font-weight: 600; }
+
+  /* RETROSPECTIVE BOX (new for 6/20) */
+  .retro-box {
+    background: linear-gradient(135deg, #11261A 0%, #16331F 100%); color: #F0F5F0;
+    padding: 32px 36px; margin: 32px 0; position: relative;
+  }
+  .retro-box::before {
+    content: "✓ / ✗"; position: absolute; top: 22px; right: 28px; font-size: 20px;
+    font-family: 'JetBrains Mono', monospace; color: var(--green); opacity: 0.7;
+  }
+  .retro-box h3 { font-family: 'Fraunces', serif; color: var(--paper); font-size: 22px; margin-bottom: 16px; font-weight: 500; }
+  .retro-item { display: grid; grid-template-columns: 70px 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px solid rgba(240,245,240,0.12); align-items: start; }
+  .retro-item:last-child { border-bottom: none; }
+  .retro-verdict {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; font-weight: 600;
+    padding: 3px 7px; text-align: center; white-space: nowrap; height: fit-content;
+  }
+  .retro-verdict.hit { background: rgba(74,222,128,0.15); color: #4ADE80; border: 1px solid #4ADE80; }
+  .retro-verdict.miss { background: rgba(248,113,113,0.15); color: #F87171; border: 1px solid #F87171; }
+  .retro-verdict.partial { background: rgba(255,200,87,0.15); color: #FFC857; border: 1px solid #FFC857; }
+  .retro-item p { font-size: 13px; color: rgba(240,245,240,0.9); margin: 0; line-height: 1.5; }
+  .retro-item p b { color: #fff; }
+
+  .event-list { margin: 24px 0; }
+  .event-item {
+    display: grid; grid-template-columns: 110px 1fr; gap: 24px; padding: 18px 0;
+    border-bottom: 1px solid var(--rule); align-items: start;
+  }
+  .event-item:last-child { border-bottom: none; }
+  .event-date {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink); font-weight: 600; padding-top: 2px;
+  }
+  .event-date .day {
+    font-family: 'Fraunces', serif; font-size: 26px; display: block; color: var(--gold-deep);
+    font-style: italic; margin-bottom: 2px; letter-spacing: -0.01em;
+  }
+  .event-body h4 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 16px; color: var(--ink); margin-bottom: 4px; }
+  .event-body p { font-size: 13.5px; color: var(--charcoal); margin: 0; }
+
+  .footer {
+    margin-top: 80px; padding: 32px 0 56px; border-top: 2px solid var(--ink);
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em;
+    color: var(--muted); line-height: 1.7;
+  }
+  .footer .seal {
+    font-family: 'Fraunces', serif; font-style: italic; color: var(--gold-deep);
+    font-size: 16px; margin-bottom: 12px; letter-spacing: 0;
+  }
+
+  .tab { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
+  .asterism { text-align: center; margin: 40px 0; font-family: 'Fraunces', serif; color: var(--gold); font-size: 18px; letter-spacing: 1em; }
+  mark.note {
+    background: rgba(198, 142, 23, 0.15); color: var(--charcoal); padding: 1px 4px;
+    border-bottom: 1px solid var(--amber); font-weight: 500;
+  }
+  .smcaps {
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em;
+    color: var(--gold-deep); text-transform: uppercase; font-weight: 600;
+  }
+
+  @media print {
+    body { background: white; }
+    .page { padding: 0 40px; }
+    .risk-box, .retro-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+  @media (max-width: 720px) {
+    .page { padding: 0 24px; }
+    .report-title { font-size: 32px; }
+    .ind-grid { grid-template-columns: 1fr; }
+    .event-item { grid-template-columns: 80px 1fr; gap: 16px; }
+    .byline { flex-wrap: wrap; gap: 12px; }
+    .retro-item { grid-template-columns: 60px 1fr; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="meta-row">
+      <span>投研鸭 STRATEGY NOTE · No. 2026-06-20</span>
+      <span class="classification">INTERNAL · 仅供内部讨论</span>
+    </div>
+    <div class="pub-title">投研鸭 <b>·</b> Touyan Duck Macro</div>
+    <h1 class="report-title">
+      顶部<span class="accent">续命。</span><br>
+      泡沫被官方点名。
+    </h1>
+    <p class="report-subtitle">
+      SpaceX 创纪录上市、美伊和平、核心通胀降温——三重利好把"第一波踩踏"截断,顶部往后推。但 Fed dot plot 转鹰、AI 循环融资被美联储列为系统性风险,每一个结构性裂缝都在加深。这是 6 月 7 日推演的实盘复盘与校准。
+    </p>
+    <div class="byline">
+      <span>Author <b>·</b> Macro Strategy Desk</span>
+      <span>Prev <b>·</b> No. 2026-06-07</span>
+      <span>Data Cutoff <b>·</b> 2026-06-19</span>
+    </div>
+  </header>
+
+  <section class="takeaway">
+    <p class="takeaway-lead">
+      6 月 7 日预判的"未来 3 周 5-8% 第一波踩踏"<em>没有兑现</em>。SpaceX 首日 +19%（峰值 $225、市值破 $3 万亿）、美伊和平（油价跌至 $83）、核心 CPI 月率降到 0.2%——三重利好把 SPX 反而推到 7,491，高于 6/7 水平。
+    </p>
+    <p><b>方向对、节奏错。</b>所有结构性恶化信号如期出现：Fed dot plot 历史性转鹰（9 名委员预期加息、PCE 上调至 3.6%），美联储正式将 AI 列为顶级系统性风险。价格反弹但基本面恶化——这正是顶部 distribution 的教科书特征。</p>
+    <p><b>校准结论：</b>顶部窗口<b>维持</b> Q4 2026 – Q1 2027；但"narrative 续命"情景概率从 20% 升到 35%，市场更可能<b>再创一次新高（7,900-8,300）再见顶</b>，而非从这里直接下跌。防御方向不变，节奏可略放缓。</p>
+  </section>
+
+  <!-- ============ SECTION 0: RETROSPECTIVE ============ -->
+  <section class="section">
+    <div class="section-num">0 · RETROSPECTIVE</div>
+    <h2 class="section-title">6 月 7 日推演的实盘复盘</h2>
+    <p class="section-dek">严谨的推演必须接受检验。两周后回看，哪些对了、哪些错了。</p>
+
+    <div class="retro-box">
+      <h3>Scorecard · 6/7 → 6/20</h3>
+      <div class="retro-item">
+        <div class="retro-verdict miss">✗ MISS</div>
+        <p><b>"未来 3 周出现 5-8% 第一波踩踏，SPX 测试 6,950-7,200"</b> — 没有兑现。SPX 反而升到 7,491。低估了 narrative 托底的力量。</p>
+      </div>
+      <div class="retro-item">
+        <div class="retro-verdict hit">✓ HIT</div>
+        <p><b>"Fed 反应函数翻转到年内可能加息"</b> — 完全兑现，且成为官方 dot plot 中位预期（9/18 委员预期加息）。</p>
+      </div>
+      <div class="retro-item">
+        <div class="retro-verdict hit">✓ HIT</div>
+        <p><b>"SpaceX 是关键 tape signal，+20% 续命"</b> — 兑现。首日 +19.3%，峰值 +67%。情景 A/B 剧本上演。</p>
+      </div>
+      <div class="retro-item">
+        <div class="retro-verdict hit">✓ HIT</div>
+        <p><b>"腾讯/拼多多因深度 derate 不再优先减仓"</b> — 兑现。港股 risk-off 时跟跌不领跌（腾讯 -2.65% 属正常获利了结）。</p>
+      </div>
+      <div class="retro-item">
+        <div class="retro-verdict partial">~ 部分</div>
+        <p><b>"顶部窗口 Q4 2026 – Q1 2027"</b> — 方向维持，但概率分布需调整：续命情景概率上升，顶部可能更高更晚。</p>
+      </div>
+      <div class="retro-item">
+        <div class="retro-verdict hit">✓ HIT</div>
+        <p><b>"AI 资本循环是系统性风险"</b> — 兑现且升级。美联储 2026 正式将 AI 列为<b>顶级系统性金融稳定风险</b>。</p>
+      </div>
+    </div>
+
+    <h3><span class="num">·</span>三个必须承认的盲点</h3>
+
+    <p><b>盲点 1 · 低估了"流动性充裕期"顶部的韧性。</b>我把第一波踩踏判断得过于激进（5-8%、3 周内）。真实的顶部不是针尖，而是可以持续数月的圆弧。在 Fed 还没真正加息、IPO 还在制造 FOMO 的阶段，市场可以<mark class="note">带着所有人都知道的利空继续创新高</mark>——这是 2000 和 2007 顶部的共同特征。</p>
+
+    <p><b>盲点 2 · 把 AI capex 见顶看成"单点事件"。</b>Broadcom 显示更复杂的现实：capex「增速」在放缓，但「绝对水平」还在创纪录，且有延伸到 2028 年的多年锁定订单。narrative 破裂不是断崖，而是<b>温水煮青蛙式的多季度 derating</b>。需要新增指标：<b>增速的二阶导数</b>——不看 capex 是否增长，而看增速本身在加速还是减速。</p>
+
+    <p><b>盲点 3 · 忽略了"循环融资"作为系统性放大器。</b>这是最重要的认知升级。整个 AI 资本是自我指涉的闭环：Nvidia 投资 OpenAI → OpenAI 买 Nvidia 芯片（算 Nvidia 收入）→ Nvidia 估值升 → 支撑更多投资。危险在于<b>任何一个环节断裂，整个估值链同时崩塌</b>。这比单纯高估值的风险大得多。</p>
+  </section>
+
+  <!-- ============ SECTION I: TWO WEEKS ============ -->
+  <section class="section">
+    <div class="section-num">I · WHAT HAPPENED</div>
+    <h2 class="section-title">两周里改变的事</h2>
+    <p class="section-dek">三重利好截断踩踏，但每一个结构裂缝都在加深。</p>
+
+    <div class="event-list">
+      <div class="event-item">
+        <div class="event-date"><span class="day">06.10</span>Wed</div>
+        <div class="event-body">
+          <h4>5 月 CPI：头条 4.2%（3 年新高），但核心月率降到 0.2%</h4>
+          <p>头条受能源驱动（汽油 +40.5%），但核心 MoM 0.2% 低于预期 0.3%、远低于 4 月 0.4%。核心商品价格甚至 -0.1%，显示关税传导有限。这是个被忽略的降温信号。</p>
+        </div>
+      </div>
+      <div class="event-item">
+        <div class="event-date"><span class="day">06.12</span>Fri</div>
+        <div class="event-body">
+          <h4>SpaceX IPO 创纪录：首日 +19.3%，市值破 $3 万亿</h4>
+          <p>$135 发行，首日收 $161，6/16 冲到 $225 历史高点。$1500 亿订单追逐 $750 亿募资（2 倍超额）。30% 散户配额激活 FOMO。情景 A/B 的最强版本。同日：美国暂停 Claude Fable（出口管制）。</p>
+        </div>
+      </div>
+      <div class="event-item">
+        <div class="event-date"><span class="day">06.15</span>Mon</div>
+        <div class="event-body">
+          <h4>美伊和平框架：油价跌 5%，重开霍尔木兹海峡</h4>
+          <p>布伦特跌至 $83，创 3 月以来最低。亚太股市大涨（日经 +5.5%、韩国 KOSPI +5.7%）。拆掉了 6/7 推演里"地缘/油价"这个最大近期 trigger。</p>
+        </div>
+      </div>
+      <div class="event-item">
+        <div class="event-date"><span class="day">06.17</span>Wed</div>
+        <div class="event-body">
+          <h4>FOMC：维持利率（12-0），但 dot plot 历史性转鹰</h4>
+          <p>9/18 委员预期 2026 加息（6 名预期两次），PCE 年末预期从 2.7% 上调到 3.6%，17/18 委员判断通胀风险偏上行。Warsh 删除所有降息倾向措辞。期货已定价 2026 零降息。</p>
+        </div>
+      </div>
+    </div>
+
+    <h3><span class="num">·</span>各市场两周表现</h3>
+
+    <table class="data">
+      <thead>
+        <tr><th>市场</th><th class="num">6/7 附近</th><th class="num">6/19</th><th>关键驱动</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>S&P 500</td><td class="num">7,383</td><td class="num pos">7,491</td><td>IPO + 油价跌 + 核心降温</td></tr>
+        <tr><td>Nasdaq Comp</td><td class="num">25,709</td><td class="num warn">~26,100</td><td>科技反弹</td></tr>
+        <tr><td>Dow Jones</td><td class="num">50,867</td><td class="num pos">51,650</td><td>CAT/Disney/NVDA 领涨</td></tr>
+        <tr><td>SpaceX (SPCX)</td><td class="num">IPO $135</td><td class="num pos">~$185</td><td>首日 +19%，峰值 $225</td></tr>
+        <tr><td>恒生指数</td><td class="num">~24,000</td><td class="num warn">24,312</td><td>和平后反弹随即回落</td></tr>
+        <tr><td>上证综指</td><td class="num">~4,090</td><td class="num pos">4,110</td><td>科技领涨，银行拖累</td></tr>
+        <tr><td>布伦特原油</td><td class="num">~$88</td><td class="num pos">$83</td><td>美伊和平</td></tr>
+        <tr><td>10Y 美债</td><td class="num">4.52%</td><td class="num pos">~4.45%</td><td>核心 CPI 降温</td></tr>
+        <tr><td>Bitcoin*</td><td class="num">$77.4K</td><td class="num neg">$64-77K</td><td>数据源分歧，仍深跌</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px; color:var(--muted);">* Bitcoin 当前价格各数据源差异较大（$64K-$77K），需进一步核实；共识是仍深跌于 2025 年 10 月 ~$126K 历史高点。</p>
+  </section>
+
+  <!-- ============ SECTION II: AI NARRATIVE ============ -->
+  <section class="section">
+    <div class="section-num">II · AI NARRATIVE</div>
+    <h2 class="section-title">AI 叙事：估值、需求、应用三端</h2>
+    <p class="section-dek">泡沫从"边缘质疑"升级到"美联储官方系统性风险警告"。</p>
+
+    <p class="drop-cap">这两周，AI 泡沫的讨论发生了质变——从分析师的边缘质疑，变成了<b>美联储官方点名 + 主流机构共识担忧</b>。这是一个重要的 regime change：当中央银行把一个资产类别列为系统性风险时，它本身就成为政策制定者会主动 monitor、必要时会主动 deflate 的对象。</p>
+
+    <h3><span class="num">·</span>估值端：循环融资的"庞氏结构"</h3>
+
+    <div class="pullquote">
+      <q>这个系统杠杆建立在自身之上，没有 exit optionality。</q>
+      <span class="pullquote-attr">Investing.com · 论 AI 循环融资 · 2026</span>
+    </div>
+
+    <p>核心闭环：<b>Oracle</b> 推动 Stargate 和 $3000 亿数据中心投资给 OpenAI，<b>Nvidia</b> 是主要供应商；同时 Nvidia 投资 OpenAI $1000 亿，还持有 <b>CoreWeave</b> 股份，CoreWeave 又与 Oracle 有云协议。资本在封闭循环内不断回收，放大表面增长。GMO 称之为<mark class="note">"令人想起互联网泡沫的循环融资"</mark>。</p>
+
+    <p>关键数据：2026 年五大 hyperscaler AI capex 达 <span class="tab">$7250 亿</span>（超过新加坡 GDP）；Gartner 预测 2026 年 AI 总支出 <span class="tab">$2.53 万亿</span>，2027 升至 <span class="tab">$3.33 万亿</span>；2020-2026 累计数据中心投资 <span class="tab">$9300 亿</span>。</p>
+
+    <h3><span class="num">·</span>需求端：95% 项目零 ROI</h3>
+
+    <p><b>95% 的企业 AI 项目报告零可衡量 ROI。</b>OpenAI 约 $600 亿算力支出对应约 $130 亿收入，年缺口 <span class="tab">$470 亿</span>。MIT Media Lab 报告显示，尽管 $300-400 亿企业 GenAI 投资，95% 的组织未获得回报。NBER 研究：90% 的公司报告 AI 对生产力无影响。</p>
+
+    <p>这印证了我 6 月 7 日的核心论点——<b>AI 提高供给但不创造新需求</b>。Altman 6/2 的"企业 Q1 即耗尽预算"声明，现在有了更系统的数据支撑。</p>
+
+    <h3><span class="num">·</span>应用端：盈利质量悄然恶化</h3>
+
+    <p>NVDA 最新财报是个微妙信号：<b>Q2 收入 $467 亿（+56% YoY），但毛利率从 75.1% 降到 72.4%</b>。增长还在，但盈利质量在悄悄恶化——这是 capex 增速二阶导数转负的早期迹象。Broadcom 重申 FY27 超 $1000 亿但<b>拒绝上调</b>，也是同一信号。</p>
+
+    <p>另一面：垂直 AI 仍有真实 ROI 案例——Abridge（医疗文档，$53 亿估值）、Harvey（法律，$80 亿估值）、Parloa（客服，$10 亿估值）。这说明<b>泡沫不是 AI 整体，而是"通用大模型 + 循环融资 + 估值脱节"那部分</b>。这与 2000 年类似：互联网是真的，但 Pets.com 是假的。</p>
+  </section>
+
+  <!-- ============ SECTION III: TIMELINE ============ -->
+  <section class="section">
+    <div class="section-num">III · CHRONOLOGY</div>
+    <h2 class="section-title">推演时间线 · 6/20 校准版</h2>
+    <p class="section-dek">顶部窗口维持，但"续命"路径概率上升，过程被拉长。</p>
+
+    <div class="timeline">
+      <svg class="tl-svg" viewBox="0 0 880 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="推演时间线 6/20">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#B89770" stop-opacity="0.15"/><stop offset="1" stop-color="#B89770" stop-opacity="0.35"/></linearGradient>
+          <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C68E17" stop-opacity="0.2"/><stop offset="1" stop-color="#C68E17" stop-opacity="0.45"/></linearGradient>
+          <linearGradient id="g3" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#A4242C" stop-opacity="0.3"/><stop offset="1" stop-color="#A4242C" stop-opacity="0.55"/></linearGradient>
+          <linearGradient id="g4" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#A4242C" stop-opacity="0.55"/><stop offset="1" stop-color="#A4242C" stop-opacity="0.25"/></linearGradient>
+          <linearGradient id="g5" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2D6B3F" stop-opacity="0.25"/><stop offset="1" stop-color="#2D6B3F" stop-opacity="0.4"/></linearGradient>
+        </defs>
+
+        <line x1="40" y1="210" x2="840" y2="210" stroke="#0F2742" stroke-width="2"/>
+
+        <rect x="40" y="160" width="140" height="50" fill="url(#g1)" stroke="#B89770" stroke-width="1"/>
+        <rect x="180" y="160" width="160" height="50" fill="url(#g2)" stroke="#C68E17" stroke-width="1"/>
+        <rect x="340" y="160" width="180" height="50" fill="url(#g3)" stroke="#A4242C" stroke-width="1"/>
+        <rect x="520" y="160" width="200" height="50" fill="url(#g4)" stroke="#A4242C" stroke-width="1"/>
+        <rect x="720" y="160" width="120" height="50" fill="url(#g5)" stroke="#2D6B3F" stroke-width="1"/>
+
+        <text x="110" y="148" text-anchor="middle" font-family="Fraunces, serif" font-size="11" font-style="italic" fill="#8C6E47">续命/宽幅震荡</text>
+        <text x="260" y="148" text-anchor="middle" font-family="Fraunces, serif" font-size="11" font-style="italic" fill="#8C6E47">Narrative Pivot</text>
+        <text x="430" y="148" text-anchor="middle" font-family="Fraunces, serif" font-size="11" font-style="italic" fill="#A4242C">Top Confirmation</text>
+        <text x="620" y="148" text-anchor="middle" font-family="Fraunces, serif" font-size="11" font-style="italic" fill="#A4242C">Accelerated Decline</text>
+        <text x="780" y="148" text-anchor="middle" font-family="Fraunces, serif" font-size="11" font-style="italic" fill="#2D6B3F">Bottom / Pivot</text>
+
+        <g font-family="JetBrains Mono, monospace" font-size="10" fill="#2A2A2A" text-anchor="middle">
+          <line x1="40" y1="210" x2="40" y2="220" stroke="#0F2742"/><text x="40" y="235">6/26</text>
+          <line x1="180" y1="210" x2="180" y2="220" stroke="#0F2742"/><text x="180" y="235">10/26</text>
+          <line x1="340" y1="210" x2="340" y2="220" stroke="#0F2742"/><text x="340" y="235">1/27</text>
+          <line x1="520" y1="210" x2="520" y2="220" stroke="#0F2742"/><text x="520" y="235">7/27</text>
+          <line x1="720" y1="210" x2="720" y2="220" stroke="#0F2742"/><text x="720" y="235">3/28</text>
+          <line x1="840" y1="210" x2="840" y2="220" stroke="#0F2742"/><text x="840" y="235">9/28</text>
+        </g>
+
+        <g font-family="JetBrains Mono, monospace" font-size="9" fill="#0F2742">
+          <line x1="55" y1="210" x2="55" y2="262" stroke="#2D6B3F" stroke-width="1.5" stroke-dasharray="2,2"/>
+          <circle cx="55" cy="210" r="4" fill="#2D6B3F" stroke="#0F2742" stroke-width="1.5"/>
+          <text x="55" y="277" text-anchor="middle">✓ SpaceX</text>
+          <text x="55" y="290" text-anchor="middle" fill="#2D6B3F">+19% 已上市</text>
+
+          <line x1="130" y1="210" x2="130" y2="295" stroke="#B89770" stroke-width="1" stroke-dasharray="2,2"/>
+          <circle cx="130" cy="210" r="4" fill="#B89770" stroke="#0F2742" stroke-width="1.5"/>
+          <text x="130" y="310" text-anchor="middle">NVDA Q2</text>
+          <text x="130" y="323" text-anchor="middle" fill="#6B6052">8/27</text>
+
+          <line x1="240" y1="210" x2="240" y2="262" stroke="#C68E17" stroke-width="1" stroke-dasharray="2,2"/>
+          <circle cx="240" cy="210" r="4" fill="#C68E17" stroke="#0F2742" stroke-width="1.5"/>
+          <text x="240" y="277" text-anchor="middle">Anthropic IPO</text>
+          <text x="240" y="290" text-anchor="middle" fill="#6B6052">~12/26?</text>
+
+          <line x1="360" y1="210" x2="360" y2="295" stroke="#A4242C" stroke-width="1.5" stroke-dasharray="2,2"/>
+          <circle cx="360" cy="210" r="5" fill="#A4242C" stroke="#0F2742" stroke-width="1.5"/>
+          <text x="360" y="310" text-anchor="middle" font-weight="600">2027 Capex 指引</text>
+          <text x="360" y="323" text-anchor="middle" fill="#6B6052">1-2/27</text>
+
+          <line x1="450" y1="210" x2="450" y2="262" stroke="#C68E17" stroke-width="1" stroke-dasharray="2,2"/>
+          <circle cx="450" cy="210" r="4" fill="#C68E17" stroke="#0F2742" stroke-width="1.5"/>
+          <text x="450" y="277" text-anchor="middle">OpenAI IPO</text>
+          <text x="450" y="290" text-anchor="middle" fill="#6B6052">~3/27</text>
+
+          <line x1="640" y1="210" x2="640" y2="262" stroke="#A4242C" stroke-width="1" stroke-dasharray="2,2"/>
+          <circle cx="640" cy="210" r="4" fill="#A4242C" stroke="#0F2742" stroke-width="1.5"/>
+          <text x="640" y="277" text-anchor="middle">Fed Pivot</text>
+          <text x="640" y="290" text-anchor="middle" fill="#6B6052">~Q3'27</text>
+
+          <line x1="780" y1="210" x2="780" y2="262" stroke="#2D6B3F" stroke-width="1" stroke-dasharray="2,2"/>
+          <circle cx="780" cy="210" r="4" fill="#2D6B3F" stroke="#0F2742" stroke-width="1.5"/>
+          <text x="780" y="277" text-anchor="middle">SPX Bottom</text>
+          <text x="780" y="290" text-anchor="middle" fill="#6B6052">~Q3'28</text>
+        </g>
+
+        <g stroke="#0F2742" stroke-width="2" fill="none" opacity="0.7">
+          <path d="M 40,95 Q 110,88 180,80 T 340,72 Q 400,78 460,98 T 580,145 Q 640,160 700,175 T 800,165 L 840,155"/>
+        </g>
+        <text x="60" y="80" font-family="JetBrains Mono, monospace" font-size="9" fill="#6B6052">SPX 路径示意</text>
+
+        <circle cx="340" cy="72" r="6" fill="#A4242C"/>
+        <text x="340" y="62" text-anchor="middle" font-family="Fraunces, serif" font-size="11" font-style="italic" fill="#A4242C" font-weight="600">TOP 7,900-8,300</text>
+
+        <circle cx="780" cy="165" r="6" fill="#2D6B3F"/>
+        <text x="788" y="175" text-anchor="start" font-family="Fraunces, serif" font-size="11" font-style="italic" fill="#2D6B3F" font-weight="600">底部</text>
+
+        <line x1="35" y1="20" x2="35" y2="420" stroke="#0F2742" stroke-width="2"/>
+        <text x="35" y="15" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="12" fill="#0F2742" font-weight="600">NOW · 6/20</text>
+        <text x="48" y="110" text-anchor="start" font-family="JetBrains Mono, monospace" font-size="9" fill="#2D6B3F">7,491</text>
+      </svg>
+    </div>
+
+    <h3><span class="num">·</span>关键变化：第一波踩踏推后</h3>
+    <p>最重要的校准是：<b>SpaceX 成功 + 美伊和平 + 通胀降温，把"narrative 续命"情景概率从 6/7 的 20% 提升到 35%</b>。市场更可能"再创一次新高"再见顶，而不是从这里直接下跌。这不改变最终结局——只是把顶部往后推、把过程拉长。</p>
+
+    <h3><span class="num">·</span>油价缓和的双刃剑（新增分析）</h3>
+    <p>美伊和平是微妙变量。表面利好（降通胀、降成本），但它<b>移除了 Fed 不加息的一个借口</b>。此前 Fed 可以把高利率归因于"地缘能源通胀"；现在油价回落，如果核心通胀仍顽固（住房 +3.4%、运输服务 +4.1%、服装 +4.8%），Fed 失去"暂时性供给冲击"的挡箭牌，反而可能被迫直面"需求侧通胀"而加息。<mark class="note">油价缓和短期利好情绪，但中期反而增加 Fed 加息可能性</mark>——非线性关系，需密切跟踪。</p>
+  </section>
+
+  <!-- ============ SECTION IV: SCENARIOS ============ -->
+  <section class="section">
+    <div class="section-num">IV · SCENARIOS</div>
+    <h2 class="section-title">三种顶部路径 · 概率更新</h2>
+    <p class="section-dek">续命情景上升，失败情景下降。但 80% 概率仍指向 Q4'26-Q1'27 见顶。</p>
+
+    <div class="scenario-card bull">
+      <div class="scenario-head">
+        <div class="scenario-name">情景 A · Narrative 续命</div>
+        <div class="scenario-prob">概率 <b>35%</b> <span class="delta-up">▲ +15</span></div>
+      </div>
+      <div class="scenario-target">SPX 顶部 <b>7,900 – 8,300</b>（2027 Q1）· 调整深度 SPX -15 至 -20% · Nasdaq -25%</div>
+      <div class="scenario-desc">SpaceX 已成功（✓）。Anthropic IPO（Q4-Q1）若复制成功 + OpenAI 跟进（~3/27，首日市值预测 $1.08 万亿）。美伊和平持续 + 油价回落 + 核心通胀温和 = Fed 不加息。<b>概率从 20% 升到 35%</b>，因为三重利好实质性延长了 narrative 续命时间。调整温和，周期 12-18 个月。</div>
+    </div>
+
+    <div class="scenario-card base">
+      <div class="scenario-head">
+        <div class="scenario-name">情景 B · 慢速分配（基准）</div>
+        <div class="scenario-prob">概率 <b>45%</b> <span class="delta-down">▼ -5</span></div>
+      </div>
+      <div class="scenario-target">SPX 顶部 <b>7,800 – 8,100</b>（2026 Q4 或 2027 Q1）· 调整深度 SPX -25 至 -30% · Nasdaq -35 至 -45%</div>
+      <div class="scenario-desc">Anthropic IPO 模糊（首日小涨但 30 天后回落）。M7 在 2027 capex 给出 +15-20%（Broadcom 已示范"不上调"）。Fed 全年维持不变（已是 dot plot 中位）。失业率温和上行到 4.5-4.8%。<b>调整周期 18-24 个月</b>，2028 Q3 见底。仍是最可能路径。</div>
+    </div>
+
+    <div class="scenario-card bear">
+      <div class="scenario-head">
+        <div class="scenario-name">情景 C · IPO 失败 + 加息</div>
+        <div class="scenario-prob">概率 <b>20%</b> <span class="delta-down">▼ -10</span></div>
+      </div>
+      <div class="scenario-target">SPX 顶部 <b>7,500 – 7,700</b>（2026 Q4，可能已近）· 调整深度 SPX -32 至 -38% · Nasdaq -45 至 -55%</div>
+      <div class="scenario-desc">Anthropic 或 OpenAI 上市后破发。核心通胀重新加速迫使 Fed 在 Q4 加息。出口管制升级（Claude Fable 暂停是先兆）冲击 AI 估值。<b>概率从 30% 降到 20%</b>，因近期 trigger（地缘油价）已拆除。调整 24-30 个月，2028 Q4 见底，最接近 2000-2002 路径。</div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION V: KPI ============ -->
+  <section class="section">
+    <div class="section-num">V · KPI FRAMEWORK</div>
+    <h2 class="section-title">关键指标 · 6/20 刷新</h2>
+    <p class="section-dek">淘汰已触发的，新增更前瞻的。完整跟踪见配套 Dashboard。</p>
+
+    <h3><span class="num">·</span>已确认触发（从"预警"变"事实"）</h3>
+    <table class="data">
+      <thead><tr><th>指标</th><th>状态</th><th>确认时点</th></tr></thead>
+      <tbody>
+        <tr><td>Fed dot plot 转鹰</td><td class="neg">✓ 已触发</td><td>6/17 · 9 名委员预期加息</td></tr>
+        <tr><td>AVGO 不上调指引</td><td class="neg">✓ 已触发</td><td>6/3 · 重申不上调</td></tr>
+        <tr><td>企业 AI 预算 Q1 耗尽</td><td class="neg">✓ 已触发</td><td>Altman 6/2 声明</td></tr>
+        <tr><td>Fed 将 AI 列为系统性风险</td><td class="neg">✓ 已触发</td><td>2026 官方</td></tr>
+        <tr><td>NVDA 毛利率下滑</td><td class="warn">✓ 新触发</td><td>75.1% → 72.4%</td></tr>
+      </tbody>
+    </table>
+
+    <h3><span class="num">·</span>已缓解（暂移出警戒，保留尾部监测）</h3>
+    <table class="data">
+      <thead><tr><th>指标</th><th>状态</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>地缘 / 油价</td><td class="pos">✓ 缓解</td><td>美伊和平，布伦特 $83。保留"协议破裂"尾部</td></tr>
+        <tr><td>核心通胀失控</td><td class="pos">✓ 缓解</td><td>5 月核心 MoM 0.2% 降温。需连续验证</td></tr>
+      </tbody>
+    </table>
+
+    <h3><span class="num">·</span>新增维度（本次认知升级）</h3>
+
+    <div class="ind-grid">
+      <div class="ind-card">
+        <div class="ind-label">新增 · 系统性</div>
+        <div class="ind-title">循环融资闭环裂痕</div>
+        <div class="ind-desc">跟踪 Nvidia-OpenAI-Oracle-CoreWeave 闭环。任何大客户关系变化、付款推迟或违约，都是系统性 trigger。</div>
+        <div class="ind-trig">▲ 任一环节断裂 = 估值链同时崩塌</div>
+      </div>
+      <div class="ind-card">
+        <div class="ind-label">新增 · 二阶导</div>
+        <div class="ind-title">AI Capex 增速二阶导数</div>
+        <div class="ind-desc">不看绝对值，看增速本身在加速还是减速。AVGO 不上调 + NVDA 毛利率下滑 = 二阶导数转负。</div>
+        <div class="ind-trig">▲ 连续两季增速放缓 = narrative 切换确认</div>
+      </div>
+      <div class="ind-card">
+        <div class="ind-label">新增 · 地缘</div>
+        <div class="ind-title">出口管制对 AI 的冲击</div>
+        <div class="ind-desc">Claude Fable 暂停是先例。跟踪进一步芯片/模型出口限制，及对 Anthropic/OpenAI IPO 时点的影响。</div>
+        <div class="ind-trig">▲ 新增重大出口限制 = AI 估值冲击</div>
+      </div>
+      <div class="ind-card">
+        <div class="ind-label">最高优先 · 单一事件</div>
+        <div class="ind-title">NVDA Q2 FY27 财报（8/27）</div>
+        <div class="ind-desc">最重要单一事件。重点：DC YoY 增速、毛利率是否继续下滑、Blackwell→Rubin 需求 replacement 真实性。</div>
+        <div class="ind-trig">▲ 毛利率 &lt; 71% 或 DC 增速 &lt; 50%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION VI: ALLOCATION ============ -->
+  <section class="section">
+    <div class="section-num">VI · ALLOCATION</div>
+    <h2 class="section-title">持仓建议 · 微调</h2>
+    <p class="section-dek">大方向不变，但顶部推后让减仓紧迫性略降，防御节奏可放缓。</p>
+
+    <p><b>关键变化：</b>由于顶部可能推后 + narrative 续命概率上升，"减仓"的紧迫性略微降低，但"防御部署"方向不变。<mark class="note">可以利用 narrative 续命的反弹分批减，而不是恐慌性砍</mark>。</p>
+
+    <table class="alloc-table">
+      <thead>
+        <tr><th>时点</th><th>BRK/防御</th><th>美 AI/Tech</th><th>HK 腾讯/PDD</th><th>周期/材料</th><th>现金/短债</th><th>BTC</th></tr>
+      </thead>
+      <tbody>
+        <tr class="phase-row"><td colspan="7">现在 · 2026 年 6 月（顶部推后，节奏可放缓）</td></tr>
+        <tr><td>现在</td><td>12-15%</td><td>25-30%</td><td>25-30%</td><td>0-5%</td><td>15-20%</td><td>5-8%</td></tr>
+        <tr class="phase-row"><td colspan="7">阶段 · 2026 Q3（等 NVDA 财报信号）</td></tr>
+        <tr><td>NVDA 财报后</td><td>20-25%</td><td>15-20%</td><td>25%</td><td>0-5%</td><td>20-25%</td><td>5%</td></tr>
+        <tr class="phase-row"><td colspan="7">阶段 · 2026 Q4（Anthropic IPO 是决策点）</td></tr>
+        <tr><td>2026 Q4</td><td>30-40%</td><td>10-15%</td><td>20%</td><td>5%</td><td>25-30%</td><td>3-5%</td></tr>
+        <tr class="phase-row"><td colspan="7">阶段 · 2027 Q1-Q3（顶部确认 + 加速下行）</td></tr>
+        <tr><td>2027 Q1</td><td>50-60%</td><td>5-10%</td><td>15%</td><td>5%</td><td>20-25%</td><td>0%</td></tr>
+        <tr><td>2027 Q2-Q3</td><td>50%</td><td>0-5%</td><td>10-15%</td><td>5-10%</td><td>25%</td><td>0-3%</td></tr>
+        <tr class="phase-row"><td colspan="7">阶段 · 2027 Q4 – 2028（底部 + Fed Pivot）</td></tr>
+        <tr><td>2028 Q2</td><td>20%</td><td>40%</td><td>20%</td><td>15%</td><td>0%</td><td>5%</td></tr>
+      </tbody>
+    </table>
+
+    <h3><span class="num">·</span>个股层面</h3>
+    <p><b>腾讯 / 拼多多</b>：维持核心仓位（6/7 修正观点持续有效）。这两周回落（腾讯 -2.65%）是正常获利了结，不是趋势反转。港股在 risk-off 跟跌不领跌、risk-on 弹性弱——现在是"低 beta 防御性中概"，深度 derate 提供 valuation floor。</p>
+    <p><b>台积电</b>：受益于 AI + 地缘缓和（台湾加权指数和平后 +2.7%）。可在反弹中减，但作为"硬科技"留到后面。</p>
+    <p><b>Bitcoin</b>：6/7 的"流动性驱动"判断得到验证——BTC 没跟随股市反弹，反而继续弱势。Fed dot plot 转鹰意味着<b>流动性转向时点也被推后</b>，对 BTC 中期利空。维持"等 Fed 扩表 + 4-5 万区间"建仓计划，要耐心。</p>
+  </section>
+
+  <!-- ============ SECTION VII: RISKS ============ -->
+  <section class="section">
+    <div class="section-num">VII · RISKS TO VIEW</div>
+    <h2 class="section-title">这个推演什么时候会被推翻</h2>
+    <p class="section-dek">60 天内若以下任一信号出现，需重新校准。</p>
+
+    <div class="risk-box">
+      <h3>推翻信号 · 双向</h3>
+      <ol>
+        <li><b>向上推翻（顶部更高更晚）：</b>Anthropic IPO 首日站稳 $1 万亿 + 30 天不破发，叠加 OpenAI 跟进成功 → narrative 续命到 2027 年中，顶部可能上看 8,500+。</li>
+        <li><b>向上推翻：</b>M7 在 Q3 财报将 2027 capex 指引意外上调 &gt;25%，或 AI 出现真正杀手级应用（单产品 ARR &gt; $5B）→ 证伪"AI 不创造需求"。</li>
+        <li><b>向下推翻（顶部更早更深）：</b>循环融资闭环出现裂痕——Oracle/CoreWeave 任一出现付款问题或大客户流失 → 系统性 trigger，可能直接转情景 C。</li>
+        <li><b>向下推翻：</b>核心 CPI 重新加速（连续两月 &gt;0.3%），Fed 在 Q4 真的加息 25bp → 估值快速压缩。</li>
+        <li><b>向下推翻：</b>美伊和平协议破裂（60 天内谈判失败），油价重回 $100+ → 通胀与衰退共振。</li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="asterism">⁂</div>
+
+  <section class="section">
+    <div class="section-num">CONCLUSION</div>
+    <h2 class="section-title">三个 actionable 结论</h2>
+    <p><b>1 · 时间窗口。</b>顶部窗口维持 Q4 2026 – Q1 2027，但"续命"情景概率升到 35%。市场更可能再创一次新高（7,900-8,300）再见顶，而非从这里直接下跌。第一波踩踏推后。</p>
+    <p><b>2 · 资产配置。</b>防御方向不变（现在 12-15% → Q4 2026 提升到 30-40%），但因顶部推后，节奏可略放缓——等 NVDA 财报（8/27）和 Anthropic IPO（Q4）的信号再加速。腾讯/拼多多维持核心仓位。</p>
+    <p><b>3 · 跟踪机制。</b>最关键三个观察点：(1) NVDA Q2 FY27 财报（8/27）看毛利率与 DC 增速，(2) Anthropic IPO 定价与首日（Q4），(3) 循环融资闭环裂痕（Nvidia-OpenAI-Oracle-CoreWeave）。</p>
+  </section>
+
+  <footer class="footer">
+    <div class="seal">投研鸭 · Touyan Duck</div>
+    <p>报告编号 · 2026-06-20-MS-002<br>
+    制作日期 · 2026 年 6 月 20 日<br>
+    前序报告 · 2026-06-07-MS-001<br>
+    数据截止 · 2026 年 6 月 19 日收盘<br>
+    <br>
+    本报告基于公开数据与建模推演，不构成投资建议。所有 thesis 均带有概率分布，请配合 KPI Dashboard 使用并定期校准。本次为 6/7 推演的复盘与校准版本。</p>
+  </footer>
+
+</div>
+</body>
+</html>

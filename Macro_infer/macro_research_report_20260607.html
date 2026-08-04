@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宏观推演 · 2026年6月7日 | 投研鸭 Strategy Note</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Public+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Serif+SC:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0F2742;
+    --ink-soft: #1F3A5F;
+    --gold: #B89770;
+    --gold-deep: #8C6E47;
+    --paper: #F8F4ED;
+    --paper-warm: #F2EBD9;
+    --paper-edge: #E8DFC9;
+    --charcoal: #2A2A2A;
+    --muted: #6B6052;
+    --red: #A4242C;
+    --green: #2D6B3F;
+    --amber: #C68E17;
+    --rule: #C9B996;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--paper);
+    color: var(--charcoal);
+    font-family: 'Public Sans', 'Noto Sans SC', sans-serif;
+    font-weight: 400;
+    line-height: 1.65;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 56px;
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at top left, rgba(184, 151, 112, 0.04) 0%, transparent 60%),
+      radial-gradient(ellipse at bottom right, rgba(15, 39, 66, 0.025) 0%, transparent 60%);
+  }
+
+  /* ========== MASTHEAD ========== */
+  .masthead {
+    border-bottom: 2px solid var(--ink);
+    padding: 48px 0 24px;
+    margin-bottom: 0;
+    position: relative;
+  }
+
+  .masthead::after {
+    content: "";
+    position: absolute;
+    bottom: -7px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--ink);
+  }
+
+  .meta-row {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 36px;
+  }
+
+  .meta-row .classification {
+    color: var(--red);
+    font-weight: 600;
+  }
+
+  .pub-title {
+    font-family: 'Fraunces', 'Noto Serif SC', serif;
+    font-weight: 300;
+    font-size: 14px;
+    letter-spacing: 0.35em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .pub-title b { color: var(--gold-deep); font-weight: 600; }
+
+  .report-title {
+    font-family: 'Fraunces', 'Noto Serif SC', serif;
+    font-weight: 400;
+    font-size: 44px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 18px;
+    font-feature-settings: 'ss01' on;
+  }
+
+  .report-title .accent {
+    font-style: italic;
+    color: var(--gold-deep);
+    font-weight: 400;
+  }
+
+  .report-subtitle {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 19px;
+    color: var(--muted);
+    line-height: 1.5;
+    max-width: 720px;
+    margin-bottom: 24px;
+  }
+
+  .byline {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    gap: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .byline span b {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* ========== TAKEAWAY BOX ========== */
+  .takeaway {
+    background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper-edge) 100%);
+    border-left: 4px solid var(--gold);
+    padding: 32px 36px;
+    margin: 40px 0;
+    position: relative;
+  }
+
+  .takeaway::before {
+    content: "EXECUTIVE TAKE";
+    position: absolute;
+    top: -10px;
+    left: 28px;
+    background: var(--paper);
+    padding: 0 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--gold-deep);
+    font-weight: 600;
+  }
+
+  .takeaway-lead {
+    font-family: 'Fraunces', 'Noto Serif SC', serif;
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 1.5;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  .takeaway-lead em {
+    font-style: italic;
+    color: var(--gold-deep);
+  }
+
+  .takeaway p {
+    font-size: 14.5px;
+    color: var(--charcoal);
+    margin-bottom: 8px;
+  }
+
+  /* ========== SECTION ========== */
+  .section {
+    margin: 56px 0 0;
+    padding-top: 40px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .section:first-of-type {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--gold-deep);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Fraunces', 'Noto Serif SC', serif;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .section-dek {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 17px;
+    color: var(--muted);
+    margin-bottom: 32px;
+    line-height: 1.5;
+  }
+
+  .section h3 {
+    font-family: 'Fraunces', 'Noto Serif SC', serif;
+    font-weight: 600;
+    font-size: 19px;
+    color: var(--ink);
+    margin: 32px 0 12px;
+    letter-spacing: -0.005em;
+  }
+
+  .section h3 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--gold-deep);
+    margin-right: 12px;
+    font-weight: 500;
+  }
+
+  .section p {
+    margin-bottom: 16px;
+    color: var(--charcoal);
+  }
+
+  .section p b {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .drop-cap::first-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 64px;
+    line-height: 0.85;
+    font-weight: 400;
+    float: left;
+    color: var(--ink);
+    margin: 6px 10px 0 0;
+    padding: 4px 6px 0 0;
+  }
+
+  /* ========== PULL QUOTE ========== */
+  .pullquote {
+    margin: 32px 0;
+    padding: 24px 0;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    text-align: center;
+  }
+
+  .pullquote q {
+    font-family: 'Fraunces', 'Noto Serif SC', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.4;
+    color: var(--ink);
+    quotes: """ """ "'" "'";
+  }
+
+  .pullquote-attr {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 12px;
+    display: block;
+  }
+
+  /* ========== DATA TABLES ========== */
+  table.data {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-family: 'Public Sans', sans-serif;
+    font-size: 13.5px;
+  }
+
+  table.data th {
+    text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 600;
+    padding: 10px 14px;
+    border-bottom: 2px solid var(--ink);
+    background: rgba(184, 151, 112, 0.06);
+  }
+
+  table.data td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--charcoal);
+    vertical-align: top;
+  }
+
+  table.data tr:last-child td {
+    border-bottom: 2px solid var(--ink);
+  }
+
+  table.data .num {
+    font-family: 'JetBrains Mono', monospace;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  table.data .pos { color: var(--green); font-weight: 500; }
+  table.data .neg { color: var(--red); font-weight: 500; }
+  table.data .warn { color: var(--amber); font-weight: 500; }
+
+  /* ========== TIMELINE ========== */
+  .timeline {
+    margin: 36px 0;
+    padding: 24px 0;
+  }
+
+  .tl-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* ========== SCENARIO CHART ========== */
+  .scenario-card {
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    padding: 24px 28px;
+    margin: 16px 0;
+    border-left: 4px solid var(--ink);
+  }
+
+  .scenario-card.bull { border-left-color: var(--green); }
+  .scenario-card.bear { border-left-color: var(--red); }
+  .scenario-card.base { border-left-color: var(--gold); }
+
+  .scenario-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+  }
+
+  .scenario-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--ink);
+  }
+
+  .scenario-prob {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  .scenario-prob b {
+    color: var(--ink);
+    font-size: 16px;
+  }
+
+  .scenario-target {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--charcoal);
+    margin: 8px 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .scenario-desc {
+    font-size: 13.5px;
+    color: var(--charcoal);
+    line-height: 1.55;
+  }
+
+  /* ========== INDICATOR GRID ========== */
+  .ind-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 24px 0;
+  }
+
+  .ind-card {
+    border: 1px solid var(--rule);
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+
+  .ind-card .ind-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 6px;
+  }
+
+  .ind-card .ind-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .ind-card .ind-desc {
+    font-size: 12.5px;
+    color: var(--charcoal);
+    line-height: 1.5;
+  }
+
+  .ind-card .ind-trig {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--red);
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px dotted var(--rule);
+  }
+
+  /* ========== ALLOCATION TIMELINE ========== */
+  .alloc-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 12.5px;
+  }
+
+  .alloc-table th {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 10px 8px;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .alloc-table th:first-child { text-align: left; }
+
+  .alloc-table td {
+    padding: 9px 8px;
+    border-bottom: 1px solid var(--rule);
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .alloc-table td:first-child {
+    text-align: left;
+    font-family: 'Public Sans', sans-serif;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .alloc-table .phase-row td {
+    background: var(--paper-warm);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    text-align: left;
+    color: var(--gold-deep);
+    font-size: 11.5px;
+    letter-spacing: 0.05em;
+    padding: 6px 8px;
+    border-top: 2px solid var(--gold);
+  }
+
+  /* ========== RISK BOX ========== */
+  .risk-box {
+    background: linear-gradient(135deg, #2A1518 0%, #3F1F23 100%);
+    color: #F8F4ED;
+    padding: 32px 36px;
+    margin: 32px 0;
+    position: relative;
+  }
+
+  .risk-box::before {
+    content: "▲";
+    position: absolute;
+    top: 24px;
+    right: 28px;
+    font-size: 28px;
+    color: var(--red);
+    opacity: 0.6;
+  }
+
+  .risk-box h3 {
+    font-family: 'Fraunces', serif;
+    color: var(--paper);
+    font-size: 22px;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  .risk-box ol {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 13.5px;
+    line-height: 1.7;
+  }
+
+  .risk-box ol li {
+    margin-bottom: 10px;
+    color: rgba(248, 244, 237, 0.92);
+  }
+
+  .risk-box b {
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* ========== EVENT BLOCKS ========== */
+  .event-list { margin: 24px 0; }
+
+  .event-item {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 24px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+
+  .event-item:last-child { border-bottom: none; }
+
+  .event-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 600;
+    padding-top: 2px;
+  }
+
+  .event-date .day {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    display: block;
+    color: var(--gold-deep);
+    font-style: italic;
+    margin-bottom: 2px;
+    letter-spacing: -0.01em;
+  }
+
+  .event-body h4 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .event-body p {
+    font-size: 13.5px;
+    color: var(--charcoal);
+    margin: 0;
+  }
+
+  /* ========== FOOTER ========== */
+  .footer {
+    margin-top: 80px;
+    padding: 32px 0 56px;
+    border-top: 2px solid var(--ink);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .footer .seal {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--gold-deep);
+    font-size: 16px;
+    margin-bottom: 12px;
+    letter-spacing: 0;
+  }
+
+  /* numeric inline */
+  .tab { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
+
+  /* asterism */
+  .asterism {
+    text-align: center;
+    margin: 40px 0;
+    font-family: 'Fraunces', serif;
+    color: var(--gold);
+    font-size: 18px;
+    letter-spacing: 1em;
+  }
+
+  /* highlights */
+  mark.note {
+    background: rgba(198, 142, 23, 0.15);
+    color: var(--charcoal);
+    padding: 1px 4px;
+    border-bottom: 1px solid var(--amber);
+    font-weight: 500;
+  }
+
+  /* small caps callout */
+  .smcaps {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.2em;
+    color: var(--gold-deep);
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* print */
+  @media print {
+    body { background: white; }
+    .page { padding: 0 40px; }
+    .risk-box { -webkit-print-color-adjust: exact; }
+  }
+
+  @media (max-width: 720px) {
+    .page { padding: 0 24px; }
+    .report-title { font-size: 32px; }
+    .ind-grid { grid-template-columns: 1fr; }
+    .event-item { grid-template-columns: 80px 1fr; gap: 16px; }
+    .byline { flex-wrap: wrap; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div class="meta-row">
+      <span>投研鸭 STRATEGY NOTE · No. 2026-06-07</span>
+      <span class="classification">INTERNAL · 仅供内部讨论</span>
+    </div>
+    <div class="pub-title">投研鸭 <b>·</b> Touyan Duck Macro</div>
+    <h1 class="report-title">
+      预警信号 <span class="accent">已至。</span><br>
+      顶部窗口前移。
+    </h1>
+    <p class="report-subtitle">
+      从 5 月 12 日到 6 月 7 日的 26 天里，AI 资本开支叙事完成了从"加速"到"维持"的关键叙事切换。本报告是 5 月推演的全面校准。
+    </p>
+    <div class="byline">
+      <span>Author <b>·</b> Macro Strategy Desk</span>
+      <span>Coverage <b>·</b> US Equities · Cross-Asset</span>
+      <span>Distribution <b>·</b> 高级利益相关方</span>
+    </div>
+  </header>
+
+  <!-- ============ EXECUTIVE TAKEAWAY ============ -->
+  <section class="takeaway">
+    <p class="takeaway-lead">
+      5 月推演中预设的"2026 Q4 才会出现的首个 AI 投资见顶预警"——<em>本周已经触发</em>。Broadcom 拒绝上调 FY26 指引、Altman 公开承认企业 AI 预算 Q1 即耗尽，从供需两端同步确认了 narrative shift。
+    </p>
+    <p><b>结论：</b>标普 500 见顶窗口前移到 <span class="tab">2026 Q4 – 2027 Q1</span>。第一波 distribution 已在 6 月 2-5 日启动，未来 3 周大概率出现 5-8% 的初步踩踏，<span class="tab">SPX</span> 测试 <span class="tab">6,950–7,200</span>。</p>
+    <p><b>核心反应：</b>立即启动防御部署（BRK/healthcare/staples 占比 10-15%）；下调美 AI 仓位；港股 Tencent/PDD 因深度 derate 维持核心仓位（修正 5 月观点）。</p>
+  </section>
+
+  <!-- ============ SECTION I: WHAT CHANGED ============ -->
+  <section class="section">
+    <div class="section-num">I · TRIGGERS</div>
+    <h2 class="section-title">5 月到 6 月：26 天里改变的事</h2>
+    <p class="section-dek">三件事在同一周里发生，每一件单独看是噪声，叠加起来是 narrative inflection。</p>
+
+    <p class="drop-cap">六月三日 Broadcom Q2 FY26 财报后股价跌 14%，是这一切的起点。表面上 Broadcom 各项数据创纪录——总收入 <span class="tab">$22.2B</span>（+48% YoY），AI 半导体收入 <span class="tab">$10.8B</span>（+143% YoY）。但 CEO Hock Tan 在电话会议里做了两件事：<b>第一</b>，重申 FY26 AI 收入指引 <span class="tab">$56B</span>，但未上调。<b>第二</b>，宣布从"提供完整集成 AI 系统"退回到"chips only"。</p>
+
+    <p>这两个动作放在一起，意味着供应链最敏感的一环——为 hyperscaler 提供 custom AI silicon 的玩家——开始向下游 hedge 自己的预期。<mark class="note">这就是 5 月推演里那个 expected-in-Q4-2026 的"指引平淡"信号，提前 4-5 个月发生。</mark></p>
+
+    <h3><span class="num">02</span>Sam Altman 的 6 月 2 日发言</h3>
+
+    <p>同一周，OpenAI 在 "Intelligence at Work" 客户活动上，Sam Altman 完成了 narrative reset 的另一半。在公开演讲中，他承认：</p>
+
+    <div class="pullquote">
+      <q>People are really saying — it's a meme now — "my company spent my entire 2026 budget in Q1, can you make this more efficient?"</q>
+      <span class="pullquote-attr">Sam Altman · OpenAI Intelligence at Work · 2026 年 6 月 2 日</span>
+    </div>
+
+    <p>实际数据点：Uber 工程团队 4 个月耗尽全年 AI 预算；OpenAI 单个用户月消耗 1000 亿 token；2025 年 42% 的公司放弃了大部分 AI 项目（vs 2024 年 17%）；只有 5% 的企业 custom AI 工具成功从 pilot 走到 production。</p>
+
+    <p>这一系列陈述放在 OpenAI 准备 IPO 的当口，是 <b>需求端的供述</b>——它把 5 月推演里那个"AI 提高供给但不创造新需求"的理论论点变成了行业领袖的公开 admission。</p>
+
+    <h3><span class="num">03</span>市场反应：第一次 distribution day</h3>
+
+    <p>这一周市场反应集中在 6 月 5 日：</p>
+
+    <div class="event-list">
+      <div class="event-item">
+        <div class="event-date"><span class="day">06.02</span>Tuesday</div>
+        <div class="event-body">
+          <h4>S&P 500 首次收盘破 7,600</h4>
+          <p>7,609.78，年内第 24 个历史新高。最后一次 record close。</p>
+        </div>
+      </div>
+      <div class="event-item">
+        <div class="event-date"><span class="day">06.03</span>Wednesday</div>
+        <div class="event-body">
+          <h4>Broadcom 财报后下跌 14%</h4>
+          <p>盘后波动急剧扩大。SOX 指数下跌 4.5%。</p>
+        </div>
+      </div>
+      <div class="event-item">
+        <div class="event-date"><span class="day">06.05</span>Friday</div>
+        <div class="event-body">
+          <h4>Nasdaq -4.18%, S&P -2.64%, NVDA -5.93%, AMD -11%, MU -12.4%</h4>
+          <p>2025 年 4 月关税恐慌以来 NDX 最大单日跌幅。终结 10 周连涨。CNN F&G 指数从 "Greed" 翻转到 "Fear"。同日：5 月 NFP +172k（vs 共识 80k），Fed 加息概率升至 70%。</p>
+        </div>
+      </div>
+    </div>
+
+    <p>本周收盘 SPX <span class="tab">7,383.74</span>，距离 ATH 仅下跌 <span class="tab">2.97%</span>。<b>这远未到 distribution 结束的程度</b>——Mag 7 总市值占 S&P 仍达 32%，散户持仓 24%，VIX 仅 17。<mark class="note">第一波踩踏（5-8%）大概率在未来 3 周展开，目标位 6,950–7,200。</mark></p>
+  </section>
+
+  <!-- ============ SECTION II: TIMELINE ============ -->
+  <section class="section">
+    <div class="section-num">II · CHRONOLOGY</div>
+    <h2 class="section-title">推演时间线 · 2026 年 6 月 – 2028 年</h2>
+    <p class="section-dek">5 月 12 日推演 vs 6 月 7 日校准。时间窗口前移，调整深度增加。</p>
+
+    <div class="timeline">
+      <svg class="tl-svg" viewBox="0 0 880 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="推演时间线">
+        <defs>
+          <linearGradient id="phaseG1" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#B89770" stop-opacity="0.15"/>
+            <stop offset="1" stop-color="#B89770" stop-opacity="0.35"/>
+          </linearGradient>
+          <linearGradient id="phaseG2" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#C68E17" stop-opacity="0.2"/>
+            <stop offset="1" stop-color="#C68E17" stop-opacity="0.45"/>
+          </linearGradient>
+          <linearGradient id="phaseG3" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#A4242C" stop-opacity="0.3"/>
+            <stop offset="1" stop-color="#A4242C" stop-opacity="0.55"/>
+          </linearGradient>
+          <linearGradient id="phaseG4" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#A4242C" stop-opacity="0.55"/>
+            <stop offset="1" stop-color="#A4242C" stop-opacity="0.25"/>
+          </linearGradient>
+          <linearGradient id="phaseG5" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#2D6B3F" stop-opacity="0.25"/>
+            <stop offset="1" stop-color="#2D6B3F" stop-opacity="0.4"/>
+          </linearGradient>
+        </defs>
+
+        <!-- timeline axis -->
+        <line x1="40" y1="200" x2="840" y2="200" stroke="#0F2742" stroke-width="2"/>
+
+        <!-- phase blocks -->
+        <rect x="40" y="150" width="120" height="50" fill="url(#phaseG1)" stroke="#B89770" stroke-width="1"/>
+        <rect x="160" y="150" width="160" height="50" fill="url(#phaseG2)" stroke="#C68E17" stroke-width="1"/>
+        <rect x="320" y="150" width="180" height="50" fill="url(#phaseG3)" stroke="#A4242C" stroke-width="1"/>
+        <rect x="500" y="150" width="220" height="50" fill="url(#phaseG4)" stroke="#A4242C" stroke-width="1"/>
+        <rect x="720" y="150" width="120" height="50" fill="url(#phaseG5)" stroke="#2D6B3F" stroke-width="1"/>
+
+        <!-- phase labels -->
+        <text x="100" y="135" text-anchor="middle" font-family="Fraunces, serif" font-size="11" font-style="italic" fill="#8C6E47">Sentiment Test</text>
+        <text x="240" y="135" text-anchor="middle" font-family="Fraunces, serif" font-size="11" font-style="italic" fill="#8C6E47">Narrative Pivot</text>
+        <text x="410" y="135" text-anchor="middle" font-family="Fraunces, serif" font-size="11" font-style="italic" fill="#A4242C">Top Confirmation</text>
+        <text x="610" y="135" text-anchor="middle" font-family="Fraunces, serif" font-size="11" font-style="italic" fill="#A4242C">Accelerated Decline</text>
+        <text x="780" y="135" text-anchor="middle" font-family="Fraunces, serif" font-size="11" font-style="italic" fill="#2D6B3F">Bottom / Pivot</text>
+
+        <!-- date marks on axis -->
+        <g font-family="JetBrains Mono, monospace" font-size="10" fill="#2A2A2A" text-anchor="middle">
+          <line x1="40" y1="200" x2="40" y2="210" stroke="#0F2742"/><text x="40" y="225">6/26</text>
+          <line x1="160" y1="200" x2="160" y2="210" stroke="#0F2742"/><text x="160" y="225">10/26</text>
+          <line x1="320" y1="200" x2="320" y2="210" stroke="#0F2742"/><text x="320" y="225">1/27</text>
+          <line x1="500" y1="200" x2="500" y2="210" stroke="#0F2742"/><text x="500" y="225">7/27</text>
+          <line x1="720" y1="200" x2="720" y2="210" stroke="#0F2742"/><text x="720" y="225">3/28</text>
+          <line x1="840" y1="200" x2="840" y2="210" stroke="#0F2742"/><text x="840" y="225">9/28</text>
+        </g>
+
+        <!-- key event markers below axis -->
+        <g font-family="JetBrains Mono, monospace" font-size="9" fill="#0F2742">
+          <!-- SpaceX IPO -->
+          <line x1="55" y1="200" x2="55" y2="260" stroke="#B89770" stroke-width="1" stroke-dasharray="2,2"/>
+          <circle cx="55" cy="200" r="4" fill="#B89770" stroke="#0F2742" stroke-width="1.5"/>
+          <text x="55" y="275" text-anchor="middle">SpaceX IPO</text>
+          <text x="55" y="288" text-anchor="middle" fill="#6B6052">6/12</text>
+
+          <!-- NVDA Q2 -->
+          <line x1="120" y1="200" x2="120" y2="290" stroke="#B89770" stroke-width="1" stroke-dasharray="2,2"/>
+          <circle cx="120" cy="200" r="4" fill="#B89770" stroke="#0F2742" stroke-width="1.5"/>
+          <text x="120" y="305" text-anchor="middle">NVDA Q2</text>
+          <text x="120" y="318" text-anchor="middle" fill="#6B6052">8/28</text>
+
+          <!-- Anthropic IPO -->
+          <line x1="220" y1="200" x2="220" y2="260" stroke="#C68E17" stroke-width="1" stroke-dasharray="2,2"/>
+          <circle cx="220" cy="200" r="4" fill="#C68E17" stroke="#0F2742" stroke-width="1.5"/>
+          <text x="220" y="275" text-anchor="middle">Anthropic IPO</text>
+          <text x="220" y="288" text-anchor="middle" fill="#6B6052">~10/26</text>
+
+          <!-- OpenAI IPO -->
+          <line x1="280" y1="200" x2="280" y2="320" stroke="#C68E17" stroke-width="1" stroke-dasharray="2,2"/>
+          <circle cx="280" cy="200" r="4" fill="#C68E17" stroke="#0F2742" stroke-width="1.5"/>
+          <text x="280" y="335" text-anchor="middle">OpenAI IPO</text>
+          <text x="280" y="348" text-anchor="middle" fill="#6B6052">Q4'26</text>
+
+          <!-- 27 capex guidance -->
+          <line x1="340" y1="200" x2="340" y2="290" stroke="#A4242C" stroke-width="1.5" stroke-dasharray="2,2"/>
+          <circle cx="340" cy="200" r="5" fill="#A4242C" stroke="#0F2742" stroke-width="1.5"/>
+          <text x="340" y="305" text-anchor="middle" font-weight="600">2027 Capex 指引</text>
+          <text x="340" y="318" text-anchor="middle" fill="#6B6052">1-2/27</text>
+
+          <!-- Fed pivot -->
+          <line x1="640" y1="200" x2="640" y2="260" stroke="#A4242C" stroke-width="1" stroke-dasharray="2,2"/>
+          <circle cx="640" cy="200" r="4" fill="#A4242C" stroke="#0F2742" stroke-width="1.5"/>
+          <text x="640" y="275" text-anchor="middle">Fed Pivot</text>
+          <text x="640" y="288" text-anchor="middle" fill="#6B6052">~Q3'27</text>
+
+          <!-- BTC bottom -->
+          <line x1="780" y1="200" x2="780" y2="260" stroke="#2D6B3F" stroke-width="1" stroke-dasharray="2,2"/>
+          <circle cx="780" cy="200" r="4" fill="#2D6B3F" stroke="#0F2742" stroke-width="1.5"/>
+          <text x="780" y="275" text-anchor="middle">SPX Bottom</text>
+          <text x="780" y="288" text-anchor="middle" fill="#6B6052">~Q3'28</text>
+        </g>
+
+        <!-- SPX trajectory hint above -->
+        <g stroke="#0F2742" stroke-width="2" fill="none" opacity="0.7">
+          <path d="M 40,90 Q 100,100 160,85 T 320,75 Q 380,80 440,100 T 560,140 Q 620,155 680,170 T 800,160 L 840,150" stroke-dasharray="0"/>
+        </g>
+        <text x="60" y="80" font-family="JetBrains Mono, monospace" font-size="9" fill="#6B6052">SPX 路径示意</text>
+
+        <!-- top marker -->
+        <circle cx="320" cy="75" r="6" fill="#A4242C"/>
+        <text x="320" y="65" text-anchor="middle" font-family="Fraunces, serif" font-size="11" font-style="italic" fill="#A4242C" font-weight="600">TOP</text>
+
+        <!-- bottom marker -->
+        <circle cx="780" cy="170" r="6" fill="#2D6B3F"/>
+        <text x="790" y="180" text-anchor="start" font-family="Fraunces, serif" font-size="11" font-style="italic" fill="#2D6B3F" font-weight="600">底部</text>
+
+        <!-- now line -->
+        <line x1="35" y1="20" x2="35" y2="400" stroke="#0F2742" stroke-width="2"/>
+        <text x="35" y="15" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="12" fill="#0F2742" font-weight="600">NOW</text>
+      </svg>
+    </div>
+
+    <h3><span class="num">·</span>阶段 1 · Sentiment 测试期（2026 年 6-9 月）</h3>
+    <p>SPX 区间 <span class="tab">6,950 – 7,650</span>。第一波踩踏（5-8%）大概率在 6 月剩余时间发生，SpaceX IPO 是关键 tape signal——首日表现 <b>&gt;+20%</b> 短期 narrative 续命；<b>&lt;+5% 或破发</b> 则触发更深第一波。NVDA Q2 财报（8 月 28 日左右）是 mid-summer 分水岭。</p>
+
+    <h3><span class="num">·</span>阶段 2 · Narrative Pivot（2026 年 10-12 月）</h3>
+    <p>SPX 区间 <span class="tab">6,800 – 7,900</span>。Anthropic IPO（~10 月）和 OpenAI IPO（~Q4）是 narrative 最后两次托底机会。如果两次都成功，年末可能出现 7,800-8,100 的次顶；如果上市后立即跌破发行价，<mark class="note">大顶可能就在 11-12 月直接形成，不需要等到 Q1 2027</mark>。</p>
+
+    <h3><span class="num">·</span>阶段 3 · Top Confirmation（2027 Q1）</h3>
+    <p>M7 在 1-2 月给出 2027 全年 capex 正式预算。Goldman 已预期 hyperscaler capex 增速从 +75% 降到 +20%。<b>SPX 见顶位置 7,800-8,200，确认后 6 个月内回调到 6,200-6,800</b>。</p>
+
+    <h3><span class="num">·</span>阶段 4 · Accelerated Decline（2027 Q2 – 2028 Q1）</h3>
+    <p>失业率上行（4.3% → 5.5-6.0%），消费数据恶化，企业利润预期下修。Fed 在 Q3 启动正式降息周期。<b>基准情景调整深度</b>：SPX -25 至 -30%，Nasdaq -35 至 -45%。激进情景：SPX -30%+，Nasdaq -50%。</p>
+
+    <h3><span class="num">·</span>阶段 5 · Bottom & Pivot（2028 Q2-Q4）</h3>
+    <p>Fed 进入扩表（QE）阶段，BTC 率先反弹。SPX 在 <span class="tab">4,800-5,500</span> 见底（自顶 -35-40%），Nasdaq 在 <span class="tab">14,000-16,500</span> 见底（自顶 -45-50%）。</p>
+  </section>
+
+  <!-- ============ SECTION III: SCENARIOS ============ -->
+  <section class="section">
+    <div class="section-num">III · SCENARIOS</div>
+    <h2 class="section-title">三种顶部路径 · 概率分布</h2>
+    <p class="section-dek">不是单点预测，而是分布。每种情景对应不同的 trigger 和操作。</p>
+
+    <div class="scenario-card bull">
+      <div class="scenario-head">
+        <div class="scenario-name">情景 A · IPO Save</div>
+        <div class="scenario-prob">概率 <b>20%</b></div>
+      </div>
+      <div class="scenario-target">SPX 顶部 <b>8,100 – 8,300</b>（2027 Q1）· 调整深度 SPX -15% · Nasdaq -25%</div>
+      <div class="scenario-desc">SpaceX + Anthropic + OpenAI 三大 IPO 全部托住情绪。M7 在 2027 capex 指引上给出+30%+ 增长（超预期）。AI 终于在企业 ROI 上出现实质性突破。Fed 因增长强劲反而不降息。<b>这是"软回归"路径</b>，调整温和但持续 12-18 个月。</div>
+    </div>
+
+    <div class="scenario-card base">
+      <div class="scenario-head">
+        <div class="scenario-name">情景 B · Slow Distribution（基准）</div>
+        <div class="scenario-prob">概率 <b>50%</b></div>
+      </div>
+      <div class="scenario-target">SPX 顶部 <b>7,800 – 8,000</b>（2026 Q4 或 2027 Q1）· 调整深度 SPX -25 至 -30% · Nasdaq -35 至 -45%</div>
+      <div class="scenario-desc">SpaceX 上市后情绪反弹，Anthropic IPO 模糊（首日小涨但 30 天后跌破）。M7 在 2027 capex 指引上仅 +15-20%。Fed 全年维持不变或仅 1 次小幅调整。失业率温和上行到 4.7-5.0%。<b>调整周期 18-24 个月</b>，2028 Q3 见底。</div>
+    </div>
+
+    <div class="scenario-card bear">
+      <div class="scenario-head">
+        <div class="scenario-name">情景 C · IPO Failure + Fed Hike</div>
+        <div class="scenario-prob">概率 <b>30%</b></div>
+      </div>
+      <div class="scenario-target">SPX 顶部 <b>7,400 – 7,700</b>（2026 Q4）· 调整深度 SPX -32 至 -38% · Nasdaq -45 至 -55%</div>
+      <div class="scenario-desc">SpaceX 首日破发或上市后 30 天跌破 -15%。Anthropic 直接推迟 IPO。CPI 突破 4.5%，Fed 在 2026 Q4 被迫加息 25bp。M7 在 2027 capex 上给出"平年"指引。<b>调整周期 24-30 个月</b>，2028 Q4 才见底。这是最接近 2000-2002 的路径。</div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION IV: HK DEFENSE THESIS ============ -->
+  <section class="section">
+    <div class="section-num">IV · HONG KONG THESIS</div>
+    <h2 class="section-title">腾讯与拼多多的非对称防御性</h2>
+    <p class="section-dek">5 月推演把这两支股票放在"先减"序列。6 月校准后这个排序是错的。</p>
+
+    <p>5 月的逻辑是：风险偏好切换时，资金从高 beta 的中国互联网股流向美 AI 硬科技股。这个机制在 panic 第一波（forced selling）阶段仍然成立，<b>但忽略了一个核心因素：腾讯与拼多多已经完成了大部分的 derate</b>。</p>
+
+    <table class="data">
+      <thead>
+        <tr>
+          <th>指标</th>
+          <th class="num">腾讯</th>
+          <th class="num">拼多多</th>
+          <th class="num">Mag 7 均值</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>当前 Forward PE</td>
+          <td class="num pos">14-15x</td>
+          <td class="num pos">9-10x</td>
+          <td class="num neg">28-32x</td>
+        </tr>
+        <tr>
+          <td>vs 历史 5Y 中位</td>
+          <td class="num pos">-45%</td>
+          <td class="num pos">-65%</td>
+          <td class="num neg">+18%</td>
+        </tr>
+        <tr>
+          <td>2025 FCF 同比增速</td>
+          <td class="num pos">+18%</td>
+          <td class="num pos">+24%</td>
+          <td class="num warn">+3-6%</td>
+        </tr>
+        <tr>
+          <td>2026 Capex/FCF</td>
+          <td class="num pos">~8%</td>
+          <td class="num pos">~3%</td>
+          <td class="num neg">85-110%</td>
+        </tr>
+        <tr>
+          <td>EM 基金权重 vs 2021 峰值</td>
+          <td class="num pos">-40%</td>
+          <td class="num pos">-50%</td>
+          <td class="num neg">+25%</td>
+        </tr>
+        <tr>
+          <td>2025 现金返还（buyback+div）</td>
+          <td class="num">$30B</td>
+          <td class="num">—</td>
+          <td class="num">混合</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3><span class="num">·</span>防御性的四大支柱</h3>
+
+    <p><b>支柱 1：估值已计价大部分坏消息。</b>腾讯从 2021 年峰值 ~80x PE 跌到 14-15x；拼多多从 30x+ 跌到 &lt;10x。这意味着 panic 来临时，<b>PE 进一步压缩的空间远小于 Mag 7</b>。</p>
+
+    <p><b>支柱 2：没有 AI capex 负担。</b>腾讯 2025 全年 capex 约 $90 亿——不到 Microsoft 单季度的 60%。FCF 持续正增长。这与 Mag 7 的"capex/FCF 接近 100%"形成根本对照。</p>
+
+    <p><b>支柱 3：现金返还能力强。</b>腾讯 2025 全年 buyback + dividend 约 $300 亿，annualized yield 接近 4%。这是 panic 中 valuation floor 的关键支撑。</p>
+
+    <p><b>支柱 4：全球资本配置已在低位。</b>HK + China 在全球 EM 基金权重从 2021 年 40% 降到 24%，处于结构性 underweight。"先卖 HK"的 forced selling 已经发生过两轮（2021-2023）。</p>
+
+    <h3><span class="num">·</span>修正后的减仓优先级</h3>
+
+    <table class="data">
+      <thead>
+        <tr><th>优先级</th><th>持仓</th><th>减仓时点</th><th>幅度</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><b>1（最高）</b></td><td>美 AI / Semi（如有）</td><td>2026 Q3</td><td class="num neg">50-60%</td></tr>
+        <tr><td><b>2</b></td><td>Google</td><td>2026 Q3-Q4</td><td class="num neg">30-35%</td></tr>
+        <tr><td><b>3</b></td><td>台积电</td><td>2026 Q4</td><td class="num warn">25-30%</td></tr>
+        <tr><td><b>4</b></td><td>腾讯</td><td>2026 Q4 - 2027 Q1</td><td class="num warn">20-25%</td></tr>
+        <tr><td><b>5（最低）</b></td><td>拼多多</td><td>仅 panic 极端时</td><td class="num pos">10-15%</td></tr>
+      </tbody>
+    </table>
+
+    <p>核心 logic：<mark class="note">先卖最贵的，再卖最贵的，最后才动最便宜的</mark>。Google 提到第二批是因为它的 FCF 侵蚀最显著（5 月发了 $80 亿债券，是 2020 年以来首次大规模发债）。</p>
+  </section>
+
+  <!-- ============ SECTION V: DEFENSIVE DEPLOYMENT ============ -->
+  <section class="section">
+    <div class="section-num">V · DEFENSIVE DEPLOYMENT</div>
+    <h2 class="section-title">防御部署的时点逻辑</h2>
+    <p class="section-dek">不要等 panic 过后再换仓——届时流动性枯竭，bid-ask spread 会扩大 3-5x。</p>
+
+    <p>用户提出的三个选项——(a) 等危险峰值过后买周期、(b) 现在前置防御、(c) 等彻底出清——<b>正确答案是 (b)，而且要尽快开始</b>。</p>
+
+    <p>(a) 的根本错误在于"等周期股 outperform 的时机"。<b>周期股（材料、能源、工业）底部往往领先实体经济 3-6 个月</b>——也就是说，"等危险峰值过后"是错过了周期底的最优买入点。正确做法是 panic 最深处分批买。</p>
+
+    <p>(c) 的根本错误是把"彻底出清"作为信号——一旦 NBER 衰退确认 + 失业率突破 6% + Fed 已经降息 100bp，市场已经反弹 15-20%。</p>
+
+    <h3><span class="num">·</span>防御占比时间表</h3>
+
+    <table class="alloc-table">
+      <thead>
+        <tr>
+          <th>时点</th>
+          <th>BRK / 防御</th>
+          <th>美 AI / Tech</th>
+          <th>HK Tencent/PDD</th>
+          <th>周期/材料</th>
+          <th>现金 / 短债</th>
+          <th>BTC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="phase-row"><td colspan="7">阶段 1 · 2026 年 6-9 月 · Sentiment 测试期</td></tr>
+        <tr><td>现在</td><td>10-15%</td><td>25-30%</td><td>25-30%</td><td>0-5%</td><td>15-20%</td><td>5-8%</td></tr>
+        <tr><td>2026 Q3 末</td><td>20-25%</td><td>15-20%</td><td>25%</td><td>0-5%</td><td>20-25%</td><td>5%</td></tr>
+        <tr class="phase-row"><td colspan="7">阶段 2 · 2026 年 10-12 月 · Narrative Pivot</td></tr>
+        <tr><td>2026 Q4</td><td>30-40%</td><td>10-15%</td><td>20%</td><td>5%</td><td>25-30%</td><td>3-5%</td></tr>
+        <tr class="phase-row"><td colspan="7">阶段 3-4 · 2027 Q1 - Q3 · Top Confirm + Acceleration</td></tr>
+        <tr><td>2027 Q1</td><td>50-60%</td><td>5-10%</td><td>15%</td><td>5%</td><td>20-25%</td><td>0%</td></tr>
+        <tr><td>2027 Q2-Q3</td><td>50%</td><td>0-5%</td><td>10-15%</td><td>5-10%</td><td>25%</td><td>0-3%</td></tr>
+        <tr class="phase-row"><td colspan="7">阶段 5 · 2027 Q4 – 2028 Q4 · Bottom & Pivot</td></tr>
+        <tr><td>2027 Q4</td><td>40%</td><td>10%</td><td>20%</td><td>15%</td><td>10%</td><td>5%</td></tr>
+        <tr><td>2028 Q2</td><td>20%</td><td>40%</td><td>20%</td><td>15%</td><td>0%</td><td>5%</td></tr>
+      </tbody>
+    </table>
+
+    <h3><span class="num">·</span>具体推荐</h3>
+
+    <p><b>核心防御核心配置（Tier 1）：</b>BRK.B（Buffett 的 $350B 现金 + 选择性配置）、JNJ（医保 anchor）、PG（消费必需品）、COST（消费降级 beneficiary）、WMT。占防御仓位的 60-70%。</p>
+
+    <p><b>对冲性防御（Tier 2）：</b>XLU（utilities，部分受益于 AI 数据中心电力需求）、GLD（黄金 ETF）、TLT（长期国债，押 Fed pivot）。占防御仓位的 25-30%。</p>
+
+    <p><b>战术周期播种（Tier 3，仅 2027 Q3+ 启动）：</b>FCX（铜，电力基础设施）、CAT、DE。占防御仓位的 5-15%。</p>
+  </section>
+
+  <!-- ============ SECTION VI: KPI TRACKING ============ -->
+  <section class="section">
+    <div class="section-num">VI · KPI FRAMEWORK</div>
+    <h2 class="section-title">关键观察指标 · 按优先级</h2>
+    <p class="section-dek">每个指标都对应一个 trigger 阈值。完整跟踪界面见配套 Dashboard。</p>
+
+    <div class="ind-grid">
+      <div class="ind-card">
+        <div class="ind-label">A · AI Capex · Weight 40%</div>
+        <div class="ind-title">M7 单季度 Capex 同比增速</div>
+        <div class="ind-desc">当前 +75% YoY。从 +75% → +20% 是质变，意味着 AI 投资增速放缓的供给端确认。</div>
+        <div class="ind-trig">▲ Trigger · 任何一家 M7 给出 "FY27 capex 持平 FY26" 的措辞</div>
+      </div>
+
+      <div class="ind-card">
+        <div class="ind-label">A · AI Capex</div>
+        <div class="ind-title">NVDA Data Center YoY 增速</div>
+        <div class="ind-desc">当前 +89%。三位数 → 二位数 = 主要预警。Q2 FY27 财报 8 月 28 日左右公布。</div>
+        <div class="ind-trig">▲ Trigger · &lt;50% YoY</div>
+      </div>
+
+      <div class="ind-card">
+        <div class="ind-label">B · Monetization · Weight 25%</div>
+        <div class="ind-title">OpenAI ARR · Anthropic ARR</div>
+        <div class="ind-desc">OpenAI 当前 $20B，Altman 目标 $100B by 2027。Anthropic $47B run-rate（5 月 2026）。</div>
+        <div class="ind-trig">▲ Trigger · QoQ 增速从 50%+ 降至 25%-</div>
+      </div>
+
+      <div class="ind-card">
+        <div class="ind-label">B · Monetization</div>
+        <div class="ind-title">企业 AI 预算执行率</div>
+        <div class="ind-desc">Altman 6/2 承认 Q1 即耗尽预算。Q3-Q4 token revenue 可能断崖。这是 IPO 期最大盲点。</div>
+        <div class="ind-trig">▲ Trigger · 任何 hyperscaler 财报 mention 客户 budget cap</div>
+      </div>
+
+      <div class="ind-card">
+        <div class="ind-label">C · Macro · Weight 20%</div>
+        <div class="ind-title">核心 PCE MoM 与 CPI</div>
+        <div class="ind-desc">4 月核心 CPI MoM 0.4%。5 月 CPI 6 月 10 日发布。连续两月 &gt;0.3% = Fed 加息概率激增。</div>
+        <div class="ind-trig">▲ Trigger · 头条 CPI 突破 4.0%</div>
+      </div>
+
+      <div class="ind-card">
+        <div class="ind-label">C · Macro</div>
+        <div class="ind-title">10Y Treasury Yield</div>
+        <div class="ind-desc">当前 ~4.5%。&gt;4.8% = 估值杀手；&lt;4.0% = 衰退确认。Forward PE 23x 的前提是 4.0-4.5%。</div>
+        <div class="ind-trig">▲ Trigger · 突破 4.80% 或跌破 3.95%</div>
+      </div>
+
+      <div class="ind-card">
+        <div class="ind-label">D · Liquidity · Weight 15%</div>
+        <div class="ind-title">SpaceX 首日 + 30 天表现</div>
+        <div class="ind-desc">6/12 上市。+20%+ 短期 narrative 续命；&lt;+5% 或破发 = 触发更深第一波。</div>
+        <div class="ind-trig">▲ Trigger · 30 天内跌破发行价 -10%</div>
+      </div>
+
+      <div class="ind-card">
+        <div class="ind-label">D · Liquidity</div>
+        <div class="ind-title">HY Credit Spread</div>
+        <div class="ind-desc">当前 ~280bp。&gt;400bp 是历史经验中风险偏好崩塌的阈值。</div>
+        <div class="ind-trig">▲ Trigger · &gt;400bp 或一周扩大 100bp+</div>
+      </div>
+
+      <div class="ind-card">
+        <div class="ind-label">E · Valuation</div>
+        <div class="ind-title">Shiller CAPE</div>
+        <div class="ind-desc">当前 42.32。仅次于 2000 年顶峰的水平。历史均值 17。</div>
+        <div class="ind-trig">▲ 已经在警告区</div>
+      </div>
+
+      <div class="ind-card">
+        <div class="ind-label">E · Valuation</div>
+        <div class="ind-title">Breadth · ATH 个股占比</div>
+        <div class="ind-desc">仅 ~4% 的 S&P 500 成份股处于 ATH，与 2000 年顶部一致。85% 个股年涨幅低于指数。</div>
+        <div class="ind-trig">▲ 已经在警告区</div>
+      </div>
+
+      <div class="ind-card">
+        <div class="ind-label">F · FCF Quality（新增）</div>
+        <div class="ind-title">Mag 7 Capex / FCF</div>
+        <div class="ind-desc">Microsoft / Meta / Alphabet 已经开始大规模发债，capex/FCF 接近 100%。叙事从 "FCF 印钞机" 变成 "capex 承重"。</div>
+        <div class="ind-trig">▲ Trigger · 任何一家 capex 超过其 FCF</div>
+      </div>
+
+      <div class="ind-card">
+        <div class="ind-label">F · FCF Quality</div>
+        <div class="ind-title">M7 新增债券发行量</div>
+        <div class="ind-desc">GOOGL 5 月 $80B，META 即将 $25B+ 债券。隐形融资规模 = AI capex 投资回报率不及预期的市场化表达。</div>
+        <div class="ind-trig">▲ Trigger · 季度新增 $50B+ 综合发行</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION VII: RISK BOX ============ -->
+  <section class="section">
+    <div class="section-num">VII · RISKS TO VIEW</div>
+    <h2 class="section-title">这个推演什么时候会被推翻</h2>
+    <p class="section-dek">如果以下任一信号在 60 天内出现，整个推演需要重新校准。</p>
+
+    <div class="risk-box">
+      <h3>推翻信号 · 60 天内若发生则全面重估</h3>
+      <ol>
+        <li><b>AI 杀手级应用突破：</b>OpenAI / Anthropic 发布的 agent 产品在 3 个月内出现 1M+ 付费企业用户，或单个 agent 产品 ARR 突破 $5B。这意味着 narrative 切换："AI 不创造需求"的论点被证伪。</li>
+        <li><b>Capex 指引惊喜上调：</b>Microsoft 或 Meta 在 Q2 FY27 财报中将 FY27 capex 指引从当前路径上调 &gt;25%。这意味着 hyperscaler 看到了我们看不到的需求。</li>
+        <li><b>Fed 急转鸽派：</b>5 月或 6 月 CPI 大幅低于预期（核心 MoM &lt;0.15%），Warsh 在 7 月 Jackson Hole 公开提到"近期降息合理"。这会延后顶部 6-12 个月。</li>
+        <li><b>SpaceX IPO 大成功：</b>首日 +35%+ 且 30 天内维持发行价上方 +25%+。retail FOMO 重新激活，narrative 续命到 2027 年中。</li>
+        <li><b>财政大规模扩张：</b>中期选举前共和党推动新一轮 $1.5T+ 财政刺激（包括 AI 国家战略投资）。这会推迟 capex 减速时点。</li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="asterism">⁂</div>
+
+  <!-- ============ FINAL CALL ============ -->
+  <section class="section">
+    <div class="section-num">CONCLUSION</div>
+    <h2 class="section-title">三个 actionable 结论</h2>
+
+    <p><b>1 · 时间窗口</b>。预警信号已在 6 月触发。SPX 顶部窗口前移到 2026 Q4 – 2027 Q1。基准情景下，未来 3 周大概率出现 5-8% 第一波踩踏。</p>
+
+    <p><b>2 · 资产配置</b>。立即启动防御部署（10-15% 起步），2026 Q4 之前提升到 30-40%。腾讯/拼多多因深度 derate 不再属于优先减仓——修正 5 月推演的核心观点。</p>
+
+    <p><b>3 · 跟踪机制</b>。13 项核心 KPI 需要每周跟踪。最关键的三个：(1) SpaceX 首日表现，(2) NVDA Q2 FY27 财报（8 月 28 日），(3) M7 Q3 财报对 2027 capex 的初步指引（10-11 月）。</p>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="seal">投研鸭 · Touyan Duck</div>
+    <p>报告编号 · 2026-06-07-MS-001<br>
+    制作日期 · 2026 年 6 月 7 日<br>
+    分发对象 · 高级利益相关方<br>
+    数据截止 · 2026 年 6 月 5 日收盘<br>
+    <br>
+    本报告基于公开数据与建模推演，不构成投资建议。本报告内容仅供研究讨论。所有 thesis 均带有概率分布，请配合 KPI Dashboard 使用并定期校准。</p>
+  </footer>
+
+</div>
+</body>
+</html>

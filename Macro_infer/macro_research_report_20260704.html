@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宏观推演 · 2026年7月4日 | 投研鸭 Strategy Note</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Public+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Serif+SC:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0F2742;
+    --ink-soft: #1F3A5F;
+    --gold: #B89770;
+    --gold-deep: #8C6E47;
+    --paper: #F8F4ED;
+    --paper-warm: #F2EBD9;
+    --paper-edge: #E8DFC9;
+    --charcoal: #2A2A2A;
+    --muted: #6B6052;
+    --red: #A4242C;
+    --green: #2D6B3F;
+    --amber: #C68E17;
+    --rule: #C9B996;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--paper);
+    color: var(--charcoal);
+    font-family: 'Public Sans', 'Noto Sans SC', sans-serif;
+    font-weight: 400;
+    line-height: 1.65;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 56px;
+    background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at top left, rgba(184, 151, 112, 0.04) 0%, transparent 60%),
+      radial-gradient(ellipse at bottom right, rgba(15, 39, 66, 0.025) 0%, transparent 60%);
+  }
+
+  .masthead {
+    border-bottom: 2px solid var(--ink);
+    padding: 48px 0 24px;
+    margin-bottom: 0;
+    position: relative;
+  }
+  .masthead::after {
+    content: ""; position: absolute; bottom: -7px; left: 0; right: 0; height: 1px; background: var(--ink);
+  }
+  .meta-row {
+    display: flex; justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 36px;
+  }
+  .meta-row .classification { color: var(--red); font-weight: 600; }
+  .pub-title {
+    font-family: 'Fraunces', 'Noto Serif SC', serif; font-weight: 300; font-size: 14px;
+    letter-spacing: 0.35em; color: var(--muted); text-transform: uppercase; margin-bottom: 8px;
+  }
+  .pub-title b { color: var(--gold-deep); font-weight: 600; }
+  .report-title {
+    font-family: 'Fraunces', 'Noto Serif SC', serif; font-weight: 400; font-size: 44px;
+    line-height: 1.15; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 18px;
+    font-feature-settings: 'ss01' on;
+  }
+  .report-title .accent { font-style: italic; color: var(--gold-deep); font-weight: 400; }
+  .report-subtitle {
+    font-family: 'Fraunces', serif; font-style: italic; font-weight: 300; font-size: 19px;
+    color: var(--muted); line-height: 1.5; max-width: 740px; margin-bottom: 24px;
+  }
+  .byline {
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--muted); display: flex; gap: 32px;
+    padding-top: 16px; border-top: 1px solid var(--rule);
+  }
+  .byline span b { color: var(--ink); font-weight: 600; }
+
+  .takeaway {
+    background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper-edge) 100%);
+    border-left: 4px solid var(--gold); padding: 32px 36px; margin: 40px 0; position: relative;
+  }
+  .takeaway::before {
+    content: "EXECUTIVE TAKE · 7/4 UPDATE"; position: absolute; top: -10px; left: 28px;
+    background: var(--paper); padding: 0 12px; font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.25em; color: var(--gold-deep); font-weight: 600;
+  }
+  .takeaway-lead {
+    font-family: 'Fraunces', 'Noto Serif SC', serif; font-weight: 400; font-size: 21px;
+    line-height: 1.5; color: var(--ink); margin-bottom: 16px;
+  }
+  .takeaway-lead em { font-style: italic; color: var(--gold-deep); }
+  .takeaway p { font-size: 14.5px; color: var(--charcoal); margin-bottom: 8px; }
+
+  .section {
+    margin: 56px 0 0; padding-top: 40px; border-top: 1px solid var(--rule);
+  }
+  .section:first-of-type { border-top: none; padding-top: 0; }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.3em;
+    color: var(--gold-deep); font-weight: 600; margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Fraunces', 'Noto Serif SC', serif; font-weight: 500; font-size: 32px;
+    line-height: 1.2; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em;
+  }
+  .section-dek {
+    font-family: 'Fraunces', serif; font-style: italic; font-weight: 300; font-size: 17px;
+    color: var(--muted); margin-bottom: 32px; line-height: 1.5;
+  }
+  .section h3 {
+    font-family: 'Fraunces', 'Noto Serif SC', serif; font-weight: 600; font-size: 19px;
+    color: var(--ink); margin: 32px 0 12px; letter-spacing: -0.005em;
+  }
+  .section h3 .num {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--gold-deep);
+    margin-right: 12px; font-weight: 500;
+  }
+  .section p { margin-bottom: 16px; color: var(--charcoal); }
+  .section p b { color: var(--ink); font-weight: 600; }
+  .drop-cap::first-letter {
+    font-family: 'Fraunces', serif; font-size: 64px; line-height: 0.85; font-weight: 400;
+    float: left; color: var(--ink); margin: 6px 10px 0 0; padding: 4px 6px 0 0;
+  }
+
+  .pullquote {
+    margin: 32px 0; padding: 24px 0; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); text-align: center;
+  }
+  .pullquote q {
+    font-family: 'Fraunces', 'Noto Serif SC', serif; font-weight: 400; font-style: italic;
+    font-size: 22px; line-height: 1.4; color: var(--ink); quotes: "\201C" "\201D" "\2018" "\2019";
+  }
+  .pullquote-attr {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--muted); margin-top: 12px; display: block;
+  }
+
+  table.data {
+    width: 100%; border-collapse: collapse; margin: 24px 0;
+    font-family: 'Public Sans', sans-serif; font-size: 13.5px;
+  }
+  table.data th {
+    text-align: left; font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); font-weight: 600;
+    padding: 10px 14px; border-bottom: 2px solid var(--ink); background: rgba(184, 151, 112, 0.06);
+  }
+  table.data td {
+    padding: 11px 14px; border-bottom: 1px solid var(--rule); color: var(--charcoal); vertical-align: top;
+  }
+  table.data tr:last-child td { border-bottom: 2px solid var(--ink); }
+  table.data .num {
+    font-family: 'JetBrains Mono', monospace; text-align: right; font-variant-numeric: tabular-nums;
+  }
+  table.data .pos { color: var(--green); font-weight: 500; }
+  table.data .neg { color: var(--red); font-weight: 500; }
+  table.data .warn { color: var(--amber); font-weight: 500; }
+
+  .timeline { margin: 36px 0; padding: 24px 0; }
+  .tl-svg { width: 100%; height: auto; display: block; }
+
+  .scenario-card {
+    background: var(--paper-warm); border: 1px solid var(--rule); padding: 24px 28px;
+    margin: 16px 0; border-left: 4px solid var(--ink);
+  }
+  .scenario-card.bull { border-left-color: var(--green); }
+  .scenario-card.bear { border-left-color: var(--red); }
+  .scenario-card.base { border-left-color: var(--gold); }
+  .scenario-head {
+    display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px;
+  }
+  .scenario-name { font-family: 'Fraunces', serif; font-weight: 600; font-size: 18px; color: var(--ink); }
+  .scenario-prob { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: var(--muted); }
+  .scenario-prob b { color: var(--ink); font-size: 16px; }
+  .scenario-prob .delta-up { color: var(--green); font-size: 11px; }
+  .scenario-prob .delta-down { color: var(--red); font-size: 11px; }
+  .scenario-target {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--charcoal);
+    margin: 8px 0; font-variant-numeric: tabular-nums;
+  }
+  .scenario-desc { font-size: 13.5px; color: var(--charcoal); line-height: 1.55; }
+
+  .ind-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 24px 0; }
+  .ind-card { border: 1px solid var(--rule); padding: 16px 20px; background: rgba(255, 255, 255, 0.4); }
+  .ind-card .ind-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--gold-deep); margin-bottom: 6px;
+  }
+  .ind-card .ind-title { font-family: 'Fraunces', serif; font-weight: 500; font-size: 16px; color: var(--ink); margin-bottom: 6px; }
+  .ind-card .ind-desc { font-size: 12.5px; color: var(--charcoal); line-height: 1.5; }
+  .ind-card .ind-trig {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--red);
+    margin-top: 6px; padding-top: 6px; border-top: 1px dotted var(--rule);
+  }
+
+  .alloc-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 12.5px; }
+  .alloc-table th {
+    background: var(--ink); color: var(--paper); font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; padding: 10px 8px; text-align: center; font-weight: 600;
+  }
+  .alloc-table th:first-child { text-align: left; }
+  .alloc-table td {
+    padding: 9px 8px; border-bottom: 1px solid var(--rule); text-align: center;
+    font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums;
+  }
+  .alloc-table td:first-child {
+    text-align: left; font-family: 'Public Sans', sans-serif; font-weight: 500; color: var(--ink);
+  }
+  .alloc-table .phase-row td {
+    background: var(--paper-warm); font-family: 'Fraunces', serif; font-style: italic;
+    text-align: left; color: var(--gold-deep); font-size: 11.5px; letter-spacing: 0.05em;
+    padding: 6px 8px; border-top: 2px solid var(--gold);
+  }
+
+  .risk-box {
+    background: linear-gradient(135deg, #2A1518 0%, #3F1F23 100%); color: #F8F4ED;
+    padding: 32px 36px; margin: 32px 0; position: relative;
+  }
+  .risk-box::before {
+    content: "▲"; position: absolute; top: 24px; right: 28px; font-size: 28px; color: var(--red); opacity: 0.6;
+  }
+  .risk-box h3 { font-family: 'Fraunces', serif; color: var(--paper); font-size: 22px; margin-bottom: 16px; font-weight: 500; }
+  .risk-box ol { margin: 0; padding-left: 20px; font-size: 13.5px; line-height: 1.7; }
+  .risk-box ol li { margin-bottom: 10px; color: rgba(248, 244, 237, 0.92); }
+  .risk-box b { color: var(--gold); font-weight: 600; }
+
+  .retro-box {
+    background: linear-gradient(135deg, #11261A 0%, #16331F 100%); color: #F0F5F0;
+    padding: 32px 36px; margin: 32px 0; position: relative;
+  }
+  .retro-box::before {
+    content: "✓ / ✗"; position: absolute; top: 22px; right: 28px; font-size: 20px;
+    font-family: 'JetBrains Mono', monospace; color: var(--green); opacity: 0.7;
+  }
+  .retro-box h3 { font-family: 'Fraunces', serif; color: var(--paper); font-size: 22px; margin-bottom: 16px; font-weight: 500; }
+  .retro-item { display: grid; grid-template-columns: 70px 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px solid rgba(240,245,240,0.12); align-items: start; }
+  .retro-item:last-child { border-bottom: none; }
+  .retro-verdict {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; font-weight: 600;
+    padding: 3px 7px; text-align: center; white-space: nowrap; height: fit-content;
+  }
+  .retro-verdict.hit { background: rgba(74,222,128,0.15); color: #4ADE80; border: 1px solid #4ADE80; }
+  .retro-verdict.miss { background: rgba(248,113,113,0.15); color: #F87171; border: 1px solid #F87171; }
+  .retro-verdict.partial { background: rgba(255,200,87,0.15); color: #FFC857; border: 1px solid #FFC857; }
+  .retro-item p { font-size: 13px; color: rgba(240,245,240,0.9); margin: 0; line-height: 1.5; }
+  .retro-item p b { color: #fff; }
+
+  .event-list { margin: 24px 0; }
+  .event-item {
+    display: grid; grid-template-columns: 110px 1fr; gap: 24px; padding: 18px 0;
+    border-bottom: 1px solid var(--rule); align-items: start;
+  }
+  .event-item:last-child { border-bottom: none; }
+  .event-date {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink); font-weight: 600; padding-top: 2px;
+  }
+  .event-date .day {
+    font-family: 'Fraunces', serif; font-size: 26px; display: block; color: var(--gold-deep);
+    font-style: italic; margin-bottom: 2px; letter-spacing: -0.01em;
+  }
+  .event-body h4 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 16px; color: var(--ink); margin-bottom: 4px; }
+  .event-body p { font-size: 13.5px; color: var(--charcoal); margin: 0; }
+
+  .kshape {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 24px 0;
+    border: 1px solid var(--rule);
+  }
+  .kshape-col { padding: 20px 24px; }
+  .kshape-col.up { background: rgba(45, 107, 63, 0.06); border-right: 1px solid var(--rule); }
+  .kshape-col.down { background: rgba(164, 36, 44, 0.05); }
+  .kshape-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.15em;
+    text-transform: uppercase; margin-bottom: 10px; font-weight: 600;
+  }
+  .kshape-col.up .kshape-label { color: var(--green); }
+  .kshape-col.down .kshape-label { color: var(--red); }
+  .kshape-col ul { list-style: none; }
+  .kshape-col li {
+    font-size: 13px; padding: 6px 0; border-bottom: 1px dotted var(--rule); color: var(--charcoal);
+  }
+  .kshape-col li:last-child { border-bottom: none; }
+  .kshape-col li b { color: var(--ink); }
+
+  .footer {
+    margin-top: 80px; padding: 32px 0 56px; border-top: 2px solid var(--ink);
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em;
+    color: var(--muted); line-height: 1.7;
+  }
+  .footer .seal {
+    font-family: 'Fraunces', serif; font-style: italic; color: var(--gold-deep);
+    font-size: 16px; margin-bottom: 12px; letter-spacing: 0;
+  }
+
+  .tab { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
+  .asterism { text-align: center; margin: 40px 0; font-family: 'Fraunces', serif; color: var(--gold); font-size: 18px; letter-spacing: 1em; }
+  mark.note {
+    background: rgba(198, 142, 23, 0.15); color: var(--charcoal); padding: 1px 4px;
+    border-bottom: 1px solid var(--amber); font-weight: 500;
+  }
+  .smcaps {
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.2em;
+    color: var(--gold-deep); text-transform: uppercase; font-weight: 600;
+  }
+
+  @media print {
+    body { background: white; }
+    .page { padding: 0 40px; }
+    .risk-box, .retro-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+  @media (max-width: 720px) {
+    .page { padding: 0 24px; }
+    .report-title { font-size: 32px; }
+    .ind-grid { grid-template-columns: 1fr; }
+    .event-item { grid-template-columns: 80px 1fr; gap: 16px; }
+    .byline { flex-wrap: wrap; gap: 12px; }
+    .retro-item { grid-template-columns: 60px 1fr; gap: 12px; }
+    .kshape { grid-template-columns: 1fr; }
+    .kshape-col.up { border-right: none; border-bottom: 1px solid var(--rule); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="meta-row">
+      <span>投研鸭 STRATEGY NOTE · No. 2026-07-04</span>
+      <span class="classification">INTERNAL · 仅供内部讨论</span>
+    </div>
+    <div class="pub-title">投研鸭 <b>·</b> Touyan Duck Macro</div>
+    <h1 class="report-title">
+      算力，<span class="accent">过剩了。</span><br>
+      K 型市场，正式成形。
+    </h1>
+    <p class="report-subtitle">
+      Meta 一句"建云卖过剩算力"，让"供给永远追不上需求"这个撑起两年 AI 牛市的核心假设，第一次被行业自己人证伪。两周内韩国二次熔断、美光/SanDisk 单日两位数重挫、A 股光模块跟随重挫——但道指同期创下年内新高，VIX 仍在 16 附近。这不是恐慌，是圆弧顶最典型的中段：最贵、最拥挤的部分先被削掉。这是 6 月 20 日推演的第二次实盘复盘。
+    </p>
+    <div class="byline">
+      <span>Author <b>·</b> Macro Strategy Desk</span>
+      <span>Prev <b>·</b> No. 2026-06-20</span>
+      <span>Data Cutoff <b>·</b> 2026-07-02 / 07-03</span>
+    </div>
+  </header>
+
+  <section class="takeaway">
+    <p class="takeaway-lead">
+      7 月 1 日，Meta 被曝正在筹建云计算业务，用于对外出售<em>过剩</em>的 AI 算力。这四个字，是过去两年整个 AI capex 叙事里第一次由核心玩家亲口承认"供给可能已经追上、甚至超过需求"。
+    </p>
+    <p><b>连锁反应立竿见影。</b>CoreWeave、Nebius 当天暴跌 14% 和 17%；美光、SanDisk 单日跌超 10%；费城半导体指数两个交易日累计跌 11.4%；韩国 Kospi 7 月 2 日再跌 7.89%（继 6 月 23 日 -10% 之后年内第 5 次熔断，历史上韩股总共只熔断过 11 次）；A 股半导体、光模块板块 7 月 2-3 日跌幅普遍超过 8%，此前被认为"有业绩支撑"的"易中天"组合同样重挫。</p>
+    <p><b>但同一时间，道琼斯指数创下年内新高，标普 500 基本走平，VIX 还下跌到 15.8。</b>这是一次高度局部化的、发生在最拥挤赛道内部的估值重定价，而不是系统性抛售——资金从算力硬件流向黄金、创新药、人形机器人，而非流出股市本身。</p>
+    <p><b>校准结论：</b>顶部窗口<b>维持</b> 2026 Q4 – 2027 Q1；但"分配/轮动"这个过程，看起来已经从 6/20 报告里的"未来时"变成了"进行时"——情景 B 的概率从 45% 上修至 50%，情景 A（narrative 继续续命）从 35% 下修至 25%。</p>
+  </section>
+
+  <!-- ============ SECTION 0: RETROSPECTIVE ============ -->
+  <section class="section">
+    <div class="section-num">0 · RETROSPECTIVE</div>
+    <h2 class="section-title">6 月 20 日推演的实盘复盘</h2>
+    <p class="section-dek">两周后回看，"续命"剧本兑现了一半，随即自己反转。</p>
+
+    <div class="retro-box">
+      <h3>Scorecard · 6/20 → 7/4</h3>
+      <div class="retro-item">
+        <div class="retro-verdict partial">~ 部分</div>
+        <p><b>"narrative 续命概率升到 35%，SPX 可能再创新高（7,900-8,300）再见顶"</b> — 剧本只上演了前半段。SpaceX 6/16 冲高至 $225.64 后迅速回落，7/2 收 $162（较峰值 -28%）；OpenAI 被曝已在考虑将 IPO 推迟到 2027 年。"续命"力度衰减得比预期快得多。</p>
+      </div>
+      <div class="retro-item">
+        <div class="retro-verdict hit">✓ HIT</div>
+        <p><b>"AI capex 增速二阶导数转负"</b> — 这次得到了目前为止最强的验证。Meta 直接承认存在过剩算力，是首家做出这一表态的超大规模云厂商，比"指引不上调"这类温和信号强得多。</p>
+      </div>
+      <div class="retro-item">
+        <div class="retro-verdict hit">✓ HIT</div>
+        <p><b>"循环融资闭环裂痕是系统性放大器"</b> — Oracle 6/10 财报（RPO 达 6,380 亿美元、超五成来自 OpenAI，FY26 自由现金流 -237 亿美元，还要再融资 400 亿美元）是这个框架最具体的数字化验证，目前也仍在发酵。</p>
+      </div>
+      <div class="retro-item">
+        <div class="retro-verdict hit">✓ HIT，且提前</div>
+        <p><b>"韩国大概率尖顶，6/8 熔断是预演"</b> — 命中，且比预期更暴烈。两周内两次熔断级别崩跌（6/23 -10%，7/2 -7.89%），今年以来韩股已熔断 5 次，历史上总共只有 11 次。</p>
+      </div>
+      <div class="retro-item">
+        <div class="retro-verdict partial">~ 部分</div>
+        <p><b>"腾讯/拼多多已提前打底，risk-off 跟跌不领跌"</b> — 相对抗跌这一半兑现（跌幅远小于韩股半导体），但"打底"为时过早：腾讯 7 月 3 日报 431.20 港元，逼近 52 周低点 411 港元，仍在创阶段新低。</p>
+      </div>
+      <div class="retro-item">
+        <div class="retro-verdict miss">✗ 新盲点</div>
+        <p><b>未纳入的变量：</b>6 月 17 日 FOMC 点阵图转鹰后仅两周，7 月 2 日 6 月非农意外大幅走弱（+5.7 万 vs 预期 11 万+），9 月加息概率从 64%-67% 骤降至约 50%。"数据打架"（弱就业 vs 高通胀）是这次完全没有预判到的新张力。</p>
+      </div>
+    </div>
+
+    <h3><span class="num">·</span>三个新的盲点</h3>
+
+    <p><b>盲点 1 · 低估了一个词的杀伤力。</b>此前一直在追踪的是"增速放缓""指引不上调"这类温和信号，但市场对"过剩"这个词本身的反应，比对任何具体数字下修都剧烈得多、传导得都快得多。这是一个纯粹的叙事/反身性问题：同样的产业现实，换一个措辞，估值反应可以差出几个数量级。<mark class="note">未来监测 capex 信号，除了看数字二阶导数，更要盯管理层措辞里是否出现"过剩""供大于求"这类质变性表述</mark>。</p>
+
+    <p><b>盲点 2 · 低估了传导速度和跨境广度。</b>从 Meta 7 月 1 日盘前消息，到韩国、日本、中国半导体/光模块板块全线重挫，中间只隔了不到 48 小时。这说明全球 AI 硬件产业链的相关性和反身性，比此前建模的更紧密——不再是"美股先跌、亚太滞后跟跌"的传统节奏，而是几乎同步的全球重定价。</p>
+
+    <p><b>盲点 3 · 缺少一个"系统性 vs 局部性"的判别框架。</b>这次最重要的认知升级：AI 硬件链剧烈重挫的同时，道指创新高、VIX 走低、资金转向黄金/创新药/机器人而非流出股市——这是<b>局部拥挤交易出清</b>，不是系统性恐慌。<mark class="note">应该把 VIX 与大盘指数的行为，作为区分"这是不是最终顶部"的显式指标</mark>，而不是只盯着 AI 硬件股本身的跌幅。</p>
+  </section>
+
+  <!-- ============ SECTION I: TWO WEEKS ============ -->
+  <section class="section">
+    <div class="section-num">I · WHAT HAPPENED</div>
+    <h2 class="section-title">两周里改变的事</h2>
+    <p class="section-dek">一句"过剩"，重新定价了整条 AI 硬件产业链。</p>
+
+    <div class="event-list">
+      <div class="event-item">
+        <div class="event-date"><span class="day">06.23</span>Tue</div>
+        <div class="event-body">
+          <h4>Kospi 单日暴跌 10%，触发熔断</h4>
+          <p>AI 估值担忧首次以熔断形式爆发，20 分钟冷静期后小幅收复。日经同日跌 3.6%，软银暴跌 15%。这是"尖顶"判断的第一次预演式验证。</p>
+        </div>
+      </div>
+      <div class="event-item">
+        <div class="event-date"><span class="day">06.26</span>Fri</div>
+        <div class="event-body">
+          <h4>纽约时报：OpenAI 考虑将 IPO 推迟到 2027 年</h4>
+          <p>SpaceX 上市后的大起大落让顾问团队更趋谨慎。Altman 不愿在 1 万亿美元估值上让步，而亚马逊承诺的 350 亿美元投资只有在 IPO 或实现 AGI 后才解锁——推迟是有真实代价的。</p>
+        </div>
+      </div>
+      <div class="event-item">
+        <div class="event-date"><span class="day">06.30</span>Tue</div>
+        <div class="event-body">
+          <h4>出口管制解除，Anthropic 7/1 恢复完整服务</h4>
+          <p>6/12 因出口管制暂停的 Claude Mythos 5 / Fable 5，6/27 先对约 100 家受审核美国关键基础设施机构恢复 Mythos 5；商务部 6/30 解除管制，Anthropic 7/1 恢复两款模型完整访问。移除了 Anthropic IPO 时间表上的一个尾部风险。</p>
+        </div>
+      </div>
+      <div class="event-item">
+        <div class="event-date"><span class="day">07.01</span>Wed</div>
+        <div class="event-body">
+          <h4>彭博社：Meta 筹建云业务，出售过剩 AI 算力</h4>
+          <p>Meta 股价当天一度上涨近 10%（此前该股跑输标普 500，今年一度下跌近 15%），但 CoreWeave、Nebius 同日暴跌 14%、17%，美光跌超 10%。同日 Oracle 财报后续影响仍在发酵，RPO 结构性风险被反复提及。</p>
+        </div>
+      </div>
+      <div class="event-item">
+        <div class="event-date"><span class="day">07.02</span>Thu</div>
+        <div class="event-body">
+          <h4>Kospi 二次熔断 -7.89%；A 股半导体全线重挫；6 月非农大幅走弱</h4>
+          <p>三星 -9.06%、SK 海力士 -14.57%；上证 -2.03%、科创50 -7.7%，光模块"易中天"跌幅 8%-11.6%。同日美国 6 月新增非农仅 5.7 万（预期 11 万+），9 月加息概率骤降至约 50%，黄金冲高至 4,170-4,200 美元。</p>
+        </div>
+      </div>
+    </div>
+
+    <h3><span class="num">·</span>各市场两周表现</h3>
+
+    <table class="data">
+      <thead>
+        <tr><th>市场/资产</th><th class="num">6/19 附近</th><th class="num">7/2-3</th><th>关键驱动</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>S&P 500</td><td class="num">7,491</td><td class="num warn">7,483</td><td>宽幅震荡，未创新高</td></tr>
+        <tr><td>道琼斯</td><td class="num">51,650</td><td class="num pos">52,900</td><td>创年内新高，K 型分化主线</td></tr>
+        <tr><td>纳斯达克综指</td><td class="num">~26,100</td><td class="num neg">25,833</td><td>芯片股拖累转负</td></tr>
+        <tr><td>费城半导体(SOX)</td><td class="num">—</td><td class="num neg">7/1-2 两日 -11.4%</td><td>Meta 冲击核心传导链</td></tr>
+        <tr><td>VIX</td><td class="num">—</td><td class="num pos">~15.8</td><td>仍处低位，抛售局部化</td></tr>
+        <tr><td>Kospi</td><td class="num">9,000+（6月高点）</td><td class="num neg">7,648（两次熔断）</td><td>尖顶验证，年内第 5 次熔断</td></tr>
+        <tr><td>恒生指数</td><td class="num">24,312</td><td class="num warn">23,055</td><td>6 月单月 -9.1%，年内最差</td></tr>
+        <tr><td>腾讯</td><td class="num">~450 港元</td><td class="num warn">431.20 港元</td><td>逼近 52 周低点 411</td></tr>
+        <tr><td>上证指数</td><td class="num">4,110</td><td class="num neg">4,028.90（-2.03%）</td><td>科创50 单日 -7.7%</td></tr>
+        <tr><td>布伦特原油</td><td class="num">$83</td><td class="num pos">~$72</td><td>续跌，逼近冲突前水平</td></tr>
+        <tr><td>10 年美债</td><td class="num">~4.45%</td><td class="num warn">4.48%</td><td>弱就业后小幅波动</td></tr>
+        <tr><td>黄金</td><td class="num">—</td><td class="num pos">$4,170-4,200</td><td>打破 4 周连跌，创 6/23 以来新高</td></tr>
+        <tr><td>Bitcoin*</td><td class="num">$64-77K</td><td class="num neg">~$61.5-62.6K</td><td>6 月创近 4 年最差单月</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px; color:var(--muted);">* Bitcoin 7 月 3 日午间反弹至 6.2 万美元上方，因弱就业数据推升降息预期；加密货币恐慌贪婪指数报 21，已连续一个月处于"极度恐慌"区间。</p>
+  </section>
+
+  <!-- ============ SECTION II: AI NARRATIVE ============ -->
+  <section class="section">
+    <div class="section-num">II · AI NARRATIVE</div>
+    <h2 class="section-title">"过剩"二字，捅破了什么</h2>
+    <p class="section-dek">从"增速放缓"到"供给过剩"，是质变，不是量变。</p>
+
+    <p class="drop-cap">这是一次典型的<b>自我实现的证伪</b>：过去两年支撑整个 AI capex 超级周期的核心假设，是"AI 算力需求将永远快于供给"——只要这个假设成立，任何 capex 数字看起来都不算贵。7 月 1 日，Meta 自己打破了这个假设。</p>
+
+    <h3><span class="num">·</span>机制：一条新闻,两层反应</h3>
+
+    <p>彭博社报道，Meta 正在筹建一项云基础设施业务，计划向亚马逊 AWS、微软 Azure、谷歌云发起新一轮竞争，通过向外部客户出售过剩算力创造收入。扎克伯格今年 5 月的股东大会上已经松口：如果 Meta 的 AI 基础设施出现"建过头"的情况，出售算力"确实是一个选项"。Meta 此前已把 2026 年 capex 指引上限从原计划上调 100 亿美元至 1,450 亿美元，部分通过一季度发行的 250 亿美元债券融资。</p>
+
+    <p><b>第一层反应是"利好"：</b>消息公布当天 Meta 股价上涨近 10%，市场解读为一条比等待广告/AI 应用变现更快的现金流路径，此前该股已连续四个季度下跌、今年一度累跌近 15%。</p>
+
+    <p><b>第二层反应，也是随后几天真正交易的逻辑，是反过来的：</b>这一举动被解读为 AI 基础设施需求可能已经见顶的信号——过去几年市场给芯片供应商的估值溢价，建立在"供给追不上需求"这个假设之上，Meta 的表态直接打破了它。</p>
+
+    <div class="pullquote">
+      <q>投资者过去几年一直基于一个信念给芯片供应商定价：AI 需求永远超过供给。Meta 承认存在过剩算力，打破了这个前提。</q>
+      <span class="pullquote-attr">市场评论综述 · 2026年7月</span>
+    </div>
+
+    <h3><span class="num">·</span>连锁反应：从美股到韩国、日本、中国</h3>
+
+    <p>这条传导链几乎是即时的：<b>算力出租商首当其冲</b>——CoreWeave、Nebius 当天分别暴跌 14%、17%，因担心 Meta 会用更低价格抢占它们的客户；<b>存储芯片全线杀跌</b>——美光单日跌超 10%，SanDisk、英特尔、AMD 跌幅在 6.9%-10.6% 之间，费城半导体指数两个交易日累计下跌 11.4%；<b>英伟达相对抗跌</b>——同期仅下跌 1.25%-2.4%，明显小于其他半导体股，说明市场目前是在重新定价二三线算力供应商和存储商，还没有把英伟达也归为"过剩"的一部分。</p>
+
+    <p>溢出到<b>韩国</b>：三星电子、SK 海力士目前合计占 Kospi 权重接近一半,Meta 消息引发的连锁反应，令 Kospi 单日蒸发约 5,690 亿人民币市值,三星 -9.06%、SK 海力士 -14.57%,外资连续第 10 个交易日净卖出、10 日累计净卖出约 347 亿人民币，散户净买入部分对冲。溢出到<b>日本</b>：铠侠一度暴跌超 13.5%，拖累日经下跌 2.5%（随后在弱就业数据带动下反弹至 69,428 点）。溢出到<b>中国</b>：7 月 2-3 日 A 股半导体硅片、晶圆产业、半导体材料、半导体设备指数分别下跌 13.71%、10.73%、9.74%、8.68%，此前被认为"有业绩支撑、相对抗跌"的光模块"易中天"组合——新易盛、天孚通信跌幅一度超过 8%——同样未能幸免。A 股"恐贪指数"从 72.3 骤降至 30.5，资金明显转向人形机器人、贵金属、创新药等防御性方向。</p>
+
+    <h3><span class="num">·</span>循环融资的具体化：Oracle 案例</h3>
+
+    <p>如果说 Meta 的表态是"需求端"信号，Oracle 6 月 10 日的财报就是"融资结构"信号的具体化。Oracle 待履行合同金额（RPO）达到创纪录的 6,380 亿美元，同比增长 363%，其中<b>超过一半来自 OpenAI 一家客户</b>（据美银测算）。同时 Oracle 全年资本开支达到 557 亿美元，远超此前 500 亿美元的指引，全年自由现金流为 <b>负 237 亿美元</b>。管理层宣布，在本财年已经通过 430 亿美元债务和 50 亿美元股权融资的基础上，2027 财年还要再融资约 400 亿美元。财报当晚股价盘后一度重挫超过 10%。</p>
+
+    <p>这正是 6 月 20 日报告里"循环融资闭环"框架描述的具体样本：Oracle 为 OpenAI 建数据中心，用英伟达芯片，OpenAI 又用这些算力生成收入去支撑自己的估值——而 Oracle 自己需要不断举债才能维持这个链条运转。<mark class="note">任何一环出现客户流失或付款延迟，都可能触发连锁重估</mark>，这一点没有变化，只是这次多了 Meta 这样一个"需求端"的独立验证。</p>
+
+    <div class="kshape">
+      <div class="kshape-col up">
+        <div class="kshape-label">同期上涨 / 抗跌</div>
+        <ul>
+          <li>道琼斯指数 <b>创年内新高</b></li>
+          <li>黄金 <b>$4,170-4,200，创6/23以来新高</b></li>
+          <li>英伟达 <b>相对抗跌，跌幅远小于同业</b></li>
+          <li>A 股人形机器人 / 贵金属 / 创新药</li>
+          <li>比特币 <b>7/3 反弹至 $61.5K 上方</b></li>
+        </ul>
+      </div>
+      <div class="kshape-col down">
+        <div class="kshape-label">同期重挫</div>
+        <ul>
+          <li>CoreWeave <b>-14%</b>，Nebius <b>-17%</b></li>
+          <li>美光 <b>-10%+</b>，SanDisk <b>-10%</b></li>
+          <li>Kospi <b>两周内两次熔断</b></li>
+          <li>A 股半导体设备 / 光模块 <b>-8% 至 -13.7%</b></li>
+          <li>SpaceX <b>较峰值回落约 28%</b></li>
+        </ul>
+      </div>
+    </div>
+    <p style="font-size:12.5px; color:var(--muted); margin-top:-8px;">这张分化图，就是"K 型市场"的字面意思——同一时间窗口里，资金在最拥挤的赛道内部做减法，同时在别处做加法，而不是无差别撤离风险资产。</p>
+  </section>
+
+  <!-- ============ SECTION III: TIMELINE ============ -->
+  <section class="section">
+    <div class="section-num">III · CHRONOLOGY</div>
+    <h2 class="section-title">推演时间线 · 7/4 校准版</h2>
+    <p class="section-dek">顶部窗口未变，但"分配"过程的起点，从"未来"移到了"现在"。</p>
+
+    <div class="timeline">
+      <svg class="tl-svg" viewBox="0 0 880 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="推演时间线 7/4">
+        <defs>
+          <linearGradient id="h1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C68E17" stop-opacity="0.25"/><stop offset="1" stop-color="#C68E17" stop-opacity="0.4"/></linearGradient>
+          <linearGradient id="h2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#B89770" stop-opacity="0.15"/><stop offset="1" stop-color="#B89770" stop-opacity="0.3"/></linearGradient>
+          <linearGradient id="h3" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#A4242C" stop-opacity="0.28"/><stop offset="1" stop-color="#A4242C" stop-opacity="0.5"/></linearGradient>
+          <linearGradient id="h4" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#A4242C" stop-opacity="0.55"/><stop offset="1" stop-color="#A4242C" stop-opacity="0.25"/></linearGradient>
+          <linearGradient id="h5" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2D6B3F" stop-opacity="0.25"/><stop offset="1" stop-color="#2D6B3F" stop-opacity="0.4"/></linearGradient>
+        </defs>
+
+        <line x1="40" y1="215" x2="840" y2="215" stroke="#0F2742" stroke-width="2"/>
+
+        <rect x="40" y="165" width="110" height="50" fill="url(#h1)" stroke="#C68E17" stroke-width="1"/>
+        <rect x="150" y="165" width="170" height="50" fill="url(#h2)" stroke="#B89770" stroke-width="1"/>
+        <rect x="320" y="165" width="200" height="50" fill="url(#h3)" stroke="#A4242C" stroke-width="1"/>
+        <rect x="520" y="165" width="200" height="50" fill="url(#h4)" stroke="#A4242C" stroke-width="1"/>
+        <rect x="720" y="165" width="120" height="50" fill="url(#h5)" stroke="#2D6B3F" stroke-width="1"/>
+
+        <text x="95" y="153" text-anchor="middle" font-family="Fraunces, serif" font-size="10.5" font-style="italic" fill="#8C6E47">数据密集期</text>
+        <text x="235" y="153" text-anchor="middle" font-family="Fraunces, serif" font-size="10.5" font-style="italic" fill="#8C6E47">Distribution 进行中</text>
+        <text x="420" y="153" text-anchor="middle" font-family="Fraunces, serif" font-size="10.5" font-style="italic" fill="#A4242C">Top Confirmation</text>
+        <text x="620" y="153" text-anchor="middle" font-family="Fraunces, serif" font-size="10.5" font-style="italic" fill="#A4242C">Accelerated Decline</text>
+        <text x="780" y="153" text-anchor="middle" font-family="Fraunces, serif" font-size="10.5" font-style="italic" fill="#2D6B3F">Bottom / Pivot</text>
+
+        <g font-family="JetBrains Mono, monospace" font-size="10" fill="#2A2A2A" text-anchor="middle">
+          <line x1="40" y1="215" x2="40" y2="225" stroke="#0F2742"/><text x="40" y="240">7/4</text>
+          <line x1="230" y1="215" x2="230" y2="225" stroke="#0F2742"/><text x="230" y="240">10/26</text>
+          <line x1="380" y1="215" x2="380" y2="225" stroke="#0F2742"/><text x="380" y="240">1/27</text>
+          <line x1="560" y1="215" x2="560" y2="225" stroke="#0F2742"/><text x="560" y="240">7/27</text>
+          <line x1="720" y1="215" x2="720" y2="225" stroke="#0F2742"/><text x="720" y="240">3/28</text>
+          <line x1="840" y1="215" x2="840" y2="225" stroke="#0F2742"/><text x="840" y="240">9/28</text>
+        </g>
+
+        <g font-family="JetBrains Mono, monospace" font-size="9" fill="#0F2742">
+          <line x1="55" y1="215" x2="55" y2="260" stroke="#C68E17" stroke-width="1" stroke-dasharray="2,2"/>
+          <circle cx="55" cy="215" r="4" fill="#C68E17" stroke="#0F2742" stroke-width="1.5"/>
+          <text x="55" y="275" text-anchor="middle">6月CPI</text>
+          <text x="55" y="288" text-anchor="middle" fill="#6B6052">~7/14</text>
+
+          <line x1="95" y1="215" x2="95" y2="295" stroke="#A4242C" stroke-width="1.5" stroke-dasharray="2,2"/>
+          <circle cx="95" cy="215" r="5" fill="#A4242C" stroke="#0F2742" stroke-width="1.5"/>
+          <text x="95" y="310" text-anchor="middle" font-weight="600">10%关税到期</text>
+          <text x="95" y="323" text-anchor="middle" fill="#6B6052">7/24</text>
+
+          <line x1="150" y1="215" x2="150" y2="260" stroke="#B89770" stroke-width="1" stroke-dasharray="2,2"/>
+          <circle cx="150" cy="215" r="4" fill="#B89770" stroke="#0F2742" stroke-width="1.5"/>
+          <text x="150" y="275" text-anchor="middle">M7 Q2财报</text>
+          <text x="150" y="288" text-anchor="middle" fill="#6B6052">7月底</text>
+
+          <line x1="185" y1="215" x2="185" y2="295" stroke="#B89770" stroke-width="1.5" stroke-dasharray="2,2"/>
+          <circle cx="185" cy="215" r="5" fill="#B89770" stroke="#0F2742" stroke-width="1.5"/>
+          <text x="185" y="310" text-anchor="middle" font-weight="600">NVDA Q2财报</text>
+          <text x="185" y="323" text-anchor="middle" fill="#6B6052">8/27</text>
+
+          <line x1="230" y1="215" x2="230" y2="260" stroke="#C68E17" stroke-width="1" stroke-dasharray="2,2"/>
+          <circle cx="230" cy="215" r="4" fill="#C68E17" stroke="#0F2742" stroke-width="1.5"/>
+          <text x="230" y="275" text-anchor="middle">Anthropic IPO</text>
+          <text x="230" y="288" text-anchor="middle" fill="#6B6052">~10月</text>
+
+          <line x1="380" y1="215" x2="380" y2="295" stroke="#A4242C" stroke-width="1.5" stroke-dasharray="2,2"/>
+          <circle cx="380" cy="215" r="5" fill="#A4242C" stroke="#0F2742" stroke-width="1.5"/>
+          <text x="380" y="310" text-anchor="middle" font-weight="600">2027 Capex 指引</text>
+          <text x="380" y="323" text-anchor="middle" fill="#6B6052">1-2/27</text>
+
+          <line x1="470" y1="215" x2="470" y2="260" stroke="#C68E17" stroke-width="1" stroke-dasharray="2,2"/>
+          <circle cx="470" cy="215" r="4" fill="#C68E17" stroke="#0F2742" stroke-width="1.5"/>
+          <text x="470" y="275" text-anchor="middle">OpenAI IPO</text>
+          <text x="470" y="288" text-anchor="middle" fill="#6B6052">推迟至~2027</text>
+
+          <line x1="650" y1="215" x2="650" y2="260" stroke="#A4242C" stroke-width="1" stroke-dasharray="2,2"/>
+          <circle cx="650" cy="215" r="4" fill="#A4242C" stroke="#0F2742" stroke-width="1.5"/>
+          <text x="650" y="275" text-anchor="middle">Fed Pivot</text>
+          <text x="650" y="288" text-anchor="middle" fill="#6B6052">~Q3'27</text>
+
+          <line x1="780" y1="215" x2="780" y2="260" stroke="#2D6B3F" stroke-width="1" stroke-dasharray="2,2"/>
+          <circle cx="780" cy="215" r="4" fill="#2D6B3F" stroke="#0F2742" stroke-width="1.5"/>
+          <text x="780" y="275" text-anchor="middle">SPX Bottom</text>
+          <text x="780" y="288" text-anchor="middle" fill="#6B6052">~Q3'28</text>
+        </g>
+
+        <g stroke="#0F2742" stroke-width="2" fill="none" opacity="0.7">
+          <path d="M 40,100 Q 110,95 180,90 T 320,95 Q 380,105 440,125 T 560,150 Q 620,165 680,178 T 800,168 L 840,158"/>
+        </g>
+        <text x="60" y="85" font-family="JetBrains Mono, monospace" font-size="9" fill="#6B6052">SPX 路径示意</text>
+
+        <circle cx="320" cy="95" r="6" fill="#A4242C"/>
+        <text x="320" y="75" text-anchor="middle" font-family="Fraunces, serif" font-size="11" font-style="italic" fill="#A4242C" font-weight="600">TOP 7,800-8,200</text>
+
+        <circle cx="780" cy="168" r="6" fill="#2D6B3F"/>
+        <text x="788" y="178" text-anchor="start" font-family="Fraunces, serif" font-size="11" font-style="italic" fill="#2D6B3F" font-weight="600">底部</text>
+
+        <line x1="35" y1="20" x2="35" y2="420" stroke="#0F2742" stroke-width="2"/>
+        <text x="35" y="15" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="12" fill="#0F2742" font-weight="600">NOW · 7/4</text>
+        <text x="48" y="115" text-anchor="start" font-family="JetBrains Mono, monospace" font-size="9" fill="#C68E17">7,483</text>
+      </svg>
+    </div>
+
+    <h3><span class="num">·</span>关键变化：分配过程提前，近端日历更密集</h3>
+    <p>相比 6/20 版本，未来 8 周新增了两个此前没有纳入的近端催化剂：<b>6 月 CPI</b>（预计 7 月中旬发布，是验证"5 月核心 CPI 降温是否延续"的关键点）和 <b>7 月 24 日 10% 全球关税到期</b>（现行 Section 122 关税授权到期，USTR 已在推进两项替代性 301 调查，覆盖 16 国产能过剩与 60 个经济体强迫劳动问题，大概率无缝衔接新一轮关税）。这两个日期恰好卡在 M7 二季度财报季和 NVDA 8 月财报之间，让 7-8 月的日历比 6/20 时预想的更加密集。</p>
+  </section>
+
+  <!-- ============ SECTION IV: SCENARIOS ============ -->
+  <section class="section">
+    <div class="section-num">IV · SCENARIOS</div>
+    <h2 class="section-title">三种顶部路径 · 概率更新</h2>
+    <p class="section-dek">续命情景降温，分配情景升级为"正在发生"，失控情景新增一条传染路径。</p>
+
+    <div class="scenario-card bull">
+      <div class="scenario-head">
+        <div class="scenario-name">情景 A · Narrative 续命</div>
+        <div class="scenario-prob">概率 <b>25%</b> <span class="delta-down">▼ -10</span></div>
+      </div>
+      <div class="scenario-target">SPX 顶部 <b>7,900 – 8,300</b>（2027 Q1）· 调整深度 SPX -15 至 -20% · Nasdaq -25%</div>
+      <div class="scenario-desc">需要 NVDA 8/27 财报和 Anthropic 10 月上市都显著超预期，同时 6 月 CPI、7/24 关税衔接都不引发新冲击。SpaceX 已从峰值回落 28%、OpenAI 已确认考虑推迟，<b>续命的两个支点都已经开始松动</b>，这条路径的窗口比两周前更窄。</div>
+    </div>
+
+    <div class="scenario-card base">
+      <div class="scenario-head">
+        <div class="scenario-name">情景 B · 缓慢分配（基准，且已在发生）</div>
+        <div class="scenario-prob">概率 <b>50%</b> <span class="delta-up">▲ +5</span></div>
+      </div>
+      <div class="scenario-target">SPX 顶部 <b>7,800 – 8,200</b>（2026 Q4 或 2027 Q1）· 调整深度 SPX -25 至 -30% · Nasdaq -35 至 -45%</div>
+      <div class="scenario-desc">过去两周道指新高、VIX 走低，但半导体/存储/光模块全线重挫——这本身就是这个情景的典型特征：资金从最拥挤赛道撤出，流向防御性资产，指数尚未跟随下跌。<b>这个过程看起来已经从"未来事件"变成"进行中的现实"</b>。真正的指数级顶部大概率仍在 2026 Q4 – 2027 Q1，但"分配"本身已经启动。</div>
+    </div>
+
+    <div class="scenario-card bear">
+      <div class="scenario-head">
+        <div class="scenario-name">情景 C · 传染扩大 + 加息</div>
+        <div class="scenario-prob">概率 <b>25%</b> <span class="delta-up">▲ +5</span></div>
+      </div>
+      <div class="scenario-target">SPX 顶部 <b>7,500 – 7,700</b>（2026 Q4，可能已近）· 调整深度 SPX -32 至 -38% · Nasdaq -45 至 -55%</div>
+      <div class="scenario-desc">新增触发路径：如果 Meta 式的"过剩"表态具有传染性——微软、谷歌、亚马逊在 7 月底财报季也做出类似表态或下修 2027 capex 指引——这个情景的时间表可能从"2026 Q4 财报季"提前到 7 月底 8 月初。另一路径不变：Anthropic/OpenAI 上市破发，或核心通胀重新加速迫使 Fed 真的加息。<b>概率因新触发路径出现而上修</b>。</div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION V: KPI ============ -->
+  <section class="section">
+    <div class="section-num">V · KPI FRAMEWORK</div>
+    <h2 class="section-title">关键指标 · 7/4 刷新</h2>
+    <p class="section-dek">循环融资和二阶导数从"假说"变成"数字"。完整跟踪见配套 Dashboard。</p>
+
+    <h3><span class="num">·</span>已确认触发（本次新增/升级）</h3>
+    <table class="data">
+      <thead><tr><th>指标</th><th>状态</th><th>确认时点</th></tr></thead>
+      <tbody>
+        <tr><td>超大规模云厂商承认算力过剩</td><td class="neg">✓ 新触发</td><td>Meta · 7/1</td></tr>
+        <tr><td>循环融资闭环压力具体化</td><td class="neg">✓ 升级</td><td>Oracle RPO $638B，超5成来自OpenAI · 6/10</td></tr>
+        <tr><td>韩国尖顶</td><td class="neg">✓ 二次确认</td><td>6/23 -10%，7/2 -7.89%</td></tr>
+        <tr><td>A股AI硬件链传染</td><td class="neg">✓ 新触发</td><td>7/2-3 半导体/光模块全线跌超8%</td></tr>
+        <tr><td>OpenAI IPO 时间表松动</td><td class="warn">✓ 新触发</td><td>NYT 6/26 · 推迟至2027</td></tr>
+      </tbody>
+    </table>
+
+    <h3><span class="num">·</span>已缓解（暂移出警戒）</h3>
+    <table class="data">
+      <thead><tr><th>指标</th><th>状态</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>Anthropic 出口管制风险</td><td class="pos">✓ 缓解</td><td>6/30 商务部解除，7/1 完整恢复</td></tr>
+        <tr><td>地缘/油价</td><td class="pos">✓ 延续缓解</td><td>布伦特续跌至~$72，续验证</td></tr>
+      </tbody>
+    </table>
+
+    <h3><span class="num">·</span>新增维度（本次认知升级）</h3>
+
+    <div class="ind-grid">
+      <div class="ind-card">
+        <div class="ind-label">新增 · 措辞信号</div>
+        <div class="ind-title">"过剩"类表述的传染</div>
+        <div class="ind-desc">跟踪微软/谷歌/亚马逊在 7 月底财报季是否出现类似"过剩""供给追上需求"的表述，而非仅看 capex 数字本身。</div>
+        <div class="ind-trig">▲ 任一 M7 成员做出类似表态 = 情景 C 加速</div>
+      </div>
+      <div class="ind-card">
+        <div class="ind-label">新增 · 系统性判别</div>
+        <div class="ind-title">VIX / 大盘 vs AI 硬件的背离</div>
+        <div class="ind-desc">只要 VIX 维持低位、道指/标普不跟随 AI 硬件下跌，说明仍是局部拥挤交易出清，而非系统性顶部。</div>
+        <div class="ind-trig">▲ VIX 突破 25 或道指开始同步下跌 = 性质转变</div>
+      </div>
+      <div class="ind-card">
+        <div class="ind-label">近端 · 政策</div>
+        <div class="ind-title">7/24 关税衔接 + 6月CPI</div>
+        <div class="ind-desc">10% 全球关税到期，两项替代性 301 调查最终方案预计 7 月出炉；6 月 CPI（约 7/14）验证核心通胀降温是否延续。</div>
+        <div class="ind-trig">▲ 关税衔接方案超预期严厉 + CPI 反弹 = 双重杀估值</div>
+      </div>
+      <div class="ind-card">
+        <div class="ind-label">最高优先 · 单一事件</div>
+        <div class="ind-title">NVDA Q2 FY27 财报（8/27）</div>
+        <div class="ind-desc">重要性不降反升。重点：DC 营收 YoY 增速、毛利率是否继续下滑、公司是否也开始使用"过剩"相关措辞。</div>
+        <div class="ind-trig">▲ 毛利率 &lt; 71% 或管理层措辞转向 = 顶部确认</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION VI: ALLOCATION ============ -->
+  <section class="section">
+    <div class="section-num">VI · ALLOCATION</div>
+    <h2 class="section-title">持仓建议 · 微调</h2>
+    <p class="section-dek">"分配已经在发生"意味着节奏不宜再放缓，防御部署可小幅提前。</p>
+
+    <p><b>关键变化：</b>6/20 报告因"顶部推后"把防御节奏放缓，但过去两周的证据显示，分配/轮动过程本身已经启动，<mark class="note">因此防御部署的节奏应该从"放缓"调回"按计划推进"，而非进一步延后</mark>。个股层面，此前对腾讯/拼多多"维持核心仓位"的判断不变，但需要接受"打底"还需要时间验证，不宜把当前价位当作绝对底部。</p>
+
+    <table class="alloc-table">
+      <thead>
+        <tr><th>时点</th><th>BRK/防御</th><th>美 AI/Tech</th><th>HK 腾讯/PDD</th><th>周期/材料</th><th>现金/短债</th><th>BTC</th></tr>
+      </thead>
+      <tbody>
+        <tr class="phase-row"><td colspan="7">现在 · 2026 年 7 月（分配已启动，节奏调回正常）</td></tr>
+        <tr><td>现在</td><td>15-20%</td><td>20-25%</td><td>25-30%</td><td>0-5%</td><td>20-25%</td><td>3-5%</td></tr>
+        <tr class="phase-row"><td colspan="7">阶段 · 2026 Q3（7/24关税、6月CPI、M7财报、NVDA财报密集期）</td></tr>
+        <tr><td>NVDA 财报后</td><td>25-30%</td><td>12-18%</td><td>25%</td><td>0-5%</td><td>22-27%</td><td>3-5%</td></tr>
+        <tr class="phase-row"><td colspan="7">阶段 · 2026 Q4（Anthropic IPO 是决策点）</td></tr>
+        <tr><td>2026 Q4</td><td>35-40%</td><td>8-12%</td><td>18-20%</td><td>5%</td><td>25-30%</td><td>2-4%</td></tr>
+        <tr class="phase-row"><td colspan="7">阶段 · 2027 Q1-Q3（顶部确认 + 加速下行）</td></tr>
+        <tr><td>2027 Q1</td><td>50-60%</td><td>5-10%</td><td>15%</td><td>5%</td><td>20-25%</td><td>0%</td></tr>
+        <tr><td>2027 Q2-Q3</td><td>50%</td><td>0-5%</td><td>10-15%</td><td>5-10%</td><td>25%</td><td>0-3%</td></tr>
+        <tr class="phase-row"><td colspan="7">阶段 · 2027 Q4 – 2028（底部 + Fed Pivot）</td></tr>
+        <tr><td>2028 Q2</td><td>20%</td><td>40%</td><td>20%</td><td>15%</td><td>0%</td><td>5%</td></tr>
+      </tbody>
+    </table>
+
+    <h3><span class="num">·</span>个股层面</h3>
+    <p><b>腾讯 / 拼多多</b>：维持核心仓位，但把"已打底"改为"跌得慢，还没跌完"。腾讯逼近 52 周低点 411 港元，估值继续消化，尚未看到止跌信号；港股在这两周风险偏好回落中依然是全球跌幅最小的市场之一，防御属性成立，只是不宜过早定性为绝对底部。</p>
+    <p><b>算力硬件二三线（CoreWeave/Nebius 类、存储芯片）</b>：这次冲击的震中，如果此前有配置，应优先减持——Meta 直接下场做竞争对手，是结构性利空，不是情绪性错杀。</p>
+    <p><b>英伟达</b>：相对抗跌，但"最后一环"的地位意味着一旦二三线开始出清完毕，压力会最终传导过来。8/27 财报是决定性验证点，不建议在此之前加仓。</p>
+    <p><b>Bitcoin</b>：延续"流动性驱动、非风险偏好驱动"判断。6 月创近 4 年最差单月表现，但 7 月 3 日在弱就业数据后反弹至 6.2 万美元上方，说明它目前对"Fed 是否转向"比对"股市涨跌"更敏感。维持耐心，等待更明确的 Fed 转向信号。</p>
+  </section>
+
+  <!-- ============ SECTION VII: RISKS ============ -->
+  <section class="section">
+    <div class="section-num">VII · RISKS TO VIEW</div>
+    <h2 class="section-title">这个推演什么时候会被推翻</h2>
+    <p class="section-dek">未来 8 周（正好覆盖7/24关税、6月CPI、M7财报、NVDA财报）是关键验证窗口。</p>
+
+    <div class="risk-box">
+      <h3>推翻信号 · 双向</h3>
+      <ol>
+        <li><b>向上推翻（顶部更高更晚）：</b>NVDA 8/27 财报毛利率与 DC 增速均超预期，且管理层明确否认存在"过剩"迹象；Anthropic 10 月上市首日站稳估值且 30 天不破发 → narrative 重新点燃,顶部上看 8,500+。</li>
+        <li><b>向上推翻：</b>M7 在 7 月底财报季将 2027 capex 指引意外上调，明确反驳"过剩"叙事 → 情景 A 概率重新上修。</li>
+        <li><b>向下推翻（顶部更早更深，情景C加速）：</b>微软/谷歌/亚马逊任一家在 7 月底财报中出现类似 Meta 的"过剩"表态，或下修 2027 capex 指引 &gt;15% → 传染确认，可能直接触发系统性重估。</li>
+        <li><b>向下推翻：</b>VIX 突破 25 或道指开始与半导体股同步下跌 → 说明局部出清已演变为系统性风险,判断需立即升级。</li>
+        <li><b>向下推翻：</b>核心 CPI（6月，~7/14公布）重新加速，叠加 7/24 关税衔接方案超预期严厉 → 双重杀估值，Fed 加息概率回升。</li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="asterism">⁂</div>
+
+  <section class="section">
+    <div class="section-num">CONCLUSION</div>
+    <h2 class="section-title">三个 actionable 结论</h2>
+    <p><b>1 · 性质判断。</b>这是一次局部拥挤交易的出清，不是系统性顶部——判断依据是道指新高、VIX 仍低、资金转向防御而非流出股市。但"分配"过程本身已经从"未来事件"变成"进行中的现实"，情景 B 概率升至 50%。</p>
+    <p><b>2 · 资产配置。</b>防御部署节奏从"可放缓"调回"按计划推进"（现在 15-20% → 2026 Q4 提升到 35-40%）。算力硬件二三线（CoreWeave/Nebius 类、存储芯片）是这次冲击的震中，应优先减持；英伟达和腾讯/拼多多维持相对靠后减仓的位置，但不宜将当前价位视为绝对底部。</p>
+    <p><b>3 · 跟踪机制。</b>未来 8 周四个关键验证点：(1) 6 月 CPI（~7/14）与 7/24 关税衔接，(2) M7 7 月底财报是否出现"过剩"类表态传染，(3) NVDA 8/27 财报的毛利率与措辞，(4) VIX 与大盘指数是否开始跟随 AI 硬件同步下跌——任一项恶化都意味着情景 C 概率需要进一步上修。</p>
+  </section>
+
+  <footer class="footer">
+    <div class="seal">投研鸭 · Touyan Duck</div>
+    <p>报告编号 · 2026-07-04-MS-003<br>
+    制作日期 · 2026 年 7 月 4 日<br>
+    前序报告 · 2026-06-07-MS-001 · 2026-06-20-MS-002<br>
+    数据截止 · 2026 年 7 月 2 日美股收盘 / 7 月 3 日亚太市场收盘（7/3-7/4 美股因独立日休市）<br>
+    <br>
+    本报告基于公开数据与建模推演，不构成投资建议。所有 thesis 均带有概率分布，请配合 KPI Dashboard 使用并定期校准。本次为 6/20 推演的复盘与校准版本。</p>
+  </footer>
+
+</div>
+</body>
+</html>
