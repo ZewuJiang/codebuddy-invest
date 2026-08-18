@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宏观推演 · 2026年8月16日 | 投研鸭 Strategy Note No.2026-08-16-MS-006</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Public+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Serif+SC:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0F2742; --ink-soft: #1F3A5F; --gold: #B89770; --gold-deep: #8C6E47;
+    --paper: #F8F4ED; --paper-warm: #F2EBD9; --paper-edge: #E8DFC9;
+    --charcoal: #2A2A2A; --muted: #6B6052; --red: #A4242C; --green: #2D6B3F;
+    --amber: #C68E17; --rule: #C9B996; --blue: #1F4E79;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--paper); color: var(--charcoal);
+    font-family: 'Public Sans', 'Noto Sans SC', sans-serif;
+    font-weight: 400; line-height: 1.65; font-size: 15px; -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 940px; margin: 0 auto; padding: 0 56px; background: var(--paper);
+    background-image:
+      radial-gradient(ellipse at top left, rgba(184,151,112,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse at bottom right, rgba(15,39,66,0.025) 0%, transparent 60%);
+  }
+  .masthead { border-bottom: 2px solid var(--ink); padding: 48px 0 24px; position: relative; }
+  .masthead::after { content:""; position:absolute; bottom:-7px; left:0; right:0; height:1px; background:var(--ink); }
+  .meta-row {
+    display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:11px;
+    letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:36px;
+  }
+  .meta-row .classification { color: var(--red); font-weight: 600; }
+  .pub-title {
+    font-family:'Fraunces','Noto Serif SC',serif; font-weight:300; font-size:14px;
+    letter-spacing:0.35em; color:var(--muted); text-transform:uppercase; margin-bottom:8px;
+  }
+  .pub-title b { color: var(--gold-deep); font-weight: 600; }
+  .report-title {
+    font-family:'Fraunces','Noto Serif SC',serif; font-weight:400; font-size:44px;
+    line-height:1.15; letter-spacing:-0.02em; color:var(--ink); margin-bottom:18px;
+  }
+  .report-title .accent { font-style: italic; color: var(--gold-deep); font-weight: 400; }
+  .report-subtitle {
+    font-family:'Fraunces',serif; font-style:italic; font-weight:300; font-size:19px;
+    color:var(--muted); line-height:1.5; max-width:760px; margin-bottom:24px;
+  }
+  .byline {
+    font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.18em;
+    text-transform:uppercase; color:var(--muted); display:flex; gap:32px;
+    padding-top:16px; border-top:1px solid var(--rule); flex-wrap:wrap;
+  }
+  .byline span b { color: var(--ink); font-weight: 600; }
+  .takeaway {
+    background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper-edge) 100%);
+    border-left:4px solid var(--gold); padding:32px 36px; margin:40px 0; position:relative;
+  }
+  .takeaway::before {
+    content:"EXECUTIVE TAKE · 8/16 UPDATE"; position:absolute; top:-10px; left:28px;
+    background:var(--paper); padding:0 12px; font-family:'JetBrains Mono',monospace;
+    font-size:10px; letter-spacing:0.25em; color:var(--gold-deep); font-weight:600;
+  }
+  .takeaway-lead {
+    font-family:'Fraunces','Noto Serif SC',serif; font-weight:400; font-size:21px;
+    line-height:1.5; color:var(--ink); margin-bottom:16px;
+  }
+  .takeaway-lead em { font-style: italic; color: var(--gold-deep); }
+  .takeaway p { font-size: 14.5px; color: var(--charcoal); margin-bottom: 10px; }
+  .section { margin: 56px 0 0; padding-top: 40px; border-top: 1px solid var(--rule); }
+  .section:first-of-type { border-top: none; padding-top: 0; }
+  .section-num {
+    font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.3em;
+    color:var(--gold-deep); font-weight:600; margin-bottom:12px;
+  }
+  .section-title {
+    font-family:'Fraunces','Noto Serif SC',serif; font-weight:500; font-size:32px;
+    line-height:1.2; color:var(--ink); margin-bottom:8px; letter-spacing:-0.01em;
+  }
+  .section-dek {
+    font-family:'Fraunces',serif; font-style:italic; font-weight:300; font-size:17px;
+    color:var(--muted); margin-bottom:32px; line-height:1.5;
+  }
+  .section h3 {
+    font-family:'Fraunces','Noto Serif SC',serif; font-weight:600; font-size:19px;
+    color:var(--ink); margin:32px 0 12px;
+  }
+  .section h3 .num {
+    font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--gold-deep);
+    margin-right:12px; font-weight:500;
+  }
+  .section p { margin-bottom: 16px; color: var(--charcoal); }
+  .section p b { color: var(--ink); font-weight: 600; }
+  .drop-cap::first-letter {
+    font-family:'Fraunces',serif; font-size:64px; line-height:0.85; font-weight:400;
+    float:left; color:var(--ink); margin:6px 10px 0 0; padding:4px 6px 0 0;
+  }
+  .pullquote {
+    margin:32px 0; padding:24px 0; border-top:2px solid var(--ink);
+    border-bottom:2px solid var(--ink); text-align:center;
+  }
+  .pullquote q {
+    font-family:'Fraunces','Noto Serif SC',serif; font-weight:400; font-style:italic;
+    font-size:22px; line-height:1.4; color:var(--ink); quotes:"\201C" "\201D" "\2018" "\2019";
+  }
+  .pullquote-attr {
+    font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.2em;
+    text-transform:uppercase; color:var(--muted); margin-top:12px; display:block;
+  }
+  table.data { width:100%; border-collapse:collapse; margin:24px 0; font-size:13px; }
+  table.data th {
+    text-align:left; font-family:'JetBrains Mono',monospace; font-size:10px;
+    letter-spacing:0.1em; text-transform:uppercase; color:var(--ink); font-weight:600;
+    padding:10px 12px; border-bottom:2px solid var(--ink); background:rgba(184,151,112,0.06);
+  }
+  table.data td { padding:10px 12px; border-bottom:1px solid var(--rule); vertical-align:top; }
+  table.data tr:last-child td { border-bottom: 2px solid var(--ink); }
+  table.data .num { font-family:'JetBrains Mono',monospace; text-align:right; font-variant-numeric:tabular-nums; }
+  table.data .pos { color: var(--green); font-weight: 500; }
+  table.data .neg { color: var(--red); font-weight: 500; }
+  table.data .warn { color: var(--amber); font-weight: 500; }
+  table.data tr.hi td { background: rgba(45,107,63,0.05); }
+  table.data tr.lo td { background: rgba(164,36,44,0.04); }
+  .timeline { margin: 36px 0; padding: 24px 0; }
+  .tl-svg { width: 100%; height: auto; display: block; }
+  .scenario-card {
+    background:var(--paper-warm); border:1px solid var(--rule); padding:24px 28px;
+    margin:16px 0; border-left:4px solid var(--ink);
+  }
+  .scenario-card.bull { border-left-color: var(--green); }
+  .scenario-card.bear { border-left-color: var(--red); }
+  .scenario-card.base { border-left-color: var(--gold); }
+  .scenario-card.newpath { border-left-color: var(--blue); }
+  .scenario-head { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:12px; gap:16px; }
+  .scenario-name { font-family:'Fraunces',serif; font-weight:600; font-size:18px; color:var(--ink); }
+  .scenario-prob { font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.1em; color:var(--muted); white-space:nowrap; }
+  .scenario-prob b { color: var(--ink); font-size: 16px; }
+  .scenario-prob .delta-up { color: var(--green); font-size: 11px; }
+  .scenario-prob .delta-down { color: var(--red); font-size: 11px; }
+  .scenario-prob .delta-flat { color: var(--muted); font-size: 11px; }
+  .scenario-target { font-family:'JetBrains Mono',monospace; font-size:12.5px; margin:8px 0; font-variant-numeric:tabular-nums; }
+  .scenario-desc { font-size: 13.5px; line-height: 1.55; }
+  .ind-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:24px 0; }
+  .ind-card { border:1px solid var(--rule); padding:16px 20px; background:rgba(255,255,255,0.4); }
+  .ind-card .ind-label {
+    font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.15em;
+    text-transform:uppercase; color:var(--gold-deep); margin-bottom:6px;
+  }
+  .ind-card .ind-title { font-family:'Fraunces',serif; font-weight:500; font-size:16px; color:var(--ink); margin-bottom:6px; }
+  .ind-card .ind-desc { font-size: 12.5px; line-height: 1.5; }
+  .ind-card .ind-trig {
+    font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--red);
+    margin-top:6px; padding-top:6px; border-top:1px dotted var(--rule);
+  }
+  .alloc-table { width:100%; border-collapse:collapse; margin:24px 0; font-size:12.5px; }
+  .alloc-table th {
+    background:var(--ink); color:var(--paper); font-family:'JetBrains Mono',monospace;
+    font-size:9.5px; letter-spacing:0.08em; padding:10px 6px; text-align:center; font-weight:600;
+  }
+  .alloc-table th:first-child { text-align: left; }
+  .alloc-table td {
+    padding:9px 6px; border-bottom:1px solid var(--rule); text-align:center;
+    font-family:'JetBrains Mono',monospace; font-variant-numeric:tabular-nums;
+  }
+  .alloc-table td:first-child { text-align:left; font-family:'Public Sans',sans-serif; font-weight:500; color:var(--ink); }
+  .alloc-table .phase-row td {
+    background:var(--paper-warm); font-family:'Fraunces',serif; font-style:italic;
+    text-align:left; color:var(--gold-deep); font-size:11.5px; letter-spacing:0.05em;
+    padding:6px 8px; border-top:2px solid var(--gold);
+  }
+  .risk-box {
+    background:linear-gradient(135deg,#2A1518 0%,#3F1F23 100%); color:#F8F4ED;
+    padding:32px 36px; margin:32px 0; position:relative;
+  }
+  .risk-box::before { content:"▲"; position:absolute; top:24px; right:28px; font-size:28px; color:var(--red); opacity:0.6; }
+  .risk-box h3 { font-family:'Fraunces',serif; color:var(--paper); font-size:22px; margin-bottom:16px; font-weight:500; }
+  .risk-box ol { margin:0; padding-left:20px; font-size:13.5px; line-height:1.7; }
+  .risk-box ol li { margin-bottom:10px; color:rgba(248,244,237,0.92); }
+  .risk-box b { color: var(--gold); font-weight: 600; }
+  .retro-box {
+    background:linear-gradient(135deg,#11261A 0%,#16331F 100%); color:#F0F5F0;
+    padding:32px 36px; margin:32px 0; position:relative;
+  }
+  .retro-box::before {
+    content:"✓ / ✗"; position:absolute; top:22px; right:28px; font-size:20px;
+    font-family:'JetBrains Mono',monospace; color:var(--green); opacity:0.7;
+  }
+  .retro-box h3 { font-family:'Fraunces',serif; color:var(--paper); font-size:22px; margin-bottom:16px; font-weight:500; }
+  .retro-item { display:grid; grid-template-columns:76px 1fr; gap:16px; padding:12px 0; border-bottom:1px solid rgba(240,245,240,0.12); align-items:start; }
+  .retro-item:last-child { border-bottom: none; }
+  .retro-verdict {
+    font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.1em; font-weight:600;
+    padding:3px 7px; text-align:center; white-space:nowrap; height:fit-content;
+  }
+  .retro-verdict.hit { background:rgba(74,222,128,0.15); color:#4ADE80; border:1px solid #4ADE80; }
+  .retro-verdict.miss { background:rgba(248,113,113,0.15); color:#F87171; border:1px solid #F87171; }
+  .retro-verdict.partial { background:rgba(255,200,87,0.15); color:#FFC857; border:1px solid #FFC857; }
+  .retro-item p { font-size:13px; color:rgba(240,245,240,0.9); margin:0; line-height:1.5; }
+  .retro-item p b { color: #fff; }
+  .insight-box {
+    background:linear-gradient(135deg,#0F2742 0%,#1F4E79 100%); color:#EEF4FA;
+    padding:32px 36px; margin:32px 0; position:relative;
+  }
+  .insight-box::before {
+    content:"▎FRAMEWORK"; position:absolute; top:22px; right:28px;
+    font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.2em;
+    color:var(--gold); opacity:0.85; font-weight:600;
+  }
+  .insight-box h3 { font-family:'Fraunces',serif; color:#fff; font-size:22px; margin-bottom:14px; font-weight:500; }
+  .insight-box p { font-size:13.5px; color:#E6EEF7; margin-bottom:12px; line-height:1.65; }
+  .insight-box p:last-child { margin-bottom: 0; }
+  .insight-box b,
+  .insight-box p b,
+  .insight-box strong,
+  .insight-box p strong { color: #E8C87A; font-weight: 600; }
+  .insight-box .gate-rule b,
+  .insight-box .gate-rule strong { color: #F0D48A; }
+  .insight-box h3 b { color: #fff; }
+  .risk-box b, .risk-box p b, .risk-box li b, .risk-box ol li b { color: var(--gold); font-weight: 600; }
+  .retro-box b, .retro-box p b { color: #fff; font-weight: 600; }
+  .insight-box mark.note,
+  .risk-box mark.note,
+  .retro-box mark.note {
+    background: rgba(232, 200, 122, 0.18); color: #FBF3E2;
+    border-bottom: 1px solid #E8C87A; padding: 1px 4px; font-weight: 500;
+  }
+  .insight-box .gate-rule {
+    font-family:'JetBrains Mono',monospace; font-size:12px; background:rgba(0,0,0,0.22);
+    border-left:3px solid #E8C87A; padding:14px 18px; margin:14px 0; line-height:1.8; color:#F5EEDC;
+  }
+  .event-list { margin: 24px 0; }
+  .event-item {
+    display:grid; grid-template-columns:110px 1fr; gap:24px; padding:18px 0;
+    border-bottom:1px solid var(--rule); align-items:start;
+  }
+  .event-item:last-child { border-bottom: none; }
+  .event-date {
+    font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--ink); font-weight:600; padding-top:2px;
+  }
+  .event-date .day {
+    font-family:'Fraunces',serif; font-size:26px; display:block; color:var(--gold-deep);
+    font-style:italic; margin-bottom:2px;
+  }
+  .event-body h4 { font-family:'Fraunces',serif; font-weight:600; font-size:16px; color:var(--ink); margin:0 0 4px; }
+  .event-body p { font-size: 13.5px; margin: 0; }
+  .kshape { display:grid; grid-template-columns:1fr 1fr; gap:0; margin:24px 0; border:1px solid var(--rule); }
+  .kshape-col { padding: 20px 24px; }
+  .kshape-col.up { background: rgba(45,107,63,0.06); border-right: 1px solid var(--rule); }
+  .kshape-col.down { background: rgba(164,36,44,0.05); }
+  .kshape-label {
+    font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.15em;
+    text-transform:uppercase; margin-bottom:10px; font-weight:600;
+  }
+  .kshape-col.up .kshape-label { color: var(--green); }
+  .kshape-col.down .kshape-label { color: var(--red); }
+  .kshape-col ul { list-style: none; }
+  .kshape-col li { font-size:13px; padding:6px 0; border-bottom:1px dotted var(--rule); }
+  .kshape-col li:last-child { border-bottom: none; }
+  .kshape-col li b { color: var(--ink); }
+  .footer {
+    margin-top:80px; padding:32px 0 56px; border-top:2px solid var(--ink);
+    font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.1em;
+    color:var(--muted); line-height:1.7;
+  }
+  .footer .seal { font-family:'Fraunces',serif; font-style:italic; color:var(--gold-deep); font-size:16px; margin-bottom:12px; letter-spacing:0; }
+  .asterism { text-align:center; margin:40px 0; font-family:'Fraunces',serif; color:var(--gold); font-size:18px; letter-spacing:1em; }
+  mark.note {
+    background:rgba(198,142,23,0.15); color:var(--charcoal); padding:1px 4px;
+    border-bottom:1px solid var(--amber); font-weight:500;
+  }
+  .fignote { font-size:12px; color:var(--muted); margin-top:-8px; margin-bottom:20px; }
+  @media print {
+    body { background: white; }
+    .page { padding: 0 40px; }
+    .risk-box, .retro-box, .insight-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+  @media (max-width: 760px) {
+    .page { padding: 0 24px; }
+    .report-title { font-size: 30px; }
+    .ind-grid { grid-template-columns: 1fr; }
+    .event-item { grid-template-columns: 76px 1fr; gap: 14px; }
+    .retro-item { grid-template-columns: 62px 1fr; gap: 12px; }
+    .kshape { grid-template-columns: 1fr; }
+    .scenario-head { flex-direction: column; gap: 4px; }
+    table.data { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══════════════════ MASTHEAD ═══════════════════ -->
+<div class="masthead">
+  <div class="meta-row">
+    <span>投研鸭 STRATEGY NOTE · No. 2026-08-16-MS-006</span>
+    <span class="classification">INTERNAL · 仅供内部讨论</span>
+  </div>
+  <div class="pub-title">投研鸭 · <b>Touyan Duck</b> Macro</div>
+  <h1 class="report-title">门禁，<span class="accent">被绕过去了。</span><br>而不是被通过。</h1>
+  <p class="report-subtitle">
+    两周之内：标普 500 以 7,798.99 刷新历史收盘纪录、盘中触及 7,816.70，直接击穿 8/2 推演给出的 7,600–7,900 顶部带；7 月 CPI 回落至 3.4%、核心 2.5%（2021 年 3 月以来最低），我们判定为"单一最重要宏观事件"的 8/12 考卷交出了与预判完全相反的答案；7 月非农 −2.3 万、5–6 月合计下修 10.3 万、零售 −0.6%、密大信心 51.0，需求端第一次真正裂开；英伟达 8/10 联合六家华尔街巨头搭建 <b>5,000 亿美元</b>算力融资平台，把资本开支从自己的资产负债表挪进第三方；腾讯自由现金流 −138 亿、股价 −4.46%，长鑫科技市值超越腾讯成为中国第一；DeepSeek、智谱、月之暗面集体<b>涨价</b>。这是 8/2 推演的第五次实盘复盘，也是本系列迄今<b>被市场纠正得最彻底的一次</b>。
+  </p>
+  <div class="byline">
+    <span>Author · <b>Macro Strategy Desk</b></span>
+    <span>Prev · <b>No. 2026-08-02-MS-005</b></span>
+    <span>Data Cutoff · <b>2026-08-15</b>（美股末次交易日 08-14）</span>
+    <span>Version · <b>v1</b></span>
+  </div>
+</div>
+
+<!-- ═══════════════════ EXECUTIVE TAKE ═══════════════════ -->
+<div class="takeaway">
+  <p class="takeaway-lead">
+    8 月 13 日，标普 500 收于 <em>7,798.99</em>，盘中最高 7,816.70，同时 VIX 盘中最低 <em>14.39</em>——年内最低。两周前我们写下"指数高点已在身后（SPX 7,57x · 7/15）的概率 40%"。这个判断在十一天里被完全证伪，而且是<b>被最不可能的方式证伪的</b>：不是靠估值扩张，是靠 EPS。
+  </p>
+  <p>
+    <b>被证伪的不是方向，是变量的相对权重。</b> 8/2 报告把 7,600–7,900 的顶部带建立在"远期 PE 20.4x × EPS 372"上。两周内 EPS 那一项被系统性上修：摩根大通把 2026 年标普 EPS 从 358 上调至 <b>365</b>（同比 +35%）、2027 年至 420，目标位 7,800→8,000；至少 7 家投行给出年底 8,000。<mark class="note">当分母以 35% 的速度上修时，任何基于静态 EPS 的"估值天花板"都会在两个季度内自动失效。</mark>这是本系列"方向对、时间早"这一系统性偏误的<b>数学根源</b>，第一次被精确定位。
+  </p>
+  <p>
+    <b>被证伪最彻底的是"AI 通胀税→CPI"这条链。</b> 7 月 CPI 环比 +0.1%、同比 3.4%，核心环比 +0.2%、同比 <b>2.5%</b>（追平 2021 年 3 月以来最低）；7 月 PPI 同比 4.7%（预期 4.9%、前值 5.5%），环比持平。能源分项环比 −1.5%、汽油 −2.9%。9 月加息定价从 7/29 后的约 60% 一路降至 <b>约 32%</b>，年内加息已不再被完全定价。但机制没有错，<b>错的是传导口径</b>：AI 成本冲击没有进入价格指数，它进入了<b>销量</b>——全球智能手机 Q2 出货同比 −7~11%（2013 年以来同期最低），全年预测 −14%；存储占手机 BOM 从 2025Q1 的约 13% 升至 2026Q3 预计 <b>43%</b>；惠普把 16GB 标配砍成 8GB；微软 8/1 起 Xbox 涨价 100–150 美元并停产 2TB 版。<b>我们把"AI 通胀税"更名为"AI 挤出税"：它的读数在出货量、零售销售（−0.6%）与消费者信心（51.0）里，不在 CPI 里。</b>
+  </p>
+  <p>
+    <b>而真正的框架升级来自 8 月 10 日。</b> 英伟达与阿波罗、黑石、贝莱德、Brookfield、高盛、KKR 签署谅解备忘录，设立独立算力融资平台，目标动员 <b>逾 5,000 亿美元</b>第三方资本为其客户购买算力融资；黄仁勋同日发文《AI Factory Compute Is Becoming an Investable Asset Class》。与此同时：亚马逊明确新云合同定价将反映当前存储/硬盘/SSD 成本；微软自 FY27 起把数据中心折旧年限由 15 年延长至 25 年、并把部分租赁由融资租赁转为经营租赁（不计入 capex）；腾讯在报表里同时披露 −138 亿的自由现金流与"剔除算力预付款后 +376 亿"。<mark class="note">FCF 门禁没有被通过，它被绕过去了。</mark>资本开支正在从利润表与现金流量表，迁移到第三方资产负债表、租赁结构与折旧假设里。<b>这意味着股权市场的 FCF 信号作为预警指标的有效性正在被系统性稀释——信贷市场与表外承诺规模，从此是唯一可靠的读数。</b>
+  </p>
+  <p>
+    <b>第二个必须记住的发现是盈利质量。</b> 标普 500 二季度 EPS 同比表观 +45%（FactSet 追踪 47.4%），剔除科技巨头股权投资的一次性收益后为 +26%；美银口径剔除 Alphabet 与亚马逊投资收益后 +30%、超预期比例 76%（2021 年以来最高）。但高盛数据显示，<b>超大市值科技公司"其他收入"占 GAAP 利润比重已升至 61%</b>——Alphabet 单季其他收入约 980 亿、亚马逊约 530 亿，主要来自所持私有 AI 公司股权的<b>未实现增值</b>。Alphabet 一家贡献标普二季度 EPS 增长的约 28%，亚马逊 16%，美光 10%，英伟达约 9%，前十大合计 79%。<mark class="note">云厂投资 AI 初创 → 初创估值上升（Anthropic 9,650 亿→市场推测 2 万亿）→ 云厂计入未实现收益 → 标普 EPS 上修 → 远期 PE 显得便宜 → 指数上涨。</mark>这是 2000 年供应商融资、2007 年 mark-to-model 在 2026 年的会计版本。它不是舞弊，是公允价值会计；但它意味着"这轮上涨是盈利驱动而非估值驱动"这句安慰，<b>本身带有循环性</b>。
+  </p>
+  <p>
+    <b>校准结论：</b>情景 D（效率型分化牛市）<b>10% → 30%</b>，成为与基准并列的主路径；情景 B（高波动平台顶）<b>45% → 35%</b>，顶部带自 7,600–7,900 上修至 <b>7,900–8,300</b>；情景 A（全面续命）<b>15% → 18%</b>；情景 C（传染）<b>30% → 17%</b>，且驱动因子第四次切换——从（融资端／AI 通胀税／央行信誉）切换为 <b>（表外杠杆／盈利质量／需求塌陷）</b>。"高点已在身后"这一子判断按 8/2 定义已被证伪；重设为"<b>8/13 的 7,816.70 即本轮高点</b>"的概率 <b>22%</b>。四维判别器中：维度 1（VIX）反向远离触发（14.39，年内最低）；维度 2（离散度）触发但<b>反了号</b>——7 月是恒指 +13% vs KOSPI −23%，8 月是 KOSPI +22% vs 恒指 −3%；维度 3（融资端）读数缓解而底层恶化，属<b>虚假缓解</b>；维度 4 中日元子项<b>先触发后回吐</b>（164→155→约 160）。
+  </p>
+</div>
+
+<!-- ═══════════════════ 0 · RETROSPECTIVE ═══════════════════ -->
+<div class="section">
+  <div class="section-num">0 · RETROSPECTIVE</div>
+  <h2 class="section-title">8 月 2 日推演的实盘复盘</h2>
+  <p class="section-dek">四条命中，五条失手。这是本系列五期以来命中率最低的一次，也因此信息量最大。</p>
+
+  <div class="retro-box">
+    <h3>Scorecard · 8/2 → 8/16</h3>
+
+    <div class="retro-item">
+      <div class="retro-verdict miss">✗ 重大</div>
+      <p><b>"顶部区间 7,600–7,900，指数高点已在身后概率 40%"</b> — 被完整证伪。8/4 道指首破 54,000 收 54,085.88、标普首破 7,700；8/13 标普收 7,798.99 创历史新高、盘中 7,816.70；纳指 100 收 30,084.50，为 6/30 以来首次站上 30,000。<b>失手的根因不是估值判断错误，而是把 EPS 当成了常数。</b>三法交叉验证里的"方法一"用 EPS 372 计算，两周内共识被上修至 340（高盛）～365（摩根大通），NTM EPS 上移约 4–6%，仅此一项就把合理带整体上抬约 250–400 点。</p>
+    </div>
+
+    <div class="retro-item">
+      <div class="retro-verdict miss">✗ 重大</div>
+      <p><b>"8/12 七月 CPI 是本次推演中单一最重要的宏观事件⋯⋯CPI &gt;4.0% + 9 月加息定价 &gt;70% = C 触发"</b> — 方向完全反了。实际 CPI 同比 3.4%、核心 <b>2.5%</b>（2021/3 以来最低），能源环比 −1.5%；次日 PPI 同比 4.7% 低于预期。9 月加息定价不升反降至 <b>约 32%</b>。<mark class="note">方法论错误已定位：我们用"7 月末布油 $91.04、单月 +31%"这个<b>路径终值</b>去预测一个由<b>月度均值</b>决定的 CPI 能源项——而 7 月布油均价约 83 美元，仍低于 6 月的 84.4 美元。</mark>能源对 7 月 CPI 的贡献仍是负的。终值与均值的混用，是一个可以被永久消除的低级错误。</p>
+    </div>
+
+    <div class="retro-item">
+      <div class="retro-verdict hit">✓ HIT</div>
+      <p><b>"新增黄金 3–5%⋯⋯驱动从实际利率切换为央行信誉，7/31 回落至 $4,041 提供入场点"</b> — 全期最佳单一决策。伦敦金现自 $4,041.18 升至 8/13 前后约 <b>$4,350</b>（期间一度触及 $4,449），区间约 <b>+7.6%</b>，跑赢标普、跑赢能源、跑赢一切风险资产。逻辑与收益同时兑现，且驱动变量的证据在本期进一步加强（见下条）。</p>
+    </div>
+
+    <div class="retro-item">
+      <div class="retro-verdict hit">✓ HIT · 关键</div>
+      <p><b>"短端下行 + 长端飙升 = 央行信誉定价⋯⋯这是抬升整条曲线长端的永久性成本"</b> — 强验证，且验证方式极具信息量。两周内通胀全面降温、9 月加息定价从 60% 砍到 32%、2 年期从 4.28% 降至 <b>4.139%</b>——而 <b>30 年期几乎纹丝不动，8/13 纽约尾盘报 5.214%</b>（7/29 为 5.23%）。同日 250 亿美元 30 年期标售中标 <b>5.216%，2001 年以来最高</b>，投标倍数从 2.44 降至 2.39；前一日 420 亿美元 10 年期标售中标 <b>4.683%，2007 年以来最高</b>，且是 5 月以来首次出现尾部利差。<mark class="note">通胀降了、加息定价塌了、长端没动——这证明长端定价的不是货币政策，是财政供给与央行信誉。8/2 的判断被以最干净的方式证实。</mark></p>
+    </div>
+
+    <div class="retro-item">
+      <div class="retro-verdict hit">✓ HIT</div>
+      <p><b>"存储链结构性换边：从 HBM 龙头换到通用存储弹性"</b> — 继续兑现且强度扩大。8/13 闪迪 <b>+13.67%</b>（5 日累计 +35%，市值 2,277 亿美元）、西部数据 +8.23%、SK 海力士 +7.72%、美光 +5.96%、希捷 +4.18%；美光年内回报约 <b>+208%</b>，以 1.5% 的指数权重贡献标普年内涨幅 1.13 个百分点（英伟达以 6.9% 权重贡献 1.49 个百分点）。SOX 自 7 月低点反弹逾 20%，重回技术性牛市。</p>
+    </div>
+
+    <div class="retro-item">
+      <div class="retro-verdict miss">✗ 反向</div>
+      <p><b>"微软 FY27 约 1,750 亿的'变相下降'是费半的中期利空"</b> — 这条判断的<b>事实前提是错的</b>。该数字的下降来自会计口径变更：自 FY2027 起数据中心与办公楼预计使用寿命由 15 年延长至 25 年，且更多数据中心租赁由融资租赁转为经营租赁（不计入 capex）。管理层同时指引<b>下一财季 capex 超 500 亿美元</b>、FY27 capex 仍将同比增长。<mark class="note">教训：在把一个 capex 指引变化当成产业信号之前，必须先核对它的会计口径。</mark>这条错误直接导致我们低估了 8 月硬件链的反弹幅度。</p>
+    </div>
+
+    <div class="retro-item">
+      <div class="retro-verdict miss">✗ 反向</div>
+      <p><b>"DeepSeek V4 引入峰谷定价⋯⋯意味着推理侧已经出现明确的产能过剩时段"</b> — 读反了。真相是<b>短缺的价格配给</b>而非过剩：月之暗面 7/19 因算力紧张<b>暂停 Kimi 新用户订阅</b>，把有限算力优先给能覆盖成本的 B 端；智谱 2 月 GLM 提价约 30%、3 月累计较去年底提价约 <b>83%</b>；DeepSeek 在 8/13 发布 V4-Pro 正式版的同时<b>公告"近期将大幅涨价"</b>，并自 <b>8 月 17 日 0 时</b>起实施峰谷定价（闲时为高峰半价）。中国 2026Q1 AI 算力需求同比 +417%，供给仅 +128%。<b>在供给受限的市场里，价格分层是短缺信号，不是过剩信号。</b></p>
+    </div>
+
+    <div class="retro-item">
+      <div class="retro-verdict miss">✗ 反向</div>
+      <p><b>"Anthropic 需要在开源已追平上一代旗舰、价格差数倍的环境中，为 9,650 亿美元估值找到买家"</b> — 方向反了。据《财富》与英国《金融时报》报道，Anthropic 计划 <b>10 月上市，市场推测估值 2 万亿美元及以上</b>，将超越 SpaceX 成为史上最大 IPO；6 月 1 日已保密递表，摩根士丹利、高盛、摩根大通牵头。财务侧更关键：年化收入自 2025 年末约 90 亿 → 5 月 470 亿 → 7 月第三方估算逾 600 亿；<b>2026Q2 首次录得调整后经营利润 5.59 亿美元</b>，Q3 GAAP EBIT 预计跨过 10 亿门槛；美国企业付费份额 34.4% 首次超过 OpenAI 的 32.3%。<mark class="note">模型层的货币化被我们严重低估了——这是"17:1 投资回报缺口"这个论据在本期被削弱的最直接原因。</mark></p>
+    </div>
+
+    <div class="retro-item">
+      <div class="retro-verdict partial">~ 修正</div>
+      <p><b>"港股维持相对超配，四支柱在 8 月仍然全部成立"</b> — 只成立了一半。恒指自 25,884.43 回落至 8/14 的 <b>25,116.85（约 −3.0%）</b>，恒生科技 4,829.22→4,707.62（−2.5%），同期标普 +4.0%、日经 +6.8%、KOSPI +22%。腾讯 8/12 财报后 8/13 单日 −4.46% 收 441 港元。<b>四支柱中的"低 AI 硬件 β"在 8 月从优势变成了劣势</b>——当全球资金回补硬件链时，不承担 capex 负担同时意味着不分享 capex 反弹。411 港元的底部判断依然有效，但相对超配的理由已从四条减到三条。</p>
+    </div>
+
+    <div class="retro-item">
+      <div class="retro-verdict partial">~ 修正</div>
+      <p><b>"能源从 3–5% 上调至 5–8%⋯⋯是当前唯一在两种最坏情景下都赚钱的头寸"</b> — 加码时点偏晚。8/4 贝森特称美伊可能"今天或明天"达成重开霍尔木兹的协议，布油一周内跌逾 12%、8/5 一个月来首次跌破 $80；随后因协议久拖不决、胡塞袭击沙特吉赞炼厂、美方威胁"无限期封锁"，油价回升至 8/14 的布油约 $87.2 / WTI 约 $81.6。区间净变动约 <b>−4%</b>。判断依然正确（战争变量只能降权不能移出），但 5–8% 的档位建在了地缘溢价的局部高点上。</p>
+    </div>
+  </div>
+
+  <h3><span class="num">·</span>五个新盲点（本次认知升级）</h3>
+
+  <p><b>盲点 1 · 把风险指标监控到小数点，把盈利修正当成背景。</b> 这是"方向对、时间早"这一系统性偏误的真正根源，五期以来第一次被精确定位。我们对 CDS、FCF、margin debt、隐性债务的跟踪精细到基点与单季，对 EPS 共识修正却只用了一个静态数字。而顶部带的定义是 <code>PE × EPS</code>——当 EPS 以 24%~35% 的速度被上修、且上修广度处于 2021 年以来最高（超预期比例 76%、436 家中 85.1% 超预期 vs 1994 年以来均值 68%）时，PE 压缩的速度根本追不上 EPS 上修的速度。<mark class="note">修正：新增"标普 EPS 共识修正广度与幅度"为<b>与 CDS 同级</b>的一等 KPI。任何顶部区间必须同时给出 EPS 假设与其修正方向，并在 EPS 上修停止的当天重算，而不是每两周重算一次。</mark></p>
+
+  <p><b>盲点 2 · 把会计口径当成产业信号。</b> 微软 FY27 capex "1,750 亿"被我们读成资本纪律与费半中期利空，实为折旧年限 15→25 年 + 融资租赁转经营租赁的口径变更；微软同期指引下一财季 capex 超 500 亿、FY27 同比继续增长。同样的问题在腾讯身上以另一种形式出现：它同时披露 −138 亿的 FCF 与"剔除算力预付款后 +376 亿"，两个数字都是真的，取哪个决定结论。<b>修正：所有 capex/FCF 类 KPI 必须绑定口径校验步骤——折旧年限、租赁分类、预付款处理三项须逐一核对后方可入库。</b></p>
+
+  <p><b>盲点 3 · 成本冲击的传导口径搞错了。</b> 我们预测 AI 通胀税进入 CPI 核心商品项，实际它进入了销量与配置。原因是结构性的：存储在 CPI 中的直接权重极小，而 BLS 的质量调整会把"同价降配"部分吸收；同时能源分项在 7 月仍是负贡献。真实读数在别处——手机出货 Q2 同比 −7~11%（2013 年以来同期最低）、全年预测 −14%；7 月零售销售环比 <b>−0.6%</b>（14 个月最大跌幅）、控制组 −0.4%、电子与家电 −0.5%、线上 −2.2%；密大 8 月初值 <b>51.0</b>（前值 55.2、预期 54.5）。<b>修正：成本冲击进入一个高替代性、强质量调整、低 CPI 权重的品类时，读数在"量"不在"价"。更名为"AI 挤出税"。</b></p>
+
+  <p><b>盲点 4 · 只监控杠杆的"水位"，不监控杠杆的"迁移"。</b> 8/2 报告把融资端风险刻画为 CDS 走阔 + 1.65 万亿隐性债务 + 1,200 亿 SPV。8 月发生的事是：CDS 从 7/29 的 83.7bp 峰值回落至 8/11 的约 73bp（当日 −4bp），<b>而同期英伟达宣布了 5,000 亿美元的表外融资平台</b>。读数改善、底层恶化。<mark class="note">修正：新增规则——当 CDS 下行与表外融资安排公告<b>同时发生</b>时，判定为"虚假缓解"，不得据此下调融资端风险等级。新增"表外融资承诺总额"为维度 3 的必读子项。</mark></p>
+
+  <p><b>盲点 5 · 政治周期完全未建模。</b> 11 月美国中期选举将决定未来两年国会控制权，而它已经开始进入卖方定价框架——美银本期发布"中期选举交易指南"，明确若共和党守住参议院，半导体将一路走向"泡沫化 2027"。同时通胀与高生活成本正在侵蚀现任支持率，这构成了对财政与关税政策的双向压力，并直接关联 30Y 的期限溢价。<b>本系列五期从未有过政治周期变量，本次正式纳入监控轨。</b></p>
+</div>
+
+<!-- ═══════════════════ I · WHAT HAPPENED ═══════════════════ -->
+<div class="section">
+  <div class="section-num">I · WHAT HAPPENED</div>
+  <h2 class="section-title">两周里改变的事</h2>
+  <p class="section-dek">十个交易日，一份负非农、两份降温的通胀数据、一次 5,000 亿美元的融资范式转移、一次中国市值王座的更替。</p>
+
+  <div class="event-list">
+    <div class="event-item">
+      <div class="event-date"><span class="day">04</span>08.04 Tue</div>
+      <div class="event-body">
+        <h4>三件事同日：SpaceX 首份财报、AMD 超预期被卖、FCC 拟禁中国光模块</h4>
+        <p><b>SpaceX FY26Q2</b>：营收 78.14 亿美元（+92% YoY，预期 69 亿），经营亏损 1.43 亿（去年同期 −9.7 亿），EPS −0.09（预期 −0.26），调整后 EBITDA 35 亿（预期 20 亿）；期末现金及可交易证券 1,000 亿、在手订单 475 亿。但<b>单季资本开支 183.7 亿美元</b>（其中 AI 板块约 158 亿）远超预期，盘后跌近 7%，8/5 开盘 −10%。马斯克把 1 万亿美元收入目标从 2031 年提前至 <b>2030 年</b>，并承诺"只用英伟达 GPU"。<br><b>AMD Q2</b>：营收 115.36 亿（+50%，预期 113 亿）创历史新高，数据中心 67.18 亿（+107%，占比 58%），毛利率 56%，非 GAAP EPS 1.66（预期 1.62）；Q3 指引约 130 亿高于共识 125 亿，<b>但低于多头预期的 135–140 亿</b> → 盘后 −9%、8/5 收 −7.04%，市值跌破 8,000 亿。<br><b>FCC</b>：路透报道 FCC 正起草禁令，拟禁止进口中国新型号光模块（800G/1.6T），目标年内公布实施。中际旭创当日 A 股跌近 14%、新易盛跌超 10%；美股 Coherent 盘前 +19%、Lumentum +13%、AAOI +18%、康宁 +8%。中际旭创全球数据中心光模块份额约 27%，Q1 美国收入占比 61.7%。</p>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date"><span class="day">05</span>08.05 Wed</div>
+      <div class="event-body">
+        <h4>道指首破 54,000：贝森特的"两天内协议"与油价崩跌</h4>
+        <p>财长贝森特在 CNBC 表示美伊"有可能今天或明天"达成重开霍尔木兹的协议、且将是"自由通行"；国务卿卢比奥确认谈判取得进展但未达成最终协议。油价应声崩跌，<b>布伦特一个月来首次跌破 $80、当周跌逾 12%</b>，SC 原油单日 −5.83%。叠加卡特彼勒与 Palantir 强劲业绩，美股全线大涨：<b>道指 +907.47 点（+1.71%）收 54,085.88，史上首破 54,000；标普 +1.79% 收 7,736.51，首破 7,700；纳指 +2.59% 收 26,584.99。</b>Shopify +20%。伊朗强硬派仍坚持保留海峡管控与收费权。</p>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date"><span class="day">07</span>08.07 Fri</div>
+      <div class="event-body">
+        <h4>负非农：劳动力市场第一次真正裂开</h4>
+        <p>7 月非农就业 <b>减少 2.3 万人</b>（预期 +8.0~8.3 万），为年内首次转负；<b>5、6 月合计下修 10.3 万</b>（5 月 12.9 万→6.3 万，6 月 5.7 万→2.0 万），过去 12 个月月均新增降至 3.4 万，近三个月月均仅约 2 万。失业率反降至 <b>4.1%</b>，但源于劳动参与率跌至 <b>61.4%</b>（2021 年初以来最低）、劳动人口单月减少 26.4 万。平均时薪环比 +0.1%（预期 0.3%）、同比 +3.2%（预期 3.5%）。结构上：地方政府教育 −5 万、零售 −1.9 万、金融活动 −1.4 万（自 2025 年 5 月高点累计 −12.1 万），仅医疗保健 +2.2 万。同日有报道称沃什已"为 9 月加息敞开大门"，条件是未来数周通胀数据偏热。</p>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date"><span class="day">10</span>08.10 Mon</div>
+      <div class="event-body">
+        <h4>范式转移：英伟达把算力做成了一个资产类别</h4>
+        <p>英伟达与<b>阿波罗、黑石、贝莱德（GIP）、Brookfield、高盛、KKR</b> 六家机构签署谅解备忘录，设立独立算力融资平台，目标"随时间推移动员逾 <b>5,000 亿美元</b>"第三方资本，以有吸引力的融资利率为英伟达客户提供算力采购资金；黄仁勋同日发表长文《NVIDIA AI Factory Compute Is Becoming an Investable Asset Class》。<b>市场的第一反应是恐惧而非惊喜</b>：英伟达股价盘中一度 −3.2%，5 年期 CDS 一度升至 77.215bp（单日 +5.3bp，两周最大升幅）。背景是 7 月底彭博报道英伟达正洽谈为 OpenAI 租用软银旗下俄亥俄数据中心算力提供最高 2,500 亿美元兜底，并讨论为该项目 3,500 亿美元芯片采购提供融资。<b>8/11 CDS 回落至约 73bp（−4bp），债券上涨，风险溢价回到前一周水平。</b></p>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date"><span class="day">12</span>08.12 Wed</div>
+      <div class="event-body">
+        <h4>考卷交出相反答案：核心 CPI 2.5%，五年来最低；腾讯 FCF 转负</h4>
+        <p><b>7 月 CPI</b>：环比 +0.1%（6 月 −0.4%）、同比 <b>3.4%</b>（前 3.5%）；核心环比 +0.2%（6 月 0.0%）、同比 <b>2.5%</b>，追平 2021 年 3 月以来最低。住房环比 +0.1% 贡献当月约三分之二涨幅，能源环比 −1.5%、汽油 −2.9%。核心内部分化：医疗、机票（同比仍 +25.5%）、通信、教育、娱乐、二手车环比走高，车险延续下跌。同日 420 亿美元 10 年期标售中标 <b>4.683%，2007 年以来最高</b>，且为 5 月以来首次尾部利差。<br><b>腾讯 Q2</b>：营收 2,047.85 亿元（+11%，首破 2,000 亿，预期 2,028.4 亿），毛利 1,184.33 亿（+13%），Non-IFRS 经营利润 756.36 亿（+9%；剔除新 AI 产品后 861 亿、+19%），归母净利 560.22 亿（<b>+0.7%</b>）。<b>资本开支 527.84 亿元（+176% YoY、+65% QoQ），自由现金流 −138 亿元</b>（剔除算力预付款后 +376 亿）。研发 272.8 亿（+35%）。本土游戏 +17%、营销服务 +20%以上。</p>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date"><span class="day">13</span>08.13 Thu</div>
+      <div class="event-body">
+        <h4>历史新高日：标普 7,798.99、VIX 14.39、韩股入牛市、长鑫超越腾讯</h4>
+        <p><b>美国</b>：7 月 PPI 同比 <b>4.7%</b>（预期 4.9%、前值 5.5%）、环比持平，核心 PPI 同比 4.2%；初请 20.9 万人略高于预期。9 月维持利率不变概率升至 <b>65.7%</b>、加息概率降至约 32%；2 年期跌 5.9bp 至 4.139%、10 年期跌 5.1bp 至 4.64%。<b>标普 +0.65% 收 7,798.99 创历史新高</b>（盘中最高 7,816.70、首破 7,800），道指 +0.13% 收 53,839.99，纳指 +0.81% 收 26,803.03，<b>纳指 100 +1.15% 收 30,084.50</b>。<b>VIX 盘中最低 14.39，年内最低。</b>存储全面爆发：闪迪 +13.67%（市值 2,277 亿）、西部数据 +8.23%、SK 海力士 +7.72%、美光 +5.96%、希捷 +4.18%；SOX 重回技术性牛市（较 7 月低点 +20%）。但英伟达仅 +0.54%，沦为提款机；光通信高位倒灌（Coherent −5.07%、Lumentum −2.49%）；SpaceX −3.33%。250 亿美元 30 年期标售中标 <b>5.216%，2001 年以来最高</b>，投标倍数 2.39（前 2.44）；二级市场 30Y 收益率反而跌 4.28bp 报 <b>5.214%</b>。应用材料 FQ3 超预期（调整后 EPS 3.50 vs 3.42、净销售 91.2 亿 +25%）、FQ4 指引超预期，<b>股价盘后仍跌超 5%</b>。<br><b>亚洲</b>：KOSPI 盘中一度 +4.8%，较 7/30 低点累计 +22~23%，正式进入技术性牛市；三星、SK 海力士领涨。<b>长鑫科技收盘市值 3.54 万亿元人民币，超越腾讯（4.01 万亿港元，约 3.44 万亿人民币），成为中国市值最大上市公司</b>；腾讯当日 −4.46% 收 441 港元。DeepSeek V4-Pro 正式版（0813）上线。</p>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date"><span class="day">14</span>08.14 Fri</div>
+      <div class="event-body">
+        <h4>需求端的第二记：零售 −0.6%、信心 51.0；伯克希尔 14 季来首次净买入</h4>
+        <p><b>7 月零售销售环比 −0.6%</b>（预期 +0.1%、前值 +0.2%），为 9 个月来首次下降、14 个月最大跌幅；控制组 −0.4%；同比 +5.0%。分项：汽车及零部件 −1.8%、线上 −2.2%、加油站 −0.9%、电子与家电 −0.5%；服饰 +1.9%、餐饮 +0.5%。<b>密歇根大学 8 月消费者信心初值 51.0</b>（7 月 55.2、预期 54.5），终结连续两月改善。6 月个人储蓄率已降至四年低点。<br><b>市场</b>：三大指数高开低走，道指 −0.20% 收 53,732.41、标普 −0.17% 收 7,785.76、纳指 −0.28% 收 26,729.16；能源与公用事业逆势领涨（+1.36%/+0.55%），医疗与科技领跌。存储继续走强（闪迪 +7.39%、希捷 +5.65%、西数 +4.41%、美光 +2.3%），AMD +6.5%，<b>博通 −近 6%</b>，应用材料盘前 −5%。<b>伯克希尔 13F</b>：二季度买入 235 亿、卖出 37 亿，<b>结束连续 14 个季度的净卖出</b>；现金从 3,802 亿降至 3,647 亿；组合市值 2,993 亿（+12.09% QoQ）；加仓 Alphabet 与达美航空。日经 +0.59% 收 <b>68,713.80</b>（7/15 以来最高），TOPIX 4,197.2 连续三日刷新收盘历史新高；KOSPI +2.42% 收 <b>6,977.94</b>；恒指 −1.1% 收 25,116.85、恒生科技 −1.77%（京东 −10%、MiniMax −12%、华虹 −11%）。WTI 约 $81.6、布伦特约 $87.2（当周 +5%）；黄金约 $4,350；比特币跌破 $63,000。</p>
+      </div>
+    </div>
+  </div>
+
+  <h3><span class="num">·</span>各市场表现（7/31 → 8/14）</h3>
+  <table class="data">
+    <thead><tr><th>市场／资产</th><th class="num">7/31</th><th class="num">8/14 收盘</th><th class="num">区间变动</th><th>关键驱动</th></tr></thead>
+    <tbody>
+      <tr class="hi"><td><b>S&amp;P 500</b></td><td class="num">7,489.72</td><td class="num">7,785.76</td><td class="num pos">+3.95%</td><td><b>8/13 收 7,798.99 创历史新高</b>、盘中 7,816.70；周线三连阳</td></tr>
+      <tr class="hi"><td>道琼斯</td><td class="num">52,485.03</td><td class="num">53,732.41</td><td class="num pos">+2.38%</td><td>8/4 首破 54,000 收 54,085.88；月线料五连涨</td></tr>
+      <tr class="hi"><td>纳斯达克综指</td><td class="num">25,373.85</td><td class="num">26,729.16</td><td class="num pos">+5.34%</td><td>连续三周上涨</td></tr>
+      <tr class="hi"><td>纳斯达克 100</td><td class="num">修正区间</td><td class="num">30,084.50<span style="font-size:10px">（8/13）</span></td><td class="num pos">脱离修正</td><td>6/30 以来首次收于 30,000 上方</td></tr>
+      <tr class="hi"><td><b>费城半导体 (SOX)</b></td><td class="num">月内最深 −24.5%</td><td class="num">重回牛市</td><td class="num pos">较 7 月低点 +20%</td><td>技术性牛市阈值 12,537；存储驱动而非 GPU 驱动</td></tr>
+      <tr class="lo"><td><b>VIX</b></td><td class="num">18.49</td><td class="num">约 15</td><td class="num pos">盘中低 14.39</td><td><b>年内最低</b>——判别器维度 1 反向远离触发</td></tr>
+      <tr class="hi"><td><b>KOSPI</b></td><td class="num">约 6,5xx</td><td class="num">6,977.94</td><td class="num pos">较 7/30 低点 +22~23%</td><td>10 个交易日从"散户坟场"到技术性牛市；三星/SKH 领涨</td></tr>
+      <tr class="hi"><td>日经 225</td><td class="num">64,362.02</td><td class="num">68,713.80</td><td class="num pos">+6.76%</td><td>TOPIX 连续三日刷新收盘历史新高；四连涨</td></tr>
+      <tr class="lo"><td><b>恒生指数</b></td><td class="num">25,884.43</td><td class="num">25,116.85</td><td class="num neg">−2.97%</td><td><b>全球主要市场唯一下跌</b>；低 AI 硬件 β 从优势转劣势</td></tr>
+      <tr class="lo"><td>恒生科技</td><td class="num">4,829.22</td><td class="num">4,707.62</td><td class="num neg">−2.52%</td><td>京东 −10%、MiniMax −12%、华虹 −11%（8/14）</td></tr>
+      <tr class="lo"><td>腾讯</td><td class="num">475.20</td><td class="num">441.00<span style="font-size:10px">（8/13）</span></td><td class="num neg">−7.2%</td><td>FCF −138 亿、净利 +0.7%；年内市值 −25.5%；411 底部未破</td></tr>
+      <tr class="hi"><td>上证指数</td><td class="num">3,832.26</td><td class="num">3,927.18</td><td class="num pos">+2.48%</td><td>3,900 上方震荡整固，量能萎缩至 2.14 万亿</td></tr>
+      <tr class="hi"><td><b>创业板指</b></td><td class="num">3,343.96</td><td class="num">3,626.30</td><td class="num pos">+8.44%</td><td>存储/HBM/半导体/CPO 领涨；长鑫效应</td></tr>
+      <tr class="lo"><td>布伦特原油</td><td class="num">$91.04</td><td class="num">约 $87.2</td><td class="num neg">约 −4%</td><td>8/5 曾破 $80（当周 −12%）；后因协议久拖 + 胡塞袭沙特炼厂回升</td></tr>
+      <tr class="hi"><td><b>黄金（伦敦金现）</b></td><td class="num">$4,041.18</td><td class="num">约 $4,350</td><td class="num pos">约 +7.6%</td><td><b>全期最佳资产</b>；曾触 $4,449；央行信誉 + 财政期限溢价</td></tr>
+      <tr><td>Bitcoin</td><td class="num">约 $63K</td><td class="num">约 $62.8K</td><td class="num">持平</td><td>指数创新高、黄金大涨而 BTC 不动——流动性 β 属性确认失效</td></tr>
+      <tr class="lo"><td><b>美债 30Y</b></td><td class="num">约 5.20%</td><td class="num">5.214%</td><td class="num warn">几乎不变</td><td><b>本期最重要读数</b>：8/13 标售中标 5.216%，2001 年来最高；倍数 2.39</td></tr>
+      <tr><td>美债 10Y / 2Y</td><td class="num">4.55% / 4.28%</td><td class="num">4.64% / 4.139%</td><td class="num">陡峭化延续</td><td>8/12 标售 4.683%，2007 年来最高，5 月来首现尾部</td></tr>
+      <tr><td>USD/JPY</td><td class="num">约 159.5</td><td class="num">约 160</td><td class="num">干预效果消退</td><td>7 月底美日联合干预 164→155，8 月全数回吐；BOJ 9/17-18 加息定价约 66–70%</td></tr>
+      <tr class="lo"><td><b>9 月 FOMC 加息定价</b></td><td class="num">约 60%</td><td class="num">约 32%</td><td class="num neg">−28pp</td><td>CPI 2.5% + PPI 4.7% + 非农 −2.3 万；年内加息已不被完全定价</td></tr>
+    </tbody>
+  </table>
+
+  <div class="kshape">
+    <div class="kshape-col up">
+      <div class="kshape-label">▲ 两周上涨</div>
+      <ul>
+        <li><b>黄金 约 +7.6%</b>（$4,041 → 约 $4,350，曾触 $4,449）</li>
+        <li><b>KOSPI 较 7/30 低点 +22~23%</b>，10 日入技术性牛市</li>
+        <li><b>闪迪 5 日 +35%</b>（8/13 +13.67%、8/14 +7.39%）</li>
+        <li><b>创业板指 +8.44%</b>；长鑫科技登顶中国市值第一</li>
+        <li>日经 +6.76%，TOPIX 连续三日收盘历史新高</li>
+        <li>纳指 +5.34%，纳指 100 重回 30,000 上方</li>
+        <li>SOX 较 7 月低点 +20%，重回技术性牛市</li>
+      </ul>
+    </div>
+    <div class="kshape-col down">
+      <div class="kshape-label">▼ 两周下跌／被卖出</div>
+      <ul>
+        <li><b>恒生指数 −2.97%</b>——全球主要市场唯一下跌</li>
+        <li><b>腾讯 −7.2%</b>（FCF −138 亿，8/13 单日 −4.46%）</li>
+        <li>AMD 财报后 −7.04%（超预期但不及多头预期）</li>
+        <li>应用材料超预期且上调指引，盘后仍 <b>−5%</b></li>
+        <li>SpaceX 财报后盘后 −7%、8/5 开盘 −10%（capex 183.7 亿）</li>
+        <li>中际旭创 A 股单日近 −14%（FCC 禁令传闻）</li>
+        <li>京东 −10%、MiniMax −12%、华虹 −11%（8/14）</li>
+        <li>比特币跌破 $63,000，在全面 risk-on 中缺席</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>与 8/2 相比，K 型形态发生了<b>第二次质变</b>。7 月的分化轴线是"现金流纪律 vs 现金流失血"；8 月的分化轴线变成了 <b>"是否直接受益于物理产能短缺"</b>——存储、封测、电力设备、半导体设备全线走强，而现金流最干净的轻资本平台（腾讯、京东、苹果链）与最贵的叙事资产（光模块、算力租赁）被卖出。<mark class="note">FCF 门禁没有失效，但它的排序权重被"物理稀缺性"盖过了。市场在同一时间既要现金流，又更要产能。</mark></p>
+</div>
+
+<!-- ═══════════════════ II · NEW FRAMEWORK ═══════════════════ -->
+<div class="section">
+  <div class="section-num">II · NEW FRAMEWORK</div>
+  <h2 class="section-title">门禁绕道：资本开支的表外迁移</h2>
+  <p class="section-dek">市场要求 AI 出示现金流的收据。行业的回答不是掏收据，是把账本换了一本。</p>
+
+  <p class="drop-cap">8/2 报告的核心框架升级是 FCF 门禁：定价函数从"叙事强度 × 增长速度"切换为"收入加速度、Δcapex 指引、FCF 覆盖率"。这条规则在 8 月<b>继续有效</b>——腾讯因 FCF 转负单日 −4.46%、SpaceX 因 capex 183.7 亿盘后 −7%、AMD 与应用材料超预期仍被卖出。但两周内发生了一件我们没有为之建模的事：<b>行业找到了门禁的绕道。</b></p>
+
+  <div class="insight-box">
+    <h3>门禁绕道（Gate Bypass）· 本次核心框架升级</h3>
+    <p>当市场用"每一美元 capex 换回多少现金流"给公司定价时，被定价的公司有两条路：<b>降低分子（少花钱）</b>，或者<b>把分子移出报表</b>。7 月我们观察到的是第一条路（微软路径）。8 月发生的，全部是第二条路：</p>
+    <div class="gate-rule">
+      <b>路径一 · 融资外部化</b>　英伟达 + 阿波罗/黑石/贝莱德/Brookfield/高盛/KKR，逾 <b>5,000 亿美元</b>第三方资本平台，为客户购买算力融资。算力从"客户的资本开支"变成"资产管理机构的可投资资产"。<br>
+      <b>路径二 · 折旧资本化</b>　微软自 FY27 起数据中心与办公楼折旧年限 <b>15 年 → 25 年</b>，更多租赁由融资租赁转经营租赁（不计入 capex）。同一笔投入，报表上的 capex 与折旧同时下降。<br>
+      <b>路径三 · 成本转嫁</b>　亚马逊将 2026 capex 上调至约 2,200 亿，<b>明确部分归因于存储涨价</b>，并表示<b>新云合同定价将反映当前内存、硬盘、SSD 成本</b>。成本从云厂的利润表转移到客户的 IT 预算。<br>
+      <b>路径四 · 口径分离</b>　腾讯同时披露 FCF <b>−138 亿</b>与"剔除算力预付款后 <b>+376 亿</b>"；Non-IFRS 经营利润 +9% 与"剔除新 AI 产品后 +19%"。两个数字都真实，选择权在披露方。
+    </div>
+    <p><b>四条路径的共同点：capex 的绝对规模没有下降，甚至在加速——而它在股权投资者可见的报表里变小了。</b>彭博 8/1 统计，谷歌、Meta、微软、亚马逊已为未来数年数据中心建设承诺投入近 <b>2.4 万亿美元</b>；标普估算 Alphabet/亚马逊/Meta/微软/甲骨文 2026 年合计 capex 可能达 <b>7,370 亿美元</b>（2024 年为 2,610 亿）；高盛把 2026 年 AI 超大厂 capex 预期单季上调 800 亿至 <b>7,510 亿</b>；摩根士丹利预测 2026–2028 年超大规模云厂支出达 <b>3.5 万亿美元</b>；阿波罗总裁 Zelter 称 AI 基建预计将投入<b>逾 8 万亿美元</b>。</p>
+    <p><mark class="note">对推演的第一含义：股权市场的 FCF 信号，作为预警指标的信噪比正在被系统性稀释。</mark>8/2 我们把"M7 中 ≥2 家连续两季 FCF 为负"设为立即切 C 手册的触发条件。这个条件在 2026 下半年可能<b>永远不会以我们预期的方式触发</b>——不是因为风险消失，而是因为分母被搬走了。判别器必须改为跟踪<b>合并口径的资本承诺</b>而非报表口径的 FCF。</p>
+    <p><b>对推演的第二含义：风险从"能否自我融资"变成了"外部资本的久期与容忍度"。</b>当 5,000 亿美元由阿波罗、黑石这类机构提供时，问题不再是英伟达客户是否有现金，而是这些资金背后的 LP 在什么条件下会拒绝续作。私募信贷、证券化债务、项目融资的共同特征是<b>不在公开市场逐日定价</b>——这既是它抑制波动的原因，也是它一旦重定价就是断崖的原因。<b>这是 2008 年结构性教训的第二次上演，只是抵押品从住房换成了 GPU 与电力合同。</b></p>
+  </div>
+
+  <h3><span class="num">2.1</span>信贷市场的"虚假缓解"</h3>
+
+  <p>8/2 我们把"AI 七巨头 5Y CDS 全线创纪录"列为最高优先级监控，阈值设为"甲骨文 &gt;250bp 或英伟达 &gt;100bp = 情景 C 直接触发"。两周内的读数是<b>缓解的</b>：英伟达 5Y CDS 自 7/29 的 83.7bp 历史高点，经 8/10 消息面的 77.215bp（单日 +5.3bp），在 8/11 回落至约 <b>73bp</b>（当日 −4bp），债券上涨、相对美债的风险溢价回到前一周水平。</p>
+
+  <p><b>但这个缓解的性质必须被正确记录。</b>回顾时间顺序：7 月底彭博报道英伟达洽谈为 OpenAI 的俄亥俄项目提供最高 2,500 亿美元兜底、并为 3,500 亿美元芯片采购提供融资 → CDS 在不到三周内翻倍（5 月下旬 41.6bp → 7 月末 83.7bp）→ 8/10 英伟达公布 5,000 亿平台并发文解释 → CDS 回落。<mark class="note">顺序说明这不是一次主动的战略宣示，而是一次被动应答：债券市场先给出了定价，英伟达随后才给出解释。</mark>而"解释"的内容是把风险<b>分散给六家资产管理机构</b>，不是消除风险。</p>
+
+  <div class="insight-box">
+    <h3>新规则 · 虚假缓解的识别</h3>
+    <div class="gate-rule">
+      当 <b>CDS 下行</b> 与 <b>表外融资安排公告</b> 在同一窗口内发生时 → 判定为「虚假缓解」，<b>不得据此下调融资端风险等级</b>。<br>
+      正确的读数是：风险的<b>公开市场可见度</b>下降了，风险的<b>总量</b>没有下降。<br>
+      新增必读子项：<b>表外融资承诺总额</b>。当前 ≈ 5,000 亿（英伟达平台）+ 逾 1,200 亿（Meta/xAI/甲骨文/CoreWeave 等既有 SPV）＝ <b>逾 6,200 亿美元</b>。
+    </div>
+    <p>同期未被缓解的证据：标普 7 月 9 日将甲骨文长期信用评级由 BBB 下调至 <b>BBB−</b>（仅比垃圾级高一档），预计其 FY27 capex 900–950 亿、经营活动将消耗约 420 亿现金（此前预期 240 亿），并指出 <b>OpenAI 约占甲骨文剩余履约义务的一半</b>；Meta 一个 120 亿美元数据中心项目的融资成本定价已接近部分低评级债券；CoreWeave 上调 capex 至 390 亿、积压订单 1,040 亿，但<b>利息支出达净利润的 7 倍</b>；AMD 计划分四档发行至多 <b>50 亿美元</b>债券。</p>
+  </div>
+
+  <h3><span class="num">2.2</span>反应函数的第三次演化：从"共识"到"耳语"</h3>
+
+  <p>7 月的定价规则是 FCF 门禁。8 月的数据显示，门禁之上又叠加了一层：<b>及格线本身在通胀。</b></p>
+
+  <table class="data">
+    <thead><tr><th>公司 / 日期</th><th>结果 vs 共识</th><th>结果 vs 多头预期</th><th class="num">股价反应</th><th>含义</th></tr></thead>
+    <tbody>
+      <tr class="lo"><td><b>AMD Q2</b> · 8/4</td><td>营收 115.4 亿 vs 113 亿 <span class="pos">超</span>；DC +107%；Q3 指引 130 亿 vs 共识 125 亿 <span class="pos">超</span></td><td>多头押注 135–140 亿 <span class="neg">不及</span></td><td class="num neg">−7.04%</td><td>共识不再是门槛</td></tr>
+      <tr class="lo"><td><b>SpaceX Q2</b> · 8/4</td><td>营收 78.1 亿 vs 69 亿 <span class="pos">大超</span>；EBITDA 35 亿 vs 20 亿 <span class="pos">大超</span></td><td>capex 183.7 亿 <span class="neg">远超</span></td><td class="num neg">盘后 −7%</td><td>capex 超预期＝利空</td></tr>
+      <tr class="lo"><td><b>应用材料 FQ3</b> · 8/13</td><td>EPS 3.50 vs 3.42 <span class="pos">超</span>；营收 91.2 亿 vs 90.2 亿 <span class="pos">超</span>；FQ4 指引全面上调</td><td>—</td><td class="num neg">盘后 −5%</td><td>设备端"利好出尽"</td></tr>
+      <tr class="lo"><td><b>腾讯 Q2</b> · 8/12</td><td>营收 2,047.9 亿 vs 2,028.4 亿 <span class="pos">超</span></td><td>净利 +0.7%、FCF −138 亿 <span class="neg">不及</span></td><td class="num neg">−4.46%</td><td>FCF 门禁跨境生效</td></tr>
+      <tr class="hi"><td><b>闪迪投资者日</b> · 8/13</td><td>FY28–30 中高双位数增长；完成投资后 <b>100% 剩余现金返还股东</b>；已签 8 家客户 NBM 协议，覆盖 FY27 约 50%、FY28 约 2/3 比特出货</td><td>—</td><td class="num pos">+13.67%</td><td><b>唯一被重奖的模式</b></td></tr>
+      <tr><td><b>非 TMT 平均</b></td><td>超预期</td><td>—</td><td class="num pos">次日 +75bp 超额</td><td>高盛口径</td></tr>
+      <tr><td><b>AI 龙头平均</b></td><td>超预期</td><td>—</td><td class="num">≈0 或负</td><td>预期已提前计入</td></tr>
+    </tbody>
+  </table>
+
+  <p><b>这张表里最有信息量的一行是闪迪。</b>它是本期唯一一家因财务承诺而非增长速度被重奖的公司——"完成业务投资后把 <b>100% 剩余现金返还股东</b>"，加上以 NBM 协议锁定 FY27 约一半、FY28 约三分之二的比特出货量。<mark class="note">市场奖励的不是"我会赚很多钱"，而是"我承诺把赚到的钱还给你，并且我已经把未来两年的价格锁死了"。</mark>这是 FCF 门禁的最终形态：<b>从"现金流是否为正"升级为"现金流的归属权是否属于股东"。</b></p>
+
+  <p>与此对照的是英伟达 8/13 仅涨 0.54%——在存储全面爆发、SOX 重回牛市、标普创新高的一天里，全球最大市值的 AI 公司沦为提款机。它年内涨幅约 20%，而美光约 208%。<b>这不是对英伟达基本面的怀疑，是对"谁真正拿到了 AI 的经济租金"的重新投票：租金正在从卖算力的人，转移到卖稀缺物理产能的人。</b></p>
+
+  <div class="pullquote">
+    <q>市场没有停止相信 AI。它只是把付款对象，从"能把算力卖出去的人"，换成了"别人抢不到的那块产能"。</q>
+    <span class="pullquote-attr">8/2 定价规则的 8/16 修订版</span>
+  </div>
+</div>
+
+<!-- ═══════════════════ III · EARNINGS QUALITY ═══════════════════ -->
+<div class="section">
+  <div class="section-num">III · EARNINGS QUALITY</div>
+  <h2 class="section-title">61%：本轮周期最被低估的一个数字</h2>
+  <p class="section-dek">标普二季度 EPS 同比 +45%。其中多少是卖出去的东西，多少是重估自己投的公司？</p>
+
+  <p>二季度财报季的表观数字堪称辉煌：截至 8/8，已披露的 436 家公司中 <b>85.1% 超预期</b>，远高于 1994 年以来 68% 的长期均值；高盛口径 <b>64% 的公司 EPS 超预期至少一个标准差</b>，为历史最高之一；标普二季度 EPS 同比追踪值 <b>+45%</b>（FactSet 全口径 47.4%），云业务收入增速从一季度的 39% 跃升至 <b>48%</b>；标普 500 净利率升至 <b>16.9%</b>。</p>
+
+  <p>但把口径拆开，图景变得复杂：</p>
+
+  <table class="data">
+    <thead><tr><th>口径</th><th class="num">标普 Q2 EPS 同比</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr><td>表观（GAAP 全口径）</td><td class="num pos">+45%</td><td>FactSet 追踪 47.4%，五年最强</td></tr>
+      <tr><td>剔除科技巨头股权投资"其他收入"（高盛）</td><td class="num pos">+26%</td><td>仍为 2021 年以来最快之一</td></tr>
+      <tr><td>剔除 Alphabet 与亚马逊投资收益（美银）</td><td class="num pos">+30%</td><td>超预期比例 76%，2021 年以来最高</td></tr>
+      <tr class="lo"><td><b>差额</b></td><td class="num warn">约 15–19pp</td><td><b>来自未实现的私有股权重估</b></td></tr>
+    </tbody>
+  </table>
+
+  <p><b>这 15–19 个百分点的来源是明确的。</b>高盛数据显示，Alphabet 与亚马逊二季度合计贡献约 <b>19 个百分点</b>的标普 EPS 增长，主要来自持有股权投资产生的<b>未实现收益</b>——Alphabet 单季"其他收入"约 <b>980 亿美元</b>、亚马逊约 <b>530 亿美元</b>，微软亦贡献约 30 亿。<mark class="note">2026 年二季度，超大市值科技公司的"其他收入"占 GAAP 利润比重升至 61%，明显高于过去多年水平。</mark></p>
+
+  <p>贡献度的集中度同样极端：<b>Alphabet 一家贡献标普二季度 EPS 增长的约 28%，亚马逊约 16%，美光约 10%，英伟达预计约 9%——前十大公司合计贡献约 79%。</b>AI 基础设施相关企业贡献二季度标普约三分之一的 EPS 增长，高盛预计 2026 下半年与 2027 年该板块将贡献<b>超过一半</b>的盈利增量。</p>
+
+  <div class="insight-box">
+    <h3>会计层面的循环：2026 年版的供应商融资</h3>
+    <div class="gate-rule">
+      云厂以现金/算力投资 AI 初创（Anthropic、OpenAI、xAI、Mistral、月之暗面⋯⋯）<br>
+      　　↓<br>
+      初创下一轮融资估值上升（Anthropic 5 月 H 轮 9,650 亿；市场推测 IPO 2 万亿。月之暗面 1 月 100 亿 → 7 月 F 轮投后 350 亿）<br>
+      　　↓<br>
+      云厂按公允价值计入<b>未实现收益</b> → 计入"其他收入" → 计入 GAAP EPS<br>
+      　　↓<br>
+      标普 EPS 上修 → 远期 PE 被动下降 → "估值不贵"<br>
+      　　↓<br>
+      指数上涨 → 风险偏好上升 → 一级市场估值继续上行 → <b>回到第一步</b>
+    </div>
+    <p><b>这不是舞弊，是公允价值会计的正常运作。</b>但它意味着三件事必须被同时承认：其一，"本轮上涨是盈利驱动而非估值扩张驱动"这个安慰<b>本身带有循环性</b>——高盛指出标普远期 PE 年内已下降 4% 而指数上涨 10%，看似健康，但 EPS 中有 15–19pp 来自资产重估而非经营；其二，这部分收益<b>不产生现金流</b>，因此它同时抬高 EPS 与恶化 FCF/EPS 比率，正是 FCF 门禁在"盈利大超预期"季度里依然生效的会计原因；其三，<b>它是完全可逆的</b>——任一头部私有 AI 公司出现 down round，未实现收益即转为未实现损失，且在同一会计科目里直接冲减 EPS。</p>
+    <p><mark class="note">这是 2000 年供应商融资（Nortel/Lucent 借钱给客户买自己的设备并确认收入）、2007 年 mark-to-model（用模型给不流动资产定价并计入损益）在 2026 年的会计版本。三次的共同结构是：<b>一个正反馈闭环，在其中"价格上涨"本身被计入"盈利"。</b></mark></p>
+    <p><b>新增最高优先级 KPI：Mag7「其他收入」占 GAAP 利润比重</b>。当前 61%。阈值：&gt;50% ＝ 盈利质量警戒（已触发）；任一头部私有 AI 公司出现 down round 或 IPO 破发 ＝ 反转确认，立即按 GAAP EPS 下修 12–18% 重算指数合理区间。<b>Anthropic 10 月 IPO 因此是本轮周期最重要的单一定价事件——它不只是一次发行，它是整个未实现收益体系的第一次市价校验。</b></p>
+  </div>
+
+  <p><b>必须给出的反面论据（防止过度看空）：</b>其一，经营性盈利本身依然强劲——剔除全部投资收益后 +26~30% 仍是 2021 年以来最快之一，云收入增速从 39% 加速至 48% 是<b>已确认的现金收入</b>；其二，Anthropic 2026Q2 首次录得调整后经营利润 5.59 亿美元、Q3 GAAP EBIT 预计破 10 亿，说明模型层的估值上修<b>有真实的收入曲线支撑</b>，不完全是相互抬轿；其三，标普 500 净利率 16.9% 的构成本身已经变了——当利润越来越多来自英伟达、微软、Alphabet 这类高毛利公司时，与由制造、能源、零售构成的历史标普做均值回归比较，前提并不成立。</p>
+
+  <p>但美银首席策略师 Subramanian 团队给出的历史标尺值得记住：<b>自 1936 年以来，EPS 连续两个季度增速超过 30% 的情况仅出现过 10 次，且近年案例均与盈利深度衰退后的低基数反弹相关</b>（疫情冲击、全球金融危机），而非当前这种由 AI 驱动的有机增长。<b>这是一个没有历史类比的组合——这既是最看多的理由，也是最应该保持谦逊的理由。</b></p>
+</div>
+
+<!-- ═══════════════════ IV · MESO / INDUSTRY ═══════════════════ -->
+<div class="section">
+  <div class="section-num">IV · MESO / INDUSTRY</div>
+  <h2 class="section-title">中观：租金从算力转向产能</h2>
+  <p class="section-dek">长鑫市值超越腾讯，不是一个中国故事。它是全球产业租金再分配的一个截面。</p>
+
+  <h3><span class="num">4.1</span>格局的第一变化：硬科技估值权重超越流量平台</h3>
+
+  <p>8 月 13 日，<b>长鑫科技（688825.SH）收盘市值 3.54 万亿元人民币，超越腾讯控股（4.01 万亿港元，约 3.44 万亿人民币），成为中国市值最大的上市公司</b>。这家公司 7 月 27 日才登陆科创板（与 Kimi K3 开源同日），首日收涨 465.82%、市值 3.28 万亿；发行价 8.66 元，8/13 收 52.88 元，上市不到三周涨幅逾 500%；8 月 10 日 MSCI 指数调整生效，长鑫被纳入 MSCI 中国全股票指数并成为该指数<b>第二大市值成份股，仅次于腾讯</b>。业绩侧：2026Q1 营收 508 亿元（同比 +719.13%），归母净利 247.62 亿元（去年同期亏损 15.59 亿）；技术侧：HBM2 已于去年下半年量产、主供华为昇腾 910，HBM3 研发推进中，LPDDR6 进入风险试产（12.8Gbps、16Gb），量产时间与 SK 海力士基本同区间。</p>
+
+  <p><b>把这件事放在同一天的另一半来看，含义才完整</b>：腾讯当日 −4.46%，原因是净利仅 +0.7%、资本开支 +176% 至 527.84 亿、自由现金流 −138 亿；年内市值累计 −25.5%。<mark class="note">一家把自由现金流转负去买算力的平台公司被卖出，一家把利润从 −15.59 亿做到 +247.62 亿的存储制造商被买上王座。这是"轻资产现金牛"与"重资产稀缺产能"两种估值范式在中国市场的正面交换。</mark></p>
+
+  <p>这个交换在全球是同步发生的：美光年内约 +208%（以 1.5% 权重贡献标普涨幅 1.13pp）vs 英伟达约 +20%（以 6.9% 权重贡献 1.49pp）；闪迪 8/13 单日 +13.67%、5 日 +35%；SK 海力士与三星在 10 个交易日里把 KOSPI 从技术性熊市拉回技术性牛市；而苹果、腾讯、京东这类现金流最干净的平台反而在承压。<b>结论：本轮 AI 周期的经济租金正在完成第三次转移——从模型层（2023–24）→ 到算力层（2025–26H1）→ 到物理产能层（2026H2）。</b></p>
+
+  <h3><span class="num">4.2</span>存储超级周期：从"涨价"进入"锁价"</h3>
+
+  <p>8/2 判断"涨价红利正从 AI 专用（HBM/长协）向通用存储（现货）转移"，本期继续兑现且出现了新的阶段特征。价格侧：TrendForce 预计 2026Q3 传统 DRAM 合约价环比 <b>+13~18%</b>、NAND 延续涨势但涨幅收敛（消费性需求降温 + 高基期）；SK 海力士 Q2 DRAM 均价环比约 <b>+30%</b>；通用 PC DRAM（DDR4 8Gb）6 月平均固定交易价升至 <b>21 美元</b>，较 2016 年 6 月的 2.9 美元涨逾六倍，创该项数据追踪以来历史新高。<b>但边际信号出现了</b>：TrendForce 8/12 现货报告显示 DRAM 现货交投清淡、买卖双方报价分歧持续，DDR4 仅 +0.93%。<mark class="note">合约价仍在两位数上行，现货已开始滞涨——这是本轮存储周期第一个值得记入 KPI 的减速读数，虽然远未构成拐点。</mark></p>
+
+  <p>供给侧的回应是"扩产 + 锁价"并行：SK 海力士<b>重启大连二厂扩产</b>、拟将中国 NAND 产能扩大 <b>50%</b>；三星与 SK 海力士宣布合计 <b>800 万亿韩元</b>投资计划，在韩国西南部建设新晶圆厂（时间表未披露）；淡马锡据传可能投资三星与海力士。需求侧的信心同样强硬：SK 海力士会长崔泰源 8/13 将存储争夺形容为"如同一场战争"，并称<b>明年将出现最严重的"存储荒"</b>；Baillie Gifford 表述为"AI 代理与物理 AI 推动内存需求爆发，但供应能力相当有限，瓶颈就在这里"。</p>
+
+  <p><b>最具信息量的变化是商业模式：闪迪在 8/13 投资者日披露已与 8 家客户签署新商业模式（NBM）协议，覆盖 FY2027 约 50%、FY2028 约三分之二的比特出货量</b>，并承诺完成业务投资后把 100% 剩余现金返还股东——股价当日 +13.67%。<b>存储行业正在用"长约锁量锁价 + 现金返还承诺"把自己从周期股重定价为公用事业股。</b>这是本轮与历次存储周期最大的结构差异，也是"周期见顶"判断必须更谨慎的原因：<mark class="note">当 FY28 三分之二的出货已被锁定时，即使现货价格在 2027 年回落，报表盈利的下行斜率也会被合同结构显著平滑。</mark></p>
+
+  <p><b>但需同时记录反面</b>：凯投宏观 Thieliant 提示，韩国由半导体驱动的繁荣可能在两年内失去动力，预计美国 AI 投资热潮将在 <b>2028 年</b>失去动能，届时韩国厂商将开始削减资本开支——SK 海力士在 2023 年曾将资本开支削减三分之二。这与 8/2 报告设定的 2027Q4–2028 底部时间表<b>方向一致、时点吻合</b>，本次不修改。</p>
+
+  <h3><span class="num">4.3</span>AI 挤出税：读数在"量"，不在"价"</h3>
+
+  <p>这是本期对 8/2 框架的第三条修正，也是对第 III 章之外最重要的中观发现。8/2 报告把第四条传染链命名为"AI 通胀税"，预测其进入 CPI 核心商品项。CPI 证伪了这个预测，但产业数据把机制验证得比预测更彻底：</p>
+
+  <table class="data">
+    <thead><tr><th>传导环节</th><th>8 月实证</th><th>读数所在</th></tr></thead>
+    <tbody>
+      <tr><td>1 · AI capex 抢占产能</td><td>标普估算五大云厂 2026 capex 约 7,370 亿（2024 年 2,610 亿）；高盛单季上调 800 亿至 7,510 亿；亚马逊上调至约 2,200 亿<b>明确部分归因于存储涨价</b></td><td>capex 指引</td></tr>
+      <tr><td>2 · 消费电子 BOM 被挤压</td><td>DRAM+NAND 占手机 BOM 从 2025Q1 约 <b>13%</b> 升至 2026Q3 预计 <b>43%</b>（Counterpoint）；400 美元以下机型存储成本占比一年内几乎翻倍（平安证券）；惠普笔记本内存成本占比从 15–18% 升至约 <b>35%</b></td><td>毛利率 / 配置</td></tr>
+      <tr><td>3 · 终端涨价与降配</td><td>苹果 6/25 全球上调 MacBook/iPad 价格（中国约 +15~25%，Mac Studio 最高 +3,500 元）；微软自 <b>8/1</b> 起 Xbox 涨价（512GB +100 美元、1TB +150 美元、停产 2TB），并称主机存储价格已涨逾 <b>2.5 倍</b>、预计到 2027 年秋再翻一番；惠普把 16GB 标配降为 8GB</td><td>零售价 / 规格</td></tr>
+      <tr class="lo"><td><b>4 · 需求破坏（真实读数）</b></td><td>全球智能手机 Q2 出货同比 <b>−7~11%</b>，为 2013 年以来同期最低；全年预测 <b>−14%</b>；新机需求 −12%，规范化二手市场 <b>+9%</b>；终端品牌为保 SoC 与存储，对面板、镜头等非核心件降规或减采</td><td><b>出货量</b></td></tr>
+      <tr class="lo"><td><b>5 · 宏观显形</b></td><td>7 月零售销售 <b>−0.6%</b>（14 个月最大跌幅），其中电子与家电 −0.5%、线上 −2.2%；控制组 −0.4%；密大 8 月信心初值 <b>51.0</b>（前 55.2、预期 54.5）；6 月储蓄率四年低点</td><td><b>零售 / 信心</b></td></tr>
+      <tr><td>6 · 2027 年的第二跳</td><td>亚马逊表示<b>新云合同定价将反映当前内存、硬盘、SSD 成本</b>；预计到 2027 年底电力容量较 2025 年翻倍</td><td><b>企业 IT 预算</b></td></tr>
+    </tbody>
+  </table>
+
+  <p><b>正确的表述是：AI 挤出税确实存在、确实在加剧，但它不是一种通胀税，是一种配给税。</b>存储产能被优先分配给 AI 服务器，消费电子在同一时点面对更高的价格和更少的供给，结果不是价格指数上行，而是<b>单位销量下滑 + 产品降配 + 二手替代</b>。CPI 看不见它，因为存储权重极小且质量调整会吸收部分降配；零售销售和消费者信心看得见它。</p>
+
+  <p><mark class="note">这条修正把 8/2 的一个"通胀风险"重新定性为一个"增长风险"，而这恰恰解释了 8 月的宏观组合：通胀降温（CPI 3.4%/核心 2.5%）与需求降温（非农 −2.3 万、零售 −0.6%、信心 51.0）同时发生。它们不是巧合，是同一条链的两端。</mark></p>
+
+  <p><b>第六行是最值得提前布局的一条：</b>亚马逊明确新合同定价将反映当前存储成本，意味着 AI 挤出税将在 <b>2027 年</b>以"企业云支出上涨"的形式二次显形。届时承压的不是消费者，是所有非 AI 企业的 IT 预算——这正是 IBM 在 7 月演示过的剧本（大型机销售 −42%、CEO 承认"我们失算了"）的规模化版本。<b>本次新增监控轨：SaaS / 传统企业软件 / 咨询的 2026Q3–Q4 指引，是这条链的下一站。</b></p>
+
+  <h3><span class="num">4.4</span>格局的第二变化：光模块的地缘化</h3>
+
+  <p>8 月 4 日，路透援引四名知情人士报道，FCC 正制定措施拟<b>禁止进口中国新型号光模块</b>，重点针对支撑 AI 算力的 800G、1.6T 主力产品，官员希望年内公布实施。市场反应在太平洋两岸完全相反：美股 Coherent 盘前 +19%、Lumentum +13%、AAOI +18%、康宁 +8%；A 股中际旭创当日收跌近 14%、新易盛跌超 10%，板块单日蒸发数千亿市值。</p>
+
+  <p><b>这条禁令的产业含义比它的政治含义更重要。</b>据 Counterpoint，中际旭创占全球数据中心光收发模块市场约 <b>27%</b>，是全球第一；中国厂商在 800G 与 1.6T 高速光模块合计占比超七成，英伟达 AI 集群所用 800G 中有一半以上来自中际旭创与新易盛；而这块蛋糕最大的买家恰是美国——中际旭创一季度 <b>61.7%</b> 营收来自美国，新易盛境外收入占比超 96%，客户为清一色北美云巨头。美国创新基金会报告承认，Coherent 与 Lumentum 虽有具竞争力的技术，但<b>生产规模不足以替代中国供应商</b>。集邦预测 2026 年全球 AI 光模块市场规模 260 亿美元，同比增长 57%。</p>
+
+  <p>中国厂商自 2025 年起已在泰国投产、并规划马来西亚分厂以对冲关税与监管风险，1.6T 高端产品从东南亚出货。<b>但若监管穿透企业股权国籍判定产地，海外产能的避险效果将大打折扣。</b>推演含义有三：其一，这是 8/2 提出的"物理约束"之外的<b>第六条约束——供应链国籍约束</b>，它会同时抬高美国 AI 基建的成本与交期；其二，它给出了本期最清晰的一组配对交易结构（做多美国光通信产能 / 做空中国出海光模块估值），但反身性极强——若禁令搁置，反向波动同样剧烈，知情人士明确表示 FCC 仍可能修改或搁置；其三，<b>它使"AI 挤出税"多了一个非市场来源：地缘政治正在给 AI 基建的物料清单再加一层溢价。</b></p>
+
+  <h3><span class="num">4.5</span>物理约束的复核：CoWoS、电力、以及需求的分层</h3>
+
+  <p>8/2 提出的物理约束框架（CoWoS 两线售罄、交期 52–78 周、2027 需求近乎翻倍至逾 268 万片；高压变压器交期 80–100 周、美国电网排队超 2,600 吉瓦）本期<b>没有出现反证，且获得了新的确认</b>：亚马逊管理层表示即使上调 capex 仍无法满足今年需求、2027 年同样供不应求、<b>2028 年已有大量产能被预订</b>，并预计到 2027 年底电力容量较 2025 年翻倍；CoreWeave 积压订单 1,040 亿；Lumentum 数据中心需求翻倍、产能全线满载。</p>
+
+  <p>需要更新的是<b>需求分层的判断</b>。8/2 报告把市场分为训练算力（结构性短缺）、推理算力（开始分层与局部过剩）、物理产能（绝对短缺）三层，并把"推理算力先于训练算力过剩"列为"最被低估的一条产业风险"。<mark class="note">本期证据推翻了中间那一层：推理算力不是局部过剩，是短缺到必须用价格配给（详见第 V 章）。</mark>修正后的三层结构是：<b>训练算力短缺 → 推理算力短缺且被价格配给 → 物理产能绝对短缺</b>。三层同向，意味着"过剩崩塌论"在 2026 年下半年的近端<b>更加缺乏依据</b>，同时也意味着一旦 2028 年供给集中释放，回摆的幅度会比 8/2 设想的更大。<b>底部时间表（2027Q4–2028）不修改；底部深度的不确定性上调。</b></p>
+</div>
+
+<!-- ═══════════════════ V · CHINA MODELS ═══════════════════ -->
+<div class="section">
+  <div class="section-num">V · CHINA MODELS</div>
+  <h2 class="section-title">单价通缩，撞到了算力成本的地板</h2>
+  <p class="section-dek">开源没有杀死定价权。它压缩的是许可费，不是电费——而现在决定价格的是电费。</p>
+
+  <p class="drop-cap">8/2 报告写下：单 token 通缩从一个"事件"变成一条"斜率"，每 3–6 个月开源前沿把闭源定价上限往下压一档，这是对整条 AI 价值链贴现率的<b>永久性抬升</b>。两周内的证据要求对这条判断做一次重要的限定：<b>斜率是真的，但它有一个由推理算力成本决定的地板，而这个地板在 2026 年下半年正在抬升。</b></p>
+
+  <h3><span class="num">5.1</span>三个方向相同的价格信号</h3>
+
+  <table class="data">
+    <thead><tr><th>厂商</th><th>动作</th><th>时点</th><th>含义</th></tr></thead>
+    <tbody>
+      <tr class="lo"><td><b>月之暗面</b></td><td>因算力资源紧张<b>暂停 Kimi 新用户订阅</b>，把有限算力优先分配给可覆盖成本的 B 端；加载 K3 需近 3TB 显存、部署需至少 64 张 H800</td><td>7/19</td><td>C 端"用得越多亏得越多"的反向规模效应</td></tr>
+      <tr class="lo"><td><b>智谱</b></td><td>GLM 系列连续提价：2 月约 +30% 并取消首购优惠；3 月整体 API 价格较去年底提升约 <b>+83%</b></td><td>2–3 月起</td><td>能力接近一线后定价权回归</td></tr>
+      <tr class="lo"><td><b>DeepSeek</b></td><td>8/13 发布 V4-Pro 正式版（0813）的同时<b>公告将大幅上调 API 价格</b>；自 <b>8/17 0:00</b> 起实施峰谷定价（闲时为高峰半价）</td><td>8/13 → 8/17 生效</td><td><b>峰谷＝配给，不是过剩</b></td></tr>
+      <tr><td colspan="4" style="background:rgba(184,151,112,0.06)"><b>供需背景</b>：中国 2026Q1 AI 算力需求同比 <b>+417%</b>，供给仅 <b>+128%</b>；高端芯片进口受限、国产卡生态尚未成熟；业内认为支撑万亿参数模型训练与推理，万卡级集群已是基础门槛，而真正具备万卡级部署能力的厂商仍是少数，大规模集群项目落地周期以年计。</td></tr>
+    </tbody>
+  </table>
+
+  <div class="insight-box">
+    <h3>修正 · 峰谷定价是短缺信号</h3>
+    <p>8/2 报告写道："峰谷定价的产业含义常被忽略：它把推理算力当作电力来卖，意味着推理侧已经出现了明确的产能过剩时段与需求曲线管理。"</p>
+    <p><b>这个推论错了，而且错在一个基本的经济学方向上。</b>电力行业实施峰谷定价的原因从来不是"电太多"，而是<b>峰值容量昂贵且不可储存</b>——峰谷价差存在的意义是把负荷从峰值移走，以避免为峰值再建一座电厂。同理，DeepSeek 在宣布"近期将大幅涨价"的<b>同一份公告</b>里推出峰谷定价，其唯一自洽的解读是：<b>峰值推理容量不足，必须用价格把一部分需求赶到闲时。</b></p>
+    <div class="gate-rule">
+      修正后的规则：在供给受限的市场里，<b>价格分层是短缺的证据</b>；只有在"价格全面下行 + 分层"同时出现时，才构成过剩证据。<br>
+      当前读数：中国前沿模型 API 价格<b>全面上行</b>（智谱 +83%、DeepSeek 公告涨价）→ 判定为<b>短缺</b>。<br>
+      "推理算力先于训练算力过剩"这一风险的时间窗，自 2027 年推迟至 <b>2027H2–2028</b>。
+    </div>
+  </div>
+
+  <h3><span class="num">5.2</span>能力侧：差距进一步收窄，但价格差没有同步扩大</h3>
+
+  <p><b>DeepSeek-V4-Pro-0813</b>（8/12 晚–8/13 上线）是本期最重要的能力事件。相较 4 月预览版，架构与参数未变（MoE，官方口径存在 1.6T/2,840 亿两种表述，激活参数约 130–490 亿，1M 上下文、384K 最大输出），提升来自<b>针对性后训练</b>：DeepSWE 从 12.8 跃升至 <b>62.7</b>、NL2Repo 从 38.5 升至 61.5、DSBench-Hard 至 67.2；终端 Agent 测试 <b>Terminal Bench 87.9，逼近 Fable 5 的 88.0</b>；在 CyberGym 与 AutomationBench 上表现<b>反超 Fable 5</b>。API 原生支持 OpenAI Responses API 格式并适配 Codex，同时支持 Anthropic API 协议，兼容 Claude Code 等主流编程工具；思考模式支持 low/high/max 三档。定价 3 元/百万 token 输入、6 元/百万 token 输出、缓存命中 0.025 元。同期 DeepSeek Harness 开发者预览版开源（"一切皆插件"），MiniMax H3 全模态模型 8/3 开源（33B 权重），Grok 4.6 与 Qwen3.8 Max 同期发布。</p>
+
+  <p><b>把三个数字并排看，本期最重要的产业结论会自己出现：</b></p>
+
+  <table class="data">
+    <thead><tr><th>模型</th><th class="num">输入 / 输出（每百万 token）</th><th>能力定位</th><th>方向</th></tr></thead>
+    <tbody>
+      <tr><td>Kimi K3（7/27 开源权重）</td><td class="num">$3 / $15</td><td>综合全球第 4、前端第 1（Artificial Analysis / Frontend Code Arena 1679 分）</td><td>—</td></tr>
+      <tr><td>DeepSeek V4-Pro（8/13）</td><td class="num">¥3 / ¥6<br><span style="font-size:11px">（约 $0.42 / $0.84）</span></td><td>Terminal Bench 87.9 ≈ Fable 5 的 88.0；CyberGym / AutomationBench 反超</td><td class="warn">公告将<b>大幅涨价</b></td></tr>
+      <tr><td>智谱 GLM</td><td class="num">—</td><td>—</td><td class="warn">较去年底 <b>+83%</b></td></tr>
+    </tbody>
+  </table>
+
+  <p><b>结论一：能力差距的收窄是真实的、且比 7 月更进一步。</b>Kimi K3 在 7 月落在"综合第 4、前端第 1"的中间地带；DeepSeek V4-Pro 在 8 月已在 Agent 类基准上贴平甚至局部反超西方最新一代旗舰。这直接影响 Anthropic 的 IPO 叙事，也影响所有闭源 API 的长期定价上限。</p>
+
+  <p><b>结论二：但价格差不再单向扩大。</b>DeepSeek 的名义单价仅为 Kimi K3 的约七分之一至十八分之一，本应把通缩斜率再压一档——<b>而它选择在这个时点宣布涨价</b>。这说明单价通缩的约束条件已从"模型效率"转为"推理算力供给"。开源压缩的是模型许可与研发摊销这部分成本，它压缩不了 GPU 的折旧、电费与集群运维。<mark class="note">当需求以年化 +417% 增长而供给只有 +128% 时，最便宜的模型也必须涨价。</mark></p>
+
+  <p><b>对推演的三层影响（8/2 分层框架的修订）：</b></p>
+
+  <p><b>第一层 · 应用层（受益逻辑弱化）</b>：8/2 认为开源平价对应用层是"纯粹的成本端利好"。这条现在只成立一半——能力仍在变强，但价格已开始上行。港股在 8 月的落后（恒指 −2.97%、恒生科技 −2.52%）中，这是被低估的一个原因。<b>应用层的毛利率改善叙事需要下调。</b></p>
+
+  <p><b>第二层 · 模型公司（分化取代同杀）</b>：8/2 判断"开源平价对所有闭源模型公司是全球同杀，中国籍不豁免"。这条在中国内部继续被验证得极其惨烈——智谱与 MiniMax 今年 1 月登陆港交所后市值最高双双突破 4,000 亿港元，至 7 月 20 日智谱自高点回撤近七成、MiniMax 跌幅达 85%，两家合计蒸发逾万亿港元；K3 发布当日智谱单日 −28%、MiniMax −15%；8/14 MiniMax 再跌超 12%。<b>但它在全球范围被证伪了</b>：Anthropic 年化收入自 5 月 470 亿升至 7 月第三方估算逾 600 亿，2026Q2 首次录得调整后经营利润 5.59 亿美元，美国企业付费份额 34.4% 首次超过 OpenAI 的 32.3%，IPO 估值预期从 9,650 亿翻倍至市场推测的 2 万亿。<mark class="note">修正：开源杀的不是"闭源"，是"没有企业级分销与差异化产品面的闭源"。护城河从模型权重转移到了企业销售、Agent 工程与工具链绑定。</mark>月之暗面的选择印证了这一点——它把有限算力从 C 端转向 B 端，F 轮融资逾 35 亿美元、投后 350 亿，计划六个月内赴港上市、目标估值 500 亿美元。</p>
+
+  <p><b>第三层 · A 股 AI 硬件链（判断反转）</b>：8/2 判断"A 股半导体是全球最脆弱的一环"。本期反转：创业板指 +8.44%、长鑫登顶、存储/HBM/半导体/CPO 领涨。<b>但必须把两类资产严格分开</b>：<b>（甲）技术主权型</b>——长鑫、国产设备与材料，其定价锚是国产替代进度与政策支持，与全球 AI 硬件 β 部分脱钩，且受益于 FCC 禁令带来的国内替代加速；<b>（乙）全球出海型</b>——光模块三剑客等，其定价锚是北美云厂订单，直接暴露在 FCC 禁令与关税风险下。<mark class="note">同时必须记录一个技术性警告：8/13 A 股收盘数据显示存储龙头存在明显的主力派发（兆易创新 20 日主力净卖 −10.51%），A 股存储的形态是"美股映射高开 + 派发未解"，而非美股那种日内持续买入的真实买盘。</mark>因此本次对 A 股硬科技的配置是<b>小仓、择类、不追高</b>。</p>
+</div>
+
+<!-- ═══════════════════ VI · MACRO ═══════════════════ -->
+<div class="section">
+  <div class="section-num">VI · MACRO</div>
+  <h2 class="section-title">政权更替：从滞胀到"双降温"</h2>
+  <p class="section-dek">通胀塌了、加息定价塌了、短端塌了——长端纹丝不动。这一条不动，说明了一切。</p>
+
+  <p class="drop-cap">8/2 报告把宏观组合定性为滞胀：Q2 GDP 仅 1.5%、增长动能放缓，而通胀（油价、关税、AI 通胀税、30Y 定价的长期预期）在上行，并写下"这个组合对 Fed 是最难的：加息压增长、不加息失信誉"。两周内，这个组合的<b>右半边塌了</b>：通胀不但没有上行，反而交出了五年来最温和的一组读数。宏观政权因此从"滞胀"切换为<b>"增长与通胀同步降温"</b>——一个对股票远为友好、对债券远为复杂的环境。</p>
+
+  <h3><span class="num">6.1</span>通胀侧：两份数据，一次定价重置</h3>
+
+  <table class="data">
+    <thead><tr><th>指标</th><th class="num">读数</th><th class="num">预期 / 前值</th><th>结构</th></tr></thead>
+    <tbody>
+      <tr class="hi"><td>7 月 CPI 同比</td><td class="num">3.4%</td><td class="num">3.4% / 3.5%</td><td>符合预期，边际回落</td></tr>
+      <tr class="hi"><td><b>7 月核心 CPI 同比</b></td><td class="num">2.5%</td><td class="num">2.5% / 2.6%</td><td><b>追平 2021 年 3 月以来最低</b></td></tr>
+      <tr><td>7 月 CPI 环比 / 核心环比</td><td class="num">+0.1% / +0.2%</td><td class="num">+0.1% / +0.2%</td><td>6 月为 −0.4% / 0.0%</td></tr>
+      <tr><td>分项</td><td class="num" colspan="2">住房 +0.1%（贡献约 2/3 涨幅）；能源 <span class="neg">−1.5%</span>、汽油 <span class="neg">−2.9%</span>；食品 +0.1%</td><td>伊朗战争能源冲击继续消退</td></tr>
+      <tr><td>核心内部</td><td class="num" colspan="2">医疗、机票（同比仍 +25.5%）、通信、教育、娱乐、二手车环比走高；车险延续下跌</td><td>服务粘性尚存</td></tr>
+      <tr class="hi"><td><b>7 月 PPI 同比</b></td><td class="num">4.7%</td><td class="num">4.9% / 5.5%</td><td>大幅低于预期；环比持平（预期 +0.2%）</td></tr>
+      <tr><td>核心 PPI 同比</td><td class="num">4.2%</td><td class="num">符合</td><td>上游压力确在降温</td></tr>
+    </tbody>
+  </table>
+
+  <p><b>定价重置的幅度是罕见的。</b>7/29 FOMC 后 9 月加息定价约 60%（会前近乎完全定价），至 8/13 已降至<b>约 32%</b>，维持不变概率升至 65.7%；债券交易员<b>不再完全定价美联储年内会加息</b>。2 年期从 4.28% 降至 <b>4.139%</b>，10 年期从约 4.55% 至 4.64%。</p>
+
+  <p>但美联储内部的分裂没有随数据缓和：8/13 克利夫兰联储主席哈马克明确表示"现在必须加息"，巴尔金称"可能需要加息来实现目标"；同时有报道称沃什已"为 9 月加息敞开大门"，条件是未来数周通胀数据偏热。<b>7/29 的三票异议不是一次性事件，它是一个持续的、与数据方向相反的内部结构。</b></p>
+
+  <h3><span class="num">6.2</span>需求侧：本期真正的新变量</h3>
+
+  <p>8/2 报告把需求端风险写在传染链的第二、三环（IBM 式企业预算挤占、苹果式消费电子供货警告），但没有为<b>总量需求的直接塌陷</b>建模。两周内出现了三份互相印证的数据：</p>
+
+  <div class="ind-grid">
+    <div class="ind-card">
+      <div class="ind-label">8/7 · 就业</div>
+      <div class="ind-title">非农 −2.3 万，年内首次转负</div>
+      <div class="ind-desc">预期 +8.0~8.3 万；<b>5、6 月合计下修 10.3 万</b>；近三个月月均仅约 <b>2.0 万</b>、过去 12 个月月均 3.4 万。失业率降至 4.1% 但源于参与率跌至 <b>61.4%</b>（2021 年初以来最低）、劳动人口单月 −26.4 万。时薪环比 +0.1%、同比 +3.2%（均低于预期）。地方教育 −5 万、零售 −1.9 万、金融 −1.4 万。</div>
+      <div class="ind-trig">▲ 三个月均值已逼近 breakeven 下沿（圣路易斯联储口径 1.5–8.7 万/月）</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-label">8/14 · 消费</div>
+      <div class="ind-title">零售 −0.6%，14 个月最大跌幅</div>
+      <div class="ind-desc">预期 +0.1%、前值 +0.2%；<b>9 个月来首次下降</b>；控制组 −0.4%；同比 +5.0%。汽车及零部件 −1.8%、线上 −2.2%、电子与家电 −0.5%、加油站 −0.9%；服饰 +1.9%、餐饮 +0.5%。凯投宏观提示线上大跌部分反映亚马逊 Prime Day 从 7 月前移至 6 月。</div>
+      <div class="ind-trig">▲ 上半年强势部分来自超大额退税的一次性提振，6 月储蓄率已至四年低点</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-label">8/14 · 信心</div>
+      <div class="ind-title">密大 8 月初值 51.0</div>
+      <div class="ind-desc">7 月 55.2、预期 54.5，<b>终结连续两个月的改善</b>。与零售数据方向一致，且与"AI 挤出税压迫终端电子价格与配置"的产业证据互相印证。</div>
+      <div class="ind-trig">▲ 高生活成本正在侵蚀现任支持率 → 11 月中期选举 → 财政与关税政策的双向压力</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-label">跨期 · 增长</div>
+      <div class="ind-title">Q2 GDP 初值仅 1.5%</div>
+      <div class="ind-desc">8/2 报告已记录（预期 2.1%，净出口拖累 1.01pp）。叠加负非农、零售转负、信心走弱，"增长动能放缓"从一个季度读数变成了一组高频确认。</div>
+      <div class="ind-trig">▲ 若 9/4 的 8 月非农再度转负 = 衰退定价开启，情景 C 的驱动因子完成第四次切换</div>
+    </div>
+  </div>
+
+  <p><b>这组数据对推演的含义是双向的，必须同时说清。</b>看多的一面：它把加息风险基本移除，为高久期资产解除了近端的贴现率压力，这是 8 月股市创新高的宏观基础；也是"AI 挤出税"这条链的自然刹车——需求走弱会压制存储的消费电子端需求，从而缓解 2027 年的成本二次跳升。看空的一面：<b>它把 8/2 情景 C 的第二个驱动因子（AI 通胀税失控）替换成了一个更传统、也更危险的驱动因子——需求塌陷。</b>盈利泡沫的破裂方式，从"钱变贵"改成了"客户变穷"。</p>
+
+  <h3><span class="num">6.3</span>长端：本期最重要的非确认</h3>
+
+  <div class="insight-box">
+    <h3>通胀降了、加息定价塌了、短端跌了——30Y 没动</h3>
+    <div class="gate-rule">
+      7/29（FOMC 后）　30Y ≈ <b>5.23%</b>　｜　2Y 4.28%　｜　9 月加息定价 ≈ 60%<br>
+      8/13（CPI+PPI 后）30Y = <b>5.214%</b>　｜　2Y <b>4.139%</b>　｜　9 月加息定价 ≈ <b>32%</b><br>
+      <br>
+      8/12　420 亿美元 <b>10 年期</b>标售中标 <b>4.683%</b>，2007 年金融危机以来最高；<b>5 月以来首次出现尾部利差</b><br>
+      8/13　250 亿美元 <b>30 年期</b>标售中标 <b>5.216%</b>，<b>2001 年以来最高</b>；投标倍数 2.39（前值 2.44）
+    </div>
+    <p><b>这是一个近乎完美的对照实验。</b>在两周里，所有影响长端的<b>周期性</b>变量都朝有利方向移动了：通胀降温、上游价格降温、就业转负、加息概率腰斩、油价从 $91 回落。而 30 年期收益率<b>几乎没有变化</b>，一级市场需求还在边际走弱。</p>
+    <p><mark class="note">唯一自洽的解释是：长端定价的不是货币政策周期，是财政供给与央行信誉。这两项在两周内没有任何改善——联邦债务约 39 万亿、赤字不会因股市上涨而缩小、沃什继续拒绝提供指引、FOMC 内部三票异议未消散。</mark></p>
+    <p><b>对推演的含义（8/2 判断的强化版）：</b>其一，<b>估值天花板的约束没有解除</b>——按每 50bp 长端上行压缩约 1.0–1.5 个 PE 倍数的经验关系，30Y 5.2% 对应的合理远期 PE 上限仍在 20.5–21x，这是本次顶部带上修完全由 EPS 驱动、而非由倍数驱动的原因；其二，<b>黄金的多头逻辑完好无损</b>——它做多的是"名义利率高企 + 央行信誉折价 + 财政不可持续"，而不是做多通胀，这解释了为什么黄金在通胀数据降温的两周里反而上涨 7.6%；其三，<b>这是四条路径中唯一在情景 A 与情景 C 下都不会消失的风险</b>。8/13 拍卖后二级市场收益率反而全线回落（30Y −4.28bp、10Y −4.57bp、2Y −4.82bp），说明当前尚有承接力，但一级/二级的方向背离本身就是压力读数。</p>
+    <p><b>阈值维持不变：30Y 破 5.5% ＝ 期限溢价失控，高久期资产二次杀估值。</b>新增观察项：美国财政部是否进一步把举债结构转向较短期限——若发生，是长端压力已不可持续的确认信号，而非缓解信号。</p>
+  </div>
+
+  <h3><span class="num">6.4</span>地缘：从"首要变量"回落为"高权重变量"</h3>
+
+  <p>8/2 报告把地缘升级为"定价函数里权重最高的单一外生变量"，并把能源对冲从 3–5% 上调至 5–8%。两周的路径证明了判断的正确性和加码时点的偏晚：</p>
+
+  <p><b>缓和线</b>：8/4 贝森特称美伊"有可能今天或明天"达成重开霍尔木兹的协议且将是"自由通行"，卢比奥确认美国正参与阿曼与伊朗的谈判并取得进展；布油当周跌逾 12%、8/5 一个月来首次跌破 $80。8/11 巴基斯坦国防部长称双方"接近某种安排"。<b>升级线</b>：伊朗强硬派坚持保留海峡管控与收费权；特朗普 8/12 在社交媒体宣称"美国完全控制着霍尔木兹海峡⋯⋯伊朗对此束手无策"，并要求伊朗就袭击死亡事件进行赔偿；美防长称可"无限期维持"对伊朗海上封锁；伊朗支持的胡塞武装袭击沙特吉赞炼油厂；美军称使用导弹袭击一艘驶向伊朗港口的商船；伊朗称若条件得不到满足或将升级冲突。<b>结果</b>：油价在 8/14 回到布油约 $87.2 / WTI 约 $81.6（当周 +5%）。</p>
+
+  <p><b>供需侧出现了一个必须记录的分歧</b>：IEA 8/12 月报因海峡持续封锁与燃料价格高企，将 2026 年全球石油需求预测下调至<b>日均减少 160 万桶</b>（较上月扩大 51 万桶），2027 年则预期日均增加 240 万桶；同时 IEA 警告全球供应缺口将加深，预测 2026 年将出现<b>五年来最严重的短缺</b>。<mark class="note">需求被高价格摧毁、供给被封锁限制——这是一个双向极端的市场，方向性头寸的性价比显著下降，凸性头寸（期权、能源股相对指数）的性价比上升。</mark></p>
+
+  <p><b>调整：能源从 5–8% 下调至 4–6%，但绝不移出。</b>7/18 的方法论教训（战争变量只能降权、不能移出）在本期第二次被验证——8/5 看似要签协议，8/12 就变成"无限期封锁"。判断维持：若炼油厂或出口设施被实际打击、或布油站上 $100 持续两周，立即回补至 8%。</p>
+</div>
+
+<!-- ═══════════════════ VII · ASIA ═══════════════════ -->
+<div class="section">
+  <div class="section-num">VII · ASIA</div>
+  <h2 class="section-title">亚洲：十个交易日，从坟场到牛市</h2>
+  <p class="section-dek">韩国用 10 天走完了别人 10 个月的路。而唯一没跟上的，是我们唯一超配的市场。</p>
+
+  <h3><span class="num">7.1</span>韩国：杠杆去化完成后的教科书级 V 型</h3>
+
+  <p>8/2 报告把韩国 7 月的 −34%/9 次熔断定性为"分配（distribution）而非崩塌（collapse）"，理由是"价格跌了三分之一，盈利涨了五倍"，并判断"存储链在完成杠杆去化后具备真实的基本面反弹弹药"。<b>这条判断在两周内被以最激烈的方式验证</b>：KOSPI 自 7/30 低点在 10 个交易日内反弹约 <b>22~23%</b>，8/13 盘中一度 +4.8%，正式进入技术性牛市；8/14 收 <b>6,977.94（+2.42%）</b>。三星电子与 SK 海力士领涨，8/13 分别涨超 4% 与 7%。</p>
+
+  <p>驱动是四条同时成立：<b>（1）去杠杆压力缓解</b>——政府收紧个股杠杆 ETF 措施、投资者主动减少融资交易，7 月的强制平仓潮基本出清；<b>（2）美国通胀降温</b>——CPI 与 PPI 连续两份温和数据，缓解加息担忧并支撑美国上市芯片企业；<b>（3）AI 资本开支预期回暖</b>——大型科技公司最新财报继续显示巨额 AI capex，重新点燃对科技硬件需求的信心；<b>（4）股东回报预期</b>——三星与 SK 海力士最快 8 月底公布新股东回报方案，合计规模或超 <b>200 万亿韩元</b>，有望创历史新高（三星或超 100 万亿、部分机构估算达 120 万亿；SK 海力士极端情况下或接近 100 万亿）。</p>
+
+  <p><mark class="note">教训的第二层：8/2 报告用"半个指数押注两只存储股 + 散户杠杆 ETF"解释了韩国跌得最惨的原因。同一个结构解释了它涨得最凶的原因——机械放大器是双向的。</mark>结论一（"当指数的一半权重集中在两只同周期股票、且散户通过杠杆 ETF 持有时，指数就不再是指数，而是一个衍生品"）在本期获得了对称的验证。<b>对配置的含义不变且强化：同样的信心在韩国只能配一半的名义仓位。</b></p>
+
+  <p><b>需同时记录的中期风险</b>：凯投宏观 Thieliant 预计美国 AI 投资热潮将在 <b>2028 年</b>失去动能，届时高度周期性的韩国芯片厂商可能开始削减资本开支（SK 海力士 2023 年曾削减三分之二）；三星与 SKH 合计 800 万亿韩元的新厂投资时间表尚未披露。</p>
+
+  <h3><span class="num">7.2</span>日本：指数创新高，而汇率把干预还了回去</h3>
+
+  <p>日经 225 自 7/31 的 64,362.02 升至 8/14 的 <b>68,713.80（+6.76%）</b>，为 7/15 以来最高，8/14 盘中一度上涨近 1,300 点短暂收复 69,000；<b>TOPIX 收 4,197.2，连续三个交易日刷新收盘历史新高</b>。驱动为美股带动 + AI 半导体买盘。</p>
+
+  <p><b>但汇率端是本期最值得警惕的一条。</b>7 月底美日联合入市买入日元，美元/日元自近 164 暴跌逼近 155（两周内升值逾 5%，<b>已逼近 8/2 报告设定的"两周升值逾 6% ＝ 维度 4 触发"阈值</b>）；进入 8 月，干预效果<b>基本消退</b>，美元/日元回到约 160。BOJ 7/31 以 8:1 维持 1.0%（高田创主张加息至 1.25%，为连续第二次会议出现异议票）；8/10 公布的 7 月会议《意见摘要》偏鹰，有委员提出"可以考虑将加息速度提高到快于市场预期的水平"；据日本时事通讯社，BOJ 可能在 <b>9 月 17–18 日</b>会议上讨论再次加息，市场定价概率约 <b>66~70%</b>。若 9 月加息，将是 1989 年以来最快的紧缩节奏。高盛策略师 Fishman 警告：若 9 月未能兑现加息，将对日元形成新的下行压力。瑞穗提示 160 是关键心理位，突破可能加剧干预担忧。</p>
+
+  <div class="insight-box">
+    <h3>判别器维度 4 的新观测：先触发、后回吐</h3>
+    <p>这是本系列首次观测到一个判别器子项<b>触发后被政策干预重置</b>。7 月底的 164→155 是一次典型的套息平仓压力（幅度逾 5%，接近 6% 阈值），但它由<b>官方买入</b>而非市场自发去杠杆造成，因此在干预停止后两周内全数回吐。</p>
+    <div class="gate-rule">
+      修正规则：日元子项触发时，必须先判定<b>驱动来源</b>——<br>
+      　<b>市场自发升值</b>（风险资产下跌同步、波动率上升）＝ 真实套息平仓，维度 4 触发，全球风险资产降仓；<br>
+      　<b>官方干预升值</b>（风险资产上涨、波动率下降）＝ 压力信号但非平仓信号，<b>不触发</b>降仓，但应上调后续两个月的尾部风险权重——因为干预本身证明当局认为水位已不可持续。<br>
+      当前判定：<b>后者</b>。日元 3.7 万亿美元净对外资产的杠杆池未被释放，只是被推迟。<b>9/17–18 BOJ 是本次推演窗口内风险最集中的单一外部事件。</b>
+    </div>
+  </div>
+
+  <h3><span class="num">7.3</span>港股：唯一没跟上的市场，与四支柱的第一根断裂</h3>
+
+  <p>恒生指数自 25,884.43 回落至 8/14 的 <b>25,116.85（−2.97%）</b>，恒生科技 4,829.22→4,707.62（−2.52%），国企指数 8,340.83。同期标普 +3.95%、纳指 +5.34%、日经 +6.76%、KOSPI 自低点 +22%、创业板 +8.44%。<b>恒指是本期全球主要指数中唯一下跌的。</b></p>
+
+  <p>8/2 报告给出的四支柱是：低 AI 硬件 β（不承担 capex 负担）+ 低估值起点 + 南向承接 + 开源平价的成本红利。<b>本期至少断了一根半：</b></p>
+
+  <table class="data">
+    <thead><tr><th>支柱</th><th>8/2 状态</th><th>8/16 状态</th><th>判定</th></tr></thead>
+    <tbody>
+      <tr class="lo"><td><b>低 AI 硬件 β</b></td><td>7 月的防御来源</td><td>8 月全球资金回补硬件链，不承担 capex 负担＝不分享 capex 反弹</td><td class="neg">断裂（优势转劣势）</td></tr>
+      <tr class="lo"><td><b>开源平价成本红利</b></td><td>模型能力接近前沿而价格是数分之一</td><td>DeepSeek 公告涨价 + 峰谷、智谱累计 +83%、月之暗面暂停 C 端</td><td class="warn">半断裂（能力仍在，价格反转）</td></tr>
+      <tr><td>低估值起点</td><td>恒生互联网 PE 约 22.5 倍</td><td>腾讯年内市值 −25.5%，估值更低</td><td class="pos">仍成立且强化</td></tr>
+      <tr><td>南向承接</td><td>7 月净买入 719.21 亿港元，但 7/23 起连续 7 日净卖出</td><td>央行 Q2 货政报告提出"谋划出台增量政策、加大逆周期调节"；8/14 起连续开展隔夜逆回购（每日不超 6,000 亿）、8/14 开展 1 万亿 6 个月买断式逆回购</td><td class="warn">政策面转正，资金面待验</td></tr>
+    </tbody>
+  </table>
+
+  <p><b>腾讯是这个断裂的具体承载者。</b>Q2 营收 2,047.85 亿元（+11%，首破 2,000 亿，超预期）、毛利 +13%、本土游戏 +17%、营销服务 +20% 以上——业务面是好的。但归母净利 560.22 亿元<b>仅 +0.7%</b>，资本开支 527.84 亿元（<b>+176% YoY、+65% QoQ</b>），<b>自由现金流 −138 亿元</b>（经营现金流 527 亿被 593 亿 capex 付款、50 亿媒体内容、22 亿租赁负债超额抵销）。8/13 单日 −4.46% 收 441 港元，市值 4.01 万亿港元，年内累计 −25.5%。市场担忧的三点极其明确：净利不及预期、AI capex 大幅超预期导致 FCF 转负、以及<b>公司从"轻资产现金牛"转向"重资产投入模式"带来的市盈率中枢下移</b>。</p>
+
+  <p><mark class="note">这是 FCF 门禁第一次在中国资产上完整生效，且惩罚力度与 7 月的 Meta（−7.95%）同量级。它证明门禁不是一个美股现象，是一个全球定价规则。</mark></p>
+
+  <p><b>操作判断：从"相对超配"下调为"标配偏上"，档位 22–25% → 18–22%。</b>理由不是看空中国资产，而是四支柱只剩两根半，且其中最强的一根（低估值）需要更长的时间兑现。<b>411 港元的底部判断维持有效</b>（8/13 收 441，未被挑战），加仓条件明确化为：任一季度出现"capex 增速减档 + FCF 转正"的组合，或混元 Hy4 上线后出现可量化的货币化路径。腾讯管理层已披露 Hy3 正式版推出、<b>Hy4 计划近期上线</b>，这是下一个验证点。</p>
+
+  <h3><span class="num">7.4</span>A 股：技术主权的重定价，与一个必须说清的警告</h3>
+
+  <p>上证自 3,832.26 升至 8/14 的 <b>3,927.18（+2.48%）</b>，创业板指 3,343.96→<b>3,626.30（+8.44%）</b>，科创 50 收 1,717.68。领涨的是存储器、HBM、半导体、服务器、AI 算力、CPO、液冷。长鑫科技登顶中国市值第一，是这轮定价的symbol：<b>资本市场正在对"技术主权"进行独立于全球 AI β 的重新定价。</b></p>
+
+  <p>政策面同步转暖：央行 Q2 货政报告提出"及时谋划出台务实管用的增量政策，加大逆周期调节力度"；8/12 起首次在月中开展隔夜逆回购操作（8/14、8/17–19，每日不超 6,000 亿）；8/14 开展 1 万亿元 6 个月期买断式逆回购；10 年期国债收益率一度跌破 1.7%。</p>
+
+  <p><b>但三个警告必须同时给出，否则这条判断会变成追高的借口：</b></p>
+
+  <p><b>其一，形态是"映射高开 + 派发未解"。</b>8/13 A 股收盘数据显示，存储龙头存在明显主力派发（兆易创新 20 日主力净卖 −10.51%），A 股存储链的上涨结构是"跟随美股跳空高开、但日内缺乏持续买入"，与美股那种日内持续吸筹的真实买盘性质不同。<b>其二，量能在萎缩。</b>8/14 沪深两市成交额 2.14–2.15 万亿元，较前一交易日缩量逾 4,000 亿；全市场超 2,900 只个股下跌、涨停仅 64 家，呈现"指数稳、个股弱、量能缩"；高位题材股集体跌停。<b>其三，供给在扩容。</b>宇树科技等热门新股密集发行（网上有效申购约 8,289 倍，中签率创科创板新低），A 股已扩容至五千余只个股，全面普涨的基础缺失，后续将以结构性行情为主。</p>
+
+  <p><b>因此本次新增的 A 股配置是小仓、择类、不追高（3–5%），且必须严格区分两类资产：</b>（甲）<b>技术主权型</b>——国产存储、半导体设备与材料，定价锚是国产替代进度与政策支持，且受益于 FCC 禁令倒逼的国内替代加速；（乙）<b>全球出海型</b>——光模块等，定价锚是北美云厂订单，直接暴露于 FCC 禁令与关税风险，本次<b>不配置</b>。</p>
+</div>
+
+<!-- ═══════════════════ VIII · SCENARIOS ═══════════════════ -->
+<div class="section">
+  <div class="section-num">VIII · CHRONOLOGY &amp; SCENARIOS</div>
+  <h2 class="section-title">推演时间线与四种路径 · 8/16 校准</h2>
+  <p class="section-dek">未来六周有三道硬闸门，一个 10 月的裁决，和一个从未被建模过的 11 月。</p>
+
+  <div class="timeline">
+    <svg class="tl-svg" viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="推演时间线">
+      <defs>
+        <linearGradient id="pathB" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#B89770"/><stop offset="100%" stop-color="#A4242C"/>
+        </linearGradient>
+      </defs>
+      <!-- axis -->
+      <line x1="60" y1="230" x2="860" y2="230" stroke="#0F2742" stroke-width="1.5"/>
+      <!-- phase labels -->
+      <text x="60" y="252" font-family="JetBrains Mono, monospace" font-size="10" fill="#6B6052">8/16</text>
+      <text x="215" y="252" font-family="JetBrains Mono, monospace" font-size="10" fill="#6B6052">10/26</text>
+      <text x="385" y="252" font-family="JetBrains Mono, monospace" font-size="10" fill="#6B6052">1/27</text>
+      <text x="555" y="252" font-family="JetBrains Mono, monospace" font-size="10" fill="#6B6052">7/27</text>
+      <text x="720" y="252" font-family="JetBrains Mono, monospace" font-size="10" fill="#6B6052">3/28</text>
+      <text x="840" y="252" font-family="JetBrains Mono, monospace" font-size="10" fill="#6B6052">9/28</text>
+      <text x="60" y="272" font-family="Fraunces, serif" font-size="11" font-style="italic" fill="#8C6E47">三周三闸门</text>
+      <text x="200" y="272" font-family="Fraunces, serif" font-size="11" font-style="italic" fill="#8C6E47">IPO 市价校验</text>
+      <text x="370" y="272" font-family="Fraunces, serif" font-size="11" font-style="italic" fill="#8C6E47">Top Confirmation</text>
+      <text x="545" y="272" font-family="Fraunces, serif" font-size="11" font-style="italic" fill="#8C6E47">Accelerated Decline</text>
+      <text x="715" y="272" font-family="Fraunces, serif" font-size="11" font-style="italic" fill="#8C6E47">Bottom / Pivot</text>
+      <!-- ticks -->
+      <g stroke="#C9B996" stroke-width="1">
+        <line x1="60" y1="225" x2="60" y2="235"/><line x1="215" y1="225" x2="215" y2="235"/>
+        <line x1="385" y1="225" x2="385" y2="235"/><line x1="555" y1="225" x2="555" y2="235"/>
+        <line x1="720" y1="225" x2="720" y2="235"/><line x1="855" y1="225" x2="855" y2="235"/>
+      </g>
+      <!-- event pins -->
+      <g font-family="JetBrains Mono, monospace" font-size="9" fill="#0F2742">
+        <line x1="78" y1="150" x2="78" y2="228" stroke="#A4242C" stroke-width="1" stroke-dasharray="2,2"/>
+        <text x="70" y="144" text-anchor="middle">JH</text><text x="70" y="134" text-anchor="middle" font-size="8" fill="#6B6052">8/20-22</text>
+        <line x1="105" y1="170" x2="105" y2="228" stroke="#A4242C" stroke-width="1.5"/>
+        <text x="105" y="164" text-anchor="middle" font-weight="600">NVDA</text><text x="105" y="154" text-anchor="middle" font-size="8" fill="#6B6052">8/26</text>
+        <line x1="140" y1="150" x2="140" y2="228" stroke="#8C6E47" stroke-width="1" stroke-dasharray="2,2"/>
+        <text x="142" y="144" text-anchor="middle">FOMC·BOJ</text><text x="142" y="134" text-anchor="middle" font-size="8" fill="#6B6052">9/15-18</text>
+        <line x1="215" y1="175" x2="215" y2="228" stroke="#1F4E79" stroke-width="1.5"/>
+        <text x="215" y="169" text-anchor="middle" font-weight="600">Anthropic IPO</text><text x="215" y="159" text-anchor="middle" font-size="8" fill="#6B6052">10月 · $2T?</text>
+        <line x1="258" y1="150" x2="258" y2="228" stroke="#8C6E47" stroke-width="1" stroke-dasharray="2,2"/>
+        <text x="262" y="144" text-anchor="middle">中期选举</text><text x="262" y="134" text-anchor="middle" font-size="8" fill="#6B6052">11月</text>
+        <line x1="360" y1="170" x2="360" y2="228" stroke="#8C6E47" stroke-width="1" stroke-dasharray="2,2"/>
+        <text x="360" y="164" text-anchor="middle">2027 Capex 指引</text><text x="360" y="154" text-anchor="middle" font-size="8" fill="#6B6052">1-2/27</text>
+        <line x1="620" y1="150" x2="620" y2="228" stroke="#8C6E47" stroke-width="1" stroke-dasharray="2,2"/>
+        <text x="620" y="144" text-anchor="middle">Fed Pivot</text><text x="620" y="134" text-anchor="middle" font-size="8" fill="#6B6052">~Q3'27</text>
+        <line x1="800" y1="170" x2="800" y2="228" stroke="#8C6E47" stroke-width="1" stroke-dasharray="2,2"/>
+        <text x="800" y="164" text-anchor="middle">SPX Bottom</text><text x="800" y="154" text-anchor="middle" font-size="8" fill="#6B6052">~Q3'28</text>
+      </g>
+      <!-- price path -->
+      <path d="M60,105 C120,88 180,78 250,72 C320,66 360,62 400,70 C450,82 500,120 560,155 C620,185 680,200 740,203 C790,205 830,198 860,190"
+            fill="none" stroke="url(#pathB)" stroke-width="2.5"/>
+      <!-- top band -->
+      <rect x="200" y="50" width="240" height="26" fill="rgba(184,151,112,0.16)" stroke="#B89770" stroke-dasharray="3,3"/>
+      <text x="320" y="44" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#8C6E47" font-weight="600">B/D 顶部带 7,900 – 8,300</text>
+      <!-- now marker -->
+      <circle cx="60" cy="105" r="4" fill="#0F2742"/>
+      <text x="60" y="96" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#0F2742" font-weight="600">NOW · 7,786</text>
+      <text x="874" y="196" font-family="JetBrains Mono, monospace" font-size="9" fill="#6B6052">底部</text>
+      <text x="60" y="22" font-family="Fraunces, serif" font-size="12" font-style="italic" fill="#6B6052">SPX 路径示意（B/D 混合基准）</text>
+    </svg>
+  </div>
+  <p class="fignote">路径为示意性质，非点位预测。顶部带 7,900–8,300 为情景 B 与 D 的重叠区；情景 C 路径未绘制（对应 8/13 的 7,816.70 即为高点）。</p>
+
+  <p><b>与 8/2 版本的四处结构变化：</b>其一，<b>近端事件密度从"四个硬事件挤在九天"变为"三道闸门排在三周"</b>——8/20–22 杰克逊霍尔、8/26 英伟达、9/15–18 FOMC 与 BOJ；其二，<b>10 月 Anthropic IPO 的性质彻底改变</b>——8/2 时它是"能否为 9,650 亿找到买家"的压力测试，现在它是"2 万亿估值能否给整个未实现收益体系提供市价锚"的确认测试，方向相反、重要性更高；其三，<b>新增 11 月中期选举</b>为本系列首个政治周期变量；其四，<b>顶部带自 7,600–7,900 上修至 7,900–8,300，且上修的全部来源是 EPS 而非倍数</b>。</p>
+
+  <h3><span class="num">·</span>顶部带 7,900–8,300 的推导（三法交叉，EPS 口径已更新）</h3>
+
+  <table class="data">
+    <thead><tr><th>方法</th><th>计算</th><th class="num">结果</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr><td rowspan="3"><b>方法一 · 远期 PE × EPS</b><br><span style="font-size:11.5px;color:#6B6052">2026 EPS 共识：高盛 340、大摩 339、小摩 365；2027：高盛 385、大摩 380、小摩 420。NTM EPS 取 385–400</span></td><td>乐观：21.0x × 400</td><td class="num">8,400</td><td>远期 PE 回到高盛口径上沿</td></tr>
+      <tr><td><b>基准：20.5x × 392</b></td><td class="num"><b>8,036</b></td><td>维持长端约束下的合理上限</td></tr>
+      <tr><td>悲观：19.5x × 385</td><td class="num">7,508</td><td>倍数回落至 5 年均值下方</td></tr>
+      <tr><td><b>方法二 · 长端利率约束</b></td><td>30Y 5.214% 未变 → 合理远期 PE 上限维持 20.5–21x × NTM EPS 385–400</td><td class="num">7,893 – 8,400</td><td><b>倍数天花板未松动，全部增量来自 EPS</b></td></tr>
+      <tr><td><b>方法三 · 路径与卖方共识</b></td><td>8/13 收 7,798.99、盘中 7,816.70；至少 7 家投行年底看 8,000（小摩 7,800→8,000、高盛 8,000、花旗、德银等）；市场平均 7,845；大摩 12 个月 8,300（20.5x × 404）</td><td class="num">7,845 – 8,300</td><td>共识本身已成阻力／目标带</td></tr>
+      <tr class="hi"><td colspan="2"><b>三法交叉结论</b></td><td class="num"><b>7,900 – 8,300</b></td><td><b>7,900–8,100 为高概率区（三法重叠）；8,300 需 30Y 回落至 5.0% 下方或 2027 EPS 再上修</b></td></tr>
+    </tbody>
+  </table>
+
+  <p><mark class="note">这张表最重要的一行是方法二：长端没动，倍数天花板就没动。7,600→7,900 的上修，100% 来自 EPS 分子，0% 来自倍数分母。这既是本次上修的合法性来源，也是它的脆弱性所在——EPS 上修一旦停止，顶部带会立刻回落到 7,500–7,900。</mark></p>
+
+  <!-- 情景 -->
+  <div class="scenario-card bull">
+    <div class="scenario-head">
+      <div class="scenario-name">情景 A · Narrative 全面续命</div>
+      <div class="scenario-prob">概率 <b>18%</b> <span class="delta-up">▲ +3</span></div>
+    </div>
+    <div class="scenario-target">SPX 顶部 <b>8,300 – 8,600</b>（2027 Q1–Q2）· 调整深度 SPX −15 至 −20% · Nasdaq −25%</div>
+    <p class="scenario-desc">小幅上调。8/2 设定的四个前提中，"油价回落"已部分实现（布油自 $91 回落至约 $87，8/5 曾破 $80）、"Anthropic IPO 热销"的概率大幅提升（估值预期翻倍至 2 万亿、Q2 首次盈利、企业份额超越 OpenAI）。仍需同时成立的三件事：<b>(1)</b> 8/26 英伟达毛利率与数据中心增速双超且对 CoWoS 分配、循环融资给出令人信服的回答；<b>(2)</b> 30Y 回落至 5.0% 下方——这是唯一能打开倍数空间的变量；<b>(3)</b> 8/12 与 9/4 的就业数据不再恶化，"双降温"不滑向"需求塌陷"。<b>新增前提：Mag7"其他收入"占比自 61% 回落而 EPS 增速不降</b>——即盈利质量改善而非仅盈利数量增长。</p>
+  </div>
+
+  <div class="scenario-card newpath">
+    <div class="scenario-head">
+      <div class="scenario-name">情景 D · 效率型分化牛市（升为并列主路径）</div>
+      <div class="scenario-prob">概率 <b>30%</b> <span class="delta-up">▲ +20</span></div>
+    </div>
+    <div class="scenario-target">SPX 顶部 <b>8,000 – 8,300</b>（2026 Q4 – 2027 H1）· 指数内部离散度极端 · 权重股单月收益标准差 &gt;15pp</div>
+    <p class="scenario-desc"><b>本次最大幅度的概率上调，因为 8 月发生的事几乎是这条路径的逐字上演。</b>剧本：指数持续创新高，同时内部分化剧烈到失去指数的意义——8/13 标普创历史新高、纳指 100 重回 30,000、SOX 重回牛市、KOSPI 入牛市，而<b>同期</b>英伟达仅 +0.54%、应用材料超预期后 −5%、AMD 超预期后 −7%、腾讯 −4.46%、恒指 −2.97%、京东 −10%、MiniMax −12%。<b>识别标志（8/2 版本）已全部出现</b>：市值加权跑赢等权、权重股收益标准差扩大、SOX 与 SPX 相关性阶段性转负（8/13 SOX +2.49% 而 NVDA +0.46%）。<b>本次新增的第四条识别标志：租金从"卖算力"转移到"卖稀缺产能"</b>——美光 +208% vs 英伟达 +20%、长鑫超越腾讯、闪迪 5 日 +35%。<b>操作含义</b>：这是唯一一条"指数看多、且必须在指数内部做空"的路径，对冲工具为"多物理稀缺产能 / 空高估值叙事资产（算力租赁、光通信、纯 AI 应用）"的配对交易，以及"多存储长约锁价者 / 空现货敞口者"。</p>
+  </div>
+
+  <div class="scenario-card base">
+    <div class="scenario-head">
+      <div class="scenario-name">情景 B · 高波动平台顶（基准，进行中）</div>
+      <div class="scenario-prob">概率 <b>35%</b> <span class="delta-down">▼ −10</span></div>
+    </div>
+    <div class="scenario-target">SPX 顶部 <b>7,900 – 8,300</b>（2026 Q4 – 2027 Q1）· 调整深度 SPX −25 至 −30% · Nasdaq −35 至 −45%</div>
+    <p class="scenario-desc">仍为单一最高概率路径，但下调 10 个百分点让位于 D。<b>形态判断被部分证伪：</b>8/2 预期"指数在 7,300–7,600 窄带内以 ±1.5% 日波动反复震荡"，实际是单边上行 +3.95% 并创新高，VIX 反而降至年内最低 14.39。<b>微观基础需要更新</b>：8/2 用 margin debt 1.42 万亿与净信贷 −9,917 亿论证"每次 2% 回撤都产生机械抛压"，但两周内没有出现 2% 级别的回撤，机械抛压未被激活；同时伯克希尔结束连续 14 个季度净卖出、二季度净买入约 200 亿，说明<b>存在与杠杆盘方向相反的长钱承接</b>。<b>修正后的形态</b>：不是"窄带震荡"，是"缓慢抬升的平台顶 + 内部剧烈换手"——指数以每月 1–3% 的斜率上行至 7,900–8,300，同时每一份财报都重洗一次板块，直至 EPS 上修停止。<b>子判断重设</b>："8/13 的 7,816.70 即本轮高点"的概率 <b>22%</b>（8/2 的"7,57x 即高点"已证伪）。</p>
+  </div>
+
+  <div class="scenario-card bear">
+    <div class="scenario-head">
+      <div class="scenario-name">情景 C · 传染扩大（驱动因子第四次切换）</div>
+      <div class="scenario-prob">概率 <b>17%</b> <span class="delta-down">▼ −13</span></div>
+    </div>
+    <div class="scenario-target">SPX 顶部即已现（7,816.70 · 8/13）· 调整深度 SPX −32 至 −38% · Nasdaq −45 至 −55% · 启动 2026 Q4 – 2027 Q1</div>
+    <p class="scenario-desc"><b>大幅下调，但驱动因子被整体替换而非削弱。</b>下调理由：8/2 设定的三驱动中，"AI 通胀税失控"已被 CPI 3.4%/核心 2.5% 直接证伪，"央行信誉崩塌"的近端表现（9 月加息定价 60%→32%）也朝反方向移动。<b>但三个新驱动已经就位：</b><br><b>(1) 表外杠杆</b>——英伟达 5,000 亿平台 + 既有 SPV 逾 1,200 亿 ＝ 表外承诺逾 6,200 亿；甲骨文评级降至 BBB−、OpenAI 占其剩余履约义务约一半；CoreWeave 利息支出达净利润 7 倍；Meta 120 亿数据中心项目融资定价已接近低评级债券。触发条件：<b>五家机构中任一家退出英伟达平台最终协议，或首笔基金募集不及目标，或私募信贷收紧 LTV</b>。<br><b>(2) 盈利质量</b>——Mag7"其他收入"占 GAAP 利润 61%，Alphabet 一家贡献标普 Q2 EPS 增长 28%。触发条件：<b>任一头部私有 AI 公司 down round，或 Anthropic IPO 定价显著低于 2 万亿／30 日内破发</b>。一旦发生，未实现收益转为未实现损失并直接冲减 EPS，指数合理区间需按 GAAP EPS 下修 12–18% 重算。<br><b>(3) 需求塌陷</b>——非农 −2.3 万、5–6 月下修 10.3 万、零售 −0.6%、密大 51.0、手机出货全年预测 −14%。触发条件：<b>9/4 的 8 月非农再度转负，或失业率升破 4.5%</b>。<br><b>放大器不变</b>：margin debt 1.42 万亿（同比 +53.7%）、净信贷 −9,917 亿创历史新低；日元 3.7 万亿美元套息池未被释放，9/17–18 BOJ 是外部引爆点。</p>
+  </div>
+</div>
+
+<!-- ═══════════════════ IX · KPI ═══════════════════ -->
+<div class="section">
+  <div class="section-num">IX · KPI FRAMEWORK</div>
+  <h2 class="section-title">判别器审计与升级 · 8/16</h2>
+  <p class="section-dek">四个维度里，一个反向远离、一个反了号、一个虚假缓解、一个先触发后回吐。这套体系需要修，不需要弃。</p>
+
+  <h3><span class="num">9.1</span>四维判别器的两周审计</h3>
+
+  <table class="data">
+    <thead><tr><th>维度</th><th>8/2 状态</th><th>8/16 读数</th><th>判定与修正</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>维度 1 · 同步性</b><br><span style="font-size:11.5px;color:#6B6052">VIX 收盘 &gt;25 ｜ 道指与费半同步创 20 日新低</span></td>
+        <td>18.49 · 未触发</td>
+        <td class="num pos">盘中 <b>14.39</b><br>年内最低</td>
+        <td><b>反向远离触发。</b>维度 1 在两次连续报告中均未触发，且距离扩大。<mark class="note">修正：不再把维度 1 作为"系统性顶部确认"的必要条件，改为"确认器"而非"触发器"——它触发时行情已经发生，不具备前瞻价值。</mark></td>
+      </tr>
+      <tr>
+        <td><b>维度 2 · 离散度</b><br><span style="font-size:11.5px;color:#6B6052">全球主要指数月度收益极差 &gt;25pp</span></td>
+        <td>恒指 +13.13% vs KOSPI −23%<br>≈ 36pp · 已触发</td>
+        <td class="num warn">KOSPI +22% vs 恒指 −3%<br>≈ <b>25pp · 反号触发</b></td>
+        <td><b>规则设计缺陷暴露。</b>8/2 版本隐含假设"高离散度 ＝ 风险出清"，但同样的离散度在 8 月对应的是风险偏好<b>回升</b>。<mark class="note">修正：离散度是<b>轮动速度</b>的度量，不是<b>方向</b>的度量。必须与符号联读——领涨端是防御资产则为出清信号，领涨端是高 β 资产则为轮动信号。当前领涨端为韩国半导体（最高 β），判定为<b>轮动</b>，不降级定性。</mark></td>
+      </tr>
+      <tr class="lo">
+        <td><b>维度 3 · 融资端</b><br><span style="font-size:11.5px;color:#6B6052">AI 七巨头 5Y CDS ｜ M7 中 ≥2 家连续两季 FCF 负 ｜ HY 利差 &gt;400bp</span></td>
+        <td>甲骨文 215bp、英伟达 7/27 单日 +14bp 至 82bp · 已实质触发</td>
+        <td class="num warn">英伟达 <b>73bp</b>（自 83.7 峰值回落）<br>但表外承诺 <b>逾 6,200 亿</b></td>
+        <td><b>虚假缓解。</b>CDS 下行与 5,000 亿表外平台公告同窗发生。<mark class="note">修正：新增必读子项「表外融资承诺总额」，并规定 CDS 下行 + 表外安排公告同时出现时不得下调风险等级。同时，原触发条件"M7 中 ≥2 家连续两季 FCF 为负"因门禁绕道可能永不以预期方式触发，替换为「合并口径资本承诺／经营现金流」。</mark>维持<b>已触发</b>状态。</td>
+      </tr>
+      <tr>
+        <td><b>维度 4 · 全球杠杆池</b><br><span style="font-size:11.5px;color:#6B6052">margin debt 同比 &gt;50% 且净信贷创新低 ｜ 日元两周升值 &gt;6%</span></td>
+        <td>margin debt 1.42 万亿（+53.7%）、净信贷 −9,917 亿 · 已触发；日元约 159.5 · 临界</td>
+        <td class="num warn">美股杠杆项<b>维持触发</b><br>日元 164→155→约 <b>160</b></td>
+        <td><b>首次观测到"触发后回吐"。</b>7 月底美日联合干预造成逾 5% 的两周升值（逼近阈值），8 月全数回吐。<mark class="note">修正：日元子项须先判定驱动来源——市场自发升值（伴随风险资产下跌）＝ 真实平仓，触发降仓；官方干预升值（伴随风险资产上涨）＝ 压力信号但不触发降仓，改为上调后续两个月尾部风险权重。当前判定为后者。</mark></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="insight-box">
+    <h3>新增维度 5 · 盈利质量（本次新设，权重与维度 3 并列最高）</h3>
+    <p>四维体系的共同盲点是：它们全部监控<b>风险</b>，没有一个监控<b>盈利的构成</b>。而 8 月证明，本轮周期最脆弱的环节恰恰在盈利的分子里。</p>
+    <div class="gate-rule">
+      <b>维度 5 · 盈利质量（Earnings Quality）</b><br>
+      指标 A：Mag7「其他收入」占 GAAP 利润比重　当前 <b>61%</b>　｜　阈值 &gt;50% ＝ 警戒（<span style="color:#F87171">已触发</span>）<br>
+      指标 B：标普 EPS 增长的前十大贡献集中度　当前 <b>79%</b>　｜　阈值 &gt;70% ＝ 警戒（<span style="color:#F87171">已触发</span>）<br>
+      指标 C：标普 EPS 共识修正广度与幅度　当前 2026 共识 <b>$340–365</b>（+24~35%），超预期比例 76%、2021 年以来最高　｜　<b>上修停止 ＝ 顶部带立即回落至 7,500–7,900</b><br>
+      指标 D：头部私有 AI 公司的一级市场估值方向　Anthropic 9,650 亿 → 推测 2 万亿；月之暗面 100 亿（1 月）→ 350 亿（7 月 F 轮投后）　｜　<b>任一 down round ＝ 反转确认</b>
+    </div>
+    <p><b>指标 C 是本次新增中最重要的一个，因为它直接修复了本系列"方向对、时间早"的系统性偏误。</b>顶部带 ＝ PE × EPS，我们过去只对 PE 端做动态跟踪，对 EPS 端用静态数字。<b>新规定：任何顶部区间必须同时标注 EPS 假设与其修正方向，并在 EPS 共识发生 ≥2% 变动的当天重算，而非每两周重算一次。</b></p>
+  </div>
+
+  <h3><span class="num">9.2</span>核心监测（未来六周）</h3>
+
+  <div class="ind-grid">
+    <div class="ind-card">
+      <div class="ind-label">最高优先 · 定日</div>
+      <div class="ind-title">8/26 英伟达 FY27Q2 财报</div>
+      <div class="ind-desc">8/2 的四问升级为<b>五问</b>：(1) 毛利率是否守住；(2) 数据中心增速；(3) 如何回应开源模型对单位智能售价的压制；(4) 2027 年 CoWoS 分配份额是否被稀释；<b>(5) 新增</b>：5,000 亿美元融资平台的最终协议时间表、六方出资承诺结构、以及英伟达自身承担的<b>兜底责任范围</b>——若采用无条件母公司担保，英伟达将从芯片公司变为带金融属性的信用中介，估值体系必须重设。参考基准：FY26 全年营收 2,159 亿、净利 1,200 亿、FCF 967 亿；FY26Q4 毛利率 75%、数据中心 623 亿（+75%）。</div>
+      <div class="ind-trig">▲ 若兜底为"无条件担保" = 立即按信用中介重估；若为"限额、有抵押、非追索、多方分担" = 信用重估显著缓和</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-label">最高优先 · 权重最高</div>
+      <div class="ind-title">表外融资承诺总额</div>
+      <div class="ind-desc">当前 ≈ 5,000 亿（英伟达平台，仍需签署最终协议）+ 逾 1,200 亿（Meta / xAI / 甲骨文 / CoreWeave 等既有 SPV）＝ <b>逾 6,200 亿美元</b>。同步盯：六大云厂直接债务（穆迪口径约 4,600 亿）、云厂季度新增债券发行、AMD 50 亿债券的定价与倍数、私募信贷对数据中心项目的 LTV。</div>
+      <div class="ind-trig">▲ 任一机构退出最终协议 / 首笔基金募集不及目标 / 私募信贷收紧 LTV = C 触发</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-label">宏观 · 双向决断</div>
+      <div class="ind-title">8/20–22 JH · 9/15–16 FOMC · 9/17–18 BOJ</div>
+      <div class="ind-desc">杰克逊霍尔是沃什在废除前瞻指引后的首次年会讲话，市场关注他是否在数据大幅降温后仍保留 9 月加息选项（有报道称他已"敞开大门"，条件是通胀偏热）。<b>但真正的风险点在 BOJ</b>：9/17–18 加息定价约 66–70%，若兑现将是 1989 年以来最快紧缩节奏；若未兑现，高盛警告日元将承受新的下行压力，160 关口可能引发新一轮干预。</div>
+      <div class="ind-trig">▲ BOJ 加息 + 日元自 160 快速升破 150 = 维度 4 真实触发，全球风险资产降仓</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-label">最终裁决 · 10 月</div>
+      <div class="ind-title">Anthropic IPO：未实现收益体系的市价校验</div>
+      <div class="ind-desc">计划 10 月上市，市场推测估值 2 万亿及以上（5 月 H 轮 9,650 亿）；6/1 保密递表，摩根士丹利、高盛、摩根大通牵头；时间仍取决于 SEC 保密审查。基本面：ARR 自 2025 年末约 90 亿 → 5 月 470 亿 → 7 月第三方估算逾 600 亿，投资者预测年末 1,000–1,200 亿；<b>2026Q2 首次录得调整后经营利润 5.59 亿美元</b>，Q3 GAAP EBIT 预计破 10 亿；美国企业付费份额 34.4% 超 OpenAI 的 32.3%。二级市场（Caplight/Rainmaker）2026 年中估值约 1.2 万亿。</div>
+      <div class="ind-trig">▲ 定价显著低于 2 万亿或 30 日内破发 = 维度 5 指标 D 反转，Mag7 未实现收益体系承压</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-label">中观 · 周期读数</div>
+      <div class="ind-title">存储：合约价 vs 现货价的背离</div>
+      <div class="ind-desc">合约端仍强：TrendForce 预计 2026Q3 传统 DRAM 合约价环比 +13~18%；SKH Q2 DRAM 均价环比约 +30%；PC DRAM（DDR4 8Gb）6 月固定交易价 21 美元创历史新高。<b>现货端已现滞涨</b>：TrendForce 8/12 报告称 DRAM 现货交投清淡、买卖价差持续，DDR4 仅 +0.93%。同步盯：三星/SKH 8 月底股东回报方案（合计或超 200 万亿韩元）、闪迪 NBM 协议覆盖率的后续扩张。</div>
+      <div class="ind-trig">▲ Q4 合约价涨幅低于 10%，或现货连续四周下跌 = 周期见顶前兆</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-label">需求 · 新增最高优先</div>
+      <div class="ind-title">9/4 八月非农 · 消费电子出货</div>
+      <div class="ind-desc">7 月非农 −2.3 万、5–6 月下修 10.3 万、三个月均值仅约 2.0 万，已逼近 breakeven 下沿（圣路易斯联储口径 1.5–8.7 万/月）；失业率 4.1%、参与率 61.4%。配套盯：全球智能手机出货（Q2 −7~11%、全年预测 −14%）、PC 与服务器 OEM 毛利率、SaaS/传统企业软件 Q3 指引（AI 挤出税的下一站）。</div>
+      <div class="ind-trig">▲ 8 月非农再度转负或失业率破 4.5% = 情景 C 需求驱动因子确认</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-label">利率 · 结构性</div>
+      <div class="ind-title">30Y 与财政供给</div>
+      <div class="ind-desc">当前 5.214%；8/13 标售中标 5.216%（2001 年来最高）、倍数 2.39；8/12 十年期标售 4.683%（2007 年来最高）、5 月来首现尾部。联邦债务约 39 万亿。新增观察：财政部是否进一步把举债结构转向短期限。</div>
+      <div class="ind-trig">▲ 30Y 破 5.5% = 期限溢价失控，高久期资产二次杀估值；举债结构短期化 = 长端压力不可持续的确认</div>
+    </div>
+    <div class="ind-card">
+      <div class="ind-label">地缘 · 高权重</div>
+      <div class="ind-title">霍尔木兹 / 伊朗 / FCC 光模块</div>
+      <div class="ind-desc">协议久拖未决：伊朗与阿曼谈判"进入高级阶段"但无最终文本；伊朗强硬派坚持保留海峡管控与收费权；美方称可"无限期维持"海上封锁；胡塞袭击沙特吉赞炼厂。IEA 下调 2026 需求 160 万桶/日，同时警告 2026 年将现五年来最严重供应短缺。FCC 拟禁中国新型号光模块（800G/1.6T），目标年内实施，但仍可能修改或搁置。</div>
+      <div class="ind-trig">▲ 炼油厂被实际打击或布油 &gt;$100 持续两周 = 能源回补至 8%；FCC 禁令正式落地 = 美国 AI 基建成本与交期再上台阶</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ X · ALLOCATION ═══════════════════ -->
+<div class="section">
+  <div class="section-num">X · ALLOCATION</div>
+  <h2 class="section-title">持仓建议 · 按"物理稀缺 + 现金归属"重构</h2>
+  <p class="section-dek">总仓位不变，但把"是否通过 FCF 门禁"这一条轴，扩成两条轴。</p>
+
+  <p><b>三条关键变化：</b>其一，<b>分类轴从一维扩为二维</b>——8/2 按"是否通过 FCF 门禁"单轴分类，本次新增第二轴"<b>是否掌握不可复制的物理产能</b>"，因为 8 月的横截面证明后者的解释力已超过前者（美光 +208% vs 英伟达 +20%；长鑫超越腾讯）；其二，<b>黄金 3–5% → 5–7%</b>——驱动变量（央行信誉 + 财政期限溢价）在通胀降温的两周里<b>完全未被修复</b>，30Y 5.214% 是最硬的证据；其三，<b>新增 A 股技术主权 3–5%、港股 22–25% → 18–22%</b>——四支柱断了一根半，且断的恰是 7 月最有效的那一根。</p>
+
+  <table class="alloc-table">
+    <thead>
+      <tr>
+        <th>时点</th><th>BRK/防御</th><th>美 AI<br>通过门禁</th><th>美 AI<br>未通过</th><th>物理产能<br>(存储/设备/电力)</th><th>HK<br>腾讯/PDD</th><th>A股<br>技术主权</th><th>能源</th><th>黄金</th><th>现金<br>短债</th><th>BTC</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="phase-row"><td colspan="11">现在 · 2026 年 8 月中（新增物理产能与 A 股两档；黄金加码，港股与能源减档）</td></tr>
+      <tr><td>现在</td><td>18-22%</td><td>13-17%</td><td>3-6%</td><td><b>8-12%</b></td><td>18-22%</td><td><b>3-5%</b></td><td>4-6%</td><td><b>5-7%</b></td><td>14-18%</td><td>1-3%</td></tr>
+      <tr class="phase-row"><td colspan="11">阶段 · 8/26 英伟达财报 + 9/17-18 BOJ 之后（视五问与日元结果微调）</td></tr>
+      <tr><td>9 月下旬</td><td>20-25%</td><td>12-16%</td><td>2-5%</td><td>7-11%</td><td>18-22%</td><td>3-5%</td><td>4-7%</td><td>5-7%</td><td>15-20%</td><td>1-3%</td></tr>
+      <tr class="phase-row"><td colspan="11">阶段 · 2026 Q4（Anthropic IPO 市价校验 · 最重要的减持决策窗口）</td></tr>
+      <tr><td>IPO 后</td><td>26-32%</td><td>10-14%</td><td>0-3%</td><td>5-9%</td><td>16-20%</td><td>2-4%</td><td>4-7%</td><td>5-8%</td><td>18-24%</td><td>0-2%</td></tr>
+      <tr class="phase-row"><td colspan="11">阶段 · 2027 Q1-Q3（顶部确认 + 加速下行）</td></tr>
+      <tr><td>2027 Q1</td><td>44-52%</td><td>5-9%</td><td>0%</td><td>2-5%</td><td>13-16%</td><td>0-2%</td><td>5-9%</td><td>6-9%</td><td>16-22%</td><td>0%</td></tr>
+      <tr><td>2027 Q2-Q3</td><td>44-50%</td><td>0-5%</td><td>0%</td><td>0-3%</td><td>10-14%</td><td>0%</td><td>5-10%</td><td>6-9%</td><td>20-26%</td><td>0-3%</td></tr>
+      <tr class="phase-row"><td colspan="11">阶段 · 2027 Q4 – 2028（底部 + Fed Pivot）</td></tr>
+      <tr><td>2028 Q2</td><td>18%</td><td>35%</td><td>—</td><td>10%</td><td>18%</td><td>4%</td><td>8%</td><td>2%</td><td>0%</td><td>5%</td></tr>
+    </tbody>
+  </table>
+
+  <h3><span class="num">·</span>个股与结构层面</h3>
+
+  <p><b>新设「物理产能」档位（8–12%，本次最重要的结构调整）。</b>这个档位从原"美 AI（通过门禁）"与"现金"中各切一部分。逻辑：本轮 AI 周期的经济租金已完成第三次转移，落到<b>不可快速复制的物理稀缺</b>上——存储（CoWoS 与晶圆之外的真正瓶颈）、先进封装、半导体设备、电力与变压器。证据密度足够：Q3 传统 DRAM 合约价 +13~18%、SKH Q2 DRAM 均价环比 +30%、PC DRAM 创十年新高、CoWoS 两线售罄交期 52–78 周、高压变压器交期 80–100 周、美国电网排队超 2,600 吉瓦、亚马逊称 2028 年已有大量产能被预订。<b>内部排序：优先长约锁价 + 现金返还承诺者（闪迪式）＞ 通用存储现货弹性者 ＞ HBM 长协龙头。</b><mark class="note">但仓位纪律必须写死：韩国资产的单日 ±17~30% 波动结构意味着同样的钱只能配一半名义仓位；且 SOX 已自 7 月低点反弹逾 20%，从"深度折价"变成"合理偏贵"，本档位<b>只在回撤中加、不在新高追</b>。</mark></p>
+
+  <p><b>英伟达（持有至 8/26，但预案必须提前写好）。</b>纪律不变：财报前不加仓、不减仓。但本次必须提前设定分支：若电话会披露 5,000 亿平台的兜底为<b>无条件母公司担保</b>，则英伟达的估值体系需从"芯片公司"改为"带金融属性的信用中介"，立即下调一档；若为<b>限额、有抵押、非追索、多方分担</b>，则信用重估显著缓和，可回补。其 CDS 自 5 月下旬 41.6bp 升至 8/11 的约 73bp（峰值 83.7bp）——<b>绝对水平仍属投资级、边际变化最大</b>，这是全市场信息量最高的单一价格。</p>
+
+  <p><b>微软（维持核心持仓，但修正持有理由）。</b>8/2 的持有理由"capex 纪律"部分失效——FY27 的"1,750 亿"是折旧年限 15→25 年 + 租赁重分类的口径变更，管理层指引下一财季 capex 超 500 亿、FY27 同比继续增长。<b>修正后的持有理由是运营效率而非资本纪律</b>：Azure +43% 且加速、年收入破 1,000 亿、Copilot 席位 3,000 万、Copilot 吞吐量提升 4 倍、自研 Maia 200 规模化上线（性能 +30%、每瓦性能 +40%）、自研模型在 Dynamics 365 中把 GPU 成本降低 89%、单季收入与利润同增 18% 且利润率 45%。<b>风险点相应改变</b>：不再是"指引被上调则掉出门禁"，而是"折旧年限延长带来的利润增厚在 2028 年后反向兑现"。</p>
+
+  <p><b>Meta / 谷歌（从战术低配上调至标配下沿，3–6%）。</b>不是因为 FCF 改善，而是因为<b>门禁绕道使 FCF 这一单一指标的判别力下降</b>，同时它们是"其他收入"体系的直接受益者（Alphabet 单季其他收入约 980 亿）。<mark class="note">但正因为如此，它们也是维度 5（盈利质量）反转时的<b>第一受害者</b>——这个档位的性质从"看空现金流失血"变成了"持有一个高 β 的未实现收益敞口"，风险特征完全不同，必须用更小的单笔规模与更紧的止损管理。</mark>重新加回核心的条件不变：任一家给出 FCF 转正的季度路径，或 capex 增速减档的<b>定量</b>指引。</p>
+
+  <p><b>港股 / 腾讯（22–25% → 18–22%，从相对超配降为标配偏上）。</b>四支柱只剩两根半：低估值（强化，腾讯年内 −25.5%）与南向承接（政策面转正——央行 Q2 货政报告提出增量政策与加大逆周期调节、8/14 起连续隔夜逆回购、8/14 开展 1 万亿 6 个月买断式逆回购）仍成立；低 AI 硬件 β 已从优势转劣势；开源成本红利半断裂（中国模型集体涨价）。<b>411 港元底部判断维持有效</b>（8/13 收 441）。加仓决策点明确化：混元 Hy4 上线后的可量化货币化路径，或任一季度出现"capex 增速减档 + FCF 转正"。</p>
+
+  <p><b>A 股技术主权（新增 3–5%）。</b>这是对 8/2"A 股硬件链是全球最脆弱一环"判断的定向修正，而非全面反转。<b>只配（甲）技术主权型</b>——国产存储、半导体设备与材料，其定价锚是国产替代进度与政策支持，与全球 AI 硬件 β 部分脱钩，且受益于 FCC 禁令倒逼的国内替代加速；<b>不配（乙）全球出海型</b>——光模块等直接暴露于 FCC 禁令与关税风险者。<b>三条纪律</b>：只在回撤中建仓（8/13 显示存储龙头存在明显主力派发，兆易创新 20 日主力净卖 −10.51%）；总仓位不超过 5%（8/14 两市成交缩量逾 4,000 亿、超 2,900 只个股下跌、高位题材股集体跌停）；回避新股密集发行窗口的情绪扰动。</p>
+
+  <p><b>黄金（3–5% → 5–7%，本次唯一大幅加码项）。</b>8/2 加仓已兑现约 +7.6%（$4,041 → 约 $4,350，曾触 $4,449）。<b>加码理由不是追涨，是驱动变量完全未被修复</b>：在通胀 CPI 3.4%/核心 2.5%、PPI 4.7%、9 月加息定价从 60% 砍到 32%、2 年期跌至 4.139% 的两周里，<b>30 年期从 5.23% 只降到 5.214%</b>，且一级市场中标 5.216% 创 2001 年以来最高、投标倍数下滑。<mark class="note">黄金做多的从来不是通胀，是"名义利率高企 + 央行信誉折价 + 财政不可持续"这个组合——这个组合在本期不但没有削弱，还因为"通胀降了长端也不降"而获得了最干净的证明。</mark>补充证据：央行 7 月扫货 64 万盎司黄金，创近三年单月增持新高。<b>操作：不追 $4,449，在 $4,250–4,350 区间分批。</b></p>
+
+  <p><b>能源（5–8% → 4–6%，降权不移出）。</b>7/18 的方法论教训在本期第二次被验证：8/5 看似要签协议（布油破 $80、当周 −12%），8/12 就变成"无限期封锁"。当前 IEA 同时下调 2026 需求 160 万桶/日与警告五年来最严重供应短缺，是一个双向极端的市场——<b>方向性头寸性价比下降，凸性头寸性价比上升</b>。降档至 4–6% 并把表达方式从现货敞口转向期权与能源股相对指数。回补条件：炼油厂被实际打击，或布油站上 $100 持续两周 → 立即回补至 8%。</p>
+
+  <p><b>现金 / 短债（18–22% → 14–18%）。</b>下调理由有二：其一，加息风险大幅降低（9 月加息定价 32%、年内加息已不被完全定价），持有现金的<b>机会成本</b>在一个 EPS 上修 24–35% 的市场里显著上升；其二，2 年期已从 4.28% 降至 4.139%，现金收益本身在下降。<b>但不能低于 14%</b>：8/26 英伟达、9/17–18 BOJ、10 月 Anthropic IPO 三道闸门的双向应对弹药必须保留，且维度 3 与维度 5 均处触发状态。</p>
+
+  <p><b>BRK / 防御（22–28% → 18–22%）。</b>下调的一个直接理由是伯克希尔自己：二季度买入 235 亿、卖出 37 亿，<b>结束连续 14 个季度的净卖出</b>，现金从 3,802 亿降至 3,647 亿，加仓 Alphabet 与达美航空，组合市值升至 2,993 亿（+12.09% QoQ）。<mark class="note">当最大的现金持有者开始把现金换成股票时，把它当作纯防御工具的性价比就下降了。</mark>但保留 18–22% 的核心用途不变：零售 −0.6%、密大 51.0 指向消费走弱，必需消费与医疗的相对价值在上升。</p>
+
+  <p><b>Bitcoin（2–4% → 1–3%）。</b>继续下调。在标普创历史新高、纳指 100 重回 30,000、黄金上涨 7.6% 的两周里，比特币<b>跌破 $63,000</b>、约 $62.8K，全面缺席。它既没有黄金的央行信誉对冲功能，也没有股票的现金流，其"流动性 β"属性在本轮已被反复证伪。</p>
+</div>
+
+<!-- ═══════════════════ XI · RISKS TO VIEW ═══════════════════ -->
+<div class="section">
+  <div class="section-num">XI · RISKS TO VIEW</div>
+  <h2 class="section-title">这个推演什么时候会被推翻</h2>
+  <p class="section-dek">8/20 JH → 8/26 NVDA → 9/4 非农 → 9/15-18 FOMC+BOJ → 10 月 Anthropic → 11 月中期选举：六道闸门。</p>
+
+  <div class="risk-box">
+    <h3>推翻信号 · 双向</h3>
+    <ol>
+      <li><b>向上推翻（D → A）：</b>8/26 英伟达五问全过，尤其第五问的兜底结构落在"限额、有抵押、非追索、多方分担"；叠加 30Y 回落至 5.0% 下方（唯一能打开倍数空间的变量）；叠加 10 月 Anthropic IPO 以 2 万亿定价且 30 日不破发。三者同时成立 → 情景 A 概率自 18% 升至 30%+，顶部带上看 8,600，B 与 C 同步下调。</li>
+      <li><b>向上推翻（盈利质量改善）：</b>Q3 财报季 Mag7「其他收入」占 GAAP 利润比重自 61% 显著回落，<b>而 EPS 增速不降</b>——即经营性盈利接棒资产重估。这是当前最看多的单一情形，因为它同时消除维度 5 的两个警戒指标，并让"盈利驱动而非估值驱动"这句话第一次成为纯粹事实。</li>
+      <li><b>向上推翻（中国资产）：</b>混元 Hy4 上线后腾讯给出可量化的 AI 货币化路径，或任一季度出现"capex 增速减档 + FCF 转正"；叠加央行增量政策落地、南向恢复净流入 → 港股四支柱补齐，档位回补至 22–25%。</li>
+      <li><b>向下推翻（维度 5 反转，本次最危险）：</b>任一头部私有 AI 公司出现 down round，或 <b>Anthropic IPO 定价显著低于 2 万亿／30 日内破发</b>。一旦发生，Mag7 的未实现收益转为未实现损失并在同一科目直接冲减 EPS——按 15–19pp 的贡献倒算，标普 GAAP EPS 需下修 12–18%，对应指数合理区间从 7,900–8,300 一次性回落至 <b>6,600–7,100</b>。<mark class="note">这是唯一一条"不需要任何基本面恶化、仅靠会计科目反向即可实现"的下行路径，也是本轮周期最被低估的尾部。</mark></li>
+      <li><b>向下推翻（表外杠杆断链）：</b>英伟达 5,000 亿平台的最终协议未能签署、任一机构退出、或首笔基金募集规模显著不及目标；或私募信贷收紧数据中心项目 LTV；或甲骨文被进一步下调至垃圾级（当前 BBB−，仅高一档，且 OpenAI 约占其剩余履约义务一半）。→ "AI 投资无法自我融资"以表外形式被确认，立即执行情景 C 手册。</li>
+      <li><b>向下推翻（需求塌陷）：</b>9/4 的 8 月非农再度转负，或失业率升破 4.5%；或 Q3 零售销售连续两月负增长。<b>这条路径与前两条的区别在于它不杀估值、直接杀 EPS 分子</b>，因此没有任何"倍数已经便宜"的缓冲。7 月三个月非农均值已降至约 2.0 万，逼近 breakeven 下沿。</li>
+      <li><b>向下推翻（EPS 上修停止）：</b>这是最容易被忽略、也最可能率先发生的一条。当前顶部带 100% 建立在 EPS 上修之上（2026 共识自 $358 上修至 $340–365 区间、超预期比例 76%）。<b>若 Q3 财报季超预期比例回落至历史均值 68% 附近且共识停止上修，顶部带将立即回落至 7,500–7,900</b>——而这不需要任何坏消息，只需要"不再有惊喜"。</li>
+      <li><b>向下推翻（日元真实平仓）：</b>9/17–18 BOJ 加息（当前定价 66–70%）且日元自约 160 快速升破 150（两周升值逾 6%），且<b>伴随风险资产同步下跌</b>——即市场自发平仓而非官方干预。3.7 万亿美元净对外资产的杠杆池释放，视同维度 1 触发，跳过所有中间档位。</li>
+      <li><b>向下推翻（地缘反向）：</b>伊朗炼油厂或出口设施被实际打击，或霍尔木兹谈判彻底破裂；布油站上 $100 持续两周 → 通胀路径重启、9 月/12 月加息定价回升、30Y 破 5.5%。<b>注意 8/5 与 8/12 之间仅隔一周，态度就从"两天内达成协议"变成"无限期封锁"——这个变量的方差远高于其他所有变量。</b></li>
+      <li><b>新增 · 政治周期（11 月中期选举）：</b>美银已发布中期选举交易指南，明确若共和党守住参议院，半导体将走向"泡沫化 2027"。反向情形同样成立：高生活成本正在侵蚀现任支持率（密大 51.0），若选举结果导向财政收缩或关税重构，30Y 与关税路径将同时重定价。<b>本系列首次纳入该变量，尚无历史校准，因此仅作监控、不进入概率分布。</b></li>
+    </ol>
+  </div>
+</div>
+
+<div class="asterism">⁂</div>
+
+<!-- ═══════════════════ CONCLUSION ═══════════════════ -->
+<div class="section">
+  <div class="section-num">CONCLUSION</div>
+  <h2 class="section-title">四个 actionable 结论</h2>
+
+  <p><b>1 · 性质判断：这不是牛市的延续，也不是熊市的推迟——是租金的第三次转移，加上一次会计层面的循环。</b> 两周内同时发生了两件看似矛盾的事：标普以 7,798.99 创历史新高、VIX 跌至年内最低 14.39、KOSPI 十天入牛市、SOX 重回牛市；而腾讯因 FCF 转负单日 −4.46%、AMD 与应用材料超预期后被卖、英伟达在存储狂欢日只涨 0.54%。统一它们的是同一条规则：<b>市场正在把 AI 的经济租金，从"能把算力卖出去的人"，重新分配给"别人抢不到的那块物理产能"</b>——美光 +208% vs 英伟达 +20%，长鑫市值超越腾讯，闪迪五日 +35%。同时必须诚实记录第二件事：标普二季度 EPS 表观 +45% 中有 15–19 个百分点来自<b>未实现的私有股权重估</b>，Mag7「其他收入」占 GAAP 利润已达 <b>61%</b>，Alphabet 一家贡献指数 EPS 增长 28%、前十大合计 79%。<b>盈利在加速，但盈利的一部分正在以"价格上涨本身被计入盈利"的方式产生。</b>这不改变 2027Q4–2028 的底部时间表，但它把"高点已在身后"的判断从 40% 打到 22%，同时把尾部的<b>厚度</b>转移到了一个全新的位置——不在信贷利差里，在会计科目里。</p>
+
+  <p><b>2 · 资产配置：不改总仓，把一维分类扩成二维；把黄金加到 5–7%，把物理产能单独立档。</b> 核心动作是在"是否通过 FCF 门禁"之外，新增"<b>是否掌握不可复制的物理产能</b>"这条轴，并据此单设 8–12% 的物理产能档位（存储/封装/设备/电力，内部优先长约锁价 + 现金返还承诺者）。同时：<b>黄金 3–5% → 5–7%</b>——通胀降温两周而 30Y 从 5.23% 只降到 5.214%、一级中标 5.216% 创 2001 年来最高，这是"名义利率高企 + 央行信誉折价 + 财政不可持续"最干净的一次证明；<b>港股 22–25% → 18–22%</b>（四支柱断一根半，411 底部维持有效）；<b>新增 A 股技术主权 3–5%</b>（只配国产替代，不配出海光模块，只在回撤中建）；<b>能源 5–8% → 4–6%</b>（降权不移出，表达方式转向凸性）；<b>现金 18–22% → 14–18%</b>（加息风险已大幅降低，但三道闸门的弹药必须保留）；<b>BTC 降至 1–3%</b>（在全面 risk-on 中缺席，流动性 β 属性证伪）。<b>因维度 3 与新设维度 5 均处触发状态，单笔头寸规模继续统一下调——同样的信心只能配更小的仓位。</b></p>
+
+  <p><b>3 · 框架升级：六条方法论修正，全部来自本次的失手。</b> 其一，<b>顶部带必须动态绑定 EPS</b>——本系列"方向对、时间早"的系统性偏误第一次被精确定位在这里：我们把风险指标监控到基点，把 EPS 修正当成背景常数，而 <code>顶部 ＝ PE × EPS</code>，当 EPS 以 24–35% 上修时，倍数压缩根本追不上。其二，<b>路径终值不能用于预测均值驱动的指标</b>——用 7 月末布油 $91.04 去预测由 7 月均价（约 $83，低于 6 月的 84.4）决定的 CPI 能源项，是一个可以永久消除的低级错误。其三，<b>会计口径必须先于产业结论</b>——微软 FY27 的"1,750 亿"是折旧年限与租赁分类的变更，不是资本纪律。其四，<b>价格分层在受限市场中是短缺信号</b>——DeepSeek 的峰谷定价与"大幅涨价"公告写在同一份文件里，月之暗面暂停 C 端订阅，智谱累计提价 83%，中国 Q1 算力需求 +417% vs 供给 +128%。其五，<b>成本冲击的读数可能在"量"不在"价"</b>——AI 通胀税更名为 AI 挤出税，其真实读数是手机出货 −7~11%、零售 −0.6%、密大 51.0。其六，<b>判别器必须区分"读数改善"与"风险下降"</b>——CDS 下行与 5,000 亿表外平台公告同窗发生时，判定为虚假缓解。</p>
+
+  <p><b>4 · 跟踪机制：六道闸门，两个新增的最高优先级指标。</b> (1) <b>8/20–22 杰克逊霍尔</b>——沃什在数据大幅降温后是否仍保留 9 月加息选项；(2) <b>8/26 英伟达五问</b>，第五问（5,000 亿平台的兜底责任结构）权重最高；(3) <b>9/4 八月非农</b>——三个月均值已降至约 2.0 万，逼近 breakeven 下沿；(4) <b>9/15–16 FOMC 与 9/17–18 BOJ</b>，后者的风险高于前者（加息定价 66–70%，若兑现为 1989 年来最快紧缩）；(5) <b>10 月 Anthropic IPO</b>——它不是一次发行，是整个未实现收益体系的第一次市价校验，本轮周期最重要的单一定价事件；(6) <b>11 月中期选举</b>，本系列首个政治周期变量。<b>两个新增的最高优先级日频指标</b>：① <b>表外融资承诺总额</b>（当前逾 6,200 亿美元，任一机构退出最终协议 ＝ C 触发）；② <b>Mag7「其他收入」占 GAAP 利润比重</b>（当前 61%，任一头部私有 AI 公司 down round ＝ 反转确认，指数合理区间按 GAAP EPS 下修 12–18% 重算）。<b>同时保留：标普 EPS 共识修正广度——上修停止的当天，顶部带立即回落至 7,500–7,900，这不需要任何坏消息，只需要不再有惊喜。</b></p>
+
+  <div class="pullquote">
+    <q>我们两周前说，市场开始要求 AI 出示现金流的收据。行业的回答不是掏出收据，是把账本换了一本——把资本开支挪进第三方的资产负债表，把折旧年限从十五年改成二十五年，把未实现的股权增值计入利润表。<br>门禁没有被通过。它被绕过去了。</q>
+    <span class="pullquote-attr">2026-08-16-MS-006 · 核心判断</span>
+  </div>
+</div>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<div class="footer">
+  <div class="seal">投研鸭 · Touyan Duck</div>
+  报告编号 · 2026-08-16-MS-006<br>
+  制作日期 · 2026 年 8 月 16 日<br>
+  前序报告 · 2026-06-07-MS-001 · 2026-06-20-MS-002 · 2026-07-04-MS-003 · 2026-07-18-MS-004 · 2026-08-02-MS-005<br>
+  数据截止 · 2026 年 8 月 15 日（美股末次交易日为 8 月 14 日收盘；亚太末次数据为 8 月 14 日收盘）<br><br>
+  <b>数据口径说明</b> · 标普 500 历史新高存在收盘口径（8/13 收 7,798.99）与盘中口径（8/13 最高 7,816.70）两个数字，本文两者并列标注；KOSPI 自 7/30 低点的反弹幅度因数据源不同存在 22%（彭博）与 23%（LSEG/CNBC）两种口径，本文采用"22~23%"；三星与 SK 海力士 8/13 涨幅因数据源不同为"均超 5%"（彭博）与"4% / 7%"（CNBC）两种，本文取后者的分项表述；DeepSeek-V4-Pro-0813 的参数规模在不同信源中存在"1.6T MoE、激活约 490 亿"与"2,840 亿、激活 130 亿"两种表述，本文并列标注、不作取舍；Anthropic 的 2 万亿美元估值为投资人依收入增速推算的市场预期，公司管理层未提出任何估值目标，本文全文以"市场推测"标注；月之暗面 F 轮存在"融资逾 35 亿美元、投后 350 亿"与"投前 500 亿"两种表述，分别对应 F 轮与其后的 Pre-IPO 轮；标普 500 二季度 EPS 增速因口径不同为 +45%（表观追踪）、+47.4%（FactSet）、+26%（高盛剔除股权投资收益）、+30%（美银剔除 Alphabet 与亚马逊投资收益），本文均标注来源口径；2026 年标普 EPS 共识因机构不同为 339（大摩）、340（高盛）、365（小摩），NTM EPS 取 385–400 区间；五大云厂 2026 capex 因口径不同存在 7,370 亿（标普，含甲骨文）与 7,510 亿（高盛，AI 超大厂）的差异；美股 margin debt 与投资者净信贷余额沿用 8/2 报告的 FINRA 2026 年 5 月数据（1.42 万亿 / −9,917 亿），本期无更新读数；关于 7 月布伦特原油，8/2 报告采用月末收盘口径（$91.04、单月 +31.01%），而 7 月<b>月度均价</b>约 83 美元、低于 6 月的 84.4 美元——两者均为事实，本报告第 0 章已就"以路径终值预测均值驱动指标"这一方法论错误作出专门修正。<br><br>
+  本报告基于公开数据与建模推演，不构成投资建议。所有 thesis 均带有概率分布，请配合 KPI Dashboard 使用并定期校准。<br><br>
+  本版（v1）为 8/2 推演的复盘与校准，核心变更为：① 新增「门禁绕道」框架（融资外部化 / 折旧资本化 / 成本转嫁 / 口径分离四条路径），判定 FCF 作为预警指标的信噪比正被系统性稀释；② 新增第 III 章「盈利质量」（Mag7 其他收入占 GAAP 利润 61%、前十大贡献 79%、会计层面循环），并据此新设判别器<b>维度 5</b>；③ 「AI 通胀税」更名为「AI 挤出税」，传导口径由 CPI 修正为出货量与零售；④ 中国模型「单价通缩」判断加入<b>算力成本地板</b>限定，峰谷定价由"过剩信号"修正为"短缺配给信号"；⑤ 判别器四维全部完成审计——维度 1 反向远离、维度 2 反号触发（新增符号联读规则）、维度 3 虚假缓解（新增表外承诺子项）、维度 4 先触发后回吐（新增驱动来源判定规则）；⑥ 顶部带自 7,600–7,900 上修至 <b>7,900–8,300</b>，上修来源 100% 为 EPS、0% 为倍数；⑦ 情景概率校准为 <b>A18 / D30 / B35 / C17</b>，情景 C 驱动因子第四次切换为「表外杠杆 / 盈利质量 / 需求塌陷」；⑧ 配置新增「物理产能」与「A 股技术主权」两档，黄金加码至 5–7%。
+</div>
+
+</div>
+</body>
+</html>
